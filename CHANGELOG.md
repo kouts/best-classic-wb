@@ -1,3 +1,10 @@
+## [2.1.6](https://github.com/kouts/best-classic-wb/compare/v2.1.5...v2.1.6) (2024-02-03)
+
+
+### Bug Fixes
+
+* removed _UAEFSDB.___ files ([fc84524](https://github.com/kouts/best-classic-wb/commit/fc84524ad5a5f0bf1c8a6f842bed4950dcf5ad17))
+
 ## [2.1.5](https://github.com/kouts/best-classic-wb/compare/v2.1.4...v2.1.5) (2024-02-03)
 
 
