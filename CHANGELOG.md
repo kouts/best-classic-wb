@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/kouts/best-classic-wb/compare/v2.1.1...v2.1.2) (2024-02-03)
+
+
+### Bug Fixes
+
+* added tag name in release action ([0cebecf](https://github.com/kouts/best-classic-wb/commit/0cebecf377187d6ce8a608d0ef3a0390b7d2f003))
+
 ## [2.1.1](https://github.com/kouts/best-classic-wb/compare/v2.1.0...v2.1.1) (2024-02-03)
 
 
