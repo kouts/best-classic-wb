@@ -36,18 +36,6 @@ jobs:
       - name: Install semantic-release extra plugins 📦
         run: pnpm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git
 
-      - name: Dry run to get the next release version
-        id: tag_version
-        run: |
-          export NEXT_TAG_VERSION=$(npx semantic-release --dry-run | grep 'The next release version is' | sed -E 's/.* ([[:digit:].]+)$/\1/')
-          echo "new_tag_version=${NEXT_TAG_VERSION}" >> $GITHUB_OUTPUT
-
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release
-
       - name: Archive Release
         uses: thedoctor0/zip-release@0.7.5
         with:
@@ -56,9 +44,8 @@ jobs:
           filename: 'BestClassicWB.zip'
           exclusions: '*.git* /*node_modules/* .editorconfig'
 
-      - name: Upload Release
-        uses: ncipollo/release-action@v1.12.0
-        with:
-          artifacts: "BestClassicWB.zip"
-          tag: ${{ github.event.release.tag_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release          
