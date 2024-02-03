@@ -20,14 +20,14 @@ module.exports = {
       "@semantic-release/github",
       {
         "assets": [
-          { "path": "BestClassicWB.zip", "label": "Zip distribution" },
+          { "path": "BestClassicWB.zip", "label": "BestClassicWB.zip" },
         ]
       }
     ],
     [
       "@semantic-release/git",
       {
-        assets: ["CHANGELOG.md", "BestClassicWB.zip"],
+        assets: ["CHANGELOG.md"],
         message:
           "chore(release): set `package.json` to ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
       },
