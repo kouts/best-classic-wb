@@ -1,3 +1,10 @@
+## [2.1.3](https://github.com/kouts/best-classic-wb/compare/v2.1.2...v2.1.3) (2024-02-03)
+
+
+### Bug Fixes
+
+* updated github action ([7befdf9](https://github.com/kouts/best-classic-wb/commit/7befdf9b72877cb27aaad9055efcee629d17bb6d))
+
 ## [2.1.2](https://github.com/kouts/best-classic-wb/compare/v2.1.1...v2.1.2) (2024-02-03)
 
 
