@@ -31,6 +31,6 @@ It provides a pre-configured Workbench environment, includes a large selection o
 
 ## Thanks to
 
-`Bloodwych` for creating ClassicWB (http://classicwb.abime.net/).
-`Gulliver` for creating BestWB and also for all the help (http://lilliput.amiga-projects.net/BestWB.htm).
+`Bloodwych` for creating ClassicWB (http://classicwb.abime.net/).  
+`Gulliver` for creating BestWB and also for all the help (http://lilliput.amiga-projects.net/BestWB.htm).  
 `KKR75` for providing icons.
