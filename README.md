@@ -6,3 +6,5 @@ It provides a pre-configured Workbench environment, which includes a large selec
 and is designed to be easy to use for beginners and advanced users alike.
 
 ## Features
+
+- Based on the original ClassicWB distribution
