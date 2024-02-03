@@ -1,3 +1,10 @@
+## [2.1.5](https://github.com/kouts/best-classic-wb/compare/v2.1.4...v2.1.5) (2024-02-03)
+
+
+### Bug Fixes
+
+* removed zip file from git ([301702a](https://github.com/kouts/best-classic-wb/commit/301702ade89d075a15cb09fbd16a495218d59b85))
+
 ## [2.1.4](https://github.com/kouts/best-classic-wb/compare/v2.1.3...v2.1.4) (2024-02-03)
 
 
