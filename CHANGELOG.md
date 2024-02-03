@@ -1,3 +1,10 @@
+## [2.1.4](https://github.com/kouts/best-classic-wb/compare/v2.1.3...v2.1.4) (2024-02-03)
+
+
+### Bug Fixes
+
+* updated semantic-release/github setup ([db74be8](https://github.com/kouts/best-classic-wb/commit/db74be832173cf7e5f25e8c916970708a020958c))
+
 ## [2.1.3](https://github.com/kouts/best-classic-wb/compare/v2.1.2...v2.1.3) (2024-02-03)
 
 
