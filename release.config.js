@@ -16,7 +16,14 @@ module.exports = {
       },
     ],
     "@semantic-release/npm",
-    "@semantic-release/github",
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          { "path": "BestClassicWB.zip", "label": "Zip distribution" },
+        ]
+      }
+    ],
     [
       "@semantic-release/git",
       {
