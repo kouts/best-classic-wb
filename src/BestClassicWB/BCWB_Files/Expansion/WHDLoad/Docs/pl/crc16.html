@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>CRC16 * Obliczanie sumy kontrolnej CRC16</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: crc16.html 1.5 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>CRC16 * Obliczanie sumy kontrolnej CRC16</h3>
+Program ten oblicza sumę kontrolną CRC-16 określonej części pliku (lub całego
+pliku). Podstawowym jego zadaniem jest użycie go w skryptach instalacyjnych
+wymagających sprawdzenia, z którą wersją pliku pracują, w celu wybrania
+odpowiedniego pliku .slave itp. Zwracana wartość jest identyczna z
+sumą kontrolną CRC-16 wyliczaną przez <a href="../autodoc.html#resload_CRC16">resload_CRC16</a>, która to może być również
+użyteczna w trakcie tworzenia pliku .slave.
+<h4>Instalacja</h4>
+skopiuj plik do katalogu C: lub w podobne miejsce
+<h4>Opcje</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,OFFSET/K/N,LENGTH/K/N</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+plik, dla którego ma zostać obliczona suma kontrolna
+<br>przykład &quot;S:Startup-Sequence&quot;
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>OFFSET/K/N</tt>&nbsp;&nbsp;
+</td><td>
+początkowe przesunięcie w pliku
+<br>domyślnie początek pliku
+<br>przykład &quot;OFFSET=11264&quot;, aby rozpocząć od drugiej ścieżki standardowego obrazu dyskietki
+</td></tr>
+<tr><td valign=top>
+<tt>LENGTH/K/N</tt>
+</td><td>
+liczba bajtów pobierana do wyliczenia sumy kontrolnej
+<br>domyślnie koniec pliku
+<br>przykład &quot;LENGTH=1024&quot;
+</td></tr>
+</table>
+<h4>Kod powrotny</h4>
+Suma kontrolna CRC16 jest zwracana jako kod powrotny programu.
+</BODY>
+</HTML>

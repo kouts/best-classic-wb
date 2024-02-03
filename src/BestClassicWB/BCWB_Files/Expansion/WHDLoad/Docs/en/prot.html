@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<TITLE>Using resload_Protect#?</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: prot.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Using resload_Protect#?</h3>
+<h4>Theory</h4>
+There are various situations in which it maybe very useful to get informed when
+the installed program makes accesses to certain specific memory locations.
+With the <a href="../autodoc.html">resload_Protect#?</a> functions it
+is possible to protect certain memory locations from reading and/or writing by
+the processor. Protecting means that every access to such a protected area if
+performed will create an Access Fault exception which will result in an
+appropriate requester by WHDLoad. If you declare a memory area as protected
+using a <a href="../autodoc.html">resload_Protect#?</a> function
+WHDLoad will modify the affected page descriptors in the MMU translation tree.
+Now on every access to the protected page the CPU will create an Access Fault
+exception. The exception handler inside WHDLoad will verify the reason for the
+exception. If the reason was an access to a protected <a href="mmu.html">page</a> but the access does
+not match the protected area the access will be emulated, and normal program
+execution continues. Otherwise WHDLoad will quit with an appropriate
+requester. If the access was an access to the instruction stream (i.e. the cpu
+attempts to load code) it will always be emulated, or with other words the <a
+href="../autodoc.html">resload_Protect#?</a> functions only affects
+reading and writing of data. The fact that every access to a protected page
+(pagesize is currently 4096 bytes) will create an access fault, even if the protected
+area has only a length of 1 byte, results in a strong slow down of the
+execution speed of the program. Especially if parts of the code are located on
+the same page. If the program depends on execution speed, differences in the
+execution are possible. So it maybe possible that some programs will not work
+with the resload_Protect feature.
+<h4>Example: checksums over code</h4>
+If you install a game using WHDLoad you have to patch the original loader
+routines in the game in a way that these will use WHDLoad to load the game
+data. Some games are performing checksums over certain code areas to detect if
+the original code has been modified. These detection routines may sometimes be
+hard to find. But using the <a
+href="../autodoc.html">resload_Protect#?</a> functions in WHDLoad
+it will be easy. All you have to do is to protect the bytes you
+changed in the games code from reading. Now every routine which tries to make
+a checksum and read your patched code will cause an access fault. And you will
+know where the routine is located.
+<h4>Limitations</h4>
+You must not protect the memory page where the SSP points to. If you do so and
+an exception occurs, a Double Bus Fault will happen because the CPU will be
+unable to write the exception stackframe. After a Double Bus Fault only a reset
+can be performed to continue execution. WHDLoad checks for a conflict of the
+protected area with the SSP and terminates if the condition is met. But this
+wont help if the SSP changes later.
+
+<p>For more limitations and information please check the Autodoc entries for the
+different resload_Protect functions:
+<ul>
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+</ul>
+</BODY>
+</HTML>

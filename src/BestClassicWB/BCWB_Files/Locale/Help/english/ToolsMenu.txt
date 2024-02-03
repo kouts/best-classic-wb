@@ -1,0 +1,221 @@
+ToolsMenu - Add tools to the Workbench Tools menu
+
+Copyright (C) 2015, 2018-2019  Kim Fastrup Larsen
+
+This program is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation, either ver-
+sion 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be use-
+ful, but WITHOUT ANY WARRANTY; without even the implied war-
+ranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public Li-
+cense along with this program. If not, see
+<http://www.gnu.org/licenses/>.
+
+The author can be contacted on <kimflarsen@hotmail.com>
+
+
+New in version 1.10.2:
+
+- Now ignores case when sorting menu items.
+
+New in version 1.10.1:
+
+- Now ignores case when parsing YES/NO values in tool types
+  and command line arguments.
+
+New in version 1.10:
+
+- When started from the Startup-Sequence (or any other CLI),
+  ToolsMenu will now delay before installing its menu items,
+  since Workbench may need time to initialize. If the de-
+  fault delay of three seconds proves to be too short (or
+  too long), a different one can be specified as a command
+  line argument. One advantage of this delay is that you no
+  longer need to place the Run command after LoadWB, and can
+  therefore put it in User-Startup.
+- Will now show a helpful error message if menu items cannot
+  be saved.
+- Fixed a bug when parsing the CX_PRIORITY command line ar-
+  gument.
+
+
+ToolsMenu requires Kickstart 2 or newer. Full source code is
+included.
+
+ToolsMenu is a commodity that will let you add tools and
+projects to the Tools menu on your Workbench screen. Once an
+item has been added, you can launch it by selecting it from
+the menu. Any icons selected on the Workbench at that moment
+become arguments for the launched tool.
+
+For example, if you add MultiView, you can select the icon
+of an image on the Workbench, then select MultiView from the
+menu to view that image.
+
+Tools will be run as if started by the Workbench. You will
+not be able to open tools or projects that do not have prop-
+er icons.
+
+If the menu item is a project, the project icon's Default
+Tool will be launched, and the project itself will become
+the first argument.
+
+ToolsMenu can look for tools in the command search path un-
+der certain conditions; see the note for advanced users be-
+low.
+
+Adding items should be pretty self explanatory. Drag icons
+into the window to add them, after which you can edit their
+names if you like. You can also click the "New" button to
+manually enter an item. You then write the name of the item
+(as you would like it to appear in the menu) under the list,
+and type in the full path of the tool or project over on the
+right where it says "Tool". The path must include the name
+of the tool or project.
+
+You can move the currently selected item up and down using
+the Edit menu. You can also sort the items alphabetically.
+Note that the order of items will not be reflected in the
+Workbench menu until you close the Commodity window.
+
+The commodity can be iconified from the Project menu. In
+this state, items can be added by dragging their icons onto
+the commodity's icon.
+
+When you are happy with your selection of items, you must
+remember to save them from the pull down menu. The defini-
+tions will be saved as tool types in the commodity's icon.
+
+For advanced users: ToolsMenu can look through the command
+search path for tools, but ONLY if it has been started from
+the Startup-Sequence or User-Startup (or some other CLI).
+Make sure to add CX_POPUP=NO as an argument to prevent its
+window from opening. Something like this:
+
+ Run >NIL: <path>/ToolsMenu CX_POPUP=NO
+
+Workbench needs a little time to initialize, and for this
+reason, when started from a CLI, ToolsMenu will wait for
+three seconds before installing its menu items. If this
+proves to be too short of a delay (you don't see your menu
+items after booting), you can specify a delay as a number
+seconds. For example, to specify a delay of five seconds, do
+this:
+
+ Run >NIL: <path>/ToolsMenu CX_POPUP=NO DELAY=5
+
+You can use DELAY=0 if you don't want any delay.
+
+Thanks go to Samir Hawamdeh for providing an Italian trans-
+lation, and to everyone who provided me with feedback and
+helpful suggestions!
+
+
+History:
+
+1.10.2 (Sep 20, 2019)
+
+- Now ignores case when sorting menu items.
+
+1.10.1 (Sep 6, 2019)
+
+- Now ignores case when parsing YES/NO values in tool types
+  and command line arguments.
+
+1.10 (Aug 30, 2019)
+
+- When started from the Startup-Sequence (or any other CLI),
+  ToolsMenu will now delay before installing its menu items,
+  since Workbench may need time to initialize. If the de-
+  fault delay of three seconds proves to be too short (or
+  too long), a different one can be specified as a command
+  line argument. One advantage of this delay is that you no
+  longer need to place the Run command after LoadWB, and can
+  therefore put it in User-Startup.
+- Will now show a helpful error message if menu items cannot
+  be saved.
+- Fixed a bug when parsing the CX_PRIORITY command line ar-
+  gument.
+
+1.9.1 (Jun 11, 2019)
+
+- Fixed an issue introduced in 1.8 where changes made to the
+  Tool Types of ToolsMenu's icon would be undone if you were
+  to save your menu definitions in the same session.
+
+1.9 (Jun 2, 2019)
+
+- It is now possible to add projects as well as tools. When
+  selecting a project, the project icon's Default Tool will
+  be launched with the project itself as the first argument.
+- If ToolsMenu has been started from a CLI, it can now look
+  through the command search path for tools.
+- Will now look for the TOOLPRI tool type to set the execu-
+  tion priority in the same way that Workbench does.
+- Fixed potential null pointer dereferences in case
+  ToolsMenu's icon has been replaced by a freshly created
+  icon with no tool types.
+
+1.8.1 (Feb 13, 2019)
+
+- Fixed button shortcuts not working
+
+1.8 (Feb 10, 2019)
+
+- Menu items can now be moved up and down using commands in
+  the Edit menu; in order to make this run at a reasonable
+  speed on all Amigas, the order of items will not be re-
+  flected in the Workbench menu until you close the Commodi-
+  ty window
+- The commodity can now be iconified from the Project menu;
+  in this state, tools can be added by dragging their icons
+  onto the commodity's icon
+- New and Delete buttons can now have keyboard shortcuts
+- About-requester can now be closed by pressing the left
+  Amiga key with V or B, like system requesters
+- Includes Italian catalog by Samir Hawamdeh
+
+1.7 (Feb 5, 2019)
+
+- Added a function to sort items alphabetically
+- The commodity's menu shortcut keys can now be localized
+
+1.6 (Nov 26, 2018)
+
+- Minor UI adjustments
+- New, "proper" requester for About
+- Modularized the source code
+
+1.5 (Jul 28, 2015)
+
+- Busy pointer for Kickstart 2
+- Optimized and cleaned up a few things, made code more
+  portable
+
+1.4 (Apr 22, 2015)
+
+- Improved layout for big fonts.
+- Added "About..."
+
+1.3 (Feb 12, 2015)
+
+- Fixed an issue that caused some commodities (and possibly
+  other tools) to crash.
+
+1.2 (Feb 3, 2015)
+
+- Use the user's preferred screen font.
+
+1.1 (Jan 19, 2015)
+
+- Fixed an issue where trying to run a tool with an empty
+  path would cause a Guru Meditation.
+
+1.0 (Jan 12, 2015)
+
+- Initial release

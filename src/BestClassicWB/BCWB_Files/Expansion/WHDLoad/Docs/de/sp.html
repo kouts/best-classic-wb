@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE>SP * Extrahieren von Bildern</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: sp.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>SP * Extrahieren von Bildern</h3>
+Ein Programm um Bilder aus einer von WHDLoad geschriebenen <a href="dump.html">Dump-Datei</a> zu extrahieren.
+<h4>Installation</h4>
+SP ist nur im <tt>DEV</tt>, nicht im <TT>USR</tt> Archiv enthalten.
+<br>Kopiere das Programm nach C: oder einem ähnlichen Platz.
+<h4>Benutzung</h4>
+
+Zuerst muss eine Dump-Datei erzeugt werden. Dazu wird das installierte Programm
+von dem ein Bild gesichert werden soll mit den Optionen <a
+href="opt.html#Snoop">Snoop/S</a>, <a href="opt.html#Expert">Expert/S</a> und
+<a href="opt.html#DebugKey">DebugKey/K/N</a> gestartet. Wenn das gewünschte
+Bild erscheint, wird der DebugKey gedrückt und WHDLoad stoppt daraufhin das
+installierte Programm und schreibt die erforderliche Dump-Datei. Nun wechselt
+man in einer Shell/CLI in das Verzeichnis, wo sich die Dump-Datei befindet und
+führt das <tt>SP</tt> Programm mit dem Namen des zu sichernden Bildes aus.
+<tt>SP</tt> lädt daraufhin die Dump-Datei und speichert das Bild. Wenn die
+Option <a href="opt.html#CoreDumpPath">CoreDumpPath</a> in der globalen
+Konfigurationsdatei gesetzt ist, muss man nicht in das Verzeichnis der
+Dumpdatei wechseln. In diesem Fall findet <tt>SP</tt> die Dumpdatei
+selbstständig indem es die globale WHDLoad-Konfigurationsdatei auswertet.
+
+<h4>Optionen</h4>
+<table>
+<tr>
+  <td colspan=2><tt>OutputFile/A,Cop/K,CS=CopStop/K,Width/K,Height/K,con0/K,mod1/K,mod2/K,pt1/K,pt2/K,pt3/K,pt4/K,NoCopLst/S</tt></td>
+</tr>
+<tr>
+  <td valign=top><tt>OutputFile/A</tt></td>
+  <td>der Name des zu speichernden Bildes</td>
+</tr>
+<tr>
+  <td valign=top><tt>Cop/K</tt></td>
+  <td>setzt die Startadresse, ab der die Copper-Liste interpretiert werden soll, dies überschreibt <tt>cop1lc</tt> aus der Dump-Datei</td>
+</tr>
+<tr>
+  <td valign=top><tt>CS=CopStop/K</tt></td>
+  <td>setzt die Endadresse der Copper-Listen-Interpretation, muss verwendet werden, wenn der Bildschirm aus mehreren Bildern zusammengesetzt ist</td>
+</tr>
+<tr>
+  <td valign=top><tt>Width/K</tt></td>
+  <td>gibt an mit welcher Breite das Bild zu speichern ist, beeinflusst nicht die modulo Werte!</td>
+</tr>
+<tr>
+  <td valign=top><tt>Height/K</tt></td>
+  <td>gibt an mit welcher Höhe das Bild gespeichert werden soll</td>
+</tr>
+<tr>
+  <td valign=top><tt>con0/K</tt></td>
+  <td>überschreibt das in der Dump-Datei enthaltene <tt>bplcon0</tt> Register mit dem angegebenen Wert</td>
+</tr>
+<tr>
+  <td valign=top><tt>mod1/K,mod2/K</tt></td>
+  <td>überschreibt die in der Dump-Datei enthaltenen <tt>bplmod1/bplmod2</tt> Register mit den angegebenen Werten</td>
+</tr>
+<tr>
+  <td valign=top nowrap><tt>pt1/K,pt2/K,pt3/K,pt4/K</tt>&nbsp;&nbsp;</td>
+  <td>überschreibt die in der Dump-Datei enthaltenen <tt>bplpt1,2,3,4</tt> Register mit den angegebenen Werten</td>
+</tr>
+<tr>
+  <td valign=top><tt>NoCopLst/S</tt></td>
+  <td>unterdrückt die Ausgabe der Copper-Listen</td>
+</tr>
+</table>
+</BODY>
+</HTML>

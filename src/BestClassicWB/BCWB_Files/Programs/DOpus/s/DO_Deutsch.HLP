@@ -1,0 +1,927 @@
+**Versionstring
+$VER: DOpus4_Deutsch.HLP 1.0 (02.06.01)
+^
+**Assign
+Diese Funktion ermöglicht es Ihnen, dem derzeit aktiven Verzeichnis
+einen logischen Gerätenamen ("Assign") zuzuweisen. Das Gerät C: ist
+ein Beispiel für ein solches logisches Gerät: Es handelt sich nicht
+um ein wirklich existentes Laufwerk, sondern um ein Verzeichnis, dem
+der Name "C:" zugewiesen wurde. Beispielsweise könnte ein so kurzer
+und prägnanter Name wie "Text:" einem Pfadnamen zugewiesen werden,
+der sich so lang und kompliziert gestaltet wie folgender:
+
+DH0:Projects/Work/1989/April/Bits&Pieces/Text
+
+Von jetzt an könnten Sie durch das Eingeben von "Text:" in eines
+der Pfadfelder von DirectoryOpus das obige Verzeichnis anspringen,
+anstatt den ellenlangen, tatsächlichen Pfad eingeben zu müssen.
+Diese Zuweisung kann auch von allen anderen Programmen aus genutzt
+werden. Die Namen von logischen Geräten enden immer mit einem
+Doppelpunkt.
+
+Die "Assign" Funktion kann auch bereits existierende Zuweisungen 
+wieder entfernen oder sie einem anderen Verzeichnis zuzuweisen.
+Klicken Sie dazu mit dem rechten Mausknopf auf den kleinen S Knopf
+in der Mitte des Directory Opus Fensters, um die Geräteliste
+anzuzeigen. Markieren Sie die Zuweisungen, die Sie ändern möchten
+und aktivieren Sie die Assign Funktion. Im folgenden Requester
+können Sie einen Pfad eingeben, auf den die Zuweisung zukünftig
+verweisen soll. Geben Sie keinen neuen Pfad an, wird die Zuweisung
+gelöscht.^
+**About
+Diese Funktion liefert einige Informationen über
+das Programm, inklusive aktueller Versionsnummer,
+Copyright-Informationen und Kontaktadresse.^
+**AddIcon
+Mit dieser Funktion können Sie alle selektierten Dateien und Verzeichnisse
+im aktiven Verzeichnisfenster mit Piktogrammen (Icons) versehen.
+DirectoryOpus ermittelt automatisch, um welche Art von Eintrag es sich
+handelt (Schublade, Projekt, Werkzeug) und benutzt ein entsprechendes
+Piktogramm.
+Im Konfigurationsprogramm können Sie diese Icons auch selbst bestimmen,
+wenn Ihnen die von DirectoryOpus verwendeten Icons nicht gefallen.^
+**All
+Diese Funktion selektiert alle Einträge im aktiven Verzeichnisfenster.^
+**AnsiRead
+Diese Funktion agiert in exakt der gleichen Weise wie READ, bloß mit dem
+Unterschied, daß ANSI-Steuersequenzen (Farben, Schrifttypen) und
+Tabulatoren korrekt wiedergegeben werden.^
+**Arexx
+Diese Funktion startet ein ARexx-Programm oder führt einen ARexx-Befehl
+aus. Im Handbuch finden Sie weiter Informationen zu dem sehr komplexen
+Thema ARexx.^
+**BufferList
+Diese Funktion zeigt eine Liste aller von DirectoryOpus gepufferten
+Verzeichnisse an. Mit einem Doppelklick auf solch ein gepuffertes
+Verzeichniss wird es sodann ohne erneutes Einlesen angezeigt.^
+**ButtonIconify
+Diese Funktion schließt ganz ähnlich wie Iconify den Bildschirm von
+DirectoryOpus und gibt den belegten Speicher frei. Der Unterschied zu
+Iconify besteht darin, daß Sie ein anderes Fenster auf der Workbench
+erhalten. Es enthält alle von Ihnen konfigurierten Knöpfe und ermöglicht
+somit das Starten von Programmen auch dann, wenn der Opus Bildschirm
+geschlossen ist.^
+**CD
+Mit dieser Funktion bestimmen Sie das aktuelle Arbeitsverzeichnis für
+DirectoryOpus. Das ist das Verzeichnis, das eingelesen wird, wenn Sie
+RETURN in einem leeren Verzeichnisfenster drücken.^
+**CheckFit
+Achtung:
+
+Dieser Befehl ist stark veraltet. Er orientiert sich an Disk Blöcken und
+setzt voraus, daß es ein Disk Block immer 512 Bytes groß ist. Der Befehl
+wird auf Datenträgern versagen (also falsche Resultate anzeigen), die nicht
+mit FFS und 512 Byte Blockgröße formatiert wurden. Vermeiden Sie diesen
+Befehl, wenn Sie sich nicht sicher sind, daß alle ihre Partition mit FFS
+formatiert wurden und eine Blockgröße von 512 Bytes haben!
+
+----------
+
+Diese Funktion berechnet, ob die angewählten Verzeichnisse und Dateien in
+das Zielverzeichnis passen würden. Sie entspricht im wesentlichen der
+Funktion GetSizes ist jedoch wesentlich genauer. Der Nachteil dieser
+Funktion ist, daß Verzeichnisse, deren Größe bereits bekannt ist, nochmals
+gescannt werden, falls sich das Zielverzeichnis geändert hat.^
+**ClearBuffers
+Diese Funktion löscht sämtliche Verzeichnispuffer von DirectoryOpus, außer
+die beiden, deren Verzeichnisse gerade angezeigt werden. Der Speicherplatz
+wird wieder freigegeben - ein einfacher und schneller Weg, um an
+knappgewordenen Speicherplatz zu gelangen.^
+**ClearSizes
+Diese Funktion entfernt die Angabe über den Platzbedarf von Verzeichnissen.
+Das ist dann nützlich, wenn Sie wissen, daß sich die Dateigrößen einer oder
+mehrerer Dateien in einem Unterverzeichnis geändert haben und der angezeigte
+Platzbedarf für dieses Verzeichnis nicht mehr stimmt. Danach können Sie mit
+der "Getsizes"-Funktion den Platzbedarf des Verzeichnisses neu ermitteln.^
+**Clone
+Diese Funktion erstellt identische Kopien der selektierten Dateien
+und Verzeichnisse im selben Verzeichnis jedoch mit neuen Namen.^
+**Configure
+Diese Funktion lädt und startet das Konfigurationsprogramm. Ist es bereits
+im Speicher befindlich, wird es sofort gestartet. Eine Beschreibung der
+zahlreichen Konfigurationsmöglichkeiten finden Sie im Handbuch.^
+**Comment
+Mit dieser Funktion können Sie den Kommentar der selektierten Dateien und
+Verzeichnisse festlegen. 
+
+Für jeden Eintrag wird ein Fenster geöffnet, das den aktuellen
+Kommentartext enthält. Verändern Sie den Kommentar nach Ihren
+Vorstellungen und drücken Sie RETURN.
+
+Wenn Sie diesen Kommentar allen selektierten Einträgen zuweisen wollen,
+betätigen Sie den "Alle" Knopf. OK und die Eingabetaste setzen den
+Kommentar jeweils nur für den aktuellen Eintrag.^
+**ContST
+Setzt das Abspielen von Musik-Modulen fort, das mit der Funktion "StopST"
+unterbrochen wurde.^
+**Copy
+Diese Funktion kopiert alle selektierten Dateien und Verzeichnisse
+ins inaktive Verzeichnisfenster, wobei die Namen erhalten bleiben.^
+**CopyAs
+Diese Funktion kopiert alle selektierten Dateien und Verzeichnisse
+ins inaktive Verzeichnisfenster und erlaubt Ihnen, einen neuen Namen
+für jede Datei bzw. jedes Verzeichnis anzugeben.^
+**DateStamp
+Mit dieser Funktion können Sie den Datumseintrag der selektierten Dateien
+und Verzeichnisse ändern. 
+
+Für jeden Eintrag wird ein Fenster geöffnet. Wollen Sie den Eintrag mit dem
+aktuellen Datum und der aktuellen Uhrzeit versehen, drücken Sie einfach
+RETURN. Andernfalls geben Sie das gewünschte Datum und die Zeit ein.
+
+Um allen selektierten Einträgen das selbe Datum zuzuweisen, klicken
+Sie auf "Alle".^
+**Delete
+Diese Funktion löscht alle im aktiven Verzeichnisfenster
+selektierten Dateien und Verzeichnisse. VORSICHT!^
+**DirTree
+Diese Funktion erstellt einen Verzeichnisbaum aller Unterverzeichnisse des
+im aktiven Verzeichnisfenster sichtbaren Verzeichnisses. Durch Doppelklick
+auf die Unterverzeichnisse im Verzeichnisbaum können Sie diese dann ohne
+Umweg einlesen.^
+**Diskcopy
+Hiermit können Sie eine Diskette kopieren. Kopiergeschützte Software und
+Disketten, die nicht dem AmigaDOS-Format entsprechen, werden nicht kopiert.
+Die Funktion ruft das externe Modul DOpus_Disk auf, das sich in Ihrem
+C: Verzeichnis befinden sollte.
+
+Ein Fenster mit zwei Listen wird angezeigt. Wählen Sie aus der linken
+das Quelllaufwerk und aus der rechten das Ziellaufwerk.
+
+Die Option "Überprüfen" kontrolliert jeden Schreibvorgang um sicherzustellen,
+daß er korrekt durchgeführt wurde und die Zieldiskette frei von Fehlern ist.
+Die Option "Name ändern" modifiziert den Diskettennamen auf der Zieldiskette.
+Dies vermeidet Fehler, die bei der Benutzung identischer Laufwerksnamen
+auftreten können.^
+**DiskcopyBG
+Hiermit können Sie eine Diskette kopieren. Kopiergeschützte Software und
+Disketten, die nicht dem AmigaDOS-Format entsprechen, werden nicht kopiert.
+Die Funktion ruft das externe Modul DOpus_Disk auf, das sich in Ihrem
+C: Verzeichnis befinden sollte.
+
+Ein Fenster mit zwei Listen wird angezeigt. Wählen Sie aus der linken
+das Quelllaufwerk und aus der rechten das Ziellaufwerk.
+
+Die Option "Überprüfen" kontrolliert jeden Schreibvorgang um sicherzustellen,
+daß er korrekt durchgeführt wurde und die Zieldiskette frei von Fehlern ist.
+Die Option "Name ändern" modifiziert den Diskettennamen auf der Zieldiskette.
+Dies vermeidet Fehler, die bei der Benutzung identischer Laufwerksnamen
+auftreten können.^
+**DiskInfo
+Diese Funktion liefert Informationen über das im aktiven
+Verzeichnisfenster angezeigte Gerät. Darunter befinden sich
+Angaben über den freien und belegten Diskspeicherplatz,
+Datumseintrag und Anzahl der Fehler auf der Disk.^
+**DriveGadgets
+Das sind die Geräteknöpfe. Mit ihnen können
+Sie das jeweilige Verzeichnis, Gerät oder den Pfad
+in das aktive Verzeichnisfenster einlesen.^
+**Encrypt
+Mit dieser Funktion können Sie Dateien, die wichtige Informationen
+enthalten und die nicht jedermann zugänglich sein sollen, mit einem Paßwort
+verschlüsseln. Alle selektierten Dateien im aktiven Verzeichnisfenster
+werden verschlüsselt und ins gegenüberliegende Verzeichnisfenster
+geschrieben. Stellen Sie bei der Eingabe des Paßworts ein - (Minus) voran,
+um Dateien zu entschlüsseln.^
+**ErrorHelp
+Diese Funktion liefert umfangreiche Informationen und Fehlerhilfen bei
+AmigaDOS-Fehlermeldungen. Geben Sie den Fehlercode ein und Sie erhalten
+die Standard-Fehlerbeschreibung nebst umfangreichen Erläuterungen.^
+**Execute
+Diese Funktion führt die selektierten Dateien
+als Skripte (Batchdateien) aus.
+
+Achtung: Damit eine Datei als Skriptdatei erkannt wird, muß ihr "Skript
+Protection Bit" ("S") gesetzt sein.^
+**Filter
+Diese Funktion erlaubt Ihnen einen Filter anzugeben, der bei rekursiven
+Verzeichnis-Operationen benutzt wird.^
+**Format
+Hiermit können Sie eine oder mehrere Disketten formatieren. Jede neue
+Diskette muß formatiert werden, bevor Sie vom Computer beschrieben werden
+kann. Diese Funktion ist in dem externen Modul DOpus_Disk enthalten.
+
+Wenn die Funktion angewählt wird, erscheint ein kleines Fenster mit einer
+Liste der verfügbaren Laufwerke und diverser Optionen. Wählen Sie zunächst
+aus der Liste das Laufwerk aus, das Sie formatieren möchten.
+
+Die Option "Überprüfen" überprüft jeden Track nachdem er formatiert wurde.
+Dies ist etwas langsamer als ein Formatieren ohne Überprüfung, schließt
+jedoch Fehler auf der Diskette aus. Mit "Papierkorb einrichten" wird
+automatisch ein Papierkorb auf der formatierten Diskette angelegt.
+
+Mit "Schnell" können Sie eine bereits formatierte Diskette
+reinitialisieren. Mit diesem Vorgang können Sie extrem schnell alte
+Disketten löschen, jedoch keine fabrikneuen Disketten formatieren.^
+**FormatBG
+Hiermit können Sie eine oder mehrere Disketten formatieren. Jede neue
+Diskette muß formatiert werden, bevor Sie vom Computer beschrieben werden
+kann. Diese Funktion ist in dem externen Modul DOpus_Disk enthalten.
+
+Wenn die Funktion angewählt wird, erscheint ein kleines Fenster mit einer
+Liste der verfügbaren Laufwerke und diverser Optionen. Wählen Sie zunächst
+aus der Liste das Laufwerk aus, das Sie formatieren möchten.
+
+Die Option "Überprüfen" überprüft jeden Track nachdem er formatiert wurde.
+Dies ist etwas langsamer als ein Formatieren ohne Überprüfung, schließt
+jedoch Fehler auf der Diskette aus. Mit "Papierkorb einrichten" wird
+automatisch ein Papierkorb auf der formatierten Diskette angelegt.
+
+Mit "Schnell" können Sie eine bereits formatierte Diskette
+reinitialisieren. Mit diesem Vorgang können Sie extrem schnell alte
+Disketten löschen, jedoch keine fabrikneuen Disketten formatieren.^
+**GetDevices
+Diese Funktion erstellt eine Liste aller logischen und physikalischen
+Geräte, die dem System zur Verfügung stehen und zeigt sie im aktiven
+Verzeichnisfenster an. Mit einem Doppelklick können dann die Verzeichnisse
+dieser Geräte eingelesen werden. Auch können Geräte selektiert werden, um
+mit den Funktionen HUNT und SEARCH durchsucht zu werden.^
+**GetSizes
+Diese Funktion arbeitet ähnlich wie CheckFit. Sie scannt alle an-
+gewählten Verzeichnisse und ermittelt die von jedem Verzeichnis
+belegte Anzahl von Bytes. Die Größe aller angewählten Verzeichnisse
+und Dateien wird schließlich addiert und angezeigt.
+
+Ein J bzw. ein N geben zusätzlich Auskunft ob alle Einträge in das
+Zielverzeichnis passen würden. Diese Angabe ist jedoch unzuverlässig.
+Um sicher zu gehen verwenden Sie bitte die Funktion "CheckFit".^
+**HexRead
+Diese Funktion zeigt binäre Dateien und Textdateien, die binäre Zeichen
+enthalten, in Hexadezimalform an. Es werden 16 Bytes pro Zeile angezeigt.
+Alle Operationen der READ Funktion stehen auch hier zur Verfügung.^
+**Hunt
+Mit dieser Funktion können Sie alle selektierten Verzeichnisse und die
+in ihnen enthaltenen Unterverzeichnisse nach einer bestimmten Datei
+durchsuchen. Jokerzeichen (*) sind erlaubt. Werden Dateien gefunden, die
+dem gewählten Suchmuster entsprechen, wird das entsprechende Verzeichnis
+eingelesen und die betreffenden Dateien selektiert.^
+**Iconify
+Diese Funktion schließt den Bildschirm von DirectoryOpus und gibt so viel
+Speicherplatz frei wie möglich.
+
+Im Konfigurationsprogramm stehen verschiedene Modi, in die Opus übergeht
+wenn Sie Iconify anwählen, zur Auswahl. So etwa ein Fenster mit oder ohne
+Uhr/Speicheranzeige oder auch ein AppIcon.^
+**IconInfo
+Diese Funktion erlaubt Ihnen die Parameter eines Piktogramms (Icons), ganz
+ähnlich wie beim Menüpunkt 'Informationen..' auf der Workbench
+einzustellen. Sie können die Flags, die Größe des Stacks, den Kommentar,
+das Standardprogramm und die Merkmale angeben.^
+**Install
+Mit dieser Funktion können Sie Disketten bootfähig (selbststartend)
+machen. Alle bootfähigen Disketten verfügen auf ihrem ersten Sektor
+über spezielle Informationen, ohne die sie nicht selbststartend sind
+(der sogenannte "BootBlock"). Die Funktion ist in dem externen Modul
+DOpus_Disk enthalten.
+
+Ein kleines Fenster zeigt eine Liste aller verfügbaren Disketten-Laufwerke
+an. Wählen Sie das gewünschte Laufwerk per Mauslick aus. Der Knopf
+"BB entfernen" sorgt dafür, daß eine bereits bootfähige Diskette wieder
+'normalisiert' wird.^
+**InstallBG
+Mit dieser Funktion können Sie Disketten bootfähig (selbststartend)
+machen. Alle bootfähigen Disketten verfügen auf ihrem ersten Sektor
+über spezielle Informationen, ohne die sie nicht selbststartend sind
+(der sogenannte "BootBlock"). Die Funktion ist in dem externen Modul
+DOpus_Disk enthalten.
+
+Ein kleines Fenster zeigt eine Liste aller verfügbaren Disketten-Laufwerke
+an. Wählen Sie das gewünschte Laufwerk per Mauslick aus. Der Knopf
+"BB entfernen" sorgt dafür, daß eine bereits bootfähige Diskette wieder
+'normalisiert' wird.^
+**LoopPlay
+Mit dieser Funktion können Sie IFF8SVX-Samples und andere Tondateien
+abspielen. Dabei wird jeder Ton endlos wiederholt, um zum nächsten zu
+springen, müssen Sie die linke Maustaste betätigen.^
+**MakeDir
+Mit dieser Funktion erstellen Sie ein
+Verzeichnis im aktiven Verzeichnisfenster.^
+**Move
+Damit verschieben Sie alle selektierten Einträge vom aktiven ins
+inaktive Verzeichnisfenster. Die Datei oder das Verzeichnis wird
+ins Zielverzeichnis kopiert und im Ursprungsverzeichnis gelöscht.^
+**MoveAs
+Damit verschieben Sie alle selektierten Einträge vom aktiven ins inaktive
+Verzeichnisfenster, wobei Sie jedem Eintrag eine neuen Namen geben können.
+Die Datei oder das Verzeichnis wird mit dem neuen Namen ins Zielverzeichnis
+kopiert und im Ursprungsverzeichnis gelöscht.^
+**None
+Diese Funktion deselektiert alle Einträge im aktiven Verzeichnisfenster.^
+**Parent
+Diese Funktion liest das Mutter-Verzeichnis des im aktiven
+Verzeichnisfenster sichtbaren Verzeichnisses ein.^
+**Play
+Mit dieser Funktion können Sie IFF8SVX-Samples und andere Tondateien ab-
+spielen. Zum Abbrechen betätigen Sie die linke Maustaste. Befindet sich
+die inovamusic.library im LIBS: Verzeichnis, können Sie mit dieser
+Funktion auch Sound/NoiseTracker-Module (Musikstücke) abspielen.^
+**PlayST
+Spielt Musik-Module ab. Das sind Musikstücke, die mit sogenannten "Trackern"
+erstellt wurden. benötigt die inovamusic.library in LIBS:.^
+**Print
+Diese Funktion druckt alle angewählten Dateien. Dazu stehen Ihnen
+zahlreiche Optionen zur Textformatierung zur Verfügung. Die Funktion
+benötigt das externe Modul DOpus_Print.
+
+Mit "Oberer Rand" bestimmen Sie die erste zu bedruckende Zeile am Anfang
+jeder Seite. "Unterer Rand" gibt äquivalent dazu die letzte Zeile an. Mit
+"linker Rand" und "rechter Rand" geben Sie den linken und rechten Rand an. 
+"Tabweite" bestimmt die Länge eines Tabulators in Leerzeichen. Mit dem
+Knopf "Seite Auswerfen" schließlich bestimmen Sie, ob der letzten Seite
+des Drucks ein FormFeed folgt, womit die Seite aus dem Drucker ausgeworfen
+wird.
+
+Der Knopf "Druckdichte" dient zum Voreinstellen der Schriftart. Zur Auswahl
+stehen die vom Betriebssystem unterstützen Druckerschriften Pica, Elite und
+Fine. Der Knopf "Qualität" bestimmt die Druckqualität.
+
+Mit dem Knopf "Kopf/Fuß" können Sie den Kopf und Fuß festlegen, der über
+bzw. unter jeder Seite ausgedruckt wird. Wird "Titel" angewählt, so
+wird der im rechts daneben befindlichen Textfeld eingegebene Text verwendet,
+ist dieses Feld leer wird stattdessen der Dateiname benutzt. "Datum"
+sorgt für die Ausgabe des aktuellen Datums und "Seitennummer" für eine
+Durchnummerierung der Seiten. Der Knopf "Schriftart" legt fest welche
+Schriftattribute für den Kopf oder Fuß verwendet werden sollen.
+
+Sie können wählen ob der Ausdruck direkt an den Drucker geschickt wird,
+oder in eine Datei umgeleitet werden soll.^
+**PrintDir
+Diese Funktion druckt den Inhalt des aktiven Verzeichnisfensters. Sie
+können bestimmen, welche Informationen (Dateigröße, Schutzbits,
+Datumseintrag und Dateikommentar) gedruckt werden sollen.^
+
+Sie ist in dem externen Modul DOpus_Disk enthalten.^
+**Protect
+Mit dieser Funktion können Sie die Schutzbits der selektierten Dateien und
+Verzeichnisse ändern.
+
+Für jeden Eintrag wird ein Fenster geöffnet, in dem Sie den Status der
+Schutzbits des betreffenden Eintrags sehen können. Die Schutzbits sind im
+einzelnen: H (verborgen), S (Skript), P (residentfähig), A (archiviert),
+R (lesbar), W (beschreibbar), E (ausführbar) und D (löschbar).
+
+Mittels der zugehörigen Knöpfe oder der entsprechenden Tasten, können Sie
+jedes dieser Flags einzeln verändern. Alle Schutzbits gelichzeitig können
+Sie mit "Alle Bits" setzen, mit "Keine" löschen und mit "Invert"
+umschalten. Alle Änderungen lassen sich mit "Zurück" rückgängig machen.
+
+Die "Maske"-Leiste ermöglicht Ihnen die Angabe bestimmter Flags, die von
+dieser Operation nicht beeinflußt werden. Dies erlaubt Ihnen zum Beispiel
+die Flags RW in einer Anzahl von Dateien zu setzen und alle anderen Flags
+in Ihrem derzeitigen Zustand beizubehalten.
+Um ein Flag in der Maske ein oder aus zu schalten klicken Sie auf die
+entsprechende Position in der "Maske"-Leiste oder drücken Sie bei
+niedergehaltener Shift-Taste die entsprechende Buchstabentaste.
+
+Um die angegebenen Flags bei allen selektierten Dateien zu setzen
+wählen Sie "Alle". Mit "Weiter" werden jeweils nur die Flags der nächsten
+Datei geändert.^
+**Quit
+Diese Funktion beendet DirectoryOpus. Wurde die Konfiguration verändert,
+werden Sie darauf aufmerksam gemacht und Sie haben die Möglichkeit, die
+Konfiguration vor Verlassen des Programms abzuspeichern.^
+**Read
+Mit dieser Funktion können Sie Textdateien lesen.
+
+Den angezeigten Ausschnitt kann gescrollt werden indem Sie die linke
+Maustaste betätigen. Die Rollrichtung und -geschwindigkeit bestimmen Sie
+mit der Y-Position des Mauszeigers. Auch mit den Pfeiltasten, den
+Pfeilknöpfen und (falls eingschaltet) dem Rollbalken können Sie sich durch
+den Text bewegen.
+
+Klicken Sie die Zahl neben "Lines" an, um zu einer bestimmten Zeile zu
+gelangen. Das gleiche funktioniert auch mit "Percentage". Betätigen Sie
+den U bzw. D Knopf (oder Space und Backspace bzw Shift und Pfeiltasten),
+um sich eine Seite zurück oder weiter zu bewegen. Mit den Knöpfen T und B
+(oder Control und Pfeiltasten) kommen Sie zum Anfang und zum Ende des
+Textes. Die selben Funktionen werden jeweils von den entsprechenden Tasten
+ausgeführt.
+
+Drücken Sie S oder klicken Sie auf den Knopf S, um nach einer Zeichenfolge
+zu suchen. Um die Suche nach einer Zeichenfolge fortzusetzen, drücken
+Sie N. Zum Ausdrucken der sichtbaren Seite drücken Sie C. Zum Ausdrucken der
+gesamten Datei drücken Sie D. Zum Beenden klicken Sie auf den Knopf Q oder
+drücken ESC, X oder Q.
+
+Beachten Sie, daß diese Funktion ANSI-Steuersequenzen nicht berücksichtigt;
+Benutzen Sie dafür die Funktion ANSIREAD.^
+**Relabel
+Mit dieser Funktion können Sie den Namen des im aktiven
+Verzeichnisfenster sichtbaren Laufwerks ändern.^
+**Rename
+Mit dieser Funktion können Sie alle selektierten Dateien und Verzeichnisse
+umbenennen. Sie können den * (Joker) verwenden, um mehrere Dateien gleich-
+zeitig umzubenennen. Wenn Sie keinen Joker verwenden, werden Sie für jeden
+Eintrag nach einem neuen Namen gefragt.
+
+Um allen angewählten Einträgen einen Präfix oder ein Endung zu geben,
+benutzen Sie den Joker im zweiten Textfeld. Um "HIRES" als Präfix und
+".pic" als Endung zu erzeugen geben Sie schlicht "HIRES*.pic" ein.
+
+Um den Präfix oder die Endung aller angewählten Einträge zu ändern benutzen
+Sie den Joker im oberen Textfeld. Wollen Sie beispielweise alle "HIRES"
+Präfixe in "MEDRES" und alle ".pic" Endungen in ".iff" ändern so geben Sie
+"HIRES*.pic" im oberen Textfeld und "MEDRES*.iff" im unteren Textfeld ein.^
+**Reselect
+Diese Funktion reselektiert sämtliche Einträge, die vor Aufruf der letzten
+Operation selektiert waren. Die Einträge werden nur reselektiert, wenn sie
+noch existieren.^
+**Rescan
+Diese Funktion liest das im aktiven Verzeichnisfenster sichtbare
+Verzeichnis erneut ein. Das selbe bewirkt ein Anwählen des Feldes mit dem
+Verzeichnisnamen und drücken der RETURN Taste.^
+**Root
+Diese Funktion liest das Root-Verzeichnis des im aktiven Verzeichnisfenster
+sichtbaren Verzeichnisses ein. Das Root-Verzeichnis ist das oberste
+Verzeichnis auf der Diskette oder Festplatte.^
+**Run
+Diese Funktion startet die selektierten Dateien, eine nach der anderen.
+Für jede Datei, die an der Reihe ist, werden Sie nach etwaigen Parametern
+gefragt. Das Programm wird dann ausgeführt, wobei die in der Konfiguration
+festgelegten Einstellungen (Ausgabefenster etc.) zugrundegelegt werden.
+Läßt sich ein Programm auf diese Art nicht starten, versuchen Sie es bitte
+von der Workbench aus.
+**Search
+Mit dieser Funktion durchsuchen Sie alle direkt selektierten Dateien sowie
+alle Dateien in selektierten Verzeichnissen nach einer anzugebenden
+Zeichenkette, die auch Jokerzeichen enthalten kann. Wird eine
+entsprechende Datei gefunden, können Sie sich die Datei ansehen. In diesem
+Fall wird die gesuchte Zeichenkette in der Datei automatisch hervorgehoben.
+
+Für weitere Informationen (z.B. das Suchen nach ASCII Werten), sehen sie
+bitte im Handbuch nach.^
+**Select
+Mit dieser Funktion können Sie Dateien und Verzeichnisse im aktiven
+Verzeichnisfenster basierend auf einem Suchmuster anwählen. Dieses
+Suchmuster kann alle Standard-Jokerzeichen (*,~,? usw.) sowie die
+AmigaDOS-Jokerzeichen #? und ? enthalten. Im Handbuch finden Sie nähere
+Informationen zur Benutzung von Jokern.
+
+Eine Selektion anhand des Erstellungsdatums ist möglich, wenn Sie den Knopf
+neben dem Textfeld auf "Date" einstellen. Geben Sie den Datumsbereich (von
+> bis) in der Form TT-MMM-JJ > TT-MMM-JJ (Tag-Monat-Jahr) ein. Lassen Sie
+einen der beiden Werte weg, um Datumseinträge ab einem bestimmten Datum
+bzw. bis zu einem bestimmten Datum zu selektieren. Auch Uhrzeiten können
+eingegeben werden, und zwar in der Form HH:MM:SS (Stunde-Minute-Sekunde).
+
+Stellen Sie den Knopf auf "Bits", um Dateien mit bestimmten Schutzbits
+auszuwählen. Zur Angabe der Flags benutzen Sie die Zeichen hsparwed.
+Stellen Sie einem Flag ein - (Minus) voran, so darf es nicht gesetzt sein,
+um dem Suchkriterium zu entsprechen. Im Handbuch finden Sie weitere
+Informationen zum selektieren von Einträgen.^
+**Show
+Diese Funktion zeigt die selektierten Dateien als Grafik auf dem Bildschirm
+an, sofern es sich bei ihnen um IFF ILBM Bilder, ANIM5 Animationen,
+Piktogramme (Icons) oder um Schriften (Fonts) handelt. Bei Piktogrammen
+mit einem alternativen Bild können Sie die zweite Darstellung mit RETURN
+sichtbar machen.
+
+Die Anzeige von Bildern verlassen Sie mit Betätigung der linken Maustaste.
+Handelt es sich um ein Bild mit Colorcycling, so können Sie die
+Farbrotation mit der TAB-Taste starten und stoppen.
+
+Durch einen Druck auf die Tasten P, HELP oder die Leertaste gelangen Sie zu
+einem Druckmenü mit dem Sie den Drucker konfigurieren und das Bild
+ausdrucken können. Außerdem werden einige wichtige Informationen über das
+Bild angezeigt.
+
+Ist das Bild größer als der Bildschirm, so können Sie mit Hilfe der
+Pfeiltasten und mit der Maus den angezeigten Ausschnitt verschieben.
+Befindet sich in Ihrem LIBS: Verzeichnis die xfdmaster.library, werden
+auch mit Powerpacker o.ä. gepackte Bilder angezeigt.^
+**StopST
+Unterbricht das Abspielen eines Musik-Modules.^
+**Toggle
+Diese Funktion kehrt den Selektierungszustand aller Einträge
+im aktiven Verzeichnisfenster um. Selektierte Einträge werden
+deselektiert und umgekehrt.^
+**Version
+Diese Funktion zeigt in einem Fenster die Versionsnummern Ihrer Kickstart
+und Workbench sowie von DirectoryOpus an. Außerdem finden Sie hier weitere
+Informationen über ihren Computer.
+*LHA Add
+Diese Funktion erlaubt Ihnen LHA-Archive zu erstellen und Dateien zu
+bestehenden Archiven hinzuzufügen.
+
+Das Zielverzeichnis für Ihr Archiv muß im inaktiven Verzeichnisfenster
+sichtbar sein. Im aktiven Verzeichnisfenster wählen Sie alle Dateien und
+Verzeichnisse aus, die Sie archivieren wollen. Anschließend wählen Sie
+diese Funktion an und geben den Namen des Archivs an.^
+*ARC Add
+Diese Funktion erlaubt Ihnen ARC-Archive zu erstellen und Dateien zu
+bestehenden Archiven hinzuzufügen. Beachten Sie, daß im Gegensatz zu LHA
+und ZOO dieser Packer nicht das archivieren von Verzeichnissen erlaubt.
+
+Das Zielverzeichnis für Ihr Archiv muß im inaktiven Verzeichnisfenster
+sichtbar sein. Im aktiven Verzeichnisfenster wählen Sie alle Dateien und
+Verzeichnisse aus, die Sie archivieren wollen. Anschließend wählen Sie
+diese Funktion an und geben den Namen des Archivs an.^
+*ZOO Add
+Diese Funktion erlaubt Ihnen ZOO-Archive zu erstellen und Dateien zu
+bestehenden Archiven hinzuzufügen.
+
+Das Zielverzeichnis für Ihr Archiv muß im inaktiven Verzeichnisfenster
+sichtbar sein. Im aktiven Verzeichnisfenster wählen Sie alle Dateien und
+Verzeichnisse aus, die Sie archivieren wollen. Anschließend wählen Sie
+diese Funktion an und geben den Namen des Archivs an.^
+*Arc Ext
+Dieser Knopf ruft für alle selektierten Dateien die User1 Sequenz der
+Filetype-Definition auf. Er trägt standardmässig den Schriftzug Arc Ext,
+da dies der voreingestellten Funktion der User1 Sequenzen der meisten
+Filetypes entspricht - Archive zu entpacken oder neudeutsch zu extrahieren.
+Im Handbuch finden Sie weitere Informationen zu den Filetypes.^
+*Edit
+Hiermit rufen Sie einen Editor auf, mit dem Sie die angewählten Dateien
+bearbeiten können. Dies ist keine eingebaute Funktion von DirectoryOpus,
+sondern ein Knopf, der das Programm c:Ed aufruft. Sie können das im
+Konfigurationsprogram leicht ändern.^
+*New File
+Hiermit rufen Sie in gleicher Weise wie bei EDIT einen Editor auf. Bei
+dieser Funktion werden Sie jedoch zuvor nach einem Dateinamen gefragt,
+sodaß Sie mit dem Editor eine neue Datei erstellen können.^
+*!103
+Not enough memory
+Nicht genügend Speicher
+
+Wahrscheinliche Ursache:
+Speicherplatz in Ihrem Amiga reicht nicht aus, um die Operation auszuführen.
+
+Fehlerbehebung:
+Schließen Sie nicht benötigte Fenster, beenden Sie nicht benötigte
+Programme. Führen Sie die Operation dann erneut aus. Tritt der Fehler
+wieder auf, booten Sie den Rechner neu. Bei erneutem Fehlschlagen sollten
+Sie sich überlegen, Ihren Speicherplatz auszubauen.^
+*!104
+Process table full
+Prozeßtabelle voll
+
+Wahrscheinliche Ursache:
+Die maximale Anzahl gleichzeitig ablaufender Prozesse wurde erreicht.
+
+Fehlerbehebung:
+Beenden Sie ein oder mehrere Tasks.^
+*!114
+Bad template
+Fehlerhafte Befehlszeile
+
+Wahrscheinliche Ursache:
+Die Befehlszeile war fehlerhaft.
+
+Fehlerbehebung:
+Konsultieren Sie die Programmdokumentation
+für das korrekte Format der Befehlszeile.^
+*!115
+Bad number
+Keine/falsche Zahl
+
+Wahrscheinliche Ursache:
+Das Programm erwartete einen numerischen Parameter.
+
+Fehlerbehebung:
+Konsultieren Sie die Programmdokumentation
+für das korrekte Format der Befehlszeile.^
+*!116
+Required argument missing
+Erforderlicher Paramter fehlt
+
+Wahrscheinliche Ursache:
+Die Befehlszeile war fehlerhaft.
+
+Fehlerbehebung:
+Konsultieren Sie die Programmdokumentation
+für das korrekte Format der Befehlszeile.^
+*!117
+Argument after "=" missing
+Parameter hinter "=" fehlt
+
+Wahrscheinliche Ursache:
+Die Befehlszeile war fehlerhaft.
+
+Fehlerbehebung:
+Konsultieren Sie die Programmdokumentation
+für das korrekte Format der Befehlszeile.^
+*!118
+Too many arguments
+Zu viele Parameter
+
+Wahrscheinliche Ursache:
+Die Befehlszeile war fehlerhaft.
+
+Fehlerbehebung:
+Konsultieren Sie die Programmdokumentation
+für das korrekte Format der Befehlszeile.^
+*!119
+Unmatched Quotes
+Fehlerhafte Anführungszeichen
+
+Wahrscheinliche Ursache:
+Die Befehlszeile war fehlerhaft.
+
+Fehlerbehebung:
+Konsultieren Sie die Programmdokumentation
+für das korrekte Format der Befehlszeile.^
+*!120
+Argument line invalid or too long
+Befehlszeile fehlerhaft oder zu lang
+
+Wahrscheinliche Ursache:
+Die Befehlszeile war fehlerhaft oder enthielt zu viele Parameter.
+
+Fehlerbehebung:
+Konsultieren Sie die Programmdokumentation
+für das korrekte Format der Befehlszeile.^
+*!121
+File is not executable
+Datei kann nicht ausgeführt werden
+
+Wahrscheinliche Ursachen:
+1. Sie haben den Dateinamen falsch geschrieben
+2. Die Datei ist weder eine Batchdatei noch ein Programm und somit
+  nicht ausführbar.
+
+Fehlerbehebung:
+Vergewissern Sie sich, daß die Datei ein Programm ist. Beachten Sie, daß
+zur Ausführung eines Skripts das S-Bit gesetzt oder der EXECUTE-Befehl
+verwandt werden muß.^
+*!122
+Invalid resident library
+Unzulässige Library
+
+Wahrscheinliche Ursache:
+Sie versuchen einen Befehl mit einer veralteten Version von AmigaDOS zu
+benutzen; Zum Beispiel einen Kickstart2.0-Befehl mit Kickstart 1.3.^
+
+Fehlerbehebung:
+Booten Sie Ihren Rechner mit der aktuellen Version von Kickstart.^
+*!202
+Object is in use
+Objekt wird benutzt
+
+Wahrscheinliche Ursache:
+Die Datei oder das Verzeichnis wird gerade von einem anderen Programm
+bearbeitet.
+
+Fehlerbehebung:
+Beenden Sie das Programm, das die Datei oder das Verzeichnis benutzt und
+wiederholen Sie den Vorgang.^
+*!203
+Object already exists
+Das Objekt existiert bereits
+
+Wahrscheinliche Ursache:
+Der Datei- oder Verzeichnisname existiert bereits.
+
+Fehlerbehebung:
+Benutzen Sie einen anderen Namen oder umbenennen Sie die existierende Datei
+bzw. das existierende Verzeichnis.^
+*!204
+Directory not found
+Verzeichnis nicht gefunden
+
+Wahrscheinliche Ursache:
+Das Verzeichnis existiert nicht oder Sie haben dessen Namen falsch
+geschrieben.
+
+Fehlerbehebung:
+Überprüfen Sie den Namen und wiederholen Sie den Vorgang.^
+*!205
+Object not found
+Objekt nicht gefunden
+
+Wahrscheinliche Ursache:
+Die Datei oder das Gerät existiert nicht oder Sie haben dessen Namen falsch
+geschrieben.
+
+Fehlerbehebung:
+Überprüfen Sie den Namen und wiederholen Sie den Vorgang.^
+*!206
+Invalid window description
+Fehlerhafte Fensterbeschreibung
+
+Wahrscheinliche Ursache:
+Dieser Fehler tritt auf, wenn Sie ein Ausgabefenster für die Shell, ED oder
+ICONX fehlerhaft bestimmen. Sie haben das Fenster zu klein oder zu groß
+angegeben oder einen Parameter ausgelassen. Dieser Fehler tritt auch bei
+Aufruf des NEWSHELL-Befehls auf, wenn Sie einen Gerät ansprechen, das kein
+Fenster ist.
+
+Fehlerbehebung:
+Ändern Sie die Fensterbeschreibung.^
+*!209
+Packet request type unknown
+
+Wahrscheinliche Ursache:
+Sie haben einen Device-Handler beauftragt, eine Operation auszuführen, die
+er nicht ausführen kann. Der Console-handler beispielsweise kann keine
+Datei umbenennen.
+
+Fehlerbehebung:
+Überprüfen Sie den Request-Code, den Sie an den Device-Handler übergeben.^
+*!210
+Object name invalid
+Unzulässiger Objektname
+
+Wahrscheinliche Ursache:
+Der Dateiname ist zu lang oder enthält unzulässige Zeichen. Dateinamen
+dürfen nicht länger als 30 Zeichen lang sein, wenn sie mit dem originalen
+Dateisystem ihres Amigas ("FFS") arbeiten, und dürfen keine Steuerzeichen
+enthalten.
+
+Fehlerbehebung:
+Stellen Sie sicher, daß Sie keine Steuerzeichen verwenden und daß der
+Dateiname nicht länger als 30 Zeichen ist.^
+*!211
+Invalid object lock
+Lock auf ein Objekt falsch
+
+Wahrscheinliche Ursache:
+Sie benutzen einen unzulässigen Lock auf eine Datei oder ein Verzeichnis.
+
+Fehlerbehebung:
+Stellen Sie sicher, daß Ihr Programm nur zulässige Locks an AmigaDOS
+Routinen übergibt.^
+*!212
+Object not of required type
+Objekttyp paßt nicht
+
+Wahrscheinliche Ursache:
+Sie haben eine Dateinamen für eine Operation mit einem Verzeichnis
+angegeben oder umgekehrt.
+
+Fehlerbehebung:
+Konsultieren Sie die Programmdokumentation
+für das korrekte Format der Befehlszeile.^
+*!213
+Disk not validated
+Disk nicht validiert
+
+Wahrscheinliche Ursache:
+Ein laufender Validierungsvorgang ist noch nicht abgeschlossen oder der
+Datenträger ist fehlerhaft.
+
+Fehlerbehebung:
+Warten Sie auf Beendigung eines etwaigen Validierungsvorgangs. Bei einer
+Diskette sollte das weniger als eine Minute dauern, bei Festplatten kann
+das -abhängig von Kapazität, Geschwindigkeit und System- mehrere Minuten
+benötigen. Fehlerhafte Disketten können nicht validiert werden.
+Versuchen Sie den Inhalt durch kopieren auf einen anderen Datenträger zu
+retten oder bedienen Sie sich notfalls eines Disk Recovery Programmes.^
+*!214
+Disk is write-protected
+Disk ist schreibgeschützt
+
+Wahrscheinliche Ursache:
+Die Diskette ist schreibgeschützt.
+
+Fehlerbehebung:
+Wenn Sie sicher sind, daß Sie auf diese Diskette schreiben wollen,
+entfernen Sie den Schreibschutz und legen Sie die Diskette erneut ein.
+Andernfalls benutzen Sie eine andere Diskette.^
+*!215
+Rename across devices attempted
+Rename zwischen Geräten versucht
+
+Wahrscheinliche Ursache:
+Mit RENAME können Sie zwar eine Datei von einem Verzeichnis in ein anderes
+verschieben, nicht aber zwischen Verzeichnissen auf verschiedenen Geräten.
+
+Fehlerbehebung:
+Verwenden Sie MOVE oder Kopieren Sie die Datei ins Zielverzeichnis und
+löschen sie im Ursprungsverzeichnis.^
+*!216
+Directory not empty
+Verzeichnis nicht leer
+
+Wahrscheinliche Ursache:
+Dieser Fehler tritt auf, wenn Sie versuchen ein Verzeichnis zu löschen ,
+das Dateien und/oder Unterverzeichnisse enthält.
+
+Fehlerbehebung:
+Wenn Sie sicher sind, daß Sie das Verzeichnis mitsamt Inhalt löschen
+wollen, verwenden Sie die ALL-Option von DELETE.^
+*!217
+Too many levels
+Zu viele Softlinks
+
+Wahrscheinliche Ursache:
+Sie haben die Grenze von maximal 15 Softlinks überschritten.
+
+Fehlerbehebung:
+Reduzieren Sie die Anzahl der Softlinks.^
+*!218
+Device or volume not mounted
+Gerät nicht angemeldet
+
+Wahrscheinliche Ursache:
+Handelt es sich um eine Diskette, so ist sie nicht ins Laufwerk eingelegt.
+Bei anderen Geräten fehlte eine Anmeldung mit MOUNT. Auch ist es möglich,
+daß Sie sich bei Angabe des Gerätes vertippt haben.^
+
+Fehlerbehebung:
+Legen Sie die korrekte Diskette ein, überprüfen Sie den Gerätenamen,
+melden Sie das Gerät mit MOUNT an und überprüfen Sie ggf. die Mountlist.^
+*!219
+Seek Error
+Fehler bei SEEK
+
+Wahrscheinliche Ursache:
+Sie haben SEEK mit unzulässigen Parameteren aufgerufen.
+
+Fehlerbehebung:
+Stellen Sie sicher, daß sie SEEK nur innerhalb der Grenzen einer Datei
+verwenden.^
+*!220
+Comment is too long
+Kommentar ist zu lang
+
+Wahrscheinliche Ursache:
+Ihr Dateikommentar ist länger als 79 Zeichen.
+
+Fehlerbehebung:
+Verwenden Sie einen kürzeren Kommentar.^
+*!221
+Disk is full
+Datenträger ist voll
+
+Wahrscheinliche Ursache:
+Auf dem angegebenen Datenträger ist nicht mehr genügend Platz für die
+gewünschte Operation.
+
+Fehlerbehebung:
+Löschen Sie nicht benötigte Dateien und Verzeichnisse oder benutzen Sie
+einen anderen Datenträger.^
+*!222
+Object is protected from deletion
+Objekt ist gegen Löschen geschützt
+
+Wahrscheinliche Ursache:
+Das Schutzbit D (löschbar) der Datei oder des Verzeichnisses ist nicht
+gesetzt.
+
+Fehlerbehebung:
+Wenn Sie sicher sind, daß Sie das Objekt löschen wollen, benutzen Sie
+PROTECT, um das D-Bit zu setzen.^
+*!223
+File is write protected
+Datei ist schreibgeschützt.
+
+Wahrscheinliche Ursache:
+Das Schutzbit W (beschreibbar) der Datei ist nicht gesetzt.
+
+Fehlerbehebung:
+Wenn Sie sicher sind, daß Sie die Datei überschreiben wollen, benutzen Sie
+PROTECT, um das W-Bit zu setzen.^
+*!224
+File is read protected
+Datei ist gegen Lesen geschützt
+
+Wahrscheinliche Ursache:
+Das Schutzbit R (lesbar) der Datei ist nicht gesetzt.
+
+Fehlerbehebung:
+Benutzen Sie PROTECT, um das R-Bit zu setzen.^
+*!225
+Not a valid DOS disk
+Keine DOS-Disk
+
+Wahrscheinliche Ursache:
+Die Diskette entspricht nicht dem AmiagDOS-Format, ist nicht formatiert
+oder ist fehlerhaft.
+
+Fehlerbehebung:
+Überprüfen Sie, ob Sie die richtige Diskette benutzen. Verwenden Sie
+ggf. ein Disk Recovery Programm, um den Inhalt der Diskette auf einen
+anderen Datenträger zu retten. Überprüfen Sie, ob die Diskette Daten
+in einem anderen DOS-Format (z.B. MS-DOS) enthält oder formatieren Sie
+die Diskette, wenn Sie sicher sind, daß keine Daten verlorengehen
+können.^
+*!226
+No disk in drive
+Keine Disk eingelegt
+
+Wahrscheinliche Ursache:
+Die Disk ist nicht oder nicht korrekt in ein Laufwerk eingelegt.
+
+Fehlerbehebung:
+Legen Sie die gewünschte Diskette ein.^
+*!232
+No more entries in directory
+Keine weiteren Einträge im Verzeichnis
+
+Wahrscheinliche Ursache:
+Sie versuchten, in einem Verzeichnis mit EXNEXT weitere Einträge
+einzulesen, obwohl keine mehr vorhanden sind.
+
+Fehlerbehebung:
+Rufen Sie EXNEXT nach beendetem Einlesen nicht mehr auf.^
+*!233
+Object is soft link
+Das Objekt ist ein Softlink
+
+Wahrscheinliche Ursache:
+Sie versuchten, eine Operation mit einem Softlink durchzuführen, die nur
+auf eine Datei oder ein Verzeichnis angewandt werden kann.
+
+Fehlerbehebung:
+AmigaDOS benutzt das Action_Read_Link-Packet, um den Softlink aufzulösen
+und versucht erneut, die Operation auszuführen.^

@@ -1,0 +1,107 @@
+<HTML>
+<HEAD>
+<TITLE>DIC * Disk Image Creator (Creatore di Immagini Disco)</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: dic.html 1.5 2006/06/05 12:15:27 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>DIC * Disk Image Creator</h3>
+<p>DIC è un tool che serve a creare un file immagine di un floppy disk. DIC legge il contenuto del floppy tramite
+l'appropriato device (per esempio "trackdisk.device" per DF0:) e scrive i dati in un file nella directory corrente.
+Il nome dell'immagine creata sarà "Disk.1", dove "1" è il numero del disco letto. Il numero del disco viene incrementato
+dopo la lettura di ogni floppy. Mediante l'utilizzo dell'opzione <tt>Name</tt> si potrà specificare un diverso nome per il
+file immagine.</p>
+<p>DIC può anche leggere altri device come RAD:, PC0: o DS0: e dischi ad alta densità.</p>
+<p>Se una traccia del floppy non può essere letta correttamente e DIC è stato lanciato da un terminale interattivo
+(come CON:), verrà richiesto se saltare la traccia oppure se provare a rileggerla. Con terminali non interattivi queste
+tracce verranno saltate di default. <br>Per le tracce saltate, la corrispondente area nell'immagine verrà riempita con il
+pattern "<tt>TDIC</tt>". Sarà così possibile identificare in seguito gli errori di lettura.</p>
+<p>DIC può anche leggere parzialmente i dischi tramite l'utilizzo dell'opzione <tt>SIZE/K/N</tt>. Se questa opzione viene
+utilizzata, DIC non leggerà i dati dopo la dimensione specificata. Questo può tornare utile se le ultime tracce non sono
+usate.</p>
+<p>Si può evitare la lettura di alcune tracce grazie all'opzione <tt>SKIPTRACK/K/N</tt>. Può essere utile per creare
+immagini di dischi protetti (per esempio RN-Copylocks nella traccia 1).</p>
+<p>Se l'opzione <tt>PEDANTIC/S</tt> è stata specificata, DIC terminerà immediatamente alla presenza di una traccia
+illeggibile.</p>
+<p>DIC può essere interrotto in ogni momento premendo Ctrl-C.</p>
+<h4>Installazione</h4>
+Copialo in C: o in un posto simile
+<h4>Utilizzo</h4>
+<p>Per utilizzare DIC interattivamente:
+<ul>
+<li>apri una Shell
+<li>vai alla directory dove salvare le immagini
+<li>scrivi "DIC" e premi INVIO
+<li>adesso inserisci i dischi e segui le istruzioni date da DIC
+<li>dopo che l'ultimo disco è stato letto, interrompi DIC premendo Ctrl-C
+</ul>
+Per usare DIC in uno script di installazione utilizza le opzioni
+<tt>FD=FIRSTDISK/K/N</tt>, <tt>LD=LASTDISK/K/N</tt> e
+<tt>PEDANTIC/S</tt>. Per dischi con una protezione fisica dalla copia usa
+<tt>SKIPTRACK/K/N</tt>. Se possibile è un'ottima idea usare l'opzione <tt>SIZE/K</tt>
+per risparmiare spazio in giro per il mondo ;-).
+<h4>Opzioni</h4>
+<table>
+<tr><td colspan=2>
+<tt>DEVICE,NAME,SKIPTRACK/K,SIZE/K,FD=FIRSTDISK/K/N,LD=LASTDISK/K/N,PEDANTIC/S</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>DEVICE</tt>
+</td><td>
+il nome del device dal quale DIC dovrà leggere i dischi
+<br>default "DF0:"
+<br>esempio "RAD:"
+</td></tr>
+<tr><td valign=top>
+<tt>NAME</tt>
+</td><td>
+nome dell'immagine da creare, se specificato DIC non nominerà l'immagine "Disk.1" eccetera, ma userà il nome specificato.
+Questa opzione imposta <tt>FIRSTDISK/K/N</tt> e <tt>LASTDISK/K/N</tt> a 1, che significa che solo un disco verrà letto
+</td></tr>
+<tr><td valign=top>
+<tt>SKIPTRACK/K/N</tt>
+</td><td>
+le tracce specificate non verranno lette, la corrispondente area nell'immagine disco da creare verrà riempita dal pattern
+"<tt>TDIC</tt>", la tabella seguente mostra qualche esempio per illustrare la flessibilità nello specificare le tracce
+  <table>
+  <tr><td>lista</td><td>tracce specificate</td></tr>
+  <tr><td>1-5</td><td>1,2,3,4,5</td></tr>
+  <tr><td>2,90</td><td>2,90</td></tr>
+  <tr><td>2*2</td><td>2,4,...,156,158</td></tr>
+  <tr><td>10-20*5</td><td>10,15,20</td></tr>
+  <tr><td>1-5,7,99-104*2</td><td>1,2,3,4,5,7,99,101,103</td></tr>
+  </table>
+</td></tr>
+<tr><td valign=top>
+<tt>SIZE/K</tt>
+</td><td>
+la dimensione dell'immagine da creare, utile se c'é un'area inutilizzata alla fine del disco. Se SIZE è più grande della dimensione fisica dell'immagine, l'opzione verrà ignorata
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>FD=FIRSTDISK/K/N</tt>&nbsp;&nbsp;
+</td><td>
+numero del primo disco
+<br>default "FD=1"
+<br>esempio "FD=0"
+</td></tr>
+<tr><td valign=top>
+<tt>LD=LASTDISK/K/N</tt>
+</td><td>
+numero dell'ultimo disco
+<br>default "LD=999999"
+<br>esempio "LD=3"
+</td></tr>
+<tr><td valign=top>
+<tt>PEDANTIC/S</tt>
+</td><td>
+se specificata DIC terminerà immediatamente se una traccia non potrà essere letta, dovrebbe essere utilizzato negli script
+di installazione
+</td></tr>
+</table>
+<h4>Return code (codice di ritorno)</h4>
+Il return code sarà 0 (zero) se tutti i dischi da <tt>FD</tt> fino a <tt>LD</tt> saranno stati letti correttamente.
+Altrimenti verrà impostato a 10.
+</BODY>
+</HTML>

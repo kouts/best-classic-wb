@@ -1,0 +1,533 @@
+ATTENTION!!!
+
+All changes marked with '*' come from Paul Huxham's version of
+Directory Opus 4. Do not expect that I'll be blindly importing all his changes.
+Some of them are buggy, some don't make to much sense. Use the version you
+like more.
+
+
+DirectoryOpus:
+
+4.16:
+- public release.
+- whhel mouse support for listers, Show function and internal file reader
+- fixed MatchI filetype command malfunctioning due to compiler bug
+- default filetype works as before
+
+4.15m (19.06.2001):
+- Hunt function works correctly again.
+- copying zero-length files correctly sets file attributes of destination
+file.
+- replaced all calls to utility.library via dopus.library to direct ones.
+
+4.15l (03.06.2001):
+- Used-defined colors of menus should be always used now.
+- New look menus are always used.
+- Some localization fixes.
+- Defaults function works again
+- '-X' CLI parameter to force opening xadmaster.library
+- fixed MatchI filetype edition
+- fixed filetype recognition
+
+4.15k (24.05.2001):
+- requires dopus.library 22.18+
+- no more "Operation not supported" error when trying to use GetSizes
+function when destination lister contains archive.
+- new filetype recognition command "MatchI". It does exactly the same as
+"Match" but is case-insensitive.
+- increased startup directory path size to 69 characters
+- DiskInfo requester shortcut fixed.
+- Protect requester localized (except gadgets in the middle)
+- About requester localized
+- use of '~' shortcut enabled in gadgets, drives and menus.
+- Relabel function works on device list too (only <VOL> entries) and uses
+dos.lib/Relabel() call instead of sending packets directly to filesystem.
+- fixed crash when dopus.library can't be opened.
+- K/M/G size style works again.
+- DOpus tries to use its icon for iconify appicon also when started from
+CLI.
+- File viewer shows loaded part of the file on user interrupt (by RMB).
+- Internal Assign function works on late (<DFR>) and non-binding (<NBD>)
+assigns too.
+
+4.15j (02.05.2001):
+- changed gadgets order in some requesters (moved ABORT to the rightmost
+position).
+- non-real-disk directorie (like archives) are not re-read automatically
+- ANSI render window is opened behind reader's window.
+- improved XAD support: copying directories is available now.
+- recompiled with gcc 2.95.3
+- Size of empty directory is now shown as zero after GetSizes.
+- Menu colors should be correct now
+- 'Skip all' option added to COPY/MOVE file replace requester. WARNING: USE
+WITH CARE - NOT FULLY TESTED
+- DOpus appicon image is taken from program's icon instead of
+def_appicon.info file.
+- 'QUERY UpdateFlags' and 'QUERY ViewPlayFlags' commands support new
+ConfigOpus flags ('update lister while scanning' and 'view in window").
+- When starting DOpus can specify a directory which should be read into
+left lister overriding config file setting. Just put directory name in
+command line when starting from CLI or double-click directory's icon on WB
+with DOpus icon selected. Note that there's 29 chars limit for directory
+name.
+- Increased stack size for file viewer to 8kB.
+- Replaced CreateProc() with CreateNewProc calls. This fixes numerous
+problems with finding files when DOpus: assign isn't defined.
+- DiskInfo and MultiParent requesters get keyboard shortcuts from gadget
+names now.
+- Version requester localized
+
+4.15i (26.02.2001):
+- .STR file is no longer used in favor of dopus4.catalog
+- DOpusRT call uses quotes. This fixes a 'cannot start any external program
+if path to DOpus directory contains spaces' problem.
+- CLONE function requester names fixed.
+- NODOPUSASSIGN is obsolete now.
+
+4.15h (14.02.2001):
+- now you can exit from textviewer via RMB also when it uses Workbench screen
+- fixed a bug which caused a crash when FORCEOPENXAD tooltype wasn't
+  defined and the user entered filename into path stringgadget.
+- filename sorting reverted back to DEC numbers
+
+4.15g:
+- system-compliant localization
+- some preOS3.0 code removed
+
+4.15f (22.01.2001):
+- imported most of Paul's modifications and changed the source tree to be
+  easier to port to SAS/C.
+* Removed tooltype VIEWONWB and moved it to configuration (see ConfigOpus).
+* Fixed bug in quiting where if the stack was lowered crashed on exit.
+* Fixed a bug where deleting an assign could intermittently cause crashes
+  because of an uninitialized pointer
+* Added a define (NODOPUSASSIGN) to enable using PROGDIR: instead of DOpus:
+* Text view in window now opens on the same screen as directory opus 4.
+* Localized all hard coded english strings
+* User appicon can now be placed into S: or DOpus:S
+* Removed tooltype QUIETGETDIR and moved it to configuration (see
+  ConfigOpus).
+* Removed "Quiet ReadDir" from the popup menu as its not something thats
+  changed often. Its now in config.
+* Removed tooltype SIZEKMGMODE and moved it to configuration (see
+  ConfigOpus).
+* Moved the Kilo/Mega/Giga mode in the popupmenu to a root level and
+  renamed it "Size as K/M/G".
+* You can specify your own appicon (for iconification) by putting an icon
+  named "def_AppIcon.info" in DOpus:. If there isnt a file with that name,
+  the regular appicon will be used.
+* Rename now wont overwrite directories if you rename a directory and also
+  shows different information (unlocalized as yet) depending on what is
+  being renamed to what.
+
+4.15e:
+SKIPPED.
+
+4.15d (03.11.2000):
+- fixed SysInfo.library support (damn, I didn't know that OpenLibrary() is
+case-sensitive!)
+- fixed dead-lock when DOpus tried to read non-existing directory
+- assigns can be removed using DELETE function on device list entries.
+- fixed sorting by name code. '0A' is greater than '09' now.
+- fixed wrong VIEWONWB tooltype format description
+
+4.15c (29.10.2000):
+- preliminary archive support (uses XADMaster which has shareware status,
+register if you want to use it!). Supported functions: doubleclick
+(excluding defined filetypes), Copy(As), xxxRead, CheckFit(for files
+only!). Some other could work also but weren't tested. YOU'VE BEEN WARNED!
+If you dare to test any then don't forget to tell me the result.
+- QUIETGETDIR and SIZEKMGMODE tooltypes added.
+- WB screen parameters can be changed when DOpus is running on its own screen
+(if DOpus is button/window-iconified it will be automatically uniconified)
+- sorting by name pays attention to leading 0's
+- removed some dead code, decreased memory usage a bit
+- internal SHOW function can display OS3.5 icons (only 16 RGB4 colors now).
+- some selected files weren't processed sometimes - fixed.
+- MAKEDIR function doesn't work on empty/devicelist/dirtree listers anymore.
+- File viewer can be opened on default public screen. Put VIEWONWB tooltype
+in program's icon to activate that mode. Define window size with
+VIEWONWB=left/top/width/height (default: 0/0/640/200).
+- SysInfo.library support. Now DOpus can use that library for CPU usage
+estimating instead of internal meter. Note that the library requires
+Executive or SysMon to work. If none of them is running DOpus falls back to
+internal meter. To enable SysInfo support put USESYSINFO tooltype in its
+icon.
+- to open XADmaster.library on startup use FORCEOPENXAD tooltype
+(default: use only if already in memory)
+- some more fixes for long filenames (any still left?)
+- fixed DateStamp bug with filenames longer than 40 chars.
+- browsing linked directories works now.
+
+4.15b (02.10.2000):
+- preliminary link support
+- removed few dead assignments (from Jaroslav Pokorny's sources)
+- ARexx results can be bigger than 256 chars without trashing memory.
+- live lister prop update during reading a directory can be turned off
+(currently available only through lister popupmenu and not saved in config
+file)
+
+4.15a (20.09.2000):
+- K/M/G size display in lister (currently available only through lister popupmenu
+and not saved in config file)
+
+4.15
+- public release
+
+4.14j:
+- Long filenames do not trash copy/move/delete progress window
+- Sort popupmenu doesn't appear on device or buffer list
+- Sort popupmenu should allow multiselection now (but it doesn't probably
+due to popupmenu.library bug)
+- File viewer supports files longer than 65535 lines now
+- "DOpus already running" requester doesn't require Arexx anymore to work.
+
+4.14i:
+- removed lots (all?) pre-OS3.0 conditional code
+- removed PowerPacker support completely (replaced by XFDMaster support)
+- XFDMaster.library is opened only when needed and if it has already been
+opened by another program. This prevents loading all decrunchers from libs:xfd/
+directory. That feature can be overriden by setting FORCEOPENXFD tooltype
+in program's icon or -x (case important!) argument if started from CLI.
+- fixed canceling "DOpus already running" requester. Now it uses ARexx and
+requires RexxMaster running to work. "Bring to front" option added.
+
+4.14h:
+- FPU-less 68060 correctly detected
+- fixed incorrect displaying free space in K/M/G on titlebar for K's
+- support for partitions bigger than 2G updated; maybe now it will work ;-)
+- font screen opens with default width and height now
+- corrected system alert if DOpus is started under too old kickstart
+
+4.14g:
+- If you answer 'Cancel' in "DOpus already running" requester then existing
+DOpus window/screen is brought to front.
+- Disk modules don't open on new screen when started asynchronously and DOpus
+is working on its own screen.
+- Font and print screens don't require mode promotion on GFX cards anymore.
+- HUNT function do not show file names during scanning (only
+directories). This speeds it up a lot.
+- Support for partitions bigger than 2GB.
+- 68060 FPU should be correctly reported now.
+
+4.14f:
+- Search function in file viewer supports all chars now (not upto $79 only)
+- GetSizes functions do not show file names during scanning (only
+directories). This speeds it up a lot.
+- Fixed FPU recognition with 68060 CPU.
+
+4.14e:
+- XFDMaster doesn't use external decrunchers from libs:xfd drawer. It
+should speed-up opening the library a lot.
+
+4.14d:
+- fixed bug in sort popup menu which caused incorrect active
+sorting mode marking
+- key shortcuts in file viewer are passed through keymap now so they should
+work correctly on non-QWERTY keyboards
+- U,D,T,B,S,P,Q key shortcuts in file viewer obey localization. X,J,N,C keys remained as
+they're not localizable.
+- file viewer uses XFDMaster instead of PowerPacker to read files.
+- in file viewer reading of the file can be aborted with RMB (checked every
+128kB).
+
+4.14c:
+- fixed bug in file viewer when TAB wasn't at the beginning of the line.
+Uff, that was hard!
+- minor corrections to iconify code (WB change during ButtonIconify or
+WindowIconify still doesn't work!)
+
+4.14b:
+- Increased maximum displayed file name characters to 64.
+- file viewer respects TABs
+
+4.14a:
+- Re-enabled DOPUS:libs/dopus.library search path for main program
+- Default pattern for file selection by date is current day.
+- Increased room for filesize in lister from 7 to 9 digits (Pavel Cizek)
+- Removed 16 color limit for custom DOpus screen. DOpus still uses upto 16
+colors for its GUI.
+- DosType in DiskInfo function returns correct value for non-standard
+filesystems.
+
+4.14:
+- public release
+
+4.13h:
+- removed possible race condition which could cause a freeze after processing files
+when progress window was opened. But I don't really think it helps  ;-)
+- re-enabled prop updating during directory reading.
+
+4.13g:
+- recompiled missing files with CHIP RAM bug.
+
+4.13f:
+- CHIP RAM problems finally solved! It was so simple...
+- turned off propgadget update during directory reading (Pavel Cizek)
+- additional keystrokes in file viewer: Space - PageDown (doesn't activate
+scroll mode anymore!), BackSpace - PageUp, / - Search requester (Pavel
+Cizek)
+- prop updating turned off while directury reading to test speed-up (Pavel
+Cizek).
+
+4.13e:
+- 'Sort by' popup menu added (requires popupmenu.library). Press RMB over
+diskname bar to display it.
+
+4.13d:
+- standard version string for main program.
+- allows CGX/P96 custom screens (still 16-color limit).
+
+4.13c:
+- partial workaround for GCC chip data bug. No more trashed gadgets, pointers or
+appicon in main program. Expect trashed gfx in ConfigOpus and in
+dopus.library functions. Final fix still to come.
+
+4.13b:
+- icon filename creation changed to the same as used by AmigaDOS
+- removed 30 chars limit for ADDICON function (I wonder how many such
+  limits still hide somewhere in the sources...)
+- added screennotify.library support (if available) so DOpus doesn't block
+WB screenmode changes anymore
+
+4.13a:
+- 68060 and RTG system support for Version requester.
+
+4.13:
+- long filename support (upto 107 characters)
+- fixed stack problem when started from CLI.
+
+4.12:
+- recompiled with GCC 2.95.2 and PhxAss 4.39
+- optimized for 68020 CPU
+- directly uses memory pools in KickStart 3.0+.
+- speeded-up file copying with progress indicator enabled (almost as fast
+as in DOpus Magellan!)
+- added up-to-date asyncIO routines (from aminet:dev/c/asyncio.lha)
+- doesn't hang-up during copying/moving files anymore (probably due to new asyncIO
+routines).
+
+
+
+
+ConfigOpus:
+4.15h:
+- 'Execute' added to command list in action definition.
+
+4.15g (03.06.2001)
+- new look menus switch removed
+- color fixes in menu edit screen.
+
+4.15f (24.05.2001):
+- existing keyboard shortcuts follow localization
+- requires dopus.library 22.18+
+- removed all pre-OS3.x code
+- new filetype recognition command "MatchI". It does exactly the same as
+"Match" but is case-insensitive.
+- displaying '~' as a hotkey in ConfigOpus enabled.
+
+4.15e (4.03.2001):
+- OS3.5 icons should be displayed correctly now.
+- fixed 'missing filetype length edit gadget' bug introduced by Paul.
+Window layout redesigned too to avoid overlapping gadgets when Envoy was
+installed (Paul should pay an attention to that).
+
+4.14d (25.02.2001):
+- help works again
+- removed language selection. Now the language is automatically selected by
+locale.library
+- .STR file is no longer used in favor of dopus4_config.catalog
+
+4.14c (31.01.2001):
+- system-compliant localization
+- removed DOpus: assign in .STR file search path
+
+4.14b (22.01.2001):
+* Added configuration item: "System/View & Play/View in window". This
+  replaces the old tooltype VIEWONWB which has now been removed. 0 in
+  width or height equals maximum distance in that direction. Negative
+  values are subtracted from the maximum available size. The window cannot
+  be made smaller than 50 x 50.
+* Added a define (NODOPUSASSIGN) to enable using PROGDIR: instead of DOpus:
+* Localized all hard coded english strings
+* Added configuration item: "Operation/Update/Update listview slider while
+  scanning". This replaces the old tooltype QUIETGETDIR which has now been
+  removed.
+* Added configuration item: "Operation/List format/Show entries as K/M/G"
+  which can be used to set the default display mode of the list for bytes
+  or K/M/G. Each lister can be set independently.
+
+4.14a (02.10.2000):
+- v44 icon support for icon preview (System/Icons).
+
+4.14:
+- public release
+
+4.13d:
+- removed bug in command list (the list was too long)
+
+4.13c:
+- fixed bug in filetype editing hex view.
+
+4.13b:
+- Increased maximum displayed file name characters to 64.
+
+4.13a:
+- fixed bug in screenmode selection for ConfigOpus. Sometimes it preferred
+PAL over CGX
+- removed 16 color limit for custom DOpus screen. DOpus still uses upto 16
+colors for its GUI.
+
+4.13:
+- public release
+
+4.12b:
+- CHIP RAM bug removed. No more trashed graphic on native displays.
+
+4.12a:
+- if config window cannot be opened on WB due to insufficient number of
+free pens it tries to find best screenmode using BestModeID() under OS3.0+.
+No more annoying PAL screenmode.
+- screenmode filter allows CGX/P96 modes now (still upto 16 colors).
+
+
+
+
+dopus.library:
+
+22.18 (03.06.2001):
+- some minor fixes.
+
+22.18 (24.05.2001):
+- optimized few functions
+- removed pre-OS3.x code
+
+22.17 (12.05.2001):
+- increased startup directory path size to 69 characters
+- automatic conversion of '~' hotkey in older config files
+- displaying '~' as a hotkey in ConfigOpus enabled.
+
+22.16 (28.04.2001):
+- small fix in UScoreText() for icon module.
+
+22.15 (4.03.2001):
+- no more 'insert DOpus: volume in any drive' requesters.
+
+22.14 (25.02.2001):
+- .STR file support removed.
+
+22.13 (14.02.2001):
+- replaced memory allocation functions with new ones which are using OS3.x
+  memory pools.
+- automatic key shortcut creation for simple requesters
+- fixed string numbering when loading strings from .catalog
+
+22.12 (29.01.2001):
+- ReadStringFile() loads and uses .catalog locale if available
+- FindSystemFile() now searches for files in system directories, then in
+  PROGDIR: based directories and finally in DOpus: based directories.
+
+22.11 (22.01.2001):
+* FindSystemFile() now checks in a user specified directory for files. This
+  is to assist in the removal of the DOpus: assignment
+
+22.10 (12.10.2000):
+- replaced few functions with OS 2.0+ calls
+- some fixes for long filenames
+
+22.9:
+- case conversion is done by locale.library now
+- fixed wrong drive name (second char was trashed)
+
+22.8:
+- public release
+
+22.7a:
+- CHIP RAM bug removed. No more trashed graphic on native displays.
+- requires OS 3.0+ to run
+
+
+
+
+DOpus_Icon:
+
+1.7h (28.04.2001):
+- All gadgets have working key shortcuts (localizable)
+
+1.7g (25.02.2001):
+- .STR file is no longer used in favor of dopus4_icon.catalog
+
+1.7f (14.02.2001):
+- localization code unified with other DOpus parts.
+
+1.7e (22.01.2001):
+- removed unused variable (Paul Huxham).
+
+1.7d (19.09.2000):
+- all icons work now.
+
+1.7c:
+- fixed OS3.5 icon support. NewIcons still do not work :(
+
+1.7b:
+- OS 3.5 icon support changed
+- key shortcuts obey localization
+
+1.7a:
+- true localization
+- experimental OS 3.5 icon support.
+
+
+
+
+DOpusRT:
+
+4.6 (19.10.2000):
+- reverted to old FindPath() version. According to MungWall Jaroslav was
+wrong.
+
+4.5 (29.09.2000):
+- fixed hits in FindPath() (from Jaroslav Pokorny's sources)
+
+
+
+
+DOpus_Print:
+
+1.28 (02.06.2001):
+- some localization fixes
+
+1.27:
+- PrintDir respects file name length set in lister
+
+1.26 (07.03.2001):
+- removed deadlock when output file was the same as input one.
+
+1.25 (25.02.2001):
+- .STR file is no longer used in favor of dopus4_print.catalog
+
+1.24 (14.02.2001):
+- system compliant localization
+
+1.23 (22.01.2001):
+- Powerpacker support removed (Paul Huxham).
+
+
+
+
+DOpus_Disk:
+
+2.4 (02.06.2001):
+- localization updated
+
+2.3f (12.05.2001):
+- some fixes in key shortcuts and localization
+
+2.3e (04.05.2001):
+- keyboard shortcuts localized
+
+2.3d (25.02.2001):
+- .STR file is no longer used in favor of dopus4_disk.catalog
+
+2.3c (14.02.2001):
+- system compliant localization

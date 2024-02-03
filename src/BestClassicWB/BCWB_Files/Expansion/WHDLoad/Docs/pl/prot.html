@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE>Korzystanie z resload_Protect#?</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: prot.html 1.6 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Korzystanie z resload_Protect#?</h3>
+<h4>Teoria</h4>
+Istnieje wiele sytuacji, w których może być bardzo użyteczne zdobycie
+informacji kiedy zainstalowany program próbuje dostać się do specyficznych
+obszarów pamięci.
+Przy pomocy funkcji <a href="../autodoc.html">resload_Protect#?</a>
+jest możliwa chrona pewnych obszarów pamięci przed zapisem i/lub odczytem.
+Ochrona oznacza tyle, że każdy dostęp do takiego chronionego obszaru wygeneruje
+wyjątek błędu dostępu, który zostanie wyświetlony w stosownym komunikacie.
+Jeżeli zadeklarujemy obszar pamięci jako chroniony, wykorzystanie funkcji
+<a href="../autodoc.html">resload_Protect#?</a> spowoduje, że
+WHDLoad zmodyfikuje opisującą stronę pamięci w drzewo tłumaczeń MMU.
+Od teraz każda próba dostępu procesora do chronionej strony pamięci wygeneruje
+wyjątek błędu dostępu. WHDLoad i jego wewnętrzne procedury zweryfikują powód
+wystąpienia wyjątku. Jeżeli powodem był dostęp do chronionej
+<a href="mmu.html">strony</a> pamięci, lecz dostęp nie odpowiada chronionemu
+obszarowi, dostęp zostanie zaemulowany i program będzie wykonywany dalej.
+W przeciwnym wypadku WHDLoad powróci do systemu ze stosownym komunikatem.
+Jeżeli dostęp był dostępem do strumienia instrukcji (procesor próbuje
+załadować kod), zawsze nastąpi emulacja. Innymi słowy funkcja
+<a href="../autodoc.html">resload_Protect#?</a> oddziałuje tylko
+na odczyt i zapis danych. W rzeczywistości każdy dostęp do chronionej strony
+pamięci (rozmiar strony pamięci obecnie wynosi 4096) utworzy błąd dostępu,
+nawet wtedy, gdy chroniony obszar ma rozmiar 1 bajta powodując duże spowolnienie
+w wykonywaniu programu. W szczególności gdy część kodu znajduje się na tej samej stronie.
+Jeśli program zależy od szybkości wykonywania, są możliwe różnice w działaniu programu.
+Dlatego też jest możliwe, że niektóre porogramy nie będą działały poprawnie z włączoną
+opcją resload_Protect.
+
+<h4>Przykład</h4>
+Jeżeli instalujesz grę przy pomocy pakietu WHDLoad, musisz załatać oryginalny
+kod wczytujący gry w taki sposób, aby skorzystał on z WHDLoada do wczytywania danych.
+Niektóre gry sprawdzają sumy kontrolne pewnych obszarów kodu, aby wykryć,
+czy oryginalny kod był modyfikowany. Czasami jest je ciężko znaleźć.
+Wykorzystując funkcję <a href="../autodoc.html">resload_Protect#?</a>
+będzie to proste. Należy tylko chronić bajty, które się zmieniało w kodzie
+gry. Od teraz każda procedura, która próbuje sprawdzić sumę kontrolną i odczytuje
+Twój zmodyfikowany kod, wygeneruje błąd dostępu, a Ty już będziesz wiedział,
+gdzie ona się znajduje.
+
+<h4>Ograniczenia</h4>
+Nie wolno chronić stron pamięci, na których znajdują się punkty SSP. Jeżeli tak
+zrobisz, nastąpi &quot;wyjątek&quot;, którego efektem będzie &quot;podwójny błąd szyny&quot;, gdyż
+procesor nie będzie w stanie zapisać ramki stosu wyjątku.
+Po &quot;podwójnym błędzie szyny&quot; należy wykonać reset. WHDload
+sprawdza, czy występują konflikty pomiędzy chronionymi obszarami, a SSP,
+i w takim przypadku przerywa działanie, lecz to nie pomoże, jeśli SSP
+zostanie zmieniony później.
+
+<p>Więcej informacji znajdziesz w plikach Autodoc dla poszczególnych funkcji resload_Protect:
+<ul>
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+</ul>
+</BODY>
+</HTML>

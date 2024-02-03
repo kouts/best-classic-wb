@@ -1,0 +1,790 @@
+**Versionstring
+$VER: DOpus4_italiano.HLP 1.0 (21.06.2001)
+^
+**Assign
+Questa funzione ti permette di assegnare alla directory attiva un nome di
+dispositivo logico. C: è un esempio di dispositivo logico ; non è un disco
+fisico, ma una directory a cui è stato assegnato il nome dispositivo "C:".
+Per esempio, un nome semplice come Text: può essere dato ad un lungo e
+complicato percorso come:
+
+   DH0:Projects/Work/1989/April/Bits&Pieces/Text
+
+Da questo momento, ogni volta che inserisci Text: in un campo percorso,
+verrai subito portato alla directory finale del percorso, anziché dover
+passare attraverso gli stadi intermedi. L'assegnazione è riconosciuta da
+qualunque programma. I nomi dei dispositivi logici terminano sempre con i
+due punti.
+
+Assign ti permette anche di cancellare un dispositivo logico assegnato in
+precedenza, o di riassegnarlo ad un'altra directory. Per fare ciò, premi
+col tasto destro del mouse il pulsante S (Select), per attivare il comando
+GetDevices. Seleziona l'assegnazione che desideri modificare e chiama il
+comando Assign: apparirà un pannello di richiesta nel quale puoi digitare
+un nuovo percorso da assegnare ai nomi dispositivo. Lasciando il campo di
+testo vuoto, l'assegnazione del dispositivo selezionato viene rimossa.^
+**CD
+Questa funzione permette di specificare la directory corrente di lavoro per
+Directory Opus. È anche la directory che viene letta se premi invio nel
+campo di testo del percorso quando esso è vuoto.^
+**ErrorHelp
+Questa funzione fornisce maggiori informazioni sui messaggi e sui codici di
+errore AmigaDOS di quanto non avvenga di norma. Se selezionata, ti verrà
+chiesto di inserire il codice di errore. Inviandolo ti verrà mostrato il
+messaggio standard dell'errore accompagnato da una sua descrizione.^
+**Configure
+Questa funzione carica in memoria e avvia il modulo di configurazione
+ConfigOpus o, se avviato in precedenza, lo riapre. Consulta il manuale per
+informazioni sulle varie opzioni di configurazione.^
+**About
+Questa funzione mostra lo "schermo titolo" del programma, il numero della
+versione corrente e informazioni sui diritti d'autore.^
+**Alarm
+Questa funzione emette un suono di sveglia.^
+**Beep
+Questa funzione emette un bip.^
+**SetVar
+Assegna un valore dato alla variabile ambiente locale.^
+**Version
+Selezionando questa voce appare una finestra contenente informazioni sulle
+versioni del software, del Kickstart e del Workbench. Contiene inoltre
+ulteriori informazioni che ti potrebbero servire nel caso chiedessi
+assistenza tecnica.^
+**Iconify
+Nasconde lo schermo di Directory Opus, per liberare quanta più memoria
+possibile.
+
+Puoi decidere che aspetto fare assumere a Directory Opus quando esso viene
+ridotto, incluse una finestra (con o senza orologio e monitor di memoria) ed
+una Appicon.^
+**ButtonIconify
+Questa funzione è simile al comando Iconifica salvo che la finestra aperta
+sul Workbench contiene tutti i tuoi pulsanti e i tuoi menu personalizzati.
+Questo ti permette di lanciare programmi da Directory Opus anche quando
+questo viene ridotto a icona.^
+**Quit
+Esci da Directory Opus. Se la configurazione è stata modificata, un pannello
+di richiesta ti chiederà se vuoi salvarla.^
+**Filter
+Permette di usare un filtro che specifichi quali file considerare operando
+su directory ricorsive.^
+**Diskcopy
+Con questa funzione puoi copiare un disco su un altro. Il comando scrive
+un'esatta copia del disco originale. Dischi di software protetti e dischi
+non AmigaDOS non saranno copiati. Questa funzione si trova nel modulo
+esterno DOpus_Disk.
+
+Selezionando la funzione appare una finestra con due elenchi di dispositivi.
+Scegli il disco sorgente dalla lista a sinistra e il disco destinazione
+dalla destra.
+
+L'opzione "Verifica" controlla ogni traccia non appena questa viene scritta,
+per assicurarsi che non ci siano stati errori. L'opzione "Cambia nome"
+modifica il nome della copia per evitare problemi legati alla presenza di
+dischi identici nel sistema.^
+**Format
+Formatta un nuovo disco. Tutti i nuovi dischi vanno formattati prima che il
+computer possa scriverci sopra. Questa funzione si trova nel modulo esterno
+DOpus_Disk.
+
+Una volta selezionata la funzione, compare una finestra contenente una lista
+di dispositivi e diverse opzioni. Scegli un disco dalla lista. A seconda
+della versione del tuo sistema operativo avrai accesso a più o meno opzioni
+per scegliere il tipo di formato (FFS, Dir Caching, etc.).
+
+L'opzione "Verifica" controlla la traccia appena scritta per assicurarsi che
+la formattazione non abbia incontrato errori. L'opzione "Con cestino"
+aggiunge le relative directory e icona sul nuovo disco.
+
+Il pulsante "Veloce" permette di inizializzare un disco già formattato,
+fornendo un modo assai veloce per cancellare vecchi dischi. Questo non
+funziona però sui nuovi dischi, per i quali bisognerà usare "Formatta".^
+**Install
+Questa funzione consente di rendere avviabile un disco. I dischi avviabili
+contengono nel primo settore particolari informazioni, senza le quali non
+possono partire. La funzione è contenuta nel modulo esterno DOpus_Disk.
+
+Nella finestra compare un'elenco dei dispositivi disponibili (nota che puoi
+installare solamente dischetti floppy con questa opzione). Scegli dalla
+lista il dispositivo che vuoi installare.^
+**Relabel
+Ti permette di modificare il nome del disco attualmente caricato nella
+finestra di directory attiva.^
+**PrintDir
+Questa funzione ti consente di stampare il contenuto della finestra
+directory attiva. Puoi scegliere quali informazioni stampare, incluse
+dimensioni dei file, bit di protezione, date e commenti. Puoi anche decidere
+di scrivere i dati in uscita su un file, anziché inviarli alla stampante.
+
+La funzione è contenuta nel modulo esterno DOpus_Print.^
+**DiskInfo
+Questa funzione mostra alcune informazioni sul disco contenente la directory
+selezionata, incluse spazio utilizzato e libero, data e numero di errori
+rilevati sull'unità.^
+*LHA Add
+Questa funzione ti permette di aggiungere file ad un archivio LHA nuovo o
+preesistente.
+
+Per aggiungere i file, apri nella finestra non selezionata la directory in
+cui vuoi sia scritto l'archivio, seleziona i file e le directory che vuoi
+aggiungere e attiva questa funzione: ti verrà chiesto il nome dell'archivio
+in questione.^
+*ARC Add
+Questa funzione ti permette di aggiungere file ad un archivio ARC nuovo o
+preesistente.
+
+Per aggiungere i file, apri nella finestra non selezionata la directory in
+cui vuoi sia scritto l'archivio, seleziona i file e le directory che vuoi
+aggiungere e attiva questa funzione: ti verrà chiesto il nome dell'archivio
+in questione.^
+*ZOO Add
+Questa funzione ti permette di aggiungere file ad un archivio ZOO nuovo o
+preesistente.
+
+Per aggiungere i file, apri nella finestra non selezionata la directory in
+cui vuoi sia scritto l'archivio, seleziona i file e le directory che vuoi
+aggiungere e attiva questa funzione: ti verrà chiesto il nome dell'archivio
+in questione.^
+**All
+Seleziona tutti i file e le directory presenti nella finestra di directory
+attiva.^
+**Toggle
+Questa funzione inverte lo status di tutti i file e directory contenuti
+nella finestra attiva (cioè, tutte le voci selezionate vengono
+deselezionate e viceversa).^
+**None
+Deseleziona tutti i file e le directory contenuti nella finestra attiva.^
+**Parent
+Legge la directory precedente alla directory contenuta nella finestra
+attiva.^
+**Root
+Legge la directory radice della directory contenuta nella finestra attiva.^
+**Copy
+Questa funzione copia tutti i file e le directory selezionati dalla finestra
+sorgente alla finestra destinazione, mantenendo invariati i nomi.^
+**CopyAs
+Questa funzione copia tutti i file e le directory selezionati dalla finestra
+sorgente alla finestra destinazione, permettendo di specificare un nuovo
+nome per ogni voce.^
+**Move
+Vi permette di spostare i file e le directory selezionati dalla finestra
+sorgente alla finestra destinazione. Dopo essere stata copiata, la voce
+originale viene cancellata.^
+**MoveAs
+Vi permette di spostare i file e le directory selezionati dalla finestra
+sorgente alla finestra destinazione, dando un nuovo nome ad ogni file. Dopo
+essere stata copiata col nuovo nome, la voce originale vene cancellata.^
+**Rename
+Questa funzione vi permette di rinominare i file e le directory selezionati.
+Puoi specificare una maschera, usando il carattere jolly "*", oppure ti
+verrà chiesto un nuovo nome per ogni voce.
+
+Per aggiungere un prefisso o un suffisso (o entrambi) a tutte le voci
+selezionate, usa l'asterisco (*) nel secondo campo di testo del requester.
+Per esempio, per aggiungere "HIRES" come prefisso e ".pic" come suffisso a
+tutte le voci selezionate, digita "HIRES*.pic".
+
+Per modificare un prefisso o un suffisso (o entrambi) in tutte le voci
+selezionate, usa l'asterisco (*) nel primo campo di testo del requester. Per
+esempio, per cambiare "HIRES" in "MEDRES" come prefisso, e ".pic" in ".iff"
+come suffisso, digita "HIRES*.pic" nel primo campo di testo, e "MEDRES*.iff"
+nel campo di testo inferiore.^
+**Clone
+Questa funzione esegue nella stessa directory una copia identica delle voci
+selezionate, modificandone però il nome.^
+**Delete
+ATTENZIONE! Questa funzione cancella tutte le voci selezionate nella
+finestra corrente.^
+**MakeDir
+Questa funzione crea una nuova directory nella finestra corrente.^
+**CheckFit
+NOTA BENE!
+
+Questo comando è terribilmente obsoleto: riconosce soltanto le partizioni
+FFS con 512 byte/blocco, fallendo (cioè, riportando dati errati) nel caso
+di partizioni che non seguano fedelmente queste specifiche. Evita di usare
+questo comando, se non sei sicuro che tutte le tue partizioni siano come
+sopra.!
+
+----------
+
+Questa funzione calcola le dimensioni delle voci selezionate e controlla se
+la directory destinazione può contenerle, nel caso volessi copiarle al suo
+interno. È simile al comando "GetSizes", ma più preciso. Il suo solo
+svantaggio è che potrebbe esserci necessità di ricontrollare le voci ogni
+volta che il dispositivo di destinazione viene cambiato.^
+**GetSizes
+Questo comando funziona in maniera simile a "CheckFit": controlla le
+directory selezionate, calcolando la dimensione in bytes di ognuna di esse,
+e le aggiunge al conto totale. Al termine visualizza un "S" o un "N" per
+indicare se la selezione entra per intero o no nella directory destinazione.
+Questa è solo un'indicazione approssimativa: una stima precisa può essere
+ottenuta soltanto col comando "CheckFit".^
+**ClearSizes
+Rimuove le dimensioni visualizzate su schermo delle directory selezionate.
+Può servirti se sai che le dimensioni sono cambiate. Puoi allora
+riselezionare le voci ed eseguire un nuovo calcolo.^
+**Hunt
+Questa funzione ti permette di cercare nelle directory selezionate (e nelle
+loro sotto-directory) un file o un gruppo di file mediante carattere jolly.
+Se i file vengono trovati, la directory che li contiene viene aperta e i
+file automaticamente selezionati.^
+**Search
+Questo comando ti permette di cercare nei file selezionati una stringa
+specifica, indicando opzionalmente un carattere jolly. Se viene trovata una
+corrispondenza, DOpus indica quale file contiene la stringa ricercata e ti
+chiede se vuoi leggere il file in modalità testo. Se scegli di leggerlo, la
+ricerca riprende nuovamente una volta uscito dal lettore di testi. Vedi il
+manuale per ulteriori informazioni (cioè, ricerca di codici ASCII).^
+**Run
+Questo comando lancia ad uno ad uno i file selezionati come processi a bassa
+priorità. Prima di ogni esecuzione ti verrà chiesto di digitare degli
+eventuali argomenti. I file vengono lanciati usando parametri standard che
+dovrebbero essere adatti alla maggioranza dei programmi. Nel caso incontri
+problemi, prova a lanciarli da Workbench.^
+**Execute
+Esegue ad uno ad uno i file selezionati (considerandoli automaticamente
+file di comandi). Nota: solo i file che hanno impostato il bit S verranno
+considerati file di Batch!^
+**Comment
+Ti permette di modificare il commento associato ai file o directory che hai
+selezionato nella finestra di DOpus attiva.
+
+Per ogni voce appare un pannello di richiesta, contenente il relativo
+commento che potrai cambiare a tuo piacimento. Per mantenerlo invariato,
+premi semplicemente "invio".
+
+Per estendere lo stesso commento a tutte le voci selezionate, premi il
+pulsante centrale del pannello di richiesta; con "Okay" o con il tasto di
+invio, dovrai modificare i commenti un file per volta.^
+**DateStamp
+Ti permette di modificare la data dei file e delle directory selezionate
+nella finestra di DOpus attiva.
+
+Per ogni voce appare un pannello di richiesta dove potrai digitare la data e
+l'ora che desideri. Se vuoi che la data e l'ora associate siano quelle
+attuali, premi semplicemente "Invio".
+
+Per estendere la stessa datazione a tutte le voci selezionate, premi il
+pulsante centrale del pannello di richiesta; con "Okay" o con il tasto di
+invio, dovrai modificarle un file per volta.^
+**Protect
+Questa funzione ti permette di modificare i bit di protezione delle voci
+selezionate.
+
+Per ogni voce comparirà un pannello di richiesta che mostra i bit impostati
+correntemente. I bit di protezione sono H (nascosto), S (script-file di
+comandi), P (puro), A (archiviato), R (leggibile), W (scrivibile), E
+(eseguibile) e D (cancellabile).
+
+Per attivare/disattivare i bit, premete i relativi pulsanti sullo schermo, o
+le relative lettere da tastiera. I pulsanti "Tutti" e "Nessuno"
+rispettivamente attivano o disattivano la totalità dei bit. Per invertire
+lo status dei bit premi il pulsante "Alterna". Per ripristinare i valori
+originali, premi il pulsante "Predef.".
+
+"Maschera" ti permette di specificare quali bit non verranno interessati
+dall'operazione. Per esempio, puoi impostare i bit RW in un file, lasciando
+da parte tutti gli altri bit che potranno essere impostati da soli. Per
+attivare/disattivare un bit della maschera, usa il mouse sull'area relativa
+o premi SHIFT più la relativa lettera su tastiera.
+
+Per estendere le impostazioni dei bit a tutte le voci selezionate, premi il
+pulsante centrale del pannello di richiesta; con "Okay" o con il tasto di
+invio, dovrai modificarle file per file.^
+**IconInfo
+Questa funzione ti consente di modificare i parametri delle icone. Alla
+stessa maniera del comando del Workbench "Informazioni", puoi così cambiare
+i bit di protezione, la dimensione dello stack, i parametri "tooltypes" e il
+programma associato.^
+**AddIcon
+Questo comando aggiunge un'icona ai file e alle directory selezionati nella
+finestra attiva. DOpus adatterà automaticamente l'icona al tipo di file
+(cassetto, progetto o strumento). Se le icone standard non ti piacciono,
+puoi specificare quelle che preferisci dal modulo di configurazione.^
+**Encrypt
+Ti permette di crittografare dei dati importanti con una password di tua
+scelta. Tutti i file selezionati nella finestra attiva saranno crittati e
+trasferiti nella directory di destinazione. Se la parola d'ordine inizia per
+il segno "-" (meno), i file verranno invece decrittati.^
+*Arc Ext
+Questo pulsante esegue sui file selezionati il comando "User1" dei tipi di
+file. È chiamato "Arc Ext" perché questa è la funzione standard associata ai
+tipi di file: estrarre dagli archivi. Per ulteriori informazioni sulle
+caratteristiche dei tipi di file, consulta il manuale.^
+**Read
+Questo comando ti consente di leggere un file di testo usando solo il mouse.
+
+Per far scorrere automaticamente il file, premi il tasto sinistro. La
+direzione e la velocità possono essere variate spostando il mouse sull'asse
+alto-basso. Puoi anche usare i tasti cursore, i pulsanti freccia e il
+cursore della finestra (se abilitato).
+
+Per saltare ad una data linea, premi col mouse sull'indicatore del numero di
+linea, in basso. Per saltare ad una data percentuale del testo, premi
+sull'indicatore della percentuale, in basso.
+
+Per muoverti di una pagina su o giù, premi col mouse sui pulsantini U o D,
+o le relative lettere da tastiera. Puoi anche premere SHIFT + freccia
+su/giù oppure Spazio/Backspace.
+
+Per muoverti all'inizio o alla fine del documento, premi su T o B, o le
+relative lettere da tastiera. Puoi anche premere CTRL + freccia su/giù.
+
+Per cercare una data stringa, premi il tasto o il pulsantino S. Per
+continuare una ricerca, premi N. Per stampare la pagina corrente, premi C,
+per stampare l'intero documento, P. Per uscire, infine, premi il pulsantino
+X, oppure ESCape, X o Q da tastiera.
+
+Nota che questo comando non visualizza sequenze di controllo ANSI e simboli
+di tabulazione; per fare ciò devi piuttosto usare il comando ANSIREAD.^
+**AnsiRead
+Questo comando funziona esattamente come READ, visualizzando in aggiunta
+le sequenze di controllo ANSI (colori e stili tipografici) e riconoscendo
+correttamente i simboli di tabulazione.^
+**HexRead
+Questo comando ti consente di leggere un file visualizzandolo in notazione
+esadecimale, con 16 byte per linea, utile per esaminare i file binari. Il
+visualizzatore di testo si comporta come se il file letto fosse un file
+ASCII.^
+**Show
+Questo comando mostra i file selezionati ad uno ad uno, se si tratta di
+immagini IFF ILBM, animazioni ANIM, icone o caratteri tipografici. Nel caso
+delle icone, l'immagine alternativa può essere visualizzata premendo
+"Invio". Per far scomparire un'immagine o passare a quella successiva,
+premi il tasto sinistro. Se la funzione è abilitata per l'immagine, puoi
+avviare e interrompere la rotazione dei colori col tasto TAB.
+
+Premendo il tasto P, HELP o la barra spaziatrice, compare la schermata del
+controllo di stampa: da qui puoi configurare la stampante e stampare
+l'immagine corrente. Vengono inoltre mostrate alcune importanti
+informazioni sull'immagine stessa.
+
+Se l'immagine è più grande dello schermo che stai usando, puoi scorrere con
+i tasti cursore o muovendo il mouse. Puoi vedere anche immagini compresse
+con PowerPacker o altri compressori, a patto che nel sistema sia presente
+la libreria xfdmaster.library.^
+**Play
+Questo comando suona campionamenti IFF 8SVX e altri formati. Per
+interrompere un suono durante l'esecuzione, premi il tasto sinistro del
+mouse. Se hai la libreria inovamusic.library nella directory LIBS:, questo
+comando può suonare anche alcuni moduli musicali.^
+**LoopPlay
+Questo comando suona campionamenti IFF 8SVX e altri formati, ma ogni suono
+viene eseguito in continuazione. Per avanzare al suono successivo, premi il
+tasto sinistro del mouse.^
+*Edit
+Questo comando lancia un elaboratore di testi e carica il file selezionato.
+Questa non è una funzione integrata, ma un pulsante configurato per
+chiamare l'editor di sistema "Ed". Ovviamente puoi (e probabilmente vorrai)
+cambiare questa configurazione.^
+*New File
+Questo comando lancia "Ed" alla stessa maniera del pulsante "Edit". La
+differenza è che ti consente di creare un nuovo documento di testo, di cui
+ti chiederà il nome.^
+**Print
+Questo comando stampa tutti i file selezionati. Si tratta, a tutti gli
+effetti, di un potente formattatore di stampa. Nel relativo pannello di
+richiesta sono disponibili diverse opzioni di configurazione. La routine di
+stampa è contenuta nel modulo esterno DOpus_Print.
+
+Puoi decidere i margini superiore e inferiore (in linee), e i margini
+sinistro e destro (in caratteri). La dimensione del tabulatore (Dim. Tab.)
+è il numero di spazi associato al carattere TAB. Puoi scegliere come corpo
+stampa tra i modi "Pica", "Elite" o "Fine". La qualità di stampa è decisa
+dalle opzioni "Bozza" e "Lettera".
+
+Puoi configurare manualmente i contenuti dell'intestazione o del "piè di
+pagina" perché includano il titolo, la data e il numero di pagina.
+Se nessuno di questi viene impostato, non ci saranno alcuna intestazione o
+piè di pagina. Se l'opzione "Titolo" è selezionata, la stringa digitata nel
+campo di testo a destra verrà usata come titolo. Se il campo viene lasciato
+vuoto, verrà usato invece il nome del file.
+
+Puoi infine scegliere se indirizzare i dati in uscita alla stampante o ad un
+file su disco. Il pulsante "Stampa" avvia l'operazione mentre "Esci" la
+interrompe.^
+**GetDevices
+Questo comando visualizza l'elenco di tutti i dispositivi, unità e
+assegnazioni presenti nel sistema, che potrai poi leggere facendovi un
+doppio clic col mouse. Puoi anche selezionare interi dispositivi sui quali
+usare le funzioni "Hunt" e "Search".^
+**Select
+Questo comando ti permette di selezionare file e directory nella finestra
+attiva basandoti sul nome (mediante caratteri jolly), data di creazione o
+bit di protezione. Per le selezioni tramite nome, tutti i caratteri jolly
+standard (*,~,? etc..) sono supportati, come pure quelli propri di AmigaDOS
+(#? e ?). Consulta la documentazione per maggiori informazioni sui tali
+caratteri.
+
+La selezione tramite data ti consente di specificare dei periodi temporali,
+in formato GG-MMM-AA > GG-MMM-AA. Puoi fare a meno di scrivere una delle due
+date, nel qual caso intenderai dalla data più remota o fino alla data
+corrente. Oltre alla data puoi anche specificare l'orario, nel formato
+HH:MM:SS.
+
+Per specificare i bit di protezione usa i codici "hsparwed". Se fai
+precedere un bit dal carattere - (meno), verranno selezionati tutti i file
+con questo bit non impostato. Consulta la documentazione per maggiori
+informazioni sui metodi di selezione dei file.^
+**Arexx
+Questo ti permette di lanciare un file di comandi ARexx o eseguire un
+comando ARexx all'interno di Directory Opus. Controlla la documentazione
+per avere ulteriori informazioni su ARexx.^
+**DirTree
+Questo comando genera una lista "ad albero" di tutte le sotto-directory
+della directory visualizzata nella finestra attiva. Puoi così leggere subito
+qualsiasi sotto-directory facendovi un doppio clic sopra, piuttosto che
+dover passare attraverso le directory intermedie.^
+**Reselect
+Questa funzione riseleziona tutte le voci selezionate prima dell'ultima
+operazione, a condizione che esistano ancora.^
+**Rescan
+Questo comando rilegge la directory visualizzata nella finestra attiva. Ciò
+ha lo stesso effetto del selezionare il campo di testo della directory e
+battere INVIO senza modificarne il percorso.^
+**BufferList
+Questo comando visualizza l'elenco delle directory contenute nei buffer di
+Directory Opus. Per saltare direttamente alla directory desiderata è
+sufficiente un doppio clic col mouse sul relativo buffer nell'elenco.^
+**ClearBuffers
+Questo comando elimina tutti i buffer di DOpus, tranne i due delle directory
+correntemente visualizzate. La memoria impegnata viene de-allocata; questo è
+un buon sistema per liberare velocemente parte della memoria, se usate molti
+buffer e non ve ne rimane molta.^
+**DriveGadgets
+Questi sono i pulsanti dei dispositivi. Premendoli leggerai il dispositivo
+o il percorso corrispondenti nella finestra attiva.^
+*!103
+Non c'è abbastanza memoria
+
+Possibili cause:
+Non hai abbastanza memoria di sistema per eseguire l'operazione.
+
+Rimedio consigliato:
+Chiudi le finestre e le applicazioni non necessarie, quindi ridigita il
+comando. Se ancora non funziona, prova a riavviare il sistema: potrebbe
+essere che, sebbene sufficiente, la memoria sia frammentata. È anche
+possibile che debba aggiungere ulteriore RAM al tuo sistema.^
+*!104
+La tabella dei processi è piena.
+
+Possibili cause:
+La quantità di processi ammessa è limitata.
+
+Rimedio consigliato:
+Interrompi uno o più processi in esecuzione.^
+*!114
+Modello non corretto
+
+Possibili cause:
+Linea di comando errata.
+
+Rimedio consigliato:
+Consulta la documentazione per l'esatta sintassi del comando.^
+*!115
+Numero non corretto
+
+Possibili cause:
+Il programma si aspettava un argomento numerico.
+
+Rimedio consigliato:
+Consulta la documentazione per l'esatta sintassi del comando.^
+*!116
+Manca un argomento necessario
+
+Possibili cause:
+Linea di comando errata.
+
+Rimedio consigliato:
+Consulta la documentazione per l'esatta sintassi del comando.^
+*!117
+Manca l'argomento dopo "="
+
+Possibili cause:
+Linea di comando errata.
+
+Rimedio consigliato:
+Consulta la documentazione per l'esatta sintassi del comando.^
+*!118
+Troppi argomenti
+
+Possibili cause:
+Linea di comando errata.
+
+Rimedio consigliato:
+Consulta la documentazione per l'esatta sintassi del comando.^
+*!119
+Virgolette non interpretabili
+
+Possibili cause:
+Linea di comando errata.
+
+Rimedio consigliato:
+Consulta la documentazione per l'esatta sintassi del comando.^
+*!120
+Linea argomenti non valida o troppo lunga
+
+Possibili cause:
+La linea di comando è errata o contiene troppi argomenti.
+
+Rimedio consigliato:
+Consulta la documentazione per l'esatta sintassi del comando.^
+*!121
+File non eseguibile
+
+Possibili cause:
+Il comando inserito è sbagliato, o il file (programma o script) non è
+caricabile.
+
+Rimedio consigliato:
+Digita di nuovo il nome del file e assicurati che sia un file programma.
+Ricorda, per eseguire uno script devi usare il comando EXECUTE o impostare
+il bit di protezione "s".^
+*!122
+Libreria residente non valida
+
+Possibili cause:
+Stai usando comandi con una versione sbagliata del sistema operativo; ad
+esempio, comandi del sistema 2.0 con il Kickstart Versione 1.3.
+
+Rimedio consigliato:
+Riavvia con la versione attuale dell'AmigaDOS.^
+*!202
+Oggetto in uso
+
+Possibili cause:
+Il file o la directory specificati sono già utilizzati da un'altra
+applicazione. Se un'applicazione sta leggendo un file, nessun altro
+programma può scriverci sopra.
+
+Rimedio consigliato:
+Interrompete l'applicazione che sta usando il file o la directory e inserire
+nuovamente il comando.^
+*!203
+Oggetto già esistente
+
+Possibili cause:
+Il nome specificato appartiene ad un file o directory già esistente.
+
+Rimedio consigliato:
+Usa un altro nome, oppure cancella l'oggetto già esistente e sostituiscilo.^
+*!204
+Directory non trovata
+
+Possibili cause:
+AmigaDOS non trova la directory specificata. Potresti aver fatto un errore
+di battitura o d'ortografia.
+
+Rimedio consigliato:
+Controlla il nome della directory e reinserisci il comando.^
+*!205
+Oggetto non trovato
+
+Possibili cause:
+AmigaDOS non riesce a trovare il file o dispositivo specificato. Potresti
+aver fatto un errore di battitura o d'ortografia.
+
+Rimedio consigliato:
+Controlla il nome e reinserisci il comando.^
+*!206
+Descrizione finestra non valida
+
+Possibili cause:
+Questo errore può avvenire quando si specifica la dimensione di una finestra
+per Shell, ED or ICONX. Potresti aver creato una finestra troppo grande o
+troppo piccola, oppure hai ommesso un argomento. Questo errore può anche
+insorgere col comando NEWSHELL, se fornisci un nome dispositivo che non
+corrisponde ad una finestra.
+
+Rimedio consigliato:
+Reinserisci le specifiche della finestra.^
+*!209
+Richiesta pacchetto di tipo sconosciuto
+
+Possibili cause:
+Hai richiesto ad un gestore dispositivo di eseguire un'operazione non
+contemplata. Per esempio, il gestore console non può rinominare alcunché.
+
+Rimedio consigliato:
+Controlla l'esistenza dell'opportuna richiesta nel codice trasmesso ai
+gestori dispositivi.^
+*!210
+Nome oggetto non valido
+
+Possibili cause:
+Carattere illecito nel nome file, o nome troppo lungo. Ricorda, i nomi file
+non possono superare i 30 caratteri, quando usi il filesystem nativo di
+Amiga ("FFS"), né contenere simboli di controllo.
+
+Rimedio consigliato:
+Digita nuovamente il nome, assicurandoti di non usare caratteri illeciti e
+di non superare la lunghezza prescritta.^
+*!211
+Lock sull'oggetto non valido
+
+Possibili cause:
+È stato utilizzato un lock non valido.
+
+Rimedio consigliato:
+Verifica che il codice trasmetta soltanto lock validi alle chiamate di
+AmigaDOS che richiedano i lock.^
+*!212
+L'oggetto non è del tipo richiesto
+
+Possibili cause:
+Probabilmente hai specificato un nome file per un'operazione che richiede
+un nome directory, o viceversa.
+
+Rimedio consigliato:
+Verificare l'esatta sintassi del comando.^
+*!213
+Il disco non è convalidato
+
+Possibili cause:
+Se il disco è stato appena inserito, il processo di convalida può ancora
+essere in esecuzione. Può anche darsi che il disco sia danneggiato.
+
+Rimedio consigliato:
+Se il disco è stato appena inserito, attendi che la convalida finisca. Ciò
+può richiedere meno di un minuto per il dischetto o svariati minuti per il
+disco rigido. Se il disco è danneggiato non può essere convalidato. In
+questo caso, cerca di recuperare i file e copiali su un altro disco.^
+*!214
+Il disco è protetto da scrittura
+
+Possibili cause:
+La linguetta di plastica è nella posizione di protezione.
+
+Rimedio consigliato:
+Se sei sicuro di voler scrivere sul disco, sposta la linguetta per chiudere
+la finestrella e reinserisci il disco. Altrimenti, usa un altro disco.^
+*!215
+Tentata rinomina tra dispositivi
+
+Possibili cause:
+RENAME cambia soltanto il nome file sullo stesso volume. Puoi usarlo per
+spostare un file da una directory all'altra, ma non per spostare i file da
+un volume all'altro.
+
+Rimedio consigliato:
+Usa piuttosto il comando MOVE. In alternativa, usa COPY per spostare il file
+sul volume di destinazione, poi cancella il file dal volume sorgente.^
+*!216
+La directory non è vuota
+
+Possibili cause:
+Questo errore avviene se stai cercando di cancellare una directory
+contenente file o sottodirectory.
+
+Rimedio consigliato:
+Se sei sicuro di voler cancellare l'intera directory, usa l'opzione ALL del
+comando DELETE.^
+*!217
+Troppi livelli
+
+Possibili cause:
+Hai superato il limite di 15 collegamenti temporanei (soft links).
+
+Rimedio consigliato:
+Riduci il numero dei collegamenti.^
+*!218
+Dispositivo (o volume) non montato.
+
+Possibili cause:
+Se il dispositivo è un dischetto, non è stato inserito nell'unità. Se di
+altro tipo, non è stato installato col comando MOUNT. È anche possibile che
+abbia commesso un'errore di battitura nel nome.
+
+Rimedio consigliato:
+Inserisci il dischetto corretto, verifica il nome del dispositivo o
+controlla il file devs:Mountlist.^
+*!219
+Errore di Seek
+
+Possibili cause:
+È stato chiamato il comando SEEK con argomenti errati.
+
+Rimedio consigliato:
+Accertati di usare SEEK all'interno di un file. L'uso di SEEK esternamente
+al file non è corretto.^
+*!220
+Il commento è troppo lungo
+
+Possibili cause:
+Il tuo commento al file supera il numero massimo di caratteri consentito (79).
+
+Rimedio consigliato:
+Accorcia il commento.^
+*!221
+Il disco è pieno
+
+Possibili cause:
+Non c'è abbastanza spazio sul disco per eseguire l'operazione richiesta.
+
+Rimedio consigliato:
+Cancella file o directory non necessarie, oppure utilizza un altro disco.^
+*!222
+L'oggetto è protetto da cancellazione
+
+Possibili cause:
+Il bit di protezione "d" (deleteable) del file è azzerato.
+
+Rimedio consigliato:
+Se sei sicuro di voler cancellare il file o la directory, usa PROTECT per
+impostare il bit "d".^
+*!223
+Il file è protetto da scrittura
+
+Possibili cause:
+Il bit di protezione "w" (writeable) del file è azzerato.
+
+Rimedio consigliato:
+Se sei sicuro di voler sovrascrivere il file, usa PROTECT per impostare il
+bit "w".^
+*!224
+Il file è protetto da lettura
+
+Possibili cause:
+Il bit di protezione "r" (readable) del file è azzerato.
+
+Rimedio consigliato:
+Usa PROTECT per impostare il bit "r" del file che vuoi leggere.^
+*!225
+Non è un disco DOS valido
+
+Possibili cause:
+Il disco nell'unità non è AmigaDOS, non è stato formattato o è danneggiato.
+
+Rimedio consigliato:
+Assicurati di usare il disco corretto. Se il disco funzionava regolarmente
+in precedenza, usa un programma di recupero disco per salvarne i file. Se
+il disco non è formattato, usa FORMAT.^
+*!226
+Manca il disco nell'unità
+
+Possibili cause:
+Il disco non è correttamente inserito nell'unità specificata.
+
+Rimedio consigliato:
+Inserisci il disco appropriato nell'unità specificata.^
+*!232
+Non ci sono altre voci nella directory
+
+Possibili cause:
+Indica che la chiamata EXNEXT di AmigaDOS non presenta ulteriori voci nella
+directory esamina.
+
+Rimedio consigliato:
+Non chiamare EXNEXT.^
+*!233
+L'oggetto è un collegamento temporaneo
+
+Possibili cause:
+Hai cercato di eseguire su un collegamento temporaneo ("soft link")
+un'operazione che dovrebbe essere eseguita soltanto su un file o una
+directory..
+
+Rimedio consigliato:
+L'AmigaDOS utilizza il pacchetto Action_Read_Link per risolvere il
+collegamento temporaneo e ritenta l'operazione.^

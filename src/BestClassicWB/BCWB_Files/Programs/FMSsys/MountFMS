@@ -1,0 +1,20 @@
+;FMS Virtual Disk support
+;Bloodwych v4 2004
+
+echo "This will create a Virtual Floppy Disk called FF0: on your HardDisk"
+echo ""
+echo "Once mounted, it will act the same as DF0:, only MUCH quicker"
+echo ""
+echo ""
+ask "Would you like to continue?"
+IF NOT WARN
+SKIP FAIL
+ELSE
+echo ""
+assign FMS: A-Programs:FMSsys
+C:mount FF0:
+SYS:System/format drive FF0: name Empty NoIcons FFS
+endshell
+LAB FAIL
+echo ""
+echo "Virtual Floppy has NOT been mounted."

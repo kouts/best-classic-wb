@@ -1,0 +1,2569 @@
+@DATABASE 5064
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - E. Die Rexx-Schnittstelle"
+@TOC PPaintCD:H/7/1/4/OO00/Main
+
+@{B}E.         Die Rexx-Schnittstelle@{UB}
+
+Personal Paint verfügt über eine leistungsfähige ARexx- (=Amiga Rexx-)
+Schnittstelle, die eine Steuerung des Programms sowohl über Makros als
+auch über andere Programme ermöglicht. Alle Programmfunktionen verfügen
+auch über einen dazugehörigen Rexx-Befehl. Personal Paint enthält außerdem
+auch einige Erweiterungen von Rexx-Befehlen, die über kein Gegenstück auf
+der Benutzeroberfläche verfügen. Als Beispiel sind hier Funktionen zur
+Erzeugung von Vektortexten, zur Ausführung mehrerer Pinseltransformationen
+in einem Arbeitsgang oder zum Mischen und reduzieren von Paletten einer
+unbegrenzten Anzahl von Grafikelementen zu nennen.
+
+Der Name des ersten Rexx-Ports ist "PPAINT". Zusätzliche Ports erhalten
+die Bezeichnungen "PPAINT_2", "PPAINT_3", usw.
+
+
+@{B}E.1        Ein- und Ausgabeumgebung@{UB}
+
+Personal Paint bietet viele Befehle zur Auswertung von Eingaben und zur
+Anzeige von Ausgaben über den standardmäßigen Personal Paint-Bildschirm
+und die Benutzerschnittstelle des Programms. Darüber hinaus lassen sich
+aber natürlich auch die Standard-Ein- und Ausgabebefehle von Rexx (PULL
+und SAY) verwenden, die üblicherweise im Text-Terminalmodus zur Anwendung
+kommen (wie z. B. bei der Amiga-Shell).
+
+Wenn Personal Paint über die Shell gestartet wird, erscheint auch die
+standardmäßige Ein- und Ausgabe von Rexx in der gleichen Shellumgebung.
+Dabei ist jedoch zu beachten, daß ein Start von Personal Paint mit "Run"
+oder einem ähnlichen Programm, der das Abkoppeln des Programms verhindert,
+die Dateneingabe über die Shell unmöglich macht.
+
+Wird Personal Paint über die Workbench gestartet, so wird der
+Rexx-Umgebung eine Standardkonsole zugewiesen. Wenn das Rexx-Programm ein
+Piktogramm besitzt, dem ein "CONSOLE="-Merkmal zugewiesen ist, so wird
+dieses automatisch benutzt. Wenn der Schalter AUTO aktiv ist, wird das
+Konsolenfenster nur dann geöffnet, wenn dies auch wirklich notwendig ist.
+
+Während des Debuggings kann es sich evtl. als sinnvoll erweisen, die
+Ausführung von Personal Paint über die Workbench mit den Shell-Befehlen
+"TCO" und "TCC" zu kombinieren, um die Globale Ablaufverfolgung zu
+aktivieren bzw. zu deaktivieren.
+
+
+@{B}E.2        Syntax-Konventionen@{UB}
+
+Bei allen Rexx-Befehlen wird nicht zwischen Groß- und Kleinschreibung
+unterschieden.
+
+Schlüsselwörtern kann optional ein "=" Zeichen angehängt werden, wenn die
+Zuweisung nicht in Anführungszeichen erfolgt.
+
+   FILE="Ram Disk:Test"
+
+ist das gleiche wie
+
+   FILE "Ram Disk:Test"
+
+aber
+
+   "FILE=Ram Disk:Test"
+
+wird als einzelnes Argument übergeben. Schlüsselwörter in
+Anführungszeichen werden nicht erkannt, wenn zwischen diesen noch weiterer
+Text steht.
+
+Die Verwendung von Schlüsselwörtern ist grundsätzlich optional, sofern die
+Reihenfolge der Argumente nicht geändert wird oder das Bezugsargument
+nicht "vorhersehbar" ist, wie in der folgenden Befehlszeile:
+
+   LoadImage FILE "Vorschau" PREVIEW
+
+Schlüsselwörter eignen sich besonders zur Festlegung weniger Argumente,
+wenn die anderen in der Standardeinstellung verbleiben sollen:
+
+   RequestResponse PROMPT "Dies ist ein Hinweis"
+
+wohingegen der gleiche Befehl in Verbindung mit den durch Ihre Position
+identifizierten Argumente wie folgt aussehen würde:
+
+   RequestResponse "Title" "Dies ist ein Hinweis" "Weiter" "Abbruch"
+
+
+@{B}E.3        Parameter und Optionen@{UB}
+
+In der vorliegenden Dokumentation wird der Begriff "Parameter"
+grundsätzlich dann verwendet, wenn ein Wert (entweder als Zeichenkette
+oder numerisch) an einen Rexx-Befehl übergeben wird, während es sich bei
+einer "Option" ausnahmslos um ein einzelnes Schlüsselwort (wie z. B.
+QUIET) handelt, welches ein bestimmtes Merkmal aktiviert.
+
+Ausschließlich zu Dokumentationszwecken wird in den folgenden
+Beschreibungen den Parametern und Optionen ein Schrägstrich ("/")
+nachgestellt, gefolgt von einem Großbuchstaben, der auf den Parametertyp
+verweist. Parameter und Optionen sind darüber hinaus durch Komma getrennt.
+Dieses Format wird häufig auch als "Befehlsschablone bezeichnet". Es ist
+jedoch zu beachten, daß die Schrägstrich-/Buchstaben-Kombinationen und die
+Kommata kein Bestandteil der Rexx-Befehle sind.
+
+Die hier beschriebenen Schablonenformate sind identisch mit den von
+AmigaDOS-Befehlen her bekannten Standardschablonen.
+
+   <parameter>/A   Der Parameter ist grundsätzlich erforderlich, damit
+                   der Rexx-Befehl funktioniert.
+
+   <option>/S      Diese Option wirkt wie ein Schalter. Wenn das
+                   Schlüsselwort angegeben wird, ist die Option
+                   eingeschaltet-, ansonsten ausgeschaltet.
+
+   <value>/N       Zeigt an, daß ein numerischer Parameter (im Gegensatz
+                   zu Text) erwartet wird. Hexadezimale (zur Basis 16)
+                   Zahlen sollte ein "$" oder "0x" vorangestellt werden.
+
+   <parameter>/M   Es werden mehrere Parameter akzeptiert.
+
+   <string>/F      Die Zeichenkette muß den letzten Parameter in der
+                   Befehlszeile bilden, wobei der gesamte abschließende
+                   Teil der Befehlszeile als die gewünschte Zeichenkette
+                   betrachtet wird. Selbst, wenn die Zeichenkette
+                   Leerzeichen enthält, sind Anführungszeichen nicht
+                   erforderlich.
+
+
+@{B}E.4        Rückgabewerte@{UB}
+
+Funktionen, die ein Ergebnis zurückgeben, (@{I}auch: "liefern" @{UI}) tun dies
+grundsätzlich über die Rexx-Variable "RESULT". Dabei ist zu beachten, daß
+Ergebnisse in Zeichenkettenform (z. B. Beispiel-Dateipfade) immer in
+Anführungszeichen eingeschlossen erscheinen (z. B. "PPaint:Fonts").
+
+Statuswerte für erfolgreiche Ausführung, Warnung oder fehlgeschlagene
+Ausführung des jeweils letzten Befehls werden in der Rexx-Variablen RC
+gespeichert.
+
+In Rexx-Programmen lassen sich die Befehle RETURN und EXIT dazu verwenden,
+nach Beenden eine Zeichenkette zurückzugeben. Personal Paint zeigt diese
+Ergebniswerte automatisch an. So beendet beispielsweise der Befehl
+
+   RETURN 'Bye'
+
+das laufende Rexx-Programm, bevor ein Fenster mit der folgenden Meldung
+geöffnet wird:
+
+   "Makro lieferte: Bye"
+
+
+@{B}E.5        Warn- und Fehlercodes@{UB}
+
+Die folgenden numerischen Codes werden in der Rexx-Variablen RC
+zurückgegeben.
+
+   @{I}Code      Bedeutung @{UI}
+
+    0        Normales Ergebnis oder positive Auswahl (Ok/Weiter)
+    5        Abbruch durch Benutzer
+   30        Unbekannter Befehl
+   31        Ein oder mehrere erforderliche Argumente fehlen
+   32        Zu viele Argumente
+   33        Inkompatible Optionen
+   34        Interner Fehler
+   35        Dateiein-/ausgabefehler
+   36        Datei konnte nicht geöffnet werden
+   37        Speichermangel
+   38        Unbekanntes Dateiformat oder Fehler beim Entschlüsseln
+   39        Datei enthält nicht die erforderlichen Daten
+   40        Fehlerhafter Dateiinhalt
+   41        Bildtyp kann nicht geladen werden
+   42        Entschlüsselung nicht möglich
+   43        Datei nur teilweise geladen/verarbeitet
+   44        Printer.device kann nicht geöffnet werden
+   45        Fehler bei Ausgabe auf Drucker
+   46        Unbekanntes Format
+   47        Unbekannte Formatoption
+   48        Unbekannte Einstellung
+   49        Numerisches Argument erforderlich
+   50        Wert außerhalb des gültigen Bereichs/Illegaler Wert
+   51        Keine Animation zur Bearbeitung vorhanden
+   52        Bildbearbeitungsfilter unbekannt
+   53        Benutzerdefinierter Pinsel erforderlich
+   54        Anim-Brush erforderlich
+   55        Bearbeitung von Anim-Brushes mit diesem Befehl nicht möglich
+   56        Schrift konnte nicht gefunden werden
+   57        Keine unbenutzten Brushes verfügbar
+   58        Undo/Redo nicht verfügbar
+   59        Videomodus unbekannt oder nicht unterstützt
+
+
+@{B}E.6        Rexx-Befehlsreferenz@{UB}
+
+In den folgenden Abschnitten wird die Verwendung aller von Personal Paint
+unterstützten Rexx-Befehle beschrieben. Eine einfachere Liste mit allen
+Befehlen wird von Personal Paint in der Variablen RESULT zurückgegeben,
+wenn der Rexx-Befehl "Help" ausgeführt wird.
+
+Die folgenden drei Optionen (Schablone: <option>/S) sind allen
+Rexx-Befehlen gemeinsam:
+
+   FORCE       Diese Option bewirkt, daß alle üblicherweise vom Benutzer
+               zu bedienenden Dialogfenster übersprungen werden. Dabei
+               wird ein Standard-Ergebniswert an das Programm
+               zurückgegeben.
+
+   QUIET       Diese Option deaktiviert alle Fehler- und Warnmeldungen.
+
+   NOPROGRESS  Diese Option deaktiviert alle Dialogfenster, die den
+               Fortschritt eines Vorgangs anzeigen.
+
+
+@{I}Aufgrund des extrem technischen Characters des Referenzteils über
+Rexx-Befehle in diesem Anhang werden die folgenden Abschnitte in
+englischer Sprache verfaßt. Sollte dieser Teil der Dokumentation zu einem
+späteren Zeitpunkt in die deutsche übertragen werden, wird die Übersetzung
+auf der Web-Site von Cloanto (http://www.cloanto.com/amiga/) verfügbar
+gemacht werden.@{UI}
+
+
+@{B}E.6.1      AddFrames FRAMES/N POSITION/N BEFORE/S AFTER/S@{UB}
+
+The AddFrames command inserts one or more animation frames in a given
+position. The parameters are optional: with its default values, this
+command adds 1 frame BEFORE the current POSITION.
+
+
+@{B}E.6.2      AdjustColors FROM/N TO/N COLOR/N BRIGHTNESS/N CONTRAST/N
+           RED/N GREEN/N BLUE/N@{UB}
+
+This command adjusts the palette, applying the specified corrections. It
+is possible to ask for the processing of just some colors, and select a
+specific color range (FROM and TO parameters) to act on. The default range
+is the whole palette and the correction factor valid range is -100..100.
+
+
+@{B}E.6.3      Airbrush X/N/A Y/N/A TIME/N/A ERASE/S COMPLEMENT/S@{UB}
+
+This command applies the airbrush tool to the image (in the X, Y
+position), for the specified time (in milliseconds, 1000 = 1 second). The
+ERASE option makes the airbrush paint with the background color. The image
+can be complemented with the brush shape using the COMPLEMENT option.
+
+
+@{B}E.6.4      AllocateBitmap WIDTH/N/A HEIGHT/N/A DEPTH/N/A@{UB}
+
+This command allocates and initializes a bitmap of the given format. The
+valid depths are 1, 2, 3, 4, 5, 6, 7, 8 and 24 (holding respectively 2, 4,
+8, 16, 32, 64, 128, 256 and 16777216 colors). If the command succeeds, the
+bitmap address is stored in the RESULT variable. The bitmap can be
+accessed with the ReadBitmap and WriteBitmap commands, pasted on the image
+with the PutBitmap command, processed with the GetBitmap and CopyBitmap
+commands, and finally freed with the FreeBitmap command.
+
+This kind of graphical resource is quite similar to the program brushes,
+but there is no limit to the bitmaps and the related data a Rexx script
+can handle. The Rexx client, on the other hand, is totally responsible of
+resource tracking: all allocated bitmaps must be freed after being used,
+or the associated memory won't be returned to the system.
+
+
+@{B}E.6.5      ApplicationIcon FILE DROP/S SHIFT/S PREVIEW/S@{UB}
+
+The ApplicationIcon command simulates all the application icon features.
+When the DROP option is specified, the given FILE is "dropped" on the
+application icon (image/animation/anim-brush loading). The SHIFT option
+causes an animation to be played, instead of being loaded. A preview of
+HAM and 24-bit images can be forced with the PREVIEW option. By omitting
+the DROP option, the program screen is brought to front.
+
+
+@{B}E.6.6      BrushColorStatistics FROM/N TO/N COLORS/S COMPACT/S@{UB}
+
+This command returns (in the RESULT variable) statistics on the brush
+color usage (number of pixels for each color). It is possible to select a
+specific color range (FROM and TO parameters), interleave the result
+values with the respective RGB values (COLORS option), and exclude the
+unused colors (COMPACT option). Two or more "COLORS COMPACT" statistics
+can be merged into a single palette with the ReduceColors command.
+
+
+@{B}E.6.7      ChangeBrushBkgToFrg@{UB}
+
+This command sets all background-colored pixels in the brush to the
+foreground color.
+
+
+@{B}E.6.8      ChangeImageBkgToFrg@{UB}
+
+This command sets all background-colored pixels in the image to the
+foreground color.
+
+
+@{B}E.6.9      ChopBrush X0/N Y0/N X1/N Y1/N INFO/S EDGES/S PLANES/S@{UB}
+
+The ChopBrush command can be used to cut specific brush parts or to get
+information on the brush bitmap contents. The brush can be cut by defining
+a rectangle inside its current bitmap (X0, Y0, X1, Y1 parameters -
+defaults: 0, 0, <current width-1>, <current height-1>). The unused
+(background colored) brush edges can be removed with the EDGES option and
+the unused (0 filled) planes can be freed with the PLANES option.
+
+The "ChopBrush INFO" command returns information on the brush used parts.
+The RESULT variable is loaded with data in the following format:
+
+  <X0> <Y0> <X1> <Y1> <used planes>
+
+The first four values can be -1 if the brush bitmap is totally
+background-colored.
+
+
+@{B}E.6.10     ClearFrames FROM/N TO/N@{UB}
+
+All the animation frames (default) or a selected frame range (FROM and TO
+parameters) can be cleared (set to the background color) with this
+command.
+
+
+@{B}E.6.11     ClearImage@{UB}
+
+This command clears the image, using the current background color.
+
+
+@{B}E.6.12     ColorStatistics FROM/N TO/N COLORS/S COMPACT/S@{UB}
+
+This command returns statistics on the image color usage. See the
+BrushColorStatistics command for more information.
+
+
+@{B}E.6.13     ComplementBrush@{UB}
+
+The ComplementBrush command exchanges the colors of the brush by
+selecting, for each color position in the palette, the complement of the
+binary number associated to that position.
+
+
+@{B}E.6.14     CopyBitmap SOURCEBITMAP/N/A SOURCEX/N SOURCEY/N
+           TARGETBITMAP/N/A TARGETX0/N TARGETY0/N WIDTH/N HEIGHT/N@{UB}
+
+This command copies the contents of a bitmap (see the AllocateBitmap
+command) into another bitmap (or the same bitmap, in a different
+position). By omitting the copy position/size, the entire bitmap contents
+are copied (defaults: positions = 0, WIDTH = <source width>, HEIGHT =
+<source height>). The bitmaps must share the same depth and an overlapping
+copy in the same bitmap is not allowed.
+
+
+@{B}E.6.15     CopyBrush BRUSH/N/A X0/N Y0/N X1/N Y1/N NOFRAMES/S@{UB}
+
+This command replaces the current brush with a copy of the specified brush
+(BRUSH parameter, range 1..9). A rectangular area (X0, Y0, X1 and Y1
+parameters) can be defined in order to make a partial copy of the source
+brush. When the NOFRAMES option is specified, only the current frame of a
+source anim-brush is copied (by default, all brush frames are copied).
+
+
+@{B}E.6.16     CopyEnvironment ANIMATION/S@{UB}
+
+This command copies the current image (or animation - ANIMATION option) in
+the alternate environment.
+
+
+@{B}E.6.17     CopyFramePalettes SOURCEFIRST/N/A SOURCELAST/N/A
+           TARGETFIRST/N TARGETLAST/N@{UB}
+
+The palettes of the selected frame range (SOURCEFIRST and SOURCELAST
+parameters) are copied to the destination range (defaults: TARGETFIRST =
+<current frame>, TARGETLAST = <current frame + source range - 1>). When
+the destination range is bigger than the source range, the palettes are
+repeated, one after another.
+
+
+@{B}E.6.18     CopyFrames SOURCEFIRST/N/A SOURCELAST/N/A
+           TARGETFIRST/N TARGETLAST/N@{UB}
+
+This command copies animation frames just like the CopyFramePalettes
+command copies frame palettes. See the CopyFramePalettes command for more
+information.
+
+
+@{B}E.6.19     CopyPaletteToBrush@{UB}
+
+This command applies the image palette to the current brush (no remap is
+performed).
+
+
+@{B}E.6.20     DefineBrush X0/N Y0/N X1/N Y1/N FRAMES/N POINTS
+           ERASE/S BACK/S@{UB}
+
+With this command it is possible to define a brush (or an anim-brush) in
+rectangular (X0, Y0, X1 and Y1 parameters) or freehand mode (POINTS
+parameter, a sequence of X and Y coordinates). An anim-brush can be
+defined from an animation, by specifying a FRAMES parameter greater than 1
+(the frames are fetched backward, including the BACK option). The brush
+can be "cut" from the image with the ERASE option (the brush zone is
+cleared with the background color).
+
+An example of freehand brush definition follows (the specified polygon is
+automatically closed):
+
+   DefineBrush 'POINTS "10 7 40 9 38 20"'
+
+
+@{B}E.6.21     DeleteBrushFrames@{UB}
+
+The frames of the anim-brush (but the current frame) are freed (the
+anim-brush is turned into a plain brush). An RC_NOABRUSH error code is
+returned (RC variable) if the brush is not an anim-brush.
+
+
+@{B}E.6.22     DeleteFrames FROM/N TO/N ALL/S@{UB}
+
+This command deletes one or more animation frames. The FROM and TO default
+values are equal to the current frame position. With the ALL option it is
+possible to free the entire animation. A confirm requester may appear (if
+the animation has been modified), unless the FORCE option is specified. An
+RC_NOTANIM error code is returned (in the RC variable) if there is no
+animation to work on.
+
+
+@{B}E.6.23     DisableTools@{UB}
+
+After this command has been executed, the currently selected graphic tool
+is disabled (i.e. nothing is drawn in the image when a mouse button is
+pressed). This is similar to the LockGUI command, but image editing only
+is disabled: mouse movements/buttons are still tracked (the query
+GetMousePosition and GetMouseButton commands are fully functional) and
+user selection (tool bar and menus) can be performed. Normal processing is
+resumed when the EnableTool command is issued or when a new tool is
+selected.
+
+This command can be used when a macro processes mouse input to perform
+complex drawing operations. When the active tool is disabled, it no longer
+interferes with the macro graphic processing.
+
+There is no need to use the DisableTools command in "point mode" macros
+(whose argument list just contains %b, %x, or %y codes): a special "no
+interference" tool is already active when these macros are executed.
+
+Unlike LockGUI mode, PPaint doesn't automatically exit from the
+DisableTools mode when a macro terminates. The rexx script should issue a
+matching EnableTools command before exiting (a "Break_C" trap function
+could contain such a command).
+
+
+@{B}E.6.24     DrawCircle CENTERX/N/A CENTERY/N/A RADIUSX/N RADIUSY/N
+           FILL/S ERASE/S COMPLEMENT/S@{UB}
+
+This command draws a circle in the image using the current brush and the
+current paint mode. The position (CENTERX and CENTERY parameters) and
+radius of the circle must be specified. One of the two RADIUSX and RADIUSY
+parameters must be used to define the circle size (the parameters are
+equivalent in a 1:1 ratio environment). With the FILL option a filled
+circle is drawn using the current area settings. The background color can
+be used to paint the object if the ERASE option is included. The
+COMPLEMENT option causes the circle to complement the image (not in FILL
+mode).
+
+
+@{B}E.6.25     DrawCurve X0/N/A Y0/N/A X1/N/A Y1/N/A
+          X2/N/A Y2/N/A X3/N/A Y3/N/A ERASE/S COMPLEMENT/S@{UB}
+
+This command draws a Bézier curve, starting from the X0:Y0 point and
+ending to the X3:Y3 point. The intermediate points control the shape of
+the curve. The background color is used if the ERASE option is included.
+The COMPLEMENT option causes the curve to complement the image.
+
+
+@{B}E.6.26     DrawDots POINTS/A ERASE/S COMPLEMENT/S@{UB}
+
+A sequence of dots (or whatever the brush image contains) can be drawn in
+the image with this command. The POINTS parameter is a quoted sequence of
+X and Y coordinates. The brush shape can be applied to the image with the
+background color if the ERASE option is specified. The COMPLEMENT option
+causes the dots to complement the image. See the PutBrush command.
+
+
+@{B}E.6.27     DrawEllipse CENTERX/N/A CENTERY/N/A RADIUSX/N/A RADIUSY/N/A
+           FILL/S ERASE/S COMPLEMENT/S@{UB}
+
+This command draws an ellipse in the image using the current brush and the
+current paint mode. The position (CENTERX and CENTERY parameters) and size
+(RADIUSX and RADIUSY parameters) of the ellipse must be specified. With
+the FILL option a filled ellipse is drawn using the current area settings.
+The background color can be used to paint the object if the ERASE option
+is included. The COMPLEMENT option causes the ellipse to complement the
+image (not in FILL mode).
+
+
+@{B}E.6.28     DrawFreeHand POINTS/A FILL/S ERASE/S COMPLEMENT/S@{UB}
+
+A sequence of connected lines can be drawn with this command. The POINTS
+parameter is a quoted sequence of X and Y coordinates. A filled polygon is
+drawn if the FILL option is included. The object can be drawn with the
+background color if the ERASE option is specified. The COMPLEMENT option
+causes the lines to complement the image (not in FILL mode).
+
+
+@{B}E.6.29     DrawLine X0/N/A Y0/N/A X1/N/A Y1/N/A
+           ERASE/S COMPLEMENT/S NOFIRSTPIXEL/S@{UB}
+
+This command draws a line using the current brush and the current line
+settings. A background-colored line is drawn if the ERASE option is
+specified. The COMPLEMENT option causes the line to complement the image
+(the NOFIRSTPIXEL option can be used not to draw the first pixel of the
+line).
+
+
+@{B}E.6.30     DrawPolygon POINTS/A FILL/S ERASE/S COMPLEMENT/S@{UB}
+
+The DrawPolygon command acts just like the DrawFreeHand command, but a
+final line (up to the starting point) is drawn to close the polygon. In
+FILL mode, the commands are synonymous. The COMPLEMENT option causes the
+polygon to complement the image (not in FILL mode).
+
+
+@{B}E.6.31     DrawRectangle X0/N/A Y0/N/A X1/N/A Y1/N/A
+           FILL/S ERASE/S COMPLEMENT/S@{UB}
+
+This command draws a rectangle in the image (the X0:Y0 and X1:Y1 opposite
+points must be specified). The FILL and the ERASE options respectively
+cause a filled and a background-colored rectangle to be drawn in the
+image. The COMPLEMENT option causes the rectangle to complement the image
+(not in FILL mode).
+
+
+@{B}E.6.32     EmptyClipboard@{UB}
+
+This command empties the clipboard contents (see SaveBrush command),
+freeing the related resources.
+
+
+@{B}E.6.33     EnableTools QUERY/S@{UB}
+
+The normal image editing functions, suspended by the DisableTools command,
+can be resumed with the EnableTools command (the brush or the crosshair
+will appear under the mouse pointer). When the QUERY option is specified,
+the active tool is not enabled, but its status is returned in the RESULT
+variable (0 = tool disabled, 1 = tool enabled): this can be useful to know
+if the user has selected a (new) tool (see the DisableTools command).
+
+
+@{B}E.6.34     Fill X/N/A Y/N/A ERASE/S@{UB}
+
+This command performs a fill operation at the specified image position.
+The ERASE option can be used to fill the area using the background color.
+
+
+@{B}E.6.35     FillBrushTransparency@{UB}
+
+When this command is issued, a flood fill operation is started at the
+brush handle position (see SetBrushHandle and SetBrushAttributes
+commands). The operation does not affect the brush image, but only its
+transparency plane: the filled area status is changed from opaque to
+transparent or vice-versa.
+
+
+@{B}E.6.36     FindColor COLOR/A EXCLUDE RGB/S HSV/S@{UB}
+
+This command searches the current image palette for a color which best
+matches the specified RGB/HSV values (COLOR parameter) and stores its
+index value in the RESULT variable. One or more palette colors can be
+excluded using the EXCLUDE parameter. The three COLOR values are assumed
+to be an RGB color description (ranges 0..255), unless the HSV option is
+specified: in such a case the color is identified by its hue (range
+0..360), saturation (range 0..100) and value (range 0..100) attributes.
+
+Based on the palette characteristics, the returned color can be quite
+different from the requested color: the Rexx script might choose not to
+use this color if its RGB distance from COLOR is too high.
+
+The following command returns the palette position which most resembles
+the yellow color, excluding the 0 and 2 indexes:
+
+   FindColor 'COLOR "255 255 0" EXCLUDE "0 2"'
+
+
+@{B}E.6.37     FlipBrush HORIZONTAL/S VERTICAL/S@{UB}
+
+The brush can be horizontally or vertically flipped using this command.
+One of the HORIZONTAL and VERTICAL options must be specified.
+
+
+@{B}E.6.38     FlipImage HORIZONTAL/S VERTICAL/S@{UB}
+
+The image (or its visible area, if the graphic clipping is active) can be
+horizontally or vertically flipped using this command. One of the
+HORIZONTAL and VERTICAL options must be specified.
+
+
+@{B}E.6.39     FlushMemory ALL/S UNDO/S@{UB}
+
+This command can be used to flush unused data from memory to the virtual
+memory storage or to free the undo resources (UNDO option). When the ALL
+option is specified, every unused buffer is flushed and the Workbench
+screen is closed (if this action is enabled).
+
+
+@{B}E.6.40     FontExists PATH NAME/A SIZE/N/A STYLE EXACT/S@{UB}
+
+This command verifies whether the specified font exists or not. The
+result, stored in the RC variable, is either RC_OK or RC_NOFONT.
+
+If the EXACT option is specified, then the font attributes are also
+considered. Otherwise only the font name and size are checked.
+
+For example:
+
+   FontExists NAME 'topaz' SIZE 8 EXACT        returns RC_NOFONT,
+
+   FontExists NAME 'topaz' SIZE 8 STYLE 'of'   returns RC_OK, and
+
+   FontExists NAME 'topaz' SIZE 8              returns RC_OK.
+
+If the NAME and SIZE arguments are not specified, a font requester is
+displayed. If the PATH argument is not specified, then the default system
+path for fonts ("FONT:") is used. The NAME argument is case sensitive
+("Topaz" is not the same as "topaz"). The ".font" suffix is optional
+("topaz.font" is the same as "topaz").
+
+
+@{B}E.6.41     FreeBitmap BITMAP/N/A@{UB}
+
+The bitmap allocated with the AllocateBitmap command must be freed using
+this command. The Rexx script may include special procedures to intercept
+<Ctrl-C> and HALT events, in order to prevent memory leaks.
+
+
+@{B}E.6.42     FreeBrush@{UB}
+
+This command frees the current brush. A confirm requester may appear,
+unless the FORCE option is specified.
+
+
+@{B}E.6.43     FreeEnvironment QUERY/S@{UB}
+
+This command frees the current environment (it must not be the only one)
+and activates the alternate one. By including the QUERY option, the
+environment is not freed, but a confirm requester is shown if the image
+has not been saved (a RC code 5 is returned if the requester is
+cancelled): this can be useful before discarding the image contents.
+
+
+@{B}E.6.44     FreeStencil@{UB}
+
+This command disables the stencil feature and frees every associated
+resources.
+
+
+@{B}E.6.45     Get SETTING/A NAME@{UB}
+
+This commands returns (in the RESULT variable) the value of the specified
+setting.
+
+For example:
+
+   Get 'CAVRESIZE'
+
+If there is more than one program setting with the same variable name, the
+Get command returns the first string, regardless of the contents. ARexx
+scripts and image processing filter settings, however, have multiple
+fields in which the first field is a string indicating the name of the
+effect or script. In this case, the NAME option is useful to ask Get to
+return exactly the string corresponding to the setting beginning with a
+specified substring. For example:
+
+   Get 'FILTER' NAME 'Water-Color'
+
+
+@{B}E.6.46     GetAirbrushSettings@{UB}
+
+This command returns (in the RESULT variable) the current airbrush
+settings, in the format "WIDTH # HEIGHT # JETCOUNT #
+<ELLIPTICAL/RECTANGULAR>" (width and height of the airbrush area, jet
+count and airbrush shape). This string can be used with the
+SetAirbrushSettings command to restore the settings.
+
+
+@{B}E.6.47     GetAnimBrushSettings FRAMES/S LENGTH/S FRAMEPOSITION/S
+           FRAMEFIRST/S FRAMELAST/S FRAME/S DIRECTION/S@{UB}
+
+This command gives information on the current anim-brush: the returned
+value can be the number of frames (FRAMES option), the animation length
+(LENGTH option), the frame position (FRAMEPOSITION option), the start of
+the frame range (FRAMEFIRST option), the end of the frame range (FRAMELAST
+option), the current frame (FRAME option) or the current direction
+(DIRECTION option; 0 = forward, 1 = backward, 2 = ping pong, 3 = pause).
+
+
+@{B}E.6.48     GetAreaSettings@{UB}
+
+The keywords returned by this command define the current area settings
+(e.g. "FILLSOLID GRADIENTMANUAL GRADIENTX"). The string returned in the
+RESULT variable can be used with SetAreaSettings to restore the settings
+after they have been modified by a Rexx script.
+
+
+@{B}E.6.49     GetBestVideoMode WIDTH/N/A HEIGHT/N/A COLORS/N/A ANIMATION/S@{UB}
+
+This command returns the video mode which best matches the format
+specified (WIDTH, HEIGHT and COLORS parameters). By including the
+ANIMATION option, the search is limited to the video modes which support
+the double-buffering feature. If more than one mode matches the format,
+the one with best refresh rate and color resolution is returned.
+
+The RESULT string will contain information in the format "<mode ID>
+<screen width> <screen height>" (e.g. "0x00069024 640 400"): the screen
+size can be used to fine tune the video mode for the specified format
+(i.e. overscan definition).
+
+If no suitable video mode can be found, the RC_NODISPLAY error code is
+returned (in the RC variable).
+
+
+@{B}E.6.50     GetBitmap X0/N/A Y0/N/A X1/N Y1/N
+           BITMAP/N/A TARGETX/N TARGETY/N FROMBRUSH/S@{UB}
+
+The GetBitmap command copies an image or brush area (X0, Y0, X1 and Y1
+parameters) to the bitmap specified (see AllocateBitmap). The bitmap
+destination coordinates can be specified with the TARGETX and TARGETY
+parameters (default to 0). The default values for the X1 and Y1 parameters
+are <X0 + bitmap width - 1> and <X0 + bitmap height - 1>. The command
+source is the image, unless the FROMBRUSH option is specified (the current
+brush is copied). There are no restrictions to the bitmap format:
+GetBitmap can even copy planar data to true color (24 bit deep) bitmaps.
+
+
+@{B}E.6.51     GetBitmapDelta BITMAP0/N/A BITMAP1/N/A@{UB}
+
+This command compares two bitmaps and returns the coordinates (X0 Y0 X1
+Y1) of the smallest delta zone (the area with different bitmap contents)
+or the values "-1 -1 -1 -1" if the bitmap are identical. The bitmaps must
+share the same format (width, height and depth).
+
+
+@{B}E.6.52     GetBrushAttributes WIDTH/S HEIGHT/S COLORS/S FRAMES/S
+           LENGTH/S FRAMEPOSITION/S FRAMEFIRST/S FRAMELAST/S
+           FRAME/S DIRECTION/S HANDLEX/S HANDLEY/S
+           DPIX/S DPIY/S SOURCEX/S SOURCEY/S SOURCEWIDTH/S
+           SOURCEHEIGHT/S DISPLAY/S TRANSPARENCY/S
+           TRANSPARENTCOLOR/S BOUNDARIES/S NAME/S@{UB}
+
+This command can be used to query the program about several brush
+attributes. One option must be specified in order to get the following
+information: brush width (WIDTH), height (HEIGHT), number of colors
+(COLORS), handle position (HANDLEX, HANDLEY), ratio (DPIX, DPIY), source
+size (SOURCEWIDTH, SOURCEHEIGHT) and coordinates (SOURCEX, SOURCEY), video
+mode (DISPLAY), transparency type (TRANSPARENCY: 0 = none, 1 = color, 2 =
+backfill), transparent color (TRANSPARENTCOLOR), used area (BOUNDARIES,
+the coordinates of the smallest non-background area are returned) and name
+(NAME). Anim-brush information can also be queried (see
+GetAnimBrushSettings).
+
+
+@{B}E.6.53     GetBrushColors FROM/N TO/N RGB/S HSV/S@{UB}
+
+The string returned by this command contains RGB or HSV descriptions of
+the brush palette. The FROM and TO parameters can be used to select a
+specific palette range to get information about. The returned data are RGB
+values, unless the HSV option is specified.
+
+A typical palette string follows (a 4 colors brush has been queried):
+
+   255 255 255 136 136 136 170 034 000 221 085 000
+
+As can be noted, the values are always 0-padded to three digits: this can
+be useful to split and retrieve pieces of information with the Rexx string
+functions.
+
+
+@{B}E.6.54     GetBrushFramePosition@{UB}
+
+This command returns the frame position of the current anim-brush.
+
+
+@{B}E.6.55     GetBrushInfo AUTHOR/S COPYRIGHT/S ANNOTATION/S@{UB}
+
+The brush author, copyright or annotation string is returned by this
+command. One of the options must be specified to select the piece of
+information required.
+
+
+@{B}E.6.56     GetBrushNumber@{UB}
+
+This command returns the current brush number (1..9). The brush may not be
+the active one (e.g. if a predefined brush is in use): the GetCurrentBrush
+command can be used to get information about the active brush.
+
+
+@{B}E.6.57     GetBrushPixel X/N/A Y/N/A@{UB}
+
+The GetBrushPixel command reads the brush bitmap at the specified position
+(X and Y parameters) and returns the corresponding index value (e.g.
+0..255, for a 256 colors brush).
+
+
+@{B}E.6.58     GetColors FROM/N TO/N RGB/S HSV/S@{UB}
+
+This command returns information about the image palette. For a
+description of the parameters and the data format, see the GetBrushColors
+command.
+
+
+@{B}E.6.59     GetCurrentBrush@{UB}
+
+This command returns information about the active brush. When a predefined
+brush is selected a string in the format "<shape> WIDTH <w> HEIGHT <h>" is
+returned (where <shape> can be ELLIPTICAL or RECTANGULAR). The string
+format for user defined brushes is: "BRUSH <n>" (where <n> is a number
+from 1 to 9). The returned string can be used with the SetCurrentBrush
+command to restore the brush (e.g. in a macro which select a specific
+brush).
+
+Some examples of returned strings follow:
+
+   ELLIPTICAL WIDTH 1 HEIGHT 1
+   RECTANGULAR WIDTH 6 HEIGHT 3
+   BRUSH 1
+
+
+@{B}E.6.60     GetDistance X0/N/A Y0/N/A X1/N/A Y1/N/A@{UB}
+
+This command returns the distance between two points (the first one
+specified by the X0 and Y0 parameters, the second by the X1 and Y1
+parameters). Assuming a square pixels image, the distance returned is the
+radius of the circle including the first point and having the second as
+center.
+
+
+@{B}E.6.61     GetEllipseAngle CENTERX/N/A CENTERY/N/A RADIUSX/N/A
+           RADIUSY/N/A X/N/A Y/N/A DISTANCE/N/A ANGLE/N/A@{UB}
+
+Given an ellipse described by the CENTERX, CENTERY, RADIUSX and RADIUSY
+parameters, a point identified by the X and Y parameters and a starting
+angle, this command returns the nearest (clockwise) angle whose ellipse
+point has a minimum distance (DISTANCE) from the first point. The starting
+angle and the returned angle unit is 1/1000° (1000 = 1 degree).
+
+
+@{B}E.6.62     GetEllipsePoint CENTERX/N/A CENTERY/N/A
+           RADIUSX/N/A RADIUSY/N/A ANGLE/N/A@{UB}
+
+Given an ellipse described by the CENTERX, CENTERY, RADIUSX and RADIUSY
+parameters, this command returns the coordinates of the ellipse point at
+the specified angle and the angle of the perpendicular to that point. The
+ANGLE parameter and the returned angle unit is 1/1000° (1000 = 1 degree).
+
+
+@{B}E.6.63     GetFileFormat FILE/A EXTENDEDNAME/S FULL/S@{UB}
+
+The GetFileFormat command examines the specified file and returns
+information about its format. The FULL option can be used to query the
+file about the picture format too; the returned string will contain the
+following data:
+
+   "file format" <width> <height> <colors> [attributes]
+
+for example:
+
+   "PNG" 640 480 256
+   "IFF ILBM" 640 480 16777216 HAM-8
+   "ANIM" 320 400 16777216 HAM-6
+   "ANIMBRUSH" 103 80 64
+   "PALETTE" 0 0 256
+   "STENCIL" 640 480 0
+
+When the FULL option is not included, the command just returns the file
+format (not quoted). The EXTENDEDNAME option selects the long version of
+the file format string (e.g. "IFF ILBM", instead of "ILBM").
+
+
+@{B}E.6.64     GetFrameDelay FRAME/N@{UB}
+
+This command returns the delay value (in 1/60") of a frame. If no FRAME
+parameter is specified, the current frame delay value is returned.
+
+
+@{B}E.6.65     GetFramePosition@{UB}
+
+This command returns the current frame position (range 1..SHRT_MAX).
+
+
+@{B}E.6.66     GetFrames@{UB}
+
+This command returns the number of frames of the current environment (it
+is zero, if the environment just contains a picture).
+
+
+@{B}E.6.67     GetImageAttributes DPIX/S DPIY/S BOUNDARIES/S NAME/S@{UB}
+
+This command returns pieces of image information which cannot be retrieved
+with the Get (image settings) command. One command option must be selected
+in order to get the required information: horizontal dots per inch (DPIX),
+vertical dots per inch (DPIY), image used area (BOUNDARIES, see
+GetBrushAttributes) and image name (NAME).
+
+
+@{B}E.6.68     GetLineSettings@{UB}
+
+The keyword returned by this command define the current line type
+(CONTINUOUS, ONOFFPATTERN or COLORPATTERN). The string returned in the
+RESULT variable can be used by SetLineSettings to restore the settings
+after they have been modified by a Rexx script.
+
+
+@{B}E.6.69     GetMagnify@{UB}
+
+This command returns information about the image magnified area, in the
+format: <X0> <Y0> <X1> <Y1>. The string "OFF" is returned, if the magnify
+mode is not active. The GetMagnify result can be used by Magnify to
+restore the magnify status/area after it has been modified by a Rexx
+script.
+
+
+@{B}E.6.70     GetMouseButton@{UB}
+
+This command returns the code of the mouse button being pressed (0 = no
+button, 1 = left, 2 = middle, 3 = right). The code is not valid if PPaint
+is in LockGUI mode (see the DisableTools command).
+
+
+@{B}E.6.71     GetMousePosition@{UB}
+
+This command returns the current mouse position (image coordinates: X Y).
+The position is not valid if PPaint is in LockGUI mode (see the
+DisableTools command).
+
+
+@{B}E.6.72     GetPaintMode@{UB}
+
+This command returns the currently selected brush paint mode (MATTE,
+COLOR, REPLACE or HBRITE).
+
+
+@{B}E.6.73     GetPen BACKGROUND/S FOREGROUND/S GRID/S@{UB}
+
+This command returns the palette position number (0-255) associated to one
+of the following arguments:
+
+   BACKGROUND   Background color
+   FOREGROUND   Foreground color
+   GRID         Grid color
+
+
+@{B}E.6.74     GetPixel X/N/A Y/N/A@{UB}
+
+The GetPixel command reads the image bitmap at the specified position (X
+and Y parameters) and returns the corresponding index value (e.g. 0..255,
+for a 256 colors image).
+
+
+@{B}E.6.75     GetProjectInfo AUTHOR/S COPYRIGHT/S ANNOTATION/S@{UB}
+
+The image author, copyright or annotation string is returned by this
+command. One of the options must be specified to select the piece of
+information required.
+
+
+@{B}E.6.76     GetStencilActivation@{UB}
+
+This command returns the current stencil status ("OFF" or "ON"). The
+result string can be used with the SetStencilActivation command.
+
+
+@{B}E.6.77     GetStencilColors FROM/N TO/N@{UB}
+
+This command returns information about the image masked colors. The
+returned string contains a 0 or a 1 for each image color (a smaller color
+range can be selected with the FROM and TO parameters): these values
+respectively identify the unmasked and masked colors.
+
+
+@{B}E.6.78     GetToolType FILE/A TOOLTYPE/A@{UB}
+
+If an icon is associated to the specified file, this command searches its
+"Tool Types" for the given label and returns the corresponding value. When
+the label cannot be found, a RC_WARN (5) code is returned in the RC
+variable. The RC_NOFILE error code is returned when no icon is associated
+to the file.
+
+Example: if a "GetToolType 'MyFile COLORS'" command is issued and the
+"MyFile" icon contains a "COLORS=256" tool type, the string "256" (without
+quotes) is returned.
+
+
+@{B}E.6.79     GetVideoModeInfo DISPLAY/N@{UB}
+
+This command returns information about the available video modes (or about
+the mode specified with the DISPLAY parameter). A list of LF-separated
+lines is returned. Each line contains the following video mode data
+(decimal numerical values, where not otherwise specified):
+
+   Name (quoted string)
+   Display ID (hexadecimal value)
+   Minimum number of colors
+   Maximum number of colors
+   Horizontal dots per inch
+   Vertical dots per inch
+   Bits for red component
+   Bits for green component
+   Bits for blue component
+   Width of a no-overscan screen
+   Height of a no-overscan screen
+   Width of a text overscan screen
+   Height of a text overscan screen
+   Width of a graphics overscan screen
+   Height of a graphics overscan screen
+   Width of an extreme overscan screen
+   Height of an extreme overscan screen
+   Width of a maximum overscan screen
+   Height of a maximum overscan screen
+
+Some display modes may not be listed if the "15 kHz" setting is disabled.
+
+
+@{B}E.6.80     GrabScreen TITLE ADDRESS/N@{UB}
+
+This command copies the specified screen into the current environment. The
+screen can be specified by name (TITLE parameter, case insensitive), by
+address (ADDRESS parameter) or selected in the screen requester (which
+appears if no parameter is specified).
+
+A screen grab operation is similar to an image loading operation (see the
+LoadImage command for a description of the FORCE, STRETCH and NOSTRETCH
+options).
+
+
+@{B}E.6.81     GrabWindow TITLE ADDRESS/N ACTIVATE/S@{UB}
+
+This function is similar to a brush loading operation, only that the brush
+is an image of the specified window. The window can be specified by name
+(TITLE parameter, case insensitive), by address (ADDRESS parameter) or
+selected in the requester (which appears if no parameter is specified). It
+is recommended to set the ACTIVATE option in order to ensure that the
+window image is complete (covered parts of simple refresh windows cannot
+be grabbed, as they must be reconstructed by the application) and in the
+active condition (inactive windows may have different colors).
+
+
+@{B}E.6.82     Help KEY COMMAND/S IOFORMAT/S@{UB}
+
+This command returns a table with all Rexx commands (if the COMMAND
+argument is specified) or all available input/output modules and their
+parameters and options (IOFORMAT argument).
+
+If the KEY argument is used, then information is only provided for the
+item specified.
+
+
+@{B}E.6.83     InsertFrames SOURCEFIRST/N/A SOURCELAST/N/A TARGET/N
+           BEFORE/S AFTER/S@{UB}
+
+This command inserts a range of frames (SOURCEFIRST and SOURCELAST
+parameters) in a specified position (TARGET parameters, default = current
+frame). The BEFORE and AFTER options can also be used to define the
+insertion position (default = AFTER). The TARGET parameter cannot
+reference a position inside the source range.
+
+
+@{B}E.6.84     InvertStencil@{UB}
+
+When a stencil is defined, this command inverts the stencil plane. If no
+stencil is defined, the masked color information only are changed.
+
+
+@{B}E.6.85     LessColors MAXCOLORS/N@{UB}
+
+This command can be used to reduce the number of image colors and/or to
+pack the color palette. If successful, the command returns the actual
+number of used colors (it could be less than required) and the number of
+pixels lost (pixels which changed colors after the color reduction).
+
+Example: a photo has just been scanned in 256 colors, but the resulting
+image just uses 10 colors; the command "LessColors 256" can be used to
+move the used colors to the first palette indexes; the resulting string
+will be: 10 0.
+
+The ReduceColors command can be used to perform a similar task, but,
+unlike LessColors, an arbitrary number of colors can be used as
+parameter.
+
+
+@{B}E.6.86     LoadAnimation FILE POSITION/N NEW/S APPEND/S
+           BEFORE/S AFTER/S OVER/S@{UB}
+
+This command loads an animation into the current environment. If the FILE
+argument is not specified, then a file requester is displayed.
+
+If the animation format and the current animation format (if any) are the
+same, the command parameters can be used to insert the new frames in a
+given position (POSITION parameter, BEFORE and AFTER options), to
+overwrite the existing frames starting from a specified position (POSITION
+parameter, OVER option), to append the new frames to the existing
+animation (APPEND option) or to free the current animation before loading
+the new one (NEW option). If no option is specified, the load animation
+requester is displayed.
+
+
+@{B}E.6.87     LoadAnimBrush FILE@{UB}
+
+This command loads an anim-brush. If the FILE argument is not specified,
+then a file requester is displayed.
+
+
+@{B}E.6.88     LoadBrush FILE FORMAT CLIPBOARD/S OPTIONS/M/F@{UB}
+
+This command loads a brush. If the FILE argument is not specified and the
+load format is file-based, then a file requester is displayed.
+
+The FORMAT and OPTIONS parameters can be used to select a specific load
+format (default = "AUTO") and set its load options.
+
+The brush is loaded from the system clipboard, if the CLIPBOARD options is
+specified.
+
+
+@{B}E.6.89     LoadImage FILE FORMAT PREVIEW/S STRETCH/S NOSTRETCH/S
+           OPTIONS/M/F@{UB}
+
+This command loads an image into the current environment. If the FILE
+argument is not specified and the load format is file-based, then a file
+requester is displayed.
+
+The FORMAT and OPTIONS parameters can be used to select a specific load
+format (default = "AUTO") and set its load options (the OPTIONS
+parameter(s) can only appear at the end of the list of parameters).
+
+The PREVIEW option enables the preview screen (HAM or 24-bit, depending on
+the graphics system).
+
+Different combinations of options including FORCE can be used to select a
+particular image format without displaying the "Format mismatch" format
+selection requester.
+
+The "FORCE STRETCH" options can be used to scale the image to the current
+format.
+
+The "FORCE NOSTRETCH" options, instead, load the image leaving its graphic
+data unchanged, but applying the current format values.
+
+If instead only the FORCE option is used, then the format of the specified
+image is used.
+
+
+@{B}E.6.90     LoadPalette FILE@{UB}
+
+This command loads the palette contained in the specified file. If no FILE
+argument is specified, Personal Paint displays a file requester.
+
+
+@{B}E.6.91     LoadSettings FILE STRETCH/S PROMPT/S@{UB}
+
+This command loads the specified settings file. If no FILE argument is
+specified, a file requester is displayed.
+
+The STRETCH option can be used with the FORCE (global) option to resize
+the current image to the format being set.
+
+When the PROMPT option is specified, the setting selection requester is
+displayed.
+
+
+@{B}E.6.92     LoadStencil FILE@{UB}
+
+This command loads the specified stencil file and, if successful,
+activates the stencil. If no FILE argument is specified, a file requester
+is displayed.
+
+
+@{B}E.6.93     LockGUI@{UB}
+
+This command locks all processing of user input by Personal Paint, except
+for requester input. Mouse moves and keyboard actions do not produce any
+effect on the main program window. The user can exit this mode during the
+execution of the macro by pressing the <Esc> key.
+
+
+@{B}E.6.94     Magnify X0/N Y0/N X1/N Y1/N ON/S OFF/S@{UB}
+
+This command can be used to activate (ON option, default) or deactivate
+(OFF option) the magnified display mode; it can also be used to magnify a
+specific image zone (a rectangle defined by the X0, Y0, X1 and Y1
+parameters, default = last magnified zone). If just the X0 and Y0
+parameters are specified, the magnified area is centered on that point and
+the last magnification level is used.
+
+
+@{B}E.6.95     MemoryInfo@{UB}
+
+The string returned by this command contains information about the memory
+allocated for the following items:
+
+   First environment
+   Second environment
+   Brushes
+   Undo
+   Buffers
+   Virtual memory - RAM storage
+   Virtual memory - disk storage
+
+
+@{B}E.6.96     Merge CURRENTIMAGE/S OTHERIMAGE/S BRUSH1/S BRUSH2/S BRUSH3/S
+           BRUSH4/S BRUSH5/S BRUSH6/S BRUSH7/S BRUSH8/S BRUSH9/S@{UB}
+
+This command can be used to merge two or more graphic items (image and
+brushes). Regardless of the selected items (command options), the number
+of color of the current environment is used to modify the format of the
+items.
+
+
+@{B}E.6.97     MergeImage INFRONT/S INBACK/S@{UB}
+
+This command overlays the images of the two environment, using the
+appropriate transparencies. One of the command option must be specified to
+select one of the overlap methods.
+
+
+@{B}E.6.98     NewBrushTransparency@{UB}
+
+This command applies the current transparency setting to the brush. The
+brush transparency plane is then updated.
+
+
+@{B}E.6.99     NextBrushTransparency@{UB}
+
+This command copies the next brush transparency plane to the current
+brush. The next brush format must match the current brush format.
+
+
+@{B}E.6.100    OptimizeAnimation@{UB}
+
+Some old animations may contain identical frames used for timing purposes.
+This command analyzes the current animation, merges these frames (if any)
+and assign the appropriate timings.
+
+
+@{B}E.6.101    OutlineBrush SIMPLE/S SQUARE/S SHADOW/S 3D/S TRIM/S@{UB}
+
+This command applies an outline effects to the brush. One of the outline
+methods (command options) must be specified.
+
+
+@{B}E.6.102    Play TIMES/N FROM/N TO/N PINGPONG/S@{UB}
+
+This command plays the current animation. By default, the animation is
+played over and over (until the user stops it), from the first to the last
+frame. It is possible, however, to select a number of repetitions (TIMES
+parameter), a frame range (FROM and TO parameters) and the "back and
+forth" play method (PINGPONG option).
+
+
+@{B}E.6.103    PlayFile FILE TIMES/N@{UB}
+
+This command plays the specified animation file. If no FILE argument is
+specified, Personal Paint displays a file requester. The TIMES parameter
+works as explained in the Play command.
+
+
+@{B}E.6.104    PrintBrush PSFILE PROMPT/S@{UB}
+
+This command prints the brush using the current print settings (see the
+Set command). The settings can be manually set if the PROMPT option is
+specified (a print setting requester is displayed). The PSFILE parameter
+can be used to select the PostScript output file.
+
+
+@{B}E.6.105    PrintImage PSFILE PROMPT/S@{UB}
+
+This command prints the image using the current print settings (see the
+Set command). The settings can be manually set if the PROMPT option is
+specified (a print setting requester is displayed). The PSFILE parameter
+can be used to select the PostScript output file.
+
+
+@{B}E.6.106    Process FILTER X0/N Y0/N X1/N Y1/N POINTS
+           IMAGE/S BRUSH/S BRUSHMODE/S NOFS/S FS/S ERASE/S@{UB}
+
+This command can be used to apply a processing filter (FILTER parameter,
+case insensitive) to the image (default) or to the brush (BRUSH option).
+The NOFS (default) and FS options can be respectively used to disable and
+to enable the F-S error diffusion (some filters may not support this
+feature). If no filter is specified, then the filter requester is
+displayed.
+
+The remaining parameters and options can only be used when the destination
+object is the image. The image area to be processed can be rectangular
+(X0, Y0, X1 and Y1 parameters), freehand (POINTS parameter, a quoted
+sequence of X and Y coordinates) or brush-shaped (BRUSHMODE option, with
+or without the ERASE option, to simulate a right or left mouse button
+click). All the image is processed if none of the above parameters/options
+is specified.
+
+
+@{B}E.6.107    PutBitmap BITMAP/N/A X0/N Y0/N X1/N Y1/N
+           TARGETX/N/A TARGETY/N/A@{UB}
+
+This command applies a bitmap to the image at the specified position
+(TARGETX and TARGETY parameters). A smaller part of the bitmap can be
+drawn, using the X0, Y0, X1 and Y1 parameters (defaults: 0, 0, bitmap
+width - 1, bitmap height - 1). The current color reduction and remapping
+settings are used to draw true color (24 bit deep) bitmaps. Normal bitmaps
+(2-256 colors) do not retain color information: they are simply applied to
+the image, plane by plane (see the AllocateBitmap command).
+
+
+@{B}E.6.108    PutBrush X/N/A Y/N/A ERASE/S COMPLEMENT/S@{UB}
+
+This command applies the brush to the image at the specified position (the
+brush handle and paint mode are used). The brush is drawn with the
+background color if the ERASE option is specified. The COMPLEMENT option
+causes the brush to complement the image. See the DrawDots command.
+
+
+@{B}E.6.109    Quit@{UB}
+
+This command closes Personal Paint. Unless the FORCE option is used, a
+confirm requester warns the user about unsaved data (if any).
+
+
+@{B}E.6.110    ReadBitmap BITMAP/N/A X/N/A Y/N/A WIDTH/N@{UB}
+
+This command reads the specified bitmap and returns one or more pixel
+values. The reading starts from the X,Y position and continues for WIDTH
+pixels to the right. Three values (red, green and blue, range = 0-255) are
+returned for each pixel of a true color (24 bit deep) bitmap. One value
+(pixel index) is returned for each planar (2-256 colors) bitmap pixel.
+
+
+@{B}E.6.111    Redo LEVELS/N@{UB}
+
+One ore more graphic operations can be redone with this command. The
+optional LEVELS argument (default = 1) can be used to specify the number
+of redo levels. The RC_NOUNDO error can be returned in the RC variable if
+there are no (not enough) redo levels.
+
+
+@{B}E.6.112    ReduceColors MAXCOLORS/N/A RGB/S HSV/S BEST/S COLORS/A/M/F@{UB}
+
+This command applies a color reduction algorithm to the specified color
+data (COLORS parameter) and returns a reduced palette containing MAXCOLORS
+colors (different algorithms can be used, based on the "Best Quality"
+dithering setting).
+
+The data string must contain four values for each color: the red, the
+green and the blue components (range 0-255) and a usage count (which could
+be the number of such-colored pixels in a bitmap, or an abstract "priority
+value"). The strings returned by the ColorStatistics and
+BrushColorStatistics command (with the COLORS option) can be used as data
+strings for the ReduceColors command.
+
+The (mutually exclusive) RGB and HSV options determine the format of the
+color entries (both for input and for the result), RGB being the default.
+
+The BEST option determines whether a higher-quality (but slower) algorithm
+should be used even if the total number of different colors exceeds about
+2500, in which case faster algorithms, normally used for true-color
+processing, would be applied.
+
+Multiple COLORS parameters can be specified (this may be necessary, due to
+the Rexx strings limit of 65535 characters).
+
+The returned string contains the red, green and blue values of each
+resulting color (as needed by the SetColors and SetBrushColors commands).
+
+The LessColors command can be used, instead of ReduceColors, if the image
+palette must be packed or reduced.
+
+
+@{B}E.6.113    RemapBrush@{UB}
+
+This command remaps the brush colors to the image palette (the resulting
+brush has the same number of colors as the image). The color remapping
+settings are used.
+
+
+@{B}E.6.114    RemapImage@{UB}
+
+This command remaps the last used image colors to the current image
+palette (the previous image look is restored). The color remapping
+settings are used.
+
+
+@{B}E.6.115    Request TITLE/A DESCRIPTION/A RESIZE/S KEEPCOLORS/S COMPACT/S@{UB}
+
+This is a very powerful and flexible command which allows Rexx programs to
+easily create complex requesters on Personal Paint's screen.
+
+The TITLE argument sets the title of the requester.
+
+The DESCRIPTION parameter describes the objects contained in the
+requester.
+
+The RESIZE option allows the requester to be resized horizontally and
+vertically. Vertical resizing is activated only if the requester contains
+LIST objects.
+
+The KEEPCOLORS option prevents the screen colors from being changed.
+Otherwise, if the contrast of the available colors is determined to be
+poor, Personal Paint may automatically change the screen colors while the
+requester is displayed.
+
+The COMPACT option suppresses the automatic creation of empty lines
+between objects.
+
+
+@{I}The DESCRIPTION Argument @{UI}
+
+This is a single argument containing a concatenation of requester object
+description strings. Double quotes ('"') are necessary to delimit the
+substrings only if these contain spaces. The text associated to each
+object may contain an underscore character to specify a keyboard shortcut
+(for example, "_Proceed"). Single quotes ("'") are preserved as such if
+they are preceded by the backslash character ("\\"). The backslash used
+alone must be indicated as a double-backslash ("\\\\").
+
+In the following examples, angle brackets are used to represent numerical
+fields. The brackets are not part of the object definition.
+
+The following is a list of requester objects which can be specified in the
+DESCRIPTION argument:
+
+
+@{I}Text String Gadget @{UI}
+
+STRING = "Gadget Label", <Maximum Number of Characters>, "Initial Text"
+
+The "Gadget Label" is the text which appears to the left of the gadget and
+introduces the gadget. It may contain a keyboard shortcut.
+
+
+@{I}Numerical String Gadget (Integers) @{UI}
+
+INTSTR = "Gadget Label", <Minimum Value>, <Maximum Value>,
+         <Initial Value>
+
+This object defines a standard numerical string gadget, with automatic
+range validation and display of an initial value. Only integer numbers can
+be set.
+
+
+@{I}Numerical String Gadget (Fractions) @{UI}
+
+INT10000STR = "Gadget Label", <Minimum Value>, <Maximum Value>,
+              <Initial Value>
+
+While INSTR is used only for integers, INT10000STR allows the user to edit
+fractions with up to four decimal digits. The initial value and the result
+value are expressed as integers equivalent to the fraction multiplied by
+10 000.
+
+
+@{I}Cycle Gadget @{UI}
+
+CYCLE = "Gadget Label", <Total Positions>, <Initial Position>,
+        "Position 0 Text", "Position 1 Text" [...]
+
+The Position values start from 0.
+
+
+@{I}Check Box @{UI}
+
+CHECK = "Gadget Label", <Initial Status>
+
+The Initial Status may be 0 (not checked) or 1 (checked).
+
+
+@{I}Slider (Integer Values) @{UI}
+
+SLIDE = "Gadget Label", <Minimum Value>, <Maximum Value>,
+        <Initial Value>
+
+This is a standard slider, used to set values in the specified range, with
+a predetermined initial position.
+
+
+@{I}Slider (Number of Colors) @{UI}
+
+COLSLIDE = "Gadget Label", <Minimum Value>, <Maximum Value>,
+           <Initial Value>
+
+This is a special slider which displays only the values which are a power
+of two: 2, 4, 8, 16, 32, 64, 128 or 256. The minimum, maximum, initial and
+result values is expressed in bitplanes: 1, 2, 3, 4, 5, 6, 7 or 8.
+
+
+@{I}Scrolling List @{UI}
+
+LIST = "Gadget Label", <Total Entries>, <Initial Selection>,
+       <Horizontal Size>, <Vertical Size>,
+       "Entry 0 Text", "Entry 1 Text" [...]
+
+This is a standard Amiga scrolling list, with an optional title (Gadget
+Label). The Horizontal Size is expressed in characters (if a proportional
+font is used, its "M" character is used as a reference). The Vertical Size
+is expressed in lines (number of entries to be visible at the same time).
+
+
+@{I}Text @{UI}
+
+TEXT = "Text"
+
+This is not a gadget, but a plain, centered text appearing in the
+requester.
+
+
+@{I}Separator Line @{UI}
+
+SEPARATOR
+
+This displays a horizontal separator line.
+
+
+@{I}Empty Lines @{UI}
+
+VSPACE = <Number of Lines>
+
+This adds a separator made of empty lines. The actual number of screen
+lines is recalculated in proportion to the THICKY program setting
+(bit-shift: lines<<=THICKY), which represents the ratio of vertical user
+interface items.
+
+
+@{I}Action Gadgets (Bottom of Requester) @{UI}
+
+ACTION = "Gadget Text"
+
+These are the standard gadgets which appear at the bottom of the
+requester. The default "Proceed" and "Cancel" gadgets are automatically
+positioned at the bottom of the requester if no ACTION objects are used.
+
+The following Gadget Texts are associated to standard texts in the current
+user interface language of the software:
+
+   ACTION = PROCEED   displays a "Proceed" gadget,
+
+   ACTION = CANCEL    displays a "Cancel" gadget, and
+
+   ACTION = OK        displays an "OK" gadget.
+
+
+@{I}Object Attributes@{UI}
+
+The behavior of non-action gadgets may be modified with the ACTION
+attribute (e.g. "CYCLE ACTION = ..."): when the gadget is pressed and
+released the requester is closed (see "Return Values in RESULT" in the
+section below).
+
+For example, the object:
+
+   CYCLE ACTION = "Cycle it:", 2, 0, First, Second
+
+would cause the requester to be closed with a negative RESULT value
+corresponding to the position of the selection (e.g. -2 for the second
+object).
+
+
+@{I}Object Examples @{UI}
+
+STRING = "Enter _text:", 256, "Text"
+
+INTSTR = "Enter _number:", -10, 10, 5
+
+INT10000STR = "Enter _number:", -100000, 100000, 5000
+
+CYCLE = "Cycle it:", 2, 0, First, Second
+
+CYCLE ACTION = "Cycle it:", 2, 0, First, Second
+
+CHECK = "Check it:", 0
+
+SLIDE = "Slider:", -10, 10, 5
+
+COLSLIDE = "Colors:", 1, 8, 4
+
+LIST = "", 3, 0, 30, 10, "First", "Second", "Third"
+
+LIST ACTION = "", 3, 0, 30, 10, "First", "Second", "Third"
+
+TEXT = "This is a text"
+
+SEPARATOR
+
+VSPACE = 2
+
+ACTION = "Action"
+
+ACTION = PROCEED
+
+ACTION = CANCEL
+
+ACTION = OK
+
+
+@{I}Command Examples @{UI}
+
+Request '"Processing" "LIST = _Effect:, 2, 0, 20, 3, Rise, Emboss"'
+
+Request KEEPCOLORS RESIZE '"Test Requester"' ||,
+'"STRING = ""Enter text:"", 256, ""Text""' ||,
+'LIST = , 4, 0, 20, 3, First, Second, Third, Fourth' ||,
+'LIST = , 4, 0, 20, 3, First, Second, Third, Fourth' ||,
+'LIST = , 4, 0, 20, 3, First, Second, Third, Fourth' ||,
+'TEXT = Text "'
+
+
+@{I}Note: @{UI}In the above example, the "||" string concatenation operator and the
+line separator comma are used. When a line ends with a comma that is not
+included within a string token, ARexx combines that line with the
+following line and treats both as one clause. The "" (double quote used
+twice) is used to include a single quote in a quote-delimited string. More
+information can be found in the Amiga manuals and in the ARexx Manual
+published in the Personal Suite CD-ROM.
+
+
+@{I}Return Values in RESULT @{UI}
+
+The RESULT variable indicates the position (starting from 1) of the
+selected action gadget at the bottom of the requester or the position of
+the selected "action-attribute" gadget (negative value, starting from -1).
+For example:
+
+   Request '"Test Requester" "TEXT = ""Make your choice"" ' ||,
+           'ACTION = A ACTION = B ACTION = C ACTION = D ACTION = E "'
+
+   IF RC = 0 THEN SAY RESULT    /* 1 = "A", 2 = "B", 3 = "C"; ... */
+
+
+or (ACTION attribute):
+
+   Request '"Test Requester" "LIST ACTION = ""Make your choice"", ' ||,
+           '5, 0, 15, 5, A, B, C, D, E "'
+
+   IF RC = 0 THEN SAY RESULT    /* -1 = LIST, 1 = Proceed */
+
+
+The RESULT.# (where "#" indicates the position of the object in the
+requester) variables are used to return the values of the individual
+objects in the requester. Simple texts and separator objects do not occupy
+any positions in this sequence.
+
+For example:
+
+   Request '"Test Requester" ' ||,
+   '"STRING = ""Enter text:"", 256, ""Text"" ' ||,
+   'INTSTR = ""Enter number:"", -10, 10, 5 "'
+
+   IF RC = 0 THEN
+      SAY '  Text entered:' RESULT.1
+      SAY 'Number entered:' RESULT.2
+   END
+
+
+@{I}Return Values in RC @{UI}
+
+The RC variable normally contains RC_CANCEL (5) if an "ACTION=CANCEL"
+gadget was selected, or RC_OK (0) otherwise. Other values can indicate
+various other error conditions, such as insufficient memory.
+
+
+@{B}E.6.116    RequestFile TITLE/A PATH FILE PROCEED CANCEL FORMAT
+           LISTFORMATS/S SAVEMODE/S OPTIONS/M/F@{UB}
+
+This command opens a file requester and returns the selection (quoted file
+name and optional format data).
+
+The PATH and FILE arguments may be used to set initial values for the Path
+and File settings.
+
+The PROCEED and CANCEL strings can be used to change the default Proceed
+and Cancel gadget texts.
+
+If the SAVEMODE option is specified, then a Save requester is displayed
+instead of a Load requester. This includes the file overwriting warning.
+
+If the LISTFORMATS option is specified, then the list of file formats is
+included in the requester (the initial format/options can be set with the
+FORMAT and OPTIONS arguments).
+
+These are examples of possible results (stored in RESULT):
+
+   "Work:Pictures/Moon.png"
+
+   "Ram Disk:T/test" FORMAT "ILBM" OPTIONS "COMPR=1" "SCRFMT=1"
+
+
+@{B}E.6.117    RequestFilter TITLE/A FILTER NOFS/S FS/S@{UB}
+
+This command opens a processing filter requester and returns the selection
+(quoted filter name and dither setting).
+
+The FILTER argument may be used to set initial selection. The initial
+status of the "F-S Error Diffusion" option can be set with the FS and NOFS
+options (defaults = last selections).
+
+These are examples of possible results (stored in RESULT):
+
+   "Blur High" FS
+
+   "SIRDS HiQual" NOFS
+
+
+@{B}E.6.118    RequestFont TITLE/A PATH NAME SIZE/N STYLE PROCEED CANCEL@{UB}
+
+This command opens a font requester and returns the selection (quoted
+fonts path, quoted font name, font height and optional font attributes).
+
+PATH, NAME, SIZE and STYLE are used to set the initial font values (like
+PATH and FILE in the file requester).
+
+The PROCEED, CANCEL and SAVEMODE options work as explained for the file
+requester.
+
+These are examples of possible results (stored in RESULT):
+
+   "Workbench:fonts" "topaz" 8 of
+
+   "PPaint:fonts" "Personal" 8
+
+
+@{B}E.6.119    RequestNotify TITLE PROMPT/A OK SCROLL/S
+           WORDWRAP/S WRAPCHECK/S@{UB}
+
+This command opens a simple notification requester containing a text and
+an "OK" gadget (whose text can be changed with the OK argument).
+
+The TITLE and PROMPT arguments are used to respectively set the title
+(default = "Attention") and the text to be displayed.
+
+If the SCROLL option is specified, then the text is displayed in a
+scrolling and resizable window. This is especially useful for displaying
+long texts. By default, the text is displayed in a non-proportional font
+(such as Topaz), without word wrap and with vertical and horizontal scroll
+bars.
+
+The WORDWRAP option works together with SCROLL, and determines whether the
+text should be word-wrapped by the software. Word-wrapping adds line feeds
+and converts single LF (line feed) characters and surrounding spaces to a
+single space as necessary to display the text in the available horizontal
+size. To separate paragraphs, two LF characters should be used. To avoid
+tables from being reformatted, the special "NBSP" (non-break space,
+decimal code 160, keyboard <Alt+Space>) character can be used at the
+beginning of those lines which should be preserved in the original
+format.
+
+The WRAPCHECK option also works together with SCROLL, and allows the user
+to switch WORDWRAP on and off as desired. For this purpose, a check box is
+added to the requester. WRAPCHECK and WORDWRAP can be used in combination
+to determine the initial formatting setting.
+
+
+@{B}E.6.120    RequestPalette TITLE/A PEN/N COLORS PROCEED CANCEL
+           RGB/S HSV/S@{UB}
+
+This command displays a color palette editing and selection requester,
+similar to the Edit Color Palette program requester. The results of any
+editing actions, however, are not applied to the current environment, but
+are only returned to the Rexx client. The TITLE, PROCEED and CANCEL allow
+the standard requester strings to be defined, as in RequestFile.
+
+The PEN option specifies the color entry which must appear as the selected
+item when the requester is displayed. The COLORS option can be used to
+specify a default initial palette (a list of RGB or HSV entries). Both PEN
+and COLORS, if not specified, default to the current environment settings.
+The number of colors that can be edited is always set by the current
+screen mode.
+
+The command returns the selected color, followed by the color palette
+entries (RGB or HSV).
+
+The RGB and HSV options determine the format of both the input (COLORS)
+and output (RESULT) palettes.
+
+
+@{B}E.6.121    RequestPath TITLE/A PATH PROCEED CANCEL@{UB}
+
+This command opens a Path requester and returns the path selection
+(quoted). This is identical to RequestFile, only that the file field is
+not used.
+
+These are examples of possible results (stored in RESULT):
+
+   "Work:FancyFonts"
+
+   "Ram Disk:test dir/subdir"
+
+
+@{B}E.6.122    RequestResponse TITLE PROMPT/A PROCEED CANCEL@{UB}
+
+This command opens a simple requester which displays a text (PROMPT
+argument) and allows the user to select Proceed or Cancel-type actions.
+Accordingly, the RC variable contains RC_OK or RC_CANCEL. The PROCEED and
+CANCEL options can be used to change the default gadget texts. The TITLE
+argument replaces the "Attention" default title.
+
+
+@{B}E.6.123    ResizeBrush SMALLER/S BIGGER/S HALVE/S HALVEX/S HALVEY/S
+           DOUBLE/S DOUBLEX/S DOUBLEY/S@{UB}
+
+This command can be used to change the brush size. One of the command
+options must be used to select the desired resizing action.
+
+
+@{B}E.6.124    RestoreBrush@{UB}
+
+This command undoes the last brush operation(s). Its behavior is slightly
+different from the image undo: this command may undo multiple "same type"
+operations.
+
+
+@{B}E.6.125    RestorePalette@{UB}
+
+This command restores the last used palette (the action can be undone by
+executing this command again).
+
+
+@{B}E.6.126    RotateBrush ANGLE/N/A@{UB}
+
+This command can be used to rotate the brush of a given number of degrees
+(ANGLE unit: 1/1000°, i.e. 1000 = 1 degree).
+
+
+@{B}E.6.127    SaveAnimation FILE FORMAT FROM/N TO/N
+           FULLOPTIMIZATION/S NOFULLOPTIMIZATION/S@{UB}
+
+This command saves the current animation to the specified file in the
+specified format ("Anim5", "Auto", "Anim7S", "Anim7L", "Anim8S" or
+"Anim8L"). If the file is not specified, a file requester appears.
+
+The full ANIM optimization can be enabled or disabled with the
+FULLOPTIMIZATION and NOFULLOPTIMIZATION options (default = original file
+optimization).
+
+It is possible to save just a given range of frames using the FROM and TO
+parameters (default = all frames).
+
+
+@{B}E.6.128    SaveAnimBrush FILE@{UB}
+
+This command saves the current anim-brush to the specified file.  If the
+file is not specified, a file requester appears.
+
+
+@{B}E.6.129    SaveBrush FILE FORMAT CLIPBOARD/S OPTIONS/M/F@{UB}
+
+This command saves the current brush (or anim-brush frame) to the
+specified file in the specified format. If the file (and the CLIPBOARD
+option) is not specified, a file requester appears.
+
+The FORMAT and OPTIONS arguments allow the user to select a specific file
+format and to set the specific options of that format. If no file format
+is specified, either the original (read) format is used, or the IFF-ILBM
+format is used (if the brush was not loaded, but created new on-screen).
+If only the FORMAT parameter is specified, the default options for that
+format are used.
+
+The brush can be saved to the system clipboard, if the CLIPBOARD option is
+specified.
+
+
+@{B}E.6.130    SaveImage FILE FORMAT OPTIONS/M/F@{UB}
+
+This command saves the image to the specified file in the specified
+format. If the file is not specified, a file requester appears.
+
+The FORMAT and OPTIONS arguments allow the user to select a specific file
+format and to set the specific options of that format. If no file format
+is specified, either the original (read) format is used, or the IFF-ILBM
+format is used (if the image was not loaded, but created new on-screen).
+
+
+@{B}E.6.131    SavePalette FILE@{UB}
+
+This command saves the current palette as an IFF palette file.
+
+
+@{B}E.6.132    SaveSettings FILE PROMPT/S@{UB}
+
+This command saves the specified settings file. If no FILE argument is
+specified, a file requester is displayed.
+
+When the PROMPT option is specified, the setting selection requester is
+displayed.
+
+
+@{B}E.6.133    SaveStencil FILE@{UB}
+
+This command saves the current stencil as an IFF stencil file.
+
+
+@{B}E.6.134    ScreenToBack@{UB}
+
+This command brings the program screen to the back of all screens.
+
+
+@{B}E.6.135    ScreenToFront@{UB}
+
+This command brings the program screen to the front of all screens.
+
+
+@{B}E.6.136    Set STRETCH/S SETTINGS/M/F@{UB}
+
+This command sets one or more program settings. It is equivalent to
+loading settings from a settings file.
+
+The "FORCE STRETCH" options can be used to rescale the image to a new
+format without further confirmation requesters.
+
+Since both Personal Paint and the Amiga Rexx interface use quotes to pass
+string arguments, two levels of quotes (single and double quotes) must be
+used. For example:
+
+   Set 'FORCE "IMAGEW=640" "IMAGEH=480" "COLORS=8"'
+   Set 'FORCE STRETCH "IMAGEW=640" "IMAGEH=480"'
+
+Multiple setting definitions can be merged into a single parameter:
+
+   Set 'FORCE "IMAGEW=640 IMAGEH=480 COLORS=8"'
+
+
+@{B}E.6.137    SetAirbrushSettings WIDTH/N HEIGHT/N JETCOUNT/N
+           ELLIPTICAL/S RECTANGULAR/S@{UB}
+
+This command can be used to set one or more airbrush settings. The
+airbrush size and shape can be set with the WIDTH and HEIGHT parameters
+and the ELLIPTICAL and RECTANGULAR options. The JETCOUNT parameter (range
+-20...1000) defines the jet count/delay.
+
+
+@{B}E.6.138    SetAnimBrushSettings FRAMES/N LENGTH/N FRAMEPOSITION/N
+           FRAMEFIRST/N FRAMELAST/N FRAME/N DIRECTION/N@{UB}
+
+This command can be used to set one or more anim-brush settings: number of
+frames (FRAMES parameter - the only valid value is 0, which frees all the
+frames, but the current one), length of the animation (LENGTH), animation
+position (FRAMEPOSITION), starting frame (FRAMEFIRST), ending frame
+(FRAMELAST), active frame (FRAME) and direction (DIRECTION - 0 = forward,
+1 = backward, 2 = ping pong, 3 = pause).
+
+
+@{B}E.6.139    SetAreaSettings BRUSH/N DITHER/N FILLSOLID/S FILLGRADIENT/S
+           FILLPATTERN/S GRADIENTMANUAL/S GRADIENTAUTO/S
+           GRADIENTX/S GRADIENTXIMAGE/S GRADIENTY/S
+           GRADIENTYIMAGE/S GRADIENTSHAPE/S@{UB}
+
+The SetaAreaSettings options can be used to activate the following filling
+methods: solid (FILLSOLID), gradient (FILLGRADIENT) and pattern
+(FILLPATTERN).
+
+Unless the last used settings are to be selected, the FILLGRADIENT option
+can be combined with other options to select: manual gradient colors
+(GRADIENTMANUAL), automatic gradient colors (GRADIENTAUTO), horizontal
+gradient (GRADIENTX), image horizontal gradient (GRADIENTXIMAGE), vertical
+gradient (GRADIENTY), image vertical gradient (GRADIENTYIMAGE) and shape
+gradient (GRADIENTSHAPE).
+
+The FILLPATTERN options can be combined with other options to select:
+brush-based pattern (BRUSH range 1..9: the brush to copy the pattern from)
+and dithered pattern (DITHER range 0..100: dithering percentage between
+foreground and background color).
+
+
+@{B}E.6.140    SetBrushAttributes WIDTH/N HEIGHT/N COLORS/N FRAMES/N
+           LENGTH/N FRAMEPOSITION/N FRAMEFIRST/N FRAMELAST/N FRAME/N
+           DIRECTION/N HANDLEX/N HANDLEY/N DPIX/N DPIY/N
+           SOURCEX/N SOURCEY/N SOURCEWIDTH/N SOURCEHEIGHT/N
+           DISPLAY/N TRANSPARENCY/N TRANSPARENTCOLOR/N
+           EXTENDPALETTE/S@{UB}
+
+This command can be used to set several brush attributes and change the
+brush format. The combined use of the WIDTH, HEIGHT and COLORS parameters,
+with the EXTENDPALETTE option, makes it possible to reduce the brush size
+while performing an optimized color average resize (new colors are
+automatically generated, if the number of color has been increased). The
+"frame" parameters change the corresponding anim-brush settings (see
+SetAnimBrushSettings). The brush handle can be positioned with the HANDLEX
+and HANDLEY parameters (see SetBrushHandle). The remaining parameters can
+be used to set the brush ratio (dots per inch, DPIX and DPIY), the source
+size (SOURCEWIDTH and SOURCEHEIGHT) and coordinates (SOURCEX and SOURCEY),
+the video mode (DISPLAY), the transparency type (TRANSPARENCY: 0 = none, 1
+= color, 2 = backfill) and the transparent color (TRANSPARENTCOLOR).
+
+
+@{B}E.6.141    SetBrushColors FROM/N COLORS/N/A RGB/S HSV/S@{UB}
+
+This command can be used to change the brush palette. The COLORS parameter
+may contain one or more color definitions, each one made of three RGB or
+HSV values (based on the format option used: RGB, default, or HSV).
+
+The valid range for the RGB values is 0..255. The hue range is 0..360
+(degrees), the saturation and value range is 0..100 (percentages).
+
+The first color to set can be specified with the FROM parameter (range
+0..<cnum-1>, default: 0).
+
+
+@{B}E.6.142    SetBrushFramePosition POSITION/N PREVIOUS/S NEXT/S@{UB}
+
+This command can be used to set the anim-brush frame position. The
+position can be absolute (POSITION parameter, range 1..<animation length>)
+or relative (the PREVIOUS and the NEXT options select the previous and the
+next position).
+
+
+@{B}E.6.143    SetBrushHandle OFFSETX/N OFFSETY/N UPPERLEFT/S UPPERRIGHT/S
+           CENTER/S LOWERLEFT/S LOWERRIGHT/S@{UB}
+
+The SetBrushHandle command can be used to position the brush handle in the
+brush corners or in a specified position (OFFSETX and OFFSETY parameters,
+upper left relative coordinates).
+
+
+@{B}E.6.144    SetBrushInfo AUTHOR COPYRIGHT ANNOTATION@{UB}
+
+Textual information may be associated to each brush. The SetBrushInfo
+command can be used to change the author, the copyright and the annotation
+string of the current brush (at least one parameter must be specified).
+
+
+@{B}E.6.145    SetColors FROM/N COLORS/N/A RGB/S HSV/S@{UB}
+
+This command can be used to change the image palette. The COLORS parameter
+may contain one or more color definitions, each one made of three RGB or
+HSV values (based on the format option used: RGB, default, or HSV).
+
+The valid range for the RGB values is 0..255. The hue range is 0..360
+(degrees), the saturation and value range is 0..100 (percentages).
+
+The first color to set can be specified with the FROM parameter (range
+0..<cnum-1>, default: 0).
+
+
+@{B}E.6.146    SetCurrentBrush BRUSH/N WIDTH/N HEIGHT/N
+           ELLIPTICAL/S RECTANGULAR/S UNUSED/S@{UB}
+
+This command can be used to select a predefined, a user brush or an empty
+brush position.
+
+User brush are selected with the BRUSH parameter (range: 1..9).
+
+Predefined brush are selected with the WIDTH and/or HEIGHT parameters
+(both must be used to override the round/square aspect default). The
+ELLIPTICAL (default) and RECTANGULAR option can be used to select the
+brush type.
+
+The UNUSED option can be used to find and select the next unused brush
+position (e.g. to define a temporary brush). The RC_NOUBRUSH is returned
+in the RC variable, if no empty position exists (nine brush defined).
+
+
+@{B}E.6.147    SetFrameDelay TICKS/N/A FROM/N TO/N ALL/S@{UB}
+
+This command can be used to set the delay time of one or more animation
+frames. The TICKS parameter holds a time value in 1/60" (TICS 60 = 1
+second). Unless the delay of the current frame only is to be set, the FROM
+and TO parameters may be used to select a frame range, or all the
+animation frames can be selected with the ALL option.
+
+
+@{B}E.6.148    SetFramePosition FRAME/N PREVIOUS/S NEXT/S@{UB}
+
+This command can be used to select an animation frame. The position can be
+absolute (FRAME parameter) or relative (the PREVIOUS and the NEXT options
+select the previous and the next frame).
+
+
+@{B}E.6.149    SetLineSettings BRUSH/N CONTINUOUS/S
+           ONOFFPATTERN/S COLORPATTERN/S@{UB}
+
+The SetLineSettings options can be used to activate the following line
+rendering methods: continuous (CONTINUOUS), on-off pattern (ONOFFPATTERN)
+and color pattern (COLORPATTERN).
+
+If the BRUSH parameter (range 1..9) is specified, the first line of that
+brush is used as pattern (default = last used pattern).
+
+
+@{B}E.6.150    SetPaintMode MATTE/S COLOR/S REPLACE/S HBRITE/S@{UB}
+
+This command selects the brush paint mode. The predefined brushes can only
+be used in COLOR paint mode. The HBRITE mode can be activated in HalfBrite
+screens only.
+
+
+@{B}E.6.151    SetPen BACKGROUND/N FOREGROUND/N GRID/N@{UB}
+
+This command sets one or more pens (background, foreground and grid
+colors) to specific palette entries.
+
+
+@{B}E.6.152    SetPointer DATA HEIGHT/N OFFSETX/N OFFSETY/N@{UB}
+
+This command changes the image of the "cross pointer" (the mouse pointer
+displayed in the editing zone).
+
+The pointer image is defined in the DATA argument: two image planes are
+described by a sequence of decimal/hexadecimal 16 bits values (up to three
+"opaque" colors and a transparent color can be used). The values can be
+separated by commas, spaces and TABs; C language comments can be embedded
+in the string. This is the same format used by the "C Source" I/O library
+(see the example below).
+
+While the pointer is always 16 pixels wide, there is no limit to its
+height: the HEIGHT parameter must be properly set, according to the plane
+data.
+
+The pointer "hot spot" can be set with the OFFSETX and OFFSETY parameters
+(the default offsets -1,0 identify the upper left corner).
+
+When no parameter is specified, the SetPointer command restores the
+default cross pointer image.
+
+The following step-by-step example shows how to define a pointer using
+Personal Paint:
+
+1) Set up a 4-color environment
+
+2) Draw the pointer image (a reference box may help not to exceed the
+width of 16 pixels)
+
+3) Define a brush, copying the pointer image
+
+4) Save the brush, in "C Src" format, to a temporary file
+
+5) Load the file with a text editor
+
+6) Locate the plane data within the file, for example:
+
+   UWORD chip TempFileData[28] =
+   {
+      /* Plane 0 */
+      0xFFFC,0x8008,0x8010,0x8020,0x8040,0x8040,0x8020,0x8010,
+      0x8008,0x8C04,0x9208,0xA110,0xC0A0,0x8040,
+      /* Plane 1 */
+      0x0000,0x7FF0,0x7FE0,0x7FC0,0x7F80,0x7F80,0x7FC0,0x7FE0,
+      0x7FF0,0x73F8,0x61F0,0x40E0,0x0040,0x0000
+   };
+
+7) Copy the array data to the rexx script and merge it into a single
+string (the comments could have been stripped):
+
+   pdata = ,
+      '/* Plane 0 */',
+      '0xFFFC,0x8008,0x8010,0x8020,0x8040,0x8040,0x8020,0x8010,',
+      '0x8008,0x8C04,0x9208,0xA110,0xC0A0,0x8040,',
+      '/* Plane 1 */',
+      '0x0000,0x7FF0,0x7FE0,0x7FC0,0x7F80,0x7F80,0x7FC0,0x7FE0,',
+      '0x7FF0,0x73F8,0x61F0,0x40E0,0x0040,0x0000'
+
+8) The string can now be used to change the image pointer:
+
+   SetPointer 'DATA "'pdata'" HEIGHT 14'
+
+
+@{B}E.6.153    SetProjectInfo AUTHOR COPYRIGHT ANNOTATION@{UB}
+
+Textual information may be associated to the image. The SetProjectInfo can
+be used to change the author, the copyright and the annotation string (at
+least one parameter must be specified).
+
+
+@{B}E.6.154    SetStencilActivation OFF/S ON/S@{UB}
+
+The SetStencilActivation command activates (ON option) and deactivates
+(OFF option) the stencil masking. The stencil may be activated only if it
+has previously been defined (see SetStencilColors).
+
+In no option is specified, the command toggles the stencil activation.
+
+
+@{B}E.6.155    SetStencilColors FROM/N MASK/A@{UB}
+
+This command can be used to set the masking status of one or more colors:
+the stencil is updated and activated. The MASK parameter contains one or
+more boolean values (0 = color not masked, 1 = color masked). The optional
+FROM parameter (default = 0) can be used to specify the first color
+referenced.
+
+
+@{B}E.6.156    ShearBrush X/N/A Y/N/A@{UB}
+
+This command shears the current brush. The amount of horizontal and
+vertical shearing (positive or negative) is specified with the two command
+parameters.
+
+
+@{B}E.6.157    ShowImage TIME/N@{UB}
+
+The ShowImage command displays the image in full screen (the image is
+stretched to fit the screen, if necessary). The program screen is restored
+after a given amount of time (TIME parameter) or when the user presses a
+key or a mouse button. If no parameter is specified (or if a null time is
+used), the screen is restored after an user input. The TIME parameter unit
+is 1/1000" (millisecond: 1000 = 1 second).
+
+
+@{B}E.6.158    SortColors FROM/N TO/N BRIGHTNESS/S HUE/S
+           SATURATION/S FREQUENCY/S DECREASING/S@{UB}
+
+This command sorts the palette colors. The sorting method is selected with
+the command options: brightness (BRIGHTNESS, default), hue (HUE),
+saturation (SATURATION) or frequency (FREQUENCY). The FROM and TO
+parameters can be used to select a palette range (by default, all colors
+are sorted). An increasing sorting is applied, unless the DECREASING
+option is specified.
+
+
+@{B}E.6.159    SpreadColors FROM/N TO/N RGB/S HSV/S@{UB}
+
+This command creates intermediate shades between two colors. The spread
+method is selected with the command options: RGB (default) or HSV. The
+FROM and TO parameters can be used to select the palette range (by
+default, a spread from the first to the last palette color is performed).
+
+
+@{B}E.6.160    SpreadFramePalettes FROM/N TO/N RGB/S HSV/S@{UB}
+
+This command creates intermediate palettes between two frames. The spread
+method is selected with the command options: RGB (default) or HSV. The
+FROM and TO parameters can be used to select the palette range (by
+default, a spread from the first to the last palette color is performed).
+
+
+@{B}E.6.161    StencilRectangle X0/N/A Y0/N/A X1/N/A Y1/N/A@{UB}
+
+This command defines a clipping region within the image. The rectangle
+specified with the command arguments is used to create a stencil: every
+subsequent graphic operation will only affect the area inside the
+rectangle. This can be useful to control some rendering functions (e.g.
+text, airbrush, etc.)
+
+
+@{B}E.6.162    SwapBrushBkgFrg@{UB}
+
+This command exchanges the brush background colored pixels with those in
+the foreground color, and vice versa. The current (image) foreground and
+background settings are used.
+
+
+@{B}E.6.163    SwapImageBkgFrg@{UB}
+
+This command exchanges the image background colored pixels with those in
+the foreground color, and vice versa. The current foreground and
+background settings are used.
+
+
+@{B}E.6.164    SwitchEnvironment@{UB}
+
+This command selects the alternate environment.
+
+
+@{B}E.6.165    Text TEXT FONTPATH FONTNAME FONTSIZE/N FONTSTYLE X/N/A Y/N/A
+           LEFT/S CENTER/S RIGHT/S BASELINEPOSITION/S@{UB}
+
+This command performs text rendering in the image. Several options can be
+used to control the text positioning, alignment and aspect.
+
+The TEXT parameter contains the string to render. The following ASCII
+codes and ANSI sequences can be embedded in the text (LF = '0a'x, TAB =
+'09'x, ESC = '1b'x):
+
+- LF: line separator
+
+- TAB: tabulator (tab step: 8 characters)
+
+- ESC[0m: plain style (bold, italic and underline off)
+
+- ESC[1m: bold style on
+
+- ESC[3m: italic style on
+
+- ESC[4m: underline style on
+
+- ESC[22m: bold style off
+
+- ESC[23m: italic style off
+
+- ESC[24m: underline style off
+
+- ESC[3<num>m: text color (e.g. ESC[31m = color 1,
+  ESC[3255m = color 255)
+
+If no TEXT parameter is specified, the system clipboard text is printed
+(the above codes and sequences are supported).
+
+The font used to render the text (default = last used font) can be
+specified with the FONTPATH (default = "FONTS:"), FONTNAME, FONTSIZE and
+FONTSTYLE parameters (e.g. "Fonts:" "topaz" "8" "of"). The font name may
+or may not include the ".font" suffix. If no font is specified, the last
+selected font is used.
+
+The text positioning is controlled by the X and Y parameters (image
+coordinates). The text is rendered below the specified vertical position,
+unless the BASELINEPOSITION is included (text ascenders are rendered above
+Y).
+
+The LEFT, CENTER and RIGHT options can be used to respectively render a
+left aligned, right aligned and centered text (based on the X parameter).
+
+The Text command returns the coordinates (X0 Y0 X1 Y1) of the text just
+rendered (this can be useful to compute the text length or to perform
+additional processing).
+
+
+@{B}E.6.166    Undo LEVELS/N@{UB}
+
+One ore more graphic operations can be undone with this command. The
+optional LEVELS argument (default = 1) can be used to specify the number
+of undo levels. The RC_NOUNDO error can be returned in the RC variable if
+there are no (not enough) undo levels.
+
+
+@{B}E.6.167    UnlockGUI@{UB}
+
+This command clears the effect of the LockGUI command, reenabling user
+input in the main screen.
+
+
+@{B}E.6.168    UpdateStencil@{UB}
+
+This command recomputes the stencil, using the current masked color
+information. This could be necessary after the image has been modified.
+The stencil is activated (if not already active).
+
+
+@{B}E.6.169    UseBrushPalette@{UB}
+
+This command copies the current brush palette to the image palette.
+
+
+@{B}E.6.170    UseDefaultPalette@{UB}
+
+This command copies the default colors to the image palette.
+
+
+@{B}E.6.171    UseFontPalette PATH NAME SIZE/N STYLE@{UB}
+
+This command copies a font palette to the image palette. The command
+parameters can be used to specify the font path, name, size and style. If
+no parameter is specified, the palette of the current font (the font used
+by the text tool) is copied.
+
+
+@{B}E.6.172    UseScreenPalette TITLE ADDRESS/N@{UB}
+
+This command copies a screen palette to the image palette. The screen can
+be selected by specifying its title (TITLE parameter, case insensitive) or
+its address. If no screen is specified, the screen selection requester is
+displayed.
+
+
+@{B}E.6.173    VectorCharacter CHARACTER/A FONTPATH FONTNAME/A HEIGHT/N/A
+           ANGLE/N SHEAR/N BOLDX/N BOLDY/N ANTIALIAS/N@{UB}
+
+This command creates a brush containing a vector character.
+
+The character to be rendered is specified by the CHARACTER parameter,
+which may also contain a second character (e.g. "AV") to get appropriate
+kerning information.
+
+The FONTPATH and FONTNAME parameters can be used to respectively select
+the font path (default = "FONTS:") and the font name (with or without the
+".font" suffix). An ".otag" file (e.g. "CGTimes.otag") must exist in the
+same path: this file contains essential information about the font and the
+rendering engine associated to it (e.g. "bullet.library").
+
+The HEIGHT parameter selects the character height: it is the 0-angle (not
+rotated) character height and may include blank ascender and descender
+space. Even when the character angle is 0, the resulting brush height may
+be slightly smaller than HEIGHT, due to the stretching adjustments (the
+aspect ratio is always kept appropriate to the current environment).
+
+Other character attributes can be selected with the ANGLE (clockwise
+rotation angle in 1/1000°, range -360000..360000), SHEAR (italic angle in
+1/1000°, range -45000..45000), BOLDX and BOLDY (horizontal and vertical
+bold levels, range -8000..8000) parameters (defaults = 0).
+
+Three different levels of antialias (edges smoothing) can be activated
+with the ANTIALIAS parameter (0 = no antialias, default; 1, 2, 3 = low,
+medium and high antialias). When antialiasing is activated, the resulting
+brush contains a variable number of gray shades: the brush can be applied
+to the image using the "Brush Alpha Channel (Single)" processing filter,
+the brush mode processing tool (three clicks on the processing tool) and
+the "Color" brush paint mode.
+
+When no antialias is active, a 2-color brush is created and the first
+image palette colors are copied to it.
+
+The resulting brush handle, regardless of the rotation, is always
+positioned on the character baseline, on its "left".
+
+More character information can be found in the RESULT variable. The
+sequence of 7 decimal values is composed of:
+
+- offset X, offset Y: the values to add to the brush handle to move to
+  the next character position (rotation and optional kerning aware),
+
+- handle X, handle Y: alternate brush handle, positioned on the character
+  baseline, halfway towards the writing direction (the handle of a 0
+  angle, uppercase "V" would be on its bottom tip),
+
+- width: the character width (not rotated),
+
+- kerning: the character kerning (not rotated); this formula is valid for
+  non-rotated characters: offset X = width + kerning,
+
+- next width: the next character width (not rotated); just like kerning,
+  this value refers to the second character specified in the CHARACTER
+  parameter (if any).
+
+
+@{B}E.6.174    VectorText TEXT/A FONTPATH FONTNAME/A X0/N/A Y0/N/A
+           X1/N/A Y1/N/A ANGLE/N SHEAR/N BOLDX/N BOLDY/N ANTIALIAS/N
+           LEFT/S CENTER/S RIGHT/S KEEPRATIO/S KEEPBASELINE/S DYNAMIC/S@{UB}
+
+This command renders a vector string (TEXT parameter) into the image.
+
+The font selection (FONTPATH and FONTNAME parameters) and the text
+attributes activation (ANGLE, SHEAR, BOLDX, BOLDY and ANTIALIAS
+parameters) work as explained in the VectorCharacter section. Unlike for
+the VectorCharacter, the antialiasing effect is directly applied to the
+string, which is smoothly integrated in the image (to get the best
+results, the image palette should contain enough intermediate shades).
+
+The string placement within the image (the bounding rectangle) is
+specified with the X0, Y0, X1 and Y1 parameters. By default, the string is
+stretched to completely fit the rectangle, regardless of font ratio and
+ascender/descender space. The KEEPRATIO option can be used to maintain the
+font aspect (this could lead to a smaller text), while the appropriate
+blank space for ascenders/descenders is included with the KEEPBASELINE
+option (e.g. a lower case "o" string is rendered with some blank space
+above and below).
+
+The unused rectangle space of KEEPRATIO strings can be distributed with
+the LEFT (default), CENTER and RIGHT options: the string is properly
+aligned (left, center and right) inside the rectangle. If the rotation
+angle is different from 0, the left alignment is forced.
+
+The string size and placement can be dynamically-defined, if the DYNAMIC
+option is specified. The mouse can be used to stretch and move the
+highlighted rectangle; the mouse pointer changes to a "resize arrow" when
+placed on the bottom right corner, and to a simple (move) arrow when other
+rectangle parts are pointed: the left mouse button performs the specific
+action. The final string is rendered (antialiased, if required) when the
+right mouse button is pressed.
+
+The command returns the coordinates (X0 Y0 X1 Y1) of the text just
+rendered (this can be useful to compute the final text size or to perform
+additional processing).
+
+
+@{B}E.6.175    Version PROGRAM/S REXX/S@{UB}
+
+This command returns the version of the program or that of the Rexx
+interface. By default, the program version is returned.
+
+
+@{B}E.6.176    Wait TIME/N/A@{UB}
+
+This command waits for a specified time. This is to be preferred to a
+busy-loop: while the program waits, it does not uses processor time. The
+TIME parameter unit is 1/1000" (millisecond: 1000 = 1 second).
+
+
+@{B}E.6.177    WaitForClick DOWN/S POINT/S SHOWBRUSH/S SHOWCROSS/S@{UB}
+
+This command waits until the user presses a mouse button in the editing
+area or hits the <Esc> key.
+
+The SHOWBRUSH and SHOWCROSS options can respectively be used to show the
+current brush or the crosshair under the mouse pointer (by default nothing
+is displayed in the editing area).
+
+When the DOWN option is specified, the command terminates as soon as a
+mouse button is pressed (by default, the command waits for a button
+release).
+
+While the command waits, few program functions are functional (e.g.
+magnify mode activation, image scrolling, etc.) and can be activated with
+their keyboard shortcuts.
+
+If the operation is cancelled with the <Esc> key, an RC code 5 is
+returned. Otherwise the code of the button pressed (1 = left, 2 = middle,
+3 = right) is returned in the RESULT variable. When the POINT option is
+specified, the button code is followed by the coordinates of the point
+where the button was pressed.
+
+
+@{B}E.6.178    WaitForEvent@{UB}
+
+This command waits until an event (a mouse move, a key pressed, etc.) is
+queued to the main window. It could be useful to avoid busy waits in some
+situations (e.g. while tracking mouse input).
+
+
+@{B}E.6.179    WaitForKey@{UB}
+
+This command waits until the user presses a key and returns an extended
+ASCII code.
+
+In addition to plain ASCII values, the following codes can be returned:
+
+     256: <Esc>
+     257: <Tab>
+     258: <Backspace>
+     259: <Del>
+     260: <Help>
+     261: <F1>
+     262: <F2>
+     263: <F3>
+     264: <F4>
+     265: <F5>
+     266: <F6>
+     267: <F7>
+     268: <F8>
+     269: <F9>
+     270: <F10>
+     271: <Cursor Up>
+     272: <Cursor Down>
+     273: <Cursor Right>
+     274: <Cursor Left>
+
+A key attribute can be added to the code returned:
+
+   16384: <Shift>
+    8192: <Alt>
+    4096: <Ctrl>
+    2048: <Left Amiga>
+    1024: <Right Amiga>
+     512: <Numerical keypad>
+
+For example:
+
+      97: <a>
+      65: <A>
+    4193: <Ctrl> + <a>
+   16645: <Shift> + <F1>
+   16643: <Shift> + <Del>
+    8465: <Alt> + <Cursor Right>
+    1133: <Right Amiga> + <m>
+     561: <1> (numerical keypad)
+
+
+@{B}E.6.180    WriteBitmap BITMAP/N/A X/N Y/N PIXELS/A@{UB}
+
+This command stores one or more pixel values in the specified bitmap.
+
+The X and Y parameters can be used to select the (starting) bitmap
+coordinates: based on the PIXELS parameter contents, one or more pixels
+will be stored from that point on (up to the end of the bitmap row). If
+the X and Y parameters are omitted, all the bitmap will be set to the
+specified pixel value.
+
+The PIXELS parameter contains RGB values to be stored in true color
+bitmaps or color indexes to be stored in normal bitmaps (see ReadBitmap
+return values).
+
+
+@{B}E.6.181    Zoom IN/S OUT/S@{UB}
+
+This command increases (IN option, default) or decreases (OUT option) the
+current zoom level (magnify mode must be active). An RC_GENERROR code may
+be returned in the RC variable if it is not possible to perform the
+required action (e.g. the zoom level cannot be decreased any further).
+
+@ENDNODE

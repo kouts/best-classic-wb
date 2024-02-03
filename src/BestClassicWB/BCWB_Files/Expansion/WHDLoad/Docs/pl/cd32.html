@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<TITLE>WHDLoadCD32</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: cd32.html 1.4 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>WHDLoadCD32</h3>
+
+WHDLoadCD32 jest specjalną wersją pakietu WHDLoad przeznaczoną do pracy z Amigą CD&sup3;&sup2;.
+Została zoptymizowana pod ten sprzęt i dlatego też uruchomi się jedynie na &quot;gołej&quot;,
+nierozbudowanej Amidze CD&sup3;&sup2;. Pakiet nie uruchomi się na SX-32, ani żadnej innej maszynie.
+
+<p>Różnice względem podstawowego pakietu WHDLoad:
+<ul>
+
+<li>nie wymaga, nie używa pliku-klucza do pakietu WHDLoad, dlatego płyty CD zawierające
+pakiet WHDLoad32 mogą być dowolnie rozpowszechniane
+
+<li>obsługiwany jest jedynie procesor MC68020, co oznacza także brak obsługi MMU
+
+<li>brak obsługi pamięci typu Fast
+
+<li>brak obsługi zapisywania, zarówno pozycji w grze, listy najlepszych wyników czy zrzutów pamięci
+(płyty CD zazwyczaj są jedynie do odczytu)
+
+<li>wiele opcji zostało usuniętych, gdyż są one nieprzydatne na CD&sup3;&sup2;,
+aby uczynić pliki wykonywalne mniejszymi oraz zaoszczędzić pamięć. Na stronie
+<a href="opt.html">uruchamianie i opcje</a> możesz sprawdzić dokładnie, których opcji to dotyczy
+
+<li>następujące funkcje resload nie zostały zaimplemenrowane, a używanie ich spowoduje przerwanie pracy
+WHDLoad z wartością zwrotną TDREASON_ILLEGALARGS:
+
+<ul>
+<li><a href="../autodoc.html#resload_DiskLoadDev">resload_DiskLoadDev</a>
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_Log">resload_Log</a>
+</ul>
+
+<li>następujące funkcje resload nie działają, nic nie robią, ale zwracają kod powodzenia:
+
+<ul>
+<li><a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a>
+<li><a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>
+<li><a href="../autodoc.html#resload_DeleteFile">resload_DeleteFile</a>
+</ul>
+
+<li>brak obsługi <a href="freezer.html">monitorów systemu / programów zatrzymujących działanie innych programów</a>
+
+<li>brak wewnętrznego sprawdzania wielkości stosu, jak to jest w normalnej wersji pakietu, do moich testów
+domyślna wartość 4096 bajtów wystarczała podczas pracy z WHDLoadCD32
+
+</ul>
+
+<h3>Podpowiedzi odnośnie używania WHDLoad na Amidze CD&sup3;&sup2;</h3>
+
+Głównym problemem na Amidze CD&sup3;&sup2; jest ograniczenie pamięci. Jest to tylko 2MB pamięci graficznej.
+Dlatego też konieczne jest uzyskanie jak największej ilości wolnej pamięci sla pakietu WHDLoad, a szczególnie dla operacji
+wcześniejszego wczytywania danych. Upewnij się, że nie działają w tle żadne inne programy gdy uruchamiasz program
+wykorzystujący pakiet WHDLoadCD32.
+
+<ul>
+
+<li>Jeśli program instalujący pozwala wybrać pomiędzy obrazami dyskietek, a plikami, wybierz pliki. Wiele małyh plików
+zostanie lepiej wykorzystane, niż kilka wielkich.
+
+<li>Jeśli program instalujący pozwala na kompresję plików z wykorzystaniem ProPack/FImp
+użyj jej i spakuj wszytskie pliki (RNC1 posiada najlepszy współczynnik kompresji).
+Spakowane pliki zajmują mniej pamięci przy opcji Preload i prawie nie powodują opóźnień we wczytywaniu.
+
+<li>Użyj AllocMemReverse przed uruchomieniem WHDLoadCD32 (lub odpowiedniego zamiennika).
+AllocMemReverse jest małym programem zawartym w archiwum dla programistów do pakietu WHDLoad.
+Podmienia to wywołania funkcji AllocMem tak, aby w trakcie przydzielania pamięci zawsze używała
+atrybutu MEM_REVERSE. To z kolei powoduje, że pamięć jest przydzielana zaczynając od najwyższych
+wolnych adresów do najniższych, a nie od najniższych do najwyższych jak to ma miejsce normalnie.
+To zaś pozwoli utrzymać wolne dolne obszary pamięci, co z kolei jest wymagane przez WHDLoad, gdyż
+wymaga on wolnej pamięci zaczynającej się od adresu 0, czyli początku pamięci chip. Cała wykorzystywana
+pamięć z dolnych obszarów musi zostać przerzucona w wyższe obszary pamięci. Ta dodatkowa pamięć jest
+wymagana do przechowywania zapisów pamięci. Im więcej pamięci jest wykorzystywane w niższych obszarach,
+tym mniej jest dostępne dla zainstalowanych programów oraz wcześniejszego wczytywania danych.
+
+<li>Zawsze używaj opcji <a href="opt.html#Data">Data</a>. Opcja wcześniejszego wczytywania danych nie wie
+które pliki zostaną wczytane przez zainstalowany program, dlatego też wczytują wszystkie pliki, które znajdą.
+Aby zapobiec wczytywaniu zbędnych plików, utwórz podkatalog, który będzie zawierał jedynie wymagane pliki.
+Skasuj wszystkie zbędne pliki jak #?.info, #?.slave, ReadMe, Manual, .... Następnie wywołaj WHDLoad z plikiem
+.slave i katalogem danych podanymi jako argumenty, np. <tt>WHDLoadCD32 :Slaves/XYZ.Slave Data=:Data/XYZ Preload</tt>.
+Nie musisz zmieniać aktualnego katalogu na żaden inny.
+
+<li>Nie używaj kompresji plików XPK. Dekompresja ich wymaga dużej ilości wolnej
+pamięci, ponieważ biblioteki systemu XPK muszą znajdować się w pamięci,
+dekompresja sama w sobie również wymaga pamięci, a sam proces dekompresji
+pwoduje fragmentację pamięci.
+</ul>
+</BODY>
+</HTML>

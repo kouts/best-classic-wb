@@ -1,0 +1,50 @@
+NAME
+	xfdScan 1.1
+
+SYNOPSIS
+	xfdScan SOURCE/A,DEST/A,NE=NOEXTERN/S,SO=SCANODD/S
+
+DESCRIPTION
+	xfdScan searches for crunched data areas inside files.
+	It requires either Kickstart V37+ or the arp.library
+	together with older OS releases.
+
+	SOURCE specifies the file (with path) that should be
+	scanned. No wildcards or directories supported.
+
+	DEST specifies the basic filename that should be used
+	to save the crunched data if something was found.
+	xfdScan appends '.00' and so on to the basic filename
+	as there may be more than one crunched file.
+
+	NOEXTERN switches off the usage of external slaves.
+	Use this option only if external slaves crash your
+	computer or otherwise behave in an annoying way.
+
+	SCANODD causes the data scanner to scan at odd
+	addresses too. This option causes an error if you
+	don't have at least a 68020 CPU. Don't use this too
+	much as most data is word-aligned anyway.
+
+EXAMPLE
+	Shell> xfdScan dh0:BigFile ram:Data
+
+	Scans the file 'dh0:BigFile' and saves the resulting
+	files (if any) as 'ram:Data.00' etc.
+
+HISTORY
+	xfdScan 1.1
+	- Fixed name problem with more than 100 found files.
+
+	xfdScan 1.0
+	- First public release. Just a very simple program that
+	  does what is necessary.
+
+COPYRIGHT
+	xfdScan is freely distributable for noncommercial use.
+
+AUTHOR
+	Georg Hörmann
+	Martinswinkelstraße 16c
+	82467 Garmisch-Partenkirchen
+	Germany

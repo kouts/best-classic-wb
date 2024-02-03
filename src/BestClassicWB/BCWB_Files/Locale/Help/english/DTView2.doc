@@ -1,0 +1,274 @@
+Short:          Picture viewer for public screens. It uses DataTypes
+Uploader:       stefano.giovannozzi@gmail.com (Stefano Giovannozzi)
+Author:         stefano.giovannozzi@gmail.com (Stefano Giovannozzi)    
+Type:           gfx/show
+Version:        1.5b
+Replaces:       1.5
+Architecture:   m68k-amigaos >= 3.0 (V39)
+Distribution:   Aminet
+
+                           *************************
+                           *      CRC-32bit  ???   *
+                           *************************
+
+COPYRIGHT
+
+DTView2 IS COPYRIGHT © 2015-2019, Stefano Giovannozzi. Copy, modify, alter or reverse 
+engineer this code is not allowed!
+
+DISCLAIMER
+
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT ANY WARRANTIES.
+
+THE AUTHOR OF THIS PROGRAM CALLED DTView2, IS NOT RESPONSABLE OF ANY TYPE OF 
+DAMAGE OR MALFUCTIONING OR LOSS OF DATA CAUSED, DIRECTLY OR INDIRECTLY, BY THE 
+USAGE (CORRECT OR INCORRECT) OF THIS PROGRAM IN ANY ELECTRONIC SYSTEM!
+
+THIS PROGRAM IS NOW GIFTWARE! IF YOU LIKE THIS SOFTWARE, SEND EVERYTHING YOU
+WISH TO THE AUTHOR, OR JUST A COMMENT IS ENOUGH! 
+HE IS PLEASED TO RECEIVE GIFTS FROM EVERYWHERE AROUND THE WORLD....TO HIS EMAIL
+OR SNAIL ADDRESS!
+
+IMPORTANT NOTES
+ 
+DTView2 IS ON AMINET!
+
+The sequence of DATA that construct the file DTView2 has meaning only on an 
+AMIGA® DOS system (where Amiga® is a registered trademark of computers line, and
+DOS means Disk Operating System, or something similar!). Any other place or site
+from where this file, for AMIGA® DOS systems, can be downloaded, needs express 
+authorization of the author; otherwise the file is to be consider not original,
+if intended to be for AMIGA® DOS systems! 
+
+I CAN ONLY GUARANTEE THAT I HAVE DONE MY BEST TO CONFIRM AS TRUTHFUL WHAT IS 
+WROTE IN THIS DOCUMENT!
+
+THIS PROGRAM IS A GIFT TO THE AMIGA COMMUNITY, AND FREELY USABLE ON AMIGA DOS
+SYSTEMS; ANY OTHER PURPOSE CAN LEAD TO UNPREDICTABLE RESULTS! DONT DO IT!!!
+
+		
+                             --->// DTView2 //<---
+                             
+                                --->||«½»||<---
+			
+                 yet another picture viewer that uses datatypes.
+
+
+This documentation is sketchy and can be annoying, you are warned!
+
+OVERVIEW
+
+Months ago (summer 2015) i was surfing through an old Aminet compilation and 
+stumped on an archive with a program capable to launch the Workbench on an HAM
+screen.
+That was, for me, not so interesting, but what has excited my immagination was 
+a picture of the workbench itself: it was covered with active programs and
+some pictures displayed into windows (every picture with own window), and
+scaled, to stay confortably on the screen without to take to much place.
+I have thinked - Multiview can't do this thing! -
+
+So i am started to code my version of a similar picture viewer, based on the
+Datatypes library of the V39 system software. This program is wrote in pure
+assembly language.
+
+DTView2 is the result; an easy tool, capable to display and to resize, on a
+public screen, every picture readable by the datatypes installed on the system. 
+That's all! It can be started from icon or from CLI, and it displays the 
+selected picture on the active public screen, from where the program is launched.
+If the picture has a size bigger of the screen, it will be resized and then
+displayed.
+
+This program run on every Amiga with V39 system software; nothing more is
+needed. In the code there is neither 68020+ instructions, nor FPU instructions. 
+An A500 with ROM 3.1 and 512 Kb of chip-ram is enough. Cybergraphx and
+Picasso96 are supported, but not completely tested.
+
+USAGE
+
+From CLI, it accepts now two arguments: the file name with full path and '-s'
+for 'Save', to save the (remapped) picture as ILBM file. I.e. DirectoryOpus4 
+accepts this program as picture viewer. You need to set it on the configuration's 
+screen of DOpus.
+From icon (Workbench), it opens a requester to choose the file to display; 
+closed the window that show the picture, the requester appears newly to choose
+the next picture; the option 'cancel' quits definitively the program.
+The tooltypes accepted by the icon are now two: 'DEFAULTDIR', to choose the 
+default path by the ASL requester; and 'SAVE' tells to the program where to save
+the picture created by DataTypes...easy!
+About this last option, a requester will pop-up to ask you definitively, if you 
+wish to save the displayed picture (because, many pictures can be displayed on 
+a session), and this happens only on screen with 8 Bitplanes or less (the 
+picture is saved ever as an ILBM file, but not true color). 
+
+Input text does not need quotation marks!
+
+If you need to setup some prefs programs related to the usage of the datatypes,
+the task (process) that creates the object (picture) and displays it on a window
+is named 'PinUpGirl': use this name to refer to this program.
+DTView2 is only the root process (a little bit more of a startup code) and
+nothing more; you can rename it, but 'PunUpGirl' still remain valid.
+
+ERRORS
+
+There is a lot of messages, displayed through requesters, that inform you about
+errors, during the creation of the object and the layout of it on the screen.
+Some are self explanatory, others can have a mysterious meaning. In many cases,
+the missing chip-ram is the first cause: try with a different picture or resize
+the window, do it smaller! 
+In the event of very low chip-ram (on Amiga screens), the window will be not 
+resized correctly, following the aspect ratio of the picture; instead it will
+be left unchanged by the system: this is not a bug! Just resize the windo to 
+free some chip-ram! 
+
+SOMETHING INTERESTING...
+
+Two words about the algorythm that resize the picture (bitmap): there is no
+quantization, but the computation has a good precision. What does it means?
+If you have a picture that has a dithered area, if the pattern is quiet
+regular (i.e. 0101010101... or 001100110011...) the resize could give a wrong
+result (111111... or 000000... or 111111000000...). That is not a bug, but the 
+result of a right computation of the resized area. 
+If your public screen does not support much colors and the picture needs many
+more pens (color register), it will be dithered by the picture-class and the 
+dithered area can be affected by problem reported above!
+A public screen with more colors solve this issue.
+
+About the resize of the bitmap, it is made with many direct-memory accesses
+(Read/Write) that are safe, because the bitmaps are hidden (the BitMap are 
+two!). 
+
+The string '$VER' may be here and there inside other text strings! This is not 
+a bug! Just because this programm refers to DataTypes engine and not to an IFF 
+form (IFF can be a DataTypes, in the system where DataTypes are present), 
+datatypes.library can report a string, from an IFF chunk, whitout takes any 
+consideration about the meaning of the whole text string. So, the string '$VER'
+can be present and not excluded by datatypes.library. This program does not know
+nothing about IFF, it prints on screen what picture.datatype reports! 
+ 
+About the code, wrote in assembler, it supports Cybergraphx directly and
+Picasso96 indirectly, but the major graphics calls are made through the
+graphics.library. A full cybergraphx code is possible, but there is a
+compatibility issue (that the use of the graphics.library solves!): the
+inverted sequence of color-bytes on the pixel-data of some graphics cards
+(supported by Picasso96), are incompatible with the Cybergraphx environment.
+
+END NOTES
+
+This program is assembled with DevPac from HiSoft and tested on 
+
+Amiga 1200, 68EC020 2mb chip-ram
+Amiga 3000, 68030/FPU/MMU 2mb chip-ram, 16mb fast-ram
+WinUAE on AMD AthlonII P320 Dual-Core/AMD Mobility Radeon HD4200 series,
+with Amikit, OS3.9, Picasso96
+
+This program supports every version of the picture.datatype (V40, V42 and V43),
+that means, you do not take care about what in your system is installed!
+
+Please, report bugs and opinions to
+
+stefano.giovannozzi@gmail.com
+
+or on your Amiga forum!
+
+YOUR SUGGESTIONS ARE MORE THEN WELCOME!
+
+This very little tool meets users of old and new Amiga computers...
+enjoy with it!
+
+HISTORY
+Version 1.5b
+It has now better code; better code to manage strings of characters, and better
+code to dispatch messages (Multitasking).
+Theoretically, every lenght of string of characters, passed to this program, 
+will do. No way to have guru!...but don't exagerate please!
+Small changes on the structure of the code...it is now better.
+As said, only on not True Color screen will appear the requester to save the
+displayed picture (remapped if it happens) as ILBM. Now, just because the name
+into Icon ToolTypes is just one, the program will do the best to save the 2nd
+(and the others) with a unique name, to avoid missing pictures...Look!
+The version of the program, in this last archive, are still two, updated both,
+for 68000 cpu and for 68020+ cpu.
+The new option '-s', works from CLI.
+
+Version 1.5
+Cleaned the source code from some dirty lines of assembler code (wrong 
+assumptions on the usage of Condition Codes). Solved some little bugs on the 
+usage of DOS functions to manage files. Fine-tuned the alghorythm that resize 
+the picture. Added copyrights note.
+This code does not knows 'floating point' instructions!
+That's all! Enjoy with it!
+
+Version 1.4
+There is some oddities on the Frame-Info structure as the DataTypes engine fills
+out the structure. Sometimes the values are not right; i mean the width of the 
+so called 'Box' that contains the picture's data. This value drives all the 
+structure of image stored into BitMap and this value is linked to the Blitter, 
+that is a word-machine; so, this value needs to be word-size! or? I have added a 
+little Algorhytm to correct odd values! The most important thing is and will be
+ever (as specified many times in the Developer CD material) the value 
+'BytesPerRow' as found into the true BitMap structure created by DataTypes! 
+
+Version 1.3
+Solved a bug related to HAM pictures on not AGA Amiga screens! They will be not
+displayed, as the remap of the colors is not correct! 
+Added a new ToolType (very nice indeed!). This is named 'SAVE' and, if present 
+(with a right path), the programm will ask the user if he wishes to have stored 
+on a safe place, the picture on screen. If yes, the Amiga Bitmap, created by 
+DataTypes, will be saved as ILBM file. You will have what DTView2 is going to 
+display on his window, with the size of the original picture; not more, not less!
+The meaning of this ToolType can be, for a fun of Amiga, with an ECS machine and
+some nice JPEG or AGA pictures, to have them has ILBM file and then, to use them
+in others program like backdrop of the Workbench and other stuff.
+This ToolType work only on screens made by chip custom, and will be ignored if 
+DTView2 is on RTG screens! 
+
+Version 1.2
+The code is now only 020+! The program is faster 5%-10% on my machine (a plain
+Amiga 3000D with normal Fast memory). 
+
+Version 1.1b
+Added a ToolType named 'SAVE'! Read the specifications on 'Version 1.3', above.
+The program can hang in some situation: just resize the window and it will come
+out and ready to do his job at best. It is not a true bug. To solve this issue
+are needed more tasks: so Exec will be called to do a right arbitration!
+The code of this version still remain for 68000 processor!
+
+Version 1.1a
+Solved a little bug! During the creation of the BitMap (that is an asynchronous
+process), at least five functions of Intuition, related to the incoming window,
+are called. Some of this are potentially asynchronous functions: one of this is
+WindowLimits; it fails if other calls are not right synchronized.  
+
+Version 1.1
+Now the window that displays the picture is an 'appwindow': you can drag and
+drop onto it, icons of your preferred pictures and they will be displayed as 
+next picture, in place of the current object displayed.
+Fixed some minor bugs related to the structure of the source code. 
+
+Version 1.0d
+Fixed some bugs related to the function AllocMem: very few allocated memory 
+calls was not freed, closed the program. Deleted redundant code: now some alerts,
+related to not dangerous failures, are displayed with a flash of the video! 
+
+Version 1.0c
+Found a bug (very big and very ingenuous) on the structure of the program, that
+causes many crash (i.e. if the DEFAULTDIR argument is wrong). It was caused by
+an erroneous position of the function OpenLib, related to the intuition.library.
+
+Version 1.0b
+Found a bug that crash the machine if the program is started from CLI without
+argument (file name). Fixed another bug that cause problems with the very
+old picture.datatypes (that come with the workbench 3.0). Now the file requester
+is centered on the screen...it is just more impressive!
+
+Version 1.0a
+Improved the capability of the file requester, with pattern function.
+Solved a little bug related to the HAM pictures and some versions of the
+ilbm.datatype: if the screen is not capable to display an HAM picture, the
+object will be discarded. Corrected some minor bugs.
+
+Version 1.0 
+Not tested on a Cybergraphics environment, and partially tested on WinUAE
+with Picasso96 and Radeon GfxCard.
+
+	(end of text)

@@ -1,0 +1,46 @@
+/*
+ * SpezialSuchen.filex
+ *
+ * Sucht in einer Datei nach einem Text und ersetzt diesen an allen Stellen
+ * durch einen Text mit einer anderen Länge.
+ */
+
+options results
+
+POSITION SOF
+
+   /* Falls gerade ein Block markiert ist, */
+   /* die Markierung aufheben */
+
+GETATTR VIEW MARK
+IF result=TRUE THEN SETBLOCKMARK
+
+	/* Texte ermitteln */
+
+REQUESTSTRING PROMPT '"Nach welchem Text suchen?"'
+suchtext = result
+suchtextlen = length( suchtext ) - 1
+
+REQUESTSTRING PROMPT '"Ersetzen durch?"'
+ersatztext = c2x( result )
+
+	/* Suche starten */
+
+FIND QUIET TEXT suchtext
+sucherfolg = rc
+
+	/* Solange der Suchtext gefunden wird, ersetzen. */
+
+DO WHILE sucherfolg ~= 5
+	SETBLOCKMARK
+	COLUMN suchtextlen
+	CUT
+
+	SETBLOCK ersatztext
+	INSERT
+
+	FIND QUIET TEXT suchtext
+	sucherfolg = rc
+
+	END
+

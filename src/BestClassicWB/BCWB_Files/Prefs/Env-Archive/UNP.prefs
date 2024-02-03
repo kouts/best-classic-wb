@@ -1,0 +1,34 @@
+# Prefs file for UNPacker v2.0.  Copyright 1995 by Ralph Torchia
+# Created: October 23, 1995
+
+# Format: archive type:.extension,header,offset,command,extract-switch,view-switch,test-switch,destination
+# archive type is either F for file based, or D for disk based compression.
+# Also supports: @N=CR
+F:.LHA,-lh,2,C:LHA,x,v,t,Ram:
+F:.SHR,shrinkFILE,20,C:Shrink,x,v,t,Ram:
+F:.ZIP,PK,0,Stack 15000@NC:UnZip,-n,-v,-t,Ram:
+F:.ZOO,ZOO,0,C:Zoo,xO//,v,-test,Ram:
+F:.ARC,,0,C:Arc,xw,l,t,Ram:
+F:.LZX,LZX,0,C:LZX,x,v,t,Ram:
+
+# full disk compressers.  Same format as file archivers
+# This also requires placement of variables:
+#         @S=switch
+#         @F=filename
+#         @D=destination
+D:.DMS,DMS,0,C:DMS @S @F TO @D,WRITE,VIEW,TEST,RAD:|RAD1:|DF0:|DF2:,NOTEXT NOVERIFY,FULL
+D:.WRP,Warp,0,C:Unwarp @S @F TO @D,WRITE,,,RAD:|RAD1:|DF0:|DF2:,,
+D:.LHW,,0,C:LHwarp -n @S @D @F,write,,,0|1|2|3,,
+
+# Special ID for ASL file requester prefs.  Format: R:left edge, top edge, width, height
+R:160,14,350,360
+
+# Default options.
+# Format: A: default source of archives
+#         S: default switch (either E=extract, V=View, T=Test)
+#         C: output window
+#         W: N=no requester,Y=autoclose output window for extract
+A:Ram:
+S:E
+C:CON:0/14/600/200/UNPacker Version 2.0 Output/AUTO
+W:N,Y

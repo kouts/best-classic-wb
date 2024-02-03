@@ -1,0 +1,95 @@
+TABLE OF CONTENTS
+
+PM
+PM                                                                         PM
+
+   NAME
+	PM v37.8 - Copyright (c) 1992 by MKSoft Development	(Requires 2.0)
+
+   SYNOPSIS
+	PM - A CPU Load Monitor
+
+   FUNCTION
+	PM is a tool that monitors the Amiga system's CPU usage using some
+	hooks that are available in 2.04 EXEC.  The program uses the high
+	resolution EClock timer to get real time values for the amount of
+	time the processor spends running tasks and the amount of time it
+	spends between tasks (in task switch and in sleep).
+
+	PM has full ReadArgs commandline input and it can also run from
+	the Workbench.  (The tooltypes match the ReadArgs arguments)
+	PM can also be started by a Project Icon, in which case it will use
+	the tooltypes from the project icon.
+
+	PM has another feature and that is it can watch a specific task.
+	There is a TASK keyword which will make it watch the task in question.
+	This can be usefull in order to see exatly how much of the system
+	performance is spend on just that task.
+
+	When PM is not watching a specific task, it removes its own processing
+	from the total time such that any overhead it may cause is not noticed.
+	When PM is monitoring a specific task, PM's overhead is not counted as
+	part of the task's CPU usage.
+
+	There is also a PROP-gadget that controls the speed at which the
+	results are reported.
+
+	The two numbers at the bottom (when statistics are not turned off)
+	are the weighted average CPU usage and the instantanious CPU usage.
+
+	When monitoring a single task, the window titlebar will display the
+	task name.
+
+	Example usage:
+
+		PM		; Use the default settings
+		PM RATE 15	; Set the rate to 15/100 seconds.
+		PM TASK MyTask	; Watch "MyTask"  (Uses FindTask(), not CLI name)
+		PM NOSIZE	; Do not have the size/prop gadget.
+
+	PM will only let itself be installed once as a global monitor.  However,
+	you can have PM monitor any number of tasks.  PM will do its best to
+	not confuse the system on exit.  It will beep the display if it can not
+	unhook itself from the system.  When this happens it means that PM was
+	unable to remove the hook due to the fact that something else has hooked
+	into the system on top of PM.
+
+   INPUTS
+	(Command Line Arguments or Icon ToolTypes:)
+
+		LEFT/N		Left edge for the window.    Default=<none>
+		TOP/N		Top edge for the window.     Default=<none>
+		WIDTH/N		Inner width of the window.   Default=228
+		HEIGHT/N	Inner height of the window.  Default=40
+		RATE/K/N	Rate of display in 1/100 sec Default=100   (1.00 sec)
+		TASK/K		Task to monitor              Default=<global CPU>
+		CLI/K/N		The CLI number to monitor    Default=<global CPU>
+		CHARTCOLOR/K/N	The colour for the chart     Default=1
+		MEMLINE/K/N	Colour for the memory line   Default=<no memory line>
+		RMSLINE/K/N	Colour for the RMS line      Default=<no RMS line>
+		PUBSCREEN/K	Public screen name           Default=<default>
+		NOSIZE/S	Switch off size/prop gadget
+		NOSTATS/S	Turn off numerical statistics
+
+   RESULTS
+	A window that shows the CPU usage...
+
+   NOTES
+	The accuracy is so high that PM can even notice the task switch
+	overhead of the system.  This "overhead" is considered part of
+	the CPU idle time (not CPU task time) and thus it may be hard to
+	to get a full 100% utilization if task switching is still going on.
+
+	If CHARTCOLOR is set to 0, the CPU chart is not drawn.
+	If a MEMLINE colour or RMSLINE colour is given, those lines will be drawn.
+
+	Special thanks to "talin" for the nice icon!
+
+   SEE ALSO
+	"A master's secrets are only as good as the
+	 master's ability to explain them to others."  -  Michael Sinz
+
+   BUGS
+	None?
+
+

@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE>FindAccess * Wyszukiwanie dostępu</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: fa.html 1.5 2013/11/25 22:13:32 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>FindAccess * Wyszukiwanie dostępu do określonego adresu w pamięci</h3>
+To narzędzie wczytuje określony plik i przeszukuje go w poszukiwaniu prób
+dostępu do określonego adresu w pamięci. Znajdzie wszystkie bezwzględne jak i
+względne 8-, 16- i 32-bitowe odwołania. Narzędzie to zostało napisane w celu
+analizy plików zrzutów pamięci. Jest bardzo podobne do polecenia FA z
+programów zatrzymujących działanie innych programów (<i>ang. freezers</i>),
+ale nie powoduje deasemblacji odwołania, lecz pokazuje je jako fragment
+pamięci w zapisie szesnastkowym.
+<h4>Instalacja</h4>
+FindAccess jest zawarty jedynie w archiwum <tt>DEV</tt>, a nie w <TT>USR</tt>.
+<br>Skopuj go do C: lub w podobne miejsce.
+<h4>Użycie</h4>
+Używam następującego aliasu (dodanych do mojej sekwencji startowej) w celu
+przeszukania pliku ostatniego zrzutu pamićci zapisanego przez WHDLoad:
+<p><tt>alias fa FindAccess C:.whdl_memory</tt></p>
+dzięki czemu mogę otworzyć okno shella i wpisać na przykład:
+<p><tt>fa $15000</tt></p>
+a efektem jego działania będzie:
+<p><tt>FindAccess 1.2 (17-Jan-99 14:45:18) by Bert Jahn
+<br>loading file <B>Workbench:CE/.whdl_memory</B>
+<br>scanning accesses to $15000 (86016)  file: $0-$80000
+<br>Relative  Word at $ 14240 -> 06C00000 07C00000 <B>0DC0</B> 00000CC0 000004C0
+</tt></p>
+<h4>Opcje</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,ADDRESS/A,ORG</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+nazwa pliku do przeszukania
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>ADDRESS/A</tt>&nbsp;&nbsp;
+</td><td>
+adres, do którego wyszukiwany jest dostęp, możesz tutaj użyć wyrażeń takich, jak
+&quot;$5000&quot; = &quot;20480&quot; = &quot; -$Ff +-33+ 19512+$4e8&quot;
+(przedrostek &quot;$&quot; dla liczb w notacji szesnastkowej,
+obsługiwane operatory to &quot;+&quot; i &quot;-&quot;,
+zarówno dla operacji dwuargumentowych jak i jednoargumentowych)
+</td></tr>
+<tr><td valign=top>
+<tt>ORG</tt>
+</td><td>
+początkowy adres logiczny pliku, jeśli nie zostanie określony, zostanie użyta
+domyślna wartość $0, możesz używać takich samych wyrażeń, jak przy parametrze
+ADDRESS/A
+</td></tr>
+</table>
+</BODY>
+</HTML>

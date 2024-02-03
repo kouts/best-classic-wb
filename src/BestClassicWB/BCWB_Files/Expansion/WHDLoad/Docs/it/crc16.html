@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE>CRC16 * Calcola il Checksum CRC16</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: crc16.html 1.4 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>CRC16 * Calcola il Checksum CRC16</h3>
+Questo programma calcola il CRC16 di una specifica porzione di un file (o dell'intero file). L'idea di base è di
+utilizzarlo negli script di installazione che hanno bisogno di identificare con quale versione di un file stanno lavorando
+ per installare Slave differenti etc. Il valore che ritorna è lo stesso del CRC16 calcolato da <a href="../autodoc.html#resload_CRC16">resload_CRC16</a> che può anche
+ tornare utile durante lo sviluppo di uno Slave.
+<h4>Installazione</h4>
+copialo in C: o in un posto simile
+<h4>Opzioni</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,OFFSET/K/N,LENGTH/K/N</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+file dal quale calcolare il checksum
+<br>esempio "S:Startup-Sequence"
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>OFFSET/K/N</tt>&nbsp;&nbsp;
+</td><td>
+offset di inzio nel file
+<br>di default è l'inizio del file
+<br>esempio "OFFSET=11264" per cominciare alla traccia 2 di un'immagine disco standard
+</td></tr>
+<tr><td valign=top>
+<tt>LENGTH/K/N</tt>
+</td><td>
+lunghezza in byte per la quale calcolare il checksum
+<br>di default è la fine del file
+<br>esempio "LENGTH=1024"
+</td></tr>
+</table>
+<h4>Return code</h4>
+Il CRC16 viene ritornato come exit code del programma.
+</BODY>
+</HTML>

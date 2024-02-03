@@ -1,0 +1,32 @@
+/* $VER: JAZ2 1.0 (11.10.01)
+ *
+ * JAZ 2GB file system entry
+ *
+ * This file enables FastFileSystem on a Iomega JAZ 2G cartridge.
+ */
+        
+FileSystem = L:FastFileSystem
+Priority = 10
+Flags = 0
+Surfaces = 1
+SectorsPerBlock = 4
+BlocksPerTrack = 260
+Reserved = 2
+Interleave = 0
+LowCyl = 2
+HighCyl = 15051
+StackSize = 10000
+Buffers = 512
+BufMemType = 0
+Mount = 1
+MaxTransfer = 0x7fffffff
+Mask = 0xffe00
+GlobVec = -1
+BootPri = 0
+DosType = 0x444f5303
+
+/* The Device and Unit fields are controlled by tooltypes in the JAZ2 icon.
+ *
+ * Device = scsi.device
+ * Unit = 5
+ */

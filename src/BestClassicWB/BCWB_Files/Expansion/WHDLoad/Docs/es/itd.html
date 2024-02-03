@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE>ITD * Imagen A Disco</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: itd.html 1.3 2013/11/25 22:13:32 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>ITD * Imagen A Disco</h3>
+Herramienta para escribir imágenes de disco nuevamente a un dispositivo de disco.
+<h4>Instalación</h4>
+ITD solamente se encuentra en el archivo <tt>DEV</tt> archive, no en el archivo <TT>USR</tt>.<br>
+Cópielo a C: o una ubicación similar
+<h4>Opciones</h4>
+<table>
+<tr><td colspan=2>
+<tt>File/A,Device,Format/S,BS=BlockSize/N,ASync/S,ForceOverwriteLargeDevice/S</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>File/A</tt>
+</td><td>
+nombre del archivo que contiene la imagen de disco a escribir al dispositivo
+</td></tr>
+<tr><td valign=top>
+<tt>Device</tt>
+</td><td>
+el dispositivo al cual ITD escribirá la imagen
+<br>por defecto "DF0:"
+<br>ejemplo "RAD:"
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>Format/S</tt>&nbsp;&nbsp;
+</td><td>
+si se especifica el disco también será formateado durante la escritura, para la mayoría de los
+dispositivos esto no hace ninguna diferencia
+</td></tr><tr><td valign=top>
+<tt>BlockSize/N</tt>
+</td><td>
+la cantidad de información leída y escrita durante cada ciclo, el valor por defecto es
+el tamaño de una pista (BlocksPerTrack*SizeBlock)<br>
+si se opera en dispositivos grandes se puede mejorar el rendimiento utilizando un tamaño
+más grande de bloque pero cuidado porque algunos dispositivos no funcionan correctamente
+con tamaños de bloques superiores a 130,560 ($1fe00) o aún 65,024 ($fe00)
+</td></tr><tr><td valign=top>
+<tt>ASync/S</tt>
+</td><td>
+si se activa ITD escribirá en forma asíncrona al dispositivo destino<br>
+no lo utilice si el archivo de origen y destino están ubicados en el mismo
+dispositivo físico, porque enlentecerá la operación<br>
+si al menos uno de los dispositivos (origen o destino) soporta DMA esto
+mejorará significativamente el rendimiento de la operación de copia
+</td></tr><tr><td valign=top>
+<tt>ForceOverwriteLargeDevice/S</tt>
+</td><td>
+Normalmente ITD no leerá de archivos o escribirá a dispositivos más grandes
+que 2,000,000 bytes. Utilizando este conmutador ITD operará en archivos y
+dispositivos de cualquier tamaño.
+</td></tr>
+</table>
+<h4>Código de retorno</h4>
+0 si es exitoso, de otra forma 20.
+<h4>Descripción técnica</h4>
+ITD puede escribir a cualquier dispositivo de pistas de disco (trackdisk). Para evitar problemas
+(por ej. corrupción del disco duro) no escribe a dispositivos mas grandes que 2,000,000 bytes excepto
+si se utiliza la opción ForceOverwriteLargeDevice/S. Si la operación de escritura excede el
+límite de 4 GiB se utilizarán comandos de TrackDisk64.<br>
+NO se realizará una verificación.<br>
+Si la imagen es mas pequeña que el dispositivo Ud. vera un mensaje
+de advertencia, ITD no cambiara las pistas excedentes en este caso pero redondeará
+hacia arriba el tamaño hasta un bloque completo y limpiará el espacio excedente. Si la imagen es más grande
+Ud. también vera un mensaje e ITD escribirá tanta información como quepa en el disco.
+
+</BODY>
+</HTML>

@@ -1,0 +1,13 @@
+/* EaglePlayer - Lade den angegebene Player rein */
+
+parse arg playername
+
+address 'rexx_EP'
+
+options results
+
+addplayer playername
+
+address 'DOPUS.1'
+toptext 'Eagleplayer: '||result
+end

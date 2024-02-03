@@ -1,0 +1,172 @@
+ReOrg 3.1 Copyright (C) 1992-1993 by Holger Kruse. All rights reserved.
+
+
+This text file describes changes and enhancements to ReOrg that have
+been implemented after the manual was written and thus are not described
+in the manual.
+
+
+ 1. Tooltype WINDOWXY
+ --------------------
+    
+    In addition to the tooltypes/arguments listed in the manual
+    ReOrg understands the new Tooltype "WINDOWXY". It can be used
+    to specify the upper left corner of ReOrg's main window.
+    Example: ReOrg WINDOWXY=10,5
+             opens ReOrg's main window at the coordinates x=10
+             and y=5.
+    If you do not use this Tooltype ReOrg centers its main window
+    within the visible portion of your screen.
+
+
+ 2. Compatibility to DataFlyer(tm) harddisks
+ -------------------------------------------
+
+    DataFlyer(tm) harddisks use a proprietary (non-RDB) boot
+    mechanism that is incompatible to previous versions of
+    ReOrg. ReOrg 3.1 can optimize DataFlyer harddisks, but
+    OFS<->FFS conversions are impossible.
+
+
+ 3. Compatibility to MultiUserFileSystem
+ ---------------------------------------
+  
+    The MultiUserFileSystem (muFS, (C) by Geert Uytterhoeven)
+    is a variant of the standard Amiga FileSystem that adds
+    the concept of user and group IDs (like Un*x) to the
+    Amiga FileSystem and enforces access protection based on
+    the current user ID (as set by a "Login" program).
+    
+    Usually the disk format used by muFS is identical to the standard
+    Amiga disk format with one exception: If a partition is
+    FORMATTED while muFS IS ALREADY RUNNING, the partition is
+    formatted with DosType "muFS" (instead of DOS\0 - DOS\5) to
+    provide some extra protection.
+    
+    Starting with the upcoming muFS release 1.5, muFS can also use
+    the new DosTypes muF\0 - muF\5.
+
+    ReOrg recognizes all DosTypes (DOS\0 - DOS\5, muFS, muF\0 - muF\5)
+    and is thus compatible to all current versions of the
+    MultiUserFileSystems including the upcoming release 1.5. However
+    for security and compatibility reasons there are some restrictions
+    as far as filesystem conversions are concerned: You can use ReOrg to
+     - convert any DOS\? partition to any other DOS\? partition.
+     - convert any muF\? partition to any other muF\? partition
+       with one exception: If your partition is formatted as "muFS"
+       and you convert it to, say, "muF\1", this partition will be
+       INCOMPATIBLE to muFS versions 1.4 and below, because disk
+       formats muF\0-muF\5 are not supported by muFS 1.4 and below.
+       ReOrg will display a warning in this case. Please see the
+       MultiUserFileSystem documentation for details.
+
+    For security reasons you cannot use ReOrg to convert a partition
+    between "muF\?" and "DOS\?" format. Starting with muFS
+    release 1.5 the MultiUserFileSystem package will probably contain a
+    tool to convert a partition back and forth between "muF\?" format
+    and the corresponding "DOS\?" format.
+
+    Thanks to Geert Uytterhoeven for helping me with ReOrg's muFS
+    support !
+    
+    
+ 4. New error messages
+ ---------------------
+ 
+    Some error messages are not listed in the manual:
+    
+           Error 46: "Sorry, OFS/FFS conversion is incompatible to your
+                     drive's boot mechanism !" (for DataFlyer harddisks
+                     only - see above)
+           Error 48: "Sorry, the largest partition size supported by ReOrg
+                     is 16777216 blocks !" (Your partition is too large to
+                     optimize it - usually larger than 8 GB.)
+           Error 49: "Sorry, ReOrg does not support devices with more than
+                     32767 sectors !" (Probably indicates that your
+                     harddisk setup is incorrect - please see the
+                     discussion of "sectors per track" in the ReOrg manual
+                     chapter "Requirements".)
+        Warning 507: "The resulting partition will not be recognized by
+                     MultiUserFileSystem release V1.4 and before ! Please
+                     make sure you have installed release V1.5 or higher
+                     before you start the filesystem conversion !"
+                     (see above)
+
+                     
+ 5. Volume names in device list
+ ------------------------------
+ 
+    ReOrg now displays the names of inserted volumes together with
+    the device name (if a volume is inserted in the drive),
+    e.g. "DH0:System" means: Volume "System" is inserted in
+    drive "DH0". If the inserted volume is unreadable,
+    "????" is displayed.
+    
+    The device and volume list is updated each time a disk is
+    inserted or removed. This works for "trackdisk.device"
+    (floppy disks), but - depending on your harddisk controller -
+    might not work for other removable media, like flopticals.
+    Please consult your SCSI controller manual for details about
+    "recognizing a diskchange".
+
+
+ 6. Freeing memory under Kick3.0
+ -------------------------------
+ 
+    When ReOrg is used under Kickstart 3.0, it sets the new
+    MEMF_NO_EXPUNGE flag for most memory allocations. This means
+    that unused libraries, devices etc. are NOT removed from
+    memory when ReOrg starts the optimization.
+    
+    This is useful to prevent important libraries, catalogs etc.
+    from "disappearing" and thus helps to prevent low-memory
+    situations during the optimization.
+
+    However there are situations when you need to have the
+    maximum amount of memory available for ReOrg, eg. if you
+    used SAS/C V6.x before and have all those scxxx.library
+    and xxx.gst files still in memory. In this case enter
+    the command "avail flush" in a Shell window before you
+    start ReOrg. This removes all unused libraries from
+    your system and gives ReOrg more memory for its cache.
+
+
+ 7. Some additional hints
+ ------------------------
+ 
+    - You should ALWAYS select one of the "predefined settings"
+      first (see the manual chapter "menus" section
+      "menu predefined settings") and THEN make any adjustments
+      you need (like selecting a different device). This ensures
+      that you do not mistakenly have an option set to a wrong value.
+
+    - If you want to have the fastes possible directory access, here
+      are some hints:
+      
+      - Set the gadget "small file limit" to a very small
+        value (0 or 1).
+      - If you use Workbench and need fast icon display, switch
+        Workbench mode on. Otherwise switch it off.
+      - Set the "Optimize for (Kick1.2/1.3 / Kick2.0/3.0)"
+        gadget correctly depending on your Kickstart version.
+      - If you use Kickstart 3.x, use "Directory Caching".
+        If your disk is formatted without "Directory Caching",
+        you can use ReOrg to convert it. Set "Change filesystem"
+        to "to DCFS mode".
+        Warning: - DCFS disks can ONLY be read by Kickstart 3.x,
+                   NOT by Kickstart 2.x.
+                 - The V39 FileSystem (Kick3.0) is not as reliable in
+                   DCFS mode as in standard mode. This is supposed
+                   to improve with the next Kickstart version (3.1 ?).
+      - If your disk is formatted using DCFS you should not use
+        filenotes (comments) unless really necessary. Under DCFS
+        filenotes need additional space on your harddisk and slow
+        down directory accesses.
+    
+    - As already mentioned in the manual:
+      - Do not play around with the "read drive geometry" gadget
+        unless you know exactly what you are doing !
+      - Set "Format" and "Verify" to "Off" for harddisks !
+
+
+And: PLEASE read the manual before using ReOrg !

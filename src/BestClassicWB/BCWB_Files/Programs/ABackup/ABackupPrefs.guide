@@ -1,0 +1,413 @@
+@database ????
+@master ????
+@width 80
+@width 76
+@node Main "Preliminary"
+@toc Sommaire 
+============================================================================
+                    Preferences program for ABackup 5.20
+
+          Copyright (C) 1993-1998 by Reza ELGHAZI & Denis GOUNELLE
+============================================================================
+
+Without written authorization, any commercial usage or selling is  absolutly
+forbidden. You  may  copy  and  spread  this  program  under  the  following
+conditions: 
+
+    1. All the files must be provided 
+    2. The files are not modified in any way 
+    3. You can't ask for more than $6 for this 
+
+In spite of several tests, no warranty is made that there are no  errors  in
+ABackup. YOU USE THIS PROGRAM AT YOUR OWN RISK. In no event the authors will
+be liable for any damage, direct  or  indirect,  resulting  of  the  use  of
+ABackup. 
+
+@endnode
+@node Sommaire "Table of contents"
+
+The Preferences program for ABackup works in  the  same  way  as  the  other
+Preferences programs supplied with the  Amiga  Operating  System.  So,  this
+documentation only describes the differents parameters, and how they control
+ABackup processing. 
+
+It is suggested that you install this program in the "SYS:Prefs"  directory,
+together with the other Preferences programs.  If  you  prefer  to  copy  it
+otherwhere, don't forget to update the "PREFSPATH" Tool Types  in  ABackup's
+icon, so it will be able to find the Preference program. 
+
+    @{" Backup options            " Link "BackupOpt"}
+    @{" Restore options           " Link "RestoreOpt"}
+    @{" Verify options            " Link "VerifyOpt"}
+    @{" Compression options       " Link "CrunchOpt"}
+    @{" Tape options              " Link "TapeOpt"}
+    @{" Interface options         " Link "GUIOpt"}
+    @{" External programs options " Link "ExternalOpt"}
+    @{" Miscellaneous options     " Link "MiscOpt"}
+
+@endnode
+@node BackupOpt "Backup options"
+
+Backup to 
+    Specifies backup destination: 
+
+    - a cyclic gadget let you select the archive type (device, file, tape) 
+
+    - two lists let you select the units to use, if the archive type is  set
+      to "Device". The list on the left shows all the connected  units,  the
+      one on the right shows the units to use. To transfer a unit  from  one
+      list to another, just click on it's name in the list. 
+
+    - a string gadget, and a request calling button, let you select the name
+      of the archive file, if the archive type is set to "File". 
+
+Buffer size 
+    Specifies the size of the buffer used by the child task for asynchronous
+    writes, as well as for  streamer  writes.  When  correctly  tuned,  this
+    parameter can cause an important increase in backup speed. 
+
+Log file 
+    If a filename is specified, a statistics line  will  be  added  in  this
+    file, each time you make a backup. This line will show the backup  date,
+    time, source and destination, the number of files backed up,  the  total
+    number of bytes written, and the optional  comment  associated  to  this
+    backup. 
+
+Comment 
+    Specifies the default comment associated to the  backup.  See  the  "Add
+    Comment" option below. 
+
+Report 
+    Activates the creation of a backup report. This report may  be  send  to
+    the printer or to a file. You can ask for a detailed or a brief report. 
+
+Verify 
+    Activates the verification of disk writes. This option  slows  down  the
+    backup, but makes it safer. @{b} 
+    CAUTION ! Even when this  option  is  activated,  it  is  impossible  to
+    certify that the backup is correct. If you want to make  sure  that  the
+    archive is 100% error free, use the archive verify function of  ABackup.
+    @{ub} 
+
+Use child task 
+    Activates the use of a distinct  task  for  disk  writes,  in  order  to
+    perform asynchronous writes. Depending on the size of  the  buffer  (see
+    above), this may cause an important increase in backup speed. 
+
+Backup links 
+    Activates the backup of  links  created  with  the  AmigaDOS  "MakeLink"
+    command. 
+
+Add Comment 
+    If this option is activated, ABackup will  ask  you  to  enter  a  small
+    comment, at the end of each backup. This comment will be displayed  when
+    opening the archive, before a restore or a verify operation,  and  added
+    in the backup log. 
+
+Add icon 
+    Activates the creation of an icon (".info" file) for archive files. 
+
+Compress data 
+    Activates data compression. ABackup won't try to compress files  smaller
+    than 512 bytes. Files already compressed by Lha, Zoo, PowerPacker or XPK
+    are detected, and not compressed. See @{" Compression options " Link "CrunchOpt"}. 
+
+Compress catalog 
+    Activates  the  compression  of  the  archive  catalog,  with  the  same
+    algorithm as the one used for data compression. 
+
+Encrypt data 
+    Activates data encryption, with an user specified password you  will  be
+    asked for before backup start. @{b} 
+    CAUTION ! This password will be MANDATORY  for  any  restore  or  verify
+    operation. If you forget it, backed up data will be  definitively  lost.
+    Even the authors of the program won't be able to  help  you  to  recover
+    your data . @{ub} 
+
+Set archive bit 
+    Activates the  setting  of  the  archive  bit  (see  AmigaDOS  "Protect"
+    command) on every successfully backed up file.  This  bit  is  reset  by
+    AmigaDOS, each time a file is modified, so this will help you to perform
+    incremental backups (modified files only), selecting files by protection
+    bits (see ABackup documentation). 
+
+Duplicate catalog 
+    If this option is activated, ABackup will duplicate the archive  catalog
+    (which is normally added at the end of the archive) to a file. The  name
+    of this file may be specified as an argument when starting  ABackup.  If
+    not, it will be asked for at the end of the backup. 
+    This option is very useful for tape backups, because you won't  have  to
+    read all the tape to fetch the catalog and then to rewind  the  tape  to
+    start the restore or verify operation. 
+
+Ignore SKIPME 
+    This option allow  to  control  if  ABackup  will  look  at  directories
+    comments. When ABackup is  scanning  a  directory  tree,  before  backup
+    selection, every  directory  which  comment  begins  by  "SKIPME"  isn't
+    loaded. This feature avoids wasting lots of time reading the contents of
+    a large directory you never backup. There may be  times,  however,  when
+    you want to backup even directories with this special comment. 
+    If this option is activated, every directory found will  be  loaded.  If
+    this option isn't activated, directories which comment is  beginning  by
+    "SKIPME" won't be loaded. 
+
+
+@endnode
+@node RestoreOpt "Restore options"
+
+Restore from 
+    Specifies the source archive,  containing  data  to  restore.  For  more
+    information, see the "Backup to" option in @{" Backup options " Link "BackupOpt"}. 
+
+Restore to 
+    Specifies the directory where to restore files. If this gadget is empty,
+    files will be restored to the directory in which they where  located  at
+    backup time. 
+
+Existing files 
+    Tells what to do when a file, which is about  to  be  restored,  already
+    exists on your hard disk. Possible actions are: 
+
+    - Always replace (the existing file will be overwritten) 
+    - Never replace (the file won't be restored) 
+    - Ask before replacing (ABackup will ask you if you want to replace  the
+      file) 
+    - Replace if older (the existing file will be overwritten only if  older
+      than the file in the archive) 
+    - Rename file (ABackup will ask you a new name for the file to restore) 
+
+Bad files 
+    Tells what to do when ABackup failed to restore a file.  In  this  case,
+    the file on your hard  disk  may  be  truncated,  or  damaged.  Possible
+    choices are: 
+
+    - Always delete (the file will be deleted) 
+    - Never delete (the file will be kept) 
+    - Ask before deleting (ABackup will ask you if you want  to  delete  the
+      file) 
+
+Report 
+    Activates the creation of a restore report. This report may be  send  to
+    the printer or to a file. You can ask for a detailed or a brief report. 
+
+Directory tree 
+    Activates the restoration of the  directory  tree.  If  this  option  is
+    deactivated, all the files will be restored in the same directory. 
+
+Restore date 
+    When a file is restored, AmigaDOS gives it the restoration date, as it's
+    last modification date. If this option is activated,  ABackup  will  set
+    the date of the file to the date of the file when it was backed up. 
+
+Restore link 
+    If this option is  activated,  ABackup  will  also  restore  links  (see
+    AmigaDOS "MakeLink" command). 
+
+Empty directoris 
+    If  this  option  is  activated,  ABackup  will   also   restore   empty
+    directories. 
+
+Use catalog file 
+    If this option is activated, ABackup will load the archive catalog  from
+    a file. The name of this file may be specified as an argument.  If  not,
+    it will be asked for before loading the archive catalog. 
+
+@endnode
+@node VerifyOpt "Verify options"
+
+Report 
+    Activates the creation of a verify report. This report may  be  send  to
+    the printer or to a file. You can ask for a detailed or a brief report. 
+
+Compare data 
+    By default, ABackup just tries to restore the files in the archive,  but
+    doesn't check if data in the files is correct. However, as  the  program
+    uses checksums, this is quite a good verification.  If  this  option  is
+    activated, ABackup will also compare the restored data with the original
+    data on your disk. 
+    This option slows down verification. Of course,  ABackup  will  only  be
+    able to compare files still located on your disk, and not  modified.  In
+    order to detect an eventual modification, the program  will  check  both
+    size and date of the files. 
+
+Ignore files date 
+    If this option is  activated,  ABackup  won't  check  the  date  of  the
+    original file, before comparison with the archived file. 
+
+Select files 
+    By default, ABackup verifies all the  files  in  the  archive.  If  this
+    option is activated, you will be able to select the file to  verify,  by
+    the mean of the usual selection window. 
+
+@endnode
+@node CrunchOpt "Compression options"
+
+Method 
+    Specifies the compression algorithm to use.  You  can  at  least  choose
+    between "Internal" (using ABackup internal compression)  and  "External"
+    (using an external compression program, see below). If the  XPK  library
+    is intalled on your system, the "XPK library" choice  will  be  possible
+    too. 
+    Please note that  you  can't  use  external  compression  for  partition
+    backups. 
+
+XPK Libs/XPK Mode 
+    If the selected compression method is "XPK library", these  gadgets  let
+    you select one of the XPK algorithm, and the mode for this algorithm. 
+
+Compressor/Decompressor 
+    These two gadgets  let  you  specify  the  name  and  the  arguments  of
+    compression and decompression external programs. The naming  conventions
+    for arguments are: 
+
+    %0 (ou %s)    : full path name of the source file
+    %1            : path name of the source file
+    %2            : name of the source file (without path)
+    %3 (ou %d)    : full path name of the target file
+    %4            : path name of the target file
+    %5            : name of the target file (without path)
+
+    As an example, here is the value to enter in these gadgets, if you  want
+    to use the LhA program (copyright by Stefan Boberg): 
+
+    Compressor   : LhA a -X %d %s
+    Décompressor : LhA e -X %s %5 %4
+
+    (You may omit the -X option for LhA, but then  you  will  have  to  call
+    ABackup with the ECSUFFIX=.lha argument). 
+
+    When using external compression, it is suggested to make these  programs
+    resident, or to copy them in RAM:, in order to reduce the time  required
+    to load them in memory. As these programs are called by ABackup for each
+    file to compress or to decompress, reducing loading time of  one  second
+    means, for example, reducing backup time of 15 minutes,  if  you  backup
+    1000 files. 
+
+    When ABackup will run the external compression or decompression program,
+    it will send it's output to the "T:ABackup.log" file. You  can  look  at
+    this file to find any problem  that  may  occur  during  compression  or
+    decompression. 
+
+Filter 
+    Specifies a list of file's name extentions that will  be  excluded  from
+    compression. For example, if the list contains "lzx", files  which  name
+    ends by ".lzx" won't be compressed. 
+
+@endnode
+@node TapeOpt "Tape options"
+
+Device driver 
+    Specifies the name of the SCSI device driver (default: "scsi.device"). 
+
+SCSI Port 
+    Specifies the SCSI port number of the tape drive. 
+
+Block size 
+    Specifies the block size supported by the tape drive. 
+
+Rewind 
+    Activates automatic tape rewind, at the end of the operation. 
+
+Auto retension 
+    Activates automatic tape retension, at the beginning of the operation. 
+
+Eject 
+    Activates automatic cardrige ejection, at the end of the operation. This
+    function is not supported by all tape drives. 
+
+FAST mem. buffer 
+    Allocates the buffer memory, used for input/output operations,  in  FAST
+    memory instead of CHIP memory. 
+
+Inquiry 
+    If the SCSI device driver and  port  number  are  correct,  this  gadget
+    allows you to get information from the  tape  driver.  This  information
+    will be displayed in a requester. 
+
+@endnode
+@node GUIOpt "Interface options"
+
+Screen type 
+    Specifies the screen to use : the Workbench screen, a Custom screen,  or
+    a Public screen. 
+
+Public screen name 
+    Specifies the name of the public screen to use, when the screen type  is
+    set to "Public" 
+
+If the screen type is set to "Custom", you can  select  the  mode  for  this
+screen. The screen  mode  request  used  will  be  either  the  one  of  the
+asl.library, or the one of  the  reqtools.library.  If  both  libraries  are
+missing (V38 or higher required), you won't be able  to  change  the  screen
+mode. 
+
+Screen font 
+    Specifies screen font of the custom screen. 
+
+Text font 
+    Specifies text  font  for  ABackup  windows,  whatever  screen  type  is
+    selected. 
+
+Palette 
+    If the screen type is set to "Custom", you can  modify  the  palette  of
+    this screen. The reqtools.library (V38 or higher) is required. 
+
+@endnode
+@node ExternalOpt "External programs options"
+
+This window let you parameter files visualisation, which  is  started  by  a
+double-click over a file's name, on the selection window of ABackup. 
+
+ASCII 
+    Name of the text files viewer program. 
+
+ILBM 
+    Name of the IFF pictures viewer program. 
+
+Other 
+    Name of the viewer program for the other file types. 
+
+Run asynchronously 
+    Tells to start the viewer program in the background, so ABackup won't be
+    locked until the viewing is finished. 
+
+Confirm each visualisation 
+    If this option is activated, ABackup will ask  you  confirmation  before
+    each file viewing. This will allow you, if necessary, to modify the name
+    of the program to call. 
+
+@endnode
+@node MiscOpt "Miscellaneous options"
+
+Alert 
+    Specifies how ABackup will warn you when an error  occurs,  or  when  it
+    needs some action from you. Possible choices are: 
+
+    - None (ABackup will only display a requester) 
+    - Beep (ABackup will send a audible signal) 
+    - Flash screen (ABackup will make the screen flash) 
+    - Beep & flash (ABackup will  send  an  audible  signal  AND  flash  the
+      screen) 
+
+Files size 
+    Specifies the unit for files size:  bytes,  kilo-bytes,  mega-bytes,  or
+    automatic (select the highest possible unit). 
+
+Temporary directory 
+    Specifies the name of the working directory. For security reasons, it is
+    not recommanded to specify a directory  located  on  a  partition  being
+    backed up. 
+
+Default selection path 
+    Specifies the name of the directory in which  the  selection  files  are
+    stored (see ABackup documentation for more information  about  selection
+    recording). 
+
+Print disk labels 
+    Activates automatic disk label printing, at the end of the backup. 
+
+Label length (lines) 
+    Specifies the number of lines per label. 
+
+@endbase 
+@endnode

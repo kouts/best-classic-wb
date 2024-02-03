@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE>Reloc * Reubicando Ejecutables</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: reloc.html 1.3 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>Reloc * Reubicando Ejecutables</h3>
+Es una pequeña herramienta para reubicar un Ejecutable estándar de AmigaDOS a una
+dirección absoluta y salvar esto como un simple fichero de datos. Esto era requerido
+para las primeras versiones de WHDLoad con el fin de gestionar los ejecutables de AmigaDOS.
+A partir de WHDLoad versión 8.0, puede utilizarse la función <a href="../autodoc.html#resload_Relocate">resload_Relocate</a>
+con el mismo fin.
+<h4>Instalacion</h4>
+Reloc se encuentra solamente en el archivo <tt>DEV</tt>, no en el archivo <TT>USR</tt>
+<br>cópielo a C: o una ubicación similar
+<h4>Opciones</h4>
+<table>
+<tr>
+<td colspan=2><tt>INPUTFILE/A,OUTPUTFILE,ADR/K,QUIET/S</tt></td></tr>
+<tr>
+<td valign=top nowrap><tt>INPUTFILE/A</tt>&nbsp;&nbsp;</td>
+<td>el fichero ejecutable que debe ser reubicado, debe ser especificado
+</td>
+</tr>
+<tr>
+<td valign=top><tt>OUTPUTFILE</tt></td>
+<td>el nombre del archivo a escribir, si no se especifica se sobreescribirá el
+archivo de origen
+</td>
+</tr>
+<tr>
+<td valign=top><tt>ADR/K</tt></td>
+<td>la dirección de inicio del fichero reubicado, si no se especifica se usara $400,
+Ud. puede usar expresiones simples tales como "$5000" = "20480" = " -$Ff +-33+
+19512+$4e8" (el prefijo "$" es para números en hexadecimal, los operadores soportados son "+"
+y "-", unarios y binarios)
+</td>
+</tr>
+<tr>
+<td valign=top><tt>QUIET/S</tt></td>
+<td>desactiva todo tipo de salida, excepto mensajes de error, habilite esto para su
+uso en conjunto con el Instalador
+</td>
+</tr>
+</table>
+<h4>Código de retorno</h4>
+El código de retorno será 0 en caso exitoso, de otra forma será 10.
+<h4>Detalles técnicos</h4>
+Los HUNK's del ejecutable se copian en el mismo orden al fichero absoluto.
+Los HUNK's BSS son expandidos a su tamaño real. Los HUNK's
+introducidos con AmigaDOS 2.0 (tales como RELOC32_SHORT) no están soportados.
+</BODY>
+</HTML>

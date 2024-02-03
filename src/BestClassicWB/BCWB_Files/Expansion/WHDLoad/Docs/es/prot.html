@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE>Usando resload_Protect#?</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: prot.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>Usando resload_Protect#?</h3>
+<h4>Teoría</h4>
+Hay varias situaciones en las cuales puede ser útil ser informado cuando el programa
+instalado realiza accesos a ciertas ubicaciones especificas en memoria.
+Con las funciones <a href="../autodoc.html">resload_Protect#?</a> es posible proteger
+ciertas ubicaciones de memoria contra ser leídas y/o escritas por el procesador.
+Esta protección implica que cada acceso a una de estas áreas protegidas, de realizarse,
+generará una excepción de Falla de Acceso que resultará en un cuadro de diálogo apropiado
+por parte de WHDLoad. Si Ud. declara como protegida un área de memoria usando una
+función <a href="../autodoc.html">resload_Protect#?</a> WHDLoad modificará los descriptores
+de la página afectada en el árbol de traducción de la MMU. Luego, en cada acceso a la
+página protegida, la CPU creara una excepción de Falla de Acceso. El gestor de excepciones
+dentro de WHDLoad verificara la razón de la excepción. Si la razón ha sido un acceso
+a una <a href="mmu.html">página</a> protegida pero el acceso no corresponde al área protegida
+los accesos serán emulados, y la ejecución normal del programa continuara. De otra forma
+WHDLoad saldrá de la ejecución con el cuadro de dialogo apropiado. Si el acceso fue
+realizado dentro del flujo de instrucciones (es decir, la CPU ha intentado leer código)
+siempre será emulado, o en otras palabras, las funciones <a href="../autodoc.html">resload_Protect#?</a>
+solo afectan a la lectura y escritura de datos. El hecho de que cada acceso a una página
+protegida (el tamaño de página es actualmente 4096 octetos) generara una falla de acceso,
+aun si el área protegida tiene una longitud de tan solo 1 octeto, resultara en un gran
+enlentecimiento de la velocidad de ejecución del programa. Especialmente si partes
+del código están ubicadas en la misma página. Si el programa es critico en cuanto
+a velocidad de ejecución, existen diferencias en cuanto a la ejecución del mismo.
+Por lo tanto es posible que algunos programas no funcionen con la funcionalidad
+resload_Protect.
+<h4>Ejemplo: sumas de control sobre el código</h4>
+Si Ud. instala un juego usando WHDLoad Ud. deberá parchar las rutinas de carga en el cargador original
+del juego de tal forma que usen WHDLoad para cargar los datos del juego. Algunos juegos realizan
+sumas de control sobre ciertas áreas de código para detectar si el código original ha sido modificado.
+Estas rutinas de detección pueden ser en ocasiones bastante difíciles de encontrar. Pero usando
+la funcionalidad <a href="../autodoc.html">resload_Protect#?</a> en WHDLoad será sencillo.
+Todo lo que Ud. tiene que hacer es proteger los bytes que Ud. ha cambiado en el código
+del juego contra lectura. Ahora cada rutina que intenta realizar una suma de control y leer el código
+parchado causara una falla de acceso. Y Ud. conocerá donde esta ubicada la rutina.
+<h4>Limitaciones</h4>
+Ud. no debe proteger la página de memoria donde apunta el SSP. Si lo hace y ocurre una excepción,
+se producirá una Falla de Doble Bus dado que la CPU no será capaz de escribir el entorno de pila
+de la excepción. Luego de una Falla de Doble Bus solamente puede hacerse un reset para continuar
+con la ejecución. WHDLoad verificará si hay un conflicto del área protegida mediante el SSP y terminará
+si se cumple dicha condición. Pero esto no será de ayuda si el SSP cambia posteriormente.
+<p>Para más limitaciones e información por favor lea las entradas de Autodoc para las
+diferentes funciones resload_Protect:
+<ul>
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+</ul>
+</ul>
+</BODY>
+</HTML>

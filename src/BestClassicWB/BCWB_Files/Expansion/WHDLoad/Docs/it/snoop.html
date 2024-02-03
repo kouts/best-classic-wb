@@ -1,0 +1,202 @@
+<HTML>
+<HEAD>
+<TITLE>Snooping (ficcare il naso, curiosare)</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: snoop.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Snooping</h3>
+<h4>Cos'è</h4>
+Lo Snooping è una caratteristica di WHDLoad che controlla la validità ed esegue il log degli accessi ai registri Custom e
+CIA. Se <a href="opt.html#Snoop">Snoop</a> è attivato, tutti gli accessi non validi causeranno un Access Fault, il
+programma installato verrà terminato e WHDLoad mostrerà un requester spiegando i motivi.
+
+<h4>Registri custom</h4>Tutti gli accessi in lettura e scrittura ai registri custom vengono verificati.
+Accessi non validi sono:
+<ul>
+<li>accessi a registri non esistenti
+<li>accessi in lettura a registri a sola scrittura
+<li>accessi in scrittura a registri a sola lettura
+<li>accessi a registri Early Read
+<li>accessi in scrittura di dimensione di un byte (eccetto <tt>bltcon0l</tt> e <tt>aud*vol+1</tt>)
+</ul>
+I registri Strobe possono essere sia letti che scritti. Il set di registri Custom validi può variare tra OCS (Old ChipSet
+- A500, A1000, vecchi A2000), ECS (Enhanced ChipSet - A600, nuovi A2000, A3000) e AGA (Advanced Graphics Architecture -
+A1200, A4000). Questo è utile specialmente per localizzare i bug nei vecchi programmi causati da accessi non definiti ai
+nuovi registri AGA.
+
+<p>Utilizzando la funzione <a href="../autodoc.html#resload_Control">resload_Control</a> e i tag
+<a href="../autodoc.html#WHDLTAG_CUST">WHDLTAG_CUST_DISABLE/READ/STROBE/WRITE</a>, possono essere modificati
+quali registri sono in lettura/scrittura. Utilizzando questa funzione possono essere determinati accessi illegali.
+Questa funzione dovrebbe essere utilizzata solo in fase di debug e non per Slaves rilasciati pubblicamente.
+
+<h4>Registri CIA</h4>Solo gli accessi in scrittura sono verificati per i registri CIA. Questo significa che accessi in
+lettura a registri inesistenti nell'area di memoria $bfd000...$bfefff non saranno rilevati. Per tutti gli accessi in
+scrittura il nuovo valore viene salvato internamente da WHDLoad. Per alcuni dei registri CIA sono effettuati controlli
+aggiuntivi dipendenti dal valore scritto:
+
+<p><table border=1 summary="tabella dei registri CIA">
+<tr>
+	<th>indirizzo</th>
+	<th>registro</th>
+	<th>controllo aggiuntivo</th>
+</tr><tr>
+	<td>$bfe001</td>
+	<td>ciaa.ciapra</td>
+	<td>il settaggio dell'Overlay bit #0 non è permesso</td>
+</tr><tr>
+	<td>$bfe201</td>
+	<td>ciaa.ciaddra</td>
+	<td>i bit #6-7 possono assumere qualsiasi valore (sono utilizzati per il joypad), i bit inferiori devono essere %000011</td>
+</tr><tr>
+	<td>$bfe801</td>
+	<td>ciaa.ciatodlow</td>
+	<td rowspan=3>accessi read-modify-write (come bchg) non sono permessi se il bit ALARM è settato in ciaa.ciacrb 
+	(controllato solamente sul 68060)</td>
+</tr><tr>
+	<td>$bfe901</td>
+	<td>ciaa.ciatodmid</td>
+</tr><tr>
+	<td>$bfea01</td>
+	<td>ciaa.ciatodhi</td>
+</tr><tr>
+	<td>$bfed01</td>
+	<td>ciaa.ciaicr</td>
+	<td>accessi read-modify-write (come bchg) non sono permessi (controllato solamente sul 68060)</td>
+</tr><tr>
+	<td>$bfd100</td>
+	<td>ciab.ciaprb</td>
+	<td>i bit MOTOR #7, SELECT #3-6 e STEP #0 non devono essere azzerati, gli altri bit possono essere modificati;
+	in questa maniera tutti gli accessi ai floppy drive saranno rilevati</td>
+</tr><tr>
+	<td>$bfd200</td>
+	<td>ciab.ciaddra</td>
+	<td>il valore scritto deve essere %11000000</td>
+</tr><tr>
+	<td>$bfd300</td>
+	<td>ciab.ciaddrb</td>
+	<td>il valore scritto deve essere %11111111</td>
+</tr><tr>
+	<td>$bfd800</td>
+	<td>ciab.ciatodlow</td>
+	<td rowspan=3>accessi read-modify-write (come bchg) non sono permessi se il bit ALARM è settato in ciaa.ciacrb 
+	(controllato solamente sul 68060)</td>
+</tr><tr>
+	<td>$bfd900</td>
+	<td>ciab.ciatodmid</td>
+</tr><tr>
+	<td>$bfda00</td>
+	<td>ciab.ciatodhi</td>
+</tr><tr>
+	<td>$bfdd00</td>
+	<td>ciab.ciaicr</td>
+	<td>accessi read-modify-write (come bchg) non sono permessi (controllato solamente sul 68060)</td>
+</tr></table>
+
+<h4>Come funziona</h4>
+Se Snoop è abilitato, WHDLoad contrassegnerà gli indirizzi dei registri Custom e CIA come non validi/protetti da scrittura nella MMU translation
+tree. Per questo motivo, ogni accesso ad uno di questi registri risulterà in un Access Fault exception. L'exception
+handler in WHDLoad si prende cura di questa eccezione. Come prima cosa controllerà se l'accesso è valido. Se non lo è il
+programma sarà terminato. Se invece sarà valido e si tratta di una operazione di lettura, verrà emulato e l'esecuzione del
+programma procederà. Nel caso questa sia invece un'operazione di scrittura, WHDLoad salverà anche il valore scritto in
+un'area interna.
+<br>A causa dell'overhead dell'eccezione e della sequenza di emulazione, l'esecuzione del programma subirà un rallentamento.
+Quanto rallenterà dipende dal tipo di CPU, tipo di memoria Chip (16/32-bit) e l'allineamento dello Stackpointer se la
+memoria Chip è a 32-bit (allineata oppure no alla Longword). Dipende anche dal tipo di accesso (Byte/Word/Longword,
+Lettura/Scrittura). Nel 68030 la scrittura è più veloce della lettura (perché in lettura lo stackframe è di 92 byte contro
+i 32 in scrittura), nel 68060 è la lettura ad essere più veloce poiché l'emulazione della scrittura è più complessa.
+<h4>Modalità Veloce di Snoop</h4>
+L'opzione <a href="opt.html#Snoop">Snoop/S</a> abilita lo snooping veloce. Gli accessi in lettura non saranno verificati.
+Nessuna verifica speciale verrà eseguita. Questa modalità può essere utile nel caso ci interessi solo ottenere il contenuto
+dei registri Custom, ad esempio per salvare un'immagine mediante l'utilizzo di <a href="sp.html">SP</a>.
+<h4>Copper List Scanner</h4>
+Dalla versione 13 di WHDLoad anche le copperlist verranno controllate. Lo scanner verrà attivato nella scrittura dei
+registri <tt>coplc</tt> se il DMA del copper è abilitato, oppure quando il programma installato abilita il DMA scrivendo
+nel registro <tt>dmacon</tt>. Lo scanner controlla la copperlist validando tutte le istruzioni Move applicandone le
+restrizioni messe in atto dall'opzione Snoop (OCS/ECS/AGA). Le istruzioni Skip e Wait (eccetto CEND) saranno ignorate.
+Quando troverà valori non validi il programma installato sarà terminato. Lo scanner segue i branch (<tt>copjmp</tt>),
+scopre i loop e controlla fino a 16 subliste. Le Move nelle copperlist verranno salvate nel file interno dei registri
+Custom, e WHDLoad ne eseguirà il dump in uscita. Lo scanner non è attivo nella modalità Fast Snoop (Snoop Veloce).
+<h4>Controllo Puntatori Audio</h4>
+Quando l'opzione <a href="opt.html#ChkAudPt">ChkAudPt/S</a> è attivata, WHDLoad controllerà che il programma installato
+non andrà a scrivere su indirizzi invalidi nei puntatori del Custom audio DMA.
+Indirizzi validi devono essere dentro BaseMem e non 0. Solo operazioni di scrittura di lunghezza long sono controllate.
+Scritture di lunghezza word non sono controllate. Questo controllo può risultare utile per identificare problemi
+nelle routine di riproduzione audio.
+<h4>Controllo Priorità Blitter</h4>
+Quando l'opzione <a href="opt.html#ChkBltHog">ChkBltHog/S</a> è attivata, WHDLoad controllerà che il programma installato non abiliti il bit <tt>BltHog</tt>
+scrivendo nel registro <tt>dmacon</tt>. La Blitter Priority può causare problemi in alcune configurazioni hardware in
+concomitanza di grosse operazioni con il blitter (tutti i canali utilizzati).
+<h4>Controllo Blitter Size</h4>
+Quando l'opzione <a href="opt.html#ChkBltSize">ChkBltSize/S</a> è attivata WHDLoad controllerà che le operazione del blitter non accedano la memoria esterna
+all'area BaseMem. Nelle operazioni di scrittura di <tt>bltsize</tt> o <tt>bltsizh</tt> controllerà se sarà abilitata la
+line mode in <tt>bltcon1</tt>. Se la line mode è attiva annullerà il size check. Altrimenti WHDLoad calcolerà la prima e
+l'ultima word da accedere per ogni canale DMA attivato. Se un indirizzo è all'esterno dell'area BaseMem il programma sarà
+terminato con un requester. Il calcolo è progettato per funzionare con tutte le modalità (ascendente/discendente,
+modulo positivi/negativi, modulo/puntatori dispari).
+<br>Ricorda che la modalità di disegno linea (line drawing) non verrà verificata e tutti i registri del blitter possono
+essere scritti anche dal copper se <tt>copcon</tt> è impostato.
+<h4>Controllo Blitter Wait</h4>
+Quando l'opzione <a href="opt.html#ChkBltWait">ChkBltWait/S</a> è attiva, WHDLoad utilizzerà un tracciamento dell'istruzione per verificare che il programma
+installato attenda nel modo corretto che il blitter abbia finito il suo lavoro prima di fargliene cominciare uno nuovo.
+Viene utilizzata una variabile interna che rappresenta lo stato di funzionamento del blitter. La variabile viene impostata
+quando avviene un accesso in scrittura nei registri <tt>bltsize</tt> o <tt>bltsizh</tt> e azzerata quando viene acceduto il
+registro <tt>dmaconr</tt>. Ad ogni scrittura di un registro del blitter il valore della variabile interna viene
+controllato, e se indica che blitter sta già lavorando il programma installato viene terminato e WHDLoad ritornerà il PC
+dell'ultimo lavoro eseguito dal blitter e l'accesso attuale.
+<br>Ci sono due principali colli di bottiglia di questa peculiarità. Prima di tutto l'utilizzo del blitter tramite il
+copper non viene controllato, in secondo luogo l'utilizzo di interrupt del blitter farà riportare, dalla routine di
+controllo, degli errori senza effettiva necessità.
+<h4>Controllo Color Burst</h4>
+Quando l'opzione <a href="opt.html#ChkColBst">ChkColBst/S</a> è attivata WHDLoad controlla che per tutti le scritture sul
+registro <code>custom.bplcon0</code> il bit <code>color</code> sia settato. 
+Su alcune configurazioni hardware, specialmente quelle con flickerfixer, questo bit deve essere settato affinchè un
+segnale video ottimale possa essere prodotto. Per questo motivo per ottenere una maggior compatibilità bisognerebbe
+lasciare questo bit sempre settato. Scritture dirette su <code>custom.bplcon0</code> e tutte le Copper list sono controllate.
+<h4>Controllo Blitter Wait</h4>
+Quando l'opzione <a href="opt.html#ChkCopCon">ChkCopCon/S</a> è attivata WHDLoad controlla che per ogni scrittura del
+registro <code>custom.copcon</code> il bit #1 non sia settato. Questo bit permette al Copper di scrivere registri del Blitter.
+Può essere utile per determinare se il programma utilizza il Copper per controllare attività DMA.
+<h4>Futuro</h4>
+E' pianificata l'implementazione di caratteristiche come il Freezing e l'Iconificazione. Snoop sarà essenziale per il loro
+funzionamento. Perciò raccomandiamo agli autori di installatori di controllarli con Snoop per assicurarne una futura
+compatibilità.
+<h4>Requisiti di sistema</h4>
+Lo Snoop richiede la presenza di una MMU. Anche WHDLoad deve <a href="mmu.html#usercontrol">utilizzare</a> la MMU, perciò
+<a href="opt.html#MMU">MMU/S</a> deve essere abilitato nei sistemi con 68030.
+<h4>Limitazioni</h4>
+<ul>
+<li>68020 + 68851
+<ul>
+<li>questo hardware non è attualmente supportato
+</ul>
+<li>68030
+<ul>
+<li>la lettura-modifica-scrittura dei registri CIA non viene rilevata
+</ul>
+<li>68040
+<ul>
+<li>la lettura-modifica-scrittura dei registri CIA non viene rilevata
+<li><tt>movem</tt> istruzioni di lettura della memoria potrebbero accedere a registri Custom non validi senza generare
+una Access Fault exception, questo è possibile perchè solo il primo accesso sarà verificato per la sua validità
+<li>le istruzioni non devono accedere a più di un registro snooped contemporaneamente, questo significa che istruzioni
+come <tt>move.b ($dff006),($bfd800)</tt> non possono essere gestite, se codice del genere viene eseguito WHDLoad
+mostrerà un requester di Access Fault
+</ul>
+<li>68060
+<ul>
+<li>l'istruzione <tt>movem</tt> potrebbe accedere ad un registro non valido senza causare un Access Fault exception, questo
+è possibile perché solo per il primo accesso verrà verificata la effettiva corrispondenza con un registro valido
+<li><tt>move &lt;registri CIA/Custom&gt;,sr</tt> sarà eseguito in modo non corretto se tenterà di cambiare la porzione
+supervisore dello status register, infatti questa rimarrà inalterata
+<li>ogni <tt>(ssp)+</tt> o <tt>-(ssp)</tt> in concomitanza con un accesso in scrittura ad un registro CIA o Custom non può
+essere gestito a causa di problemi con lo stackframe, WHDLoad scoprirà questi accessi e terminerà con un appropriato
+requester
+<li>le istruzioni non devono accedere a più di un registro "snooped" contemporaneamente, questo significa che codice come
+<tt>move.b ($dff006),($bfd800)</tt> non può essere gestito, e se verrà eseguito WHDLoad aprirà un requester di Access Fault
+</ul>
+</ul>
+</BODY>
+</HTML>

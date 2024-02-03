@@ -1,0 +1,254 @@
+<HTML>
+<HEAD>
+<TITLE>Programando WHDLoad</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: howto.html 1.4 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>Flujo esquemático de ejecución</h3>
+<p>La siguiente tabla muestra el flujo del programa cuando un programa instalado con WHDLoad
+será ejecutado. Espero que ayude a comprender como trabaja WHDLoad y como cooperan WHDLoad,
+el Esclavo y el programa instalado.</p>
+<table cellpadding=3>
+  <tr>
+    <td valign=top>El USUARIO</td>
+    <td>
+      <ul>
+        <li>arranca la demo o el juego cliqueando en un Icono o arrancando
+            WHDLoad desde la línea de comandos
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>El Sistema Operativo</td>
+    <td valign=top>
+      <ul>
+        <li>carga el ejecutable de WHDLoad e inicia la ejecución
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>WHDLoad</td>
+    <td>
+      <ul>
+        <li>comprueba el entorno de Software y Hardware
+        <li>carga y comprueba el Esclavo
+        <li>asigna la memoria requerida por el programa instalado
+        <li>si <a href="opt.html#Preload">Preload/S</a> esta activado, carga
+            las imágenes de disco y los ficheros en RAM (en tanto que haya memoria libre
+            disponible)
+        <li>conmuta el SO hacia "apagado" (desactiva la multitarea y las interrupciones, degrada
+            el hardware de gráficos a OCS, inicializa todo el hardware con los valores definidos)
+        <li>transfiere la ejecución al Esclavo
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Esclavo</td>
+    <td>
+      <ul>
+        <li>carga el ejecutable principal del programa instalado llamando una
+            función de WHDLoad (tal como <a href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a>
+            o <a href="../autodoc.html#resload_LoadFile">resload_LoadFile</a>)
+        <li>parcha el ejecutable principal (para que el programa cargue sus datos
+            utilizando el Esclavo, para solucionar problemas de compatibilidad, o habilitar la función de salir
+            desde el programa)
+        <li>transfiere la ejecución al ejecutable principal
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Programa Instalado</td>
+    <td>
+      <ul>
+        <li>hará lo suyo
+        <li>al cargar datos desde disco llamara al Esclavo (dado que el
+            Esclavo lo ha parchado para que lo haga previamente), y el Esclavo
+            llamará a WHDLoad, y WHDLoad habilitará parcialmente el SO para
+            cargar los datos (solamente si la información no ha sido <a
+            href="opt.html#Preload">Precargada</a> [Preload]), luego retorna, retorna
+            y el programa instalado continúa
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>El USUARIO</td>
+    <td>
+      <ul>
+        <li>sale del programa presionando la tecla de salida (<a
+            href="opt.html#QuitKey">QuitKey</a>)
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Esclavo</td>
+    <td>
+      <ul>
+        <li>retorna a WHDLoad llamando la función <a href="../autodoc.html#resload_Abort">resload_Abort</a>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>WHDLoad</td>
+    <td>
+      <ul>
+        <li>re-activa el SO (restaura los registros de hardware, visualización y memoria)
+        <li>libera todos los recursos asignados
+        <li>retorna al SO
+      </ul>
+    </td>
+  </tr>
+</table>
+<h3>Cómo instalar un lector de pistas simple para un disco</h3>
+Esta es una pequeña guía paso a paso acerca de como crear un instalador para un demo/juego NDOS usando
+WHDLoad. La guía refleja un caso ideal simple. En el mundo real un caso como
+este probablemente no ocurra nunca. Para casos especiales y problemas, lea los
+capítulos que siguen a este.
+<ol>
+  <li>Trabajo Previo
+    <ul>
+      <li>Cree un directorio que contenga todos los ficheros.
+      <li>Cree una imagen de disco usando  <A HREF="dic.html"> DIC </A> en este
+          directorio.
+      <li>Cree un archivo <a href="opt.html#optwb">#?.info</a> con "WHDLoad"
+          como &lt;Default Tool&gt; y una Tooltype "SLAVE=#?" conteniendo el
+          nombre del esclavo. (O simplemente copie el icono desde una Instalación
+          Ejemplo, y desactive todas las Tooltypes excepto "SLAVE=").
+    </ul>
+  <li>El Esclavo <br>
+    Para escribir el esclavo necesitamos la siguiente información:
+    <ol>
+      <li>Dónde esta ubicado el ejecutable principal dentro del disco?
+      <li>Dónde esta ubicado el programa de carga desde disco dentro del ejecutable principal?
+    </ol>
+    Para obtener esta información primero analizaremos el sector de arranque. La mayor parte de las veces
+    el ejecutable principal será cargado desde allí usando exec.DoIO(). Algunas veces
+    un lector de pistas especial estará en el sector de arranque. Ahora escribiremos un Esclavo que
+    simule el sector de arranque y cargue el ejecutable principal desde la imagen de disco.
+    Luego extraeremos el ejecutable desde la imagen o un <a href="dump.html#memory">vuelco de memoria</a>.
+    Luego de esto tenemos que encontrar el lector dentro del ejecutable principal. Una forma rápida es buscar
+    el patrón <tt>$AAAAAAAA</tt> (usado por el decodificado MFM) con un editor hexadecimal. Luego corte el área
+    encontrada (+/- <tt>$1000</tt> bytes), desensámblela, y busque el inicio de la
+    rutina. Comprenda la lista de parámetros. Ahora crearemos el código para el Esclavo
+    que parchará esa rutina de carga de tal forma que todas las llamadas al
+    lector sea direccionadas al Esclavo. El Esclavo luego ajustará los parámetros
+    y llamará a la función de WHDLoad <a href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a>.
+  <li>En el caso ideal el instalador estará completo.<br>
+Ahora faltaría crear un bello Icono. Extraiga un par de imágenes usando la
+<a href="snoop.html">funcionalidad snoop</a> de WHDLoad y <a href="sp.html">SP</a> o
+utilice un congelador o alguna variante de UAE para extraer las imágenes y construir el ícono.
+Se recomienda la paleta de 16 colores <a
+href="ftp://ftp.wustl.edu/pub/aminet/pix/mwb/RomIcons10.lha">RomIcon</a>.
+
+</ol>
+<h3>Posibles problemas y casos especiales</h3>
+<h4>Lector de pistas no estándar</h4>
+Algunos programas usan su propio formato de disco. Esto significa que <a
+href="dic.html">DIC</a> no será capaz de crear las imágenes de disco. Para crear archivos
+o imágenes desde tales discos se recomienda el uso de <a href="rawdic.html">RawDIC</a>.
+Vea la documentación de RawDIC para mas información.
+<h4>Múltiples discos</h4>
+Si el programa utiliza mas de un disco el esclavo debe redireccionar los accesos
+a disco al archivo de imagen apropiado. Algunas veces esto no es sencillo. Algunos
+programas soportan mas de una unidad de discos, de tal forma que debe usarse el numero
+de unidad para seleccionar el disco. La mayoría de los programas usan un ID (identificador)
+en cada disco para distinguirlos. En este caso, utilice una variable que mantenga el
+numero de disco, y en cada acceso al ID de disco (determine tales accesos analizando los
+parámetros del lector de disco) incremente la variable (si se ha alcanzado el ultimo
+disco, decreméntela). De esta forma esperamos que el lector leerá el ID una y otra vez
+hasta que el disco correcto sea insertado. Tal vez haya un cuadro de dialogo del
+programa pidiendo el disco correcto, en este caso desactívelo.
+<h4>Salvado de la tabla de puntajes</h4>
+No mucho que decir. Use <a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a> para escribir el
+área de memoria apropiada al disco. Si lo desea, encríptela un poco para que los perdedores
+no puedan modificarla demasiado fácilmente. No se recomienda escribir directamente a las
+imágenes de disco (usando <a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>), dado que si
+algo sale mal (por ej. un cuelgue del sistema) es posible que las imágenes resulten
+dañadas.
+<h4>Salvado del juego en curso</h4>
+Esto debe manejarse de igual manera que la tabla de puntajes.
+<h4>Accesos al sistema operativo</h4>
+Desde el momento que el esclavo y el programa instalado se ejecutan, no existirá absolutamente
+ningún SO, ni será accesible, ni tendrá ningún sentido intentar acceder al mismo! Por lo tanto
+todo acceso intentado por el programa instalado debe ser desactivado. Si no hay muchos accesos,
+y los mismos carecen de sentido en el entorno de WHDLoad (tales como
+exec.Disable() o exec.SuperState()) simplemente cámbielos por NOP (<tt>$4e71</tt>). Si los accesos
+tienen una función importante (tal como exec.DoIO()), redirecciónelos al Esclavo y emúlelos.
+Si hay muchos accesos, cree una librería exec.library simple en un área de memoria
+no usada (inicialice la palabra larga en la dirección <tt>$4</tt>). Ud. puede consultar el código
+fuente de Oscar.slave, el cual emula exec.AllocMem(). Para detectar accesos al SO, la execbase
+inicial se configura en <tt>$f0000001</tt> con la intención de que todas las rutinas que usan
+execbase creen una excepción de error de dirección ("Address Error" exception).<br>
+Si hay un uso intensivo de las funciones del SO, use uno de los paquetes kickemu que pueden
+encontrarse en el paquete whdload-dev. Hay un paquete para Kick 1.3 ('src/sources/whdload/kick13.s')
+y uno para Kick 3.1 ('src/sources/whdload/kick31.s').
+Estos paquetes requieren una imagen de la kickstart original y crearan un entorno de SO completo
+dentro del espacio de WHDLoad. Consulte también el archivo readme apropiado que se provee para
+mayor información.
+<h3>Problemas comunes de compatibilidad</h3>
+<h4>Espacio de direcciones limitado en 68000/68010/68ec020</h4>
+En estos procesadores el espacio de direcciones esta limitado a 16 MB (<tt>$000000...$ffffff</tt>)
+debido a que estas CPU's tienen solamente 24 líneas de direcciones. Como resultado, todos los accesos
+a direcciones mas altas se realizan en los primeros 16 MB ignorando los 8 bits mas significativos.
+Algunos programas usan estos bits para almacenar datos, o simplemente olvidan borrarlos.
+En un procesador con el espacio de direcciones completo de 4 GB tales como
+68020/680ec30/68030/68040/68060 esto no funcionara, debido a que se accederán
+las direcciones completas de 32-bits.<br>
+Para solucionar esto es necesario parchar estos accesos y redireccionarlos a la dirección apropiada.<br>
+Algunas veces la razón de accesos a direcciones extrañas puede ser un puntero sin
+inicializar. Si este es el caso, ayudara limpiar <tt>$400</tt> - <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a>.
+<h4>Diferentes entornos de pila en cada procesador</h4>
+El entorno de pila creado por el procesador durante las interrupciones y excepciones son
+diferentes para distintos miembros de la familia 68k. En el 68000 el entorno de pila es de
+6 bytes, excepto para los errores de bus y direcciones. El entorno de pila contiene el SR
+salvado en (a7) y el PC salvado en (2,a7). En todos los otros procesadores (68010+) el entorno de pila
+mínimo es de 8 bytes y adicionalmente contiene el numero de vector como una palabra
+en (6,a7). Este formato de entorno de pila de 4 palabras <tt>$0</tt> se crea para
+las interrupciones "Trap #xx" en 68010-68060. Los entornos de pila para otras excepciones son
+diferentes en cada procesador. La instrucción RTE trabaja diferente en el 68000 comparado con
+el 68010+. En un 68000 simplemente restaura el SR y el PC y continua la ejecución del programa
+en la dirección interrumpida. En el 68010+ adicionalmente liberara el entorno de pila
+dependiendo del formato del mismo.<br>
+Algunos programas ponen en la pila una dirección (PC) y un SR y luego ejecutan una
+instrucción RTE. Esto funcionará solamente en un 68000, pero tendrá resultados inesperados
+en un 68010+.<br>
+Si un programa hace esto, habrá que solucionar el problema. Algunas veces alcanza con
+reemplazar el RTE por RTR.
+<h4>MOVEM.x RL,-(An) en 68000/010 y 68020-68060</h4>
+Existe una diferencia si el registro usado en el modo de pre-decremento (RL) esta también contenido
+en la lista de registros. Para los 68020-68060 el valor escrito a memoria es el valor inicial
+del registro decrementado por el tamaño de la operación. El 68000 y 68010 escriben el valor
+inicial del registro (no decrementado).<br>
+Dado que tal construcción no seria muy útil, no se conoce ningún software que actualmente tenga
+problemas debido a esto.
+<h3>Lineamientos generales para escribir instaladores</h3>
+<ul>
+<li>No modifique los registros de CPU presentes en los procesadores mas altos tales como VBR o CACR.
+El VBR siempre es 0 desde el punto de vista de los programadores de Esclavos, aun si es movido debido
+a que los Vectores Automáticos (y Traps si el modificador <a href="../autodoc.html#WHDL_EmulTrap">WHDL_EmulTrap</a> esta
+configurado) son emulados. Los bits en el CACR son diferentes para cada procesador. Solamente hay una
+forma valida de modificar las <a href="cache.html">caches</a>,
+use <a href="../autodoc.html">resload_SetCACR/SetCPU</a> y las bitdef's de 'exec/execbase.i' y 'whdload.i'.
+Todas las porciones de código presentes en el programa a instalar que modifiquen estos registros deben ser
+desactivadas o salteadas durante la ejecución. ¡De otra forma WHDLoad no trabajará correctamente!
+<li>Nunca modifique las imágenes de disco. Esto tiene la ventaja de que si alguien desea arrancar el
+programa desde disco, solamente deberá escribir las imágenes nuevamente al disco (suponiendo que el
+programa se ejecute sin demasiados parches, seguramente no es el caso mas frecuente).
+<li>Nunca use el soporte original del programa directamente en el esclavo (problemas de derechos de copia).
+<li>Active las Caches solamente si Ud. esta seguro de que funcionara con todos los procesadores.
+<li>Use tan poca memoria como sea posible para <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a>. Alguna gente usa marcadores (tags) residentes
+al final de la memoria Chip, de modo que ayuda utilizar solamente <tt>$1f0000</tt>
+en lugar de <tt>$200000</tt> y WHDLoad puede utilizar memoria asignada en forma absoluta.
+</ul>
+<h3>Sugerencias &amp; trucos</h3>
+<h4>Que es mejor, usar imágenes de disco o ficheros?</h4>
+Algunas veces Ud. tendrá la oportunidad de elegir usar imágenes de disco o ficheros reales.
+Ambos tienen sus ventajas. El uso de imágenes de disco es usualmente la forma mas sencilla
+y rápida de crear el Esclavo. Pero los ficheros reales son mucho mas sencillos de mantener
+en una caché (si hay poca memoria o la memoria esta fragmentada). El espacio necesario en
+disco duro también será menor con los ficheros reales que con imágenes de disco. Ud. solo
+deberá usar imágenes de disco si hay muchos ficheros (mas de 30).
+</BODY>
+</HTML>

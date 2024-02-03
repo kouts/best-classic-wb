@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE>Funzioni di rete</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: net.html 1.1 2015/04/19 21:04:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>Accesso alla rete</h3>
+WHDLoad può utlizzare la rete per controllare se esiste una nuova versione sia dello Slave che di WHDLoad stesso.
+Le operazioni di rete avvengono tutte tramite il protocollo HTTP. L'opzione globale <a href="opt.html#Proxy">Proxy/S</a>
+può essere utilizzata per accedere alla rete tramite un proxy, anche autenticandosi con username e password
+nel caso sia necessario. WHDLoad supporta solo l'autenticazione semplice.
+
+<br> Se si vuole escludere ogni tipo di accesso di rete è sufficiente specificare l'opzione globale
+<a href="opt.html#NoNetwork">NoNetwork/S</a>.
+
+<h3>Controllo nuova versione di WHDLoad e Slave</h3>
+
+Accedendo al sito web di WHDLoad verrà verificata l'eventuale presenza di una nuova versione dello Slave o di WHDLoad.
+
+<br>L'accesso viene effettuato solo se la <a href="opt.html#SplashDelay">splash window</a> è aperta visto che
+l'informazione è visualizzata lì.
+
+<p>Il numero della versione di WHDLoad verrà inviata e comparata con la versione presente sul sito e, nel caso una versione
+più recente sia disponibile, un pulsante 'Update WHDLoad' verrà aggiunto alla splash window.
+Se avete installato <a href="http://sourceforge.net/projects/openurllib/">openurl.library</a> premendo il pulsante
+si aprirà il browser web sul sito di WHDLoad, se la libreria non è installata l'indirizzo della home page verrà
+semplicemente visualizzato. Se l'opzione <a href="opt.html#Expert">Expert/S</a> è stata selezionata, verrete informati
+anche sul rilascio di nuove versioni beta di WHDLoad.
+
+<p>Per verificare la presenza di uno Slave aggiornato, il suo SHA-256 verrà invitiato e comparato con quello
+presente sul sito di WHDLoad, dove c'è un database di tutti gli Slave. Se un nuovo Install o Slave è presente,
+la splash window mostrerà la data di rilascio della versione più recente, aggiungendo un pulsante per l'aggiornamento.
+Se avete installato <a href="http://sourceforge.net/projects/openurllib/">openurl.library</a> premendo il pulsante
+si aprirà il browser web sulla pagina dello specifico Install sul sito WHDLoad, altrimenti il suo indirizzo verrà
+semplicemente visualizzato.
+
+<p>Se una nuova versione di uno Slave o di WHDLoad sono disponibili, un nuovo pulsante 'Start' verrà aggiunto alla
+splash window, e questa non verrà chiusa automaticamente per evidenziare la possibilità dell'aggiornamento.
+La finestra potrà essere chiusa normalmente con il mouse, la barra spazio, Return o Esc.
+
+<p>Se avete installato <a href="http://sourceforge.net/projects/openurllib/">openurl.library</a> ed il pulsante
+'Update' viene premuto, WHDLoad eseguirà il comando <a href="opt.html#ExecuteCleanup">ExecuteCleanup/K</a> per
+riattivare lo stack di rete, di solito disabilitato tramite il comando <a href="opt.html#ExecuteStartup">ExecuteStartup/K</a>.
+L'operazione può fallire se non c'è memoria libera sufficiente, nel caso <a href="opt.html#Preload">Preload/S</a>
+ne abbia occupata la maggior parte. Questo significa che in situazioni con poca memoria libera il pulsante
+'Update' potrebbe non funzionare correttamente.
+
+</BODY>
+</HTML>

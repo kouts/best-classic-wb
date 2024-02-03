@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<TITLE>WHDLoad i MMU</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: mmu.html 1.7 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>WHDLoad i Jednostka Zarządzająca Pamięcią (MMU)</h3>
+MMU posiadają następujące procesory: 68030,
+68040, 68060. Istnieją również tak zwane wersje EC tych procesorów, które
+posiadają zepsute, niedziałające MMU. Dla przykładu, wszystkie standardowe A4000/030
+posiadają procesor 68EC030. Karty turbo wykonane przez firmy trzecie
+przedstawiają zgoła odmienną sytuację w tej materii i więcej na ich temat
+można dowiedzieć się z dostarczanej wraz z nimi dokumentacji.
+Z tego co wiem, wszystkie akceleratory 68040/68060 dla Amigi posiadają pełne procesory,
+czyli wyposażone w MMU (gdyż tryb burst i Zorro III wymagają mapowania MMU przez
+przestrzeń urządzeń wejścia/wyjścia). Brak MMU na procesorach EC nie może
+zostać nadrobiony poprzez oprogramowanie. Mimo wszystko, wszystko wymaga osobnych
+ustawień <a href="#usercontrol">we właściwych opcjach</a> WHDLoad.
+<br>Procesory 68020 wyposażone są w zewnętrzne MMU zwane 68851. Póki co, nie jest
+ono obsługiwane przez WHDload.
+<h4>Cechy MMU i wykorzystanie ich przez WHDLoad</h4>
+Głównym zadaniem MMU jest tłumaczenie logicznych adresów na fizyczne.
+Wymagane jest to dla pamięci wirtualnej i wydzielonej przestrzeni adresowej. Kolejną cechą
+jest precyzowanie specjalnych właściwości, takich jak tryb &quot;Tylko Nadzorca&quot; (Supervisor Only),
+tryb zabezpieczenia przed zapisem (Write Protected) czy tryb buforowania
+dla każdej fizycznej przestrzeni adresowej skonfigurowanej w oparciu o strony pamięci, które
+w WHDLoad posiadają rozmiar 4096 bajtów.
+WHDLoad nie korzysta z tłumaczenia adresów logicznych na fizyczne. Wykorzystuje
+MMU do <a href="#mem">ochrony pamięci</a>, <a
+href="cache.html">zarządzania cache</a> i kilku innych specjalnych funkcji (<a
+href="snoop.html">Snooping</a>, <A
+HREF="../autodoc.html">resload_Protect#?</a>).
+<h4><a name="mem">Ochrona pamięci w WHDLoad</a></h4>.
+Na początku, WHDLoad skanuje listę pamięci i buduje drzewo tłumaczeń (translation tree),
+które zawiera wszystkie adresy dostępnej pamięci. Zaznacza poniższe adresy
+przestrzeni jak prawidłowe i dostępne:
+$0...BaseMem (wykorzystując informacje z pliku .slave),
+$dff000...$dff200 (rejestry Custom), $bfd000...$bff000 (rejestry Cia) i
+pamięc wykorzystana przez plik .slave i WHDLoad. Jeżeli w pamięci znajduje
+się program zatrzymujący działanie innych programów, pamięć przez niego wykorzystywana również oznaczana jest jako
+dostępna. Każdy inny obszar pamięci oznaczany jest jako niedostępny. Każdy
+dostęp do takiej pamięci (zapis lub odczyt) spowoduje wyjątek błędu dostępu (Access Fault Exception),
+który zakończony zostanie stosownym komunikatem wytworzonym przez WHDLoad.
+<h4><a name="usercontrol">Kontrola MMU w WHDLoad z poziomu użytkownika</a></h4>
+Istnieją trzy różne tryby w jakich WHDLoad może wpływać na MMU.
+<ol>
+<li><b>ignorowanie MMU</b>:<br>
+W tym trybie WHDLoad nie zmienia rejestrów MMU. Może być to użyteczne
+w sytuacji, gdy uruchamiamy programy, które nie życzą sobie obecności MMU.
+<br>
+Ostrzeżenie: ponieważ WHDLoad nie kontroluje MMU, mogą występować różne
+problemy. Mogą one powodować zawieszenia, błędy lub inne trudne do przewidzenia
+zachowania. Oto lista możliwych sytuacji:
+<ul>
+<li>uruchomienie Enforcera/CyberGuarda lub podobnego narzędzia zawiesi system
+ponieważ WHDLoad generuje bardzo dużo &quot;hitów&quot; za każdym razem, gdy wyłącza
+i włącza OS. &quot;Hity&quot; te nie są błędami WHDLoad, lecz elementami normalnych
+operacji.
+<li>nowsze wersje 68060.library (począwszy od v41.1) remapują pamięć
+$0-$1000 (pierwsza strona) do pamięci Fast przy pomocy MMU. W przypadku
+ignorowania MMU ten adres pozostanie nienaruszony. Jeśli zainstalowany
+program próbuje wykorzystać ten obszar do jakichkolwiek działań DMA (np.
+wykorzystanie copperlisty w tym obszarze), rezultaty mogą być nieprzewidywalne,
+gdyż procesor będzie zapisywał/odczytywał położenie pamięci Fast, podczas gdy
+prawdziwa pamięć Chip wykorzystywana przez DMA zawiera losowe dane.
+<li>jeśli uruchamiany program wykorzystuje MMU i korzysta z jakiejkolwiek
+dostępnej pamięci (exception handler, translation tree, itd.) wewnątrz BaseMem zainstalowanego programu, może spowodować zawieszenie, ponieważ BaseMem zostanie nadpisana podczas wykonywania zainstalowanego programu.
+<li>ogólnie, każdy program, który zmienia podstawowe funkcje systemu (używając
+MMU) może powodować konflikt z WHDLoad ...
+</ul>
+<li><b>wyłączenie MMU</b>:<br>
+W tym trybie, który jest możliwy tylko na 68030, MMU zostanie wyłączone przez
+WHDLoad. Żadne funkcje powiązane z MMU nie są dostępne.
+<li><b>wykorzystanie MMU</b>:<br>
+W tym trybie WHDLoad przejmuje pełną kontrolę nad MMU i dokonuje ochrony
+pamięci i zarządzania cache tak, jak to opisano powyżej.
+</ol>
+Na 68030 domyślnie ustawione jest <i>wyłączenie MMU</i>. Na 68040/68060 domyślnie ustawione jest <i>wykorzystanie MMU</i>.
+Istnieją dwie opcje, które to kontrolują. <a href="opt.html#MMU">MMU/S</a> zmusza WHDLoad do <i>wykorzystania</i> <i>MMU</i> i jest wymagane na procesorach 68030, aby MMU zaczęło działać. <a href="opt.html#NoMMU">NoMMU/S</a> wyłącza użycie MMU przez WHDLoad (<i>ignorowanie MMU</i>).
+<center><p><cite>Czasem &quot;hit&quot; Enforcera jest &quot;hitem&quot; Enforcera.</cite> (Michael Sinz)</p></center>
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE>Redisposition des ex&eacute;cutables</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: reloc.html 1.5 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Reloc * Redispositon des ex&eacute;cutables</h3>
+Un petit outil pour transf&eacute;rer un fichier standard AmigaDOS ex&eacute;cutable dans une adresse
+absolue et en le sauvegardant en un fichier de donn&eacute;es. Ce programme &eacute;tait
+requis par les premi&egrave;res versions de WHDLoad afin de pouvoir manier les fichiers ex&eacute;cutables.
+A partir de la version 8.0 de WHDLoad, la fonction <a
+href="../autodoc.html#resload_Relocate">resload_Relocate</a> peut &ecirc;tre utilis&eacute;e &agrave; la place.
+<h4>Installation</h4>
+Reloc est fourni seulement dans l'archive <tt>DEV</tt>, non dans l'archive <TT>USR</tt>.
+<br>Copiez-le dans le C: ou dans emplacement similaire.
+<h4>Options</h4>
+<table>
+<tr>
+<td colspan=2><tt>INPUTFILE/A,OUTPUTFILE,ADR/K,QUIET/S</tt></td></tr>
+<tr>
+<td valign=top nowrap><tt>INPUTFILE/A</tt>&nbsp;&nbsp;</td>
+<td>le fichier ex&eacute;cutable qui doit &ecirc;tre transf&eacute;r&eacute;, cette option doit &ecirc;tre sp&eacute;cifi&eacute;e</td>
+</tr>
+<tr>
+<td valign=top><tt>OUTPUTFILE</tt></td>
+<td>le nom du fichier &agrave; &eacute;crire, si ce n'est pas specifi&eacute;, le fichier source sera
+&eacute;cras&eacute;</td>
+</tr>
+<tr>
+<td valign=top><tt>ADR/K</tt></td>
+<td>l'adresse de d&eacute;part pour la redisposition du fichier, si ce n'est pas sp&eacute;cifi&eacute; l'adresse $400 sera
+utilis&eacute;e,
+vous pouvez utiliser les expressions comme "$5000" = "20480" = " -$Ff +-33+
+19512+$4e8" (prefix "$" pour les nombres h&eacute;xadecimaux, les op&eacute;rations support&eacute;es sont "+"
+et "-")</td>
+</tr>
+<tr>
+<td valign=top><tt>QUIET/S</tt></td>
+<td>d&eacute;sactive toutes les sorties de texte, sauf les erreurs de messages, activez cette option
+lors de l'utilisation d'un installer</td>
+</tr>
+</table>
+<h4>Code de retour</h4>
+Le code de retour est 0 si tout est OK, autrement c'est 10.
+<h4>G&eacute;n&eacute;ralit&eacute;</h4>
+Les HUNKs de l'ex&eacute;cutable sont copi&eacute;s dans le m&ecirc;me ordre que dans le fichier
+converti. Les BBS-HUNKs prennent la taille r&eacute;elle. Les HUNKs non support&eacute;s
+sont ceux introduits avec l'AmigaDOS 2.0 (par ex. RELOC32_SHORT).
+</BODY>
+</HTML>

@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<TITLE>Dump- und Protokoll-Dateien</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: dump.html 1.6 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>Dump- und Protokoll-Dateien</h3> Hauptsächlich aus Gründen der Fehlersuche
+ist WHDLoad in der Lage verschiedene Dump- und Protokoll-Dateien zu schreiben.
+
+<h4><a name="memory">Memory Dump</a></h4> Bei einem Memory Dump wird der
+gesamte Speicherbereich des installierten Programmes in eine Datei geschrieben.
+Die Größe der Datei hängt vom installierten Programm ab (sie ist gleich dem
+Wert von <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a> in der
+Slave Struktur). Ein Memory Dump wird erzeugt, wenn der <a
+href="opt.html#DebugKey">DebugKey</a> gedrückt wurde oder wenn nach einem
+Fehlerrequester der CoreDump Knopf gedrückt wurde. Der Name der Memory Dump
+Datei ist ".whdl_memory". Das voreingestellte Verzeichnis worin die Datei
+abgelegt wird ist "PROGDIR:". Das Verzeichnis kann aber mittels der Option <a
+href="opt.html#CoreDumpPath">CoreDumpPath</a> verändert werden. Eine bereits
+existierende Datei wird immer überschrieben. Wenn das installierte Programm
+auch Expansions-Mem (<a href="../autodoc.html#ws_ExpMem">ws_ExpMem</a>)
+verwendet, wird dieser Speicherbereich in einer zweiten Datei mit dem Namen
+".whdl_expmem" gespeichert.
+
+<h4><a name="register">Register Dump</a></h4> Das Register Dump enthält den
+gesamten CPU (inklusiv der MMU), CIA- und Custom-Chip Status. Einige CIA- und
+Custom-Register sind nicht lesbar, diese sind im Dump nur enthalten, wenn eine
+der <a href="opt.html#Snoop">Snoop</a> Option aktiv war. Die Informationen
+werden in eine ASCII-Datei geschrieben, wobei für Hervorhebungen Escape
+Sequenzen (mittels CSI - Control Sequence Introducer, dezimal 155) verwendet
+werden. Zum Anzeigen sollte deshalb ein Betrachter verwendet werden, der diese
+entsprechend interpretiert (z.B. More, MuchMore, MultiView, ...). Der Name der
+Dump Datei ist ".whdl_register", das voreingestellte Verzeichnis "PROGDIR:",
+welches aber mit der Option <a href="opt.html#CoreDumpPath">CoreDumpPath</a>
+verändert werden kann. Wenn eine Datei mit demselben Namen bereits existiert
+wird das Dump an die bestehende Datei angehängt.
+
+<h4><a name="complete">komplettes Dump</a></h4> Das komplette Dump ist eine
+IFF-Datei die alle Informationen der zuvor aufgeführten Dumps enthält. Dieses
+Dump kann von anderen Applikationen gelesen werden. Der Aufbau des Dumps ist in
+der speziellen Include-Datei <tt>whddump.i</tt> beschrieben. Gegenwärtig wird
+dieses Dump von den Programmen WHDLoadGCI (graphical coders interface) und <a
+href="sp.html">SP</a> (Speichern von Bildern) gelesen. Der Name der Dump-Datei
+die erzeugt wird ist ".whdl_dump" im Verzeichnis "PROGDIR:". Das Verzeichnis
+kann mit der Option <a href="opt.html#CoreDumpPath">CoreDumpPath</a> angepasst
+werden. Falls die Datei bereits existiert wird sie immer überschrieben.
+
+<h4><a name="FileLog">Datenzugriffsprotokoll</a></h4> Alle Zugriffe auf Dateien
+werden protokolliert wenn die Option <a href="opt.html#FileLog">FileLog/S</a>
+eingeschaltet ist. Diese Möglichkeit ist sehr praktisch um die Diskoperationen
+eines installierten Programmes zu analysieren und zu optimieren. Die folgenden
+resload Funktionen erzeugen einen Eintrag in der Protokolldatei:
+
+<ul>
+<li><a href="../autodoc.html#resload_DeleteFile">resload_DeleteFile</a>
+<li><a href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a>
+<li><a href="../autodoc.html#resload_Examine">resload_Examine</a>
+<li><a href="../autodoc.html#resload_ExNext">resload_ExNext</a>
+<li><a href="../autodoc.html#resload_GetFileSize">resload_GetFileSize</a>
+<li><a href="../autodoc.html#resload_GetFileSizeDec">resload_GetFileSizeDec</a>
+<li><a href="../autodoc.html#resload_ListFiles">resload_ListFiles</a>
+<li><a href="../autodoc.html#resload_LoadFile">resload_LoadFile</a>
+<li><a href="../autodoc.html#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>
+<li><a href="../autodoc.html#resload_LoadFileOffset">resload_LoadFileOffset</a>
+<li><a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a>
+<li><a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>
+</ul>
+
+Mit jeder Ausführung einer dieser Funtionen wird eine Zeile in der
+Protokolldatei erzeugt. Die Zeile enthält den Name der Funktion, die
+CRC-Prüfsumme über die geladenen/geschriebenen Daten, die Parameter der
+Funktion und den Rückgabewert. WHDLoad sammelt die Informationen in einem
+internen Puffer (<a href="opt.html#LogBuffer">LogBuffer/K/N</a>). Der Puffer
+wird beim Beenden von WHDLoad und beim Schreiben eines Eintrags wenn der Puffer
+voll ist geleert. Die Daten werden als eine ASCII Datei geschrieben. Der Name
+der Protokolldatei ist ".whdl_log" (vor WHDLoad Version 18.0 war er
+".whdl_filelog"), das voreingestellte Verzeichnis ist "PROGDIR:", welches aber
+mit der Option <a href="opt.html#CoreDumpPath">CoreDumpPath</a> verändert
+werden kann. Wenn eine Datei mit demselben Namen bereits existiert wird das
+Protokoll an die bestehende Datei angehängt.
+
+<h4><a name="CustLog">Eigene Protokolleinträge</a></h4>Beginnend mit der
+WHDLoad Version 18.0 es ist möglich eigene Einträge der Protokolldatei
+".whdl_log" hinzuzufügen. Dazu kann die Funktion <a
+href="../autodoc.html#resload_Log">resload_Log</a> verwendet werden. Die
+Einträge können dabei mithilfe einem sprintf vergleichbaren Formatierungsstring
+und passenden Parametern aufbereitet werden. Die erzeugten Einträge werden in
+dem <a href="opt.html#LogBuffer">LogBuffer/K/N</a> zwischengespeichert um zu
+vermeiden, dass dabei auf das Betriebssystem umgeschalten werden muss. Wenn
+viele Einträge erzeugt werden sollte deshalb dieser Puffer angemessen
+vergrößert werden. Damit überhaupt Einträge geschrieben werden muss auch die
+Option <a href="opt.html#FileLog">FileLog/S</a> aktiviert sein.
+
+</BODY>
+</HTML>

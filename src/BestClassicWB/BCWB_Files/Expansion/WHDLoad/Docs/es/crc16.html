@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>CRC16 * Calculo de la suma de verificacion CRC16</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: crc16.html 1.3 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>CRC16 * Cálculo de la suma de verificación CRC16</h3>
+Este programa calcula el CRC-16 de la porción especificada de un fichero (o el
+fichero completo). La idea es básicamente su uso en la automatización de la instalación
+con el fin de identificar con que versión de un fichero dado están trabajando para
+instalar diferentes Esclavos, etc.
+El valor retornado es el mismo que el CRC-16 calculado por <a href="../autodoc.html#resload_CRC16">resload_CRC16</a> el cual
+será útil también durante el desarrollo de Esclavos.
+<h4>Instalación</h4>
+cópielo a C: o una ubicación similar
+<h4>Opciones</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,OFFSET/K/N,LENGTH/K/N</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+fichero sobre el cual calcular la suma de verificación
+<br>ejemplo "S:Startup-Sequence"
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>OFFSET/K/N</tt>&nbsp;&nbsp;
+</td><td>
+cantidad de bytes a saltar desde el principio del fichero
+<br>valor por defecto: principio del fichero
+<br>ejemplo "OFFSET=11264" para comenzar en la pista 2 de una imagen de disco estándar
+</td></tr>
+<tr><td valign=top>
+<tt>LENGTH/K/N</tt>
+</td><td>
+cantidad de bytes sobre los cuales calcular el CRC
+<br>valor por defecto: fin del fichero
+<br>ejemplo "LENGTH=1024"
+</td></tr>
+</table>
+<h4>Código Retornado</h4>
+El valor CRC16 es retornado como el código de finalización del programa.
+</BODY>
+</HTML>

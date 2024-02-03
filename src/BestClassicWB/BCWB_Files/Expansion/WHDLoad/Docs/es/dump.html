@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+<TITLE>Volcados</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: dump.html 1.4 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>Volcados y archivos de bitácora de WHDLoad</h3>
+WHDLoad puede crear diversos volcados y archivos de bitácora, principalmente
+con el propósito de eliminar errores.
+<h4><a name="memory">Volcado de Memoria</a></h4>
+Un volcado de memoria es toda la memoria utilizada por el programa instalado
+escrita a un archivo. El tamaño del volcado dependerá del programa instalado
+(es igual al valor de <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a> en la estructura del Esclavo). Un volcado
+de memoria puede ser creado si la <a href="opt.html#DebugKey">DebugKey</a> es presionada
+durante la ejecución o luego de un error si el botón CoreDump es presionado.
+El nombre del volcado de memoria creado será ".whdl_memory". La ubicación por defecto
+es "PROGDIR:" pero puede ser cambiada con la opción <a href="opt.html#CoreDumpPath">CoreDumpPath</a>.
+Cualquier fichero existente con el mismo nombre siempre será sobreescrito. Si el
+programa instalado utiliza Memoria de Expansión adicional (<a href="../autodoc.html#ws_ExpMem">ws_ExpMem</a>),
+será salvado bajo el nombre ".whdl_expmem".
+<h4><a name="register">Volcado de Registros</a></h4>
+El volcado de registros contiene el estado completo de la CPU (incluyendo la MMU), la
+CIA y los chips Custom. Algunos registros de las CIA y los Custom no son legibles, estos
+estarán contenidos en el archivo de volcado si el modo <a href="opt.html#Snoop">Snoop</a> esta activo.
+La información será escrita en un fichero ASCII con algunas secciones resaltadas usando
+secuencias de Escape (usando CSI - Control Sequence Introducer, decimal 155). Para verlo se
+recomienda un programa que soporte secuencias de Escape (tales como More, MuchMore, MultiView,
+...). El nombre del archivo del volcado es ".whdl_register", la ubicación por defecto es
+"PROGDIR:" pero puede ser cambiada con la opción <a href="opt.html#CoreDumppath">CoreDumpPath</a>.
+Si existe un fichero con el mismo nombre, el volcado será agregado al final del mismo - de lo contrario
+se creara un nuevo fichero.
+<h4><a name="complete">Fichero de Volcado Completo</a></h4> El fichero de volcado completo es un fichero IFF conteniendo la información de todos los ficheros de volcado previos.
+La intención es que sea utilizado por otras aplicaciones. La estructura del fichero está descripta en un fichero de inclusión con el nombre <tt>whddump.i</tt>. Actualmente
+las aplicaciones WHDLoadGCI (interface gráfica para programadores) y <a href="sp.html">SP</a> (salvar pantalla) pueden leer el fichero de volcado completo.
+El nombre del fichero de volcado completo creado es ".whdl_dump". La ubicación por defecto es "PROGDIR:" pero puede cambiarse con la opción <a href="opt.html#CoreDumpPath">CoreDumpPath</a>.
+Cualquier fichero existente siempre sera sobreescrito.
+<h4><a name="FileLog">Bitácora de acceso a Ficheros</a></h4>
+Todos los accesos a disco será registrados si la opción <a href="opt.html#FileLog">FileLog/S</a> ha
+sido activada. Esta funcionalidad es muy útil para analizar las operaciones de disco del programa
+instalado para la eliminación de errores y con el propósito de optimización. Las siguientes
+funciones de resload generaran una entrada en el archivo de bitácora:
+<ul>
+<li><a href="../autodoc.html#resload_DeleteFile">resload_DeleteFile</a>
+<li><a href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a>
+<li><a href="../autodoc.html#resload_Examine">resload_Examine</a>
+<li><a href="../autodoc.html#resload_ExNext">resload_ExNext</a>
+<li><a href="../autodoc.html#resload_GetFileSize">resload_GetFileSize</a>
+<li><a href="../autodoc.html#resload_GetFileSizeDec">resload_GetFileSizeDec</a>
+<li><a href="../autodoc.html#resload_ListFiles">resload_ListFiles</a>
+<li><a href="../autodoc.html#resload_LoadFile">resload_LoadFile</a>
+<li><a href="../autodoc.html#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>
+<li><a href="../autodoc.html#resload_LoadFileOffset">resload_LoadFileOffset</a>
+<li><a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a>
+<li><a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>
+</ul>
+Cada acceso a archivos utilizando las funciones arriba mencionadas generara una línea en
+el archivo de bitácora. La entrada muestra la función que ha sido llamada, un verificador
+CRC de la información escrita/leída, los parámetros y el resultado.
+WHDLoad colectará las entradas de la bitácora en un buffer interno: <a href="opt.html#LogBuffer">LogBuffer/K/N</a>.
+El buffer será descartado al salir o al crear una entrada si el buffer esta lleno. La información será escrita
+a un archivo ASCII. El nombre del archivo de volcado es ".whdl_log" (con anterioridad a
+WHDLoad v18.0 el nombre era ".whdl_filelog").
+La ubicación por defecto es "PROGDIR:" pero puede ser cambiada con la opción <a href="opt.html#CoreDumppath">CoreDumpPath</a>.
+Si existe un archivo con el mismo nombre, el volcado se agregará al final, de otra forma se
+creará un nuevo archivo.
+<h4><a name="CustLog">Entradas de bitáctora a medida (Custom log entries)</a></h4>
+Comenzando con WHDLoad versión 18.0 es posible crear entradas de bitácora adicionales
+a medida en el archivo ".whdl_log" utilizando la función <a href="../autodoc.html#resload_Log">resload_Log</a>.
+Las entradas recibirán formato utilizando una cadena de formato y parámetros similares a sprintf.
+Las entradas se ubicarán en caché en <a href="opt.html#LogBuffer">LogBuffer/K/N</a> para evitar
+conmutaciones al sistema operativo. Para una cantidad grande de entradas el LogBuffer deberá
+incrementarse en forma acorde. Para que las entradas sean salvadas deberá activarse
+la opción <a href="opt.html#FileLog">FileLog/S</a>.
+</BODY>
+</HTML>

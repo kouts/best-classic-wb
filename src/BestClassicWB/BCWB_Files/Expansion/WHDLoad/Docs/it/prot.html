@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE>Utilizzo di resload_Protect#?</TITLE>
+<meta name="DC.Language" content="it ">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: prot.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Utilizzo di resload_Protect#?</h3>
+<h4>Teoria</h4>
+Esistono molte situazioni in cui può tornare utile di venire informati quando il programma installato accede ad alcune
+specifiche locazioni di memoria.
+Con le funzioni <a href="../autodoc.html">resload_Protect#?</a> è possibile proteggere alcune locazioni di
+memoria dalla lettura e/o scrittura da parte del processore. Proteggere significa che ogni accesso in questa area protetta
+ causerà un Access Fault exception che farà apparire un apposito requester di WHDLoad. Se una certa area di memoria viene
+dichiarata come protetta mediante l'utilizzo di una funzione <a href="../autodoc.html">resload_Protect#?</a>,
+WHDLoad modificherà i relativi descrittori di pagina nel translation tree della MMU. Da questo momento ad ogni accesso
+alla pagina protetta la CPU causerà un Access Fault exception. L'exception handler all'interno di WHDLoad verificherà la
+ragione di questa eccezione.
+Se la ragione è stato un accesso ad una <a href="mmu.html">pagina</a> protetta ma questo accesso non coincide con l'area
+protetta, l'accesso verrà emulato, e proseguirà la normale esecuzione del programma. Altrimenti WHDLoad terminerà con un
+appropriato requester. Se l'accesso è stato effettuato nell'instruction stream (flusso di istruzioni) (per esempio la cpu
+tenta di caricare codice) verrà sempre emulato, o in altre parole le funzioni <a
+href="../autodoc.html">resload_Protect#?</a> funzionano solamente al caricamento/salvataggio di dati.
+Il fatto che ogni accesso ad una pagina protetta (la dimensione della pagina attualmente è di 4096 bytes) causerà un access fault,
+ anche se l'area protetta è grande un solo byte, l'esecuzione del programma subirà un notevole degrado in velocità.
+Specialmente se parti di codice sono localizzate nella stessa pagina. Se il programma dipende dalla velocità di
+esecuzione, c'è la possibilità che giri in modo diverso dal normale. Quindi è possibile che qualche programma non funzioni
+in modalità protetta.
+<h4>Esempio: checksum sul codice</h4>
+Se installi un gioco con WHDLoad devi patchare le routine del loader originale di modo che utilizzino WHDLoad per caricare i
+dati del gioco. Qualche gioco esegue un controllo del checksum di qualche parte del codice per verificare se il codice
+originale è stato modificato. Queste routine di verifica possono a volte essere difficili da scovare. Ma utilizzando le
+funzioni <a href="../autodoc.html">resload_Protect#?</a> in WHDLoad niente è più semplice da fare. Tutto quello
+che dovrai fare è di proteggere i byte che hai modificato nel codice dei giochi dalla lettura. D'ora in poi ogni routine
+che tenterà di eseguire un checksum e leggerà il tuo codice modificato causerà un access fault. A questo punto saprai dove
+si nasconde questa routine.
+<h4>Limitazioni</h4>
+Non devi proteggere la pagina di memoria dove punta l'SSP. Se lo farai, ed avverrà un'eccezione, il tutto risulterà in un
+Double Bus Fault perché la CPU non sarà capace di scrivere l'exception stackframe. Dopo un Double Bus Fault si può solo
+resettare per continuare l'esecuzione. WHDLoad controlla se ci sono confilitti nell'area protetta con il SSP e terminerà l'esecuzione se ne troverà, ma questo non sarà di aiuto se il SSP cambierà in seguito.
+
+<p>Ulteriori informazioni e limitazioni per le funzioni resload_Protect possono essere trovate negli Autodoc:
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+<ul>
+</ul>
+</BODY>
+</HTML>

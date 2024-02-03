@@ -1,0 +1,197 @@
+Short:    V2.05, comprehensive sound replayer
+Author:   Jan Blumenthal & Henryk Richter
+Uploader: henryk.richter@gmx.net
+Type: mus/play
+
+ This is a long overdue update to the (still) most comprehensive music
+ player on Amiga. Eagleplayer is a free package for playing multiple 
+ music formats. It is highly modular, such that even the main user
+ interface is one of the plugins.
+
+ Demo video https://youtu.be/Kmzu6kFOuHg
+
+ CHANGES since last release (read the documentation/history for more details)
+  - fixed Eagleplayer to work on 68000 again (some plugins are still 68020+)
+  - mixed sound output completely rewritten:
+    - AHI support
+    - 8 Bit Amplifier is now considerably faster (even works on 68000)
+    - unified 14 Bit Paula, Toccata and AHI codebase
+      - choice between normal nearest neighbor mixing and polyphase sinc 
+        filtered resampling (68040/40, 68060 or Vampire required)
+      - built-in click reduction algorithm
+    - TRUE HIGH FIDELITY SOUND IN 14 Bit Paula MODE by means of a filter
+      (highboost) which compensates for the Amiga reconstruction lowpass,
+      enabling a near flat frequency response in a range of up to 18 kHz
+      (tuned for 28 kHz and 44 kHz mixing rates)
+  - FFT-Analyzer: 
+    - faster 
+    - less artifacts (skip internal mixing if mixing Amplifiers are active,
+      apply Kaiser window to FFT inputs, higher dynamic range in spectrogram
+      mode)
+  - optional minimal mode for BifatGUI: reduced number of controls
+  - included EMPYGui24 and EagleAMPGui in the Aminet distribution
+  - ID3v2 support for MP3 (includes workaround for initialization issue in
+    mpega.library)
+  - Dirlistviewer/BifatGUI: direct mouse wheel support (without the need for
+    freewheel)
+
+
+
+ NOTES
+  - not much beta testing, please notify me about encountered issues
+  - read the documentation about how to get the best possible performance 
+    and/or sound quality (TL;DR: use 8/14 Bit Amplifiers without extra
+    soundcard, use Toccata Amplifier for soundcards with Toccata driver 
+    or emulation, use AHI on _fast_ Amigas with other soundcards)
+  - by default, Eagleplayer will rely on file naming schemes to decide which
+    external replayer to load (Eagleplayer.batch), so if it reports an
+    unknown module type, it might be necessary to add the name pattern to
+    the batch file
+  - the Catalogs haven´t been updated. Some dialogs are outdated and the
+    one or other term is English only. Sorry.
+  - The installer has been removed for this release. You can just unpack the
+    Archive somewhere to your harddrive and run EP. I`d suggest to
+    have reqtools,AHI,XPK, guigfx-/render.library, mpega.library and
+    asyncio.library installed.
+
+ FEATURE LIST (absolutely incomplete)
+
+
+  general
+  
+  - supports more than 150 music formats including most common sample
+    formats (including CDDA, AIFF, WAV, Datatype, raw formats...)
+  
+  - completely hardware-independent replay system, redirecting the sound
+    signal via custom 'amplifiers' to the audio hardware.
+  
+  - supports toccata.library for Toccata, Melody and Prelude sound cards
+  
+  - AHI output
+  
+  - extremely fast mixing routines
+  
+  - currently supports 64 custom programs, e.g. amplifiers,
+    user-interfaces, analyzers, scopes, external depackers, listviews,
+    managers etc.
+  
+  
+  sound features
+  
+  - carefully and extensively adapted playroutines. nearly all of them
+    support volume and balance, and most common players support the
+    modular amplifier system.
+  
+  - replays with 8, 14, and 16 bit resolution (depending on the
+    hardware)
+  
+  - supports free scalable mono, stereo and surround replay
+  
+  - replay speed can be controlled easily, including pitch for several
+    sound formats.
+  
+  - music-fadein and fadeout
+  
+  - plays from fastram
+
+  system
+  
+  - supports all common system features, such as ARexx, commodity,
+    appwindow, iconify, asynchronous online help, font-sensivity,
+    pubscreens, hotkey...
+  
+  - supports xpk, xfd, powerpacker, imploder, crunchmania, lh.library,
+    and more formats for decrunching, and any type of archive may be
+    accessed like a directory.
+  
+  - is highly system-compliant and uses heavy internal multitasking
+    
+  - external programs (players, amplifiers, engines) are loaded when
+    needed and removed automatically.
+  
+  - CyberGraphX is directly supported by some scopes.
+  
+  - configuration via configfile, tooltype and commandline arguments
+  
+  - allows timer.device, CIA and VBlank playspeed timing
+  
+  - does not interfere with modem use
+  
+  
+  gui
+  
+  - easy and comfortable configuration that covers innumerous details -
+    window-positions, player and engine settings, current module, each
+    internal and external option will be saved globally with a single
+    action
+  
+  - features different graphical user interfaces with custom boopsi
+    gadgets in the default configuration, some windows accept custom
+    background patterns, some are based upon custom images with up to
+    24 bit in depth
+  
+  - status information scroller
+  
+  - module info includes playtime calculation for soundformats like
+    Protracker, Oktalyzer, SonicArranger, Jamcracker, DigiBooster and most
+    sample formats
+  
+  - very comfortable handling: e.g. module selecting and directory changing
+    directly using the pulldown-menu
+
+ 
+  custom
+  
+  - random module selection directly at startup
+  
+  - features the fastest FFT spectrum analyzer ever optimized for
+    68040/68060 processors. it supports lots of stunning diplay modes.
+  
+  - doublebuffering-function for continuous replay of modules by immediate
+    loading of the next module
+  
+  - the instruments of a soundmodule can directly be replayed and saved in
+    various formats (RAW, IFF, AIFF, WAVE)
+
+  - can save most protracker-clones in protracker format
+  
+  - supports module ripping, which can be either directed to an interface
+    to ExoticRipper, or to an own ripper.
+  
+  - offers a powerful module database, and loads modules lists from nearly
+    all other music players - lists can be handled like normal
+    subdirectories
+  
+  - supports loading of Sound/Noise/Protracker/Startrekker/ Audiosculpture
+    songfiles (that stuff with external samples on ST-00..ST-99 disks)
+  
+  - supports direct Aminet-CD mod archive browsing
+
+
+
+ REQUIREMENTS:
+
+  - an Amiga with 68000 CPU (68040/60 recommended for full feature set)
+  - OS 2.04
+  - 0.5 MB ChipRam and 1 MB Fastram
+  - around 2.5 MB Harddsik space
+
+
+
+ DISTRIBUTION/PRICE:
+
+  - free (GPL)
+
+
+ INSTALLATION:
+ 
+  Just depack the archive to your harddisk and run Eagleplayer from there.
+
+  MP3 playback requires mpega.library & asyncio.library
+  EmpyGUI(24) requires guigfx.library & render.library
+
+
+ CONTACT:
+
+  Henryk Richter
+  henryk.richter@gmx.net

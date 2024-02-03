@@ -1,0 +1,358 @@
+@DATABASE CharMap User's Manual
+@AUTHOR tpierron@free.fr
+$VER:CharMap User's Manual v2.0
+@node MAIN Summary
+
+			____________________________________________
+			 @{b}USER ' S MANUAL  OF  @{fg HIGHLIGHT}CHARMAP@{fg TEXT}  VERSION  2.0
+			   Written by T.Pierron, tpierron@free.fr@{ub}
+			¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+  First, native language of the author is french. Excuse me for bad spelling.
+  This guide will explain the main functionnalities of this little tool. For
+  those who doubt, using it, is dramaticaly simple and if you believe that
+  you will learn more by trying it directly, you just can press the ESC key.
+
+
+  @{"   1.INTRODUCTION        " link Introduction }	Why this piece of software
+
+  @{"   2.REQUIREMENTS        " link Requirements }	Before to install it
+
+  @{"   3.USAGE               " link Usage }	How to use it
+
+  @{"   4.SOURCES             " link Sources }	Some notes about sources
+
+  @{"   5.HISTORY             " link HIStory }	The story of this programme
+
+@endnode
+@node Introduction
+
+			______________
+			 @{b}INTRODUCTION@{ub}
+			¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+  Curious, aren't you ? Actually, a such tool isn't a new idea, of course. As I were
+  using Microsoft Word on PC system, I were surprised that it doesn't exist on Amiga
+  a tool which can display the whole charset of a given font. In despite of finding
+  an @{b}efficient@{ub} tool, I decided to write my own.
+
+  Actually, It simply @{b}displays the entire characters@{ub} of an Amiga font. These
+  characters can be easily copied into clipboard, just because some of them do not
+  always have a keystroke sequence to key them in, and then pasted in any other
+  application.
+
+  At last, don't you ever asked what's that fucking ASCII code for ©, ð or þ?
+  Or what's that curious character is using the Foobar font?
+  No problem, this tool can greatly help you.
+
+@endnode
+@node Requirements "The requirements before to start CharMap"
+
+			_____________________________
+			 @{b}REQUIREMENTS BEFORE TO START@{ub}
+			¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+  Here follows the required ressources needed by this tool. It uses just the standard
+  libraries that comes with every Amiga system. Actually all of them are optional, but
+  greatly improve user-friendliness:
+	· @{b}Asl.library@{ub} : Enable to choose a disk font
+	· @{b}Diskfont.library@{ub} : Needed by the ASL.library
+	· @{b}Locale.library@{ub} : To use a different language than English.
+	· @{b}IFFParse.library@{ub} : For clipboard support
+
+  Of course, AmigaOS v2.0 or better is required.
+
+			______________
+			 @{b}INSTALLATION@{ub}
+			¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+  To install the programme, just place it somehere accessible from the command
+  path. Notice that this is NOT an Amiga commodity, but it wil be clever enough
+  to see if it's already running, and in such case, will move its window in
+  the current active screen (if not already), otherwise it will quit.
+
+  The idea behind this, is that you let another tool, such as ToolManager or MCP,
+  launch this tool using a global shortcut. Therefore CharMap will always reside
+  on disk, but will act like a resident commodity.
+
+  Moreover an installer script is provided to easily install the language you
+  want (in LOCALE: directory).
+
+@endnode
+@node Usage
+
+			___________________
+			       @{b}USAGE@{ub}
+			¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+
+  @{fg HIGHLIGHT}1.The graphical interface@{fg TEXT}
+
+  The main interface consists of a string gadget surrounded by push buttons and 
+  below'ed by a @{b}table@{ub} where there are between 192 and 256 characters of a ISO
+  Latin1 font. By clicking on a character, it will be inserted in the string gadget.
+  It is possible to control the @{b}cursor using keyboard@{ub}, in such case, the space bar
+  corresponds to the left mouse button and the ESC key, to the right one.
+
+  In the bottom part of the window stands an information box, which display some
+  characteristics about the last selected character in the table, which are:
+  ASCII @{b}glyph@{ub}, @{b}decimal@{b}, @{b}hexadecimal@{ub} and @{b}octal@{ub} code and if it exists the
+  @{b}keystroke@{ub} sequence to produce this character.
+
+  String contained in the input area, can be controlled using pushbuttons, in top of
+  main window. Thus, from left to right and top to bottom, it can be found:
+
+  @{b}<=@{ub} : Clears the whole content of string gadget.
+
+  @{b}Copy@{ub} : Copy the text contained from the string gadget to the clipboard
+  (The hardcoded unit is 0).
+
+  @{b}Paste@{ub} : Converse feature, of course. Same unit.
+
+  The @{b}first cycle gadget@{ub}, changes the font type displayed. Each Intuition screen
+  (whatever the version), uses at least, two fonts. For the Workbench screen, pre-
+  ference tool "Font" shows their names, but for the other screens you can use
+  CharMap to visualize:
+	· @{b}Screen font@{ub} : It is the one used to draw gadtools gadgets, menus,
+			texts of each window's task.
+	· @{b}Text font@{ub} :   Evenly spaced font used by default. In older
+			times it was the topaz.font which does this job.
+	· @{b}The one you want@{ub} : with the help of an ASL requester.
+
+  Notice that every font you select using the ASL requester will be added in this
+  cycle gadget, remembering the size and the charset you've selected.
+
+  The number of characters displayed in the table can be changed by using the @{b}cycle
+  gadget@{ub}. An ASCII font can define up to 256 different characters. But in most
+  cases, some range have rarely a graphical symbol. That's why it could be inter-
+  resting to hide those unused and cumbersome characters. Here are the three main
+  charsets:
+	· @{b}8bits ASCII@{ub} : All possible chars.
+	· @{b}ISO Latin1@{ub}  : Like the previous one, without the 32 first.
+			These are control codes and have rarely a meaning
+			graphical symbol.
+	· @{b}Amiga Standard@{ub} : Like ISO Latin1, without the chars from 127
+			to 159, included. This charset is the minimal
+			one that all amiga fonts should have defined.
+
+  The choice of a charset is done by looking in the datatype of the font, to
+  display each time the exact charset that a font has defined.
+
+
+  @{fg HIGHLIGHT}2.The menu bar@{fg TEXT}
+
+  The menu contains no more than what is available via gadgets.
+
+	· @{b}Font@{ub}        : Choose between different kind of font.
+
+	· @{b}Charset@{ub}     : Reduces or increases the number of displayed characters in
+			the table.
+	_______________
+
+	· @{b}About...@{ub}    : Display some boring but required copyright information.
+	_______________
+
+	· @{b}Minimize@{ub}    : Reduces the window to its title. Use this menu again
+			to enlarge the window.
+
+	· @{b}Quit@{ub}        : ...
+
+
+	· @{b}Cut@{ub}         : Cut string to clipboard (if present).
+	· @{b}Copy@{ub}        : Like cut, but without deletion.
+	· @{b}Paste@{ub}       : Paste the @{b}100 first@{ub} chars from the clipboard.
+	_______________
+
+	· @{b}Clear text@{ub}  : In the string gadget
+	· @{b}Vertical sort@{ub} : Organise the characters of the table by incrementing the ASCII
+			code vertically first. Otherwise, it will be incremented horizon-
+			tally first.
+	· @{b}Save settings@{ub} : Save contents of custom fonts and current selected
+			one, including charset and font size. Default pref file is
+			S:CharMap.config, but can be overridden using command line.
+
+  @{fg HIGHLIGHT}3.Shortcuts@{fg TEXT}
+
+  Some shortcuts that may be used inside CharMap's window:
+	· @{b}Amiga + S@{ub}      : Screen font
+	· @{b}Amiga + T@{ub}      : Text font
+	· @{b}Amiga + F@{ub}      : Choose a different font
+	· @{b}Amiga + ?@{ub}      : About the programme
+	· @{b}Del@{ub}            : Clear the text contained in the string gadget
+	· @{b}Amiga + I@{ub}      : Iconify/Uniconify the window
+	· @{b}Amiga + Q,@{ub} or
+	  @{b}Esc@{ub}            : Quit
+	· @{b}Amiga + X,C,V@{ub}  : Cut, Copy or Paste
+	· @{b}BS@{ub} (<-)        : Removes the last characters in the string gadget
+	· @{i}a key@{ui}          : Activate the corresponding box in the map of characters.
+
+  @{fg HIGHLIGHT}4.Command line / Preference file@{fg TEXT}
+
+  Since v2.0 CharMap has been entirely rewritten, especially startup management
+  which were quite annoying in earlier release. This tool accept just two
+  optionnal parameters, from command line ONLY:
+
+	· @{b}GEOMETRY=...@{ub}
+		This parameter describes the positions of the main and minimized
+		window. This is in fact a comma-separated list of up to four signed
+		numbers. The first two correspond to the left and top edge of the
+		main window, and the two last to the minimized one. If a number is
+		negative, it will be aligned to the opposite border that it usually
+		refers to, and if nothing is given, the position will be centered on
+		the screen. The default positions are ",,,", which centered all
+		windows in all directions.
+
+	· @{b}PREFS@{ub}
+		The name of a file to load/save CharMap settings. The default one
+		is "S:CharMap.config".
+
+  The preference file is a simple text file, that can be edited by hand and which
+  contains information about fonts displayed. It has three parameters (one per
+  line - it is parsed using ReadArgs):
+
+	· @{b}HORIZONTALSORT@{ub}
+		If this keyword is present, the "Vertical sort" menu will be
+		unchecked at start.
+
+	· @{b}FONTLIST="..."@{ub}
+		This describes the fonts to included in the font type cycle gadget.
+		This is a vertical bar-separated list of fonts descriptor. A font
+		descriptor consists of a font name (including .font extension),
+		followed by a comma, the font size, another comma and finally a
+		number describing charset you want to show, among:
+
+		@{b}1@{ub} : All 256 characters (ASCII 8bits)
+		@{b}2@{ub} : All but 32 first
+		@{b}3@{ub} : All but 32 first and characters from 127 to 159.
+
+		Any other value will cause the program to choose the most appropriate one.
+		Note that you can use absolute font name in the font descriptor, as long
+		as it doesn't include a comma ',', a double quote '"' or a vertical bar '|'.
+
+	· @{b}SHOWFONT="..."@{ub}
+		The name of the font to initialy displayed. The name must have the
+		trailing ".font". You can use the following special token:
+
+		@{b}SCREEN@{ub} : Display font of current active screen
+		@{b}TEXT  @{ub} : Display default text font
+
+
+@endnode
+@node Sources "Notes about sources"
+
+			___________________
+			 @{b}ABOUT THE SOURCES@{ub}
+			¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+  Sources are given for didactionnal purposes. If someone wants to improve it,
+  feel free. The only thing to don't forget is that everything contained in
+  this archive is placed under the terms of the GNU Public license, namely
+  it's free software and must be stayed like this.
+
+
+  Final compilation done with SAS/C 6.58, developped with gcc 2.95.3.
+
+@endnode
+@node HIStory "Once upon a time..."
+
+			____________________
+			 @{b}HISTORY OF CHARMAP@{ub}
+			¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+  This little chronology is given for anecdotal reasons and will retrace
+  nostalgically the evolution of this tool.
+
+  @{b}Sep 1999 : version 1.0@{ub}
+
+	This version has never been released. Maybe because it was the first
+	one, but mainly just because the interface were too simple (i.e: ugly!).
+	It did not yet support Commodities and Locale, thus hardcoded strings
+	were in french. The interface contains just a topaz-80 string gadget
+	and a fixed number-of-chars table which were the actual ISO Latin1
+	charset. A little window were popup'ed while pressing the rmb over
+	a char in the table, perhaps the only nice feature. The code were taken
+	mainly from an RKM example and took less than 700 lines with just a
+	18Kb executable size!
+
+  @{b}Nov 1999 : version 1.1@{ub}
+
+	I added commodities and charset support. The hardcoded messages were
+	always in french, but I decided to release it anyway, because at this
+	time I were almost certain, that the developpement will be finished
+	in the next release. I were far from realise that it will take so long...
+
+  @{b}Jan 2000 : version 1.2@{ub}
+
+	Contacted by a certain Andreas Kuerzinger, he has requested a lot of
+	improvements. I find them useful and therefore implements the most
+	part. Among them, they are: locale library support, of course. Andy
+	wrote the german catalog and me, the french and build-in english ones.
+	Then a default screen-font compliant GUI, and a bottom row of 4 gadgets,
+	to handle efficiently string-gadget, were added. The interface look a
+	lot nicer now. But this weren't enough for Andy.
+
+  @{b}Mar 2000 : version 1.3@{ub}
+
+	I added a cycle gadgets to choose the charset displayed in the main
+	table, but the font type is always selected by a simple pushbutton.
+	I didn't yet know how to implement the nasty mutual-excluded menu items
+	which enable to choose the font-type. Other major feature: keyboard
+	support. It miss something at this time, and this were only fixed in
+	the next release.
+
+  @{b}Avr 2000 : version 1.4@{ub}
+
+	I finally added the actual font-type cycle gadget, but the layout of
+	the GUI were badly designed, gadget's place is mostly chaotic. Worst, I
+	discover severe bugs in the prog and the french catalog. I decided
+	to release as soon as possible a bug fix. This were just the next
+	release.
+
+  @{b}Avr 2000 : version 1.45@{ub}
+
+	Lot of bug fixes, reported by many users too. I then started to greatly
+	improve the placement of each gadgets. Some users wanted to add a
+	keystroke finder feature. I've planned at this time to use the keymap
+	library's function MapANSI(), but it were quite broken on my system
+	(surely the other too!). In despite finding help in RKM, I decided to
+	drop this feature and release the next version.
+
+  @{b}May 2000 : version 1.5@{ub}
+
+	The GUI's layout were quite nice now. Last query made by Andy: reverse
+	the two cycle gadgets. After some weeks, I've decided to do so.
+	As I were surfing on aminet, I find a very interresting source code
+	example which reimplements the original MapANSI function. Just enough
+	time to see that it works well, and I paste this function into CharMap's
+	code.
+
+  @{b}July 2000 : v1.6@{ub}
+
+	Popup window were definitively removed and directly be placed in the
+	bottom of the interface, just because sometimes I needed to keep this
+	information visible, after releasing the right mouse button.
+	At last, I cleanup the code from gcc-specific instructions. The code
+	can now be compiled using another compiler like SAS/C or VBCC, although
+	some functions remain quite weird.
+	Andy contacted me again to fix a little bug in the bottom status bar,
+	which may trash this part of CharMap's window. At last I've received from
+	GDR the polish catalog and documentation, and the hungarian catalog (I've
+	forget his name). Many thanks to them!
+
+  @{b}April 2002 : v2.0@{ub}
+
+	Fed up with the poor quality of my code, I decided to rewrite CharMap from
+	scratch (or almost). Actually I just wanted to add some features and remove
+	another which were useless (commodity, tooltypes, ...). What I really want
+	to have, is the possibility to save list of preferred fonts and charset
+	associated to each one.
+
+	It has been take so long because I were mainly busy for another Amiga 
+	project and because of my studies. But it has been done.
+
+  @{b}July 2003 : v2.0b@{ub}
+
+	A minor bug fix release, reported by Andy once again. Actually charset
+	management inside pref was a bit broken.
+
+@endnode

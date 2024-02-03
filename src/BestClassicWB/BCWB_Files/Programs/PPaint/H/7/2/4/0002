@@ -1,0 +1,1701 @@
+@DATABASE 0002
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 1. Introduzione all'ambiente Amiga"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}1.         Introduzione all'ambiente Amiga@{UB}
+
+Utilizzando un calcolatore e un programma nuovi, è inevitabile che ci si
+trovi di fronte a parole e concetti altrettanto nuovi. In questo capitolo
+viene data una spiegazione di alcuni dei termini più usati nella presente
+documentazione. Vengono anche forniti utili suggerimenti per sfruttare al
+meglio il calcolatore Amiga, nonché soluzioni a possibili problemi che
+potrebbero sorgere nell'uso del calcolatore o del programma.
+
+Il lettore che ha già familiarità con la terminologia e le convenzioni
+relative al computer Amiga può anche leggere solo le ultime sezioni di
+questo capitolo (da @{"1.12" LINK Main 1318} a @{"1.14" LINK Main 1520}: installazione e configurazione del
+programma), nonché il file "PPaint.man" presente sul disco programma. Il
+secondo capitolo ("Esempi di utilizzo") contiene diversi consigli pratici
+e interessanti.
+
+
+@{B}1.1        Documentazione@{UB}
+
+Nel presente manuale sono contenute tutte le informazioni necessarie a
+utilizzare il programma. Il manuale è stato scritto con Personal Write, il
+programma di videoscrittura della Cloanto.
+
+La manualistica del calcolatore Amiga, nonché quella relativa alle
+stampanti o agli altri programmi utilizzati assieme a Personal Paint,
+forniscono ulteriori informazioni sulle modalità di interfacciamento del
+programma con l'ambiente operativo esterno.
+
+Il testo "PPaint.man" sul disco programma di Personal Paint contiene
+eventuali recenti aggiunte e integrazioni al manuale. Il testo può essere
+visualizzato portando il puntatore sopra all'icona e premendo due volte (@{I}
+doppio click@{UI}) il pulsante sinistro del mouse, oppure utilizzando un
+programma di trattamento testi.
+
+
+@{B}1.2        Configurazione del sistema@{UB}
+
+Personal Paint funziona su qualsiasi modello di calcolatore Amiga dotato
+di almeno 2 Mbyte di memoria principale (RAM). Molte funzioni di Personal
+Paint, tuttavia, possono trarre vantaggio dalla presenza di una quantità
+di memoria superiore al minimo richiesto; questa considerazione si
+riferisce in particolar modo agli elaboratori con almeno 1 Mbyte di RAM di
+tipo @{I}chip@{UI} (sezione @{"1.3.2" LINK Main 94}). In un sistema con soli 512 Kbyte di RAM chip,
+Personal Paint potrebbe essere costretto a prendere alcune misure allo
+scopo di limitare il consumo di memoria (sezione @{"1.12" LINK Main 1318}). Salvo
+impostazioni diverse, l'audio non viene attivato, non viene utilizzato il
+programma Workbench e il relativo schermo, se possibile, viene chiuso.
+Inoltre, per il disegno dell'immagine potrebbero essere disponibili meno
+colori che in condizioni normali. Nel caso vi sia sufficiente memoria,
+Personal Paint evita di richiedere l'inserimento del disco Workbench dopo
+il caricamento del programma (ad es. per caricare il @{I}driver@{UI} della
+stampante).
+
+Le versioni più recenti del sistema operativo di Amiga (ad es. la versione
+3) nonché alcune particolari configurazioni software e hardware (ad es.
+programmi residenti o drive aggiuntivi) utilizzano una quantità di memoria
+maggiore rispetto alla configurazione di sistema originale: in queste
+condizioni potrebbe non esserci sufficiente memoria libera per avviare
+Personal Paint. Una possibile soluzione al problema può essere
+l'installazione di Personal Paint su disco rigido o dischetto con
+l'opzione di decompressione attivata (sezione @{"1.13.1" LINK Main 1513}). La versione
+decompressa del programma occupa più spazio su disco, ma richiede meno RAM
+in fase di caricamento. In genere, un'economica espansione di memoria
+garantisce, su sistemi da 1 Mbyte, un maggiore miglioramento di
+prestazioni rispetto al solo aggiornamento del sistema operativo.
+
+
+@{B}1.3        Memoria@{UB}
+
+Il calcolatore Amiga, come la maggior parte dei calcolatori, è dotato di
+una memoria principale (RAM) e di unità di memoria periferiche. I
+paragrafi che seguono illustrano le nozioni principali riguardanti le
+unità di misura, i differenti tipi di memoria e alcuni concetti correlati
+all'ambiente Amiga.
+
+
+@{B}1.3.1      Unità di misura@{UB}
+
+L'unità di misura della quantità di memoria è il @{I}bit@{UI}. Un bit può assumere
+uno tra due stati, proprio come una lampadina che può essere accesa o
+spenta. I due stati sono comunemente denominati 0 e 1, @{I}off@{UI} e @{I}on@{UI}, @{I}falso@{UI} e @{I}
+vero@{UI}, ovvero @{I}spento@{UI} e @{I}acceso@{UI}. Questo permette di utilizzare il bit per
+memorizzare un'informazione.
+
+Raggruppando 8 bit si ottiene un @{I}byte@{UI}. Un byte, grazie alle diverse
+combinazioni degli stati degli 8 bit che lo compongono, può rappresentare
+uno tra 256 (2 elevato all'ottava potenza) valori. 256 valori diversi sono
+normalmente sufficienti per rappresentare tutte le lettere dell'alfabeto,
+i numeri e gli altri segni utilizzati nella scrittura. Ci sono 1024 (2
+alla decima potenza) byte in un @{I}Kbyte@{UI}, mentre un @{I}Mbyte@{UI} contiene poco più
+di un milione di byte (1024 × 1024).
+
+
+@{B}1.3.2      Memoria RAM@{UB}
+
+La memoria principale è costituita da circuiti elettronici. I dati
+contenuti nella RAM (dall'inglese @{I}Random Access Memory@{UI}) si conservano solo
+se il calcolatore è acceso e correttamente alimentato. Una interruzione
+anche breve di corrente o un programma malfunzionante possono
+compromettere il contenuto della RAM.
+
+Parte della memoria dei calcolatori Amiga è chiamata RAM @{I}chip@{UI}. Mentre il
+microprocessore principale ha accesso a tutta la RAM disponibile, alcuni
+circuiti dedicati (chip @{I}custom@{UI}) possono accedere unicamente alla RAM chip.
+I chip custom coadiuvano il microprocessore in numerosi compiti, come
+quelli grafici e sonori. Quando si apre uno schermo o una finestra
+(sezione @{"1.9.1" LINK Main 561}, "Schermi e Finestre"), o si legge un'immagine da
+visualizzare, viene occupata quasi esclusivamente memoria chip. Può
+accadere che la memoria chip disponibile sia insufficiente o frammentata
+(suddivisa in piccoli blocchi non contigui). Per questo motivo è possibile
+che, anche in presenza di molta memoria libera, non sia possibile aprire
+uno schermo o visualizzare un'immagine.
+
+I più recenti microprocessori della famiglia Motorola 68000 (a partire dal
+modello 68020) sono strutturati per operare ad elevata velocità,
+sfruttando un particolare tipo di memoria, detta RAM @{I}cache@{UI}. Nella veloce
+(e costosa) RAM cache vengono copiati (@{I}caching@{UI}) i contenuti delle
+locazioni della RAM @{I}Fast@{UI} usate più di recente (l'applicazione della
+tecnica "cache" alla memoria di tipo chip è molto più complessa e lenta).
+Se una breve sezione di codice viene eseguita ripetutamente in un ciclo
+chiuso (senza riferimenti a codice esterno) e il numero di istruzioni è
+tale che la procedura può essere contenuta completamente nella memoria
+cache, l'esecuzione avviene con estrema velocità, in quanto il
+microprocessore preleva le istruzioni direttamente da tale memoria. Le
+routine più critiche di Personal Paint sono state progettate e collaudate
+per sfruttare al meglio la RAM Cache di diversi microprocessori.
+
+Esistono diverse versioni dei chip custom dei calcolatori Amiga. Le
+versioni meno recenti di Amiga 500, 1000 e 2000 possono disporre di un
+massimo di 512 Kbyte di RAM chip. Alcuni di questi calcolatori possono
+essere aggiornati con l'installazione di nuovi chip custom. I modelli più
+recenti dei calcolatori Amiga utilizzano uno, due o più Mbyte di RAM
+chip.
+
+Personal Paint memorizza le immagini utilizzando strutture di memoria
+denominate @{I}bitmap@{UI} (o @{I}bitplane@{UI}, piani o mappe di bit); tali strutture sono
+analoghe a quelle normalmente utilizzate per la visualizzazione degli
+schermi di Amiga.
+
+La quantità di RAM chip occorrente per l'apertura di uno schermo può
+essere calcolata con la seguente formula:
+
+ByteTotali = (Larghezza × Altezza × Piani di bit) / 8
+
+Il numero massimo di colori che possono essere visualizzati
+contemporaneamente è uguale a due elevato al numero di piani di bit.
+
+Nella pratica, il numero di byte per linea viene solitamente arrotondato
+al successivo multiplo di 16, 32 o 64. Questo per ragioni di velocità e
+per limitazioni imposte dall'hardware.
+
+Ad esempio, uno schermo di 320 × 200 @{I}pixel@{UI}, con 32 colori, necessita
+approssimativamente di 40 Kbyte di RAM. Maggiore è la quantità di memoria
+occupata da uno schermo, più impegnativo sarà il compito del sistema DMA
+(@{I}Direct Memory Access@{UI}, accesso diretto alla memoria). L'uso di schermi con
+alte risoluzioni e molti colori, oltre che produrre una quantità maggiore
+di dati da elaborare, sottopone a un duro lavoro la circuiteria DMA: in
+pratica, i chip custom Amiga impiegano più tempo per accedere alla
+memoria. I chip custom e la CPU (Central Processing Unit, microprocessore)
+non possono accedere contemporaneamente alla RAM chip. Ciò costringe la
+CPU a "sprecare" del tempo (cicli macchina) nell'attesa. È per tale motivo
+che la RAM non accessibile ai chip custom viene chiamata anche Fast RAM
+(RAM veloce).
+
+La quantità di memoria necessaria alla memorizzazione di una immagine (o
+di un @{I}pennello@{UI}) è calcolata allo stesso modo. Le strutture bitmap vengono
+anche utilizzate dalla funzione "Annullare ultima modifica" e per i dati
+delle maschere colori (costituite sempre da un solo piano di bit).
+
+Le sezioni @{"4.10.2" LINK PPaintCD:H/7/2/4/0049/Main 1443} ("Stato memoria") e @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8} ("Scarsità di memoria")
+contengono maggiori dettagli sull'uso della memoria da parte di Personal
+Paint, oltre a diversi utili consigli per risparmiare memoria.
+
+In relazione al sistema operativo in uso, per le immagini e gli schermi
+vengono riservati singoli blocchi di memoria chip per ogni piano di bit,
+oppure un unico blocco per tutti i piani in successione. Questa seconda
+soluzione consente al Blitter (con il sistema operativo 3.0 e successivi)
+di operare più efficientemente, ma richiede anche una sufficiente quantità
+di memoria chip contigua. L'indicazione riportata nella barra dello
+schermo Workbench può indurre in errore in quanto equivale alla @{U}somma@{UU} di
+tutti i blocchi di memoria libera (blocchi che possono essere non
+contigui, cioè frammentati). Per conoscere con precisione la quantità di
+memoria occupata, quella libera e le dimensioni del più grande blocco di
+memoria contigua, è possibile impartire il comando Avail in una finestra
+Shell.
+
+
+@{B}1.3.3      Il comando AddMem@{UB}
+
+Alcune schede di espansione di memoria non vengono riconosciute
+automaticamente dal calcolatore. Generalmente si tratta delle prime
+espansioni di memoria costruite per il calcolatore Amiga 1000. Questa
+sezione è dedicata ai possessori di tali schede.
+
+Il comando AddMem è spesso l'unico strumento per includere la memoria
+disponibile in tali schede tra la memoria accessibile al calcolatore. Il
+comando AddMem va inserito nella startup-sequence di tutti i dischi
+Workbench, compreso il disco Workbench di Personal Paint (nel caso venga
+usato come disco di avvio). Il file AddMem deve essere copiato nel
+cassetto "c" del disco Workbench. Al comando devono seguire i valori
+esadecimali (cioè numeri in base 16) delle locazioni iniziali e finali in
+cui va inserita la memoria aggiuntiva. Per alcune espansioni da 1 Mbyte
+tale comando è "AddMem 200000 2FFFFF".
+
+Per altre schede, che impiegano tecniche diverse, il comando da impartire
+può essere privo di parametri, ad esempio "cRAM". La documentazione
+dell'espansione di memoria e quella del calcolatore spiegano più
+dettagliatamente come compiere tale operazione.
+
+
+@{B}1.3.4      Dispositivi periferici@{UB}
+
+I @{I}drive@{UI} (dispositivi di lettura e scrittura dei dischi) sono unità di
+memoria periferiche. Tali unità sono più lente della memoria RAM, ma i
+dati memorizzati tramite questi dispositivi vengono conservati anche dopo
+lo spegnimento del calcolatore.
+
+Il calcolatore Amiga viene fornito con almeno un drive di serie. I drive
+standard di Amiga leggono e scrivono dati su dischetti (supporti di
+memoria) da 3 pollici e 1/2. Tali dischetti possono contenere circa 880
+Kbyte ciascuno; un disco può quindi contenere dozzine di immagini e font
+in alta risoluzione. Esistono altri dispositivi con caratteristiche
+diverse, come i dischi rigidi.
+
+Un disco nuovo, o contenente dati illeggibili, o che comunque si vogliono
+cancellare, deve essere @{I}formattato@{UI} prima dell'uso. La documentazione di
+Amiga spiega come effettuare la formattazione di un disco. Dopo la
+formattazione non rimane traccia di eventuali dati precedentemente
+esistenti sul disco. La sezione @{"11.2" LINK PPaintCD:H/7/2/4/0046/Main 55} ("Problemi con i dischi") contiene
+ulteriori suggerimenti sull'argomento.
+
+
+@{B}1.3.5      Memoria virtuale@{UB}
+
+Il termine "memoria virtuale" è associato alla possibilità di utilizzare
+una quantità di memoria maggiore della RAM effettivamente presente nel
+calcolatore. Personal Paint può utilizzare la memoria Fast e/o i supporti
+magnetici per memorizzare dati che occuperebbero un più "prezioso" tipo di
+RAM (come quella Chip). Se vi è sufficiente memoria Fast e/o spazio su
+disco, Personal Paint può trasferire tutti i dati inutilizzati in un'area
+di memorizzazione meno preziosa. Tra i possibili elementi grafici oggetto
+di trasferimento: immagini, animazioni, pennelli, piani di trasparenza e
+mascheratura, buffer per l'annullamento delle operazioni dello storyboard,
+dell'ambiente e del pennello. Personal Paint trasferisce questi oggetti in
+memoria virtuale solo se non sono "attivi", se cioè non devono essere
+visualizzati o elaborati. È comunque sempre necessaria la quantità di
+memoria Chip richiesta dallo schermo, dall'immagine (o fotogramma) e dal
+pennello attuale. Funzioni come la fusione colori possono richiedere la
+presenza contemporanea di più oggetti.
+
+Il quadro "Stato della memoria" (sezione @{"4.10.2" LINK PPaintCD:H/7/2/4/0049/Main 1443}) indica la quantità di
+memoria virtuale utilizzata, e consente di trasferire manualmente i dati
+in memoria virtuale.
+
+Attraverso il menu "Parametri" si accede al quadro "Memoria virtuale"
+(sezione @{"9.3" LINK PPaintCD:H/7/2/4/0047/Main 141}), che consente di attivare e disattivare i due livelli di
+memoria virtuale (RAM e disco).
+
+
+@{B}1.4        Nomi e titoli@{UB}
+
+@{I}File@{UI} (pronuncia "fail") è un termine generico indicante qualsiasi insieme
+di dati memorizzati su dispositivi periferici: programmi, immagini, font,
+parametri, testi e qualsiasi altro genere di dati.
+
+Quando un'immagine (o un altro tipo di file) viene memorizzata per la
+prima volta, è compito dell'utente scegliere un opportuno nome da
+assegnarle. Successivamente, per caricare tale immagine è sufficiente
+scrivere o scegliere lo stesso nome nel quadro di selezione file (sezione
+@{"3.4" LINK PPaintCD:H/7/2/4/0017/Main 1478}).
+
+Lettere maiuscole e minuscole possono essere usate indifferentemente per
+comporre nomi e titoli. Un file memorizzato col nome "Importante" può
+quindi essere caricato con il nome "iMpOrTaNtE".
+
+Il calcolatore Amiga si serve di alcune abbreviazioni per identificare le
+priferiche connesse e i dispositivi gestiti dal sistema. "RAM" è il nome
+del dispositivo che utilizza parte della memoria principale per
+memorizzare dati. "DF0" è il nome del drive fornito di serie con i
+calcolatori Amiga. Con "DF1" viene indicato il secondo drive (quello a
+sinistra, se montato nel corpo macchina dell'Amiga 2000, a destra
+nell'Amiga 3000). "DF2" e "DF3" sono altri drive collegabili. "RAD" e
+"VD0" sono delle varianti del dispositivo "RAM" che possono conservare i
+dati in seguito a un reset di sistema. "DH0", "JH0", "DH1" e "JH1" sono
+alcuni dei nomi che possono venire assegnati a dischi rigidi (o loro
+partizioni). "CC0" e altri nomi possono essere utilizzati per schede di
+memoria PCMCIA, "CD0" per lettori CD-ROM, "ND0" per connessioni in rete,
+"PC0" per dispositivi in grado di gestire dischetti nel formato MS-DOS,
+etc. Queste abbreviazioni, chiamate anche @{I}nomi delle unità@{UI}, generalmente
+non possono (in determinati casi non devono) essere modificate. A molte
+unità è associato un secondo nome, detto nome del volume. Contrariamente
+ai nomi delle unità, i nomi dei volumi possono essere modificati secondo
+le proprie esigenze. È possibile, quindi, accedere a un disco sia tramite
+il nome della unità (ad es. "DF0"), sia tramite il nome del volume (ad es.
+"Pictures").
+
+I nomi dei file, delle unità e dei volumi non possono eccedere la
+lunghezza di 30 caratteri. Si sconsiglia vivamente l'utilizzo di nomi più
+lunghi di 25 caratteri. Amiga, infatti, memorizza i dati relativi alle
+icone grafiche dei file, aggiungendo il suffisso ".info" ai nomi di questi
+ultimi.
+
+È buona norma aggiungere un @{I}suffisso@{UI} standard al nome dei file. Il
+suffisso, solitamente separato dal nome da un carattere punto ".", aiuta a
+identificare il tipo di dati contenuti nel file, semplicemente leggendone
+il nome. Vi sono numerosi suffissi di uso comune: "gif" contraddistingue i
+file contenenti immagini in formato GIF, "pcx" quelli con immagini in
+formato PCX, "pic" (dall'inglese Picture: disegno, figura) è invece un
+suffisso generico usato per file di immagini. Il suffisso "bsh" identifica
+i file usati per memorizzare pennelli e "set" viene aggiunto ai file
+contenenti parametri del programma Personal Paint. Il numero di caratteri
+che si può utilizzare per i suffissi Amiga non è limitato a tre (ne è la
+dimostrazione il suffisso di sistema ".info"): tale numero è piuttosto una
+consuetudine derivante da una limitazione di altri sistemi operativi.
+
+
+@{B}1.5        I cassetti@{UB}
+
+Un disco può essere suddiviso in più parti. Nella terminologia di Amiga
+una di queste parti viene indicata col nome "directory", "direttorio",
+"drawer" (da non confondere con @{I}drive@{UI} o @{I}driver@{UI}), o "cassetto". Per
+semplicità, nel presente manuale viene utilizzato il termine "cassetto".
+Personal Paint identifica i cassetti con l'abbreviazione "(dir)" nel
+quadro di selezione file (sezione @{"3.4" LINK PPaintCD:H/7/2/4/0017/Main 1478}).
+
+Un cassetto è concettualmente simile all'oggetto omonimo del mondo "reale"
+e può, a sua volta, contenere sia file che altri cassetti.
+
+È consigliabile riservare uno o più dischi alle immagini create ed
+elaborate con Personal Paint. Un disco, ad esempio, potrebbe contenere i
+cassetti chiamati "Spazio", "Automobili" e "Piante". Il cassetto "Spazio"
+potrebbe, a sua volta, essere suddiviso nei cassetti "Stelle" e
+"Tecnologia", per separare le immagini di stelle, pianeti e galassie da
+quelle di veicoli spaziali, astronauti, ecc. Nei cassetti che non
+contengono a loro volta altri cassetti possono essere memorizzate tutte le
+immagini della stessa categoria.
+
+Si chiama "percorso" (@{I}path@{UI}) la serie di nomi di dispositivi e cassetti che
+definiscono la posizione di un file. Se, ad esempio, il file Shuttle.gif è
+memorizzato dentro il cassetto Tecnologia, all'interno di Spazio, sul
+disco rigido DH0, "DH0:Spazio/Tecnologia" è il percorso di Shuttle.gif. La
+documentazione di Amiga spiega come creare un cassetto, lavorare con il
+suo contenuto e interpretare il percorso.
+
+Alcuni cassetti (ad es. "c", "libs", "l", "s" o "t") sono riservati al
+sistema operativo. Questi sono generalmente privi di icone (sezione
+@{"1.9.5" LINK Main 743}). Il cassetto "Empty" (@{I}vuoto@{UI}) può essere duplicato, spostato (anche
+all'interno di altri cassetti) e rinominato dall'utente per creare
+cassetti nuovi. Per questo motivo è consigliabile lasciare sempre vuoto il
+cassetto "Empty". A partire dalla versione 2.0 del sistema operativo, è
+possibile creare un nuovo cassetto anche selezionando la voce menu "New
+drawer" (@{I}Nuovo cassetto@{UI}) del Workbench.
+
+
+@{B}1.6        Le copie di sicurezza@{UB}
+
+È consigliabile fare delle copie di sicurezza dei dischi e degli altri
+supporti di memoria a intervalli regolari, tanto più frequenti quanto più
+importante è il lavoro su di essi memorizzato. Se, mentre il calcolatore
+sta scrivendo su un disco (la luce del drive è accesa), si estrae lo
+stesso o vi è una interruzione di corrente (ad es. durante un temporale),
+è possibile che alcuni dati memorizzati sul disco vadano persi. La sezione
+@{"11.2" LINK PPaintCD:H/7/2/4/0046/Main 55} ("Problemi con i dischi") descrive altri simili inconvenienti e
+possibili soluzioni.
+
+Il sistema operativo di Amiga visualizza un particolare messaggio di
+errore se non è più in grado di leggere correttamente un disco. In tal
+caso la copia di sicurezza può essere l'unico mezzo per recuperare i dati.
+Se il disco è nuovo o contiene dati illeggibili o che comunque si vogliono
+cancellare, deve essere formattato prima di essere (ri)utilizzato. Il
+manuale di Amiga spiega come effettuare la copia e la formattazione di un
+disco. Non è necessario formattare un disco prima che sia utilizzato per
+effettuarvi una copia di sicurezza.
+
+Si sconsiglia di utilizzare programmi di copiatura diversi da quelli di
+sistema. Amiga non è in grado di distinguere tra due dischi identici (come
+le copie generate da alcuni programmi usati per la contraffazione).
+L'inserimento o l'espulsione di una tra due o più copie identiche può
+causare un errore di sistema. Detti dischi identici non andrebbero mai
+usati contemporaneamente. I copiatori forniti con il calcolatore
+inseriscono nei dischi duplicati alcune informazioni riguardanti la data
+dell'operazione e un numero d'ordine, per cui Amiga è in grado di
+distinguere tra loro le varie copie.
+
+Prima di fare una copia di sicurezza è importante attivare la protezione
+di scrittura del disco da copiare. Solo in questo modo si ha la certezza
+di non scambiare per errore il disco da copiare con quello su cui fare la
+copia, cancellando i dati che, invece, si vogliono salvaguardare.
+
+Personal Paint può essere duplicato con i programmi in dotazione al
+sistema. Le copie di sicurezza e le condizioni d'uso sono citate
+nell'appendice F. È sconsigliabile effettuare "esperimenti" con i dischi
+originali di Personal Paint. In tali casi è bene operare su copie di
+sicurezza: in caso di errore è sempre possibile utilizzare i dischi
+originali per creare nuovi dischi di lavoro. È inoltre sconsigliabile
+memorizzare nuovi dati (ad es. nuove immagini o altre informazioni) nei
+dischetti originali di Personal Paint, visto che questi sono, quasi per
+intero, pieni di programmi e dati. Lo spazio restante è necessario per
+memorizzare i file parametri del programma.
+
+Alcuni programmi per la copia dei dischi modificano il nome del disco
+copiato. Ad esempio, la copia del disco "PPaint" potrebbe essere chiamata
+"Copy of PPaint". In questo caso è necessario utilizzare il comando Rename
+(@{I}Rinominare@{UI}) del Workbench per eliminare le parole "Copy of " (compreso lo
+spazio dopo "of") e ripristinare il nome originale del disco.
+
+
+@{B}1.7        I programmi di tipo "virus"@{UB}
+
+In questa sezione vengono descritti alcuni programmi che possono
+interferire con il normale funzionamento del sistema. I programmi "virus"
+si comportano in modo simile ai loro omonimi biologici. La differenza tra
+"virus", "vermi", "cavalli di Troia" e altre sottospecie non viene
+trattata in questo manuale, ma ci si riferisce a questo tipo di programmi
+con il termine generale di "virus". Molti di essi si caricano
+automaticamente, velocemente e senza farsi notare da dischi Workbench
+"infetti". Altri vengono attivati caricando un programma apparentemente
+innocuo, ma di provenienza certamente oscura.
+
+Non tutti i programmi virus danneggiano i dati su disco. Molti rimangono
+nascosti in memoria per la maggior parte del tempo. Alcuni programmi
+visualizzano un messaggio in cui vengono esaltate le "doti" degli autori,
+altri continuano a memorizzare copie di sé su tutti i dischi inseriti. Un
+programma annerisce improvvisamente lo schermo. Molti programmi
+interferiscono con il funzionamento delle unità a dischi e della
+stampante. Alcuni programmi possono danneggiare o disorganizzare
+completamente il disco rigido, per esempio aggiungendo alcuni byte alla
+fine di ogni file cui si accede, fino a riempire il disco.
+
+Contrariamente a quanto si crede, non esistono programmi virus in grado di
+modificare il contenuto di dischi protetti (spostando o togliendo
+l'apposito cursore), o di attivarsi dai registri dell'orologio interno.
+
+Un programma virus può rimanere nella memoria RAM del calcolatore per
+alcuni secondi anche dopo il suo spegnimento. Per avere la certezza che i
+virus residenti in RAM siano cancellati, l'elaboratore deve rimanere
+spento per almeno 30 secondi. Provocando un reset tramite la pressione
+contemporanea dei tasti <Commodore>+<Amiga>+<Ctrl>, il programma virus non
+viene quasi mai cancellato, ma anzi si aumenta la probabilità che lo
+stesso si duplichi sul successivo disco Workbench inserito. È sempre
+consigliabile mantenere la protezione di scrittura su tutti i dischi
+Workbench e, più in generale, su tutti i dischi su cui non si devono
+memorizzare o modificare dati. È utile fare una copia di sicurezza (se
+autorizzata) di ogni programma appena acquistato. Si suggerisce di
+spegnere il calcolatore dopo avere lavorato con un programma avuto "in
+prestito".
+
+Un programma virus può diventare pericoloso solo se caricato ed eseguito.
+Un programma virus di tipo @{I}bootblock@{UI} può essere caricato automaticamente
+da un disco Workbench inserito dopo la richiesta di sistema. Per rimuovere
+un programma di tale tipo è generalmente sufficiente eseguire il comando
+AmigaDOS "Install" sul disco infetto. Sia il comando "Install" che
+l'effetto di un virus possono interferire con lo schema di "protezione"
+dalla copiatura di alcuni programmi, per cui è possibile che questi non
+siano più in grado di funzionare. Altri programmi modificano la
+startup-sequence (il file di comandi eseguito automaticamente all'avvio
+del sistema), inserendovi una chiamata al virus. Il comando AmigaDOS
+"Install" qui menzionato non va confuso con la sequenza di installazione
+automatica di Personal Paint, descritta nella sezione @{"1.13.1" LINK Main 1513}.
+
+Alcuni programmi apparentemente normali, tra cui diverse varianti del
+comando AmigaDOS "Dir", possono a loro volta attivare un programma virus.
+La quasi totalità dei dischi duplicati illegalmente contiene programmi
+virus, poiché si tratta di programmi riprodotti in massa e in successione,
+senza alcun controllo. Un solo disco infetto in un centro di riproduzione
+clandestino è sufficiente a scatenare una reazione a catena.
+
+Alcuni programmi virus, definiti @{I}link-virus@{UI}, inseriscono (o aggiungono) il
+loro codice in quello dei normali programmi, rimanendo quindi inattivi
+fino a che tali programmi vengono eseguiti. Molti virus sono in grado di
+sostituire alcune funzioni di sistema Amiga con altre loro funzioni. In
+questi casi il funzionamento del calcolatore e dei programmi può apparire
+normale anche per lungo tempo, fino a che determinati eventi innescano
+inaspettate reazioni.
+
+Esistono in commercio diversi programmi che rilevano la presenza di virus
+sia su disco che in memoria principale. Molti di questi programmi,
+affidabili ed economici, possono essere reperiti tra le collezioni di @{I}
+pubblico dominio@{UI}, @{I}freeware@{UI} e @{I}shareware@{UI}. Tra quelli che vengono
+regolarmente aggiornati, ricordiamo "VirusChecker", "VirusX",
+"AntiCicloVir", "LVD" e "BootX".
+
+Esistono anche programmi @{I}antivirus@{UI}, residenti in memoria principale,
+aventi caratteristiche molto simili a quelle di programmi virus. Nessun
+programma è però in grado di distinguere tra buone e cattive intenzioni di
+un altro programma (soprattutto se il programma "buono" si riproduce come
+un virus), per cui può accadere che un programma antivirus venga
+individuato e segnalato come programma virus.
+
+
+@{B}1.8        Errori di sistema@{UB}
+
+Il sistema operativo di Amiga, come la maggior parte dei programmi molto
+complessi, non è del tutto immune da errori. In alcune particolari
+circostanze, se ad esempio è rimasta pochissima memoria principale libera,
+possono verificarsi delle situazioni non controllabili. In alcuni casi, il
+risultato è un messaggio di sistema del tipo "Software Error" (che nelle
+più datate versioni del sistema operativo può degenerare in un messaggio
+di tipo @{I}alert@{UI} "Guru Meditation").
+
+Tali errori possono essere causati anche da un programma o da una
+combinazione di più programmi funzionanti insieme. Ogni versione del
+programma Personal Paint deve superare, senza causare il minimo errore,
+molti mesi di dure prove prima di essere commercializzata. Ciononostante
+può accadere che anche Personal Paint venga bloccato da un errore di
+sistema o di un altro programma.
+
+Se appare un messaggio del tipo "Software Error", la prima cosa da fare è
+memorizzare tutto il lavoro che potrebbe andare perso se si dovesse
+cancellare la RAM. È pericolosissimo premere il @{I}gadget@{UI} "Cancel" ("Riavvia"
+nei sistemi che utilizzano la lingua italiana) del messaggio, prima di
+avere memorizzato tutto.
+
+Dopo aver memorizzato i lavori in corso, vanno chiusi (se possibile) tutti
+i programmi aperti. Occorre, quindi, estrarre tutti i dischi e, per
+sicurezza, spegnere il calcolatore. Si ha così la certezza che anche un
+eventuale programma virus residente in memoria sia stato eliminato.
+
+Alcuni programmi funzionanti su Amiga non sono provvisti di gadget per
+mandare avanti o indietro il loro schermo. Può succedere che ci si trovi
+con uno di questi programmi visualizzato e si voglia ritornare a un altro
+schermo. Per passare allo schermo del Workbench bisogna premere
+contemporaneamente i tasti <Commodore>+<N>. A partire dalla versione 2.0
+del sistema operativo, è possibile usare i tasti <Commodore>+<M> per
+visualizzare in sequenza ognuno degli schermi aperti. Per attivare
+Personal Paint, invece, si deve tener premuto il tasto <Shift> mentre si
+espelle un disco dal suo drive. In altri programmi Cloanto dotati di
+schermo proprio, questa funzione è svolta invece dal tasto <Help>.
+
+Un evento frequente quando il sistema è a corto di memoria è la
+visualizzazione di messaggi di tipo @{I}alert@{UI} in luogo di un requester di
+sistema. Fino alla versione 1.3 del sistema operativo, tali messaggi
+vengono visualizzati all'interno di una cornice rossa, abbassando lo
+schermo normale. A partire dalla versione 2.0, il rosso viene riservato ai
+"Guru Meditation" e ad altri messaggi di emergenza, mentre le semplici
+comunicazioni appaiono in ambra. Quando Personal Paint non è in grado di
+aprire un requester, viene visualizzato un messaggio @{I}alert@{UI}. In questo caso
+è possibile chiudere altri programmi o finestre per recuperare un po' di
+memoria. Un messaggio di tale tipo può essere rimosso premendo un pulsante
+del mouse.
+
+
+@{B}1.9        L'interfaccia utente@{UB}
+
+Per "interfaccia utente" si intende lo spazio fisico, sensoriale e
+intellettuale che si trova tra l'utente e il calcolatore. L'interfaccia
+utente è quella cosa che spaventa o incuriosisce chi si trova per la prima
+volta di fronte a un calcolatore. L'interfaccia utente può scoraggiare o
+stimolare chi lavora con un calcolatore.
+
+L'interfaccia utente di Amiga si serve di grafica, menu, requester,
+gadget, tastiera e mouse per rendere più intuitivo l'approccio con la
+macchina. Personal Paint è stato progettato per fornire all'utilizzatore
+la possibilità di creare ed elaborare immagini grafiche con l'aiuto di un
+ambiente quanto più semplice e completo possibile. L'interfaccia utente,
+come il resto del programma, potrà essere ulteriormente perfezionata
+grazie anche al costante rapporto con gli utenti che vorranno sottoporre
+alla Cloanto consigli e suggerimenti.
+
+
+@{B}1.9.1      Schermi e finestre@{UB}
+
+Sul monitor collegato al calcolatore è visualizzato lo schermo (inglese @{I}
+screen@{UI}) del programma con il quale si sta lavorando. Uno schermo può, a
+sua volta, contenere finestre (anche sovrapposte), requester e gadget. Uno
+schermo dispone di un numero prestabilito di colori. Sia la risoluzione
+grafica che i colori possono variare da schermo a schermo.
+
+Personal Paint apre il suo schermo adattandosi automaticamente
+all'ambiente grafico del sistema. Il programma accede al Display Database
+per consultare l'elenco dei modi video disponibili e determinare le loro
+caratteristiche (risoluzione, dimensione e numero di colori). Nei sistemi
+precedenti la versione 2.0, non dotati di Display Database, vengono
+adottate altre soluzioni.
+
+La prima volta che Personal Paint viene eseguito, vengono utilizzati
+risoluzione e numero di colori predefiniti. Queste impostazioni possono
+essere modificate manualmente, oppure caricando un'immagine. I parametri
+con le impostazioni iniziali del programma possono inoltre essere
+modificati come spiegato nella sezione @{"1.14" LINK Main 1520} e nell'appendice C di questo
+manuale. Le dimensioni di un'immagine non devono essere necessariamente
+uguali alle dimensioni dello schermo in cui essa è visualizzata.
+Un'immagine le cui dimensioni superano quelle dello schermo può essere
+fatta scorrere (sezione @{"3.2" LINK PPaintCD:H/7/2/4/0017/Main 1411}): lo schermo stesso viene utilizzato come una
+finestra virtuale sull'immagine. Nelle sezioni @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11} e @{"4.5.2" LINK PPaintCD:H/7/2/4/0049/Main 1239} è possibile
+trovare altre informazioni sui diversi modi video utilizzabili.
+
+All'accensione, con alcuni modelli di Amiga, può capitare che il sistema
+operativo non sia in grado di riconoscere correttamente la frequenza di
+rete. In tali (rari) casi, invece della risoluzione del modo PAL (che
+normalmente prevede schermi alti 256 linee) viene attivata quella del modo
+NTSC (lo schermo del Workbench viene aperto con sole 200 linee). È
+necessario sottolineare che i modi PAL e NTSC non sono necessariamente
+vincolati alla frequenza di rete. È anche possibile, per esempio, far
+visualizzare a un calcolatore Amiga 60 immagini al secondo in modo NTSC,
+su un monitor di tipo multisync, con una frequenza di rete di 50 Hz.
+
+Una finestra (inglese @{I}window@{UI}) può essere grande quanto uno schermo o anche
+più piccola. Se la finestra è più piccola, essa può essere spostata con il
+mouse. Personal Paint svolge le sue funzioni principali in una finestra
+delle stesse dimensioni dello schermo. Altre finestre (requester) vengono
+utilizzate per regolare diversi parametri del programma o per visualizzare
+messaggi e informazioni. Lo schermo di Personal Paint può anche essere
+"trascinato" verso il basso e verso l'alto con il mouse quando il
+puntatore si trova sopra la barra di schermo.
+
+
+@{B}1.9.2      Il mouse e il puntatore@{UB}
+
+Il @{I}mouse@{UI} ("topo") è un dispositivo di puntamento collegato al calcolatore,
+che permette di spostare il puntatore sullo schermo. Il puntatore è un
+segno (tipicamente una freccia) visualizzato sullo schermo. Quando viene
+spostato il mouse sulla scrivania, si sposta anche il puntatore sullo
+schermo. Il manuale di Amiga spiega come modificare il disegno del
+puntatore, la sua dimensione (negli Amiga con architettura avanzata) e la
+velocità con cui si sposta.
+
+Personal Paint è in grado di utilizzare anche il pulsante centrale dei
+mouse a tre pulsanti. L'azione su tale pulsante (principalmente utilizzata
+per muovere l'immagine) può essere simulata con la pressione del tasto
+<Alt> assieme al pulsante sinistro del mouse.
+
+In Personal Paint il puntatore può assumere aspetti diversi. Ogni
+differente immagine ha lo scopo di fornire informazioni sulle operazioni
+possibili in base a una particolare posizione nello schermo e/o una data
+operazione in corso (ad es. scegliere uno strumento di disegno o un
+colore, effettuare il riempimento di un'area, definire un pennello e
+altro).
+
+
+@{B}1.9.3      I requester@{UB}
+
+Un requester (o @{I}quadro@{UI}) è una particolare finestra all'interno della quale
+si trovano testi, gadget e barre di scorrimento. Questi elementi possono
+essere selezionati, impostati, spostati e modificati con il mouse e la
+tastiera, e servono a intervenire sui parametri del sistema o di un
+particolare programma.
+
+
+@{B}1.9.4      I gadget@{UB}
+
+Un gadget (o @{I}bottone@{UI}, dall'inglese @{I}button@{UI}) è un elemento selezionabile con
+il mouse. Per selezionare un gadget occorre portare il puntatore sopra al
+gadget stesso e premere il pulsante sinistro del mouse (sezione @{"1.9.2" LINK Main 608}).
+
+Uno o più gadget posti sul margine superiore della finestra di Personal
+Paint servono a mandare lo schermo del programma dietro agli altri e a
+riportarlo avanti. Trattandosi dei gadget standard di sistema per la
+variazione di profondità degli schermi, essi possono variare, per numero e
+aspetto, a seconda della versione del sistema operativo.
+
+Personal Paint fa largo uso dei gadget, sia nei requester che nella
+gestione degli strumenti di disegno ed elaborazione immagini usati più di
+frequente. Questi ultimi sono raggruppati nella @{I}Barra degli strumenti@{UI}
+(inglese "Tool Bar"), visualizzata a sinistra nella finestra principale, e
+sono descritti dettagliatamente nel capitolo @{"3" LINK PPaintCD:H/7/2/4/0017/Main 1}.
+
+I caratteri sottolineati indicano le selezioni abbreviate dei gadget. Si
+vedano anche le modifiche apportate alla sezione @{"1.14" LINK Main 1520} ("I file esterni
+dell'interfaccia utente") e all'appendice @{"B" LINK PPaintCD:H/7/2/4/00Z2/Main 1} ("Selezioni abbreviate").
+
+
+@{B}1.9.4.1    I gadget di azione, di controllo e ciclanti@{UB}
+
+I @{I}gadget di azione@{UI} determinano una specifica operazione quando vengono
+selezionati. Essi possono essere utilizzati per effettuare una operazione
+grafica, per aprire un requester o per impostare determinati parametri. I
+gadget presenti nella barra degli strumenti (sezione @{"3.1" LINK PPaintCD:H/7/2/4/0017/Main 11}) possono
+attivare funzioni diverse in base alla parte di gadget selezionata (metà
+superiore o metà inferiore) e al pulsante del mouse (sinistro o destro)
+utilizzato per la selezione.
+
+I @{I}gadget di controllo@{UI} sono associati a quelle opzioni che possono assumere
+due soli stati distinti (attivazione e non attivazione). La presenza di un
+segno di visto in un gadget di controllo indica che la relativa opzione
+risulta attivata.
+
+I @{I}gadget ciclanti@{UI} permettono di regolare lo stato di un parametro
+scegliendo tra una serie di possibilità. Tali gadget sono contraddistinti
+dal simbolo di ciclo presente sulla estremità sinistra. Il testo
+visualizzato nel gadget ciclante indica l'opzione attualmente selezionata.
+Ripetute selezioni del gadget rivelano ciclicamente, una dopo l'altra, le
+impostazioni disponibili. Tenendo premuto il tasto <Shift> durante la
+selezione, le opzioni vengono mostrate in ordine inverso.
+
+
+@{B}1.9.4.2    I gadget proporzionali e le barre di scorrimento@{UB}
+
+I gadget proporzionali (inglese @{I}Sliders@{UI} o @{I}Proportional gadgets@{UI}) vengono
+usati per impostare un valore numerico all'interno di un determinato campo
+(ad es. un'intensità cromatica, un volume sonoro, ecc.) Generalmente
+questi gadget sono costituiti da un riquadro all'interno del quale scorre
+un cursore grafico. Quando il cursore è selezionato, può essere mosso con
+il mouse, incrementando o riducendo il valore del parametro associato. Lo
+stesso valore può essere incrementato o decrementato di una singola unità
+con un clic all'interno del riquadro contenente il cursore (ma non su
+quest'ultimo). Questa possibilità si rivela molto utile quando la
+precisione del dispositivo di puntamento (mouse, trackball, ecc.) non
+consente di spostare il cursore di una unità per volta.
+
+Le barre di scorrimento (inglese @{I}scroll bars@{UI}) sono tipi particolari di
+gadget proporzionali utilizzati per visualizzare porzioni di liste di
+elementi. Due gadget-freccia posti a un'estremità della barra permettono
+di scorrere la lista nelle due direzioni, elemento dopo elemento. Le
+sezioni @{"3.1.8" LINK PPaintCD:H/7/2/4/0017/Main 1267} e @{"3.4" LINK PPaintCD:H/7/2/4/0017/Main 1478} spiegano più dettagliatamente l'uso delle barre di
+scorrimento per spostare una virtuale "lente di ingrandimento" (@{I}Zoom@{UI}) su
+una qualsiasi porzione di un'immagine e per scorrere un elenco di nomi nel
+quadro di selezione file.
+
+
+@{B}1.9.4.3    I gadget testo@{UB}
+
+Un'altro tipo di gadget è il @{I}gadget testo@{UI}. Il gadget testo permette, dopo
+essere stato selezionato, di modificare (con la tastiera) il testo
+visualizzato al suo interno. Per inserire un nuovo testo è utile creare
+dello spazio cancellando il testo precedente. I gadget testo vengono ad
+esempio utilizzati per scrivere manualmente il nome di un file. Un gadget
+testo si dice @{I}attivato@{UI} quando al suo interno è visualizzato un cursore;
+l'attivazione si effettua selezionando il gadget con il mouse.
+
+All'interno dei gadget testo sono attivi due comandi abbreviati del
+sistema operativo. Si tratta di "Cancellare testo", attivabile premendo
+insieme i tasti <Amiga>+<X>, e "Annullare modifica", con <Amiga>+<Q>. Il
+tasto Amiga normalmente utilizzato per i comandi abbreviati è quello
+immediatamente alla destra della barra spaziatrice.
+
+C'è un limite al numero di caratteri che un gadget testo può contenere. Se
+si tenta di superare questo limite, lo schermo lampeggia per segnalare
+l'impossibilità di inserire ulteriori caratteri. In questo caso il
+contenuto del gadget testo deve essere cancellato (anche parzialmente) con
+i tasti <BS> (@{I}BackSpace@{UI}) o <Del>, prima di inserire il nuovo testo. Alcuni
+gadget testo, detti @{I}gadget testo numerici@{UI}, accettano solo caratteri
+numerici. Se in questi gadget si tenta di inserire un carattere non
+numerico, lo schermo lampeggia e il carattere viene ignorato. Il numero
+massimo di caratteri che un gadget testo numerico può contenere è
+solitamente legato al campo di valori ammessi per la variabile associata,
+così da evitare l'inserimento di valori troppo grandi. Spesso c'è quindi
+un margine di spazio molto ridotto per l'editazione del testo, ed è
+possibile che lo schermo lampeggi frequentemente, segnalando la necessità
+di cancellare il contenuto attuale prima di inserire nuovi valori.
+
+
+@{B}1.9.5      Le icone@{UB}
+
+Il programma Workbench del sistema operativo di Amiga si serve di un
+ulteriore tipo di gadget: le @{I}icone@{UI} (pronuncia "icòne"). Le icone sono
+gadget associati ai dischi e ai vari file e cassetti presenti su un disco.
+Un'applicazione può utilizzare icone dal disegno personalizzato, ognuna
+delle quali occupa un piccolo ammontare di spazio sul supporto di memoria
+(sotto forma dei file ".info"). I file e i cassetti sprovvisti di icone
+possono essere graficamente rappresentati da icone posticcie, attivando, a
+partire dalla versione 2.0 del sistema operativo, l'opzione Workbench
+"Show All Files" (Mostrare tutti i file).
+
+Personal Paint può associare diversi tipi di icone ai file (ad es.
+immagini, pennelli o file di parametri). Tali icone sono state definite in
+modo da ottimizzare l'occupazione di spazio e la velocità di accesso con
+il sistema di gestione file di Amiga. Un disco standard da 880 Kbyte può
+contenere quasi 900 icone di questo tipo. La sezione @{"9.10" LINK PPaintCD:H/7/2/4/0047/Main 607} spiega come
+abilitare o disabilitare la scrittura di icone di Personal Paint.
+
+Sia il disegno che gli attributi (Default Tool, Tool Types) delle icone
+predefinite di Personal Paint possono essere modificati editando le icone
+memorizzate nei due cassetti "PPaint_Icons" (ognuno di questi cassetti
+contiene un insieme di icone adatto ai colori delle diverse versioni del
+Workbench).
+
+
+@{B}1.9.6      I menu@{UB}
+
+Il sistema di menu di Amiga mette a disposizione un modo semplice e
+intuitivo per richiamare le funzioni di un programma, evitando di dover
+ricordare difficili sequenze di comandi. In aggiunta ai gadget, i menu
+costituiscono il modo più immediato e completo per selezionare un comando
+in Personal Paint.
+
+Per visualizzare la barra dei menu occorre premere il pulsante destro del
+mouse (pulsante menu) quando il puntatore si trova sulla barra del titolo
+dello schermo (o sulla prima linea dello schermo, se la barra del titolo
+non è visibile).
+
+La barra dei menu contiene un elenco di voci dette @{I}titoli di menu@{UI}.
+Portando il puntatore (e continuando a tenere premuto il pulsante destro)
+sul titolo desiderato, appare il menu scelto; questo, a sua volta,
+contiene diverse voci menu (@{I}item@{UI}) incolonnate, associate alle varie
+opzioni disponibili. Portando il puntatore sopra alcune voci, appare
+un'ulteriore lista di sottovoci (@{I}subitem@{UI}), i cui elementi sono
+selezionabili come quelli degli altri menu. La selezione di una opzione si
+effettua rilasciando il pulsante destro del mouse quando la voce (o
+sottovoce) desiderata è evidenziata. Se a una voce menu è associata una
+abbreviazione da tastiera, la pressione del o dei relativi tasti ha lo
+stesso effetto della selezione via mouse. È possibile selezionare più di
+una voce schiacciando il pulsante sinistro del mouse (senza rilasciare
+quello destro) quando il puntatore si trova sulla voce desiderata.
+
+Tenendo premuto il pulsante destro del mouse, i titoli dei vari menu
+appaiono nella barra di schermo. Quello che segue è l'elenco dei titoli
+dei menu di Personal Paint e dei capitoli che ne illustrano il contenuto:
+
+   @{B}Capitolo @{"4" LINK PPaintCD:H/7/2/4/0049/Main 1} - Menu Progetto
+   Capitolo @{"5" LINK PPaintCD:H/7/2/4/0048/Main 1} - Menu Pennello
+   Capitolo @{"6" LINK PPaintCD:H/7/2/4/2151/Main 1} - Menu Animazione
+   Capitolo @{"7" LINK PPaintCD:H/7/2/4/0001/Main 1} - Menu Testo
+   Capitolo @{"8" LINK PPaintCD:H/7/2/4/0016/Main 1} - Menu Colori
+   Capitolo @{"9" LINK PPaintCD:H/7/2/4/0047/Main 1} - Menu Parametri@{UB}
+
+La selezione di una voce menu, con il mouse o con l'eventuale
+abbreviazione da tastiera, comporta l'immediata esecuzione del comando o
+la visualizzazione dell'eventuale requester associato. È possibile evitare
+qualsiasi selezione rilasciando il pulsante destro del mouse quando
+nessuna voce risulta evidenziata.
+
+Quando la selezione di una voce menu determina la comparsa di un
+requester, il testo che la identifica è seguito da tre punti (ad es.
+"Leggere immagine..."). Una piccola freccia all'estrema destra di una voce
+menu indica invece che tale voce, se evidenziata, detrmina la comparsa di
+un elenco di sottovoci.
+
+Alcune voci menu, dette voci @{I}attributo@{UI} (come quelle corrispondenti alle
+opzioni "Pennello/Impugnare" e "Parametri/Adattamento colori"), possono
+avere un segno di visto alla sinistra del testo. Le voci attributo restano
+evidenziate da tale segno fino a quando vengono nuovamente selezionate
+(voci @{I}a interruttore@{UI}) o viene selezionata una voce alternativa (voci a @{I}
+mutua esclusione@{UI}).
+
+Quando le circostanze lo richiedono, il programma disabilita
+automaticamente una o più voci menu. Una voce disabilitata risulta
+ombreggiata: al testo normalmente visualizzato è sovrapposto un retino di
+punti. Una voce disabilitata non può essere selezionata con il mouse. I
+menu "Pennello" e "Testo" sono alcuni dei menu di Personal Paint che
+contengono voci automaticamente disabilitabili dal programma. La voce
+"Scrivere pennello", per esempio, viene disabilitata quando si sta
+utilizzando un pennello predefinito (non memorizzabile).
+
+È spesso più veloce ed efficiente schiacciare uno o due tasti sulla
+tastiera, anziché spostare la mano dalla tastiera al mouse. Alla destra
+delle voci di più frequente utilizzo è presente una abbreviazione da
+tastiera, il cui uso rappresenta una veloce alternativa alla selezione via
+mouse. Nella versione di Personal Paint per calcolatori Amiga, detti
+codici corrispondono a un singolo tasto più un eventuale tasto
+qualificatore (come <Amiga>, <Alt>, ecc.) Le funzioni che possono essere
+richiamate tramite mouse possono essere attivate anche con la pressione
+del o dei tasti indicati. È importante che il codice sia immesso
+esattamente come visualizzato a destra del menu, in quanto il programma
+interpreta e utilizza differentemente caratteri maiuscoli e minuscoli.
+
+I caratteri che rappresentano le selezioni abbreviate da tastiera possono
+essere preceduti da un piccolo simbolo grafico. Tale simbolo indica che un
+altro tasto (<Shift>, <Alt>, <Ctrl>, <Amiga>), detto tasto @{I}qualificatore@{UI},
+deve essere premuto assieme al carattere. Il simbolo "Num" indica che il
+simbolo di selezione abbreviata va digitato utilizzando il tastierino
+numerico. Occorre notare che alcuni modelli di tastiere Amiga possono
+essere prive di tastierino numerico; inoltre i tasti superiori del
+tastierino non sono associabili al simbolo "Num" (non è quindi possibile
+distinguerli dagli altri tasti con identici simboli).
+
+Nei casi in cui la funzione selezionata vada a sovrascrivere un file su
+memoria di massa, o comunque possa causare una irrecuperabile perdita di
+dati non ancora memorizzati, il programma visualizza uno specifico
+requester di avvertimento.
+
+Nell'appendice @{"B" LINK PPaintCD:H/7/2/4/00Z2/Main 1} è riportato l'elenco delle abbreviazioni da tastiera
+associate alle voci menu. È comunque possibile esaminare ed eventualmente
+modificare con facilità il file contenente con i dati dell'interfaccia
+utente (può essere utile, ad esempio, impostare nuove abbreviazioni da
+tastiera oppure modificare quelle esistenti). La sezione @{"1.14" LINK Main 1520} spiega come
+effettuare tali modifiche.
+
+Alcune voci menu determinano l'apparizione di requester. Solitamente, alla
+base di questi ultimi si trovano due gadget: "Procedere" e "Annullare". Le
+variazioni apportate ai parametri nel requester devono essere confermate
+con la selezione del gadget "Procedere". La selezione del gadget
+"Annullare" provoca invece l'uscita dal requester e il ripristino dei
+valori in atto al momento della sua comparsa.
+
+Per una spiegazione dettagliata di tutti i menu, nonché dei comandi e dei
+requester associati, si rimanda ai capitoli @{"4" LINK PPaintCD:H/7/2/4/0049/Main 1}, @{"5" LINK PPaintCD:H/7/2/4/0048/Main 1}, @{"7" LINK PPaintCD:H/7/2/4/0001/Main 1}, @{"8" LINK PPaintCD:H/7/2/4/0016/Main 1} e @{"9" LINK PPaintCD:H/7/2/4/0047/Main 1}.
+
+
+@{B}1.10       La tastiera@{UB}
+
+La tastiera di Amiga è dotata di diversi tipi di tasti. I tasti grafici
+hanno associato un carattere. Alcuni tasti hanno valore solo se premuti
+insieme ad altri (<Shift>, <Alt>, <Ctrl>, <Commodore>, <Amiga>). I
+cosiddetti @{I}dead keys@{UI} ("tasti morti") permettono di modificare il codice
+del tasto premuto assieme ad essi. La maggior parte di questi tasti ha il
+compito di aggiungere segni diacritici al successivo carattere digitato.
+Ad altri tasti sono associate particolari funzioni di sistema o di
+programma (<Caps Lock>, tasti cursore, <Return>, <BS>, <Del>, <Help>,
+<Esc> e i tasti funzione).
+
+
+@{B}1.10.1     Il comando SetMap@{UB}
+
+Poiché esistono diverse tastiere nazionali e locali per i calcolatori
+Amiga, è indispensabile comunicare al calcolatore quale tastiera è
+collegata. Nei sistemi operativi precedenti la versione 2.1, un opportuno
+comando "SetMap" inserito nella startup-sequence specifica quale tastiera
+è collegata. La documentazione di Amiga descrive dettagliatamente tale
+procedura. A partire dalla versione 2.1 del sistema operativo, il
+programma "Input" (tra le Preferenze di sistema) permette di selezionare,
+da un apposito elenco, il tipo di tastiera utilizzata.
+
+Se non è stata impostata alcuna tastiera, né con il comando SetMap, né con
+il programma Input, Amiga utilizza la tastiera standard americana
+(impostazione predefinita). Se la scelta della tastiera tramite i modi
+descritti non è coerente con la tastiera realmente collegata, alla
+pressione di determinati tasti non corrisponde la visualizzazione del
+simbolo corrispondente: Amiga visualizza i caratteri disegnati sulla
+tastiera selezionata (non quella realmente utilizzata).
+
+Quando il disco Workbench o il disco del programma Personal Paint vengono
+riconfigurati con un doppio click sull'icona di una delle lingue
+disponibili (ad es. "English", "Deutsch", Italiano", ecc.), l'opportuno
+file di comando "Startup-PPLclExe" viene copiato nel cassetto "s" di quel
+disco. Questo file contiene il comando "SetMap" per l'impostazione della
+tastiera normalmente utilizzata nel paese cui l'icona si riferisce.
+"SetMap d", ad esempio, seleziona la tastiera tedesca, mentre "SetMap i"
+quella italiana.
+
+Dopo la configurazione, la linea contenente il comando SetMap nel file
+"Startup-PPLclExe" può essere modificata (cambiando il codice della lingua
+che segue il comando) se il parametro non corrisponde alla tastiera
+effettivamente utilizzata. Tale correzione può essere apportata con una
+videoscrittura come Personal Write, purché il file venga memorizzato in
+formato ASCII o ANSI X3.64.
+
+Alcuni programmi non sono stati progettati per funzionare con tastiere
+diverse da quella americana. Questi programmi leggono direttamente la
+posizione del tasto premuto, associando al tasto il carattere
+corrispondente sulla tastiera americana. Il comando SetMap non modifica il
+funzionamento di tali programmi.
+
+In alcune tastiere la posizione dei tasti <Y> e <Z> è invertita. Per
+ovviare a questo inconveniente si può impartire, dopo il comando SetMap
+(non SetMap usa), il comando "Nimm3 -y". Nimm3 è un programma Cloanto.
+
+Il comando SetMap corretto deve essere inserito nella startup-sequence di
+ogni disco Workbench utilizzato per il lancio iniziale del sistema.
+
+
+@{B}1.10.2     I tasti grafici@{UB}
+
+I tasti grafici sono quelli con le lettere, i numeri e tutti gli altri
+caratteri visualizzabili. In Personal Paint questi tasti sono utilizzati
+nell'editor di testi (sezione @{"3.1.3.1" LINK PPaintCD:H/7/2/4/0017/Main 431} e capitolo @{"7" LINK PPaintCD:H/7/2/4/0001/Main 1}), per le
+abbreviazioni da tastiera e per editare il contenuto dei gadget testo.
+Quando un gadget testo è attivato e viene premuto un tasto grafico, il
+carattere associato viene inserito nel testo alla posizione del cursore e
+questo viene spostato di una posizione verso destra.
+
+Qualsiasi tasto grafico, se mantenuto premuto per un certo tempo, provoca
+la "ripetizione" automatica del simbolo associato. Il tempo di attesa dopo
+l'inserimento del primo carattere e la velocità di inserimento dei
+caratteri durante la ripetizione possono essere regolati tramite il
+programma "Preferences" (quadro "Input", a partire dalla versione 2 del
+sistema operativo), come descritto nella documentazione Amiga.
+
+
+@{B}1.10.3     Gli accenti@{UB}
+
+Alcune tastiere hanno uno o più tasti con disegnati degli accenti. Questi
+possono essere utilizzati durante l'inserimento di testo nelle immagini
+oppure nei gadget testo, ad esempio nella digitazione di un percorso nel
+quadro di selezione file. I tasti con gli accenti (e altri segni
+diacritici) devono essere premuti immediatamente prima del carattere che
+si desidera accentare o modificare.
+
+Premendo sia il tasto con l'accento grave (<\\>) che quello con l'accento
+acuto (</>, uno dopo l'altro), al carattere successivo viene aggiunto un
+accento circonflesso.
+
+Se la tastiera non consente l'accesso diretto agli accenti, possono essere
+utilizzate le combinazioni di tasti <Alt> + <F>, <G>, <H>, <J>, <K>.
+Nell'ordine, queste combinazioni pongono sul carattere successivo
+(prossimo tasto premuto): accento acuto, accento grave, accento
+circonflesso, tilde e dieresi (@{I}umlaut@{UI}). Il tasto <Alt> deve rimanere
+premuto mentre si digita una delle suddette lettere. Il carattere a cui
+aggiungere il segno diacritico va digitato successivamente alla
+combinazione <Alt>+tasto.
+
+Alcuni font Amiga possono essere sprovvisti dei caratteri accentati, il
+codice dei quali, nella tavola dei caratteri del computer, è generalmente
+maggiore di 126. Questo non influisce sull'interfaccia utente del
+programma Personal Paint, che utilizza i propri font, ma potrebbe essere
+una limitazione nella funzione di editazione del testo. Quando questi
+caratteri sono indispensabili e non ci si può servire di font alternativi,
+il font prescelto può essere modificato con il programma Personal Fonts
+Maker (un programma Cloanto per l'editazione e la manipolazione di font
+video e per stampanti) o altri programmi analoghi.
+
+
+@{B}1.10.4     I due tasti <Shift>@{UB}
+
+Sulla maggior parte delle tastiere, i tasti <Shift> hanno disegnata una
+grossa freccia verso l'alto, in luogo della scritta "Shift". I due tasti,
+funzionalmente identici, si trovano l'uno a sinistra e l'altro a destra
+dei tasti grafici con le lettere.
+
+Premuto insieme a un tasto grafico, <Shift> fa in modo che venga
+selezionata la lettera maiuscola, oppure il carattere disegnato in alto
+nel tasto.
+
+Se il tasto <Shift> viene premuto durante la selezione di un gadget
+ciclante (sezione @{"1.9.4.1" LINK Main 663}), viene attivata l'impostazione che precede
+quella corrente (invece di quella successiva) nella lista delle possibili
+impostazioni.
+
+Tenendo premuto il tasto <Shift>, i tasti cursore spostano l'immagine un
+pixel per volta (sezione @{"3.2" LINK PPaintCD:H/7/2/4/0017/Main 1411}), invece che a salti. Nel modo di editazione
+testo, invece, il tasto <Shift>, assieme ai tasti cursore, permette di
+portare il cursore sul primo o sull'ultimo carattere della linea (o linea
+del testo).
+
+Se il tasto <Shift> viene premuto durante l'utilizzo di uno strumento di
+disegno, i movimenti nell'immagine sono vincolati all'asse orizzontale o
+quello verticale, in base alla direzione del primo spostamento del mouse
+seguito alla pressione del tasto.
+
+Premendo il tasto <Shift> quando si espelle un disco dal suo drive, lo
+schermo di Personal Paint viene reso visibile, qualora già non lo sia.
+Questa è una soluzione di emergenza per i casi in cui non è possibile
+ricorrere ai metodi tradizionali Amiga per alternare gli schermi. Detta
+soluzione può apparire macchinosa, ma il messaggio "espulsione disco" è
+uno dei pochi che il sistema operativo di Amiga invia ai programmi quando
+le finestre degli stessi non sono attivate.
+
+Il tasto <Shift> è un tasto qualificatore valido per la composizione delle
+abbreviazioni da tastiera (sezione @{"1.14" LINK Main 1520}), ma deve essere utilizzato solo
+per quei tasti che non hanno una diversa rappresentazione grafica per il
+tasto "shiftato" (ad esempio i tasti funzione).
+
+La sezione @{"9.10.3" LINK PPaintCD:H/7/2/4/0047/Main 658} spiega come usare il tasto <Shift> per creare icone
+Workbench fino a 256 colori. Nella riduzione colori di un'animazione, il
+tasto <Shift> permette di ottenere un'animazione con un'unica tavolozza
+colori. Tenendo premuto il tasto <Shift> quando si trascina l'icona di
+un'animazione sull'icona-applicativo di Personal Paint (@{I}AppIcon@{UI}),
+l'animazione viene solo visualizzata (e non caricata in memoria).
+
+
+@{B}1.10.5     I due tasti <Alt>@{UB}
+
+I tasti <Alt> si trovano sotto ai tasti <Shift>. I due tasti sono
+funzionalmente identici.
+
+Premuto insieme a un tasto grafico, <Alt> ne seleziona il carattere
+alternativo (da cui l'abbreviazione "Alt"). I caratteri alternativi non
+sono quasi mai disegnati sulla tastiera, ma sono descritti nel manuale
+Amiga e possono essere visualizzati con il programma Commodore "KeyShow"
+(o "KeyToy", in alcune versioni del sistema operativo). I caratteri
+alternativi comprendono diversi accenti, caratteri speciali e lettere
+accentate.
+
+Tenere premuto il tasto <Alt> e schiacciare il pulsante sinistro del mouse
+equivale, nell'ambito di Personal Paint, ad utilizzare il pulsante
+centrale dei mouse a tre tasti.
+
+Il tasto <Alt> è un tasto qualificatore valido per la composizione delle
+abbreviazioni da tastiera (sezione @{"1.14" LINK Main 1520}).
+
+
+@{B}1.10.6     Il tasto <Ctrl>@{UB}
+
+Il tasto <Ctrl> si trova all'estrema sinistra della tastiera.
+
+La funzione Copiare schermo (sezione @{"4.4" LINK PPaintCD:H/7/2/4/0049/Main 1089}) utilizza questo tasto in
+congiunzione al tasto <Alt>. Lo stesso tasto, assieme al pulsante sinistro
+del mouse, è anche utilizzato per muovere alcuni tipi di schermo in modo @{I}
+overscan@{UI} (sezioni @{"3.2" LINK PPaintCD:H/7/2/4/0017/Main 1411} e @{"4.5.1" LINK PPaintCD:H/7/2/4/0049/Main 1214})
+
+Questo è un tasto qualificatore valido per la composizione delle
+abbreviazioni da tastiera (sezione @{"1.14" LINK Main 1520}).
+
+
+@{B}1.10.7     Il tasto <Commodore> (o <Amiga Sinistro>)@{UB}
+
+Il tasto <Commodore> è il tasto alla sinistra della barra spaziatrice. Su
+alcune tastiere vi è disegnata una 'A' (come Amiga) piena. Su altre
+tastiere vi è il simbolo Commodore.
+
+Il tasto <Commodore> viene utilizzato per richiamare alcune funzioni del
+sistema operativo di Amiga. <Commodore>+<N> porta lo schermo Workbench di
+fronte agli altri schermi. <Commodore>+<M> lo riporta indietro. A partire
+dalla versione 2.0 del sistema operativo, la funzione <Commodore>+<M> è
+invece utilizzata per passare da uno schermo a quello successivo, senza
+distinzione per lo schermo Workbench.
+
+
+@{B}1.10.8     Il tasto <Amiga>@{UB}
+
+Il tasto <Amiga> è il tasto alla destra della barra spaziatrice.
+Generalmente vi è disegnata una 'A' (di Amiga) vuota.
+
+Il tasto <Amiga> viene utilizzato insieme a un tasto grafico per eseguire
+un comando nei gadget testo (sezione @{"1.9.4.3" LINK Main 711}).
+
+Questo è un tasto qualificatore valido per la composizione delle
+abbreviazioni da tastiera (sezione @{"1.14" LINK Main 1520}); è particolarmente indicato per
+definire abbreviazioni da usare nelle sessioni di editazione testo: altri
+qualificatori (o codici privi di qualificatore) possono infatti causare
+l'immissione di un carattere nel testo, piuttosto che l'esecuzione del
+comando desiderato.
+
+
+@{B}1.10.9     Il tasto <Caps Lock>@{UB}
+
+Il tasto <Caps Lock>, il solo dotato di una piccola spia luminosa, si
+trova tra il tasto <Ctrl> e i tasti alfabetici.
+
+Quando viene premuto, la luce cambia stato: se è accesa si spegne, e
+viceversa. Quando la luce è accesa è come se fosse premuto un tasto
+<Shift>, con la differenza che il tasto <Caps Lock> agisce solo sulle
+lettere. Per fare agire <Caps Lock> anche sugli altri tasti grafici è
+possibile utilizzare il comando "Nimm3 -c" (sezione @{"1.10.1" LINK Main 893}).
+
+
+@{B}1.10.10    I tasti cursore@{UB}
+
+I quattro tasti cursore si trovano tra i tasti alfabetici e il tastierino
+numerico.
+
+I tasti cursore consentono di far scorrere l'immagine nella direzione
+indicata o di spostare il cursore nel modo di editazione testo. La sezione
+@{"1.10.4" LINK Main 993} descrive la funzione del tasto <Shift> in queste operazioni.
+
+Quando un tasto cursore è premuto per un breve momento, il cursore (o
+l'immagine) si sposta di una posizione nella direzione indicata. Tenendo
+premuto il tasto, il movimento del cursore (o dell'immagine) continua con
+brevi pause a ogni passo. La pausa tra due successivi movimenti può essere
+impostata nella sezione "Input" delle preferenze di sistema, come
+illustrato nella documentazione Amiga.
+
+Ogni volta che si preme brevemente un tasto cursore, tanto nella
+digitazione nei gadget testo quanto nel modo editazione testo, il cursore
+si sposta di un carattere alla volta nella direzione specificata. Occorre
+notare che il cursore non può essere spostato oltre la fine del testo.
+Tenendo premuto il tasto <Shift>, i tasti cursore spostano il cursore
+all'estrema posizione possibile nella direzione corrispondente.
+
+
+@{B}1.10.11    Il tasto <Tab>@{UB}
+
+Il tasto <Tab> (da @{I}tabulate@{UI} e @{I}tabulator@{UI}, termini che si riferiscono
+all'azione di incolonnamento) è quasi sempre contrassegnato da due frecce:
+una verso sinistra, l'altra verso destra, ma su alcune vecchie tastiere
+può essere caratterizzato dalla scritta "Tab".
+
+Se utilizzato nell'ambito dello strumento testo (editazione), ll tasto
+<Tab> posiziona il cursore alla successiva posizione di tabulazione
+(colonna il cui valore ordinale risulta multiplo di otto).
+
+
+@{B}1.10.12    Il tasto <Return>@{UB}
+
+Il tasto <Return> (sta per @{I}carriage return@{UI}, cioè "ritorno carrello") si
+trova a destra dei caratteri alfabetici. Il tasto <Enter> del tastierino
+numerico viene interpretato da Personal Paint in modo analogo al tasto
+<Return>, a meno che lo stesso non sia stato espressamente inserito in
+qualche abbreviazione da tastiera.
+
+Quando in un requester è presente il solo gadget "Va bene", il tasto
+<Return> può essere premuto per rimuovere il quadro.
+
+Se il requester contiene unicamente due gadget ("Procedere" e
+"Annullare"), la pressione del tasto <Return> equivale alla selezione del
+gadget "Procedere", mentre il tasto <Esc> corrisponde alla selezione di
+"Annullare".
+
+
+@{B}1.10.13    Il tasto <BS>@{UB}
+
+Il tasto <BS> (abbreviazione di @{I}backspace@{UI}, "spazio indietro") si trova in
+alto a destra rispetto ai tasti alfabetici. Nella maggior parte delle
+tastiere vi è disegnata una freccia verso sinistra.
+
+Nel modo editazione (oppure quando è attivo un gadget testo), la pressione
+del tasto <BS> provoca lo spostamento del cursore sul carattere
+precedente, che viene cancellato.
+
+
+@{B}1.10.14    Il tasto <Del>@{UB}
+
+Il tasto <Del> (abbreviazione di @{I}delete@{UI}, "cancellare") si trova alla
+destra del tasto <BS>.
+
+Premendo il tasto <Del> durante l'editazione del testo, (o quando è attivo
+un gadget testo), viene cancellato il carattere sotto al cursore. Il
+cursore rimane nella stessa posizione.
+
+Durante le operazioni grafiche, il tasto <Del> funge da interruttore per
+nascondere/visualizzare il puntatore del mouse (solo per i modi di disegno
+con puntatore "a croce").
+
+
+@{B}1.10.15    Il tasto <Help>@{UB}
+
+Il tasto <Help> si trova alla destra dei caratteri alfabetici.
+
+Questo tasto consente di attivare la tavolozza dei colori predefinita di
+Personal Paint. La funzione è disponibile anche quando sono attivi i
+requester richiamati dalle voci "Definire" e "Calibrare" del menu
+"Colori".
+
+
+@{B}1.10.16    Il tasto <Esc>@{UB}
+
+Il tasto <Esc>, in alto a sinistra nella tastiera, può essere utilizzato
+per uscire dal modo editazione testo (sezione @{"3.1.3.1" LINK PPaintCD:H/7/2/4/0017/Main 431}) o per eliminare un
+requester contenente uno o due soli gadget di scelta.
+
+Quando in un requester è presente il solo gadget "Va bene", il tasto <Esc>
+può essere premuto per rimuovere il requester (proprio come <Return>)..
+
+Se al requester sono associati unicamente i due gadget "Procedere" e
+"Annullare", la pressione del tasto <Esc> equivale alla selezione del
+gadget "Annullare", mentre il tasto <Return> corrisponde alla selezione
+del gadget "Procedere".
+
+
+@{B}1.10.17    Il tastierino numerico@{UB}
+
+Questa parte della tastiera riporta i simboli più utilizzati in un
+contesto numerico (simboli accessibili anche nella sezione principale
+della tastiera). Non tutti gli elaboratori Amiga sono forniti di
+tastierino numerico.
+
+Quando il numero di funzioni da assegnare ad abbreviazioni da tastiera
+cresce, trovare tasti "liberi" per l'occorrenza diventa sempre più
+difficile. Può, ad un certo punto, essere utile distinguere tra simboli
+identici riportati su diversi tasti della tastiera. Come spiegato nelle
+sezioni @{"1.9.6" LINK Main 769} e @{"1.14" LINK Main 1520}, i tasti che compongono il tastierino numerico
+(eccetto quelli appartenenti alla prima riga) possono essere gestiti in
+modo particolare.
+
+I tasti del tastierino con le cifre da 1 a 9, ad esempio, possono essere
+usati per selezionare velocemente uno dei nove pennelli personali
+disponibili in Personal Paint (sezione @{"3.1.1" LINK PPaintCD:H/7/2/4/0017/Main 42}).
+
+
+@{B}1.10.18    I tasti funzione@{UB}
+
+I tasti funzione sono i 10 tasti allineati sulla fila superiore della
+tastiera, sopra ai tasti alfabetici. I tasti sono numerati da <F1> a
+<F10>.
+
+In Personal Paint i tasti funzione vengono utilizzati per la selezione
+abbreviata di alcune funzioni del programma, come descritto nella sezione
+@{"1.14" LINK Main 1520} e nell'appendice @{"B" LINK PPaintCD:H/7/2/4/00Z2/Main 1}.
+
+Tenendo premuto il tasto <F1> all'avvio di Personal Paint, il programma si
+configura in modo @{I}risparmio memoria@{UI} (sezione @{"1.12" LINK Main 1318}).
+
+
+@{B}1.11       Variabili di programma e cassetti predefiniti@{UB}
+
+Le diverse funzioni del programma che accedono a dati su dispositivi
+periferici, qualora l'utente non specifichi diversamente, utilizzano
+percorsi predefiniti per le operazioni di lettura e scrittura. Il disco
+originale su cui si trova il programma Personal Paint, assieme ad altri
+file dati, ha il nome "PPaint". "PPaint" è quindi il nome del volume che
+appare all'inizio dei percorsi predefiniti di Personal Paint (v. anche
+sezione @{"1.5" LINK Main 317}). Il programma utilizza anche nomi di cassetti predefiniti,
+come "PPaint_Prefs" o "Pictures", per accedere a differenti tipi di dati.
+
+Come spiegato nella sezione @{"1.13" LINK Main 1458} (installazione di Personal Paint), il
+programma principale e gli altri file possono facilmente essere installati
+o spostati in un volume diverso da quello originale. Se i file del disco
+"PPaint" vengono spostati insieme, è sufficiente impartire un comando del
+tipo "Assign PPaint: NuovaPosizione". Se, ad esempio, Personal Paint viene
+installato nel cassetto "PPaint", nella partizione "Work" di un disco
+rigido, il comando sarà
+
+   @{B}Assign PPaint: DH0:PPaint@{UB}
+
+La sezione @{"1.5" LINK Main 317} ("I cassetti") spiega come creare nuovi cassetti. Il
+comando "Assign" andrebbe inserito nel file di comandi user-startup o
+posto all'inizio del file startup-sequence del disco con cui si avvia il
+sistema (ad es. il disco rigido). Il comando "Assign PPaint: ..." indica
+al sistema operativo di Amiga dove cercare i dati legati al nome "PPaint".
+La nuova posizione viene quindi identificata attraverso un nome di @{I}volume
+logico@{UI}, in contrapposizione a quello @{I}fisico@{UI}, generalmente associato al
+nome della unità. In questo modo è possibile accedere ai dati anche se
+questi non si trovano più sul disco chiamato "PPaint". Il comando "Assign"
+può fallire se impartito quando un volume (ad es. un disco) chiamato
+"PPaint" è in corso di utilizzazione (essendo stato utilizzato per il
+lancio iniziale del sistema, o attualmente inserito in un drive). Non è
+infatti possibile associare un nuovo percorso a un nome attualmente in
+uso. Un volume fisico ha sempre la priorità sull'eventuale volume logico
+con lo stesso nome. Ciò implica che se si è definito "PPaint" con il
+comando "Assign" e si inserisce in un drive un disco chiamato "PPaint",
+Personal Paint accede a quest'ultimo e non alla unità associata al nome
+logico.
+
+La sezione @{"10.1" LINK PPaintCD:H/7/2/4/0015/Main 9} spiega come usare il programma AskAssign per creare
+cassetti e assegnare nomi logici utilizzando il mouse, anziché il comando
+AmigaDOS "Assign". Le sezioni @{"1.12" LINK Main 1318} e @{"1.13" LINK Main 1458} descrivono rispettivamente la
+configurazione e l'installazione di Personal Paint.
+
+Il modo più semplice per installare Personal Paint, i relativi cassetti e
+file dati in una nuova unità è utilizzare il mouse. Tutti i file e i
+cassetti di Personal Paint sono dotati di icone. Spostare tali file in una
+nuova posizione è molto semplice, poiché equivale a spostare le loro icone
+con il mouse. È buona norma dedicare un disco o un cassetto apposito ai
+file e ai cassetti di Personal Paint. Su un disco rigido si può, ad
+esempio, utilizzare un cassetto chiamato "PPaint". Se si desidera copiare
+solo parte di un cassetto in una nuova posizione, occorre creare, in
+quest'ultima, un cassetto con lo stesso nome (come descritto nella sezione
+@{"1.5" LINK Main 317}) e copiarvi i file desiderati.
+
+Prima di attivare Personal Paint per la prima volta, dopo l'installazione
+in una nuova unità, occorre definire opportunamente l'unità logica
+"PPaint" con il comando "Assign", come spiegato all'inizio di questa
+sezione. A tale scopo, è possibile impartire il comando "Assign" da Shell
+o CLI, oppure riavviare il sistema da una unità la cui startup-sequence
+contenga l'opportuno comando "Assign".
+
+
+@{B}1.12       Configurazione e caricamento di Personal Paint@{UB}
+
+Prima di utilizzare il programma, è bene effettuare una copia dei dischi,
+da utilizzare al posto degli originali. Questa operazione è descritta
+nella sezione @{"1.6" LINK Main 355}.
+
+Al momento dell'attivazione di Personal Paint, il computer deve essere
+acceso e funzionante. Nel caso sia richiesto il disco Kickstart (per i
+calcolatori Amiga 1000), questo deve essere inserito nel drive 0. Il disco
+Workbench va inserito subito dopo. Personal Paint richiede che il
+calcolatore sia fornito della versione 1.2 o successiva del Kickstart. Il
+Workbench 1.3 (o superiore) contiene le altre librerie utilizzate dal
+programma. Non è indispensabile l'uso di ROM o Kickstart in versione 1.3.
+Il programma funziona anche in presenza di ROM o Kickstart 1.2 (ma
+Workbench 1.3, o superiore).
+
+Se il calcolatore dispone di una quantità sufficiente di RAM, Personal
+Paint può essere caricato da Workbench o da Shell, come spiegato nella
+documentazione Amiga. Selezionando da Workbench l'icona di Personal Paint,
+o impartendo il comando "PPaint" da Shell, il programma viene caricato e
+attivato. Se il calcolatore dispone di una quantità di RAM chip inferiore
+a 1 Mbyte, al fine di risparmiare memoria il programma chiude
+automaticamente lo schermo Workbench (questo viene riaperto al termine del
+programma, oppure manualmente, come spiegato nella sezione @{"9.15" LINK PPaintCD:H/7/2/4/0047/Main 973}).
+
+Il caricamento del programma avviene anche in seguito alla selezione (con
+un doppio click del pulsante sinistro del mouse) dell'icona di una
+immagine o di un file dati memorizzati da Personal Paint. In tal caso, il
+programma carica anche i dati selezionati (un'immagine, un'animazione, un
+pennello, ecc.)
+
+La sintassi per l'esecuzione di Personal Paint da Shell è la seguente (le
+parentesi quadre indicano la possibilità di specificare il nome di un file
+immagine come parametro opzionale):
+
+   @{B}PPaint [nome file dati]@{UB}
+
+Se il programma viene lanciato da Shell, la relativa finestra può essere
+chiusa (con il comando "EndCLI", o "Exit") solo dopo il termine del
+programma. Ciò può essere evitato (cioè la finestra Shell o CLI può essere
+chiusa durante l'esecuzione di Personal Paint) eseguendo il programma con
+il seguente comando:
+
+   @{B}Run >NIL: <NIL: PPaint >NIL: <NIL: [nome file dati]@{UB}
+
+Se si verifica un errore nella inizializzazione del programma,
+quest'ultimo termina ritornando un codice di errore. Segue un elenco dei
+codici di errore di Personal Paint.
+
+   @{B}Codice    Significato@{UB}
+
+   21        "Intuition.library" non apribile
+   22        "Icon.library" non apribile
+   23        "DiskFont.library" non apribile
+   24        "Graphic.library" non apribile
+   25        "Layers.library" non apribile
+   26        Schermo non apribile
+   27        Memoria insufficiente per l'inizializzazione
+   28        Finestra principale non apribile
+
+L'appendice @{"A" LINK PPaintCD:H/7/2/4/0045/Main 1} contiene un elenco dettagliato dei messaggi del
+programma.
+
+Seguono alcuni suggerimenti che possono essere di aiuto per ridurre il
+consumo di memoria durante l'uso di Personal Paint, specialmente se il
+calcolatore non dispone di almeno 1 Mbyte di memoria chip.
+
+Per risparmiare memoria, la sequenza di avvio deve essere interrotta prima
+possibile premendo la combinazione di tasti <Ctrl>+<D>. Se il programma
+Workbench non è stato ancora caricato (cioè se nessuna icona appare sotto
+la finestra CLI quando questa viene rimpicciolita col mouse), ciò deve
+essere fatto impartendo il comando "LoadWb". La finestra deve essere
+quindi chiusa con il comando "EndCLI" (tali comandi possono anche essere
+scritti con lettere minuscole). Occorre quindi visualizzare il contenuto
+del disco "PPaint" (un doppio click quando il puntatore si trova sulla sua
+icona) ed eseguire il programma (agendo nello stesso modo sulla sua
+icona). Non appena il puntatore del mouse riacquista l'aspetto di una
+freccia (dopo la fase di attesa), la finestra contenente l'icona del
+programma deve essere chiusa, selezionando il gadget di chiusura in alto a
+sinistra. Ciò richiede una pronta reazione da parte dell'utente, ma in
+questo modo è possibile liberare ulteriore, preziosa memoria. Allo stesso
+scopo, Personal Paint chiuderà automaticamente lo schermo Workbench. La
+procedura descritta permette di utilizzare Personal Paint nelle migliori
+condizioni possibili, anche su sistemi dotati di poca memoria. Il
+programma può operare correttamente anche se viene caricato senza seguire
+la suddetta procedura. Quando però la memoria è così preziosa, è sempre
+preferibile lasciarne libera quanta più possibile per il programma.
+
+Il modo risparmio memoria può essere attivato manualmente, su tutti i
+sistemi Amiga, tenendo premuto il tasto <F1> durante la fase di
+inizializzazione, subito dopo il caricamento del programma.
+
+Nella fase di inizializzazione, Personal Paint tenta di leggere i file
+"Startup_1.set" e "Startup_2.set", nel cassetto "PPaint:PPaint_Prefs", per
+determinare i suoi parametri iniziali. Se questi file non esistono, o se
+non è possibile accedervi, o se contengono valori illegali, il programma
+utilizza i parametri predefiniti. Oltre a questi, il programma legge anche
+il file a priorità più bassa "Startup_A.set" e i vari "UIColors", che
+contengono rispettivamente informazioni sulla lingua e sui colori
+utilizzati dall'interfaccia utente.
+
+Il disco contenente il programma Personal Paint non è utilizzabile per
+l'avvio del calcolatore (disco Workbench). L'ampia diffusione di nuove e
+diverse versioni del sistema operativo di Amiga per diversi modelli di
+calcolatore rende poco pratico l'uso del Workbench 1.3 come denominatore
+comune per l'avvio di tutti i sistemi. Lo spazio precedentemente occupato
+dai file del Workbench è stato utilizzato per trasferire sul disco
+principale tutti i cassetti prima presenti sul secondo disco. Eventuali
+dischi aggiuntivi possono ancora far parte del pacchetto Personal Paint e
+contenere immagini, animazioni e altri dati. La procedura di installazione
+può ora copiare questi file su disco rigido, se richiesto.
+
+Personal Paint è in grado di gestire un'icona-applicativo (@{I}Drag and Drop@{UI}).
+Quando il programma viene attivato su un calcolatore dotato almeno della
+versione 2.0 del sistema operativo, una piccola icona "PPaint"
+(icona-applicativo) appare nello schermo Workbench (il testo al di sotto
+dell'icona indica anche il nome della porta Arexx di Personal Paint). Il
+programma legge automaticamente qualsiasi immagine o animazione la cui
+icona venga trascinata sull'icona-applicativo. Se si tiene premuto il
+tasto <Shift> quando si trascina l'icona di un'animazione, questa viene
+solo visualizzata (e non caricata in memoria). Un doppio click
+sull'icona-applicativo porta avanti lo schermo di Personal Paint.
+
+Il cassetto "PPaint:PPaint_Icons" contiene nuove icone predefinite,
+modificabili dall'utente: "def_AppIcon", "def_Drawer", "def_Animation" e
+"def_AnimBrush".
+
+Il percorso predefinito per la memorizzazione di file parametri è
+"PPaint:PPaint_Prefs", ma Personal Paint all'avvio cerca i file parametri
+anche nel cassetto "ENV:PPaint" (se esiste). Gli eventuali file presenti
+in "ENV:PPaint" hanno la precedenza su quelli memorizzati in
+"PPaint:PPaint_Prefs".
+
+L'uso delle variabili di ambiente Amiga è particolarmente utile quando non
+è possibile scrivere sul supporto di memorizzazione del programma, ad
+esempio se Personal Paint viene avviato da CD-ROM. In tal caso, per
+rendere permanenti le modifiche apportate ai parametri del programma,
+questi vanno memorizzati nel cassetto "ENVARC:PPaint".
+
+
+@{B}1.13       Installazione di Personal Paint@{UB}
+
+Questa sezione spiega come integrare Personal Paint nel sistema hardware e
+software in cui il programma deve essere utilizzato. Vengono di seguito
+fornite tutte le informazioni necessarie a installare Personal Paint su un
+supporto diverso da quello originale. In particolare, la sottosezione
+seguente illustra l'utilizzo del programma "InstallPPaint", il quale copia
+automaticamente tutti i file necessari al funzionamento di Personal Paint
+in una destinazione scelta dall'utente.
+
+Quando Personal Paint viene trasferito in una nuova unità di
+memorizzazione (ad es. un disco), è necessario copiare sul nuovo supporto
+anche alcuni file di dati. Personal Paint non è in grado di funzionare in
+assenza dei seguenti file:
+
+   PPaint:PPaint
+   PPaint:PPaint_Prefs/UIGraphics.pic
+   PPaint:PPaint_Prefs/UIText.@{I}xxx@{UI}
+   PPaint:libs/personal_ilbm_io.library
+   PPaint:libs/personal_agnus_blit.library
+   PPaint:fonts/Personal.font, or FONTS:Personal.font
+   PPaint:fonts/Personal/8, or FONTS:Personal/8
+
+I seguenti file sono invece richiesti solo per svolgere determinate
+operazioni (PPaint è in grado di funzionare anche se non riesce ad
+accedervi):
+
+   PPaint:PPaint_Prefs/UIColors.@{I}num@{UI}
+   PPaint:PPaint_Prefs/Startup_@{I}x@{UI}.set
+   PPaint:libs/personal_@{I}nomelibreria@{UI}.library
+   PPaint:Rexx/@{I}Nomescript@{UI}.pprx
+   PPaint:PPaint_Icons/def_@{I}nomeicona@{UI}
+   PPaint:PPaint_PS
+   PPaint:PPView
+   CloantoAudio (radice dell'unità), o DEVS:CloantoAudio
+
+Se Personal Paint non è in grado di trovare i file opzionali, il programma
+viene caricato correttamente, ma alcune funzioni (gestione PostScript,
+audio, memorizzazione delle icone dei file, ecc.) rimangono inattive fino
+a che non è possibile accedere ai rispettivi file.
+
+La sezione @{"1.11" LINK Main 1254} descrive come informare il sistema e Personal Paint
+(tramite Assign) di uno spostamento del programma e degli altri cassetti e
+file in un nuovo disco o cassetto.
+
+Personal Paint e tutto il materiale di supporto (immagini, font e file
+dati) eccedono la capacità di memorizzazione di un singolo disco Amiga da
+880 Kbyte. Per questa ragione alcuni cassetti compaiono sia nel disco
+programma (cioè il disco in cui si trova Personal Paint) sia in uno o più
+dischi dati, mentre altri cassetti non sono presenti nel disco programma.
+Se Personal Paint viene installato su un supporto ad alta capacità, può
+essere utile fondere in un unico cassetto il contenuto di più cassetti
+omonimi provenienti da dischi diversi.
+
+
+@{B}1.13.1     Installazione automatica: InstallPPaint@{UB}
+
+Viene usato il programma di installazione "Installer" del sistema Amiga,
+nell'ambito del quale sono disponibili diverse informazioni di aiuto sulle
+singole operazioni (premendo il tasto <Help>).
+
+
+@{B}1.14       I file esterni dell'interfaccia utente@{UB}
+
+Alla partenza, Personal Paint verifica che all'interno del cassetto
+"PPaint:PPaint_Prefs" ci siano alcuni file contenenti i testi
+dell'interfaccia utente, i colori della stessa e la configurazione dei due
+ambienti.
+
+I file in questione sono: UIText.@{I}xxx@{UI}, UIColors@{I}.num@{UI} e Startup_@{I}x@{UI}.set. Il
+suffisso che segue "UIText" indica la lingua alla quale i testi e le
+abbreviazioni si riferiscono ("eng", "deu", "ita", "custom", ecc.) Il
+numero che segue "UIColors" indica, invece, la risoluzione della tavolozza
+colori del modo video cui il file si riferisce (4 = VGA a 4 bit, 12 = chip
+originali, 24 = chip avanzati, ecc.) Generalmente, la risoluzione di 12
+bit è adatta alla maggior parte dei modi video, fatta eccezione per i modi
+A2024 ed ECS a 64 colori.
+
+I file "UIColors" contengono una immagine in formato IFF che facilita la
+personalizzazione dei colori di Personal Paint. Da tali file, all'avvio
+del programma, vengono caricate e utilizzate soltanto le informazioni
+riguardanti i colori. Per questa ragione (e per risparmiare spazio su
+disco), i file possono essere memorizzati con l'opzione "Scrivere
+Tavolozza" (sezione @{"8.1.2" LINK PPaintCD:H/7/2/4/0016/Main 74}). In alternativa, si consiglia di salvare i
+file sotto forma di pennelli, così da non eccedere la lunghezza dei file
+originali. I file "UIColors" devono comunque essere salvati in formato
+IFF-ILBM.
+
+I file "Startup_1.set" e "Startup_2.set" contengono i parametri di ognuno
+dei due ambienti disponibili in Personal Paint. Il file Startup_A.set,
+creato dalla procedura di configurazione automatica, contiene informazioni
+sulla lingua impostata (tale dato determina, tra l'altro, la lettura
+dell'opportuno file "UIText"). I file vengono caricati nel seguente
+ordine: Startup_A, Startup_1 e Startup_2. Se un parametro relativo al
+programma (e non all'ambiente) compare in più di un file, prevale l'ultimo
+valore incontrato.
+
+La sezione @{"1.9.5" LINK Main 743} descrive come modificare il disegno delle icone create
+da Personal Paint.
+
+Per sperimentare nuove varianti dell'interfaccia utente non bisognerebbe
+utilizzare i dischi originali di Personal Paint, ma una copia degli stessi
+(sezione @{"1.6" LINK Main 355}). Visto che il disco contenente Personal Paint è pressoché
+pieno, può essere necessario cancellare alcuni file inutili (ad es. i
+programmi di gestione della stampante non necessari), prima di memorizzare
+i file parametri personali. Gli utenti non esperti del sistema Amiga
+debbono prestare particolare attenzione, tanto nel decidere quali file
+possono essere cancellati o sovrascritti, quanto nel modificare
+l'interfaccia utente di Personal Paint.
+
+Tutti gli elementi grafici dell'interfaccia utente (immagini degli
+strumenti, dei gadget, ecc.) sono memorizzati nel file "UIGraphics.pic"
+(nel cassetto "PPaint_Prefs"). Questo file può essere editato e modificato
+secondo i gusti e le esigenze dell'utente.
+
+Il file può essere memorizzato in formato PNG per ridurre l'occupazione di
+memoria su disco. In seguito all'installazione su disco rigido, è
+possibile ridurre i tempi di avvio del programma leggendo come pennello e
+rimemorizzando il file in questione in formato IFF-ILBM.
+
+I testi dell'interfaccia utente sono visualizzati nei menu, nei gadget,
+nei requester e in altri messaggi. La quasi totalità di questi testi è
+memorizzata in particolari file nel disco che contiene Personal Paint. Il
+file dei testi predefinito viene caricato automaticamente da Personal
+Paint. In ogni momento, tuttavia, possono essere selezionati e caricati
+altri file testi, come spiegato nella sezione @{"9.11" LINK PPaintCD:H/7/2/4/0047/Main 721}. È interessante notare
+che tali file possono essere caricati, modificati e salvati utilizzando un
+editor di testi o un programma di videoscrittura (ad es. con il comando
+"Aprire documento" di Personal Write). Qualora ci si avvalga di
+quest'ultimo programma, i parametri "Passo TAB" e "TAB nel file in uscita"
+devono essere impostati rispettivamente ai valori "8" e "SÌ"; il parametro
+"Copia di sicurezza" andrebbe, inoltre, disattivato se si memorizza il
+file su un disco quasi pieno.
+
+Per creare un file con nuovi testi per l'interfaccia utente, è necessario
+seguire alcune importanti regole. Il modo più semplice di procedere è
+usare come punto di partenza un file preesistente. Come sopra specificato,
+il file va memorizzato come testo ASCII, senza sequenze di controllo. I
+caratteri TAB che separano i codici di selezione abbreviata dai testi
+delle relative voci menu @{U}non@{UU} devono essere eliminati. Ogni linea del file
+può essere composta in uno dei modi seguenti:
+
+   una o più stringhe di testo separate tra loro da un carattere TAB
+   un commento (iniziante con il carattere ";")
+   una o più stringhe seguite da un commento
+   una linea vuota (usata come separatore ottico)
+
+Eventuali caratteri TAB all'inizio della linea vengono ignorati. I
+commenti sono introdotti dal carattere ";" (codice decimale ASCII 59) e
+terminano alla fine della linea. Ogni linea (compresa l'ultima) deve
+terminare con un carattere LF (Line Feed, codice decimale ASCII 10).
+
+Dopo ogni voce menu è possibile specificare un codice, delimitato dai
+caratteri "<" e ">" (minore e maggiore) e separato dal testo da uno o più
+TAB, per definire un'abbreviazione da tastiera. Questi codici vanno
+espressi nel formato <Qualificatore-Tasto> (il campo @{I}Qualificatore@{UI} è
+opzionale). I qualificatori riconosciuti dal programma sono: "Shift",
+"Alt", "Ctrl", "Amiga" e "Num" (tastierino numerico). I codici "Left",
+"Right", "Up" e "Down" sono invece utilizzati per indicare i quattro tasti
+cursore (rispettivamente a sinistra, a destra, in alto e in basso). Altri
+codici riconosciuti sono "SP" (spazio), "Tab", "BS" (BackSpace), "Del",
+"Help", "Esc" e da "F1" a "F10" (i 10 tasti funzione).
+
+Ad esempio, il testo "<Shift-Up>" seguente una voce menu (nel file
+UIText.@{I}xxx@{UI}) significa: "questo comando può essere eseguito premendo il
+tasto <Cursore Su> mentre è premuto il tasto <Shift>".
+
+Alla fine del file è riportato l'elenco dei codici di selezione abbreviata
+associati a funzioni non richiamabili da menu.
+
+Il carattere di sottolineatura può essere usato nelle sezioni TXW (testi
+finestre) e TXG (testi gadget): il carattere seguente verrà sottolineato e
+utilizzato come selezione abbreviata, secondo le convenzioni
+dell'interfaccia utente di Amiga. I gadget che possono avvalersi di questa
+nuova funzione sono: i gadget ciclanti, proporzionali, di controllo e di
+azione (ad es. "_OK") e le liste scorrevoli.
+
+Il carattere di sottolineatura viene usato anche per indicare il modo in
+cui abbreviare il titolo di un menu (ciò può essere necessario in schermi
+a bassa risoluzione). Ad esempio il programma può abbreviare "Anim_azione"
+in "Anim.", se lo spazio disponibile lo richiede; in condizioni normali,
+invece, il testo visualizzato è "Animazione".
+
+I testi dovrebbero essere ideati e collaudati in modo che tanto i menu
+quanto i requester possano essere visualizzati correttamente anche su
+schermi in bassa risoluzione (320 pixel × 200 linee). I testi dei messaggi
+(sezione del file contrassegnata dalla sigla "TMS") che eccedono il limite
+orizzontale possono essere divisi con l'inserimento del carattere di
+sottolineatura ("_"). Quando Personal Paint visualizza uno di questi
+messaggi, il carattere in questione viene sostituito da uno spazio o,
+qualora necessario, viene interpretato come segno di a-capo per
+suddividere il testo in più righe.
+
+I file testo dell'interfaccia utente contengono un numero di versione.
+Questo viene letto da Personal Paint per una verifica di validità e
+normalmente non deve essere modificato.
+
+Quando viene caricato un file con nuovi testi per l'interfaccia utente
+(sezione @{"9.11" LINK PPaintCD:H/7/2/4/0047/Main 721}), Personal Paint effettua alcuni controlli sulla lunghezza
+dei testi e indica con appropriati messaggi i testi troppo lunghi e quelli
+che devono essere spezzati. Nonostante ciò sia molto utile per verificare
+la modifiche apportate, si può avere una garanzia di correttezza del file
+solo visualizzando manualmente tutti i menu e i requester del programma.
+
+Il codice <Shift> non deve essere utilizzato come qualificatore per quei
+simboli che possiedono già una rappresentazione maiuscola. La combinazione
+<Shift-a>, ad esempio, non è corretta, in quanto espressione impropria del
+codice <A>; ugualmente scorretta è l'espressione <Shift-&>, visto che il
+carattere "&" non può essere ottenuto sia con che senza la pressione del
+tasto <Shift>. Ai comandi da utilizzare nell'ambito dell'editazione testo
+andrebbero associati esclusivamente codici relativi a tasti funzione e/o
+contrassegnati dal qualificatore <Amiga>: cio è necessario in quanto
+codici differenti potrebbero essere interpretati come caratteri da
+scrivere, anziché comandi da eseguire.
+
+Nelle selezioni abbreviate, le lettere minuscole hanno significato diverso
+dalle maiuscole se associate a gadget ciclanti, proporzionali o a liste
+scorrevoli. Il carattere minuscolo fa "avanzare" lo stato del gadget,
+mentre quello maiuscolo lo fa "arretrare". Per i restanti tipi di gadget
+non viene fatta alcuna differenza tra lettere maiuscole e minuscole.
+
+Occorre evitare usi ripetuti dello stesso codice di selezione abbreviata,
+sia per funzioni del programma che per voci menu. I tasti <Ctrl> e <Alt>
+possiedono particolari significati, sia nell'ambito della funzione Copiare
+Schermo che in combinazione con il pulsante sinistro del mouse: tali
+caratteristiche interne non possono essere modificate.
+
+Quando si apportano solo modifiche marginali ad un file "UIText.@{I}xxx@{UI}" (se,
+ad esempio, si ridefinisce solo qualche abbreviazione da tastiera), il
+nome originale del file può essere mantenuto, sovrascrivendone, così, la
+versione originale (è bene comunque mantenere una copia di sicurezza del
+file). Se invece è stata creata una versione completamente nuova, è
+consigliabile fornire la stessa del suffisso "custom" (personale).
+
+@ENDNODE

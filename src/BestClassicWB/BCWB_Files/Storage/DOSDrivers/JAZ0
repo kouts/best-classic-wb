@@ -1,0 +1,29 @@
+/*$VER: JAZ0 40.1 (31.8.93)
+ *
+ * This file enables FastFileSystem on a 1G Jaz cartridge.
+ */
+
+FileSystem = L:FastFileSystem
+Flags = 0
+Surfaces = 2
+BlocksPerTrack = 65
+SectorsPerBlock = 1
+SectorSize = 512
+Mask = 0x7FFFFFFF
+MaxTransfer = 0x7FFFFFFF
+Reserved = 2 /* !NOTE! this value can vary for non-Amiga disks */
+Interleave = 0
+LowCyl = 0
+HighCyl = 16084
+Buffers = 512
+BufMemType = 0
+StackSize = 600
+Priority = 10
+GlobVec = -1
+DosType = 0x444F5301
+
+/* The Device and Unit fields are controlled by tooltypes in the JAZ0 icon.
+ *
+ * Device = scsi.device
+ * Unit = 5
+ */

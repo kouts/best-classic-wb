@@ -1,0 +1,251 @@
+<HTML>
+<HEAD>
+<TITLE>Snooping</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: snoop.html 1.7 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Snooping</h3>
+<h4>Qu'est ce c'est ?</h4>
+Snooping est une caract&eacute;ristique de WHDLoad qui enregistre tous les acc&egrave;s CPU
+aux registres sp&eacute;cialis&eacute;s (Custom).
+Si <a href="opt.html#Snoop">Snoop</a> est activ&eacute;, tous les acc&egrave;s invalides aux
+registres Custom cr&eacute;eront un Access Fault et le programme install&eacute; sera termin&eacute;.
+
+WHDLoad affichera une fenêtre de requête expliquant les raisons de la faute.
+<h4>Les registres Custom</h4>Tous les accès en lecture et écriture aux registres Custom
+sont vérifiés.
+Les acc&egrave;s invalides sont:
+<ul>
+<li>acc&egrave;s aux registres non-existants
+<li>acc&egrave;s en lecture aux registres Write Only
+<li>acc&egrave;s en &eacute;criture aux registres Read Only
+<li>acc&egrave;s aux registres Early Read
+<li>acc&egrave;s par un octet en &eacute;criture (&agrave; l'exception de <tt>bltcon0l</tt> et <tt>aud*vol+1</tt>)
+</ul>
+Les registres Strobe peuvent &ecirc;tre lus et &eacute;crits. La validit&eacute; des registres Custom
+varient en fonction des Amigas OCS (Old ChipSet - A500, A1000, ancien A2000),
+ECS (Enhanced ChipSet - A600, r&eacute;cent A2000, A3000) et AGA (Advanced Graphics - A1200, A4000).
+Ceci est utile pour localiser les bugs dans les anciens programmes qui causent des acc&egrave;s
+ind&eacute;finis aux nouveaux registres AGA.
+
+<p>En utilisant la fonction <a
+href="../autodoc.html#resload_Control">resload_Control</a> et les drapeaux <a
+href="../autodoc.html#WHDLTAG_CUST">WHDLTAG_CUST_DISABLE/READ/STROBE/WRITE</a>,
+la configuration interne de WHDLoad dont les registres sont en mode lecture/écriture
+peuvent être modifiés. Les accès invalides peuvent être ignorés ou les accès valides
+peuvent être détectés. Cette fonction doit seulement être utilisée au cours du
+développement, et non pour une version publique du slave.
+
+<h4>Les registres CIA</h4>Les accès des registres CIA sont seulement vérifiés en écriture.
+Ceci implique que les accès en lecture à des registres inexistants compris dans la zone de mémoire
+entre $bfd000...$bfefff ne seront pas détectés. Pour tous les accès en écriture, les valeurs
+seront enregistrées en interne par WHDLoad. Pour quelques registres CIA, il y a des vérifications
+spéciales dépendant de la valeur écrite:
+
+<p><table border=1 summary="table des registres cia">
+<tr>
+	<th>adresse</th>
+	<th>registre</th>
+	<th>vérification</th>
+</tr><tr>
+	<td>$bfe001</td>
+	<td>ciaa.ciapra</td>
+	<td>mettre à 1 le bit #0 Overlay est interdit</td>
+</tr><tr>
+	<td>$bfe201</td>
+	<td>ciaa.ciaddra</td>
+	<td>les bits #6-7 peuvent avoir une valeur quelconque (utilisés pour le joypad), les bits inférieurs doivent
+	contenir %000011</td>
+</tr><tr>
+	<td>$bfe801</td>
+	<td>ciaa.ciatodlow</td>
+	<td rowspan=3>les accès en read-modify-write (ex. bchg) ne sont pas permis
+	si le bit ALARM est mis à 1 dans ciaa.ciacrb (seulement vérifié sur 68060)</td>
+</tr><tr>
+	<td>$bfe901</td>
+	<td>ciaa.ciatodmid</td>
+</tr><tr>
+	<td>$bfea01</td>
+	<td>ciaa.ciatodhi</td>
+</tr><tr>
+	<td>$bfed01</td>
+	<td>ciaa.ciaicr</td>
+	<td>les accès en read-modify-write (ex. bchg) ne sont pas permis (seulement
+	vérifié sur 68060)</td>
+</tr><tr>
+	<td>$bfd100</td>
+	<td>ciab.ciaprb</td>
+	<td>les bits pour MOTOR #7, SELECT #3-6 and STEP #0 doivent pas être mis à 0,
+	les autres bits peuvent être changés; comme ceci tout accès au lecteur de disquette sera
+	détecté</td>
+</tr><tr>
+	<td>$bfd200</td>
+	<td>ciab.ciaddra</td>
+	<td>la valeur écrite doit être %11000000</td>
+</tr><tr>
+	<td>$bfd300</td>
+	<td>ciab.ciaddrb</td>
+	<td>la valeur écrite doit être %11111111</td>
+</tr><tr>
+	<td>$bfd800</td>
+	<td>ciab.ciatodlow</td>
+	<td rowspan=3>les accès read-modify-write (ex. bchg) ne sont pas permis
+	si le bit ALARM est mis à 1 dans ciab.ciacrb (seulement vérifié sur 68060)</td>
+</tr><tr>
+	<td>$bfd900</td>
+	<td>ciab.ciatodmid</td>
+</tr><tr>
+	<td>$bfda00</td>
+	<td>ciab.ciatodhi</td>
+</tr><tr>
+	<td>$bfdd00</td>
+	<td>ciab.ciaicr</td>
+	<td>les accès read-modify-write (ex. bchg) ne sont pas permis (seulement vérifié sur
+	68060)</td>
+</tr></table>
+
+<h4>Comment &ccedil;a marche</h4>
+Si Snoop est activ&eacute;, WHDLoad marque les adresses des registres Custom comme invalide/protégé en écriture
+dans l'arbre de traduction MMU. Donc chaque acc&egrave;s &agrave; un registre Custom aura comme
+r&eacute;sultat un Access Fault exception. Cette exception sera prise en main par WHDLoad.
+D'abord, il v&eacute;rifie que l'acc&egrave;s est valide. Si l'acc&egrave;s est invalide le programme
+sera termin&eacute;. Si l'acc&egrave;s est valide et que c'est un acc&egrave;s en lecture, il sera
+&eacute;mul&eacute; et l'ex&eacute;cution du programme continuera. Si c'est un acc&egrave;s en &eacute;criture,
+WHDLoad sauvegarde la valeur qui devait &ecirc;tre &eacute;crite avant l'&eacute;mulation.
+<br>Le programme ex&eacute;cut&eacute; sera ralenti car les exceptions et l'émulation prennent
+le dessus. Le ralentissement d&eacute;pend du type de CPU, du type de m&eacute;moire chip
+(16/32 Bit), de l'alignement du pointeur de la pile, si la m&eacute;moire chip est
+32 Bit (LongWord align&eacute; ou non). Cela diff&egrave;re aussi suivant le type d'acc&egrave;s
+(Byte/Word/LongWord, Read/Write). Sur le 68030, l'Ecriture est plus rapide
+que la Lecture (car pour la lecture, le stackframe est de 92 octets, pour
+l'&eacute;criture, 32 octets), pour le 68060, la Lecture est plus rapide parce que
+l'&eacute;mulation pour l'&eacute;criture est plus complexe.
+<h4>Le mode Fast Snoop</h4>
+L'option Snoop/S active le Snooping rapide. Les acc&egrave;s &agrave; la lecture ne seront
+pas v&eacute;rifi&eacute;s. Aucune vérification sp&eacute;ciale ne sera effectu&eacute;e. Ce mode est utile
+seulement pour recueillir les informations contenues dans les registres
+Custom, ex. pour capturer l'image de l'&eacute;cran en utilisant <a
+href="sp.html">SP</a>.
+<h4>Le scanner de la Copper-Liste</h4>
+Depuis la version 13 de WHDLoad, les copper-listes sont aussi v&eacute;rifi&eacute;es.
+Le scanner sera activ&eacute; en acc&egrave;s &eacute;criture aux registres <tt>coplc</tt>, si le
+copper dma est activ&eacute;, ou quand le programme install&eacute; active le copper dma
+en inscrivant dans le registre <tt>dmacon</tt>. Le scanner suit les copper-listes
+et valide toutes les instructions Move en appliquant les restrictions caus&eacute;es par
+l'option Snoop (OCS/ECS/AGA). Les instructions Skip et Wait (sauf CEND) seront
+ignor&eacute;es. Quand il trouve des entr&eacute;es invalides, le programme install&eacute; sera
+termin&eacute;. Le scanner suit les branches (<tt>copjmp</tt>), d&eacute;tecte les boucles et
+v&eacute;rifie jusqu'&agrave; 16 sous-listes. Les Moves dans les copper-listes seront sauvegard&eacute;s
+dans le fichier interne de stockage des registres Custom cr&eacute;&eacute; par WHDLoad quand il sera
+quitt&eacute;. Le scanner est inactif dans le mode Fast Snoop.
+
+<h4>Vérification des pointeurs audio</h4>
+Quand cette option <a href="opt.html#ChkAudPt">ChkAudPt/S</a> est activée, WHDLoad
+vérifiera que le programme installé écrira seulement des adresses valides dans
+les registres Custom des pointeurs DMA audio. Valide signifie que le pointeur doit
+se trouver dans la BaseMem et être différent de 0 (zéro). Ces vérifications sont faites
+uniquement pour des accès en mots longs Pour des mots, il n'y aura pas de contrôle.
+Cette option peut être utile pour localiser certains problèmes dans les replay routines
+audio.
+
+<h4>V&eacute;rification de la priorit&eacute; du Blitter</h4>
+Quand l'option <a href="opt.html#ChkBltHog">ChkBltHog/S</a> est activ&eacute;, WHDLoad v&eacute;rifiera que le programme install&eacute;
+n'active pas le bit BltHog en inscrivant dans le registre <tt>dmacon</tt>.
+La priorit&eacute; du Blitter peut causer des probl&egrave;mes sur certain mat&eacute;riel
+en conjonction avec de larges op&eacute;rations Blitter (tous canaux utilis&eacute;s).
+<h4>V&eacute;rification de la taille du Blitter</h4>
+Quand l'option ChkBltSize/S est activ&eacute;, WHDLoad v&eacute;rifiera que le travail
+du Blitter n'acc&egrave;de pas &agrave; la m&eacute;moire en dehors de la BaseMem. Pour les acc&egrave;s
+en &eacute;criture &agrave; <tt>bltsize</tt> or <tt>bltsizh</tt>, il v&eacute;rifiera si le mode ligne
+est activ&eacute; dans <tt>bltcon1</tt>. Si le mode ligne est activ&eacute;, il annulera
+la v&eacute;rification de la taille. Autrement WHDload calculera le premier et le dernier
+mot d'acc&egrave;s pour chaque canal DMA activ&eacute;. Si une adresse est en dehors de la BaseMem,
+le programme sera termin&eacute; par un message. Le calcul a &eacute;t&eacute; con&ccedil;u pour fonctionner avec
+tous les modes (montant/descendant, modulos positive/n&eacute;gative, modulos/pointeur
+impairs).
+<br>Attention: le mode "line drawing" ne sera pas v&eacute;rifi&eacute; et tous
+les registres du blitter peuvent aussi &ecirc;tre inscrits par le copper, si
+<tt>copcon</tt> est activ&eacute;.
+<h4>V&eacute;rification du Blitter Wait</h4>
+Quand l'option <a href="opt.html#ChkBltHog">ChkBltHog/S</a> est activ&eacute;, WHDLoad utilisera une instruction trace
+pour v&eacute;rifier que le programme install&eacute; attend correctement que le blitter ait
+fini son travail avant d'en commencer un autre. Une variable interne sera utilis&eacute;e,
+elle repr&eacute;sente l'&eacute;tat de marche du Blitter. La variable est activ&eacute;e s'il se
+produit un acc&egrave;s en &eacute;criture dans <tt>bltsize</tt> ou <tt>bltsizh</tt> et
+effac&eacute;e quand il y a un acc&egrave;s en lecture dans <tt>dmaconr</tt>. A chaque &eacute;criture
+dans le  registre du Blitter, la valeur de la variable interne est v&eacute;rifi&eacute;e,
+si l'&eacute;tat est un travail du Blitter, le programme install&eacute; sera termin&eacute; et
+WHDLoad rapportera la ligne de code du dernier travail du Blitter et l'acc&egrave;s actuel.
+<br>Il y a 2 goulets majeurs. Le premier est l'utilisation du Blitter via
+le copper ne sera pas v&eacute;rifi&eacute;e et le second est l'emploi des interruptions
+du Blitter qui provoquera des erreurs superflues dans la routine de v&eacute;rification.
+
+<h4>Vérification de Color Burst</h4>
+Quand cette option <a href="opt.html#ChkColBst">ChkColBst/S</a> est activée, WHDLoad
+vérifiera pour chaque écriture au registre <code>custom.bplcon0</code> que le bit
+<code>color</code> est mis à l'état 1. Certains hardware, spécialement les flickerfixers, requièrent
+que le bit soit mis à 1 pour l'activation de la sortie du signal vidéo. Pour de meilleurs
+compatibilités, ce bit doit toujours être activé. Les vérifications sont effectués
+en écriture directe dans <code>custom.bplcon0</code> et dans les copper-listes. 
+
+<h4>Vérification du contrôle du Copper</h4>
+Quand l'option <a href="opt.html#ChkCopCon">ChkCopCon/S</a> est activée, WHDLoad
+vérifie pour chaque écriture au registre <code>custom.copcon</code> que le bit #1
+soit mis à 1. Ce bit permet au Copper qu'il puisse accéder aux registres du Blitter
+en écriture. Ceci peut être parfois utile afin de détecter si le programme installé
+utilise le Copper pour contrôler des opérations DMA.
+
+<h4>Futur</h4>
+L'impl&eacute;mentation des caract&eacute;ristiques comme le Freezing et
+l'Iconifing est en projet.
+Pour cela, Snoop est primordial. Par cons&eacute;quent, il est recommand&eacute;
+aux auteurs d'installs de v&eacute;rifier leurs installs avec l'option Snoop pour garantir
+une compatibilit&eacute; future.
+<h4>Ce que vous avez besoin</h4>
+Un MMU est n&eacute;cessaire pour utiliser les options Snoop. Ainsi WHDLoad doit
+<a href="mmu.html#usercontrol">utiliser</a> le MMU, par cons&eacute;quent l'option <a
+href="opt.html#MMU">MMU/S</a> doit &ecirc;tre activ&eacute;e sur les machines &agrave; base 68030.
+<h4>Limitations</h4>
+<ul>
+<li>68020 + 68851
+<ul>
+<li>Ce hardware n'est pas support&eacute; actuellement
+</ul>
+<li>68030
+<ul>
+<li>Les accès read-modify-write aux registres CIA ne sont pas détectés
+</ul>
+<li>68040
+<ul>
+<li>Les accès read-modify-write aux registres CIA ne sont pas détectés
+<li>L'instruction <tt>movem</tt> en lecture mémoire ne peut acc&eacute;der &agrave; un registre Custom invalide
+sans cr&eacute;er un Access Fault exception, ceci est possible car seulement le 1er acc&egrave;s sera
+v&eacute;rifi&eacute; pour un registre valide.
+<li>Les instructions ne doivent pas acc&eacute;der &agrave; plus d'un registre snoop&eacute; &agrave; la
+fois, comme cette instruction <tt>move.b ($dff006),($bfd800)</tt> ne peut
+&ecirc;tre prise en main. Si ce genre de code appara&icirc;t, WHDLoad affichera une requ&ecirc;te
+d'Access Fault.
+</ul>
+<li>68060
+<ul>
+<li>L'instruction <tt>movem</tt> ne peut acc&eacute;der &agrave; un registre invalide sans cr&eacute;er
+un Access Fault exception, ceci est possible car seulement le 1er acc&egrave;s sera
+v&eacute;rifi&eacute;.
+<li><tt>Move &lt;CIA/Custom register&gt;,sr</tt> ne sera pas ex&eacute;cut&eacute; correctement,
+s'il veut changer l'octet superviseur du registre d'&eacute;tat, l'octet restera
+inchang&eacute;.
+<li>N'importe quel<tt>(ssp)+</tt> ou <tt>-(ssp)</tt> en conjonction avec un acc&egrave;s en
+&eacute;criture &agrave; un registre CIA ou Custom ne peut &ecirc;tre traitée &agrave; cause des
+probl&egrave;mes de stackframe. WHDLoad d&eacute;tectera ce genre d'acc&egrave;s et quittera avec
+un message appropri&eacute;.
+<li>Les instructions ne doivent pas acc&eacute;der &agrave; plus d'un registre snoop&eacute; &agrave; la
+fois, comme cette instruction <tt>move.b ($dff006),($bfd800)</tt> ne peut
+&ecirc;tre prise en main. Si ce genre de code appara&icirc;t, WHDLoad affichera une requ&ecirc;te
+d'Access Fault.
+</ul>
+</ul>
+</BODY>
+</HTML>

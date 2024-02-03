@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE>FindAccess * Auffinden von Speicherzugriffen</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: fa.html 1.4 2013/11/25 22:13:32 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>FindAccess * Auffinden von Speicherzugriffen</h3>
+Dieses Programm l&auml;dt die angegebene Datei und durchsucht sie nach Zugriffen
+auf eine angegebene Adresse. Es findet alle absoluten und relativen 8-bit,
+16-bit und 32-bit Referenzen. Es wurde geschrieben, um CoreDump Dateien zu
+untersuchen. Es ist &auml;hnlich zum Freezer Kommando FA, disassembliert aber
+die gefundenen Zugriffe nicht, sondern zeigt sie als HexDump.
+<h4>Installation</h4>
+FindAccess ist nur im <tt>DEV</tt>, nicht im <TT>USR</tt> Archiv enthalten.
+<br>Kopiere das Programm nach C: oder einem &auml;hnlichen Platz.
+<h4>Benutzung</h4>
+Empfehlenswert ist die Benutzung durch folgendes Alias (z.B. permanent durch
+Hinzuf&uuml;gen zu S:Shell-Startup), welches das letzte von WHDLoad geschriebene
+Memory Dump (den Pfad evtl. anpassen) durchsucht:
+<p><tt>alias fa FindAccess C:.whdl_memory</tt></p>
+damit kann man in einer Shell eingeben:
+<p><tt>fa $15000</tt></p>
+und bekommt als Ausgabe:
+<p><tt>FindAccess 1.2 (17-Jan-99 14:45:18) by Bert Jahn
+<br>loading file <B>Workbench:CE/.whdl_memory</B>
+<br>scanning accesses to $15000 (86016)  file: $0-$80000
+<br>Relative  Word at $ 14240 -> 06C00000 07C00000 <B>0DC0</B> 00000CC0 000004C0
+</tt></p>
+<h4>Optionen</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,ADDRESS/A,ORG</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+Name der Datei die durchsucht werden soll
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>ADDRESS/A</tt>&nbsp;&nbsp;
+</td><td>
+die Adresse nach dessen Zugriff gesucht werden soll, es k&ouml;nnen einfache
+Ausdr&uuml;cke wie "$5000" = "20480" = " -$Ff +-33+ 19512+$4e8" (Prefix "$" f&uuml;r hexadezimale Zahlen,
+unterst&uuml;tzte Operatoren sind "+" and "-", un&auml;r und bin&auml;r) verwendet werden
+</td></tr>
+<tr><td valign=top>
+<tt>ORG</tt>
+</td><td>
+die logische Startadresse der Datei, wenn nicht angegeben, wird als $ 0 angenommen,
+es k&ouml;nnen dieselben Ausdr&uuml;cke wie bei ADDRESS/A verwendet werden
+</td></tr>
+</table>
+</BODY>
+</HTML>

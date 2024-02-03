@@ -1,0 +1,641 @@
+@DATABASE 0016
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 8. Il menu Colori"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}8.         Il menu Colori@{UB}
+
+Nei programmi di disegno e di elaborazione delle immagini come Personal
+Paint il colore è una caratteristica essenziale, senza la quale non è
+possibile realizzare niente o veramente molto poco. Grazie a un'accurata
+costruzione della tavolozza, un'immagine con soli 64 colori può
+avvicinarsi in modo apprezzabile alla realtà che rappresenta, e una figura
+scolorita può acquistare tono e vigore. Inoltre, un uso attento dei colori
+può determinare un notevole risparmio in termini di memoria occupata:
+un'immagine può infatti essere rappresentata con un numero di colori assai
+inferiore rispetto a quelli caratterizzanti il soggetto originale, senza
+peraltro apprezzabili degradi qualitativi.
+
+Le voci del menu Colori di Personal Paint permettono di controllare e
+modificare i singoli colori o anche apportare modifiche globali all'intera
+tavolozza. È inoltre possibile leggere, scrivere e scambiare tavolozze
+colori tra diversi oggetti (come immagini, pennelli o font).
+
+
+@{B}8.1        La tavolozza dei colori@{UB}
+
+Il termine @{I}tavolozza@{UI} identifica l'insieme dei colori associati a
+un'immagine. Come la tavolozza di un pittore, anche la tavolozza di
+Personal Paint contiene colori diversi che possono essere usati insieme
+per creare o modificare un'immagine. Con Amiga, come con gli altri
+calcolatori, più colori vengono utilizzati e maggiori sono le risorse
+necessarie per elaborare e memorizzare un'immagine. La sezione @{"1.3.2" LINK PPaintCD:H/7/2/4/0002/Main 94}
+descrive le relazioni tra dimensioni, numero di colori e quantità di
+memoria necessaria alla gestione delle immagini. Il numero massimo di
+colori costituenti una tavolozza digitale è sempre una potenza di due (2,
+4, 16, 64, 256, ecc.).
+
+Una data immagine può contenere colori particolari e, allo stesso tempo,
+non utilizzare altri colori molto frequenti in altre immagini. Sebbene la
+tavolozza possa essere costituita da un numero elevato di colori diversi
+(ad esempio 256), molto spesso è possibile riprodurre adeguatamente
+un'immagine con un numero di colori ben più ristretto. Esistono comunque
+buone ragioni per limitare il numero dei colori di una tavolozza.
+
+L'uso di una tavolozza con colori ben assortiti per ogni immagine non solo
+permette di risparmiare memoria e di ridurre i tempi di elaborazione, ma
+favorisce la coerenza e lo stile dell'immagine, specialmente se più
+immagini devono condividere la stessa "atmosfera".
+
+Può esser facile dimenticare che è sempre possibile portare il puntatore
+del mouse fuori dal quadro, nella finestra principale, e selezionare un
+colore. In particolare, la tavolozza completa al di sotto della barra
+degli strumenti è una comoda alternativa alla barra dei colori (spesso
+parziale) nel quadro.
+
+
+@{B}8.1.1      Leggere tavolozza@{UB}
+
+Tutti i file grafici contengono informazioni riguardanti tavolozze di
+colori, indipendentemente dal formato di memorizzazione utilizzato
+(eccetto per alcuni formati monocromatici, dove sono impliciti i colori
+bianco e nero). Una tavolozza colori, tuttavia, può anche essere
+memorizzata come sequenza di dati indipendenti: il file, invece di
+contenere un'immagine e i suoi colori, conterrà solo le informazioni
+relative alla tavolozza.
+
+Il comando "Leggere tavolozza" permette di estrarre, da file di diversi
+formati grafici (GIF, IFF-ILBM, PCX, ecc.), i soli dati relativi alla
+tavolozza dei colori, a prescindere dalla presenza o meno di dati grafici.
+La nuova tavolozza diviene la tavolozza dell'ambiente attuale. Se lo
+schermo attuale ha più colori di quelli costituenti la tavolozza del file,
+vengono modificati solo i primi colori dello schermo.
+
+Le modifiche apportate alla tavolozza originale possono essere annullate
+con il comando di "Ripristinare tavolozza" (sezione @{"8.1.6" LINK Main 307}). Questo vale
+anche per altre funzioni che apportano modifiche alla tavolozza.
+
+
+@{B}8.1.2      Scrivere tavolozza@{UB}
+
+Questo comando memorizza le informazioni relative ai colori della
+tavolozza attuale in un file in formato IFF-ILBM (nel file vengono scritti
+i seguenti chunk IFF: BMHD, CMAP e CAMG). Questo è un modo standard ed
+efficiente per memorizzare informazioni su serie di colori, rileggibili da
+Personal Paint o da altri programmi.
+
+Questa funzione può essere usata anche per sostituire i file "UIColors"
+originali, nel cassetto "PPaint_Prefs": questi definiscono i colori dei
+menu e dei requester di Personal Paint. Così facendo è possibile
+risparmiare circa 5 Kbyte di spazio su disco (che potrebbe rivelarsi
+prezioso sui floppy): i file "UIColors", infatti, vengono originariamente
+forniti sotto forma di immagini (rappresentanti un menu e un requester),
+allo scopo di facilitare eventuali personalizzazioni. Una copia dei file
+"UIColors" originali deve comunque essere conservata per eventuali future
+modifiche all'interfaccia utente.
+
+
+@{B}8.1.3      Definizione colori@{UB}
+
+Il requester attivato da questa funzione permette di impostare
+individualmente ogni colore della tavolozza con la precisione consentita
+dal modo video in uso. Sono anche disponibili funzioni per copiare,
+scambiare, riordinare i colori e creare scale cromatiche.
+
+A volte, sperimentando nuovi colori, può accadere che l'intero schermo
+diventi invisibile, ad esempio perché tutti gli elementi dello schermo
+hanno un identico colore. In questi casi, il tasto <Help> permette di
+ripristinare la tavolozza dei colori predefiniti.
+
+Personal Paint, in base alla tavolozza in uso, può usare colori differenti
+per disegnare gli elementi dell'interfaccia utente. La scelta di questi
+colori viene determinata dinamicamente, anche durante le modifiche dei
+colori, secondo criteri di leggibilità, contrasto e aspetto
+tridimensionale degli oggetti (gadget e requester). I colori degli
+elementi esterni al quadro "Definizione colori" vengono aggiornati appena
+il puntatore del mouse viene spostato al di fuori del requester.
+
+
+@{B}8.1.3.1    Scegliere un colore@{UB}
+
+La parte superiore del requester contiene la @{I}barra@{UI} dei colori con gli
+elementi ordinati della tavolozza di schermo. Il colore selezionato è
+contraddistinto da un simbolo a forma di freccia, al di sopra della barra.
+Al momento della visualizzazione del requester, la freccia indica il
+colore attuale di primo piano. Se la tavolozza ha più colori di quanti
+possono essere visualizzati nella barra, alla destra della stessa appaiono
+due gadget di scorrimento. Con un click su uno di essi, è possibile far
+scorrere di una posizione i colori della barra, visualizzando un nuovo
+colore nella direzione indicata. Mantenendo premuto il pulsante del mouse
+per un tempo più lungo, lo scorrimento diventa continuo, rivelando
+ulteriori colori.
+
+Nei modi video "Extra Half Brite" (64 colori) solo i primi 32 colori della
+tavolozza possono essere liberamente definiti. I rimanenti 32 vengono
+generati automaticamente dimezzando la luminosità dei primi. Per tale
+ragione, in queste circostanze il quadro "Definizione colori" permette di
+impostare solo i primi 32 colori.
+
+Il colore da editare può essere selezionato con un click del pulsante
+sinistro del mouse sul colore stesso. È anche possibile selezionare un
+colore al di fuori del requester, con un click nell'immagine o nella
+tavolozza principale dei colori. I tasti cursore <Sinistra> e <Destra>
+permettono di selezionare, rispettivamente, il colore precedente e quello
+successivo nella tavolozza.
+
+All'interno di un piccolo riquadro, sotto la barra dei colori, il colore
+selezionato viene rappresentato da un'area colorata e da un numero
+indicante la sua posizione all'interno della tavolozza (in uno schermo a
+sedici colori, ad esempio, il numero può variare da 0 a 15).
+
+
+@{B}8.1.3.2    Coordinate cromatiche RVB e TSL@{UB}
+
+Il colore selezionato può essere modificato con i gadget proporzionali
+posti al di sotto della barra dei colori. Il nuovo colore può essere
+specificato attraverso due differenti sistemi di coordinate cromatiche:
+RVB (Rosso, Verde e Blu) e TSL (Tonalità, Saturazione e Luminosità). A
+ciascuno dei due modi è associato un gruppo di gadget proporzionali, che
+consentono di spaziare nell'intera gamma cromatica con criteri diversi. I
+due gruppi di gadget possono essere utilizzati indipendentemente uno
+dall'altro: entrambi permettono di definire il colore attuale scegliendo
+tra tutti i colori possibili.
+
+Nel modo RVB, un colore è determinato dalla combinazione delle tre
+componenti cromatiche primarie: rosso, verde e blu. L'intensità di ogni
+colore primario viene indicata da un valore compreso tra 0 e il massimo.
+Quest'ultimo dipende dal modo video in uso e dalla versione dei chip
+grafici di cui è dotato il calcolatore. In molti modi video dei
+calcolatori Amiga con set di chip originali e avanzati (ECS), le
+componenti rossa, verde e blu possono assumere sedici diverse intensità.
+Questo significa che ogni colore della tavolozza di schermo può essere
+scelto da un insieme di 4096 colori diversi (16 elevato alla terza potenza
+= 4096). Alcuni modi video ECS, il modo A2024 e altri sono caratterizzati
+da un numero inferiore di livelli di intensità (ad esempio quattro), che
+riduce conseguentemente le combinazioni cromatiche (64, nella fattispecie)
+e le varianti di grigio possibili. I livelli di intensità per colore
+primario salgono invece a 256 in molti modi video dei sistemi Amiga con
+architettura grafica avanzata. Il valore 256 elevato alla terza potenza
+equivale a 16.777.216 possibili combinazioni cromatiche (ecco da cosa
+derivano i famosi "16 milioni di colori"). La sezione @{"1.14" LINK PPaintCD:H/7/2/4/0002/Main 1520} spiega la
+relazione tra i diversi file "UIColors" e le varie "granularità"
+cromatiche appena viste.
+
+Teoricamente, se i tre colori primari hanno uguale intensità, il risultato
+visivo dovrebbe essere un grigio puro, variante dal nero al bianco.
+
+Nello spazio cromatico TSL (anche detto HSV, da @{I}Hue@{UI}, @{I}Saturation@{UI} e @{I}Value@{UI})
+un colore viene identificato dalla sua posizione su una superficie
+circolare e da una valore di luminosità. La ruota di colori è una entità
+astratta paragonabile ad un arcobaleno circolare. Sui bordi della
+circonferenza sono disposti i colori puri (rosso, verde e blu), sfalsati
+tra loro di 120 gradi, cioè a ogni terzo del cerchio, che inizia e termina
+con il colore rosso. A posizioni intermedie corrispondono colori
+intermedi. Sulla circonferenza della ruota i colori appaiono alla loro
+massima saturazione. All'interno della ruota la saturazione diminuisce
+gradualmente con l'avvicinarsi al centro: qui il colore corrisponde ad una
+gradazione di grigio (dal bianco al nero), regolata dal valore di
+luminosità impostato.
+
+Il parametro "Tonalità" specifica la posizione angolare di un colore sulla
+ruota: 0 (o 360) = rosso, 60 = giallo, 120 = verde, 180 = ciano, 240 =
+blu, 300 = magenta, ecc. Il parametro "Saturazione" indica la posizione
+del colore su un raggio dell'area circolare, da un minimo di 0 (al centro
+= grigio) a un massimo di 100 (sul bordo = colore puro). Il parametro
+"Luminosità" specifica, infine, l'intensità globale di luce (in
+contrapposizione all'intensità del colore specifico, indicata dalla
+saturazione). Una luminosità nulla (0) equivale sempre al colore nero. Il
+valore 100, invece, indica la massima luminosità possibile per ogni
+combinazione di tonalità e saturazione.
+
+
+@{B}8.1.3.3    Copiare colore@{UB}
+
+Per copiare un colore da una posizione della tavolozza ad un'altra è
+sufficiente selezionare il primo colore, fare click sul gadget "Copiare
+colore" e, infine, selezionare la posizione di destinazione.
+
+
+@{B}8.1.3.4    Scambiare colori@{UB}
+
+Questo comando è simile al precedente, eccetto per il fatto che anche il
+colore sorgente viene sovrascritto e sostituito con il secondo colore
+selezionato.
+
+
+@{B}8.1.3.5    Riordinare colori@{UB}
+
+Questi due gadget permettono di ordinare i colori compresi tra il colore
+attuale e il colore di seguito selezionato. Sono possibili due tipi di
+ordinamento: dal colore più chiaro a quello più scuro, e dal più scuro al
+più chiaro.
+
+
+@{B}8.1.3.6    Creare scala@{UB}
+
+Questa coppia di gadget permette di creare sfumature intermedie tra il
+colore attuale e quello specificato dopo la selezione del gadget. Il primo
+gadget (a sinistra) genera una scala cromatica secondo le posizioni
+intermedie delle componenti rossa, verde e blu; il secondo, invece,
+distribuisce i colori secondo il sistema di tonalità, saturazione e
+luminosità.
+
+
+@{B}8.1.3.7    Annullare modifiche@{UB}
+
+Il quadro "Definizione colori" dispone di due gadget che permettono di
+tornare sui propri passi. Con un click sul gadget "Annullare modifica" è
+possibile annullare l'effetto dell'ultima operazione eseguita, mentre il
+gadget "Ripristinare tutto" riporta la tavolozza dei colori alle
+impostazioni iniziali.
+
+
+@{B}8.1.3.8    Nascondere quadro@{UB}
+
+Questo ultimo gadget permette, se selezionato, di nascondere il quadro
+"Definizione colori". Il requester rimane invisibile fintantoché si tiene
+premuto il pulsante sinistro del mouse: in questo modo è possibile
+osservare quelle parti di immagine normalmente nascoste. Quando il
+requester è nascosto è anche possibile premere il pulsante destro del
+mouse (mantenendo premuto anche quello sinistro) per evidenziare la
+presenza del colore attuale nell'immagine: tale colore lampeggerà,
+cambiando ciclicamente di intensità (da chiaro a scuro). Entrambe le
+funzioni sono estremamente utili per verificare i possibili effetti delle
+modifiche ai colori senza abbandonare il requester.
+
+
+@{B}8.1.4      Calibrazione colori@{UB}
+
+Questo requester permette di apportare modifiche globali ai colori
+dell'immagine. Ciò è particolarmente utile quando si inizia a lavorare su
+un'immagine generata per scansione, oppure prima di stampare un'immagine
+(i colori generati dalle periferiche di scansione e di stampa possono
+differire da quelli visualizzati e può quindi essere necessario un certo
+aggiustamento).
+
+I sei gadget proporzionali permettono di rimuovere completamente,
+raddoppiare o applicare qualsiasi valore intermedio a ogni singola
+caratteristica cromatica. Tutti i colori della tavolozza vengono coinvolti
+dalle regolazioni. Se è necessario modificare solo alcuni colori occorre
+utilizzare il quadro "Definizione colori" (sezione @{"8.1.3" LINK Main 93}). Occorre notare
+che nei modi video "Extra Half Brite" (sezione @{"8.1.3.1" LINK Main 114}) i primi 32 colori
+vengono modificati direttamente, mentre i secondi 32 rappresentano sempre
+le varianti con luminosità dimezzata dei primi.
+
+Dall'alto verso il basso, i gadget proporzionali controllano le seguenti
+caratteritiche cromatiche: colore, luminosità, contrasto, rosso, verde e
+blu. La regolazione del parametro "Colore" equivale a modificare il valore
+di saturazione delle coordinate TSL (sezione @{"8.1.3.2" LINK Main 147}). Il cursore del
+contrasto riduce o accresce la distanza dei livelli RVB dai valori medi.
+
+Il gadget "Usare" riporta tutti i cursori al centro dei rispettivi gadget,
+pur mantenendo tutte le modifiche apportate. Questo permette sia di
+procedere con ulteriori modifiche, così da poter più che raddoppiare
+alcuni valori, sia di agire sulle varie componenti secondo un ordine
+particolare (l'ordine normalmente seguito è quello indicato dai gadget).
+
+La pressione del tasto <Help> permette di annullare tutte le correzioni
+effettuate e riportare tutti i parametri al valore 0%.
+
+
+@{B}8.1.5      Tavolozza predefinita@{UB}
+
+Questo comando imposta la tavolozza colori dell'immagine usando i colori
+predefiniti di Personal Paint. La tavolozza predefinita può essere sia
+quella interna al programma, sia quella specificata (parametro "COLOR") in
+uno dei file "Startup" (sezione @{"9.1" LINK PPaintCD:H/7/2/4/0047/Main 9} e Appendice @{"C" LINK PPaintCD:H/7/2/4/0044/Main 1}).
+
+Secondo le impostazioni predefinite, il tasto <Help> è l'abbreviazione da
+tastiera associata a questa funzione.
+
+
+@{B}8.1.6      Ripristinare tavolozza@{UB}
+
+Questo comando cancella l'ultima modifica apportata alla tavolozza dei
+colori, ripristinando i colori usati in precedenza. Può essere usato due
+volte di seguito per annullare l'operazione di ripristino dei colori.
+
+
+@{B}8.1.7      Copiare tavolozza da pennello@{UB}
+
+Questa funzione copia i colori dell'attuale pennello personale (il cui
+numero appare nel riquadro dei pennelli) nella tavolozza dell'ambiente in
+uso. Quando il pennello ha un numero di colori inferiore a quelli
+dell'immagine, o viceversa, solo i primi colori della tavolozza vengono
+coinvolti nell'operazione.
+
+
+@{B}8.1.8      Copiare tavolozza da font@{UB}
+
+Di norma i font a colori (sezione @{"3.1.3.2" LINK PPaintCD:H/7/2/4/0017/Main 477}) vengono creati utilizzando una
+particolare tavolozza che ne caratterizza l'aspetto. Serivirsi di tali
+font usando tavolozze diverse può non dare i risultati migliori. Dopo aver
+selezionato il font che interessa, questo comando permette di copiare i
+colori ad esso associati nella tavolozza dell'ambiente attuale.
+
+Se i colori del font non sono adeguati, per quantità o per
+caratteristiche, all'immagine che si desidera disegnare, è sufficiente
+incrementare il numero dei colori dell'ambiente attuale (sezione @{"4.5.3" LINK PPaintCD:H/7/2/4/0049/Main 1261}),
+lasciando inalterati i primi colori (utilizzati dal font).
+
+
+@{B}8.1.9      Copiare tavolozza da schermo@{UB}
+
+Questa funzione permette di copiare i colori di uno schermo nella
+tavolozza dell'ambiente attuale, senza copiare l'immagine dello schermo.
+La procedura di selezione dello schermo è analoga a quella descritta nella
+sezione @{"4.4" LINK PPaintCD:H/7/2/4/0049/Main 1089} (funzione "Copiare schermo").
+
+
+@{B}8.2        Maschera@{UB}
+
+Per spiegare il concetto di @{I}mascheratura@{UI} è possibile ricorrere a un banale
+ma efficace esempio: quando il carrozziere deve verniciare un'automobile,
+copre con cura le parti che non devono essere sporcate dal colore
+(maniglie, fanali, ecc.) usando carta e nastro adesivo. La mascheratura
+digitale (o mascheratura del colore) opera in modo simile: è possibile
+coprire, con un ipotetico foglio di carta, uno o più colori di
+un'immagine, lasciando scoperti i rimanenti. I colori mascherati (@{I}coperti@{UI}
+) non possono essere modificati. Quando una maschera viene definita o
+letta, il programma crea un nuovo piano di bit, che va ad aggiungersi a
+quelli dell'immagine. Tale piano ha una funzione in qualche modo simile al
+piano di trasparenza descritto nella sezione @{"5.9.5" LINK PPaintCD:H/7/2/4/0048/Main 281}. La mappa di bit della
+maschera contiene informazioni su quali parti dell'immagine vanno protette
+dalle operazioni di disegno. Ai bit attivati corrispondono zone
+"protette", quelli spenti, invece, definiscono zone in cui le operazioni
+grafiche operano normalmente.
+
+Di solito una maschera viene definita in uno dei due modi seguenti:
+proteggendo selettivamente tutte le aree di un certo colore (mascheratura
+del colore), oppure disegnando un'immagine a due colori, mascherando il
+colore interessato e salvando il risultato come immagine o come maschera.
+Anche quando si effettua una mascheratura per colore, questa viene
+immediatamente tradotta in un equivalente piano di bit. Occorre notare,
+quindi, che Personal Paint non protegge determinati pixel in quanto
+accomunati da uno stesso colore, ma in quanto corrispondenti a bit
+attivati nel piano di mascheratura.
+
+La similitudine, prima ricordata, con il piano di trasparenza dei pennelli
+può trasformarsi in perfetta equivalenza a livello file. Le specifiche del
+formato IFF-ILBM, infatti, riservano un unico spazio di memorizzazione per
+il piano di trasparenza dei pennelli (a meno che la trasparenza non sia
+definita in modo algoritmico) e per la mascheratura di un'immagine. Quando
+un file con tale speciale piano di bit viene letto come pennello, i dati
+del piano vengono interpretati come informazioni di trasparenza. Leggendo
+lo stesso file come immagine, il piano di bit in questione viene
+interpretato come piano di mascheratura.
+
+
+@{B}8.2.1      Leggere maschera@{UB}
+
+Questo comando legge i dati di mascheratura memorizzati in un file
+maschera o in un file immagine. Se al momento della memorizzazione di
+un'immagine in formato IFF-ILBM è attiva una maschera, il piano di
+mascheratura viene memorizzato insieme ai dati dell'immagine.
+
+La dimensione della maschera dovrebbe essere uguale alla dimensione
+dell'immagine che si intende mascherare. Se la maschera è più ampia, viene
+tagliata; se è più piccola, parti dell'immagine (la fasce destra e
+inferiore, assenti nel file) non saranno protette.
+
+
+@{B}8.2.2      Scrivere maschera@{UB}
+
+Con questo comando è possibile memorizzare, in un file maschera IFF-ILBM,
+l'ultimo piano di mascheratura utilizzato per l'ambiente attuale. Nel file
+vengono inclusi i chunk BMHD, CAMG e BODY.
+
+
+@{B}8.2.3      Impostare maschera@{UB}
+
+Questo requester permette di creare un piano di mascheratura associando le
+aree da proteggere a particolari colori dell'immagine. Successivamente,
+qualsiasi strumento di disegno non potrà alterare i punti dell'immagine
+associati a colori contrassegnati nel requester.
+
+Come già ricordato, il piano di mascheratura non viene aggiornato quando
+l'immagine viene modificata. Gli strumenti di disegno possono infatti
+creare aree di colori inizialmente protetti dalla maschera. Tali aree non
+risultano automaticamente protette: il comando "Aggiornare maschera"
+(sezione @{"8.2.4" LINK Main 450}) può essere utilizzato a questo scopo.
+
+Lo stato di protezione di un colore può essere impostato con un click sul
+rettangolo che lo contraddistingue, oppure selezionando il colore
+direttamente dall'immagine con il pulsante sinistro o destro del mouse
+(rispettivamente per includere o escludere tale colore). I colori protetti
+vengono indicati da un segno di visto nei rispettivi rettangoli.
+
+Per selezionare o deselezionare più colori con un solo click del mouse, è
+sufficiente muovere il mouse, con il pulsante sinistro premuto, sulle
+caselle-colore del quadro (proprio come nella tavolozza della barra
+strumenti). Questa operazione si rivela particolarmente utile in presenza
+di un numero elevato di colori.
+
+Il gadget "Cancellare" rimuove tutte le protezioni (una siffatta
+mascheratura equivale ad una protezione nulla), mentre il gadget
+"Invertire" permette di invertire lo stato di protezione dei colori.
+Selezionando il gadget "Mostrare", il requester viene temporaneamente
+nascosto (fino a quando si tiene premuto il pulsante del mouse) e la
+mascheratura specificata viene visualizzata sull'immagine: le aree
+protette sono rappresentate in nero, quelle alterabili in bianco.
+
+Quando si definisce un pennello personale (sezione @{"3.1.6" LINK PPaintCD:H/7/2/4/0017/Main 1200}) ed è attiva la
+mascheratura, il pennello sarà costituito solo dai punti dell'immagine non
+protetti dalla maschera. Come sopra ricordato, è anche possibile creare
+una maschera partendo da un'immagine a due colori, disegnando la sagoma
+desiderata e mascherando uno dei colori con il requester qui descritto.
+
+La sezione @{"3.1.4" LINK PPaintCD:H/7/2/4/0017/Main 633} illustra un tipico caso di utilizzo combinato delle
+funzioni di elaborazione e mascheratura dell'immagine.
+
+Ognuno dei due ambienti grafici possiede un proprio, indipendente piano di
+mascheratura (e relativo stato di attivazione).
+
+
+@{B}8.2.4      Aggiornare maschera@{UB}
+
+Solitamente la mascheratura dei colori viene attivata con l'ausilio del
+requester "Maschera colori" sopra descritto. Tale requester permette di
+mascherare aree dell'immagine caratterizzate da un determinato colore; la
+protezione, però, non viene automaticamente estesa ad eventuali nuove aree
+dello stesso colore, successivamente aggiunte. Il comando "Aggiornare
+maschera" forza il ricalcolo del piano di mascheratura, in base
+all'attuale contenuto dell'immagine.
+
+
+@{B}8.2.5      Invertire maschera@{UB}
+
+Questa funzione inverte lo stato di protezione delle diverse aree di
+un'immagine mascherata. Se la maschera è stata definita come maschera
+colore, questo comando equivale alla selezione del gadget "Invertire" nel
+requester "Maschera colori". Se, invece, la maschera è stata creata
+disegnandone la sagoma (ed è quindi indipendente dai colori
+dell'immagine), il risultato prima descritto può essere ottenuto solo
+impartendo il comando "Invertire maschera".
+
+
+@{B}8.2.6      Attivare/Disattivare maschera@{UB}
+
+Questo comando permette di cambiare lo stato di attivazione della maschera
+colori. Se questa viene abilitata per la prima volta, il programma
+visualizza il requester "Maschera colori". Quando si disattiva la
+maschera, le relative informazioni non vengono perse (il piano di
+mascheratura viene conservato).
+
+La presenza di uno speciale simbolo nella barra del titolo segnala
+l'attivazione della maschera.
+
+
+@{B}8.2.7      Liberare maschera@{UB}
+
+Questa funzione disattiva la maschera e libera la memoria occupata dal
+relativo piano di bit. Successivi effetti di mascheratura possono essere
+ottenuti con le funzioni di definizione e lettura della maschera colori.
+
+
+@{B}8.3        Adattare nuovi colori@{UB}
+
+A volte, l'aspetto di un'immagine può essere pregiudicato da una più o
+meno diretta modifica della tavolozza colori. È quanto accade, ad esempio,
+copiando i colori di un pennello o di un font nella tavolozza
+dell'immagine, o dopo aver modificato manualmente alcuni colori o averne
+semplicemente cambiato l'ordine all'interno della tavolozza. In questi
+casi, l'immagine può essere visualizzata con i colori sbagliati.
+
+La funzione di adattamento colori permette di utilizzare i colori attuali
+per riprodurre l'aspetto originario dell'immagine (relativo allo stato
+precedente della tavolozza - stato comunque riattivabile con la funzione
+"Tavolozza/Ripristinare"). Se un dato colore esiste in entrambe le
+tavolozze (l'originale e la nuova), la funzione di adattamento non fa
+altro che aggiornare tutti i riferimenti alla sua posizione-colore. Se uno
+o più colori della vecchia tavolozza non esistono in quella nuova, il
+programma è in grado di scegliere i colori che più vi si avvicinano,
+eventualmente applicando le opzioni di adattamento (Retinatura,
+Floyd-Steinberg o altre tecniche più sofisticate) impostate nei parametri
+del programma (sezione @{"9.8" LINK PPaintCD:H/7/2/4/0047/Main 414}).
+
+
+@{B}8.4        Primo piano in sfondo@{UB}
+
+Questo comando applica il colore di primo piano a tutti i pixel
+dell'immagine caratterizzati dal colore di sfondo. L'operazione effettuata
+è analoga a quella svolta dall'omonimo comando, relativo ai pennelli,
+descritto nella sezione @{"5.9.3" LINK PPaintCD:H/7/2/4/0048/Main 254}.
+
+
+@{B}8.5        Scambiare sfondo con primo piano@{UB}
+
+Questo comando, simile al precedente, permette di scambiare tra loro i
+colori di sfondo e di primo piano. Ai pixel con il colore di sfondo viene
+applicato il colore di primo piano e viceversa.
+
+
+@{B}8.6        Fusione colori@{UB}
+
+In molte occasioni si può avere la necessità di comporre diverse immagini,
+o parti delle stesse, in un unico schermo. Questo può accadere, ad
+esempio, quando un'immagine creata per scansione viene sovrapposta a uno
+sfondo digitale (o viceversa), quando si utilizza un pennello definito in
+un ambiente diverso, oppure quando più immagini ridotte devono essere
+riunite in un'unica pagina. Tutte le operazioni ora accennate hanno un
+problema comune: se gli elementi da integrare sono caratterizzati da
+tavolozze differenti, l'aspetto di uno o più di essi sarà pregiudicato
+dall'uso di colori errati.
+
+La funzione "Fusione colori" permette di fondere, in modo selettivo, le
+tavolozze dei colori di tutti i pennelli e le immagini in uso. A fusione
+effettuata, tutti gli elementi coinvolti condivideranno una stessa
+tavolozza, il cui numero di colori sarà determinato dall'ambiente attuale.
+La scelta dei colori viene effettuata con estrema cura; ciò nonostante,
+può accadere che il numero di colori a disposizione non consenta di
+rappresentare correttamente tutti singoli i punti delle immagini e dei
+pennelli coinvolti. In questi casi, il risultato dell'adattamento degli
+oggetti alla nuova tavolozza può essere migliorato selezionando le opzioni
+di retinatura, Floyd-Steinberg o altri algoritmi di diffusione d'errore
+(sezione @{"9.8" LINK PPaintCD:H/7/2/4/0047/Main 414}). Nella sezione @{"9.7" LINK PPaintCD:H/7/2/4/0047/Main 363} sono descritti i diversi metodi di
+riduzione colori.
+
+Per cercare di mantenere il più possibile i colori degli oggetti
+originali, può esser necessario incrementare opportunamente il numero dei
+colori dell'immagine attuale (sezione @{"4.5.3" LINK PPaintCD:H/7/2/4/0049/Main 1261}). Se gli elementi coinvolti
+non hanno alcun colore in comune, la tavolozza risultante dovrebbe avere
+tanti colori quanti risultano dalla somma delle singole tavolozze. In
+molti casi, però, questo non è né possibile né conveniente.
+Fortunatamente, gli algoritmi di quantizzazione, di riduzione e
+adattamento dei colori di Personal Paint sono così avanzati che spesso
+risulta difficile notare differenze tra gli elementi originali e
+l'immagine finale, anche in seguito a drastiche riduzioni del numero di
+colori utilizzati.
+
+Vi sono anche casi di perdite nulle di colore. Se, ad esempio, un'immagine
+con una tavolozza di sedici colori, di cui solo otto utilizzati, viene @{I}
+fusa@{UI} con un pennello a otto colori, i due elementi manterranno il loro
+aspetto originale. Sia l'immagine che il pennello risultanti avranno una
+tavolozza di sedici colori.
+
+Quando l'operazione di fusione degli elementi selezionati è terminata,
+questi possono essere facilmente utilizzati nello stesso ambiente.
+
+
+@{B}8.7        Riduzione del numero di colori@{UB}
+
+Questa funzione permette di ridurre interattivamente il numero di colori
+usati nell'immagine attuale. Il gadget proporzionale presente nel
+requester permette di impostare il numero di colori desiderato, spaziando
+in un campo di valori compresi tra 2 e il numero di colori attualmente
+utilizzati. Se quest'ultimo valore è uguale o inferiore a due, non ha
+senso una ulteriore riduzione dei colori.
+
+Durante lo spostamento del cursore, l'aspetto dell'immagine viene
+aggiornato in tempo reale; inoltre, in ogni momento è possibile conoscere
+il valore assoluto e relativo (percentuale) dei pixel persi
+nell'operazione. Se nel menu Parametri è impostata l'opzione "Riduzione
+colori/Qualitativa" (sezione @{"9.7.1" LINK PPaintCD:H/7/2/4/0047/Main 384}), i primi colori che il programma
+elimina sono quelli che possono essere sostituiti da colori simili nella
+tavolozza. Se invece è impostata l'opzione "Quantitativa" (sezione
+@{"9.7.2" LINK PPaintCD:H/7/2/4/0047/Main 400}), i primi a essere sacrificati sono i colori meno usati.
+
+Se uno o più colori appaiono più di una volta nella tavolozza, è possibile
+ridurre il numero di colori usati senza alcuna perdita di informazioni
+visive.
+
+La riduzione dei colori è un processo caratterizzato da complesse
+elaborazioni. Più alto è il numero dei colori della tavolozza finale, più
+tempo è necessario alla definizione della stessa. Ad esempio, se il
+calcolatore Amiga utilizzato dispone di una CPU 68000 e il numero di
+colori impostato è supeiore a 32, ad ogni rilascio del cursore può seguire
+un breve periodo di attesa.
+
+Nei modi "Extra Half Brite" (sezione @{"8.1.3.1" LINK Main 114}) Personal Paint svolge
+calcoli differenziati per il blocco di colori chiari e quello dei colori
+scuri. Una tavolozza HBrite ha sempre un numero di colori pari, e il
+gruppo dei colori scuri inizia alla posizione 32 della tavola.
+
+Questo comando non riduce il numero di colori che compongono la tavolozza
+di schermo. Riduce invece il numero di colori usati nell'immagine,
+raggruppandoli nelle prime posizioni della tavolozza. Il numero dei colori
+di schermo può essere impostato nel requester "Formato immagine e
+schermo", come spiegato nella sezione @{"4.5.2" LINK PPaintCD:H/7/2/4/0049/Main 1239}.
+
+
+@{B}8.8        Statistiche@{UB}
+
+Il requester visualizzato da questo comando riporta diverse statistiche
+sui colori usati nell'immagine attuale. Il programma esamina il colore di
+ogni pixel dell'immagine e visualizza il risultato sotto forma di
+istogramma, con una barra per ogni colore della tavolozza.
+
+Se lo spazio del requester non è sufficiente a contenere il grafico nella
+sua interezza, sono presenti due gadget a forma di freccia che permettono
+di scorrere l'istogramma nella direzione indicata. Un click del pulsante
+sinistro del mouse sulle barre dell'istogramma permette di visualizzare
+ulteriori informazioni sui singoli colori (posizione nella tavolozza,
+numero di pixel con tale colore, superficie percentuale occupata). Quando
+il requester viene ativato tali informazioni si riferiscono all'attuale
+colore di primo piano.
+
+@ENDNODE

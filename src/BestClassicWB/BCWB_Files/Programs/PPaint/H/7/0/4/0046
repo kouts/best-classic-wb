@@ -1,0 +1,375 @@
+@DATABASE 0046
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 11. Problem Solving"
+@TOC PPaintCD:H/7/0/4/OO00/Main
+
+@{B}11.        Problem Solving@{UB}
+
+This chapter describes some of the most common problems which may be
+encountered when using the computer and its peripherals, explaining how to
+solve these difficulties, and what to do in order to prevent them from the
+beginning.
+
+
+@{B}11.1       Memory Shortage@{UB}
+
+Computer memory is one of those few resources which, regardless of the
+amount which is available, tend to be exploited to the limits. The most
+common obstacles which may be encountered when using Personal Paint are
+likely to be connected with insufficient Chip RAM.
+
+Sections @{"1.3.2" LINK PPaintCD:H/7/0/4/0002/Main 89} and @{"4.10.2" LINK PPaintCD:H/7/0/4/0049/Main 1176} respectively contain important information on
+RAM in general and on Personal Paint's Memory Information function. As
+indicated in those sections, the information about memory which is
+displayed on the Workbench title bar may be misleading, as it sums up
+fragmented memory as if it were a contiguous block.
+
+A low memory condition may be signalled by an explicit message (e.g.
+"There is not enough memory", or "Insufficient Chip RAM"), or by symptoms
+like menus not appearing as usual, windows which cannot be resized or
+repositioned, screen flashes indicating failures to accomplish a given
+task, etc.
+
+Chip memory may be made available by freeing the undo buffer (selecting
+the Undo tool with the right mouse button - section @{"3.1.10" LINK PPaintCD:H/7/0/4/0017/Main 1137}), clearing the
+image twice (by clicking twice on the Clear tool - section @{"3.1.9" LINK PPaintCD:H/7/0/4/0017/Main 1121}),
+choosing a screen mode having less resolution or colors (sections @{"1.3.2" LINK PPaintCD:H/7/0/4/0002/Main 89}
+and @{"4.5" LINK PPaintCD:H/7/0/4/0049/Main 901}), freeing the current environment (section @{"4.8.6" LINK PPaintCD:H/7/0/4/0049/Main 1138}), freeing
+brushes (section @{"5.7" LINK PPaintCD:H/7/0/4/0048/Main 144}), freeing the stencil (section @{"8.2.7" LINK PPaintCD:H/7/0/4/0016/Main 417}), switching
+off the audio (section @{"9.5" LINK PPaintCD:H/7/0/4/0047/Main 280}), closing the Workbench screen (section
+@{"9.15" LINK PPaintCD:H/7/0/4/0047/Main 863}), terminating other programs, etc.
+
+Typing "Avail FLUSH" in a Shell window, or selecting FlushLibs in the
+Workbench Debug menu (which becomes available if the Workbench is
+activated with a "LoadWB -DEBUG" command) frees all RAM-resident system
+resources which are not being used any more. This may free some
+considerable memory if several large fonts were used in previous sessions,
+or if some complex libraries used by other programs are not needed any
+more. When the system is in critical memory conditions, it usually
+performs these actions automatically.
+
+In an emergency (e.g. if the main screen cannot be opened), Personal Paint
+may automatically and gradually try to free some memory by taking one or
+more of the actions mentioned above.
+
+
+@{B}11.2       Problems with Disks@{UB}
+
+The Amiga operating system may perform another disk write operation some
+seconds after a file is stored. For this reason, a disk should never be
+ejected from the drive (nor should the computer be switched off) for some
+seconds after the disk drive activity indicator light has gone off.
+Electrical noise can also cause problems. Lights, monitors and other
+electrical devices connected to the same power line as the computer should
+never be switched on or off while data is being written to the disk.
+
+Errors are first signalled by messages from the Amiga operating system,
+and then by the program which is trying to save the data. The most
+frequent sources of errors are: disk is write protected, disk is full,
+disk is damaged or not formatted (sections @{"1.3.4" LINK PPaintCD:H/7/0/4/0002/Main 189} and @{"1.6" LINK PPaintCD:H/7/0/4/0002/Main 314}). Unlike 5.25"
+disks, 3.5" disks are write protected if it is possible to see through the
+write-protect hole.
+
+If, while a file is being written to, the Amiga operating system displays
+a message indicating that a read/write error has occurred, the first thing
+to do is to eject the disk and set the write protect tab. Precious data
+can be lost by trying to write to the disk after such an error message. If
+the write protect tab is not set, the system may try to write to the disk
+even if no write operation has been requested by the user (especially if
+the disk is damaged). After the disk has been reinserted, all the system
+messages should be cancelled with the mouse (unless a "Software Error"
+message appears). The program which was saving the data will display its
+own error message. The data which could not be stored because of the error
+should be saved to another disk. Any other material which is displayed or
+stored in RAM should be saved as well, so that it can be recovered if its
+copy on the damaged disk has been corrupted. Next, a copy of the damaged
+disk should be made (section @{"1.6" LINK PPaintCD:H/7/0/4/0002/Main 314}). If the standard system copy program
+does not work, because of the errors present on the disk, other copiers
+should be used.
+
+A disk recovery program like DiskSalv will probably be able to restore
+most files, with the likely exception of the one which was being written
+to when the error occurred. It is possible that different disk recovery
+programs will produce different results. The disk on which the error
+occurred should not be used again, unless the cause of the error is known
+not to be hardware dependent. An error may occur again on the same disk,
+especially if a single sided or poor quality disk is used, or if the disk
+is dirty, or the magnetic surface is scratched. Scratches are usually
+visible when light is reflected from the disk surface. The surface itself
+should never be touched or contaminated.
+
+Some minor errors are automatically corrected by a process of the Amiga
+operating system called @{I}validating@{UI}. If, for example, a write operation is
+interrupted for some reason (e.g. a power failure, or the removal of a
+disk), and no other damage occurs to the disk, the Amiga operating system
+tries to validate the disk the next time that it is inserted in a drive
+(or mounted, if it is a hard disk). The validation process can take a few
+seconds or several minutes, depending on the size of the volume. If the
+disk is write protected the validating process has to be repeated every
+time the disk is inserted (or mounted). While the disk is being validated,
+a "Disk not validated" system message is displayed if a program tries to
+access that disk. The "Cancel" option of the message should not be
+selected, as the message disappears automatically as soon as the
+validating procedure terminates. It is possible to read from a disk which
+has not been validated, but no data can be saved to it, since the data
+structures which mark the parts of the disks which are free are not
+updated.
+
+The most serious errors can be caused by physically damaged or defective
+disks. The main cause of such errors is dirt. Coffee poured over disks
+lying on the table, sticky drops of orange soda "raining" from a nearby
+glass or a few grains of sand inside the disk case can be very dangerous.
+Unless the magnetic coating of the disk has been scratched or corroded,
+the data can still be recovered. Most liquids leave the @{I}cookie@{UI} (the foil
+coated with magnetic media inside the disk) intact, but must be removed as
+soon as possible. The cookie must be taken out of the disk case before it
+can be cleaned. To do so, a demagnetized blade can be used to carefully
+open the case. The metal (or plastic) shutter of a 3.5" disk can be
+removed by hand. The cookie can be washed under running water and dried
+with a clean, soft cloth. The clean cookie can finally be inserted into a
+new case (the shutter is not needed), from where it can be copied to a
+new, intact disk. The procedure described here is not guaranteed to
+succeed. Improper handling can damage the disk and/or the disk drive.
+
+
+@{B}11.3       Problems with Printers@{UB}
+
+Some suggestions to improve the quality of the printed output are listed
+here. Possible solutions to many problems which may occur during a print
+operation are also contained in this section.
+
+The parameters of the Amiga Preferences program must be perfectly set. The
+most common cause of errors is the wrong choice of printer driver. The
+printer driver specified in Preferences must be the correct driver for the
+printer which is used. All printer settings of the Preferences program
+must be correctly set and stored on the Workbench disk. Not all printers
+use the same codes and control sequences.
+
+If the parallel port is used for a peer-to-peer connection between
+computers (using a network filing system like "ParNet") then the Printer
+Port setting in the Amiga Printer Preferences should be set to Serial, or
+any device other than that used by the network. Use of the Amiga printer
+device on the same line as the network might lock the network. Programs
+like Personal Paint might need to access the printer device on startup,
+even if no explicit printing is performed. Although no data is sent to the
+printer by this process, this operation may lock the network and the
+printer device.
+
+When the name of the printer driver has been selected with the Preferences
+program, the programs which need to use the printer will be able to use
+the correct printer codes, and Amiga will activate the appropriate printer
+driver. Personal Paint's printer settings may be used to change most
+system printer parameters, except selecting the printer driver itself.
+
+By default, printer drivers are stored in the "Printers" drawer, which is
+contained in the "Devs" drawers of the Workbench and Extras disks. The
+Amiga operating system searches for printer drivers in the "DEVS:Printers"
+and "PRINTERS" logical units. A driver stored only on the Extras disk must
+be copied to the Workbench disk before it can be used. The InstallPrinter
+program, on 1.3 Workbench disks, allows the user to copy the drivers from
+the Extras disk to the Workbench disk in a very easy way. On operating
+systems starting from version 2.1, unused printer drivers are placed in
+the "Storage/Printers" drawer, from where they can be moved into "Devs"
+using the mouse when necessary. Some of the most used printer drivers are
+stored on Personal Paint's program disk. If that disk is used as the
+Workbench disk, more updated or more specific printer drivers can be
+copied to it.
+
+If there is no driver for a particular printer model, a similar or
+compatible driver can be used. Most impact printers are compatible with
+one or more of the Epson (ESC/P), Nec (Pinwriter) or IBM (Proprinter)
+standards. Laser printers can generally work in the HP LaserJet and/or
+PostScript standard. When more than one emulation mode is available, the
+selection should match the selected Preferences printer driver. The
+documentation enclosed with the Amiga and with the printer should be read
+to determine which is the most suitable driver for a particular printer.
+Appendix @{"D" LINK PPaintCD:H/7/0/4/2163/Main 1} of this guide also lists several suggested drivers for the
+most used printers. The printer retailer or manufacturer should be
+contacted if no information can be found in the handbooks, and the
+existing drivers do not work. Drivers which were included with versions of
+the operating system before 1.3, as well as versions labelled Alpha, Beta,
+Gamma and Omega might not work properly with most software.
+
+The Printer Preferences program can be started with the mouse from
+Workbench. If the screen has been closed, the Workbench parameter
+described in section @{"9.15" LINK PPaintCD:H/7/0/4/0047/Main 863} can be set to open it again. If the Workbench
+is still closed, the program should be terminated (section @{"4.11" LINK PPaintCD:H/7/0/4/0049/Main 1273}) to free
+the memory necessary to open the Workbench screen.
+
+If text characters are printed instead of an image, or undesired
+characters appear in the text printed by a word processor, the wrong
+driver was probably selected. As an example, with some inappropriate
+driver/printer combinations a 'P' or 'K' character (not part of the
+document) is printed at the beginning of each print operation. The page
+format (A4, Letter, Wide Tractor, etc.) must also be set correctly in
+either Personal Paint's or the system's Page/Printer Preferences. Again,
+it is not necessary to use the system Printer Preferences, if these values
+are set through Personal Paint.
+
+When a print operation is interrupted (section @{"4.3" LINK PPaintCD:H/7/0/4/0049/Main 201}), some printers may
+continue to wait for the remaining image data to be sent. Software reset
+commands, as well as margin, size and graphical data of subsequent prints
+could be interpreted as binary data belonging to the first image. This
+could result in subsequent images being printed at the wrong position, or
+in the wrong size, or "trash" data being printed. To avoid this, it is
+sufficient to reset the printer from its control panel (or switch it off
+and turn it on again, if it lacks a reset function) after interrupting a
+graphical print.
+
+Sometimes it may be necessary to change the default factory settings of
+the printer. Some printers have small DIP-switches grouped into banks,
+located at the rear of the printer or under the cover. Other printers
+allow the user to change the parameters by accessing the printer memory
+settings through the control panel. A parameter which is often not set
+appropriately is the automatic line feed function, which should be
+disabled to work with most printer drivers. This has to be done if the
+graphic print is interrupted by wide horizontal lines, or if the line
+spacing of the text is twice the spacing which was set through the
+parameters of the word processor. If accents or other particular national
+characters of a specific language are not printed, and the correct driver
+was used, it is possible that the character set default setting (e.g.
+"Italic"/"Epson" versus "Standard"/"IBM") or the language character set
+should be modified. Personal Paint only prints in graphics mode, but
+specific text-mode imperfections may indicate more general problems.
+
+If it is possible to choose between tractor (perforated paper) or friction
+paper feed, it should be noted that friction feed is usually much more
+accurate over short distances (e.g. single sheets), especially on low-cost
+printers. On some printers friction feed may not grab a sheet stiffly
+enough if the paper is too light or too thick (forcing the feed
+mechanism). A discontinuous, asymmetric and imprecise paper feed may be
+caused by the wrong paper type.
+
+The presence of thin, light, horizontal lines on the printed output
+(graphic or text) can be reduced by selecting the friction feed and/or
+narrowing the printer head to the paper. If the inked ribbon streaks the
+paper, or dirties the margins of the paper, the printer head is probably
+too close to the surface of the sheet. On some printers the presence of
+thin horizontal lines can be reduced by selecting a Custom Paper Size,
+and/or Single paper type rather than Fanfold in the Preferences program.
+The internal power supply of some printers is not sufficient to guarantee
+a homogeneous pressure of all needles on the ribbon. Some drivers may let
+the printer use only part of their pins (generally the upper 16 of 24) if
+some parameters in Preferences are set as described above. These drivers
+make an improper (but surely appreciated) use of some Preferences
+parameters, which would otherwise remain unused, like Paper Type. The
+Threshold setting is also sometimes used for different purposes (like
+adjusting color and lightness correction in the HP DeskJet printer).
+
+As strange as this may sound, graphics are often printed faster (and with
+a higher degree of precision) in mono-directional mode than in
+bi-directional mode. The mode can be selected manually or through software
+control on most printers. Black and white graphic print is the fastest,
+while gray level and color printing take longer.
+
+Some settings, like Smoothing, may be activated to reduce diagonal "steps"
+in the graphic prints. This usually slows down the printing.
+
+On some color printers a black ribbon can (or must) be used to print black
+text or black and white or gray graphics. In this case, only black ink
+ribbons, usually more affordable than color ribbons, need be bought.
+
+If the printed colors appear different from what is displayed, it may be
+useful to apply color, brightness and contrast corrections (section
+@{"8.1.4" LINK PPaintCD:H/7/0/4/0016/Main 224}).
+
+A printing density which is too high (e.g. 300 to 360 dpi, rather than 50
+to 150 dpi) may cause the printout to be too dark and smeared (especially
+on ink-jet printers), as well as enhance undesired horizontal stripes.
+
+Similarly, PostScript printouts may become too dark and have very little
+different shades of gray when the density (LPI) is too high. Section
+@{"4.3.3.3" LINK PPaintCD:H/7/0/4/0049/Main 629} has more on this. In case of doubt, the printer's default values
+should be used (Personal Paint DPI and LPI set to 0, Default Spot, angles
+set to a value greater than 360). The Moiré phenomenon, which causes
+undesired patterns to appear, is discussed in section @{"4.3.3.11.2" LINK PPaintCD:H/7/0/4/0049/Main 812}.
+
+Another frequent problem with PostScript printers has to do with the
+serial connection between the computer and the printer. If the serial port
+is used, some wires of the cable must be crossed and connected in a
+different way than other, frequently used, one-to-one connections. To
+allow for different types of handshaking and interactive operation, the
+following wiring could be used: 1-1 (input and output pins with the same
+number are connected directly), 2x3 (pin two is connected with pin three
+on the other side, and vice versa), 4x5, 7-7, 6+8x20 (pins 6 and 8 on each
+part are joined, and connected to the opposite pin 20). The other signals
+are unused. On the software side, it is important that both the printer
+and the computer use the same Baud Rate (usually 9600 or 19200), Data Bits
+(e.g. 8), Parity (e.g. Even), Stop Bits (e.g. 1) and Handshaking (e.g.
+XOn/XOff). These settings can usually be set from the Amiga Serial
+Preferences and the printer's control panel.
+
+Finally, a warning addressed to the owners of Amiga 1000 models. This
+computer requires a non-standard parallel printer cable. Connecting the
+printer cable of another Amiga model, or a standard Centronics cable may
+damage the equipment.
+
+
+@{B}11.4       Problems with Screen Modes and Video Devices@{UB}
+
+The main symptom of most of the problems described here are: a black
+screen, flickering or unstable picture, monitor makes strange sounds and
+impossible to select certain video modes or colors.
+
+With Amiga operating systems starting from version 2.0, it is possible to
+specify the monitors which can be used. Each monitor has an associated set
+of screen (or video) modes. This is important, as different Amiga
+computers may employ more or less powerful or flexible graphic chip sets
+and monitor hardware. All display modes which are supported by the
+hardware and judged to be of good quality should be activated by copying
+the associated Workbench icon into the "Wbstartup" (version 2.0) or
+"Devs/Monitors" (version 2.1 and 3.@{I}x@{UI}) system drawers. Otherwise, Personal
+Paint would not be able to use those modes. Conversely, some video modes
+could have been inadvertently selected. For example, having activated the
+"Multiscan" monitor on an Amiga with a monitor capable of displaying only
+NTSC or PAL pictures may produce unreadable displays when loading some
+images. If this happens, the monitor files in excess should be moved back
+from the "Wbstartup" or "Devs/Monitors" directory into "MonitorStore"
+(Workbench 2.0) or "Storage/Monitors" (versions 2.1 and beyond).
+
+Images created on Advanced Graphics Architecture systems may not look the
+same when displayed on earlier Amigas, even if the same amount of colors
+is used. This is caused by the fact that more color combinations are
+available for the color palette on AA systems. Personal Paint's palette,
+color reduction and remapping functions will use the "coarser" color
+resolution to guarantee a more correct representation of the image if the
+Original or Advanced Chip Type options are selected in the boot menu of AA
+systems.
+
+If a display card is used, and the screen does not appear to be updated
+properly by some graphics operations, or if a system error occurs when a
+new video mode is selected, the RTG option (section @{"4.5.5" LINK PPaintCD:H/7/0/4/0049/Main 1040}) should be
+activated.
+
+Some graphics boards which make it possible to display screens in 256
+colors or more have a color palette resolution of less than 24 bits (i.e.
+less than 16 million colors). Since the standard for 256-color images is a
+24-bit color palette, it may happen that images with such a color
+resolution may not be rendered accurately by these cards. Personal Paint's
+Remap function (section @{"8.3" LINK PPaintCD:H/7/0/4/0016/Main 424}) can be applied after loading an image to
+restore the original color variations. A sophisticated remapping technique
+such as Floyd-Steinberg should be used (section @{"9.8" LINK PPaintCD:H/7/0/4/0047/Main 366}).
+
+Double-Scan and other higher bandwidth video modes (as are generated by
+Flicker Fixer and Display Enhancer devices) require an adequate monitor
+(MultiSync/multiscan, VGA, etc.) to be displayed properly. The Flicker
+Fixer or Display Enhancer may have to be disabled when using some of the
+highest bandwidth video modes. At the opposite end of the range, the
+original Amiga video modes (e.g. "plain" PAL or NTSC) may have a bandwidth
+which is narrower than the minimum of some multiscan monitors. This is a
+particular problem on Advanced Graphics Architecture Amiga systems, where
+several, completely different, video modes may have to be used (and the
+lower horizontal scan frequencies are not corrected by a Flicker Fixer or
+Display Enhancer). Commodore provides special multiscan monitors capable
+of handling most video modes. Other monitors may work, or may be
+re-calibrated by a qualified technician to accept lower frequency signals
+(typically, problems may arise at horizontal scan frequencies below 30 kHz
+and vertical refresh rates below 55 Hz).
+
+Section @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11} ("Load Image") has more on video modes.
+
+@ENDNODE

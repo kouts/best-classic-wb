@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<TITLE>Reloc * Relocating Executables</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: reloc.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Reloc * Relocating Executables</h3>
+A small tool to relocate a standard AmigaDOS Executable to an absolute address
+and save this as a simple data file. This was required for earlier WHDLoad
+versions to handle AmigaDOS executables. Starting with WHDLoad version 8.0,
+the function <a href="../autodoc.html#resload_Relocate">resload_Relocate</a> can be used
+instead.
+<h4>Installation</h4>
+Reloc is contained only in the <tt>DEV</tt> archive, not in the <TT>USR</tt>
+archive
+<br>copy it to C: or a similar place
+<h4>Options</h4>
+<table>
+<tr>
+<td colspan=2><tt>INPUTFILE/A,OUTPUTFILE,ADR/K,QUIET/S</tt></td></tr>
+<tr>
+<td valign=top nowrap><tt>INPUTFILE/A</tt>&nbsp;&nbsp;</td>
+<td>the executable file which should relocated, must be specified</td>
+</tr>
+<tr>
+<td valign=top><tt>OUTPUTFILE</tt></td>
+<td>the name of the file to write, if not specified the source file will be
+overwritten</td>
+</tr>
+<tr>
+<td valign=top><tt>ADR/K</tt></td>
+<td>the start address for the relocated file, if not specified $400 is used,
+you can use simple expressions like "$5000" = "20480" = " -$Ff +-33+
+19512+$4e8" (prefix "$" for hexadecimal numbers, supported operators are "+"
+and "-", unary and binary)</td>
+</tr>
+<tr>
+<td valign=top><tt>QUIET/S</tt></td>
+<td>disables all output, except error messages, enable this for using it
+conjunction with Installer scripts</td>
+</tr>
+</table>
+<h4>Return code</h4>
+The return code is set to 0 if all went OK, otherwise to 10.
+<h4>Background</h4>
+The HUNKs from the executable are copied in the same order to the absolute
+file. BSS-HUNKs are blown up to their real sizes. Not supported are HUNKs
+introduced with with AmigaDOS 2.0 (e.g. RELOC32_SHORT).
+</BODY>
+</HTML>

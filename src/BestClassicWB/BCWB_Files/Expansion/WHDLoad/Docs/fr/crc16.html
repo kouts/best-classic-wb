@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE>Calcul du checksum CRC16</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: crc16.html 1.5 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>CRC16 * Calcul du checksum CRC16 </h3>
+Ce programme calcule la somme de contr&ocirc;le CRC-16 d'une partie ou de la totalit&eacute; d'un fichier. A utiliser dans les scripts d'installation qui ont besoin d'identifier la version d'un fichier afin d'installer, par exemple, l'un ou l'autre slave, etc.
+Il retourne la m&ecirc;me valeur que celle calcul&eacute;e par <a href="../autodoc.html#resload_CRC16">resload_CRC16</a>, ce qui peut &ecirc;tre &eacute;galement
+utile lors du d&eacute;veloppement du slave.
+<h4>Installation</h4>
+copier dans C: ou un r&eacute;pertoire d'outils similaire
+<h4>Options</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,OFFSET/K/N,LENGTH/K/N</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+fichier dont on veut calculer le checksum
+<br>exemple "S:Startup-Sequence"
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>OFFSET/K/N</tt>&nbsp;&nbsp;
+</td><td>
+offset de d&eacute;marrage dans le fichier
+<br>par d&eacute;faut d&eacute;but du fichier
+<br>exemple "OFFSET=11264" pour d&eacute;marrer &agrave; la piste 2 d'un fichier image disque standard
+</td></tr>
+<tr><td valign=top>
+<tt>LENGTH/K/N</tt>
+</td><td>
+nombre d'octets utilis&eacute;s pour calculer la somme de contr&ocirc;le
+<br>par d&eacute;fault taille du fichier
+<br>exemple "LENGTH=1024"
+</td></tr>
+</table>
+<h4>Code de retour</h4>
+Le CRC16 est retourn&eacute; comme code de retour du programme.
+</BODY>
+</HTML>

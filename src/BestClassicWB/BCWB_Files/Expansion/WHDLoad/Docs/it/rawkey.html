@@ -1,0 +1,119 @@
+<HTML>
+<HEAD>
+<TITLE>Codici rawkey</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: rawkey.html 1.6 2019/02/21 00:41:00 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>I codici RAWKEY della tastiera</h3>
+Tutti i tasti utilizzati con WHDLoad devono essere specificati come codici rawkey.
+<p>Perciò ecco una tavola che mostra tutti questi codici in notazione esadecimale:
+<br><img src="../pic/keyraw.gif" alt="Tasti Raw">
+<p>per confronto qui c'è la mappa per la tastiera US:
+<br><img src="../pic/keyus.gif" alt="Tasti US">
+<p>qui, invece, la tastiera francese:
+<br><img src="../pic/keyfr.gif" alt="Tasti FR">
+<p>e qui la tastiera tedesca:
+<br><img src="../pic/keyde.gif" alt="Tasti DE">
+<p>e infine la tastiera italiana:
+<br><img src="../pic/keyit.gif" alt="Tasti IT">
+
+<h3>Codici dei pulsanti</h3>
+
+A partire dalla versione 16.8 di WHDLoad è possibile uscire dal programma utilizzando un pulsante del mouse,
+joystick o joypad. Per questo sono definite delle rawkey speciali elencate nella tabella sottostante. Queste
+rawkey funzionano solo per l'opzione <a href="opt.html#QuitKey">QuitKey</a> e nessun altra.
+
+<br>Per far si che WHDLoad possa riconoscere la pressione di un pulsante l'opzione 
+<a href="opt.html#NoVBRMove">NoVBRMove</a> non deve essere utilizzata, la CPU deve essere almeno un 68010 ed
+il programma installato deve avere l'interrupt "vertical blank" abilitato.
+
+<br>Le rawkey sono elencate sia in notazione esadecimale che decimale.
+
+<br>Se si utilizzano pulsanti di un joypad ($103..$109/$113..$119) come <a href="opt.html#QuitKey">QuitKey</a>
+sarà impossibile per il programma installato determinare/testare/utilizzare il joypad. Il programma installato
+vedrà connesso un joystick invece del joypad. Questo accade perchè ci sono delle restrizioni hardware che
+limitano il controllo dello stato del joypad ad una volta ogni cinquantesimo di secondo. Quindi non bisogna 
+utilizzare quest'opzione per giochi che richiedono un joypad.
+
+<p><table border=1>
+<tr>
+	<th>rawkey porta 0<br>di solito mouse</th>
+	<th>rawkey porta 1<br>di solito stick/pad</th>
+	<th>Mouse</th>
+	<th>Joystick</th>
+	<th>Joypad</th>
+	<th>Megadrive</th>
+	<th>Master System<br>TecnoPlus</th>
+</tr><tr>
+	<th>$100/256</th>
+	<th>$110/272</th>
+	<th>pulsante sinistro</th>
+	<th>fire</th>
+	<th>Rosso/Select</th>
+	<th>B</th>
+	<th>A</th>
+</tr><tr>
+	<th>$101/257</th>
+	<th>$111/273</th>
+	<th>pulsante destro</th>
+	<th>secondo fire</th>
+	<th>Blu/Stop</th>
+	<th>C</th>
+	<th>B</th>
+</tr><tr>
+	<th>$102/258</th>
+	<th>$112/274</th>
+	<th>pulsante centrale</th>
+</tr><tr>
+	<th>$103/259</th>
+	<th>$113/275</th>
+	<th></th>
+	<th></th>
+	<th>Play</th>
+</tr><tr>
+	<th>$104/260</th>
+	<th>$114/276</th>
+	<th></th>
+	<th></th>
+	<th>Indietro/Orecchio Sinistro</th>
+</tr><tr>
+	<th>$105/261</th>
+	<th>$115/277</th>
+	<th></th>
+	<th></th>
+	<th>Avanti/Orecchio Destro</th>
+</tr><tr>
+	<th>$106/262</th>
+	<th>$116/278</th>
+	<th></th>
+	<th></th>
+	<th>Verde/Shuffle</th>
+</tr><tr>
+	<th>$107/263</th>
+	<th>$117/279</th>
+	<th></th>
+	<th></th>
+	<th>Giallo/Loop</th>
+</tr><tr>
+	<th>$108/264</th>
+	<th>$118/280</th>
+	<th></th>
+	<th></th>
+	<th>Rosso/Select</th>
+</tr><tr>
+	<th>$109/265</th>
+	<th>$119/281</th>
+	<th></th>
+	<th></th>
+	<th>Blu/Stop</th>
+</tr></table>
+
+<p>Nelle versioni 16.4 - 16.7 di WHDLoad era possibile utilizzare $73 come QuitKey per uscire premendo
+il pulsante sinistro del mouse. La cosa non funziona più nelle versioni 16.8 e superiori di WHDLoad.
+Il nuovo codice rawkey $100 deve essere utilizzato.
+
+</BODY>
+</HTML>

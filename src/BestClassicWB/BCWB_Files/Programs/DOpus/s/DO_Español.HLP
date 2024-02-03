@@ -1,0 +1,836 @@
+**Versionstring
+$VER: DOpus_Español.HLP 1.1 (2.6.2001)
+^
+**Assign
+Este comando le permite asignar un nombre de unidad lógica al directorio
+abierto en la ventana activa. La unidad C: es un ejemplo de una unidad
+lógica: no es en sí misma un disco físico, sino un directorio al que se
+le ha asignado el nombre C:. Por ejemplo, podría asignarse el nombre
+'Texto:' a una senda larga y complicada como sería:
+
+   DH1:Proyectos/Work/1989/Abril/CajónDesastre/Texto
+
+A partir de ese momento, siempre que introduzca 'Texto:' en una caja
+de directorio, irá directamente al directorio al que apunta la senda
+asignada, en lugar de tener que pasar por todos los subdirectorios
+intermedios. También puede utilizar la asignación en cualquier otro
+programa. Los nombres de las unidades lógicas siempre terminan en un
+signo de dos puntos ':'.
+
+"Assign" también le permite anular una unidad lógica asignada
+previamente, o bien reasignar una unidad a un directorio distinto.
+Para ello, pulse con el botón derecho del ratón sobre el botón [S]
+(Seleccionar) para activar el comando "GetDevices". Elija entonces
+la unidad o unidades asignadas que desea cambiar, e invoque a
+continuación el comando "Assign". De esta forma aparecerá un requester
+en el cual podrá teclear la nueva senda a la que asignar cada nombre.
+Si introduce una cadena en blanco, lo que conseguirá será anular la
+asignación.^
+**CD
+Esta función le permite elegir el directorio actual de trabajo para
+Directory Opus. Es el directorio que se leerá si pulsa <Intro> en una
+caja de directorio vacía.^
+**ErrorHelp
+Le ofrece más información sobre los mensajes y códigos de error del
+AmigaDOS que la que se ofrece normalmente. Al ser seleccionado, se le
+pedirá un código de error; una vez introducido, se le mostrará un mensaje
+de error estándar así como una descripción del error.^
+**Configure
+Cargará en memoria el programa de configuración ConfigOpus y lo ejecutará,
+o bien, si ya está en la memoria, lo invocará desde ahí. Consulte el manual
+para más información sobre las muchas opciones de configuración.^
+**About
+Esta función muestra la "ventana de título" del programa y le proporciona
+información sobre el número de la versión actual y del Copyright.^
+**Alarm
+Esta función reproduce un sonido similar al de una alarma.^
+**Beep
+Esta función reproduce un sonido similar a un pitido.^
+**SetVar
+Define la variable local indicada según el valor dado.^
+**Version
+Esta función muestra una ventana que contiene los números de versión del
+software, del Kickstart y del Workbench, así como otra información que
+puede necesitar al contactar con el soporte técnico.^
+**Iconify
+Esto le permite cerrar la pantalla de Directory Opus para liberar toda
+la memoria posible.
+
+Puede elegir el estado que desee que adquiera Directory Opus al pasar a
+modo iconificado, que puede ser una ventana (con o sin un reloj y un
+monitor de memoria) o un icono de aplicación.^
+**ButtonIconify
+Esto cumple una función similar al comando de iconificación, con la
+diferencia de que la ventana que se abre en la pantalla del Workbench
+contiene todos los botones y menús personales a su disposición. Esto
+le permite lanzar programas desde Directory Opus incluso cuando está
+en modo iconificado.^
+**Quit
+Esta función hace que Directory Opus salga del sistema. Si la configuración
+ha cambiado desde que se guardó en disco por última vez, se le dará la
+posibilidad de guardarla antes de salir.^
+**Filter
+Esto le permite definir un filtro que indique qué ficheros deberían
+utilizarse durante las operaciones de directorio recursivas.^
+**Diskcopy
+Esto le permite copiar un disco a otro, realizando una copia exacta del
+disco original. No copiará software protegido, ni tampoco discos en
+formato no-AmigaDOS. Esta función es prestada por el módulo externo
+DOpus_Disk.
+
+Cuando se elige esta función, aparece una ventana que contiene dos listas
+de unidades. Elija un disco origen en la lista de la izquierda, y el
+disco destino de la lista de la derecha.
+
+Si elige la Verificación, la copia será verificada a medida que se
+escribe cada pista, asegurando así que se ha copiado correctamente. La
+opción Renombrar le permite modificar el nombre de la copia, para evitar
+posibles problemas al tener en el sistema dos discos con el mismo nombre.^
+**Format
+Esto le permite formatear un nuevo disco. Todos los discos deben ser
+formateados para que el ordenador pueda guardar información en ellos.
+Esta función es prestada por el módulo externo DOpus_Disk.
+
+Cuando se elige esto, aparece una ventana que contiene una lista de
+unidades, así como varias opciones. Elija en la lista el disco que
+desea formatear. Dependiendo de su versión del Sistema Operativo, habrá
+varias opciones disponibles para permitirle elegir el tipo de formato que
+desee (FFS, Caché de directorio, etc.)
+
+Si elige la Verificación, el formateo será verificado después de escribir
+cada pista, para asegurar que el formateo es bueno. La opción 'Poner
+papelera' hace que se instale una papelera en el nuevo disco.
+
+La opción 'Formateo rápido' le permite inicializar un disco ya formateado.
+Esto le ofrece una forma extremadamente rápida de borrar viejos discos.
+Sin embargo, no funcionará en discos nuevos; debe usar la opción 'Formatear'
+para formatear discos completamente nuevos.^
+**Install
+Esta función le permite hacer que un disco sea de arranque. Todos los discos
+de arranque tienen información especial en su primer sector; sin ella, el
+disco no podrá arrancar el sistema. Esta función es prestada por el módulo
+externo DOpus_Disk.
+
+Esta función abre una ventana con una lista que contiene las unidades
+disponibles (recuerde que esta función sólo puede instalar discos
+flexibles). Elija en la lista la unidad que desea instalar.^
+**Relabel
+Esta función le permite modificar el nombre (etiqueta) del disco al que
+pertenece le directorio abierto en la ventana de directorio activa.^
+**PrintDir
+Esta función le permite imprimir el contenido de la ventana de directorio
+activa. Puede elegir qué información en concreto le interesa imprimir,
+como pueden ser los tamaños de los ficheros, las banderas de protección,
+fechas y comentarios. También puede decidir enviar la salida a un fichero
+en disco en lugar de hacerlo a la impresora.
+
+Esta función es prestada por el módulo externo DOpus_Print.^
+**DiskInfo
+Esta función muestra alguna información sobre el disco en el que reside el
+directorio activo, incluyendo el espacio usado y el que queda libre, la
+fecha de última modificación y el número de errores del disco.^
+*LHA Add
+Esta función le permite crear y añadir ficheros a un archivo LhA.
+
+Para añadir ficheros a un archivo, abra en la ventana inactiva el directorio
+en el que quiere guardar el archivo, elija los ficheros y directorios que
+desee añadir, y elija esta función. Se le preguntará por el nombre del
+archivo que desea crear o al que desea añadir los ficheros.^
+*ARC Add
+Esta función le permite crear y añadir ficheros a un archivo ARC.
+
+Para añadir ficheros a un archivo, abra en la ventana inactiva el directorio
+en el que quiere guardar el archivo, elija los ficheros y directorios que
+desee añadir, y elija esta función. Se le preguntará por el nombre del
+archivo que desea crear o al que desea añadir los ficheros.^
+*ZOO Add
+Esta función le permite crear o añadir ficheros a un archivo ZOO.
+
+Para añadir ficheros a un archivo, abra en la ventana inactiva el directorio
+en el que quiere guardar el archivo, elija los ficheros y directorios que
+desee añadir, y elija esta función. Se le preguntará por el nombre del
+archivo que desea crear o al que desea añadir los ficheros.^
+**All
+Esta función elige todos los ficheros y directorios presentes en la
+ventana de directorio activa.^
+**Toggle
+Esta función invierte el estado de todos los ficheros y directorios del
+directorio activo, es decir, todo los objetos seleccionados quedan
+deseleccionados y viceversa.^
+**None
+Esta función deselecciona todos los ficheros y directorios presentes en la
+ventana de directorio activa.^
+**Parent
+Esta función lee el directorio padre de la ventana de directorio activa.^
+**Root
+Esta función lee el directorio raíz de la ventana de directorio activa.^
+**Copy
+Esta función copia todos los ficheros y directorios seleccionados en
+la ventana de directorio activa a la ventana de directorio inactiva,
+manteniendo los mismos nombres.^
+**CopyAs
+Esta función copia todos los ficheros y directorios seleccionados en
+la ventana de directorio activa a la ventana de directorio inactiva,
+permitiéndole dar un nuevo nombre a cada objeto copiado.^
+**Move
+Esto le permite mover todos los ficheros y directorios seleccionados en la
+ventana activa a la ventana inactiva. Una vez que las copias se instalen
+en el destino, los originales se borrarán.^
+**MoveAs
+Esto le permite mover todos los ficheros y directorios seleccionados de la
+ventana de directorio activa a la ventana inactiva, dando a cada fichero
+un nuevo nombre. Cada fichero y directorio se copiará bajo un nuevo nombre,
+y el original será borrado de su lugar original.^
+**Rename
+Esta función le permite renombrar todos los ficheros y directorios
+seleccionados. Puede utilizar un '*' para indicar un patrón. Si no utiliza
+ningún '*', se le pedirá un nuevo nombre para cada fichero por separado.
+
+Para añadir un prefijo o un sufijo (o ambos a la vez) a todos los objetos
+seleccionados, utilice un '*' en la segunda caja de texto. Por ejemplo,
+para añadir 'ALTARES' como prefijo y '.pic' como sufijo para todos los
+objetos seleccionados, introduzca 'ALTARES*.pic'.
+
+Para cambiar un prefijo o un sufijo (o ambos a la vez) en todos los
+objetos seleccionados, utilice un '*' en la caja de arriba. Por ejemplo,
+para cambiar ALTARES por MEDIARES como prefijo, y cambiar el sufijo '.pic'
+por '.iff', introduzca 'ALTARES*.pic' en la caja de arriba y 'MEDIARES*.iff'
+en la caja de abajo.^
+**Clone
+Esta función produce una copia idéntica de todos los ficheros y directorios
+seleccionados, en el mismo directorio pero con diferentes nombres.^
+**Delete
+Esta función borra todos los ficheros y directorios seleccionados en la
+ventana de directorio activa. ¡TENGA CUIDADO!^
+**MakeDir
+Esta función le permite crear un directorio en la ventana de directorio
+activa.^
+**CheckFit
+¡Importante!
+
+Este comando está muy desfasado. Sólo entiende de particiones FFS de
+512 bytes por bloque, y fallará (dicho de otro modo: dará resultados
+erróneos) en cualquier partición que no responda exactamente a esta
+configuración. ¡Evite utilizar este comando si no está seguro de que
+todas sus particiones sean FFS y de 512 bytes por bloque!
+
+----------
+
+Esta función calculará si todos los ficheros y directorios seleccionados
+cabrían en el directorio destino en caso de que se hiciese allí una copia
+de ellos. Esto cumple una función similar al comando 'GetSizes', con la
+diferencia de que es mucho más preciso. El único inconveniente de este
+comando es que aunque tenga a la vista los tamaños de los directorios
+que ha seleccionado, es posible que tenga que reexplorarlos si la unidad
+destino ha cambiado.^
+**GetSizes
+Esta función trabaja de una forma muy similar a CheckFit, en el sentido
+de que explora todos los directorios seleccionados calculando el número
+total de bytes de cada uno de ellos y sumándolos a la lista, mostrando
+entonces un carácter 'Y' o 'N' para indicar si los objetos seleccionados
+cabrían en el destino en caso de que se hiciese allí una copia de ellos.
+Esto, sin embargo, sólo es una indicación aproximada; para disponer de
+un cálculo totalmente preciso debería usar el comando CheckFit.^
+**ClearSizes
+Borrará todos los tamaños que se muestran para todos los directorios
+seleccionados. Puede interesarle hacer esto en caso de que sepa que el
+tamaño del directorio ha cambiado. Entonces puede reseleccionar el
+directorio y utilizar las funciones GetSizes o CheckFit para obtener
+una medida precisa.^
+**Hunt
+Esta función le permite buscar un fichero determinado en todos los
+directorios y subdirectorios seleccionados, o bien un grupo de ficheros
+determinado por un comodín. Si se encuentra el fichero o ficheros que se
+buscan, se leerá el directorio que los contiene, y los ficheros quedarán
+automáticamente seleccionados.^
+**Search
+Esta función le permite buscar en todos los ficheros seleccionados una
+cadena determinada, que opcionalmente puede contener comodines. Si se
+encuentra una coincidencia, se le informará del fichero que contiene
+la cadena, y se le ofrecerá la posibilidad de ir al visor de texto para
+leer el fichero. Si opta por esto último, se iniciará automáticamente
+la búsqueda de la cadena tan pronto como el fichero haya sido leído por
+el visor de texto. Consulte el manual para más información (por ejemplo,
+sobre la búsqueda por códigos ASCII).^
+**Run
+Esta función ejecuta de forma consecutiva todos los ficheros seleccionados.
+Se le pedirán argumentos cada vez que toque ejecutar cada uno de los
+ficheros. Cada fichero se ejecuta empleando parámetros por omisión que
+deberían ser aceptables para la mayoría de programas; si el programa parece
+no poder ser ejecutado de esta forma, pruebe a ejecutarlo desde el
+Workbench.^
+**Execute
+Esta función ejecuta cada fichero seleccionado de forma consecutiva,
+asumiendo que son scripts AmigaDOS. Nota: ¡sólo los ficheros con la
+bandera "S" activada son reconocidos como scripts!^
+**Comment
+Esta función le permite modificar el comentario de todos los ficheros y
+directorios seleccionados en la ventana de directorio activa.
+
+Por cada objeto se le presentará un requester que le mostrará el comentario
+actualmente asignado a ese objeto. Para modificarlo, simplemente edítelo y
+pulse <Intro>. Para mantener el mismo comentario, pulse <Intro> sin editar
+nada.
+
+Para dar un mismo comentario a todos los objetos seleccionados, pulse el
+botón 'Todos' en el requester de comentario; elegir 'Aceptar' o pulsar
+<Intro> hará que se especifique un comentario un fichero cada vez.^
+**DateStamp
+Esta función le permite alterar la fecha de última modificación de todos
+los ficheros y directorios seleccionados en la ventana de directorio activa.
+
+Por cada objeto se le presentará un requester. Si desea que el fichero
+reciba la fecha y hora actuales, limítese a pulsar <Intro>. De lo contrario,
+introduzca la fecha y hora que prefiera.
+
+Para dar la misma fecha y hora a todos los objetos seleccionados, debería
+elegir el botón 'Todos' del requester; seleccionar 'Aceptar' o pulsar
+<Intro> hará que se pida una fecha y hora para cada fichero de forma
+separada.^
+**Protect
+Esta función le permite modificar las banderas de protección de todos los
+ficheros y directorios seleccionados en la ventana de directorio activa.
+
+Por cada objeto se le presentará un requester mostrándole las actuales
+banderas de protección de cada uno. Las banderas de protección son H
+(oculto), S (script), P (puro), A (archivado), R (legible), W (escribible),
+E (ejecutable) y D (borrable).
+
+Para activar o desactivar banderas, pulse los botones apropiados o bien
+las teclas que corresponda. Para activar todas las banderas, pulse el botón
+'Todas las banderas'. Para desactivar todas las banderas, pulse el botón
+'Ninguno'. Para invertir el estado de las banderas, pulse el botón
+'Invertir'. Para devolver todas las banderas a su estado original, elija
+el botón 'Restaurar'.
+
+La 'Máscara' le permite indicar banderas que no deberían ser afectadas por
+esta operación. Esto le permite, por ejemplo, activar las banderas RW de
+todos los ficheros, dejando todas las demás banderas intactas. Para activar
+o desactivar una bandera en la máscara, pulse el área apropiada o bien la
+tecla correspondiente, quizás junto con la tecla <Mayúsculas>.
+
+Para definir las banderas de protección de todos los objetos seleccionados
+debería elegir el botón 'Todos' del requester de protección. Seleccionar
+'Aceptar' alterará las banderas de protección un fichero cada vez.^
+**IconInfo
+Esto le permite modificar los parámetros de los iconos, de forma muy similar
+a la opción de menú 'Información...' del Workbench. Puede modificar las
+banderas de protección, el tamaño de la pila, los comentarios, las
+herramientas por omisión y los tipos de herramienta.^
+**AddIcon
+Esto añadirá iconos a todos los ficheros y directorios seleccionados en la
+ventana de directorio activa. Directory Opus se da cuenta automáticamente
+del tipo de fichero del que se trata (cajón, proyecto o herramienta), y
+añadirá el icono apropiado para cada caso. Puede indicar sus propios iconos
+en la configuración, en caso de que los iconos empleados por omisión no le
+gusten.^
+**Encrypt
+Esta función le permite mantener en secreto información importante,
+encriptando ficheros con una determinada contraseña. Todos los ficheros
+seleccionados en la ventana de directorio activa serán encriptados, y
+entonces se escribirán en la ventana destino. Si la contraseña empieza
+por el carácter '-', se producirá la operación inversa, es decir, los
+ficheros serán desencriptados.^
+*Arc Ext
+Este botón invoca el comando de tipo de fichero Usuario1 sobre todos los
+ficheros seleccionados. Está etiquetado como 'Arc Ext' puesto que es como
+están configurados los tipos de fichero por omisión: extraer archivos.
+Debería consultar el manual para más información sobre las características
+de los tipos de ficheros.^
+**Read
+Esta función le permite leer un fichero de texto empleando el ratón.
+
+Para deslizarse automáticamente por el fichero, pulse el botón izquierdo
+del ratón. La dirección y velocidad pueden indicarse con la posición
+vertical del puntero. También puede utilizar las teclas del cursor, los
+botones en forma de flecha y el deslizador (si existe) para moverse por
+el fichero.
+
+Para saltar a una línea determinada, pulse el número que aparece
+inmediatamente a continuación de 'Líneas'. Para ir a una posición
+porcentual concreta del fichero, pulse en el indicador de porcentaje.
+
+Para moverse hacia arriba o hacia abajo una página completa, pulse los
+botones [U] o [D] respectivamente, o bien la tecla homónima; también
+puede usar para esto las teclas <Mayúsculas + Cursor arriba/abajo>,
+<Espacio> o <Retroceso>.
+
+Para ir al comienzo o al final del fichero, pulse los botones [T] o [B],
+respectivamente, o bien la tecla homónima en el teclado; también puede
+utilizar para esto las teclas <Control + Cursor arriba/abajo>.
+
+Para buscar una cadena determinada, pulse el botón [S] o bien esa tecla.
+Para continuar una búsqueda, pulse <N>. Para imprimir la página actual,
+pulse <C>. Para imprimir el fichero al completo, pulse [P]. Para salir,
+pulse el botón [X] o bien las teclas <Esc>, <X> o <Q>.
+
+Tenga en cuenta que esta función no muestra secuencias de control ANSI
+o caracteres de tabulador; para ello deberá usar la función ANSIREAD.^
+**AnsiRead
+Esta función trabaja igual que la función READ, con la única diferencia
+de que también muestra correctamente las secuencias de control ANSI
+(colores y estilos de texto), y también maneja correctamente los
+tabuladores.^
+**HexRead
+Esta función le permite leer un fichero binario de forma hexadecimal,
+algo muy útil a la hora de examinar ficheros binarios. El fichero se
+muestra en hexadecimal, con 16 bytes por línea. El visor de texto funciona
+de la misma forma que cuando se examina un texto como ASCII.^
+**Show
+Esta función mostrará uno por uno cada fichero seleccionado, en caso de
+que se trate de ficheros IFF ILBM, una animación ANIM, un icono o un tipo
+de letra. Si se trata de un icono, la imagen alternativa (si la tiene)
+puede verse pulsando <Intro>. Para cerrar la imagen, pulse el botón
+izquierdo del ratón. Si la imagen tiene un ciclo de colores definido,
+puede ponerlo en marcha o detenerlo con la tecla <TAB>.
+
+Pulsando las teclas <P>, <Help> o <Espacio> se le presentará la ventana
+de control de impresión. Esta ventana le permite configurar la impresora
+y finalmente imprimir la imagen actual. También muestra alguna información
+importante referente a la imagen actual.
+
+Si la imagen es más grande que la pantalla, puede moverse por ella
+empleando las teclas del cursor, o bien moviendo el puntero del ratón.
+Esta función también le mostrará imágenes comprimidas con PowerPacker
+y similares, suponiendo que tenga instalada la 'xfdmaster.library' (vea
+el manual).^
+**Play
+Esta función le permite reproducir sonidos IFF 8SVX y otros ficheros.
+Para detener un sonido mientras está sonando, pulse el botón izquierdo
+del ratón. Si tiene instalada en su directorio LIBS: una copia de
+'inovamusic.library', esta función también podrá reproducir módulos de
+sonido.^
+**LoopPlay
+Esta función le permite reproducir sonidos IFF 8SVX y otros ficheros.
+Cada sonido se reproducirá de forma repetida; para pasar al siguiente
+sonido, deberá pulsar el botón izquierdo del ratón.^
+*Edit
+Esto invocará un editor para permitirle editar los ficheros seleccionados.
+No se trata de una función integrada; en realidad, es un botón que está
+preconfigurado para invocar al editor c:Ed. Probablemente querrá cambiar
+esto en la configuración.^
+*New File
+Esto invocará a un editor de forma similar a como lo hace el botón 'Edit'.
+Sin embargo, esta función le permite crear un nuevo fichero con el editor,
+para lo cual le preguntará por el nombre de un fichero.^
+**Print
+Esta función imprimirá todos los ficheros seleccionados. En realidad, se
+trata de un potente formateador de impresión. En el requester de impresión
+encontrará varias opciones de configuración. La rutina de impresión es
+servida por el módulo externo DOpus_Print.
+
+Puede configurar los márgenes superior e inferior (en líneas), así como
+los márgenes izquierdo y derecho (en caracteres). El 'tabulador' es el
+número de espacios a los que equivaldrá un carácter de tabulador. Puede
+elegir 'Pica', 'Élite' o 'Fina' como separador, y 'Borrador' o 'Carta'
+como calidad de impresión.
+
+Puede configurar de forma individual el contenido de la cabecera y el
+pie de página, pudiendo incluir un título, fecha y número de página.
+En caso de no indicar ninguno de ellos, no se utilizará cabecera ni pie
+de página alguno. Si elige un título e introduce una cadena en la caja
+situada a la derecha del botón 'Título', se empleará esa cadena como
+título; si esta caja se deja en blanco, se empleará como título el
+nombre del fichero.
+
+Puede enviar la salida a la impresora o a un fichero en disco. El botón
+'Imprimir' iniciará la operación de impresión, mientras que 'Salir' la
+cancelará completamente.^
+**GetDevices
+Esta función muestra una lista de todas las unidades, volúmenes y
+directorios asignados presentes en el sistema. Puede leer el contenido
+de estas unidades pulsando dos veces sobre ellas. También puede elegir
+unidades enteras con las funciones 'Hunt' y 'Search'.^
+**Select
+Esto le permite elegir ficheros y directorios en la ventana de directorio
+activa basándose en un nombre (que puede contener comodines), fecha de
+última modificación o banderas de protección. Para la selección basada en
+un nombre se soportan todos los comodines estándar ('*', '~', '?', etc.)
+además del comodín '#?' típico del AmigaDOS. Consulte el manual para más
+información sobre el uso de los comodines.
+
+La selección basada en una fecha le permite indicar una franja de tiempo
+en el formato DD-MMM-AA > DD-MMM-AA. Puede omitir cualquiera de las dos
+fechas para elegir objetos a partir de un momento del tiempo, o bien una
+fecha límite. También puede indicar horas en el formato HH:MM:SS así como
+fechas.
+
+Para indicar banderas de protección, utilice los códigos de carácter
+'hsparwed'. Si indica un guión '-' delante de una bandera, estará diciendo
+que la bandera deberá estar desactivada para que el fichero quede
+seleccionado. Consulte el manual para más información sobre la selección
+de ficheros.^
+**Arexx
+Esto le permite lanzar un script ARexx o ejecutar un comando ARexx desde
+Directory Opus. Vea el manual para más información sobre ARexx.^
+**DirTree
+Esta función genera una lista en forma de árbol de todos los subdirectorios
+presentes en el directorio abierto en la ventana activa. Puede leer de
+forma instantánea cualquier subdirectorio pulsando dos veces sobre él en
+el árbol, en lugar de navegar hasta él pasando por todos los directorios
+anteriores.^
+**Reselect
+Esta función seleccionará de nuevo todos los objetos que se mostraron
+antes de que se iniciara la última operación. Los objetos sólo se
+seleccionan de nuevo en caso de que existan.^
+**Rescan
+Esta función leerá de nuevo el directorio abierto en la ventana de
+directorio activa. Tiene el mismo efecto que activar la caja de texto
+para directorios y pulsar <Intro> sin cambiar el nombre de la senda.^
+**BufferList
+Esta función muestra una lista de todos los directorios contenidos en los
+buffers internos de Directory Opus. Entonces puede pulsar dos veces sobre
+uno de los buffers para saltar inmediatamente a él, en lugar de tener que
+pulsar las flechas para pasar por los buffers uno por uno.^
+**ClearBuffers
+Esta función borrará el contenido de todos los buffers, excepto los dos
+que se están mostrando en este momento. Toda la memoria utilizada quedará
+libre, lo que convierte a esta función en una buena forma de liberar
+memoria rápidamente en caso de estar usando muchos buffers y haberse
+quedado muy escaso de memoria.^
+**DriveGadgets
+Éstos son los botones de unidad. Eligiendo uno de ellos se leerá la unidad
+o senda correspondiente en la ventana de directorio activa.^
+*!103
+Memoria insuficiente
+
+Posible causa:
+No queda suficiente memoria en su Amiga para realizar la operación.
+
+Solución:
+Cierre todas las ventanas y aplicaciones que no necesite, y pruebe a repetir
+la operación. Si sigue sin funcionar, pruebe a reiniciar el sistema. Puede
+darse el caso de que sí tenga suficiente memoria, pero esté fragmentada.
+Es posible que necesite añadir más memoria RAM a su sistema.^
+*!104
+Tabla de procesos llena
+
+Posible causa:
+Hay un límite para el número de procesos posibles.
+
+Solución:
+Quite una o más tareas.^
+*!114
+Plantilla incorrecta
+
+Posible causa:
+La línea de comando es incorrecta.
+
+Solución:
+Consulte la documentación para ver el formato correcto del comando.^
+*!115
+Número erróneo
+
+Posible causa:
+El programa esperaba un argumento numérico.
+
+Solución:
+Consulte la documentación para ver el formato correcto del comando.^
+*!116
+Falta el argumento necesario
+
+Posible causa:
+La línea de comando es incorrecta.
+
+Solución:
+Consulte la documentación para ver el formato correcto del comando.^
+*!117
+Falta valor en palabra clave
+
+Posible causa:
+La línea de comando es incorrecta.
+
+Solución:
+Consulte la documentación para ver el formato correcto del comando.^
+*!118
+Número erróneo de argumentos
+
+Posible causa:
+La línea de comando es incorrecta.
+
+Solución:
+Consulte la documentación para ver el formato correcto del comando.^
+*!119
+Faltan o sobran comillas
+
+Posible causa:
+La línea de comando es incorrecta.
+
+Solución:
+Consulte la documentación para ver el formato correcto del comando.^
+*!120
+Línea de argumentos no válida o muy larga
+
+Posible causa:
+La línea de comando es incorrecta o contiene demasiados argumentos.
+
+Solución:
+Consulte la documentación para ver el formato correcto del comando.^
+*!121
+El fichero no es ejecutable
+
+Posible causa:
+Ha escrito mal el nombre del comando, o bien se trata de un fichero
+(programa o script) que no puede cargarse.
+
+Solución:
+Teclee de nuevo el nombre del fichero y asegúrese de que se trata de un
+programa. Recuerde que para ejecutar un script, la bandera 's' debe
+estar activada o bien deberá usar el comando EXECUTE.^
+*!122
+Librería residente no válida
+
+Posible causa:
+Está intentando ejecutar comandos con una versión antigua del AmigaDOS;
+por ejemplo, comandos del AmigaDOS 2.0 bajo Kickstart 1.3.
+
+Solución:
+Reinicie el sistema empleando la versión actual del AmigaDOS.^
+*!202
+El objeto está siendo usado
+
+Posible causa:
+El fichero o directorio indicado está siendo usado por otra aplicación.
+Si una aplicación está leyendo un fichero, ningún otro programa puede
+escribir en él, y viceversa.
+
+Solución:
+Detenga la otra aplicación que está utilizando el fichero o directorio
+e inténtelo de nuevo.^
+*!203
+El objeto ya existe
+
+Posible causa:
+El nombre que ha indicado corresponde a otro fichero o directorio que ya
+existe.
+
+Solución:
+Utilice otro nombre, o bien borre antes el fichero o directorio que está
+utilizando ese nombre.^
+*!204
+No se encuentra el directorio
+
+Posible causa:
+El AmigaDOS no puede encontrar el directorio que le ha indicado. Quizás
+ha escrito mal su nombre.
+
+Solución:
+Asegúrese de usar el nombre de directorio correcto e inténtelo de nuevo.^
+*!205
+No se encuentra el objeto
+
+Posible causa:
+El AmigaDOS no puede encontrar el fichero o unidad que le ha indicado.
+Quizás ha escrito mal su nombre.
+
+Solución:
+Asegúrese de usar el nombre correcto e inténtelo de nuevo.^
+*!206
+Descripción de ventana no válida
+
+Posible causa:
+Este error se produce al indicar un tamaño de ventana para la ventana
+de salida, de Shell, ED o ICONX. Quizás ha indicado una ventana demasiado
+grande o demasiado pequeña, o puede haber omitido un argumento. Este error
+también puede producirse con el comando NEWSHELL, si indica un nombre de
+manejador que no se corresponde con una ventana.
+
+Solución:
+Utilice la especificación de ventana correcta.^
+*!209
+Petición de paquete de tipo desconocido
+
+Posible causa:
+Ha intentado que un manejador realice una operación que no es capaz de
+hacer. Por ejemplo, el manejador de consola no puede renombrar cosas.
+
+Solución:
+Revise la petición pasada al manejador para ver si se devuelve la
+respuesta correcta.^
+*!210
+Nombre de objeto no válido
+
+Posible causa:
+Hay un carácter no válido en el nombre del fichero, o bien el nombre es
+demasiado largo. Recuerde que el nombre de los ficheros no puede tener
+más de 30 caracteres al utilizar el sistema de ficheros nativo del Amiga
+("FFS"), y que tampoco puede contener caracteres de control.
+
+Solución:
+Vuelva a teclear el nombre, asegurándose de no usar caracteres no válidos
+ni pasarse de la longitud máxima permitida.^
+*!211
+Bloqueo de objeto no válido
+
+Posible causa:
+Ha utilizado algo que no es un bloqueo válido.
+
+Solución:
+Asegúrese de que su código sólo pasa bloqueos válidos a las llamadas
+del AmigaDOS que esperan bloqueos.^
+*!212
+El objeto no es del tipo requerido
+
+Posible causa:
+Ha indicado el nombre de un fichero para una operación que necesita el
+nombre de un directorio, o viceversa.
+
+Solución:
+Consulte la documentación para ver el formato correcto del comando.^
+*!213
+Disco no validado
+
+Posible causa:
+Si acaba de insertar un disco, el proceso de validación del mismo puede
+estar todavía en marcha. También es posible que el disco esté corrupto.
+
+Solución:
+Si acaba de insertar el disco, espere a que termine el proceso de
+validación. Esto puede llevar menos de un minuto para un disco flexible,
+o varios minutos en caso de tratarse de un disco duro. Si el disco está
+corrupto, no podrá ser validado; en este caso, intente recuperar los
+ficheros del disco y cópielos a un disco diferente.^
+*!214
+Disco protegido contra escritura
+
+Posible causa:
+La pestaña de plástico está en la posición de protección contra escritura.
+
+Solución:
+Si está completamente seguro de querer escribir en ese disco en particular,
+saque el disco, mueva la pestaña e insértelo de nuevo. De lo contrario, use
+un disco diferente.^
+*!215
+Se ha intentado renombrar entre unidades
+
+Posible causa:
+RENAME sólo puede modificar el nombre de un fichero en el mismo volumen.
+Puede utilizar RENAME para pasar un fichero de un directorio a otro, pero
+no puede pasar ficheros de un volumen a otro distinto.
+
+Solución:
+Utilice en su lugar el comando MOVE. Alternativamente, utilice COPY para
+copiar el fichero al volumen destino, y entonces bórrelo de su lugar
+original si lo desea.^
+*!216
+El directorio no está vacío
+
+Posible causa:
+Este error se produce si intenta borrar un directorio que contiene ficheros
+o subdirectorios.
+
+Solución:
+Si está seguro de querer borrar el directorio al completo, utilice la
+opción ALL del comando DELETE.^
+*!217
+Hay demasiados niveles
+
+Posible causa:
+Ha superado el límite de 15 enlaces blandos.
+
+Solución:
+Reduzca el número de enlaces blandos.^
+*!218
+La unidad -o el volumen- no están montados
+
+Posible causa:
+Si se trata de un disco flexible, no ha insertado correctamente el disco
+en la unidad. Si se trata de otro tipo de soporte, no ha montado la
+correspondiente unidad con el comando MOUNT. También es posible que
+haya cometido un error al teclear el nombre de la unidad.
+
+Solución:
+Inserte el disco flexible, compruebe que ha tecleado bien el nombre de
+la unidad, monte la unidad o revise su fichero de montaje.^
+*!219
+Fallo de búsqueda
+
+Posible causa:
+Ha intentado llamar a SEEK con argumentos no válidos.
+
+Solución:
+Asegúrese de que sólo utiliza SEEK sobre el fichero. No puede utilizar
+SEEK más allá de los límites del fichero.^
+*!220
+El comentario es demasiado largo
+
+Posible causa:
+El comentario que ha indicado supera el número máximo de caracteres (79).
+
+Solución:
+Utilice un comentario más corto.^
+*!221
+El disco está lleno
+
+Posible causa:
+No queda suficiente espacio libre en el disco para realizar la operación.
+
+Solución:
+Borre los ficheros o directorios innecesarios, o utilice un disco
+diferente.^
+*!222
+Objeto protegido contra el borrado
+
+Posible causa:
+Está desactivada la bandera de protección 'd' (borrable) del fichero o
+directorio.
+
+Solución:
+Si está realmente seguro de querer borrar el fichero o directorio,
+utilice PROTECT para activar la bandera 'd'.^
+*!223
+Fichero protegido contra escritura
+
+Posible causa:
+Está desactivada la bandera de protección 'w' (escribible) del fichero.
+
+Solución:
+Si está realmente seguro de querer sobreescribir el fichero, utilice
+PROTECT para activar la bandera 'w'.^
+*!224
+Fichero protegido contra lectura
+
+Posible causa:
+Está desactivada la bandera de protección 'r' (legible) del fichero.
+
+Solución:
+Utilice PROTECT para activar la bandera 'r' del fichero.^
+*!225
+No es un disco DOS válido
+
+Posible causa:
+El disco insertado en la unidad no es un disco AmigaDOS válido, no ha
+sido formateado, o está corrupto.
+
+Solución:
+Asegúrese de estar utilizando el disco correcto. Si sabe que el disco
+funcionaba antes, utilice algún programa de recuperación de discos
+para salvar los ficheros presentes en él. Si el disco no ha sido
+formateado, utilice FORMAT.^
+*!226
+No hay disco en la unidad
+
+Posible causa:
+No ha insertado el disco correctamente en la unidad indicada.
+
+Solución:
+Inserte el disco apropiado en la unidad indicada.^
+*!232
+No hay más objetos en el directorio
+
+Posible causa:
+Este error indica que la llamada EXNEXT() del AmigaDOS no encuentra más
+objetos en el directorio que está examinando.
+
+Solución:
+Deje de llamar a EXNEXT.^
+*!233
+El objeto es un enlace blando
+
+Posible causa:
+Ha intentado realizar una operación con un enlace blando que sólo
+debería hacerse con un fichero o directorio.
+
+Solución:
+El AmigaDOS utiliza el paquete Action_Read_Link para resolver el enlace
+blando y reintentar la operación.^

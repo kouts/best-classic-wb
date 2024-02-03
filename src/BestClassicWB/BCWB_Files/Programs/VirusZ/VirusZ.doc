@@ -1,0 +1,735 @@
+*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
+=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+*=                                                                        *=
+=*                    VirusZ III 1.04ß Documentation                      =*
+*=               Copyright © 2002-2021 by Georg Wittmann                  *=
+=*                                                                        =*
+*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=
+=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+Last updated: 19-Sep-2021
+
+----------------------------------------------------------------------------
+                               CURRENT NOTES
+----------------------------------------------------------------------------
+
+During the last years, I still got user requests from time to time to either
+update VirusZ and xvs.library for AmigaOS 4.x or release the source codes to
+the community.
+
+So as we see the 30th anniversary of VirusZ this year, I actually decided to
+update  VirusZ  and xvs.library once again for all Amiga(-like) systems that
+popped  up  over  the  last 15 years, but unfortunately had to notice that I
+couldn't  find  the last backups of my sources any more.  So at first a very
+special  "thanks  a  lot" to the CBM Museum Wuppertal and Patrick Brough who
+could restore all files from the original harddisk of my old A3000 (which is
+severely  damaged  by  battery acid).  Without their help, the project would
+have been dead forever!
+
+During  the last months, I had to understand the (undocumented) new features
+of AmigaOS 4.x (especially the memory management), analyse parts of AROS and
+do  a  lot  of  beta-testing.   Therefore  I  installed  WinUAE with several
+emulated  Amiga  systems  and  OS versions (I finally bought AmigaOS 4.1 and
+3.2,  but  currently  don't  have  4.0  and 3.1.4 which aren't available any
+more).  Special thanks to Hubert Maier, Costel Mincea, Thomas Frieden, Almos
+Rajnai,  Stefan  A.  Haubenthal,  Christoph Fassbach, s.hawamdeh and all the
+others  that  gave  me  information about OS 4.x and did some tests on their
+systems.
+
+So this is the first release after 15 years and should run stable now on all
+AmigaOS,  MorphOS  and  AROS  systems.   There  are still a few restrictions
+though, that's why this version of VirusZ is a beta-release.
+
+AmigaOS 4.x:
+The  file check is likely to crash and I couldn't locate the problem yet, so
+please  don't  use  it on AmigaOS 4.x unless you want to do some testing for
+me.   I've added a warning requester for those who don't read documentations
+though :-)
+
+AROS:
+All  versions  of  the reqtools.library have different problems on AROS, see
+section KNOWN PROBLEMS & THIRD PARTY BUGS. Ideas anyone?
+
+----------------------------------------------------------------------------
+                                LEGAL STUFF
+----------------------------------------------------------------------------
+
+The  VirusZ software package is FREEWARE and copyright © 1991-1999/2002-2021
+by  Georg Wittmann and © 1999-2001 by Dirk Stöcker.  The installation script
+is © by David Crawford and the MorphOS icon is © by Christian Rosentreter.
+
+No parts of this package may be altered by any means (this includes editing,
+reprogramming, crunching, resourcing etc.), except archiving.  The author is
+in  no  way  liable  for  any  changes  made  to any part of the package, or
+consequences  thereof  as he is in no way liable for damages or loss of data
+directly or indirectly caused by this software.
+
+Neither  fees  may  be  charged nor profits may be made by distributing this
+software package.  Outside a single machine environment, you are not allowed
+to  reproduce  single  parts  of  the  package,  but  you  have  to  copy it
+completely.
+
+----------------------------------------------------------------------------
+                             CONTACT ADDRESSES
+----------------------------------------------------------------------------
+
+For  any  comments, bug reports, snapshots or if you have found a new virus,
+contact the author at the following e-mail address:
+
+virusz_xvs@gmx.de
+
+You  will  always find the latest updates of VirusZ and related files in the
+Aminet (util/virus) and/or on the homepage of Virus Help Team Denmark:
+
+www.vht-dk.dk
+
+----------------------------------------------------------------------------
+                            SYSTEM REQUIREMENTS
+----------------------------------------------------------------------------
+
+VirusZ  will  run  on  any (emulated or real) Amiga that comes with at least
+AmigaOS  2.04  (Kickstart  v37),  MorphOS or AROS.  The following disk-based
+libraries are required:
+
+- commodities.library v37+ (part of AmigaOS)
+- rexxsyslib.library v33+ (part of AmigaOS, for ARexx features)
+- reqtools.library v38+ (v39.3 on AmigaOS 4.x)
+- xfdmaster.library v37+
+- xvs.library v33+
+- xadmaster.library v8+ (optional, for scanning inside archives)
+- disassembler.library v40+ (optional, for disassembling bootblocks/memory)
+
+None  of  these  libraries  will  be distributed with the VirusZ package any
+longer (because of copyright reasons and the exploding size of the archive),
+please get them from Aminet yourself.
+
+----------------------------------------------------------------------------
+                                INSTALLATION
+----------------------------------------------------------------------------
+
+Installation  requires nothing more than either clicking on the install icon
+or  dragging VirusZ to your WBStartup drawer by hand or adding the following
+line to your 'S:User-Startup' file:
+
+[Path]VirusZ [Option(s)]
+
+To  make sure that you have received an original version of VirusZ and not a
+fake, you can use my PGP key added at the end of this documentation together
+with  the  signatures  included in the archive to verify the files.  You can
+also  download  a  100%  safe copy of my PGP key from the homepage mentioned
+above.
+
+Additionally,  you should compare the file size of your VirusZ copy with the
+one  displayed  in  the  'About' information.  They MUST match if you didn't
+crunch VirusZ with a file compressor.
+
+----------------------------------------------------------------------------
+                     KNOWN PROBLEMS & THIRD PARTY BUGS
+----------------------------------------------------------------------------
+
+DISASSEMBLER.LIBRARY & MMU.LIBRARY:
+VirusZ  might  crash  if  both disassembler.library and mmu.library exist in
+your LIBS:  drawer, but the mmu.library setup is incorrect.  In those cases,
+either  configure  your mmu.library environment correctly (read the manuals)
+or delete/rename mmu.library, so that disassembler.library cannot find it at
+startup.  Thanks to Harry Sintonen for this report.
+On AmigaOS 4.x, mmu.library always must be deleted/renamed to avoid crashes.
+
+MUGUARDIANANGEL HITS:
+Sometimes when a device gets Inhibit()ed by the sector check, the filesystem
+in  ROM  causes  a hit.  It then releases less memory than it has allocated.
+This is not a bug in VirusZ!
+
+STATRAM.DEVICE v37.11 / FMSDISK.DEVICE v3.0:
+These  device  drivers cannot handle NSD-commands correctly and crashed with
+pre-1.00  releases  of  VirusZ.   Due to a changed behaviour of VirusZ since
+v1.00, there shouldn't be any more problems.
+
+REQTOOLS.LIBRARY and AROS:
+When  using the reqtools.library that comes with AROS (currently v39.6), all
+requesters are correctly rendered, but the file requesters crash / get stuck
+in  an  endless  loop (eg.  when starting a file check).  Reqtools.libraries
+v39.3  or  v38  from Aminet will give you a perfect file requester, but ugly
+rendered  yes/no requesters with overdrawn gadgets.  I don't have a solution
+for this at the moment!
+
+----------------------------------------------------------------------------
+                               SHELL TEMPLATE
+----------------------------------------------------------------------------
+
+VirusZ currently supports the following Shell template:
+
+CX_PRIORITY/N/K,CX_POPKEY/K,CX_POPUP/K,PUBSCREEN/K,AREXX/K,QUIT/S
+
+For more detailed information about Shell syntax, commodity usage and hotkey
+definitions, please consult the manuals shipped with your Amiga.
+
+Please note that the ARexx interface commands described below require VirusZ
+to  be  active already.  If it is not, it will first be started, the starter
+process  will  wait  until  the ARexx port appears and then the commands are
+sent to the port.
+
+CX_PRIORITY:
+Specifies  the commodity priority of VirusZ's broker.  Values may range from
+-128 to 127, default is 0.
+
+CX_POPKEY:
+Defines the hotkey used to pop up the main window.
+
+CX_POPUP:
+Tells VirusZ whether to pop up on startup or not.
+
+PUBSCREEN:
+Tells VirusZ to open its windows on the defined public screen instead of the
+Workbench screen.
+
+AREXX:
+The  argument  given  to this option will be directly sent to VirusZ's ARexx
+port  as  a  command and the return code in the Shell will correspond to the
+return code of the ARexx command.
+
+QUIT:
+Sends the ARexx command "QUIT" to an already running copy of VirusZ and thus
+terminates it.
+
+----------------------------------------------------------------------------
+                               ICON TOOLTYPES
+----------------------------------------------------------------------------
+
+For  more  detailed  information about tooltypes, commodity usage and hotkey
+definitions, please consult the manuals shipped with your Amiga.
+
+VirusZ currently supports the following tooltypes:
+
+CX_PRIORITY:
+Specifies  the commodity priority of VirusZ's broker.  Values may range from
+-128 to 127, default is 0.
+
+CX_POPKEY:
+Defines the hotkey used to pop up the main window.
+
+CX_POPUP:
+Tells VirusZ whether to pop up on startup or not.
+
+PUBSCREEN:
+Tells VirusZ to open its windows on the defined public screen instead of the
+Workbench.
+
+----------------------------------------------------------------------------
+                               AREXX COMMANDS
+----------------------------------------------------------------------------
+
+VirusZ  has an ARexx port called 'VIRUSZ_III.REXX' that currently offers the
+following commands:
+
+HIDE:
+This  command makes VirusZ close its main window and work in the background.
+To get the interface back you have to use the defined hotkey or the Exchange
+utility.
+
+QUIT:
+This command terminates VirusZ.
+
+As  you  can  see,  there  are  no really useful commands implemented at the
+moment that can help you with virus scanning.  This only might change in the
+near future if *YOU* have any suggestions...
+
+----------------------------------------------------------------------------
+                   PROGRAM STARTUP & SYSTEM SURVEILLANCE
+----------------------------------------------------------------------------
+
+VirusZ will perform a system scan at startup-time and afterwards survey your
+computer for suspicious activities.  You can tell VirusZ what exactly should
+happen on startup via the 'Startup' preferences and control the surveillance
+mode via the 'Surveillance' preferences.
+
+The following options appear in the 'Startup' preferences only:
+
+'Perform Self-Test':
+If  enabled, the hunk structure of VirusZ will be checked.  An alert appears
+if there is something wrong (might be a link virus).  Disable this option if
+you  intend  to crunch VirusZ with a file packer because most of them modify
+the hunks.
+
+'Load Bootblock Brain':
+If  this option is enabled, the default bootblock brain (see 'Bootblock Lab'
+preferences) will be loaded automatically.
+
+'Pop Up Main Window':
+If enabled, VirusZ opens the main window, otherwise it can be controlled via
+the Exchange commodity or the ARexx port only.
+
+'Activate Main Window':
+This  option  tells  VirusZ to activate the main window.  This is useful for
+all  users that don't have VirusZ running in the background all the time and
+want to start a scan without activating the window by hand first.
+
+The  following  options  appear in both the 'Startup' and the 'Surveillance'
+preferences (introduced by 'Check...' or 'Survey...'):
+
+'...ColdCapture/CoolCapture/KickTags':
+System pointers used by viruses (but also by useful utilities) to keep their
+code  reset  resistant.   Only disable these options if you really know what
+you are doing.
+
+'...CPU Interrupts/Exec Interrupts/Library Vectors/Process Fields':
+Other  system pointers often used by viruses.  Please note that also lots of
+harmless utilities use them, not every alert that VirusZ will send you means
+there's a new virus in your system.
+On AmigaOS 4.x, CPU Interrupts will not be checked, the fields are disabled.
+
+'...Bootblocks':
+This  will  scan the bootblocks of all available disks, newly inserted disks
+are detected if surveillance is activated.
+
+'...Disk-Validators':
+Scans all disk-validator files found in L: drawer of any inserted disk.
+
+----------------------------------------------------------------------------
+                   GENERAL INFORMATION ABOUT PREFERENCES
+----------------------------------------------------------------------------
+
+VirusZ   uses   the  standard  AmigaOS  method  to  store/save  preferences.
+Therefore  the drawer 'VirusZ_III' will be created in your ENVARC:  and ENV:
+drawers.   You  can save the current settings, restore or load settings with
+the corresponding menu items in the 'Preferences' menu of VirusZ.
+
+Additionally, whenever you save your preferences, the positions and sizes of
+all  VirusZ  windows  will  be  stored/saved  too.   This means that you can
+arrange  all  windows  just  as  you like them, they will appear in the same
+positions the next time you start VirusZ.
+
+Settings that affect either VirusZ in general or influence several functions
+can be found in 'Miscellaneous' preferences:
+
+'Requesters Follow Mouse':
+If  enabled, all ReqTools requesters appear with the negative response under
+the mouse pointer.  If disabled, they pop up in the top left corner.
+
+'Close Main Window = Exit':
+If  enabled,  VirusZ  quits when you click on the close-window button of the
+main  window,  otherwise it will act as if you selected the 'Hide' item from
+the 'Project' menu.
+
+'Quit Immediately':
+If enabled, VirusZ quits without verification.
+
+'Report Known Bootblocks':
+Usually,  bootblocks  recognized  by  the brain are not reported (that's the
+main  purpose of the whole brain system).  But it may sometimes be useful to
+get  those  already  known  bootblocks  reported  anyway.  If this option is
+enabled, that's excactly what will happen.
+
+'Install SnoopDos Task':
+If  enabled,  a task called 'SnoopDos' will be created which doesn't use any
+CPU time, but prevents several trojans from doing any harm.
+
+'Center Main Window':
+If  enabled,  VirusZ's main window appears centered at the top border of the
+screen.  Otherwise it will use the coordinates that have been last saved.
+
+'Center Other Windows':
+If  enabled,  all  VirusZ  windows appear centered on the screen.  Otherwise
+they will use the coordinates that have been last saved.
+
+'Use Disassembler.Library':
+If  disabled, both 'Bootblock Lab' and 'Memory Monitor' will not try to open
+that library.  VirusZ obviously can't show you any assembler instructions in
+this  case,  but will need less memory and avoids the mmu.library from being
+loaded automatically by disassembler.library.
+
+'Hotkey':
+The default commodity hotkey used to pop up the main window.
+
+----------------------------------------------------------------------------
+                          SOME WORDS ABOUT "JOBS"
+----------------------------------------------------------------------------
+
+Whenever you select files or sectors for checking (see below), there happens
+nothing more but a corresponding job gets added to the internal joblist.  As
+soon  as there is at least one job in this list, the 'Job Monitor' opens and
+the (first) job gets processed.
+
+Please note that VirusZ has a fully asynchronous design, which means you can
+select new files/sectors even while others still get checked.  The jobs will
+all  be linked to the joblist and be processed one after the other.  You can
+also delete/disinfect malicious files while the job is still running.
+
+The  status line is the topmost part of the 'Job Monitor'.  Here you can see
+which  file or sector gets checked at the moment.  It therefore also is some
+kind of progress indicator.
+
+Whenever  there's  something to be reported (virus/error/encoded file), this
+happens  in  the  report  list  in  the  middle.  By selecting an item, more
+information  about this item appears below in the three info lines.  You can
+select  the 'Statistics' during a check and they will be updated after every
+checked file/sector.  This is actually not recommended all the time, because
+it  may  slow  down checking.  'Jobs' will be displayed only until they have
+finished and then disappear.
+
+The gadgets at the bottom have the following functions:
+
+'Running/Stopped':
+This  cycle gadget simply pauses/runs the current job.  But please note that
+it's not necessary to pause a running job in order to delete/disinfect files
+or sectors!
+
+'Check Files...':
+Same  function  as the equally named item in VirusZ's main menu, just easier
+to reach if you want to check some more files.
+
+'Disinfect':
+Only enabled if you have either selected a file infected by a linkvirus or a
+repairable  disk-sector  from the report list.  In case of an infected file,
+this  function  may repair just the selected file or all infected files (see
+below).   For  disk-sectors,  repairing  all  of  them at once is limited to
+sectors of the same disk.
+
+'One/All':
+This  cycle gadget determines the functionality of 'Delete' and 'Disinfect'.
+If  set  to  'One',  only the selected item will be treated, otherwise 'All'
+items of that type will be handed over to the corresponding function.
+
+'Delete':
+Only  enabled  if  you  have  selected a delete-only malicious file from the
+report list.  This function will either delete only the selected file or all
+malicious files that have been detected so far (see above).
+
+'Kill Job':
+Only  enabled if you select a job from the report list.  By clicking on this
+gadget, the job will be terminated immediately.  Useful if you have selected
+wrong files for checking.
+
+'Quit':
+Closes the job monitor and removes *all* running/waiting jobs, so be careful
+with that if checking is not finished yet.
+
+----------------------------------------------------------------------------
+                                 FILE CHECK
+----------------------------------------------------------------------------
+
+You  can check files at any time by selecting the 'Check Files...' item from
+the 'Project' menu or clicking the equally named gadget in the 'Job Monitor'
+window  (if  it's  currently  opened).   A filerequest will appear where you
+simply select the files to be checked.
+
+The following settings can be adjusted in the 'File Check' preferences (they
+will be given away with every job at launch-time, so changing settings later
+doesn't have any effect on already running jobs):
+
+'Skip Subdirectories':
+Enable this option to skip drawers that may exist inside a selected drawer.
+
+'Don't Ask For Passwords/Keys':
+If   enabled,  every  encrypted  file/archive  will  be  reported,  but  not
+(completely)  analysed.   Always  switch  on this option if you want to scan
+whole partitions and go for a coffee in the meantime.  It is guaranteed that
+VirusZ will not ask for anything during a file check then.
+
+'Decrunch Data Files':
+If this option is enabled, the file check reads and decrunches data files in
+order  to  check  them.  This is useful for data files that actually contain
+executables, eg. XPK packed files.
+
+'Extract File Archives':
+If  enabled,  files inside file-archives get extracted and checked.  This is
+very  useful  for checking software downloads quickly without any hand-work.
+While  scanning inside archives, the archive name is marked with '<' and '>'
+in the status line. Xadmaster.library v8+ is required for this option!
+
+'Extract Disk Archives':
+If  enabled, disk images from disk-archives get extracted.  Please note that
+this  option only tells VirusZ to extract such images.  The contents however
+will  only  be  checked  if  some  of the following options are enabled too.
+Xadmaster.library v8+ is required for this option!
+
+'Check Files Inside Disk Images':
+If  enabled, files embedded in disk images will be checked.  Such images can
+be  the  result  of  extracted disk archives (see above) or just plain image
+files  on  your  harddisk  (eg.   ADF  files).  While scanning inside a disk
+image,  its  name  is marked with '[' and ']' in the status line.  Note that
+xadmaster.library v8+ is required for this option!
+
+'Scan Files For Bootblocks':
+If  enabled,  files will be scanned for embedded bootblock viruses.  This is
+especially  helpful to detect new bb-virus installers or brainfiles of other
+antivirus programs.
+
+'Don't Check Sectors In Files/Only Check Them In DOS Images/Check Them In
+Any Disk Image/Check Sectors In All Files':
+Here you can tell VirusZ to perform a sector check inside the selected types
+of  files.   Please  note that disk images are simply detected by their file
+size  (must  be a multiple of 512), so it might happen that other files with
+fitting  sizes  get  checked  too.   The option 'Check Sectors In All Files'
+might slow down checking extremely as *all* files must be loaded completely,
+so  it's not recommended for everyday use.  Additionally, due to its nature,
+sector  checking  inside all kinds of files might lead to false recognitions
+in some very rare cases!
+
+'Ignore External Xfd-Slaves/Only Use Them For Executables/Use All External
+Xfd-Slaves':
+These  options tell VirusZ which external slaves of xfdmaster.library should
+be  used for decrunching files.  You should always allow external slaves for
+executables  to  ensure  that  really all executables get decrunched, but if
+some  badly  coded third party slaves crash your system, you can switch them
+off completely.
+
+'Ask Before Deleting Files':
+If  this  option  is enabled, pressing the 'Delete' button will not directly
+erase  the selected file, but you will be prompted once again.  Very helpful
+to  avoid  accidental loss of data.  Please note that you cannot overrun the
+security request for deleting *all* malicious files with this option.
+
+----------------------------------------------------------------------------
+                                SECTOR CHECK
+----------------------------------------------------------------------------
+
+You can start checking disk sectors of trackdisk-like devices at any time by
+selecting  'Check  Sectors...'  from  the 'Project' menu.  A device selector
+will  appear  where  you select the device to be checked.  Use the 'Refresh'
+button to update the device list if you have mounted new devices lately.
+
+SOME IMPORTANT WORDS RIGHT AT THE BEGINNING, PLEASE READ CAREFULLY:
+This  sector check only has the purpose to scan for sectors that have either
+been destroyed or modified by viruses.  It doesn't verify your disks for any
+other  failures  like  damaged  filesystem  blocks  etc.  Although it allows
+scanning  of  several kinds of devices (floppies, harddisks), it should only
+be  used  with  standard 880k/1760k Amiga floppy disks!  None of the viruses
+that modify sectors ever worked with third-party devices or on harddisks, so
+there's  actually no need to scan them!  Additionally, it might be dangerous
+to  scan  FFS  disks as they have never been infected in the past, but might
+lead to false alarms in some rare cases.  You have been warned!
+
+The following settings can be adjusted in the 'Sector Check' preferences:
+
+'Check DOS Disks Only':
+This option should always be enabled. Only switch it off if you need to scan
+damaged Kickstart disks or similar trackdisk-based disks.
+
+----------------------------------------------------------------------------
+                               BOOTBLOCK LAB
+----------------------------------------------------------------------------
+
+The  bootblock lab offers all bootblock-related functions that are necessary
+to fight bootblock viruses and some more extras.
+
+ATTENTION:  Be careful with writing to / installing your harddisks.  I'm not
+reliable for your faults.
+
+There  are  two  cycle gadgets in the bootblock lab, one on each side of the
+status  line.   The  left  one selects the device you want to work with, the
+right  one  selects  the  display mode (ascii dump, hex dump or disassembler
+mode if disassembler.library is installed).
+
+Some words about the disassembler output:
+The  default  output  format  of disassembler.library is not very usable for
+looking  at  bootblocks as it shows the 32-bit addresses where the bootblock
+is  really located in memory and all pc-relative instructions point at those
+addresses  too.   So  I  decided  to  modify the output internally to 16-bit
+format  with  bootblock  addresses  from  $0000  to  $03ff.  All pc-relative
+instructions  appear that way, the ones pointing outside the bootblock range
+are  marked as *-$0xxx or *+$0xxx, where * means either the start or the end
+of the bootblock.  Locations outside a range of +/- 1kB around the bootblock
+nevertheless appear with their original 32-bit address.
+
+Whenever  there  occurs any error, this will be displayed in the status line
+and  hence the name of the currently buffered bootblock will be overwritten.
+By clicking on the 'Name' gadget, the name is printed once again.
+
+Functions offered via the bootblock lab gadgets:
+
+'Read':
+Reads  the bootblock from the currently selected device to the buffer.  Only
+DOS disks can be read.
+
+'Write':
+Writes  the current buffer contents to the bootblock of the selected device.
+The disk type and the checksum will be corrected automatically.
+
+'Install':
+Installs  either a default Kick 1.3, default OS 2.0 or uninstalled bootblock
+(see  'Bootblock  Lab'  preferences)  to the currently selected device.  The
+disk type will be corrected automatically.
+
+'Load':
+Opens a file request to select a bootblock file that should be loaded to the
+buffer.   Only DOS bootblocks can be loaded.  You can use this function with
+ADF files and similar disk images too as only the bootblock will be loaded.
+
+'Save':
+Saves  the  current  buffer  contents  to  a file.  This is useful to create
+backups  of  important bootblocks (eg.  games or other commercial software).
+NOTE:   Do  NOT  try to write back a bootblock to an ADF file that way, your
+diskimage will be deleted!
+
+'Learn':
+This gadget will only be enabled if the bootblock in the buffer is neither a
+virus  nor  any other known bootblock.  VirusZ will first ask for a name and
+then  add  the  unknown bootblock to its brain.  From now on, this bootblock
+will be reported with the given name and the background check will no longer
+report it as unknown.
+
+Functions offered via the bootblock lab menus:
+
+'Brain/New Brain':
+Removes the currently loaded brain from memory.
+
+'Brain/Load Brain':
+Loads a new brain file from disk to memory.
+
+'Brain/Save Brain':
+Saves brain changes to file.
+
+'Brain/Merge Brains':
+Adds brain cells from a second file to the currently loaded brain.
+
+'Brain/Edit Brain':
+Here you can rename or delete brain cells.
+
+'Misc/Refresh Devices':
+VirusZ  is  unfortunately  not able to detect devices that have been mounted
+after  startup  automatically.  If you want to check such a device, you have
+to refresh the device list with this function.
+
+The  bootblock  lab  offers  the  following  settings in the 'Bootblock Lab'
+preferences:
+
+'Ask Before Write Access':
+If  enabled,  a  security  request  pops up every time you select 'Write' or
+'Install' in the bootblock lab.
+
+'Read Inserted Disks':
+This  enables  the  bootblock  lab  to read the bootblocks of inserted disks
+automatically.   Useful  if  you  intend  to  check a whole box of disks for
+bootblock viruses.
+
+'Install Kick 1.3 Bootblock/...OS 2.0 Bootblock/...Non-Bootable BB':
+Selects  the  type  of  bootblock  that  will  be installed by the 'Install'
+function.
+
+'Brain':
+The  path and filename of the default bootblock brain.  This will be used in
+the  file requests of the bootblock lab and for loading the brain at startup
+(see 'Startup' preferences).
+
+----------------------------------------------------------------------------
+                                VECTOR CHECK
+----------------------------------------------------------------------------
+
+Mostly  all  viruses  work  in the same manner.  Either they make themselves
+resident   and/or  corrupt  some  libraries  or  devices  with  their  code.
+Therefore the vector check was designed to help you finding new viruses that
+can't be recognized directly by the xvs.library yet.
+
+It  will  display  all  system  vectors that are not zero or do not point to
+standard  ROM  locations  and  tell  you  whether  the changes are caused by
+utilities  already  known  or  by  something  unknown.   But  this  will not
+necessarily mean that every vector marked 'SUSPICIOUS' is corrupted by a new
+virus,  there are lots of system enhancers and other tools around that cause
+such changes.
+
+You  should  nevertheless  be  alarmed  if you are sure that you didn't have
+installed  any  programs  that  change  vectors  and suddenly something gets
+reported by VirusZ.
+
+You might have installed a lot of patches that already get reported by name,
+and the output is awfully long, then you can disable the displaying of known
+patches in the 'Vector Check' preferences.
+
+If SegTracker (Aminet:  dev/debug/SegTracker.lha) has been installed to your
+system,  you  have  the  possibility  to use its tracked information for the
+vector  check  output.  Simply enable the respective option in the prefs and
+suspicious  pointers  will  be handed over to SegTracker for identification.
+The program's name, hunk and offset will be reported if available.
+On  AmigaOS  4.x,  you don't have to install SegTracker, VirusZ will use the
+information available via dos.library/FindTrackedAddress() instead.
+
+You  can select every single line of the vector check report.  The following
+functions are available if they can be applied on the selected item:
+
+'Monitor':
+Starts  the memory monitor of VirusZ and supplies it with the address of the
+selected vector.
+
+'Snapshot':
+Creates  a  snapshot  of an unknown vector and saves it automatically to the
+'Snapshot  Drawer'  you have defined in the 'Vector Check' preferences.  You
+can send me all your snapshots and I will add them to the vector check.
+IMPORTANT:
+(a)  Do not snapshot the same vectors several times, this causes me a lot of
+work just for nothing!
+(b)  Install and use SegTracker (see above) whenever possible!  Only if it's
+active, snapshots contain its information!
+(c)  In  addition  to  your  snapshots, I need the program(s) that cause the
+unknown vector(s).  Snapshots without a program usually cannot be added!  So
+either send me the program (not its complete archive if possible) or tell me
+where  I  can  download  it  myself.  All the programs will be deleted after
+examination, so copyrights usually should not interfere with that method.
+(d) To find out which programs cause changes in your system, disable all the
+patches installed in your startup-sequence, user-startup or WBStartup drawer
+and  re-enable  them one by one.  Each time something new gets started, just
+have a look at the vector check.
+
+'Clear':
+Clears  the  selected vector (only enabled if applyable to that vector).  To
+clear  all  task/process  fields,  select the respective headline.  Only use
+this function if you know what you are doing!
+
+'Remove':
+Removes  a  single  element out of a system list.  Only use this if you know
+what you are doing!
+
+----------------------------------------------------------------------------
+                               MEMORY MONITOR
+----------------------------------------------------------------------------
+
+The  memory  monitor  has  been invented to allow experienced users to snoop
+around  in  RAM/ROM and have a look at suspicious vectors (directly from the
+vector  check or by entering the address).  It actually is of no use for the
+average user, so I will not explain it in detail.
+
+Only  memory  areas from exec's memlist can be monitored, plus Kickstart ROM
+and  RemAPollo's  private  area.  If you reach the start/end of an area, the
+memory monitor will automatically wrap around to the end/start of that area,
+so you can never access forbidden or non-existing addresses.
+ATTENTION:
+Unfortunately  there's  one  exception  from  the above rule when running on
+MorphOS  systems  with  pre-50.58 exec.library:  VirusZ cannot determine the
+real  end address of A-Box modules area then and will default to its maximum
+size.  This may lead to some illegal memory accesses towards the end of that
+memory  area, so please avoid monitoring areas around 0x10800000.  It's your
+own responsibility!
+
+The 'Memory Monitor' preferences currently contain the following switches:
+
+'Chip-Ram Start Address = $00000000':
+If enabled, the memory monitor overrides the memlist entry for chip ram that
+usually  starts  at  locations  $00000400/$00004000 and allows you to have a
+look  at  the  CPU's vectortable.  This interferes with most debugging tools
+(eg.  MuForce) and will result in lots of annoying hits, so keep this option
+disabled unless you really need it.
+
+'Display SegTracker Info If Available':
+If SegTracker (Aminet:  dev/debug/SegTracker.lha) has been installed to your
+system  and  this  option  is  enabled,  SegTracker's  information  will  be
+displayed  in  the  status  line  whenever  you monitor a previously tracked
+memory area.
+
+On  AmigaOS  4.x,  both options are disabled to avoid Grim Reaper or because
+they are obsolete.
+
+!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#
+#!                          END OF DOCUMENTATION                          #!
+!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: PGPfreeware 5.0i for non-commercial use
+
+mQCNAzuzvG4AAAEEAKbvwOuWJSNZHJyNommciVkVj98H+O32pP42OM20WHy3CMuG
+E2D2tSQwvkUZCBDMvdqYRDP7Jkfw+hHpbNAFls2x/ujMJ0u8FP7g2ivfg99W6cMp
+PX6OXgqImTAMcxp5az6mbemZ0K4+FBMfBmDWs+226/IOWu3fdGUOxNgKgx13AAUR
+tCFHZW9yZyBIb2VybWFubiA8Z2hvZXJtYW5uQGdteC5kZT6JAJUDBRA7s7xuZQ7E
+2AqDHXcBAYghBACIpDzrTak/DA32mAJabo2D082o83MFTJTwSSft6k2VFY3jr2ia
+2TckPkqEc0TKe24nQbhRZI6ehkMlJmKcsSmG38hwMXkIvEQc03jOv6dVmzqRPiR2
+2Vtc7WnKdBh/FUbCmvuGqstEKonKrCfXKv8zBSp5wWVnlZKRhDUGsLyXlg==
+=hPFP
+-----END PGP PUBLIC KEY BLOCK-----

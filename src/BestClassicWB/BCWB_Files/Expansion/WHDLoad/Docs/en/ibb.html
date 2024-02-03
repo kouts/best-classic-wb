@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE>InstallBB * Installing Bootblocks</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: ibb.html 1.3 2004/04/07 19:54:35 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>InstallBB * Installing Bootblocks</h3>
+InstallBB read or writes Bootblocks from or to a disk. The bootblocks are
+handled as executables. On writing it will preserve the disk filesystem type
+by first reading the bootblock and merging the DosType (<tt>DOS0</tt>,
+<tt>DOS1</tt> ...) to the new one. The bootblock checksum is automatically
+calculated.
+<h4>Installation</h4>
+InstallBB is contained only in the <tt>DEV</tt> archive, not in the
+<TT>USR</tt> archive
+<br>copy it to C: or a similar place
+<h4>Options</h4>
+<table>
+<tr><td colspan=2>
+<tt>PROGRAM/A,UNIT/K/N,WRITE/S</tt>
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>PROGRAM/A</tt>&nbsp;&nbsp;
+</td><td>
+the executable file which will be read or written, must be specified
+</td></tr>
+<tr><td valign=top>
+<tt>UNIT/K/N</tt>
+</td><td>
+the trackdisk unit number (floppy drive number)
+<br>default is 0 (DF0:)
+</td></tr>
+<tr><td valign=top>
+<tt>WRITE/S</tt>
+</td><td>
+switcher, if not specified the bootblock will be read from disk to a file,
+if specified the given program will be written to disk
+</td></tr>
+</table>
+</BODY>
+</HTML>

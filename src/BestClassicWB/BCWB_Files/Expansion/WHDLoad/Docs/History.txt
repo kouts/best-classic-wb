@@ -1,0 +1,1636 @@
+
+***  18.9 (01.05.2023)
+	- fix:	fixed possible race condition when using XPK compressed files
+		and multiple data directories, if a compressed file with the
+		same name was contained in two consecutive data dirs and was
+		the last compressed in the first dir and the first compressed
+		one in the subsequent dir it was preloaded two times and the
+		second one got visible to the installed program, this has been
+		corrected now
+	- fix:	the Slave structure flag EmulDivZero now also works on 68010,
+		in previous version it always faulted (missing support for
+		different stack frame format on the 68010)
+	- fix:	DIC option SkipTrack was broken in version 1.2, now fixed with
+		version 1.3 (CFou!)
+	- new:	new local option ExecuteArgs to supply arguments to the
+		scripts/programs called via the ExecuteCleanup/Startup/...
+		options, using this it becomes possible to control the
+		behavior of the scripts in single install without the need to
+		have many different Execute* scripts
+	- new:	if started from Workbench WHDLoad now opens a window
+		CON:////WHDLoad .../AUTO/CLOSE/WAIT for the ExecuteCleanup and
+		ExecuteStartup scripts which opens if there is any output
+	- chg:	option Cache/S can also be specified in the global
+		configuration file (Tomaz)
+	- new:	the kick13 emulation now also supports the WHDCtrl resident
+		command which can be used to quit WHDLoad, because the boot
+		CLI under 1.3 does not run resident commands a patch has been
+		implemented to add this feature (Hexaae)
+	- fix:	now resload_ListFiles is able to list the install root
+		directory also when listing from cached files, this was broken
+		since the introduction of the feature to list cached files in
+		release 18.7, which broke for example Gauntlet3 (issue #6077)
+	- fix:	depending on the already used chip memory WHDLoad has
+		corrupted read/write data (all io related Resload functions),
+		if the file cache feature wasn't used (NoWriteCache or
+		NoFileCache set), this may have corrupted saved data! this bug
+		has been introduced in WHDLoad release 18.4, thanks to DJ Mike
+		for reporting/testing (issue #6078)
+	- chg:	the options ExecutePostDisk and ExecutePreDisk are now working
+		as intended/documented, previously they were called only once
+		(issue #5880)
+	- fix:	RawDIC has been updated to version 6.1 which fixes
+		compatibility with imager slaves which used DoubleInc and one
+		track too much in the tracklist (e.g. Beast)
+	- fix:	made EmulChk working on 68010 (issue #6137)
+
+***  18.8 (28.05.2022)
+	- fix:	new created files in sub directories which are cached are now
+		correctly reported via Examine (issue #5536)
+	- fix:	when new created cached files are deleted WHDLoad no longer
+		tries to delete them on disk
+	- chg:	the memory of detected freezers is now cachable if MMU is used
+	- new:	the gadgets in the splash window can be controlled via
+		keyboard and joystick now, up/down selects the gadgets via
+		mouse move and left/right switches the gadgets
+
+***  18.7 (15.12.2021)
+	- new:	if a kickstart is requested by the Slave (ws_kickname) and the
+		current default	keymap is different from default Kickstart
+		keymap (usa/usa1) WHDLoad provides the current default keymap
+		as a virtual file called 'WHDLoad.keymap'
+		kickemu kick13.s and kick31.s got a new option called
+		SETKEYBOARD which loads and activates the 'WHDLoad.keymap'
+	- fix:	avoid a possible crash if no kickstart image could be found
+	- chg:	the check for a read-only filesystem to ignore write
+		operations now checks the first data directory instead the
+		current directory of WHDLoad
+	- new:	sources/whdload/lowlevel.s has been added to be used with
+		kickemu, it is based on the OS3.1 lowlevel.library and provides
+		a way to avoid the disk based library and save some memory, the
+		kickemu option INIT_LOWLEVEL uses it now instead loading the
+		disk based library
+	- fix:	corrected the key repeat fix in kick31.s
+	- chg:	resload_ListFiles no longer requires a switch to the OS if
+		Preload	was able to cache all files by using the file cache to
+		fill the buffer with filenames
+	- new:	support for virtual filesystem plugins (VFS) added,
+		if one of the Data/K objects specified is not a directory but
+		a file WHDLoad will attempt to load PROGDIR:WHDLoad.VFS and
+		uses this interface to load data for such data objects, the
+		VFS-ABI/API is described in "include/whdvfs.i", a VFS
+		implementation which currently supports lha and zip-archives
+		can be obtained from http://github.com/temisu/WHDLoadArchiveFS
+		Thanks a lot to Teemu Suutari for his great work!
+		VFS objects are always read-only for WHDLoad, so either use
+		SavePath/K or a first data directory which isn't VFS to
+		allow WHDLoad to save something
+	- fix:	cursor down in the CLI usage message is working again in the
+		standard AmigaShell (issue #5146)
+	- chg:	DIC 1.2: if a track has a read error and option Skip is active
+		and the device is controlled by trackdisk.devices, DIC
+		switches to sector reads now to be able to read more good data
+		in case not all sectors on this track are unreadable
+	- chg:	WHDLoad now returns with an error code = 5 if the Preload
+		operation has been canceled by pressing the Esc key while
+		the splash window is open (issue #5171)
+	- chg:	a new option NoWriteInfo/N has been added as local and global
+		option, if set WHDLoad will not update/write any .info
+		files (issue #5153)
+	- chg:	WHDLoad now resets custom.serper on exit to stop a possible
+		MIDI/MT32 playback via the serial line (JOTD)
+	- new:	option WriteCache/S added to overwrite global option
+		NoWriteCache/S (issue #5263)
+	- new:	WHDLoad is now able to cache also write operations to new
+		created files or existing files which grow in size. For that
+		the option PreLoad must be active and there must be enough
+		memory available to preload all files. WHDLoad will then
+		allocate the largest free memory block remaining and use this
+		memory to dynamically cache new files or growing existing
+		files. The cached files are written to disk on WHDLoad exit.
+	- new:	kickemu kick31.asm can be enabled to activate an internal
+		resident command WHDCtrl which can be used to quit WHDLoad
+	- upd:	the documentation for czech, dansk and french are in sync
+		again; thanks to all translators: Manel Beltrán, Bored Seal,
+		Bruno Skjold Andersen, Miguel Dilaj, Mikko Heinonen, Psygore,
+		Marius Danilewicz
+
+***  18.6 (22.09.2020)
+	- new:	WHDLoad now disables interrupts of graphics cards under
+		the Picasso96 software. This should solve problems with
+		Spectrum cards and newer P96 releases (issue #2598). Thanks
+		to Thomas Richter for providing useful information.
+	- upd:	Manual translations are in sync again for catalan and czech.
+	- new:	Kickemu kick31.s can be instructed to load/init the custom
+		nonvolatile.s via option INIT_NONVOLATILE.
+	- fix:	nonvolatile.s now correctly works on searching nonexistent
+		items in a existing nvram file
+	- chg:	In kickemu kick13.s a waitblit has been added to avoid
+		problems with the gfx.Text patch (Psygore).
+	- chg:	The provided source keyboard.s now uses cia timers instead the
+		raster beam for the keyboard acknowledge delay.
+	- fix:	Access faults of size word to address -1 and of size long to
+		addresses -3..-1 are now reliable detected and reported.
+		In earlier releases: on 68030: when ExpMem was used these were
+		undetected, on 68040: when ExpMem was used and vector base was
+		not write protected (e.g. Freezer detected, Snoop*,
+		resload_Protect	used) these were undetected, if vector base
+		was protected a	fault inside WHDLoad was reported, on 68060:
+		these were always correctly reported
+	- chg:	To reduce the likelihood that resload functions get
+		interrupted by other calls to resload functions, some resload
+		functions which usually take not much execution time, have
+		been changed to be not interruptible anymore.
+		The following resload functions have been changed that way:
+		Abort, SetCACR, FlushCache, Control, Protect#?, SetCPU,
+		GetCustom, VSNPrintF and Log.
+		In general the option NoResInt/S can be used to avoid problems
+		with interrupted resload calls at the cost of possible sound/
+		graphics distortions when interrupts are disabled for a longer
+		time.
+	- chg:	The provided source sources/whdload/savegame.s is now fully
+		pc-relative. It contains also additional fixes for interrupt
+		acknowledge and AGA compatibility (JOTD/ross).
+	- chg:	The inplace decruncher for the old RNC1 format has been
+		improved to support files which need a larger distance
+		(Heimdall/JOTD).
+	- chg:	The kick31.s now prefers a A600 kickstart image if NO68020 is
+		set. It fails now if there is only a 68000/010 and a
+		A1200/A4000 kickstart image was loaded (JOTD).
+	- fix:	When using kickfs.s the dos.library function
+		Open(MODE_READWRITE) now performs correctly on Kickstart 3.1
+		by creating a non-existent file. On Kickstart 1.3 the old
+		behavior remains to not create a file.
+	- chg:	If a call to resload_Examine is attempted without the flag
+		WHDLF_Examine has been set in the Slave structure WHDLoad now
+		terminates with an appropriate error message (JOTD).
+	- chg:	The kickemu kick12.s, kick13.s and kick31.s has been modified
+		to automatically set the Slave flag WHDLF_Examine if HDINIT is
+		set (JOTD).
+	- chg:	When using resload_Relocate with tags CHIPPTR/FASTPTR and the
+		specified chip/fast memory location would result in an
+		overlapping with base executable WHDLoad now gives a useful
+		error message (JOTD).
+	- fix:	Instead of waiting for a long video frame WHDLoad now forces a
+		long frame before starting the Slave. This fixes startup
+		problems on Kickstart 3.0 and an interlace video mode
+		(issue #4798).
+	- chg:	MMU-table creation has been reworked. It is now faster and
+		uses less memory.
+	- new:	Support for ACA-freezer added.
+	- chg:	if "*" is specified for the Slave to load WHDLoad searchs the
+		current directory for a file with the pattern "#?.slave" and
+		will use the first file matching (Toni Wilen)
+
+***  18.5 (09.03.2019)
+	- fix:	due bug in memory swap routine 18.4 crashed on returning to
+		the os, this has been fixed (issue #4084)
+
+***  18.4 (20.02.2019)
+	- fix:	option NoReq/S has also effect now for errors occuring in
+		conjunction with option Data/K (issue #3690)
+	- fix:	patch list command PL_GA fixed in the WHDLoadCD32
+	- fix:	fixed wrong results with resload_ExNext introduced in 18.3,
+		e.g. game Ork Attack (Psygore)
+	- fix:	in version 18.3 a CMD_STOP/FLUSH/START of input.device was
+		added, this seems to cause problems on some configurations,
+		to avoid them the code has been removed again
+	- chg:	cpu cache handling in kickemu changed, there are new options
+		CACHECHIP and CACHECHIPDATA, the behavior of option CACHE has
+		been reverted to pre WHDLoad release 18.3, with option CACHE
+		all caches are enabled for expansion memory if MMU is used,
+		with option CACHECHIP the instruction cache will be enabled
+		for all memory independent from from WHDLoad's MMU usage,
+		option CACHECHIPDATA will enable data and instruction cache
+		for all memory, if no CACHE* option is set the cache are
+		disabled now, in previous releases the cache setup wasn't
+		modified which resulted in WHDLoad's default cache setup where
+		inst/data cache is enabled for ExpMem/Slave if MMU used -
+		similar to option option CACHE where additionally the 68060
+		stuff is enabled (branch cache, superscalar, write buffer),
+		please consult also the provided kick.readme
+	- chg:	kickemu kick13.s has been modified to work with data cache in
+		chip memory, gfx.Text now uses the cpu to clear the temporary
+		buffer instead the blitter
+	- new:	macro PL_STR0 added to the patch list commands which will
+		write the given string plus a 0-byte to the destination
+	- new:	italian keymap added to the docs (thanks Luca Longone)
+	- fix:	kickfs: with IOCACHE to order of writes is now preserved, in
+		previous releases it was not, which could cause switches to
+		the operation system on resload_SaveFileOffset because offsets
+		outside the current filesize
+	- chg:	if SplashDelay=0 and ConfigDelay>0 the splash window is
+		opened if there is a config (Juuso Salmijärvi)
+	- chg:	the local option Config now overwrites a config string
+		contained in the Slave
+	- chg:	option Preload/S can also be used in the global configuration
+		file
+	- fix:	using Snoop on the 68030 the fire button bits in cia.ddra can
+		be set to output mode now (reading joypad), previously this
+		was only allowed on 68040/60 (StingRay)
+	- chg:	BaseMemory is now allocated in possible three parts to reduce
+		memory requirements if higher areas of chip memory are already
+		used by the system
+	- new:	a segtracker modul has been added to all kickemu variants,
+		equal to the known utility SegTracker by Michael Sinz this
+		will track all loaded executables, WHDLoad will use this
+		information to display name and offset in all error messages,
+		this will make it easier to locate causes for malfunctions in
+		kickemu installed programs
+	- chg:	the calculation of exec.ChkSum in kick12/13.s has been fixed
+	- fix:	if SegTracker was used and no matching segment was found
+		WHDLoad displayed sometimes some garbage, this has been fixed
+	- chg:	all the sources provided by JOTD has been updated to the
+		latest level, nonvolatile.s has been removed because the
+		sources are now using the nonvolatile.s provided by WHDLoad,
+		thanks to JOTD
+	- chg:	WHDLoadGCI allows now opening a new memory window from the
+		address under the cursor in a memory window, a bug in partial
+		extraction of Base/ExpMemory has been fixed
+	- chg:	a patch has been added to all kickemus to disable the key
+		repeat of the input.device after a switch to the operating
+		system, this should avoid problems on first time save
+		operations triggered by a keypress
+	- new:	the splash window can also be closed now pressing the fire
+		button on the joystick in port #1
+	- new:	a new special quit key has been added which quits by pressing
+		Reverse, Forward and Play together on a joypad
+	- chg:	WHDLoad no longer tries to open the audio.device, there was
+		not much benefit from it and to leave it avoids any requesters
+		if already open by another application
+
+***  18.3 (06.04.2017)
+	- chg:	don't check for read-only-filesystem if option SavePath is
+		used (issue #3355)
+	- fix:	if option SavePath is used and the save path is not yet
+		created WHDLoad will no longer try to delete files in the
+		normal data directories if resload_DeleteFile is called
+	- fix:	resload_SaveFileOffset now correctly works on files which are
+		not preloaded and not yet present in the SavePath, in older
+		releases dos error #203 was reported (issue #3355)
+	- chg:	the behavior of the option CACHE in kickemu
+		(sources/whdload/kick*.s) has been changed, previously it set
+		the chip memory non cacheable (NC) now it sets it cacheable
+		write-through (WT), recompiling Slaves using this option will
+		change this for the resulting Slaves, for machines with cpu
+		caches and no MMU otherwise no caches are enabled at all by
+		WHDLoad
+	- chg:	splash window corrected for non standard window borders
+		(Mikhail Malyshev)
+	- fix:	resload_DeleteFile reworked, no longer supports deleting
+		directories, delete operation is cached if file was preloaded,
+		now correctly works together with SavePath/K option
+	- chg:	checking for a read-only filesystem is performed after
+		executing a possible ExecuteStartup now (Stephane Julien)
+	- chg:	kickemu now uses the host system bplcon0 to init gb_bplcon0,
+		this should preserve genlock/lace setup (issue #2858),
+		WHDLoad itself also use gb_bplcon0 for the initial custom
+		setup
+	- fix:	the interrupt redirect feature of ACA now correctly works with
+		programs depending on the supervisor bit in the interrupt
+		stack frame, this should fix problems with install using the
+		kickstart emulation (Toni Wilen)
+	- chg:	on 68060 the store/load bypass is no longer disabled if the
+		cpu revision is >= 5
+	- new:	support for Vampire/Apollo added, will be detected as 68040
+		now (older WHDLoad detected a 68020 because the presence of
+		MSP and CAAR registers), MMU is always disabled
+	- fix:	kickemu now correctly enables the fpu via resload_SetCPU if
+		NEEDFPU is set
+
+***  18.2 (23.12.2015)
+	- chg:	the WHDLoad install script speaks german now
+	- fix:	some small fixes in the Autodoc file (Psygore)
+	- fix:	small fix in the supplied ITD program to avoid problems while
+		detecting the destination device
+	- new:	RoadShow added to the example Startup/Cleanup scripts
+	- fix:	dumping of loaded files via resload_DiskLoad was broken
+	- fix:	due to small internal buffer the argument parsing when started
+		from the CLI did not detect a bad argument (Psygore)
+	- fix:	the blitter wait check (ChkBlitWait/S) now resets the internal
+		run flag also at word reads to dmaconr on the 68030,
+		previously only bytes did that (StingRay)
+	- chg:	WHDLoad no longer requests a keyfile and it is no longer
+		possible to register WHDLoad, if you have a keyfile it is
+		still loaded/checked and your name will be displayed in the
+		splash window, Thanks to all registered users!
+
+***  18.1 (19.04.2015)
+	- new:	update check added: when a network connection is available
+		WHDLoad will check via a HTTP request if a newer version
+		exists on the WHDLoad webpage for the used Slave and WHDLoad,
+		supports a proxy with optional basic authentication via option
+		Proxy/K, to disable any network access the option NoNetwork/S
+		can be used
+		uses sha256 implementation by Robert Leffmann, thanks!
+	- chg:	dumping loaded files using bit #31 set in the disk number via
+		resload_DiskLoad will now use the offset in ExpMem in the
+		created file name, also the written files will go through the
+		file cache to avoid recurring switches to the operating system
+
+***  18.0 (04.12.2014)
+	- fix:	WHDLoad lock up happen when FullChip/S is used and
+		exec.MaxLocMem is equal to BaseMemSize fixed
+	- fix:	ExpChip/S and FullChip/S cannot be enabled together, if both
+		are set FullChip/S will be silently disabled (Psygore)
+	- chg:	option NoTrapHandler/S has been removed
+	- fix:	race condition fixed which sometimes caused a 'Privilege
+		Violation Exception' when a Resload function was called from
+		Usermode and got interrupted during the internal switch to
+		Supervisor mode and then trace exception was used from the
+		installed program, seen especially in installs using kick13
+		emu and performing a lot of disk io, fixes issue #2094 and
+		connected ones
+	- chg:	the log file created by the FileLog/S facility has been
+		renamed from .whdl_filelog to .whdl_log
+	- new:	function resload_Log which puts custom messages into the log
+		file .whdl_log, uses the same file as the FileLog/S facility
+		and requires that FileLog/S option is set so that messages
+		will be written
+		this function is intended to make it easier to debug/follow
+		alien code by adding trace messages to dump the execution
+		state at useful places
+	- new:	option LogBuffer/K/N to control the size of the internal
+		buffer allocated for log messages by FileLog/S and
+		resload_Log
+	- new:	function resload_VSNPrintF implementing a exec.RawDoFmt/
+		sprintf	like string formatting routine
+	- new:	kickfs.s has new option SNOOPFS which will cause in
+		conjunction with HDINIT all dos packets after processing to
+		be logged using resload_Log, the supplied perl script
+		chkunlock.pl can be used to search the log file for missing
+		dos.UnLock and dos.Close calls
+	- new:	using the function resload_Control and the tags
+		WHDLTAG_CUST_DISABLE/READ/WRITE/STROBE the allowed custom
+		registers for Snoop*/S can be modified now
+	- chg:	ReSource support files updated to cover recent WHDLoad
+		extensions
+	- new:	added XAD support to the installer template script
+	- chg:	external program SP to save pictures from dump files has been
+		improved to better support AGA screens (ddf, fmode, bplcon)
+	- chg:	on the 68030 the instruction burst is now always enabled if
+		the instruction cache is enabled (Psygore)
+	- chg:	the 68040 processor is now fully supported regarding the
+		special mmu features (Snoop, resload_Protect), the
+		implementation was planned since years, it was a lot of work
+		because	the handling is very different to the 68030 und 68060,
+		although I'm unsure if this feature will be used much, I'm
+		happy to have it completed now
+	- chg:	option ChkAudPt/S is also supported on the 68030 and 68040 now
+	- chg:	the interrupt redirect feature of ACA500/Zeus is not used when
+		option NoVBRMove/S is set
+	- chg:	PreloadSize/N will also be set by WHDLoad if ws_DontCache is
+		used in the Slave
+	some more end user related improvements are planned for the next
+	release :-)
+
+***  17.2 (01.12.2013)
+	- fix:	cancelling directory preload (in the splash window pressing
+		Esc or changing a option forcing restart) could cause memory
+		list corruption
+	- new:	support for Zeus68k pseudo vbr added, allows to quit by key
+		similar like a moved vector base, but only on interrupts not
+		on exceptions
+	- new:	on AGA machines all color registers are read from the custom
+		chips and written to the dump file
+	- fix:	WHDLoadCD32 works again with resload_DiskLoad, was broken in
+		version 17.1 (issue #2633)
+	- chg:	utility ITD can now read files larger than 4 GiB (e.g. on
+		SFS\2) and write to larger devices using TD64
+	- chg:	alignment for patch lists (resload_Patch/Seg) is now verified
+		by WHDLoad to avoid problems on 68000/10
+	- chg:	the check for valid custom.aud*ptr introduced in version 17.1
+		can now be enabled via the new option ChkAudPt/S
+	- fix:	on Kickstart 2.0 (V37) option NoMemReverse/S is now always
+		active to avoid problems which could lead to freezing during
+		Preload or other memory allocations
+	- chg:	memory allocations improved if NoMemReverse/S is active, now
+		these will succeed also if memory below BaseMemSize is free
+		by trying to allocate until memory is above
+	- fix:	preload progress bar fixed on Kickstart 2.0 (V37), was using
+		a V39 only utility.library function
+	- new:	added IF/ELSE/ENDIF conditional blocks to patch lists to
+		simplify the handling of patches depending on ButtonWait/S and
+		Custom1-5/N options (resload_Patch/Seg)
+	- chg:	detection of HRTmon builtin WinUAE improved to support if MMU
+		protection is enabled with WHDLoad (CFou!)
+	- chg:	options NTSC/PAL can be set global and local now, where the
+		local one (CLI/Tooltype) will overwrite the global one
+		(configuration file S:WHDLoad.prefs)
+	- new:	WHDLoad now sets the screen mode in HRTmon to the video mode
+		specified for the installed program, with that HRTmon will
+		always uses the same video mode (PAL/NTSC) as WHDLoad, for
+		correct operation at least HRTmon version 2.35 is required
+	- chg:	audio.device is only opened when present in execs device list,
+		this saves some memory if it isn't initilized already
+	- chg:	install script template now supports also the diskimage
+		device by Fredrik Wikstrom (Psygore)
+	- chg:	option FullChip/S can also set globally now
+	- new:	support for interrupt vector redirect feature of ACA500 on
+		68000 added
+	- chg:	added a kludge to preserve the largest free memory block until
+		PreLoad in situations where multiple small free blocks are
+		available to increase the likelihood of being able to cache a
+		large disk image
+
+***  17.1 (06.10.2012)
+	- fix:	formatting of termination reason string in register dump fixed
+		on very long texts (Psygore)
+	- fix:	if the vbr is moved by WHDLoad the interrupts of levels 4-6
+		(vectors $70..$78) are directly forwarded to the installed
+		program now, in previous releases all the sanity checks and
+		checks for the keyboard were done in each interrupt which has
+		increased the latency and duration of the interrupts, now
+		these checks are only performed in interrupt levels 1-3 or
+		if the option CheckInts/S is used for all levels
+		it seems that the increased amount of code put into the
+		interrupts by the later WHDLoad versions has caused problems
+		with several games, this is hopefully fixed now and these
+		games will work with the current WHDLoad as good as with
+		versions 16.8 or 16.9
+	- fix:	on a 68020 the default cache setup was instruction cache
+		enable, this bug has been introduced in version 17.0, now the
+		default is again disabled (Toni Wilen)
+	- chg:	the icon started from is only written if any gadget has been
+		pressed, previously it were written everytime if Config or
+		Expert was active (Graham)
+	- fix:	prevented a bug when FileLog/S will be disabled via the splash
+		window
+	- new:	resload_DiskLoad can now dump all read files, see autodoc
+	- new:	SnoopOCS/ECS/AGA/S checks also that writes to custom.aud*ptr
+		are not outside BaseMem and are not equal zero, check is only
+		performed on 68060 (Psygore)
+	- chg:	WHDLoad now detects a filesize difference between the
+		directory scan used for resload_Examine/ExNext requested by
+		WHDLF_Examine and the file Preload, this may reveal filesystem
+		problems in conjunction with dos.ExAll, e.g. ffs 39.x
+		(issue #2575)
+	- chg:	documentation regarding patch lists in include and autodoc
+		files improved
+	- fix:	on chip memory only machines with Kickstart 3.0 or better
+		slaves with WHDLF_Examine failed on building the directory
+		cache due problems with exec.CreatePool (Psygore)
+
+***  17.0 (14.08.2011)
+	- chg:	documentation about Snoop feature now explains in detail which
+		cia registers are checked in which way (StingRay)
+	- chg:	the install script template function P_AskDisk is additional
+		able to	check for disks which contain a named file instead
+		only by volume name
+	- chg:	the joypad emulation in kickemu 3.1 now supports a force
+		option to disable the auto sensing of lowlevel.library
+	- fix:	kickfs.s now properly supports reading and writing to the same
+		file handle if IOCACHE is used
+	- new:	support/detection of special HRTmon builtin WinUAE added
+		(monitor must be entered one time before WHDLoad can see it!)
+	- fix:	when file for Preload/S was larger than the largest free
+		memory block this could lead to an DOS error #205 after all
+		remaining files have been preloaded, this bug has been
+		introduced in version 16.9, issue #2154
+	- chg:	on option NoResInt/S WHDLoad checks and terminates if blitter
+		is active on entering via a resload function
+	- chg:	trap hook now checks if vector is odd and aborts then
+	- chg:	if option NoMMU/S is active WHDLoad now more correctly checks
+		the actual MMU setup and warns about translations of 0..3000
+	- chg:	amount of disassembled code lines increased (Psygore)
+	- fix:	output for disassembling of some instructions were corrected
+		by Psygore, (moveq #-x; cmp/add/and/move/bset/bchg/... #$nnxx;
+		bitfield with offset 0)
+	- fix:	crashes on M-Tec 630 boards without FPU fitted caused by the
+		FPU detection inside WHDLoad fixed, board causes 'coprocessor
+		protocol violation's instead of 'line-f emulator', thanks to
+		Die BORG for lending the hardware
+	- chg:	there are separate Resload versions for 00-20/30/40/60 now,
+		which enlarges the WHDLoad executable but saves memory at
+		runtime (overlayed)
+	- new:	progress bar for Preload/S operation added, WHDLoad will
+		remember PreloadSize/S itself as ToolType if started from the
+		Workbench
+	- fix:	cache clear in MMU configuration routine added, should fix
+		problems with issue #2094 and issue #2182 (Psygore)
+	- new:	dutch translation of documentation, thanks to Harold van der
+		Waaij
+	- chg:	resload_Relocate now accepts upto 512 hunks (Don Adan)
+	- chg:	emulation of 'move sr,ea' in usermode on 68010+ is now also
+		working if flag WHDLF_EmulPriv is active, this fixes problems
+		with RoadwarsArcadia and FastBreakArcadia
+	- chg:	support for Cloantos AmigaForever 2011 kickstart 1.2 and
+		3.1-a500/a1200 roms added (Jan Zahurancik)
+	- new:	WHDLoad supports the compression file formats of CrunchMania
+		with the resload functions resload_Decrunch and resload_Load-
+		FileDecrunch (Psygore)
+	- chg:	the way WHDLoad checks for keyboard strokes (QuitKey,
+		FreezeKey, ...) has been slightly modified, in earlier
+		versions it has checked for keydown strokes, now it only
+		reacts on keyup events; if the Slave checks itself for
+		keyboard events	the installed program may still quit on
+		keydowns
+	- chg:	the ws_keydebug entry in the Slave structure is now ignored,
+		the debug key must be explictly set via arguments
+	- fix:	it's now possible to use QuitKey/DebugKey=0 (Psygore)
+	- chg:	as long as the splash window is open pressing Esc will break
+		the Preload/S process and quit WHDLoad
+	- chg:	pressing Space/Return/Enter will close the splash window and
+		start the installed program immediate after completion of
+		Preload/S
+	- new:	in Expert/S mode the splash window now contains some buttons
+		to switch debugging related options of WHDLoad which gets
+		saved/deleted in the icon if started from the Workbench
+	- new:	the Slave structure has been extended to allow configuration
+		of buttons to be displayed on the splash window to control
+		the ButtonWait/S and Custom1-5/K/N options
+		to be able to configure	existing Slaves the option Config/K
+		has been added
+	- new:	using the option ConfigDelay/K/N the time can be specified
+		howlong the splash window is displayed if there are buttons
+		on it (Config/Expert)
+	- chg:	if SplashDelay/K/N is -1 a start button is added to the splash
+		window and the window remains open until pressed
+	- chg:	the kickstart images will be searched also in the alternative
+		path WHDCOMMON: (M.C.Battilana)
+
+	68040 MMU code is incomplete in this release because being reworked
+	to support full MMU features, resload_Protect should work but Snoop
+	will lock the machine
+
+***  16.9 (05.02.2009)
+	- chg:	BLITWAIT macro in whdmacros.i adapted for better speed, thanks
+		to John Girvin for research and testing
+	- fix:	problems with writing to disks with around a multiple of 4 GB
+		free space fixed (Ingo Schmitz)
+	- fix:	resload_Decrunch/LoadFileDecrunch could corrupt vital memory
+		which could lead to strange WHDLoad errors (e.g. "Function ...
+		requires slave version 1"), reported for game Universe, thanks
+		to KillerGorilla for report and Psygore for diagnostics;
+		the old RNC1 format is now properly supported for overlapping
+		source and destination
+	- new:	on ChkBltSize/S some basic initialization in blitter line mode
+		are checked too (68060 only)
+	- new:	option FullChip/S to save/restore the full chip memory instead
+		only the area specified in the Slave
+	- new:	finnish translation of documentation, thanks to Mikko Heinonen
+	- chg:	cpu detection routine reworked to correctly detect an 68020 on
+		boards with 'FPU logic error', 68851 and 68040/60 FPU
+		detection improved
+	- new:	workaround added to make WHDLoad running on the CDTV, the
+		cdtv.device will be disabled to avoid problems with interrupts
+		generated by this, thanks to jtorrance and Toni Wilen
+	- new:	commands BKPT and BELL added to resload_Patch/Seg to set a
+		breakpoint (enter freezer) and show a visual bell
+	- chg:	handling of the internal directory cache for resload_Examine/
+		ExNext changed, so that new created files will not be the
+		first entry in the directory
+		this fixes problems with programs which do not correctly
+		perform a Examine before each directory scan, e.g. Castles2
+		(JOTD)
+	- chg:	some more info output and better lace support with SP (saving
+		picture)
+	- chg:	check for free stack space on entering WHDLoad via resload/
+		interrupt/exception made more consistent
+	- chg:	many changes on WHDLoadGCI, can export Slave/Memory now
+	- new:	danish translation of documentation, thanks to Nicolai
+		Mortensen
+	- new:	macro PL_NOPS added to whdload.i (bippym)
+	- chg:	improved error messages if loading kickstart fails
+	- chg:	changed CPU detection to avoid problems with weired MMU
+		configuration, no longer uses transparent translation to avoid
+		Enforcer hits (Fabio Cinus)
+	- chg:	its no longer possible to load files from outside the data
+		directory, that means that file specs containg a ':' or '//'
+		or starting/ending with a '/' are prohibited, these files were
+		anyway never Preload-able
+	- new:	support for multiple data directories added
+	- new:	options SavePath/K and SaveDir/K added to let WHDLoad redirect
+		all write operations to a different disk location
+	- new:	WHDLoad now remembers if Preload/S has loaded all files and
+		then doesn't switch when a resload function tries to load a
+		non existing file (e.g. resload_GetFileSize)
+	- chg:	resload_ListFiles now supports a buffer in ExpMem too (JOTD)
+	- chg:	autodocs revised, html transformation added
+
+***  16.8 (19.08.2007)
+	- fix:	the requester displayed when audio.device is already used
+		defaults to 'ignore' now, so it works in combination with
+		option NoReq/S (Horace)
+	- fix:	the online help displayed when WHDLoad is called from the CLI
+		without arguments has been fixed for the options Cache/S and
+		DCache/S (Hexaae)
+	- fix:	CLI args fixed to fault on too many arguments (Psygore)
+	- chg:	the install template supports installing from disk images via
+		diskimage.device, trackwarp.library and capsimage.device
+	- chg:	kick31.s supports also the kickstart image from the A500/A600/
+		A2000, with that it is possible to make Slaves using kick31
+		which are compatible to a 68000 CPU (Don Adan)
+	- new:	WHDLoad itself disables the interrupts of Mediator boards now
+		while running the installed program, this should solve
+		problems like freezing and gfx/sound distortion on these
+		boards, thanks to John Girvin and Elbox for providing the
+		solution
+	- chg:	WHDLoad now avoids opening the WorkBench screen after exiting,
+		older versions have always opened the WB if no other screen
+		was left open, requires at least v39
+	- new:	WHDLoad now shows the task name on exceptions if there was a
+		working amigaos running, it also shows segment name and offset
+		if SegTracker was running (inside emulation of course)
+	- new:	option NoMemReverse/S added to the global configuration (Ralf
+		Stützer)
+	- new:	catalan translation of documentation, thanks to Manel Beltran
+	- new:	its now possible to use special rawkeys for the QuitKey/N
+		option to let WHDLoad quit from a button press on the mouse/
+		joystick/joypad
+	- chg:	some changes to the kickemu, check history therein
+
+***  16.7 (16.11.2006)
+	- fix:	the Snoop check for custom.bplpt's against BaseMem bounds was
+		broken on word writes on the 68030 (DJMike)
+	- fix:	resload_LoadFile and resload_LoadFileDecrunch has silently not
+		loaded data without Preload/S, bug introduced in v16.6 (Bored
+		Seal/Psygore)
+	- new:	option NoResInt/S add, which disables any interrupts during
+		execution of resload functions
+	- chg:	if the Slave requires AGA and that is not yet enabled in
+		graphics.library WHDLoad calls SetChipRev to enable it, this
+		obsoletes the execution of SetPatch prior to WHDLoad
+	- new:	WHDLoadCD32 a special WHDLoad version to be used on the CD³²,
+		check documentation for more info
+	- chg:	registration fee in USD adapted due currency differences, EUR
+		and GBP unchanged
+	- chg:	various enhancements on the install template
+
+***  16.6 (05.06.2006)
+	- fix:	no more enforcer hits (byte read from adr 0) on directory
+		cache preload on FFS filesystems (Christian)
+	- upd:	italian documentation is in sync again, thanks David Bergantin
+		for updating it
+	- upd:	small enhancement for HRTmon to print out expmem boundaries
+	- fix:	no longer complains about missing ENV: assign
+	- fix:	bus/address error messages on 68000 corrected
+	- fix:	the message returned on interrupted resload functions did have
+		the same name for both functions, this has been corrected
+	- chg:	argument checking for resload functions improved, now the
+		current stack can not be overwritten by resload functions
+		(size of reserved stack space is 64 bytes)
+	- new:	command GA added to resload_Patch/Seg to get a address and
+		store it inside a variable in the slave
+	- fix:	modify at ExpMem via resload_Patch works again, was permitted
+		in version 16.5
+	- chg:	kickemu improved, compiles with PhxAss and AsmOne again, new
+		switch NO68020 for kick31.s to get 68000 compatible code,
+		patches to the kickstart added to avoid overwriting the vector
+		table, this allows WHDLoad to catch exceptions also on 68000
+		(Don Adan)
+	- new:	greek translation of documentation, thanks to Dimitris
+		Panokostas of ATO
+
+***  16.5 (15.12.2005)
+	- new:	check for CyberGraphX/56KHZAUDIO added (David Roeskamm)
+	- new:	commands PL_ORB/W/L added for patch lists (Psygore)
+	- chg:	if XPK decompression fails during Preload/S WHDLoad shows the
+		missing sublib name too
+	- fix:	kickemu correctly updates IO_ACTUAL on trackdisk accesses
+		(JOTD)
+	- chg:	russian translation reworked (Manbiker)
+	- new:	display promotion added to kick31emu, with that WHDLoad
+		options	DblPAL and DblNTSC become working in conjunction with
+		installed games using kick31 emulation and supporting it
+	- fix:	stackcheck modified to avoid complaining if first long word of
+		stack is trashed (e.g. when using WarpOS-XPK-Sublib and
+		running	from Workbench)
+	- chg:	bubble help for bplcon* registers added to WHDLoadGCI
+	- fix:	improved startup code for kickemu and _bootdos in kick13.asm
+	- fix:	disassembler for negative absolut word addressing fixed
+		(Psygore)
+	- chg:	improved error messages on resload_Patch(Seg)
+	- new:	slovak translation added, thanks to Jan Zahurancik and Martin
+		Durik
+	- new:	ukrain translation added, thanks to Andrey Molchanov
+	- chg:	improvement on resload_ProtectSMC, instructions modifying the
+		sr no longer break the SMC check, autodocs fixed, disabling
+		trace is no longer required with SMC check (JOTD)
+	- chg:	text explanation added to register dump for attnflags and
+		setcpu
+	- chg:	Snoop on 68060 now allows change of bit #6/7 of ciaa.ddra
+		which is used on accessing/detecting joypad
+	- new:	if WHDLoad is started without an slave argument from the CLI
+		it shows a short help for all options and some raw key codes
+	- chg:	improved speed on preload for resload_Examine, now uses
+		dos.ExAll and memory pools (when running on v39+)
+	- chg:	kick31emu got a new option called JOYPADEMU, formerly included
+		in INIT_LOWLEVEL now separated to support GetLanguage without
+		joypad emulation, also the joypademu has been improved, now
+		the keys used are user configurable using the Custom option
+	- chg:	options ExecuteStartup and ExecuteCleanup are now local and
+		global useable (Ralf Stützer)
+	- chg:	file Preload/S improved, uses now dos.ExAll, memory pools (if
+		running under v39+ and more than 4MB free fast available),
+		asynchronous decrunching of XPK files
+	- new:	supports also the kickstart images supplied with Cloantos
+		Amiga Forever CDs, kick130.rom or amiga-os-130.rom must be
+		renamed to kick34005.A500, kick310.rom or amiga-os-310.rom
+		renamed to kick40068.A4000, images together with the rom.key
+		must be	installed under DEVS:Kickstarts, some older installs
+		require a kick40068.A1200 image these installs wont run with
+		Cloantos roms
+	- new:	norwegian translation added which is not complete but better
+		than none, thanks to Herman Andresen
+
+***  16.4 (26.11.2004)
+	- fix:	wrong offsets in resload_Relocate when used with WHDLTAG_ALIGN
+		and WHDLTAG_LOADSEG (Psygore)
+	- new:	using QuitKey=$73 an installed program can be quit using the
+		Left Mouse Button (Povl Odgaard)
+	- fix:	TrapV emulation did not work on 68010 (Mats Johansson)
+	- new:	on WHDLTAG_CBAF on the 68060 A2 provides now the contents of
+		the registers D0-A6 for further diagnostics
+	- new:	kickfs.s checks if startup-sequence exist if BOOTDOS is not
+		used (JOTD)
+	- chg:	install templates merged into one template, reworked and
+		enhanced (Codetapper)
+	- new:	minor enhancement on the resource support files regarding
+		RawDIC
+	- fix:	incorrect return/dump values (type of exception) when
+		interrupt vector is not initialized and taken
+	- new:	added _keyexit/debug to kick12.s and kick13.s
+	- fix:	internal sr handling corrected
+	- chg:	kickfs.s returns proper IoErr on dos.Read also on success
+		(JOTD)
+	- fix:	possible read accesses outside the packed data on RNC1 and
+		resload_Decrunch/LoadFileDecrunch fixed, these could cause
+		Access Faults when decrunching data at start of ExpMem (JOTD)
+
+***  16.3.1 (21.07.2004)
+	- fix:	install script wasn't executable due a bad comment line
+		(thanks	to Seppo Seppala)
+
+***  16.3 (28.06.2004)
+	- chg:	kickfs.s: ACTION_CREATE_DIR returns ERROR_OBJECT_EXISTS if
+		directory already exists (JOTD)
+	- chg:	kick31.s: lowlevel.library loading and joypad emulation
+		integrated
+	- chg:	copperlist scanner is also triggered by word writes on coplc
+		registers (JOTD)
+	- chg:	whdload.prefs is automatically installed by the install
+		script (Codetapper)
+	- fix:	some possible Address Errors with resload_Patch* on cpu<68020
+		fixed (Mats)
+	- chg:	command PL_S for resload_Patch/Seg allows also negative
+		destinations
+	- new:	many enhancements on WHDLoadGCI, better HexEdit includes jump
+		to specified address, bubble help for various Custom
+		registers, cia window added
+	- chg:	resload_Delay checks keyboard too
+	- chg:	resload_Relocate support for missing HUNK_END's added, e.g.
+		"Crunch 1.3 Seg" files (Psygore)
+	- new:	new tag for resload_Relocate to create segment lists, which
+		can be processed later using resload_PatchSeg (Psygore)
+	- chg:	minor improvements on DIC
+	- chg:	RawDIC 2.0 supplied but to unsure stableness only in the
+		developer archive in Extra/
+
+***  16.2 (07.04.2004)
+	- new:	ReSource support files for RawDIC Slaves added
+	- fix:	WHDLoad works again on 68000 (Gregory Mason)
+	- fix:	install templates improved, work around for InstallerNG which
+		displays an error on (getassign "DF0" "d") when no disk is
+		inserted and so makes it impossible to check for the presense
+		of devices
+	- fix:	whole HTML documentation validated and fixed by Micheal Ofner
+		(very big thanks!)
+
+***  16.1 (08.12.2003)
+	- fix:	resload_Patch with PL_DATA did not work correctly
+	- chg:	some error messages improved
+	- chg:	stack enlargement and stack usage check (re)added
+	- chg:	disassembler output improved
+	- new:	support for another ThrillKill version added (BEN)
+	- new:	limited support for WHDLTAG_CBAF_SET on 68060 added, see
+		autodocs for details
+	- new:	option NoReq/S can be used from CLI/Shell to output error
+		messages to the command window instead of showing requesters
+	- chg:	WHDLoad exits now with more useful return codes
+	- fix:	EmulTrap did not work for trap #15 since WHDLoad v16.0 (JOTD)
+	- chg:	improved pen handling for splash and register window (Michael
+		Evans)
+	- fix:	resload_ProtectSMC was broken in v16.0 now works again
+	- chg:	access fault handler for 68030/68060 partial rewritten, some
+		bugs fixed, resload_Protect in ExpMem fully supported now,
+		overall more reliable and sometimes a bit faster
+	- fix:	EmulLineF now works with all frame types (JOTD)
+	- new:	install templates improved, remember install source drive and
+		check drive availibility for DIC, RawDIC and Patcher template
+	- chg:	option SplashDelay/N can also be local set
+	- new:	ReSource support files for Patcher Slaves added
+	- fix:	command PL_PSS for resload_Patch fixed (did JMP+NOP instead
+		JSR+NOP)
+	- chg:	with Snoop* the copperlist scanner identifies CEND with
+		horizontal position > 112 now
+	- fix:	small bug in The Patcher fixed
+	- new:	WHDLoad supports multiple Kickstart images with the new slave
+		structure introduced in v16.0, the kick31.s has been adapted
+		to support the 40.068 from the A1200 and the one from A4000,
+		WHDLoad checks for both images and uses the one present
+		(JOTD/Wepl)
+	- new:	italian manual translation added, thanks to David "Berga"
+		Bergantin
+	- fix:	program CRC16 rewritten because old one created wrong sums
+		for files larger then 64KB
+	- new:	QualityAssurance.Slave included
+	- fix:	keyboard acknowledgment for kickemu 1.2 and 1.3 fixed
+	- new:	hungarian manual translation added, thanks to Márton Dósa
+
+***  16.0 (04.08.2003)
+	- fix:	restart when option Data/K is used works
+	- new:	tries to expunge x-surf.device to avoid INT2 lockups (going
+		offline does not remove the interrupt server, you can check
+		with scout/interrupts), maybe this should be done for other
+		drivers too...
+	- new:	option ChkInts/S to detect interrupts without respective bits
+		set in custom.intreq and custom.intena, this will allow easier
+		fix for interrupt acknoledge problems on fast machines and
+		bad hardware creating interrupts
+	- new:	polish translation of the manual added, thanks to Mariusz
+		Danilewicz, Kamil Niescioruk and Sebastian Rosa for
+		translating
+	- new:	russian translation of the manual added, thanks to Agressor
+		for translating
+	- new:	slave flag EmulDivZero to support such exceptions in the
+		installed program (Galahad)
+	- chg:	misc improvements on the kickemu
+	- fix:	possible problems with drive inhibit in DIC fixed (JOTD)
+	- new:	various new commands for patchlists to add values, write byte
+		streams and using sublists
+	- chg:	if there is whether in the slave nor via an option a quitkey
+		specified F10 is used as a default (Codetapper)
+	- new:	if an errors occurs and Expert/S is active an additional
+		button appears in the error requester which allows the display
+		of the registers like in the register dump but without
+		creating one, the program to display can be configured in the
+		global configuration file using the new option ShowRegs/K
+	- chg:	minor changes on WHDLoadGCI, direct link from a register to a
+		memory window, no longer needs ixemul.library
+	- chg:	WHDLoad now detects a modified vbr when called via resload
+		from supervisor state, when called from user state it crashes
+		as in previous versions because it cannot enter the supervisor
+		state (JOTD)
+	- chg:	if the slave version is greater or equal 16 then the trap #15
+		will not be emulated (WHDLF_EmulTrap not set) anymore, this
+		was a bug in older versions but the osemu depends on it
+	- new:	spanish translation of the manual added, thanks to Miguel
+		Dilaj
+	- chg:	reworked czech translation by David Malecek
+	- new:	slave flag EmulIllegal to support such exceptions in the
+		installed program (Michael Griffin)
+	- fix:	preload for resload_Examine made more robust
+	- new:	disassembler output in the register dump
+	- new:	extented slave structure for early load of kickstart images
+		and avoid one switch to the os
+	- chg:	there is a new tag for resload_DiskLoadDev to specify the
+		trackdisk unit to read from
+
+***  15.2 (10.04.2003)
+	- new:	option ChkCopCon/S to find accesses which enable copper access
+		to DMA registers (JOTD)
+	- new:	option Data/K to specify a directory where data for installed
+		program are stored, overwrites ws_CurrentDir contained in the
+		Slave
+	- fix:	function resload_SetCPU no longer clears the setup from
+		resload_Protect* (JOTD)
+	- new:	support for another ThrillKill version added (BEN)
+	- new:	options ExpChip/S, ExpLocal/S and Exp24Bit/S to force WHDLoad
+		to allocate ExpMem with the specified properties, useful to
+		degrade performance on fast machines for compatibility reasons
+	- chg:	many changes on kickemu sources, kick31.s made conform to the
+		12/13 sources
+	- chg:	resload_Delay made more robust, fixes hangs in conjunction
+		with Mroocheck device/driver
+	- fix:	Access Fault message for 68040 corrected (JOTD)
+	- new:	Macros and UserSymbols to use with ReSource added
+	- new:	smail address!
+
+***  15.1 (20.08.2002)
+	- new:	many improvements on the install templates: opens installed
+		directory as wb window (OS3.5), visual icon selection (OS3.5),
+		more flexible icon handling, subdirectory for DIC install
+		(Codetapper/JOTD/Wepl)
+	- chg:	SP can also save Interlace pictures now (Psygore)
+	- chg:	works on AmigaXL now, WHDLoad will detect an AmigaXL and
+		assume an 68020 CPU (in difference to the faked 68040)
+	- chg:	there is no longer a default for FreezeKey/N
+	- chg:	keyboard handling changed a bit to avoid problems with some
+		broken UAE versions (JOTD)
+	- chg:	when Snoop*/S is used bytes writes to audvol registers will
+		again result in an access fault, byte writes to audvol+1 are
+		ok (Psygore)
+	- chg:	files caching optimized when small and large files are used
+		and there isn't enough memory for the big ones (JOTD)
+	- fix:	loading data from a preloaded file using a resload function to
+		the vector table area ($64..$7c) works now without trashed
+		data (René Gennes)
+	- new:	SnoopAGA/ECS/OCS validates also writes to bplpt's (Psygore)
+	- new:	czech (big thanks to Bored Seal), french (big thanks to JOTD
+		& Psygore) and german (Wepl/Susann) translation of the
+		documentation added
+	- new:	tag for resload_Relocate called WHDLTAG_ALIGN added, to round
+		up hunk lengths to a given boundary (Psygore)
+
+***  15.0 (19.02.2002)
+	- fix:	install script templates improved: environment variable for
+		installation directory copied to ENVARC: to survive reboot;
+		'Abort Installation' during choice of installation directory
+		no longer gives an error message (Codetapper)
+	- fix:	bug in copperlist scanner on 68030 with bplcon2 fixed
+	- chg:	no more lockups caused by invisible 'Insert Volume XXX:'
+		(many thanks to JOTD)
+	- new:	OpenDrawer (OS3.9) added to the install templates (JOTD)
+	- new:	commands C, CB, CW and CL to use with resload_Patch
+	- new:	function resload_PatchSeg, resload_Examine, resload_ExNext
+	- new:	new flag WHDLF_Examine, required to use resload_Examine and
+		resload_ExNext
+	- fix:	resload_LoadKick also supports 512k images (JOTD)
+	- chg:	kick1.3 emu finished
+	- chg:	intelligent icon detection and choice added to the install
+		templates
+	- chg:	SP reads S:WHDLoad.prefs to find the coredump file
+	- new:	option Custom and function resload_GetCustom to forward a
+		string from the CommandLine/WorkBench to the Slave (Philippe
+		Bovier/JOTD)
+
+***  14.5 (23.09.2001)
+	- chg:	options NTSC/S and PAL/S can also be set global now
+	- new:	SnoopOCS/S check also that no ECS/AGA bits will be set in
+		bplcon2 (Psygore)
+	- new:	option RestartKey/N added
+	- chg:	stack check removed
+	- chg:	install templates improved: better tooltype handling, install
+		script will remember the installation directory in an
+		environment variable and use it as default the next time
+
+***  14.4 (30.07.2001)
+	- fix:	resload_Relocate again corrected, it should work 100% reliable
+		now and is also a bit faster under some conditions ;)
+	- fix:	ChkBltWait on 68060 has wrongly assumed a write to bltsize on
+		movem accesses to addresses > bltsize, that has caused wrong
+		detections
+	- fix:	XPK detection did not work in resload_DiskLoad/LoadFileOffset,
+		caused problems without Preload/S
+	- fix:	symbol hunks in resload_Relocate fixed (Codetapper)
+	- new:	resload_ListFiles added to FileLog/S (Jeff)
+	- new:	now FileLog/S logs the CRC16 for all read/write operations,
+		that may be useful especially for developers to detect on bug
+		reports different data by requesting a FileLog from the
+		reporter
+
+***  14.3 (02.06.2001)
+	- fix:	without Preload/S LoadFileOffset/DiskLoad returning error
+		(Philippe)
+	- fix:	LoadFileOffset/DiskLoad was returning wrong result on failure
+		and WHDLF_NoError wasn't set (Jeff)
+	- fix:	now resload_*Load* functions can load files larger than
+		2.091.108 bytes (MrLarmer)
+	- new:	option NoFlushMem/S added to avoid memory flush at WHDLoad
+		startup
+	- fix:	TDREASON_OSEMUFAIL works again (Jeff)
+	- fix:	bug in resload_Relocate removed (MrLarmer)
+
+***  14.2 (06.05.2001)
+	- fix:	bugs in some loading resload functions removed which could
+		WHDLoad v14.1 cause to crash under some conditions
+	- chg:	resload_GetFileSize(Dec) added to the FileLog/S feature
+	- fix:	resload_SaveFileOffset has written bad size if file wasn't
+		preloaded in WHDLoad v14.1, that may corrupt existing
+		images/game files! (thanks to Codetapper for report)
+
+***  14.1 (29.04.2001)
+	- chg:	$dff1fe (noop) is also a valid writeable custom register now
+		(Codetapper)
+	- new:	SP correctly rips EHB pictures now (MrLarmer)
+	- fix:	problems with some third party keybords after exiting WHDLoad
+		removed
+	- new:	option TimeOut/N let WHDLoad / installed program quit after a
+		specified time, requires cooperation of the installed program
+		(untouched ciaa.ciatod)
+	- fix:	problems with resload_Abort and DOS-Errors fixed (Jeff)
+	- new:	TDREASON_FAILMSG to quit using a self defined message
+		(MrLarmer)
+	- new:	all write operations will now be cached in memory if possible
+		to omit unnecessary switches to the OS, require that the file
+		to write to is already in the file cache, to avoid this
+		behavior the option NoWriteCache/S has been added, to
+		completely disable this feature the option can also set in the
+		global configuration file
+	- new:	all data files can be compressed using XPK now, files will be
+		decompressed on Preload/S, there must be enough free store to
+		cache XPK files otherwise WHDLoad will quit, files can be
+		compressed/encrypted multiple times, decrypting requires
+		reqtools.library v38
+	- chg:	differences in Snoop regarding ciab.prb between 68030 and
+		68060 removed, checks for MTR/SEL/STEP on both cpu's now
+		(Codetapper)
+	- new:	resload_Relocate is able to move hunks with property MEMF_CHIP
+		or MEMF_FAST to a different memory location
+
+***  14.0 (15.03.2001)
+	- fix:	bug in Snoop* mode fixed, thanks to Codetapper for report!
+		(the msw of D2 was trashed during copperlist-scanner, e.g.
+		writing to cop1lc/cop2lc/dmacon)
+	- chg:	link/unlk/pea has been added to the IST (Mr.Larmer)
+	- chg:	more useful output on Speed.Slave if MMU is unavailable
+		(Harry)
+	- new:	tag WHDLTAG_LANG_GET to use with resload_Control to get
+		the current language set in the system, uses and requires
+		lowlevel.library to be installed
+	- chg:	WHDLoad no longer tries to write to read-only filesystems, so
+		games can be played also from cdrom when they will usual save
+		highscores or similar data
+	- chg:	install templates prepared for high-scores file, WHDLoad stack
+		increased (Codetapper)
+	- fix:	detection of UAE (AttnFlags) works now
+	- new:	commands PA and NOP added for resload_Patch (Codetapper)
+	- chg:	tool SP to save pictures from dump files: copper disassembler
+		can be interrupted using Ctrl-C, will stop at copstop and
+		better error handling (Codetapper/Frank)
+	- chg:	my snail mail address has changed
+
+***  13.1 (05.01.2001)
+	- fix:	icon handling in the installer templates improved
+	- chg:	emulation of unsupported integer instruction on 68060 supports
+		all variations of 64-bit mul/div except addressing modes using
+		full extension word (memory indirect/base displacement)
+	- fix:	problems with Snoop exceptions during Switch fixed (copper
+		list scanner could lock WHDLoad on return from OS to installed
+		program)
+	- chg:	WHDInfo 1.20 by Codetapper included in the developer package
+	- fix:	better compatibility on Kickstart 2.0, no longer freezes the
+		Workbench after exiting WHDLoad, the reason was cia.alarm
+		values, because I don't know how to restore them to the
+		original values WHDLoad no loger touches them, that means
+		also there are no defined start values on entering the
+		installed program anymore and there may be too problems on
+		Kickstart 2.0 if the installed program writes the cia.alarm
+		values (probably less than 5% of all games)
+
+***  13.0 (21.12.2000)
+	- fix:	debug key handling fixed (was broken when Expert was used in
+		global config and no debug key was specified and the Slave has
+		used a default of 0) (Jeff)
+	- fix:	autodoc - mistakes regarding KEYTRANS and resload_GetFileSize
+		corrected (Codetapper)
+	- fix:	bug in WHDLoad 12.0 fixed when using NoMMU/S and memory
+		0..$1000 is remapped to Fast memory, WHDLoad has always quit
+		independend of the selected button
+	- fix:	bug removed in resload_Patch and command Skip when using a
+		distance of 2
+	- fix:	splash window background fixed for 16/24-bit screens
+	- fix:	no longer 'illegal args' when using resload_SaveFile with
+		address=0 and size=0 (Harry)
+	- chg:	cpu cache handling reworked; new options ChipNoCache/S,
+		BranchCache/S, SuperScalar/S and StoreBuffer/S; options can no
+		longer overwritten by resload functions, new chapter in the
+		documentation regarding cpu cache handling
+	- new:	flag WHDLF_ClearMem to cause WHDLoad to simply clear BaseMem
+		and ExpMem instead of init them with $CCCCCCCC/$DDDDDDDD
+		(Codetapper)
+	- fix:	Enforcer hits in keymap scan removed (Philippe Bovier)
+	- chg:	now the color cycling screen during switch between OS and
+		installed program will only displayed if option Expert/S is
+		enabled (Psygore)
+	- fix:	compatibility risk in EmulTrap removed
+	- chg:	Snoop*/S features reworked:
+		- fast Snoop/S mode added, read accesses will not be verified,
+		  uses a bit faster routines on write accesses
+		- special features can be activated separately, new Options
+		  ChkBltWait/S, ChkBltSize/S, ChkBltHog/S, ChkColBst/S
+		- special features can be enabled/disabled at runtime via
+		  resload_Control
+		68030:
+		- copperlistscanner implemented
+		- ColBst check added
+		- ChkBltWait uses instruction tracing now
+		68060:
+		- ChkBltWait and ChkBltSize added
+		- copperlistscanner improved
+	- chg:	FileLog/S reworked, uses now internal buffer to store log
+		entries and will write them to the logfile at program end
+	- new:	option NoFileCache/S to disable the file cache
+	- new:	internal stack check added
+	- fix:	bug in resload_GetFileSizeDec fixed, did not work under some
+		conditions
+
+***  12.0 (07.08.2000)
+	- chg:	better exception handling on 68000
+	- new:	flag WHDLF_EmulLineF to forward 'Line-F Emulator'
+		exceptions to the handler of the installed program if the
+		vbr is moved (requested by Bored Seal)
+	- new:	tag WHDLTAG_KEYTRANS_GET to get a table for rawkey to ascii
+		conversion reflecting the system keyboard configuration
+		(requested by Codetapper)
+		the sources:whdload/savegame.s has been adapted for that and
+		it can be used as an example how to use this new feature
+	- chg:	WHDLTAG_ATTNFLAGS_GET no longer returns AFF_68881 and
+		AFF_68882 on 68040/68060 (Jeff)
+	- chg:	DIC: retry bug on 'no disk in drive' fixed, new option 'NAME'
+		added to specify a name for the image to create (Andreas
+		Falkenhahn)
+	- fix:	there could be an endless loop (including writing coredump) if
+		a error requester could not be opened, this has been fixed
+	- fix:	the texts contained in the install templates have been
+		fixed for some spelling errors (thanks to Codetapper)
+	- new:	some small improvements to SP
+	- chg:	WHDLoad no longer terminates on Byte Writes to the audio
+		volume registers when Snoop*/S is active, these accesses are
+		invalid but used in many replayers and it should not be
+		neccessary to fix them all
+
+***  11.2 (04.06.2000)
+	- fix:	the "CACR modified" check introduced in v11.0 was broken
+		on 68020 machines, now it should work properly on all cpu's
+	- chg:	some enhancements concerning WHDLoadGCI, reworked to compile
+		with gcc/egcs instead sasc
+
+***  11.1 (21.05.2000)
+	- fix:	old RNC1 support in resload_Decrunch/LoadFileDecrunch fixed,
+		was broken since version 10.4, now Moonstone works again
+	- chg:	some minor changes in Snoop*/S on 68060
+
+***  11.0 (16.04.2000)
+	- chg:	resload_Decrunch/LoadFileDecrunch supports also the TPWM
+		format now
+	- new:	resload_Delta, resload_LoadKick, resload_GetFileSizeDec
+	- new:	reworked access fault handler for the 68060, supports cia
+		snooper, aga check and copperlist scan
+	- chg:	many enhancements on WHDLoadGCI, multiple memory windows,
+		bubble help, info window, termination reason
+	- new:	new flags WHDLF_EmulChk and WHDLF_EmulPriv to forward
+		'Chk,Chk2 Instruction' and 'Privilege Violation' exceptions to
+		the handler of the installed program if the vbr is moved
+	- new:	tag WHDLTAG_BPLCON0_GET to get the system bplcon0 from the
+		gfxbase, warning: genlock is still not supported by WHDLoad!
+	- new:	WHDLoad now checks on each call to a resload function if the
+		CACR has been modified, on detection the installed program
+		will terminated
+
+***  10.6 (01.03.2000)
+	- new:	when using Snoop*/S on 68060, accesses to custom register
+		using the SSP in predecrement or postincrement address mode
+		will detected and appropriate requester will be displayed,
+		such accesses must be patched to make Snoop*/S working on
+		68060
+	- fix:	WHDLoad no longer quits if the SSP is equal to the end of
+		ExpMem on calling a resload function
+	- chg:	DIC can skip multiple tracks now
+
+***  10.5 (23.01.2000)
+	- chg:	DIC reworked, new option SKIPTRACK/K/N to one skip track (e.g.
+		RN-Copylocks), new option PEDANTIC/S used in install scripts
+		for better error handling
+		documentation for DIC improved
+		install script "DIC Install" improved
+	- chg:	documentation and install scripts adapted for the new address
+		of WHDLoad's WWW-Page (www.whdload.org)
+	- chg:	the slave load routine has been improved, the slave may now
+		contain symbol hunks and the length in the hunk header may
+		differ from the length in the hunk itself
+	- chg:	sources and includes reworked a bit, better support for
+		different assemblers
+
+***  10.4 (13.10.1999)
+	- fix:	resload_SaveFileOffset was broken in 10.3, as a result some
+		installs have crashed on saving games/highscores (thanks to
+		MIcK for report)
+	- fix:	WHDLoad no longer crashes if Snoop*/S will be enabled on
+		68040 equipped machines (thanks to Joona Palaste for report)
+	- fix:	detection of old rnc1 format improved, now Aladdin works again
+		(thanks to Ungi for report)
+	- chg:	dbffix.s and keyboard.s from the src/sources/whdload directory
+		reworked
+
+***  10.3 (22.09.1999)
+	- fix:	ws_CurrentDir in conjuction with slaves and ws_Version < 4 did
+		not work in WHDLoad v10.2 (e.g. MegaLoMania installion slave,
+		thanks to Ungi for report), now it works again
+	- chg:	parts of the exception handlers rewritten, a detected Freezer
+		will be also activated on Access Fault, Privilege Violation
+		and Unimplemented Integer Instruction; that simplifies
+		debugging
+	- chg:	WHDload is overlayed now, that saves some memory at runtime
+		and shortens the executable
+	- new:	emulation of CMP2 for 68060 added (e.g. Overkill/Mindscape,
+		Roots/Sanity), emulation of movep and mul32 optimized for
+		superscalar dispatch
+	- chg:	if option SplashDelay is set to 0 no splash-window will be
+		displayed
+	- chg:	docs reworked (thanks to Codetapper for doing that)
+	- chg:	some other minor changes
+
+***  10.2 (07.07.1999)
+	- fix:	bug in cache handling removed, the cache was always off if
+		MMU is not used by WHDLoad in versions 10.0 and 10.1 (Graham)
+	- chg:	install template for RawDIC installes improved (Graham)
+	- new:	partial mul64 emulation for 68060 added, supports only
+		"muls.l dn,dn:dn" at the moment (used in Sanity-Roots)
+	- fix:	quit key display in the splash window fixed (Graham)
+	- chg:	extra memory (ws_ExpMem) can be specified as optional now,
+		see autodoc for more info (Graham & John Girvin)
+	- new:	program crc16 done by John Girvin added to the dev package
+
+***  10.1 (20.06.1999)
+	- fix:	bug in resload_SetCACR which makes it impossible to enable
+		caches fixed, the bug has been introduced in version 10.0
+		(Graham)
+	- fix:	some internal changes
+
+***  10.0 (08.05.1999)
+	- chg:	SP has got some new options
+	- fix:	a bug in sources/whdload/stfix.s removed
+	- chg:	resload_Relocate uses less stack now
+	- new:	function resload_ProtectSMC to automically detect self
+		modifying code (see autodoc)
+	- new:	function resload_SetCPU to allow more accurate control over
+		the cachebility of certain memory regions and to allow
+		control over 68060 specific cpu configuration
+	- chg:	option NoDCache has been removed (simplify cache management)
+	- new:	function resload_Patch to handle patchlists, i'm wondering
+		why this hasn't implemented earlier :), useful especially
+		to patch stuff in expansion memory
+	- fix:	whole decruncher stuff reworked, support for old rnc1-data
+		format added, all decruncher a5/a6 save, optimized, less
+		stack usage...
+	- fix:	expansions memory (ws_ExpMem) is also aligned to $1000 if no
+		MMU is available or MMU is unused by WHDLoad (Graham)
+	- fix:	possible deadlock in the switch routine (OS<->Install)
+		removed (Graham)
+	- new:	information window on startup (while Preload/S) added, it
+		shows infomations about the installed program, the Slave and
+		the actual QuitKey, information about program and Slave are
+		taken from an expanded Slave-structure (see include and
+		autodoc	files), if a Slave with version prior 10 is used
+		WHDLoad	displays only the name of the installed program which
+		will be	build from the name of the Slave
+		how long the information window is displayed can be changed
+		with the new option SplashDelay/N
+		(information window is inspirated by Mr.Larmer on 7.7.1998,
+		nothing gets lost here :)
+	- chg:	include file "whdload.i" splitted into "whdload.i" which
+		contains WHDLoad base defines and "whdmacros.i" containing
+		optional defines and macro definitions
+
+***  9.2 (15.03.1999)
+	- fix:	3 enforcer hits removed (Juergen Urbanek, Hubert Maier jun.),
+		there are still some hits left to the vector table, but these
+		are required for normal operation and cannot be removed
+	- fix:	bug in decruncher for Imploder files fixed (Mr.Larmer),
+		this bug was introduced in version 9.0
+	- chg:	there are no longer distortions in gfx display and sound
+		replay due disabled interrupts during loading from preloaded
+		data (resload_LoadFile, LoadFileDecrunch, LoadFileOffset,
+		DiskLoad)
+	- new:	option NoFilter/S to disable the audio filter, can be set
+		globally using S:WHDLoad.prefs or locally using Tooltypes
+		(Roderick Mouthaan)
+	- new:	program RawDIC by Graham/Oxyrone to create images from non
+		standard floppy disks formats, it replaces Patcher as prefered
+		tool for this task
+	- chg:	documentation reworked
+
+***  9.1 (15.02.1999)
+	- new:	WHDLTAG_TIME_GET to get actual date and time (Mr.Larmer)
+	- fix:	problems with some 68030 systems fixed (WHDLoad uses some
+		special hardware features in conjunction with the MMU
+		related operations, some hardware does not support this
+		(Apollo A630 and Magnum MK2 are known for this), on such
+		systems you can't enable the MMU/S option - otherwise the
+		machine will hang) (reported by Chris Thomas, Maxim Ilyn
+		and Jess Sosnoski)
+
+***  9.0 (17.01.1999)
+	- chg:	performance of resload_LoadFileDecrunch improved
+	- chg:	access fault handler for 68030 rewritten:
+		 - better performance
+		 - cia snooper implemented
+		   - icm and alarm will be saved and dumped
+		   - setting overlay bit (ciaa.pra) catched
+		   - setting motor/step (ciab.prb) catched
+		   - bad writes to ddra/ddrb catched
+		 - blitsize check fixed, supports all except line-mode now
+		   (ascending/descending mode, negative modulos, odd pointers
+		   and odd modulos)
+		 - a callback function can be setup (resload_Control) which
+		   will called by WHDLoad if an Access Fault occurs, the
+		   function can modify the bad access and decide if the
+		   program should be continued or terminated, see autodoc for
+		   further infos
+	- fix:	potgo set to input mode now, fixes right mouse button problem
+		with ArcherMcLeanPool and JimmyWhiteSnooker (Mr.Larmer)
+	- new:	WHDLTAG_VERSION_GET, WHDLTAG_REVISION_GET, WHDLTAG_BUILD_GET
+		for usage with resload_Control to get the major and minor
+		version number and the build number of WHDLoad currently
+		running, the build number is granted to be uniq and can be
+		used to distinguish between different sub versions (Mr.Larmer)
+	- new:	pressing Ctrl-Amiga-Amiga will cause WHDLoad to quit,
+		depending on machine speed this may avoid cold reboots due a
+		not restored execbase (Graham)
+	- fix:	Snoop works again on 68060, was broken in 8.2
+	- chg:	the vector table is not write protected if Snoop on a 68060 is
+		enabled
+	- new:	option ReadDelay/N to cause WHDLoad to wait some time between
+		reading files from disk and switching the OS off (Jeff)
+	- new:	flag WHDLF_EmulTrapV to forward exceptions to the zero page
+		handler if the vbr is moved (Graham)
+
+***  8.2 (19.12.1998)
+	- chg:	the vector table (VBR) is write protected now, to catch
+		invalid to accesses to it (Mr.Larmer), requires that the MMU
+		is used by WHDLoad, NoVBRMove is not set and no freezer is
+		detected by WHDLoad in memory
+	- fix:	problems with PAL and NTSC in conjunction with Picasso 96
+		monitor drivers fixed (Tim Kovack)
+
+***  8.1 (13.12.1998)
+	- chg:	detection of HRTmon 2.24 implemented
+	- fix:	Access Fault in resload_Relocate removed
+	- new:	some changes and enhancements for HRTmon 2.25
+	- fix:	Snoop works again for 68030 machines (was broken in v8.0)
+	- chg:	all unsaved registers after executing a resload function
+		(D0-D1/A0-A1 as far as they don't contain a return code)
+		will be destroyed explicit now, for compatibility reasons
+
+***  8.0 (22.11.1998) not public released!
+	- chg:	if the write offset for a resload_SaveFileOffset operation
+		lies outside the current length of the file and therefore
+		the file must be enlarged before writing, WHDLoad tries now to
+		fill this area with $ee, if there is not enough memory
+		available for this, WHDLoad falls back to the old style by
+		using dos.SetFileSize(), with the result that the enlarged
+		area will contain random data
+	- fix:	deadlock in switch routine fixed which occured when lightpen
+		has been activated (e.g. "Die Hard 2")
+	- fix:	cia's will be completly initialized by WHDLoad now, and also
+		better handled during switch
+	- chg:	also disk images will be cached dynamically now
+	- fix:	small bug in DIC removed (Mr.Larmer)
+	- fix:	resload_LoadFileOffset accepts also parameters upto the
+		BaseMem bound now (DarkAngel)
+	- new:	flag WHDLF_NoKbd to allow NoVBRMove also for programs which
+		doesn't check the keyboard from the PORTS ($68) interrupt
+	- new:	function resload_Relocate to relocate an standard AmigaDOS
+		executable in memory, beware: uses a lot of stack and is not
+		tested with all hunk types, see autodoc for more details
+	- new:	function resload_Delay to wait a specified time or a button
+		to be pressed (time independed from PAL/NTSC display)
+	- new:	slave can request expansion memory (fast memory) now
+		ATTENTION: slave structure has been enlarged
+	- new:	TDREASON_MUSTREG (DarkAngel)
+	- new:	WHDLTAG_IOERR_GET for usage with resload_Control to check if
+		all names have been fitted in resload_ListFiles and to
+		distinguish a file with a size of 0 from an nonexistent file
+		in resload_GetFileSize (Harry)
+	- new:	option D/S for debuging, if enabled the software freezer
+		(Hrt/TK) will be activated at the first instruction of the
+		Slave
+	- new:	flag WHDLF_EmulLineA to emulate Line-A opcodes if the vbr is
+		moved
+	- new:	function resload_DeleteFile to delete files (Mr.Larmer)
+	- new:	program SP which can save iff pictures from the new coredump
+		files created by WHDLoad, works for most standard picture
+		formats (Snoop* is required of course)
+	- new:	sources for all programs except WHDLoad included, please note
+		that most of them are copyrighted
+	- chg:	many internal changes, also the problems with BloodMoney and
+		CelticLegends seems to have been solved
+	- fix:	Restart should work reliable now
+	- fix:	small bug in ITD removed (Harry)
+
+***  7.0 (01.07.1998)
+	- chg:	new revision scheme, version number of WHDLoad is now equal to
+		highest possible version number for a Slave, separate build
+		number
+	- new:	new tag for resload_Control to setup a function to restore
+		destroyed custom registers during switch between OS and
+		installed program (Harry)
+	- chg:	functions resload_LoadFileOffset, resload_SaveFile and
+		resload_SaveFileOffset can be used with a filesize of zero now
+		(Harry)
+	- chg:	the functions resload_Protect#? are checking now if the
+		protected area matches the current SSP, if it does, WHDLoad
+		will stop and show a requester "Unacceptible Arguments", this
+		has been build in to reduce the likelihood of a Double Bus
+		Fault, thanks to Mr.Larmer for reporting this problem
+	- fix:	check of workbench arguments a bit more secure now
+	- new:	new Slave flags WHDLF_Req68020 and WHDLF_ReqAGA, new
+		TDREASON_REQ68020 and TDREASON_REQAGA, new tag
+		WHDLTAG_CHIPREVBITS_GET for resload_Control, to handle
+		programs which require a MC68020 or the AGA Chip Set (Mr.
+		Larmer)
+	- new:	TDREASON_MUSTNTSC and TDREASON_MUSTPAL to terminate if the
+		installed program requires a specific display which isn't
+		enabled (Mr.Larmer)
+	- chg:	Preload/S now collects also files from sub directories
+	- chg:	example sources (slaves/imager) reworked to assemble with
+		Asm-Pro v1.12 (still some problems with labels in macros,
+		but this is a problem of AsmPro)
+	- new:	support for additional NewIcon in Install Templates
+		(Mr.Larmer)
+
+	the following problems are known and still unsolved:
+	 - no exit possible from BloodMoney/CelticLegends
+	 - Nitro does hang with Preload/S enabled, use WHDLoad v0.608 or
+	   disable Preload/S to go around this
+
+***  1.92 (08.06.1998)
+	- fix:	problem with Clown'o'mania (©1989 Starbyte) does not work with
+		WHDLoad v1.1 has been fixed, the reason was a different
+		initialized ciaa.icr.tb	bit, to fix this and future problems
+		WHDLoad does init the CIA interrupt mask explicit now, all
+		interrupts are disabled	except the CIAA SP interrupt (used for
+		keyboard) which is enabled. I have tried some installs and it
+		seems to work ok, anyway it is possible that some installs may
+		no longer work because they may expect that some interrupts
+		are already enabled on startup - these installs must be fixed
+		for this new WHDLoad
+	- new:	TDREASON_OSEMUFAIL to support the OS emulation module
+	- chg:	the message for instruction stream access faults has been
+		corrected (Harry)
+	- new:	option Expert/S, this option must be enabled to make core
+		dumps using the DebugKey/K/N now, the option has been added to
+		avoid that normal users press the wrong key by mistake (Harry)
+	- new:	options ExecuteStartup and ExecuteCleanup to execute a command
+		at start and at end of WHDLoad
+
+***  1.1 (25.05.1998)
+	- fix:	stack usage on resload_Decrunch and resload_LoadFileDecrunch
+		decreased, speed of RNC1 decrunching improved a lot, its a
+		really a good idea to patch the decrunch routine in games
+		with resload_Decrunch if it uses RNC1 !
+	- new:	DIC can create partial images now (option SIZE/K)
+	- new:	WHDLoad performs now a "SetClock LOAD" at exit
+	- fix:	some minor fixes in the gfx degrading routine
+	- fix:	disk-dma check in os-switch modified, it switches dma off now
+		instead of showing the white-color-cycle-bug-screen
+		(because it's nowhere documented else: red - copper cannot
+		switched off, blue - ints cannot switched off, green - blitter
+		is busy but dma is off; after pressing LMB WHDLoad continues
+		but it's undefined what will happen)
+	- new:	new program "ITD" (ImageToDisk) to write disk images back to
+		floppy or RAD: can format the disk, can write partial images,
+		no verify, see documentation for more info
+	- fix:	problems with second copperlist on reactivating os graphics
+	- new:	blitter wait check if SnoopOCS/ECS/AGA enabled
+	- new:	if available whdload will use reqtools.library instead
+		intuitions requesters now, because they are screen centered
+		and have better keyboard support
+	- new:	with SnoopOCS/ECS/AGA all cpu used custom registers will be
+		dumped now
+	- chg:	tooltypes NTSC/PAL will now affect the display init routine
+		(Intuition.OpenScreen()) therefore you need the appropriate
+		monitor files installed
+	- new:	functions resload_Protect#? to snoop memory accesses in
+		various	ways, very useful for developer... (requested by
+		Mr.Larmer)
+	- new:	function resload_LoadFileOffset which is similar to
+		resload_DiskLoad but for files
+	- new:	flag WHDLF_NoDivZero for ws_Flags to prevent WHDLoad from exit
+		if a "Division by Zero" exception occurs
+	- chg:	all resload functions has been reworked to no longer modify
+		registers a5 and a6, this solves problems with demos/games
+		which expect that the contens of these registers are valid
+		also in an interrupt, for example SWIV expects a5=global-data
+		and a6=custom-base, the only exception from this rule are the
+		functions resload_Decrunch and resload_LoadFileDecrunch when
+		working on rnc packed files, in this case a5 is temporarly
+		used (it is a bit hard to rewrite the whole decrunch
+		routines and I'm low on time of course...)
+		in general it is a good idea if the program you like to
+		install does'nt work with WHDLoad to check the interrupt
+		routines, if the interrupts make assuptions similar the above
+		(e.g a4=anything) you have to disable the interrupts before
+		calling any resload function and reenable after
+	- chg:	WHDLoad checks now the current stackpointer each time the
+		Slave calls a resload function, if the SP is lower than $180
+		or outside the BaseMem area the program will be terminated and
+		WHDLoad shows a requester about, this should avoid problems
+		like destroyed vector tables or deadly double Access Faults
+		in conjunction with an enabled Memory Protection
+	- chg:	it is no longer required that SetPatch is executed before
+		WHDLoad on 68040/68060 equipped machines because WHDLoad
+		determinates the current CPU itself now
+	- chg:	for 68060 only (68040 also??): the newer versions of
+		68060.library (starting v41.1) does remap the memory $0-$1000
+		(the first page) to a fast mem location using the MMU, this
+		will make major problems if the	option NoMMU is activated: in
+		this case WHDLoad will not change any MMU related registers
+		and this address translation will remain intact !!!
+		if the installed program tries to use this area for any dma
+		actions (e.g. a copperlist in this area) the results will be
+		unforeseeable, because the cpu will read/write the fast-mem
+		location and dma's the real chip-mem which contains random
+		data !!!
+		I don't want to disable the NoMMU option for 68040/060
+		machines, therefore the following has been changed: the
+		longword at address $1000 does now contain the value -2 which
+		is the copper instruction cend (was on address $300 in earlier
+		WHDLoad versions), the minimum BaseMemSize has been increased
+		to $2000. If NoMMU is selected and the above mentioned
+		address translation is active an requester will inform the
+		user about the existing problem.
+	- new:	options ButtonWait/S and Custom1/K/N ... Custom5/K/N for
+		slave specific things (requested by Harry)
+	- chg:	WriteDelay/K/N does also affect the FileLog/S feature now,
+		this means that after each write to the logfile WHDLoad will
+		wait the time specified via WriteDelay/K/N to minimize the
+		danger of filesystem corupption
+	- chg:	install scripts has been reworked, PLEASE check them !
+	- chg:	sources has been changed and new added, PLEASE check them !
+	- chg:	WHDLoad is shareware now, read documention for more info
+
+***  0.608 (03.09.1997)
+	- new:	all configuration stuff rewritten, global config file
+		see guide for more information
+	- chg:	SURVIVERESET removed (obsolete I think)
+	- new:	support for HRTmon 2.1 and ThrillKill 1.04 implemented
+		(auto detect and NMI forwarding)
+	- new:	function resload_Control to get the AttnFlags
+	- fix:	enforcer hit in resload_SaveFile removed
+	- new:	function resload_SaveFileOffset for partial writes
+	- chg:	ws_DontCache works now also for preload of disk images
+		file preload does no longer loads "(ReadMe|#?.(info|slave))"
+		("Disk.#[0-9]" also not as before)
+	- chg:	better support for NTSC amigas (Raymond Earle)
+	- new:	option PAL/S to force PAL display on NTSC amigas
+	- new:	options Cache/S,DCache/S,NoDCache/S to allow full user
+		control over the caches
+	- new:	using MMU for memory protection and cache management (!!!)
+	- new:	Quit/Debug-key management through new options QuitKey/K/N and
+		DebugKey/K/N, every new slave should support this via the
+		slave version 4 extensions ws_keydebug and ws_keyexit,
+		see one of the example slave sources for an example
+	- chg:	on whdload is writing data (resload_SaveFile) it will do a
+		special check for RAM: now, so it is possible to use RAM:
+		as installation destination now
+	- chg:	macros patch and patchs optimized
+	- new:	more sources added to the package
+
+***  0.322 (25.06.1997)
+	- fix:	sometimes whdload has quit on random keystrokes if the vbr was
+		moved
+	- fix:	deadlock problems in OS-Swap routine
+	- new:	option COREDUMP to make a dump even on TDREASON_OK
+
+***  0.288 (16.06.1997)
+	- fix:	sprite dma switching off
+	- chg:	ws_ExecInstall can be set to zero now (disables SURVIVERESET)
+	- new:	ws_keys, whdload manages quit key self (see autodoc)
+	- new:	whdload handles all MMU stuff, result is that whdload is now
+		Enforcer/Cyberguard and VMM proof
+	- new:	** vbr shadowing ** (see autodoc)
+		tooltype NOVBRMOVE added to disable that
+	- new:	slave flag EmulTrap for ws_Flags
+	- chg:	execbase changed from $ffff0000 to $f0000001
+		(any use of this should create an "Address Error" exception)
+	- chg:	Data Cache is always off and cannot be enabled via
+		resload_SetCACR
+	- fix:	resload_FlushCache fixed for 040/060
+	- fix:	register dump changed a lot
+	- new:	exitcode TDREASON_WRONGVER indicating a bad program version
+	- chg:	all registers have now a defined value at startup
+	- fix:	filelog output fixed for data writes
+	- new:	Patcher, FindAccess, Cmp added to the package
+		autodoc, include and guide updated
+		Install templates added
+
+***  0.163 (02.03.1997)
+	- fix:	better handling of trackdisk.device, headpos is flashed always
+		now
+	- new:	trackdisk errors as text instead numbers
+	- new:	whdload option NOAUTOVEC (see whdload.guide)
+
+***  0.147 (31.01.1997)
+	- fix:	on slave load failed, we were in an endless loop
+	- new:	function resload_CRC16 implemented
+
+***  0.143 (07.01.1997)
+	- fix:	restart point changed, that slave will be reloaded (static
+		vars)
+	- new:	status of cia timers added to register dump
+	- new:	cia timer handling improved
+	- fix:	ISP/MSP highlighting on user-mode
+	- chg:	file cache changed, resload_GetFileSize from cache,
+		resload_SaveFile to cache, now ws_DontCache is nearly obsolete
+	- chg:	Preload/S changed, caches now automatically diskimages and
+		files, independent from WHDLF_Disk
+	- fix:	resload_SaveFile checks now for disk validation and free space
+		to avoid deadlocks
+	- fix:	file loading from cache has always copied one byte to much
+	- fix:	WRITEDELAY parsing on CLI-start
+	- new:	resload_DiskLoadDev for install slaves (see autodoc)
+	- chg:	better error detection on slave-whdload interface
+	- chg:	Macros in whdload.i improved
+
+***  0.88  (24.11.1996)
+	- file logging implemented
+	- register dump improved
+	- dump file names changed (now PROGDIR:.whdl_#?)
+	- on TDREASON_DEBUG sr and pc now taken from primary/secondary result
+	- InstallBB added to the package
+
+***  0.41  (05.09.1996)
+	- first public release

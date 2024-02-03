@@ -1,0 +1,234 @@
+@database "3c589.device Manual"
+@$VER: "3c589.device Manual" 1.5 (4.2.2010)
+@author "Neil Cafferkey"
+@(c) "Neil Cafferkey"
+
+Copyright (C) 2003-2010 Neil Cafferkey
+
+This manual is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This manual is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this manual; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston,
+MA 02111-1307, USA.
+
+
+@node "main" "3c589.device Manual"
+
+  @{b}@{u}3c589.device 1.5@{uu}@{ub} - A 3Com Etherlink III PC Card driver
+
+
+    @{"Introduction" link "intro"}
+
+    @{"Installation and Usage" link "install"}
+    @{"Performance" link "performance"}
+
+    @{"Author and Legal Information" link "author-legal"}
+
+    @{"History" link "history"}
+
+@endnode
+
+
+@node "intro" "Introduction"
+
+@{u}@{b}Introduction@{ub}@{uu}
+
+3c589.device is a SANA-II network driver for 3Com Etherlink III PC Cards.
+These are sold by several companies under a variety of model names; see
+below for (probable) compatibility. In short, 10 Mbps cards work; 100 Mbps
+cards do not. Also note that the original 3C589 "A" revision (without any
+extension letter) does not work.
+
+The following ethernet and ethernet/modem cards should work:
+
+   @{u}@{b}Company@{uu}                       @{u}Model@{ub}@{uu}
+
+   @{b}3Com@{ub}                          3C562
+                                 3C562B
+                                 3C562C
+                                 3C562D
+                                 3C563B
+                                 3C563C
+                                 3C563D
+                                 3C589B
+                                 3C589C
+                                 3C589D
+                                 3C589E
+
+   @{b}3Com Megahertz@{ub}                3C3FEM556C
+                                 3CCE589EC
+                                 3CCE589ET
+                                 3CCEM556
+                                 3CCEM556B
+                                 3CXE589D
+                                 3CXE589EC
+                                 3CXEM556
+
+   @{b}Farallon/Netopia@{ub}              EtherMac/EtherWave PN595-TP
+                                 EtherMac/EtherWave PN595-C
+
+   @{b}Hitachi@{ub}                       HT-4840-13
+
+   @{b}Motorola@{ub}                      Marquis
+
+@endnode
+
+
+@node "install" "Installation and Usage"
+
+@{u}@{b}Requirements@{ub}@{uu}
+
+3c589.device needs an A600 or A1200 and OS 2.05 or greater.
+
+@{u}@{b}Installation@{ub}@{uu}
+
+To install 3c589.device, run the 'Install' script. In your networking
+software, set the SANA-II device name to @{b}networks/3c589.device@{ub} and the
+unit number to @{b}0@{ub}.
+
+@{u}@{b}Cable types@{ub}@{uu}
+
+Your Etherlink III card will have been programmed to use a certain cable
+type. If you need to change this setting, I believe there is 3Com software
+available for Windows to change this and other settings. Check their web
+site.
+
+In the future there may be a utility provided to change this setting on an
+Amiga.
+
+3c589.device has so far only been tested with @{"10baseT" link "cable"} cabling. @{"10base2" link "cable"}
+cabling should also work. I'm not sure if there was ever an Etherlink III
+PC Card with an AUI connection, but if there was, it should work.
+
+@{u}@{b}Multifunction cards@{ub}@{uu}
+
+Although 3c589.device works with some multifunction ethernet/modem cards,
+only one of these functions can be used at a time. This is due to
+limitations in AmigaOS's card.resource.
+
+@{u}@{b}A1200 hardware bug@{ub}@{uu}
+
+The A1200 (but not the A600) has a hardware bug which prevents a card being
+reset except on insertion or removal. There are both hardware and software
+remedies for this problem. The software solution is CardReset
+(util/boot/CardReset.lha on Aminet). There are several different types of
+hardware fixes, some of which are available commercially.
+
+@{u}@{b}Problems@{ub}@{uu}
+
+With some A1200 motherboards, hot insertion or removal of a 3c589-compatible
+card may cause the system to reset.
+
+Miami will cause the system to hang if the card is removed while online.
+Re-insertion won't help.
+
+@endnode
+
+
+@node "performance" "Performance"
+
+@{u}@{b}Performance@{ub}@{uu}
+
+On a 40MHz 68030 system, the following FTP speeds have been achieved:
+
+                    @{b}@{u}Upload@{uu}        @{u}Download@{ub}@{uu}
+                    @{i}kbytes/s      kbytes/s@{ui}
+
+   @{b}AmiTCP 3.0b:@{ub}      407           497
+   @{b}Genesis:@{ub}          373           551
+   @{b}Miami 3.2b:@{ub}       191           279
+
+There is no version of the device specially compiled for CPUs above the
+68000, since there was no performance benefit.
+
+@endnode
+
+
+@node "author-legal" "Author and Legal Information"
+
+@{u}@{b}Author and Legal Information@{ub}@{uu}
+
+3c589.device was written by Neil Cafferkey.
+
+Please send bug reports, suggestions, and any other correspondence to one of
+the following addresses.
+
+E-mail: caffer@cs.ucc.ie
+
+Post: Neil Cafferkey,
+      30, Upper Kensington,
+      Rochestown,
+      Cork,
+      Ireland.
+
+3c589.device and pccard.library are released under the terms of the
+@{"GNU General Public Licence" link "GPL/MAIN"}. See the individual source files for copyright
+information.
+
+The full pccard.library archive, which includes the source code and
+developer files, is available on Aminet as "util/libs/pccard.lha".
+
+All trademarks are owned by their owners.
+
+@endnode
+
+
+@node "history" "History"
+
+@{u}@{b}History@{ub}@{uu}
+
+@{b}V1.5 (February 2010)@{ub}
+
+  - Fixed lock-up when closing device under AmigaOS 4.0.
+
+@{b}V1.4 (March 2004)@{ub}
+
+  - Now works with 3C562D/3C563D (thanks to Francisco Miguel Guerrero García
+    for lending me one of these cards).
+  - Multicast and broadcast flags weren't set properly. Fixed.
+  - Fixed memory leak in initialisation code (thanks to Adam Markiewicz).
+  - Only the first packet read in any interrupt could be recognised as
+    an orphan. Fixed.
+  - Support for IEEE 802.3 frames.
+  - Fixed bug in media selection code.
+  - Removed request for information about Farallon and Motorola cards, since
+    it appears that they use the same manufacturer and product codes as the
+    official 3Com cards, and hence already work (thanks to Kjell Linden).
+  - Fixed a bug in handling transmission errors.
+
+@{b}V1.3 (February 2003)@{ub}
+
+  - Added 4 to reported length of incoming raw packets to make ShapeShifter
+    and Fusion work (thanks to Marcin Ozdzinski).
+  - Fixed a buffer overrun.
+
+@{b}V1.2 (January 2003)@{ub}
+
+  - Bug fix: couldn't handle more than 64kb of attribute address space,
+    causing some cards not to work (thanks to Tom Parker).
+
+@{b}V1.1 (January 2003)@{ub}
+
+  - First release.
+
+@endnode
+
+
+@node "cable" "Cable Types"
+
+10baseT: Twisted Pair (TP) cabling with RJ45 connectors.
+
+10base2: Thin coaxial cable with BNC connectors.
+
+@endnode
+
+

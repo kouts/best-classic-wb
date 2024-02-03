@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<TITLE>InstallBB * Installieren von Bootbl&ouml;cken</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: ibb.html 1.3 2004/04/07 18:41:48 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>InstallBB * Installieren von Bootbl&ouml;cken</h3>
+InstallBB kann den Bootblock von Disktette lesen oder ihn auf Diskette schreiben. Dabei wird der Bootblock als ausf&uuml;hrbare Datei gelesen oder geschrieben. Beim Schreiben wird der Dateisystemtyp nicht ver&auml;ndert indem erst der alte Bootblock gelesen wird und dessen DosType (<tt>DOS0</tt>, <tt>DOS1</tt> ...) in den neuen eingesetzt wird. Die Bootblockpr&uuml;fsumme wird automatisch berechnet.
+<h4>Installation</h4>
+InstallBB ist nur im <tt>DEV</tt>, nicht im <TT>USR</tt> Archiv enthalten.
+<br>Kopiere das Programm nach C: oder einem &auml;hnlichen Platz.
+<h4>Optionen</h4>
+<table>
+<tr><td colspan=2>
+<tt>PROGRAM/A,UNIT/K/N,WRITE/S</tt>
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>PROGRAM/A</tt>&nbsp;&nbsp;
+</td><td>
+der Name der ausf&uuml;hrbaren Datei welche gelesen oder geschrieben wird, muss angegeben werden
+</td></tr>
+<tr><td valign=top>
+<tt>UNIT/K/N</tt>
+</td><td>
+die Unit Nummer des Trackdisk-Ger&auml;tes (Laufwerksnummer)
+<br>voreingestellt ist 0 (DF0:)
+</td></tr>
+<tr><td valign=top>
+<tt>WRITE/S</tt>
+</td><td>
+Schalter der entscheidet, ob der Bootblock gelesen oder geschrieben wird, wenn nicht gesetzt, wird der Bootblock von der Diskette gelesen und als Datei gespeichert, ansonsten umgekehrt
+</td></tr>
+</table>
+</BODY>
+</HTML>

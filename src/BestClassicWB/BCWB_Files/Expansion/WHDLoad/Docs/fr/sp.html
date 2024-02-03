@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE>Capture d'&eacute;crans</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: sp.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>SP * Capture d'&eacute;crans</h3>
+Utilitaire de capture d'&eacute;crans &agrave; partir d'un <a href="dump.html">fichier dump</a>
+cr&eacute;&eacute; par WHDLoad.
+<h4>Installation</h4>
+SP se trouve uniquement dans l'archive <tt>DEV</tt>, non dans l'archive <TT>USR</tt>.
+<br>Copiez-le dans le C: ou dans un emplacement similaire.
+<h4>Usage</h4>
+Tout d'abord, un fichier dump doit &ecirc;tre cr&eacute;&eacute;. Lancez le programme install&eacute; dont vous voulez
+capturer l'&eacute;cran. Il doit &ecirc;tre ex&eacute;cut&eacute; avec les options <a href="opt.html#Snoop">Snoop/S</a>,
+<a href="opt.html#Expert">Expert/S</a> et <a href="opt.html#DebugKey">DebugKey/K/N</a>
+activ&eacute;es. Quand l'image que vous voulez capturer apparaît, appuyez sur la touche DebugKey.
+WHDLoad sauvegardera le fichier dump. En utilisant un Shell/CLI, entrez dans le répertoire où le fihcier dump se trouve.
+Maintenant, utilisez <tt>SP</tt> suivi d'un nom de fichier comme argument.
+Avec l'option <a href="opt.html#CoreDumpPath">CoreDumpPath</a>, vous n'avez pas besoin d'accéder au répertoire du fichier
+dump car le programme SP utilisera la configuration globale de WHDLoad pour le trouver.
+<h4>Options</h4>
+<table>
+<tr>
+  <td colspan=2><tt>OutputFile/A,Cop/K,CS=CopStop/K,Width/K,Height/K,con0/K,mod1/K,mod2/K,pt1/K,pt2/K,pt3/K,pt4/K,NoCopLst/S</tt></td>
+</tr>
+<tr>
+  <td valign=top><tt>OutputFile/A</tt></td>
+  <td>nom du fichier de l'image &agrave; sauver</td>
+</tr>
+<tr>
+  <td valign=top><tt>Cop/K</tt></td>
+  <td>change l'adresse de la 1&egrave;re copper-liste, si vous voulez une autre adresse que celle contenue
+      dans le fichier dump</td>
+</tr>
+<tr>
+  <td valign=top><tt>CS=CopStop/K</tt></td>
+  <td>cette option sp&eacute;cifie l'adresse de fin de la copper-liste. Ceci doit &ecirc;tre utilis&eacute;
+      si plusieurs &eacute;crans se trouvent dans l'image</td>
+</tr>
+<tr>
+  <td valign=top><tt>Width/K</tt></td>
+  <td>modifie la largeur de l'image, cela n'affectera pas les valeurs des modulos!</td>
+</tr>
+<tr>
+  <td valign=top><tt>Height/K</tt></td>
+  <td>modifie la hauteur de l'image</td>
+</tr>
+<tr>
+  <td valign=top><tt>con0/K</tt></td>
+  <td>remplace le registre bplcon0 contenu dans le fichier dump</td>
+</tr>
+<tr>
+  <td valign=top><tt>mod1/K,mod2/K</tt></td>
+  <td>remplace les registres bplmod1/bplmod2 contenus dans le fichier dump</td>
+</tr>
+<tr>
+  <td valign=top nowrap><tt>pt1/K,pt2/K,pt3/K,pt4/K</tt>&nbsp;&nbsp;</td>
+  <td>remplace les registres bplpt1,2,3,4 contenus dans le fichier dump</td>
+</tr>
+<tr>
+  <td valign=top><tt>NoCopLst/S</tt></td>
+  <td>d&eacute;sactive la copperlist du fichier dump</td>
+</tr>
+</table>
+</BODY>
+</HTML>

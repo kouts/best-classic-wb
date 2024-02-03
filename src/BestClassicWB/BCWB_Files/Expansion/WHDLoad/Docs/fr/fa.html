@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>Find Access</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: fa.html 1.5 2013/11/25 22:13:32 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Find Access * Trouver l'acc&egrave;s &agrave; une adresse m&eacute;moire</h3>
+Ce programme charge le fichier sp&eacute;cifi&eacute; et recherche les acc&egrave;s &agrave; une adresse donn&eacute;e. Il trouve toutes les r&eacute;f&eacute;rences absolues et relatives en 8, 16 et 32 bits. J'ai &eacute;crit ce programme pour analyser les fichiers coredump. Similaire &agrave; la commande FA des freezers (Action Replay) mais il ne d&eacute;sassemble pas l'acc&egrave;s. Il affiche uniquement le dump hexad&eacute;cimal.
+<h4>Installation</h4>
+FindAccess est uniquement pr&eacute;sente dans l'archive de <tt>DEVELOPPEUR</tt>, pas dans l'archive <TT>UTILISATEUR</tt><br>A copier dans C: ou un autre r&eacute;pertoire d'utilitaires
+<h4>Utilisation</h4>
+J'utilise l'alias suivant (pr&eacute;sent dans mon S:Shell-Startup) pour rechercher dans le dernier dump m&eacute;moire &eacute;crit par whdload:
+<p><tt>alias fa FindAccess C:.whdl_memory</tt></p>
+je peux ainsi ouvrir un shell et taper par exemple:
+<p><tt>fa $15000</tt></p>
+j'obtiens la sortie suivante:
+<p><tt>FindAccess 1.2 (17-Jan-99 14:45:18) by Bert Jahn
+<br>loading file <B>Workbench:CE/.whdl_memory</B>
+<br>scanning accesses to $15000 (86016)  file: $0-$80000
+<br>Relative  Word at $ 14240 -> 06C00000 07C00000 <B>0DC0</B> 00000CC0 000004C0
+</tt></p>
+<h4>Options</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,ADDRESS/A,ORG</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+nom du fichier &agrave; examiner
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>ADDRESS/A</tt>&nbsp;&nbsp;
+</td><td>
+l'adresse de l'acc&egrave;s recherch&eacute;, il est possible d'utiliser des expressions simples comme "$5000"
+= "20480" = " -$Ff +-33+ 19512+$4e8" (prefixe "$" pour les nombres hexadecimaux, les op&eacute;rateurs reconnus sont "+" et "-", unaires et binaires)
+</td></tr>
+<tr><td valign=top>
+<tt>ORG</tt>
+</td><td>
+l'adresse logique de d&eacute;part du fichier, si non sp&eacute;cifi&eacute;e $0 est utilis&eacute;. Les expressions peuvent &ecirc;tre utilis&eacute;es, comme dans ADDRESS/A
+</td></tr>
+</table>
+</BODY>
+</HTML>

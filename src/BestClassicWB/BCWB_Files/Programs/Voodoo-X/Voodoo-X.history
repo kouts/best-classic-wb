@@ -1,0 +1,738 @@
+
+***************************************************************************
+*                                                                         *
+*              Changes for Voodoo-X, Created Tue/2/Feb/2000.              *
+*                                                                         *
+*        Copyright © 2000-2001 Andrew Bell. All rights reserved.          *
+*                                                                         *
+*                    (Most recent changes at the top)                     *
+*                                                                         *
+*     Please note that this file goes into a lot of technical detail      *
+*             just ignore anything you don't understand. :-)              *
+*                                                                         *
+*                                                                         *
+***************************************************************************
+
+
+  *************************************************************************
+  Voodoo-X 1.5 Release (25.6.2001)
+  *************************************************************************
+
+  --------------------------------
+  Voodoo-X 1.5 BETA 10 (23.6.2001)
+  --------------------------------
+
+- Prepped source for locale support (removed the old v_str.c module too).
+- Removed NList from version window. Version number were always trashed
+  with it, it seems. :-/
+- Added SpeedBar copyright information to the about window.
+- Added Charlene's name to the beta tester list, I think she deserves it.
+  :-)
+
+  -------------------------------
+  Voodoo-X 1.5 BETA 9 (20.6.2001)
+  -------------------------------
+
+- More code cleaned up. Removed lots of #ifdefs.
+- Cleaner debug handling.
+- Prefs are now stored in ENVARC:Voodoo-X. Existing settings are moved
+  there.
+- Voodoo-X will now whinge and quit if it can't find ENVARC: at startup.
+- Memory debugging routines cleaned up and simplified.
+- WinSettings_TB_ListKill() hook had a small memory leak which was caused
+  by the compiler producing bad code (it seems). :-/
+- Dir entries weren't being freed in the AE tree, causing a major memory
+  leak inside the pool. This would make the program eat up lots of memory
+  the longer you ran it, as many memory puddles weren't given back to the
+  system.
+- Fixed some memory leaks in the portion button handling code.
+- Portion buttons now start counting from 1, in line with the portion menu.
+- The password window was using GUI_SleepyWindows(TRUE) on exit, thus
+  causing the GUI to block all user input making the program useless.
+- FTYPES_Init() was using TRUE instead of FTYPESSTATE_ON when setting the
+  default multiview filetype. This had the effect of disabling it. Fixed.
+- Default multiview command string now has quotes wrapped around the arg.
+
+  -------------------------------
+  Voodoo-X 1.5 BETA 8 (12.6.2001)
+  -------------------------------
+
+- Cleaned up signal handling. Removed some unneeded routines.
+- Cleaned up some GUI related routines.
+- Renamed some routines to make more sense and improve readability.
+- Removed GUI_InitMUI()/GUI_EndMUI() these routines were pointless.
+- Made links and e-mail addresses in the About window clickable. If
+  openurl.library is present, then links are sent to your desired e-mail
+  client or web browser. Also added a link to Dirk's website.
+- Added small menu that holds the last 20 recently accessed archives. This
+  should not be confused with the Archive History List, which holds
+  currently loaded archives. The recent list is retained after Voodoo-X
+  quits and allows quick access to archives in the next Voodoo-X session.
+- Gadgets are ghosted on the main window now when no archive is loaded.
+- Now pops up a small error requester when attempting to use multi-select
+  features on Listtree.
+- Now reports if a file format is unknown.
+- Added proper MCC version checking and reporting.
+- Archive information window now shows any embedded text stored in disk
+  archives (i.e. DMS information texts).
+- Quotes are now supported in filetype viewer command strings.
+- Update Toolbar button has been removed for now. Some last minute bugs &
+  internal design issues meant this couldn't be properly implemented
+  without lots of spare time. I'll get round to it in v1.6. ;-)
+- Select All/None/Pattern now work under NListtree.
+- Added an upper limit to the amount of buttons that can be in the toolbar.
+- You can now run executables inside archives, just by double clicking on
+  them. Voodoo-X will first ask you if you really want to do this.
+- Parent archive button now works under NListtree viewmode.
+- The state of the "Keep full path intact" option was being ignored when
+  extracting files under Nlisttree viewmode.
+- Only files can be selected in the NListtree viewmode now.
+
+  -------------------------------
+  Voodoo-X 1.5 BETA 7 (4.6.2001)
+  -------------------------------
+- Removed double-click enforcer hit (fast double click on open/close image
+  while in NListtree).
+- DoMethod() was being called on an NList (Client Info window) object that
+  had been disposed. This caused a major crash on shutdown on some setups.
+  Fixed.
+- Doesn't popup a hundred requesters now when some toolbar images can't be
+  loaded. :-)
+
+  -------------------------------
+  Voodoo-X 1.5 BETA 6 (3.6.2001)
+  -------------------------------
+
+- Portion buttons aren't redrawn again when selecting a different portion.
+  Might fix reported crash.
+- Viewmode -> NListTree -> Close All now works.
+- Implemented the archive information window.
+- If temporary dir creation fails, VX now reports why. Also added name
+  rollover code if name already exists.
+- When aborting extraction, VX wasn't removing the temp file entry from
+  the temp list, thus incorrectly reporting that a temp file couldn't
+  be delete on shut down.
+- If a toolbar image fails to load, it now specifies the filename which
+  it attempted to load.
+- Internal toolbar defaults now look for correct image paths.
+- No longer expects "Images/Default.iff" to be present.
+- Entries are now sorted correctly in linear view mode. File part of the
+  filename was being compared instead of the full path.
+- xadConvertDates() is now allowed to fail. VX won't complain.
+- Removed old braindead toolbar implementation. Added new and improved
+  version.
+- Some strings cleaned up.
+- First entry in the Toolbar list is now selected upon loading a new
+  toolbar.
+- Protection column was sometimes showing trash in Listtree view mode
+  for dir entries. Fixed.
+- Changing the destination path via Shell now updates the destination
+  history list.
+- Toolbar images don't default to small now.
+
+  -------------------------------
+  Voodoo-X 1.5 BETA 5 (24.4.2001)
+  -------------------------------
+
+- Lister hooks now check for NULL name pointers. This should help avoid
+  some potential Enforcer hits.
+- Internal: Merged together some modules for faster compilation.
+- Toolbar settings page now uses the SpeedBar config object.
+- Added update button to the toolbar settings page which updates the
+  toolbar atrributes on the main window.
+- Loading a directory by mistake would produce an incorrect error string.
+- CFG_Get() is now inline, since it was only one line long anyway.
+- Doesn't throw up the error window for XADERR_BREAK or XADERR_SKIP return
+  codes anymore.
+- Progress hook now handles XADPIF_OVERWRITE. A requester is now
+  displayed if destination file already exists.
+- Re-enabled the code for Open Archive, in the Search window.
+- Revamped the toolbar loading scheme.
+- Added buffering to the history file loading.
+- History text file is only loaded when the About window is opened, not at
+  startup.
+- Tree building is just a tiny bit faster.
+- Removed the first pass from the tree building process. It was broken
+  anyway and caused the "double-entries" bug. This also speeds things up.
+  VX now effectively ignores XADFIF_DIRECTORY entries, this means some
+  attributes are lost for dir entries. I'll fix this in the future.
+- Removed a s**t load of Enforcer hits.
+- Removed some dead code that was only causing Enforcer hits!
+- More code cleaned up.
+
+  -------------------------------
+  Voodoo-X 1.5 BETA 4 (29.3.2001)
+  -------------------------------
+
+- Client information window now shows the amount of clients available.
+- Added another column to the Client Info lister called Type. This shows
+  client types as File, Disk or FS.
+- Trigger hooks for the toolbar are now active. This basically means the
+  buttons for the new toolbar system now work. :-)
+- Added a "Close" button to the default toolbar layout.
+- TB_GetActionNumFromStr() was using the wrong array. Whoops. This resulted
+  in toolbar definitions loading incorrectly and producing spacers instead of
+  buttons.
+- Re-enabled the code for the root and parent buttons.
+- Re-enabled the code for the linear viewmode.
+- Client information description lister is now read only.
+- Client flags are now more human readable.
+- xadclients.guide is only loaded when the Client Info window is opened. This
+  makes life faster.
+- A progress window is now opened when processing the xadclients.guide.
+- When an archive with multiple portions is loaded, an array of buttons is
+  added to the main window. These buttons, like the Portions Menu, allows
+  quick access to each portion.
+- URLs and Nodes inside the client description are now clickable. Clicking
+  on a URL requires openurl.library version 3 or better.
+- First entry in the Client Info lister is now activated when window is
+  opened.
+- Merged author and e-mail Client Info fields into a single button, which
+  when clicked on will allow the user to contact the client author via
+  e-mail. Requires openurl.library.
+- Now requires version 10 of xadmaster.library.
+- Version window now shows version of NListtree.mcc and openurl.library.
+- Updated the About window's credits.
+- Removed a stupid loop bug in the Client Guide loader.
+- Doesn't complain anymore about multi-portion archives being empty.
+- Removed some unneeded code.
+- NListtree hooks are now active. Which means the NListtree viewmode now
+  works, though multiselect is yet to be implemented.
+
+
+  -------------------------------
+  Voodoo-X 1.5 BETA 3 (24.3.2001)
+  -------------------------------
+
+- Removed some (all?) Enforcer/MuForce hits from the Client Info module.
+- The About window now shows the history file. This requires Voodoo-X.history
+  to be in Voodoo-X's home directory.
+- General bug fixes and some code cleaned up.
+- The Client Info window now shows client nodes which aren't in the
+  xadclients.guide file but are defined in the header (i.e. errors made by
+  Stuart :-). Also indicates those clients which aren't documented at all
+  in xadclients.guide.
+
+  -------------------------------
+  Voodoo-X 1.5 BETA 2 (20.3.2001)
+  -------------------------------
+
+- The virus checking operation went ahead, even if xvs.library was
+  not present. Fixed.
+- Voodoo-X now requires version 9 of xadmaster.library.
+- Updated the Client information Window. VX now processes Stuart Caie's
+  xad guide file. Simply copy xadclients.guide to VX's home directory.
+  Doing so will show more information about each client in the client
+  information window.
+
+  --------------------------------
+  Voodoo-X 1.5 BETA 1 (15.10.2000)
+  --------------------------------
+
+- Implemented support for Carsten Scholling's NListtree.mcc.
+- Added support for Simone Tellini's SpeedBar MUI class. Toolbar is now fully
+  configurable via the Settings window.
+- GUI_InitMUI() now uses GUI_Popup() instead of M_PrgError().
+- Added new option "Show requesters before extraction?" to the settings
+  window. Requested by Jack York.
+- Added more archive suffixes to the archive search engine. Including
+  those used by Stuart Caie's (aka Kyzer) xad clients. Thanks to Stuart
+  for sending them.
+- Added a tooltype called ARCSEARCHPAT. This tooltype allows users to
+  specify an AmigaDOS pattern which can be used to force Voodoo-X to
+  extract and attempt to enter embedded archives with unknown/weird
+  suffixes, when searching.
+- Read bit is set and delete bit is cleared when viewing files or checking
+  for viruses. Thanks to Stuart Caie for pointing this out.
+- Loading an empty archive locked up the system or produced unpredictable
+  results. Fixed. Thanks to Stuart Caie for pointing this out.
+- Improved the sorting routines, now a little faster.
+- Decided to overhaul the initial archive tree building process after
+  being persuaded to do so by Stuart Caie. The old algorithm worked
+  fine but slowed down terribly when a large archive was loaded (i.e.
+  5000 files plus). The new algorithm offloads many sorting, date, string 
+  parsing calculations until they are actually required. Calculations
+  are now performed on demand. As a result, tree building is around 90%
+  faster in most cases.  
+- Added more Shell arguments DEST/K, PRI=PRIORITY/N/K & VM=VIEWMODE/K.
+  DEST allows you to specify a new destination path, PRI allows you
+  to change the Process priority and VIEWMODE lets you alter the
+  archive ViewMode. Use keyword "LIN" for Linear Mode, "FD" for Files And
+  Dirs Mode or "TREE" for Tree Mode.
+- Voodoo-X now requires version 8 of xadmaster.library.
+- Copy/move archive file requesters showed wrong title under some systems.
+  Fixed.
+- diskfont.library was being opened when it wasn't really required.
+- Tree building is now performed on demand. So if you load 100 archives,
+  the internal tree will only be built when you want to view that particular
+  archive. This also makes multiple archive loading many times faster and
+  saves on memory.
+- Added a low memory handler that will flush all non-essential memory
+  allocations in the event of genuine low memory situation. Allocation
+  requests bigger than 0x00ffffff are treated as deliberate flushes and
+  thus ignored.
+- File entries with unknown lengths now show "unknown" in the size column
+  instead of 0. Thanks to Stuart Caie for pointing this out
+- If final file size is unknown during extraction, the progress window
+  shows the amount of bytes processed so far instead of the amount to go.
+- Improved the temporary file creation routines. Files extracted for viewing
+  are now extracted with their full name intact, inside a unique drawer. This
+  makes life a little less confusing because now your viewer will not receive
+  files named like VX.1a2b3c4d.0001 anymore. It also looks nicer for those
+  single-file clients that base their extracted filename on the input archive
+  filename, when entering embedded archives. Thanks to Stuart Caie for pointing
+  this out.
+- Voodoo-X now set its current directory when launched from WB.
+- The build tree process now uses two passes. The first pass scans and
+  collects attributes from any present directory entries and the second
+  contructs the actual tree itself. This fixes a problem in earlier versions
+  where directory attributes like dates and comments were not shown.
+- Implemented support for multiple archive portions. Archives that contain
+  more than one segment (like multiple sub-filesystems) can now be accessed
+  via the new Portion Menu. I nearly broke my fingers after two days of
+  typing and source code restructuring, just to implement this. :-)
+- Major source code restructuring.
+
+  *************************************************************************
+  Voodoo-X 1.4 Release (6.6.2000)
+  *************************************************************************
+
+- Fifth public release (small update with bug fixes).
+
+  -------------------------------
+  Voodoo-X 1.4 BETA 1 (30.5.2000)
+  -------------------------------
+
+- Added some work around code that will catch dir entries that don't have
+  their XADFIF_DIRECTORY bit set (affected some ZIP archives).
+- Changed the layout of this history text file again. :-)
+- Fixed two bugs with the Pattern window. Firstly, directory entries were
+  being totally ignored and secondly, pattern matching was being perform
+  on the full archive path of the file and not the name alone. This caused
+  pattern strings like "a#?" to yield incorrect matches.
+- Embedded archives smaller than 32768 bytes couldn't be viewed when
+  doubled clicked on. Fixed.
+- Error window can now be closed during extraction, virus checking, etc.
+- Search window progress bars now update on all search methods.
+- Optimized the Progress Window routines a little.
+- Cleaned up some code.
+
+  *************************************************************************
+  Voodoo-X 1.3 Release (24.5.2000)
+  *************************************************************************
+
+- Fourth public release.
+
+  -------------------------------
+  Voodoo-X 1.3 BETA 5 (21.5.2000)
+  -------------------------------
+
+- Added a "Parent Archive" button to the Tree view mode.
+- When switching between view modes, user is alerted if group object creation
+  fails.
+- Parent/Root/etc buttons are now disabled when not needed.
+- Added a work around for "Close All" tree nodes, which didn't seem to work
+  properly, probably due to a bug in Listtree.mcc, I'm not sure.
+- Voodoo-X will now exit gracefully if it can't find NList.mcc or
+  Listtree.mcc (instead of leaving a half constructed window on the screen).
+- Fixed some pre-MUI error report problems that were being directed to the
+  error window before the MUI application was initialized.
+- Some minor cosmetic changes.
+- Task priority is now set at 0.
+- The amount of selected entries in the status bar was not being updated 
+  when the user clicked on a directory. Fixed.
+- Changed program status to GIFTWARE.
+
+  -------------------------------
+  Voodoo-X 1.3 BETA 4 (20.5.2000)
+  -------------------------------
+
+- The close window gadget in the progress window now works.
+- Removed some old obsolete wbstart.library code.
+- Removed code for VIEWER tooltype. The filetypes system makes this
+  obsolete.
+- Some more internal optimizations.
+- List positions are new kept when browsing in and out of directories.
+- When scanning for viruses, files are now extracting directly to memory
+  instead of T:, this should speed up scanning. Especially for those people
+  who have T: assigned to HD. VX will still write the file to T:, but only
+  if it's too big to fit in memory.
+- Upon opening the main window, the archive string gadget is now activated.
+- When configuring settings and filetypes, the cursor proceeds to the next
+  string gadget when Return is hit inside a string gadget.
+- The Extract All confirm window was showing the wrong path when extracting
+  from embedded archives.
+- The location of temporary files is now configurable.
+- The popup drawer requesters in the Settings Window now opens in save mode.
+  This allows the creation of directories on the fly (via ASL).
+- Optimized the extract loop a little.
+- When extracting selected files, sometimes the first letter was missing from
+  the name (path string positions are now calculated per node when the
+  directory tree for an archive is constructed). This only affected people
+  extracting files without full path. Now fixed.
+- Fixed Halil's name in the about window. Sorry about that! :-)
+- The user can now change the view mode via the Settings menu.
+- Implemented support for Listtree. Ouch! That was a lot work. :-)
+- Removed the archive view mode from the settings menu. It's not needed
+  anymore.
+- Removed the follow deselection code from the extract routine. Keeping
+  this in didn't make sense since VX actually extracts in XAD's internal
+  order and not the order of the user's selection. As a side effect,
+  extraction will be a little faster since the lister doesn't have to be
+  updated.
+- On shutdown, user wasn't being alerted to undeleted temporary files.
+  Fixed.
+- Fixed a problem with the Setting window's tick gadgets. Notify was being
+  triggered on MUIA_Pressed and not MUIA_Selected, thus diverting some
+  object notifications straight to hell.  Whoops.
+  
+  -------------------------------
+  Voodoo-X 1.3 BETA 3 (25.4.2000)
+  -------------------------------
+
+- Public beta release (third release).
+- ARC_GetArcPathComponents() was modifying the arcpath parameter, causing
+  paths to be truncated in the search lister after double clicking on them.
+  The arcpath parameter string now get copied into it's own vector.
+- ARC_LoadNewArchive() now returns the node pointer to the last loaded
+  embedded archive, instead of the main archive itself. This fixes the
+  problem in 1.3 BETA 2 that prevent the viewing of embedded archive
+  entries in the search window.
+- Cleaned up this history text file a little.
+
+  -------------------------------
+  Voodoo-X 1.3 BETA 2 (20.4.2000)
+  -------------------------------
+
+- On shutdown, the STR module was attempting to free an allocation after
+  the main pool had been deleted. Fixed. Thanks to Dirk for reporting the
+  hit.
+- Brought back the old parent button.
+- Altered multipart archive window text.
+- Removed most of the internal GUI abstraction layer, the GUI module is now
+  less bloated plus GUI updates are slightly faster.
+- Some more minor cosmetic changes.
+- Fixed the object cycle chain. You can now use the tab key to activate
+  each gadget on the GUI.
+- Removed the "Clear Archive History..." menu item, now replaced with
+  "Close all..".
+- Voodoo-X now looks for version 6 of xadmaster.library.
+- Menu shortcut letter "e" is now used for opening the error window and
+  not "MUI Settings...".
+- New error scheme introduced. Errors don't block the current operation
+  with a requester, but instead are logged into an error window. This is
+  especially handy when lots of errors happen at once, you don't have to
+  close hundreds of requesters - one after the other.
+- XAD v6 client flag XADCF_NOCHECKSIZE is now shown in the XAD client info
+  window.
+- Implemented the search window.
+- Removed error counter code from the extract code, it's not really needed
+  with the new error window scheme.
+- Temporary filenames now use the suffix (if available) from the original
+  filename when viewing. This allows users to use viewers that depend on
+  suffix matching.
+- Cleaned up and removed some unneeded error printing routines.
+- Embedded archives are now represented with a ":-->" instead of the "-->"
+  symbol, this reduces the chance of a name clash when parsing paths
+  internally, since AmigaDOS won't allow an archive to have a ":" (colon)
+  in filenames.
+- Rewrote most of ARC_LoadNewArchive(), simplified and improved code. Path
+  strings with embedded archives pointers (i.e. ":-->") are now handled
+  automatically. Which means the user can type in path path such as
+  "Archive.lha :--> Embedded.lha" into the Archive string gadget and
+  Voodoo-X will automatically load each embedded archive.
+- Added shorthand embedded archive path pointers ("::") processing to the
+  Archive string gadget. The user can type in a path string like
+  "Archive.lha::Embedded.lha" and this will automatically be expanded to
+  "Archive.lha :--> Embedded.lha". Saves some typing. :)
+- Settings requester was not being deallocated on exit. Fixed.
+
+  -------------------------------
+  Voodoo-X 1.3 BETA 1 (20.3.2000)
+  -------------------------------
+
+- All routines that access the temporary file list check to see if it's
+  valid before preceding. This prevents an enforcer hit when program
+  startup fails. Thanks to Allan Odgaard for reporting the hit.
+- Archives can now be dropped onto Voodoo-X's AppIcon, while it's
+  iconified. Added at the request of Vit Sindlar.
+- The parent button has been changed to a long tall button that is located
+  immediately to the right of the main lister. This should make archive
+  browsing more convenient. Added at the request of Allan Odgaard.
+- Moved "Settings..." and "Settings MUI..." into their own menu called
+  "Settings". This is more Style-guide compliant. This new menu also allows
+  the user to load and save settings from and to alternative destinations.
+- Finally removed the need for wbstart.library (and workbench.library) when
+  launching programs. Voodoo-X now clones the path list of the Workbench
+  process and passes this to SystemTags() when running under the context of
+  Workbench. This also has the bonus side effect of allowing WB-replacement
+  DOpus users running OS 3.5 to start programs. :-) The old implementation
+  was broken with DOpus users. :-(
+- Implemented filetypes configuration into the settings window. Filetypes
+  get their own module.
+- Error requesters are shown if either settings or filetype saving fails.
+- Settings window now has it's own set of menus, for loading/saving/
+  appending settings and filetypes.
+- Implemented support for multipart archives. The implementation is
+  rudimentary, you cannot drag & drop multipart archives from WB nor
+  can you view embedded multipart archives (you need to extract each
+  segment first), etc.
+- Menu shortcut "m" is now used for the "Open multipart archive..." menu
+  item instead of "About MUI...".
+- Added some commonly used menu items as button on the main window. Added
+  at the request of a few people.
+- The Pattern Window's string gadget is automatically made the active
+  object when the user opens the window.
+- You can now sort individual columns by clicking on the NList title bar.
+- Added two arrow buttons that will allow the user to navigate through the
+  archive history list. Shortcut keys for these arrows are "-" and "+".
+- User can now choose to keep full path intact when extracting selected
+  entries.
+- If archive copying or moving fails, the DOS error code and description
+  is shown.
+- Cleaned up some of the source.
+- Confirm overwrite routine now checks for delete protection and prompts
+  user if present.
+- Archive copy and move routines now show a progress bar.
+- Progress routines now scale 32 bit quantities into a percentage, because
+  MUI's Gauge class only accepts 16 bits. This should stop progress bar
+  from getting corrupt when viewing/copying/moving files.
+- Voodoo-X no longer shows garbage in the DOS error requester when an
+  unknown error is encountered.
+
+  *************************************************************************
+  Voodoo-X 1.2 Release (5.3.2000)
+  *************************************************************************
+
+- Second public release.
+
+  ------------------------------
+  Voodoo-X 1.2 BETA 4 (5.3.2000)
+  ------------------------------
+
+- Task priority was being set too high.
+- If there's an error during extraction, the correct filename is displayed.
+- When viewing entries, a progress window is now displayed, but only if the
+  file is larger than 50K.
+- Passwords for individual files are now supported.
+- Menu items "Close" and "Clear archive history..." now remove all unused
+  temporary files.
+- The close gadget for password window now works.
+- Version information for wbstart.library is now displayed again.
+- Implemented the remaining code for the new About Window. It now looks
+  a lot nicer. :)
+- Removed a redundant and buggy routine that had the potential to fall into
+  an endless loop while scanning the archive history list.
+- Made some more minor cosmetic changes.
+- Added a small routine to check for corrupt letters during extraction. It
+  requires more work though.
+
+  ------------------------------
+  Voodoo-X 1.2 BETA 3 (2.3.2000)
+  ------------------------------
+
+- If loading fails, the currently selected entry in the archive history
+  list is kept. Added at the request of Dirk.
+- The progress window isn't always made the front most window now, because
+  this lead to some strange situations where the progress window could hide
+  error requesters from the user (making him even more confused :-).
+- Some minor (internal) changes to the list format.
+- Destination file requester now opens with the correct drawer path.
+- Downcoded some frequently called routines to assembly, as a result
+  building a directory tree for an archive with over 7500 files is slightly
+  faster (15 seconds on my 040/40Mhz).
+- Some various minor optimizations.
+- Pressing "Parent" in the root of an embedded archive brings you back to
+  the parent archive. Added at the request of Dirk.
+- Voodoo-X now won't reloaded embedded archives that have already been
+  loaded.
+- Opening up the archive file requester while an embedded is displayed now
+  defaults to the path of the embedded archive's parent. This only works
+  for archives embedded 1 level deep. The archive requester will default to
+  T: for deeper archives (since T: is the current temporary extract path
+  for all embedded archives).
+- If the user has OS 3.5 installed, Voodoo-X will not use wbstart.library
+  anymore, to launch programs while under WB's context. Instead, Voodoo-X
+  will take advantage of WB v44's new launch functions.
+  Note: wbstart.library is still required for OS 3.1 systems or lower.
+- Voodoo-X now doesn't assume all files 901120 or 1802240 bytes in length
+  are ADF files. If a file with one of these sizes is not really an ADF,
+  Voodoo-X will check it to see if it's really an archive. Just my bad luck
+  to encounter a TGZ archive that was exactly 1802240 in length. :-)
+- Before extracting, all entries will now be re-sorted back into XAD's
+  internal order. This greatly speeds up extracting, especially when
+  seeking into the archive. This will also speed up archives formats with
+  (large) merge groups (i.e. LZX). Thanks to Dirk for pointing this out.
+- Implemented the password window. Encrypted archives can now be loaded.
+- ARC_IsArc() was forgetting to call xadFreeInfo(). I wasted many hours
+  trying to track that one down. :-)
+
+  -------------------------------
+  Voodoo-X 1.2 BETA 2 (24.2.2000)
+  -------------------------------
+
+- The main lister now shows protection bits.
+- When double clicking on an entry, the name and path of the program being
+  launched is shown in the information & status gadget.
+- Move and copy operations now copy the archive's icon too, if it exists.
+- Added a check to ensure user can't copy or move an archive over itself.
+- Made some more minor cosmetic changes.
+- If an archive is deleted, it's icon is also deleted.
+- The user can now view archives inside archives. A lot of internal work
+  was required to support this feature.
+- Type now indicates HD and DD ADF files, in status & info gadget.
+- Implemented the settings window and the internal config routines.
+- Cleaned up some of the help strings (also added some missing ones).
+- The main lister now uses images for drawers.
+- Added some more menu shortcuts at the request of JanRoger Haugan.
+- If there are more than 10 errors during file extraction, Voodoo-X
+  will popup an error requester asking if the user want to abort.
+- Voodoo-X now uses file manager style archive browsing. All of the
+  extract routines were recoded and many internal changes were made. Added
+  at the request of JanRoger Haugan.
+- Added day name to main lister. Day, date and time now get their own
+  columns in the main list.
+- Fixed another bug in GUI_Popup(), the routine now makes sure the
+  application object hasn't been disposed, before opening the requester.
+  If it has, an intuition requester will be used instead.
+- ARC_ExtractFile() now restores dates, comments and protection bits.
+- Destination string gadget now has a history list. This allows the user
+  to quickly change destinations.
+- xadmaster.library version 5 is now required.
+
+  -------------------------------
+  Voodoo-X 1.2 BETA 1 (19.2.2000)
+  -------------------------------
+
+- HTML document now includes WIDTH and HEIGHT tags for inline images.
+- Added Thanks section to the HTML.
+- Lots of internal changes to the source. It should now be easier to
+  compile on several compilers.
+- If Voodoo-X fails to launch a program, it now displays was context it
+  was trying to launch that program on.
+- Fixed a startup bug regarding wbstart.library. A NULL lock was being
+  passed in the WBArgs, causing wbstart.library to fail. Unfortunately
+  I did not spot this bug because I'd installed Stephan Rupprecht's
+  wbstart emulation, which hid the bug. Thanks to Bill for reporting this.
+
+  *************************************************************************
+  Voodoo-X 1.1 Release (15.2.2000)
+  *************************************************************************
+
+- First public release.
+
+  ------------------------------
+  Voodoo-X 1.1 BETA 4 (8.2.2000)
+  ------------------------------
+
+- Implemented support for xvs.library, also added a new menuitem called
+  "Check for viruses".
+- Added copyright and version information for XVS to the About requesters.
+- Added new menuitem "About versions...". This gives version information
+  on all currently loaded modules. Also removed old version text from the
+  main About requester.
+- Added version information on NList and NListview MUI custom classes.
+- Updated webpage URL in the About window.
+- Fixed the Abort button, when extracting files.
+- The progress Abort button should be more responsive now.
+- "Copy to..." and "Move to..." file requesters now display the correct
+  destination name.
+- When extracting the selected entries, the lister follows the selected
+  entries by every page, not every entry. This means the lister scrolling
+  looks nicer and requires less updates.
+- Status and information gadget is now cleared when user closes last
+  archive.
+- Made some minor cosmetic changes.
+- When moving archives, Voodoo-X will rename the archive if destination
+  file is on the same device.
+- muimaster.library was accidentally being opened/closed twice.
+
+  ------------------------------
+  Voodoo-X 1.1 BETA 3 (6.2.2000)
+  ------------------------------
+
+- Fixed typo in bubble help for the archive path string gadget.
+- Change title "Archiver Name" in XAD client info window to "Client name".
+- Both the archive and destination ASL popup requesters now record their
+  window positions. The current implementations are a bit hacky. :-/
+- Voodoo-X no longer tries to extract and view links/dirs (with multiview),
+  when the user double clicks on one.
+- When the user clicks once on a link entry, the status bar will show the
+  real destination of that link.
+- Cleaned up some of the code, removed redundant variables, etc.
+- Added icon.library and tooltype handling code.
+- Added VIEWER tooltype. This parameter allows the user to specify an
+  alternative viewer, when double clicking on an entry. If this tooltype
+  is not present, then Voodoo-X will default to multiview.
+- All XAD error requesters now give more information.
+- Progress windows now display the current file being processed.
+- Extended (and renamed) Voodoo-X's internal IPC port. It now accepts
+  simple commands like iconify, uniconify quit, etc. Also modified main
+  event loop to handle quit events.
+- The status bar now shows the amount of selected files.
+- Added bold text styles to the status bar to make it more readable.
+- Menuitem "Select none" now clears the active entry too.
+- When a second Voodoo-X process is launched, the screen that the first
+  one resides on is brought to front. This avoids confusion.
+- Voodoo-X now displays a progress window while sorting/displaying the
+  entries of big archives (1000 entries+). This comes in handy when
+  processing excessively big archives like HD backups, etc.
+- Added "Open..." and "Close" menu items to the "Archive" menu.
+- Cleaned up some GUI calls.
+- Added XADCF_FILESYSTEM flag recognition the client window, which is new
+  for XAD version 5+.
+- Added code to make sure the progress window is always the front most
+  window, when it has just been opened.
+
+  ------------------------------
+  Voodoo-X 1.1 BETA 2 (4.2.2000)
+  ------------------------------
+
+- Fixed XAD copyright dates in the About requester.
+- Renamed "Save..." menuitem to "Copy to...".
+- Added "Move to..." menuitem.
+- Added checks for DD and HD ADFs.
+- Implemented "Copy to..." and "Move to..." menuitem code.
+- Implemented "Clear archive history..." menuitem code.
+- Implemented the archive delete code. The menuitem is now called "Delete
+  from disk..." and has a new position in the menu.
+- Fixed a bug in GUI_Popup() that left intuition.library open if
+  muimaster.library was not found on the system.
+- Made some cosmetic fixes to the popup help text, file requester titles,
+  MUI titles, etc.
+- The main lister now shows file comments.
+- Added confirm requester to the "Extract all..." menu item.
+- Multiple copies of multiview can now be run, at the same time.
+- Implemented a more advanced temporary file allocation and removal system.
+- Archive extraction now has a progress window.
+- Added some overwrite confirm requesters.
+- Implemented "Select pattern..." window and it's code.
+- Added NList copyright information to the About window.
+- Multiview wasn't being launched correctly when Voodoo-X was launched
+  under the Workbench's context, since no path was available. Voodoo-X now
+  uses wbstart.library (optional) to overcome this. Later versions of
+  Voodoo-X will also use workbench.library v44 to do this (that is, when my
+  AmigaDev 2.1 CD arrives :-).
+- Added version information for wbstart.library in the About window. Also
+  added copyright information.
+- About window was showing wrong revision of muimaster.library.
+- Recoded the WB/Shell arg processing.
+- Added simple IPC port for transferring args from one Voodoo-X process to
+  another. This means there'll always be one Voodoo-X process running to
+  avoid confusion.
+- Implemented XAD client information window.
+- Main lister now identifies and shows links.
+- Extract routine will now skip links.
+- The load routine will now check to see if an incoming archive is already
+  in the archive history list, if so, it will activate that entry instead
+  of loading the whole archive from disk again. This prevents useless
+  clones filling up the history list.
+- Loading archives pops the main Voodoo-X window to front. This comes in
+  handy when another Voodoo-X process is transferring it's args to it.
+
+  -------------------------------
+  Voodoo-X 1.1 BETA 1 (27.1.2000)
+  -------------------------------
+
+- Initial BETA version.
+

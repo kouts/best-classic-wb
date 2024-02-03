@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<TITLE>Błędy</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: bugs.html 1.12 2021/12/21 21:58:14 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Nieznane błędy</h3>
+Jeśli odkryjesz jakiś nowy błąd lub masz jakiekolwiek problemy, proszę 
+zgłaszać je za pomocą bugtrackera znajdującego się pod adresem <a 
+href="http://mantis.whdload.de/search.php?project_id=4&hide_status_id=-2">
+http://mantis.whdload.de</a>.
+
+<h3>Znane błędy</h3>
+<h4>Problemy główne</h4>
+<ul>
+<li>Główny problem jest z każdym dodatkowym sprzętem podłączanym do Amigi,
+które wywołują przerwania w regularnych lub losowych odstępach czasu.
+Przykładem może być moja karta sieciowa (Hydra). Jeśli mam uruchomiony stos
+TCP/IP, prawie każdy uruchomiony program zostanie zamrożony po krótkim czasie,
+gdyż karta tworzy przerwanie PORTS (taki sam typ przerwania jaki jest
+generowany przez klawiaturę), na które zainstalowany program nie może
+odpowiedzieć poprawnie. Dzieje się tak dlatego, iż zaraz po zaakceptowaniu
+żądania przez RTE, występuje następne przerwanie. Aby temu zapobiec stos
+TCP/IP musi zostać zatrzymany<a
+href="opt.html#ExecuteStartup">przed uruchomieniem</a> WHDLoad.<br>
+Podobnie dzieje się ze stosami USB (jeśli używasz stosu Poseidon, użyj
+&quot;AddUSBHardware REMOVE ALL&quot;) oraz przerwaniami karty Voodoo na
+płytach Mediator (musisz ustawić &quot;VoodooInt = NO&quot;). Od wersji 16.8
+pakietu WHDLoad jest wbudowane obejście dla przerwań tworzonych przez płyty
+rozszerzeń Mediator, dlatego też żadne dodatkowe ustawienia nie są wymagane.<br>
+
+<li>Jeśli otrzymujesz błedy odczytu/zapisu plików, sprawdź prawidłowość konfiguracji
+dysku twardego. WHDLoad odczytuje dane dużymi porcjami (>1MB) co może łatwo wykazać
+nieprawidłowości w konfiguracji, pomimo wrażenia że inne aplikacje pracują poprawnie.
+Upewnij się, że ustawienia parametrów MaxTransfer i Mask w programie HDToolBox są
+ustawione prawidłowo dla wszystkich partycji. Bezpiecznymi wartościami (dla sprzętu
+sprawiającego problemy) to MaxTransfer = 0x7FEC i Mask = 0x7FFFFC. Dotyczy to
+w szczególności kart w slocie PCMCIA i w adapterach kart pamięci IDE-CF.<br>
+
+Innym powodem kłopotów mogą być alokacje pamięci. Są konfiguracje, które mają problemy
+z trybem odwrotnej alokacji pamięci. W takich sytuacjach można zmusić WHDLoad do nieużywania
+trybu odwrotnej alokacji poprzez ustawienie opcji <a
+href="opt.html#NoMemReverse">NoMemReverse/S</a>.
+
+<li>Jeśli używasz pakietu Picasso96 musisz się upewnić, że opcja
+&quot;FakeNativeModes&quot; jest ustawiona na &quot;NO&quot; (jest to jeden z
+parametrów ikonki sterownika monitora).
+<li>Okazjonalnie też zdarzają się konfiguracje, które nie obsługują opcji
+związanych z MMU. Wpływa to jedynie na systemy oparte na procesorze MC68030.
+Opcja <a href="opt.html#MMU">MMU/S</a> na tych systemach musi być wyłączona!
+Jeśli opcja ta jest włączona, WHDLoad zatrzyma pracę całego komputera. Obecnie
+wiadomo, iż następujące karty powodują takie problemy: &quot;Apollo
+A630&quot;, &quot;Apollo 1230&quot;, &quot;Elbox 1230&quot; i &quot;Magnum MK2&quot;.
+</ul>
+<h4>Problemy programistów</h4>
+<ul>
+<li>Operacja przełączania pomiędzy systemem operacyjnym i zainstalowanym
+programem nie jest całkowicie niezawodna. Problem tkwi w tym, iż większość
+rejestrów własnych i niektórych rejestrów CIA nie może być odczytywana, dlatego
+też nie może być zapisana i odtworzona. Sam WHDLoad nie zmienia tych
+rejestrów, ale kiedy przełącza się pomiędzy zainstalowanym programem, a
+systemem operacyjnym (np. aby odczytać dane z dysku), system może zmienić
+niektóre z tych nieodtwarzalnych rejestrów. Jeśli działanie zainstalowanego
+programu zależy od tego, czy wszystkie rejestry pozostają bez zmian, może to
+powodować kłopoty. Wiadomo, że system zmienia przynajmniej cop2lc, bltafwm
+oraz bltalwm i może też inne. Aby ominąć ten problem istnieje możliwość
+przywrócenia zmienionych rejestrów podczas procedury przełączania. Więcej
+szczegółów znajdziesz w <A
+HREF="../autodoc.html#WHDLTAG_CBSWITCH_SET">WHDLTAG_CBSWITCH_SET</A>.
+</ul>
+</BODY>
+</HTML>

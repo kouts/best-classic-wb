@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<TITLE>SP * Salvar Pantalla</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: sp.html 1.3 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>SP * Salvar Pantalla</h3>
+Es una herramienta para extraer una pantalla del <a href="dump.html">fichero de volcado</a> creado
+por WHDload.
+<h4>Instalación</h4>
+SP se encuentra solamente en el archivo <tt>DEV</tt>, no en el archivo <TT>USR</tt>
+<br>cópielo a C: o una ubicación similar
+<h4>Uso</h4>
+Primero debe crearse un archivo de volcado. Inicie el programa instalado desde el cual quiere extraer la
+pantalla. Debe ser ejecutado con la opción <a href="opt.html#Snoop">Snoop/S</a>
+activada. También deben estar configuradas <a href="opt.html#Expert">Expert/S</a> y
+<a href="opt.html#DebugKey">DebugKey/K/N</a>. Si se muestra la pantalla que desea extraer
+presione la tecla de DebugKey. WHDLoad escribirá entonces el archivo de volcado.
+Entre al directorio donde esta ubicado el archivo de volcado usando una Shell/CLI.
+Ahora invoque <tt>SP</tt> con el nombre del archivo a grabar como argumento.
+<tt>SP</tt> cargará el volcado e intentará salvar la pantalla.
+So ha configurado la opción <a href="opt.html#CoreDumpPath">CoreDumpPath</a> no
+necesitará ingresar al directorio del archivo de volcado de memoria porque SP
+lee el archivo de configuración global de WHDLoad para encontrarlo.
+
+<h4>Opciones</h4>
+<table>
+<tr>
+  <td colspan=2><tt>OutputFile/A,Cop/K,CS=CopStop/K,Width/K,Height/K,con0/K,mod1/K,mod2/K,pt1/K,pt2/K,pt3/K,pt4/K,NoCopLst/S</tt></td>
+</tr>
+<tr>
+  <td valign=top><tt>OutputFile/A</tt></td>
+  <td>el nombre con el cual grabar la pantalla</td>
+</tr>
+<tr>
+  <td valign=top><tt>Cop/K</tt></td>
+  <td>configura la dirección de inicio de la primer copperlist a interpretar, si Ud.
+  desea sobreescribir la dirección contenida en el archivo de volcado</td>
+</tr>
+<tr>
+  <td valign=top><tt>CS=CopStop/K</tt></td>
+  <td>esta opción especifica la dirección en la cual terminar de interpretar la copperlist.
+  Debe ser usada si la pantalla esta construida a partir de mas de una imagen picture</td>
+</tr>
+<tr>
+  <td valign=top><tt>Width/K</tt></td>
+  <td>especifica el ancho de la imagen a salvar, no afectara los valores de modulo!</td>
+</tr>
+<tr>
+  <td valign=top><tt>Height/K</tt></td>
+  <td>especifica la altura de la imagen a salvar</td>
+</tr>
+<tr>
+  <td valign=top><tt>con0/K</tt></td>
+  <td>sobreescribe el registro <tt>bplcon0</tt> contenido en el archivo de volcado</td>
+</tr>
+<tr>
+  <td valign=top><tt>mod1/K,mod2/K</tt></td>
+  <td>sobreescribe el registro <tt>bplmod1</tt>/<tt>bplmod2</tt> contenido en el archivo de volcado</td>
+</tr>
+<tr>
+  <td valign=top nowrap><tt>pt1/K,pt2/K,pt3/K,pt4/K</tt>&nbsp;&nbsp;</td>
+  <td>sobreescribe el registro <tt>bplpt1,2,3,4</tt> contenido en el archivo de volcado</td>
+</tr>
+<tr>
+  <td valign=top><tt>NoCopLst/S</tt></td>
+  <td>desactiva el volcado de la copperlist</td>
+</tr>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,64 @@
+Short:    Forces reset signal on PCMCIA slot V3.0
+Author:   artpo@wp.pl (Artur Pogoda)
+Uploader: artpo@wp.pl (Artur Pogoda)
+Type:     util/boot
+Replaces: util/boot/CardReset
+Requires: Kickstart 37.300+, A600/A1200
+          util/boot/CardPatch.lha is recommended
+Version:  3.0
+
+
+ Description:
+
+CardReset forces a high level on pin 58 of the Amiga PCMCIA slot
+(reset signal). A PC Card must be plugged within the PCMCIA slot.
+GAYLE does not assert the reset signal when the slot is empty.
+CardReset also enables or disables the BVD2/speaker signal
+(pin 62 of the PCMCIA slot) to Amiga right channel audio output.
+
+
+ Usage:
+
+CardReset [TICKS <n>] [FORCE] [AUDIO ON|YES|OFF|NO]
+
+TICKS/N/K       The time of the reset operation in Amiga TICKS (1 TICKS is
+                equal 20 mS). Maximum: 50 TICKS (1 sec.). If a number of TICKS
+                is 0 or less the operation will not be done. Don't use TICKS 5
+                or less. PC Cards require the reset time 100 or 200 mS.
+                The default value is equal 15 TICKS (300 mS).
+
+FORCE/S         If this option is not used and any other device is the owner
+                of PC Card (like cnet.device), the reset operation will not be
+                done and CardReset will return the error code number 10.
+                If this option is used and any other device is the owner of
+                PC Card the operation will be done and CardReset will return
+                the error code number 5 (if the system will not be crashed).
+
+AUDIO/T/K       Toggle switch. The correct words are ON/OFF or YES/NO.
+                It connects/disconnects the speaker (DIGITAL AUDIO) pin to
+                Amiga standard audio output. This function is done always,
+                either any device is the owner of PC Card or not.
+                Default: no change.
+
+
+ Installation:
+
+Copy CardReset to C: directory.
+
+Add "CardPatch" line to Startup-Seqence. Look for util/boot/CardPatch.lha.
+
+Add "CardReset" line to your Startup-Sequence or User-Startup.
+
+Remove all hardware PCMCIA reset solutions. Don't use the opencnet patch
+before CardReset is run (system crashes). If you use CardPatch you need not
+use this (opencnet) patch.
+
+
+ History:
+
+V2.4 - First Aminet release.
+
+V2.5 - A little correction of the code.
+
+V3.0 - The FORCE option has been added, and the AUDIO option has been
+       rewritten. This archive includes the source code of CardReset.

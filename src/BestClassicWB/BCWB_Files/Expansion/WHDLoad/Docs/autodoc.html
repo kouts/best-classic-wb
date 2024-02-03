@@ -1,0 +1,3120 @@
+<HTML>
+<HEAD>
+<TITLE>WHDLoad Resload API (autodoc)</TITLE>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: autodoc2html.pl 1.2 2014/12/10 22:17:40 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<PRE>
+TABLE OF CONTENTS
+
+<a href="#Overview">WHDLoad/--Overview--</a>
+<a href="#resload_Abort">WHDLoad/resload_Abort</a>
+<a href="#resload_Control">WHDLoad/resload_Control</a>
+<a href="#WHDLTAG_CBAF_SET">WHDLoad/WHDLTAG_CBAF_SET</a>
+<a href="#WHDLTAG_CBSWITCH_SET">WHDLoad/WHDLTAG_CBSWITCH_SET</a>
+<a href="#WHDLTAG_CUST">WHDLoad/WHDLTAG_CUST</a>
+<a href="#WHDLTAG_IOERR_GET">WHDLoad/WHDLTAG_IOERR_GET</a>
+<a href="#resload_CRC16">WHDLoad/resload_CRC16</a>
+<a href="#resload_Decrunch">WHDLoad/resload_Decrunch</a>
+<a href="#resload_Delay">WHDLoad/resload_Delay</a>
+<a href="#resload_DeleteFile">WHDLoad/resload_DeleteFile</a>
+<a href="#resload_Delta">WHDLoad/resload_Delta</a>
+<a href="#resload_DiskLoad">WHDLoad/resload_DiskLoad</a>
+<a href="#resload_DiskLoadDev">WHDLoad/resload_DiskLoadDev</a>
+<a href="#resload_Examine">WHDLoad/resload_Examine</a>
+<a href="#resload_ExNext">WHDLoad/resload_ExNext</a>
+<a href="#resload_FlushCache">WHDLoad/resload_FlushCache</a>
+<a href="#resload_GetCustom">WHDLoad/resload_GetCustom</a>
+<a href="#resload_GetFileSize">WHDLoad/resload_GetFileSize</a>
+<a href="#resload_GetFileSizeDec">WHDLoad/resload_GetFileSizeDec</a>
+<a href="#resload_ListFiles">WHDLoad/resload_ListFiles</a>
+<a href="#resload_LoadFile">WHDLoad/resload_LoadFile</a>
+<a href="#resload_LoadFileDecrunch">WHDLoad/resload_LoadFileDecrunch</a>
+<a href="#resload_LoadFileOffset">WHDLoad/resload_LoadFileOffset</a>
+<a href="#resload_LoadKick">WHDLoad/resload_LoadKick</a>
+<a href="#resload_Log">WHDLoad/resload_Log</a>
+<a href="#resload_Patch">WHDLoad/resload_Patch</a>
+<a href="#resload_PatchSeg">WHDLoad/resload_PatchSeg</a>
+<a href="#resload_ProtectRead">WHDLoad/resload_ProtectRead</a>
+<a href="#resload_ProtectReadWrite">WHDLoad/resload_ProtectReadWrite</a>
+<a href="#resload_ProtectRemove">WHDLoad/resload_ProtectRemove</a>
+<a href="#resload_ProtectSMC">WHDLoad/resload_ProtectSMC</a>
+<a href="#resload_ProtectWrite">WHDLoad/resload_ProtectWrite</a>
+<a href="#resload_Relocate">WHDLoad/resload_Relocate</a>
+<a href="#resload_SaveFile">WHDLoad/resload_SaveFile</a>
+<a href="#resload_SaveFileOffset">WHDLoad/resload_SaveFileOffset</a>
+<a href="#resload_SetCACR">WHDLoad/resload_SetCACR</a>
+<a href="#resload_SetCPU">WHDLoad/resload_SetCPU</a>
+<a href="#resload_VSNPrintF">WHDLoad/resload_VSNPrintF</a>
+<a href="#SlaveOverview">WHDLoad.Slave/--Overview--</a>
+
+</pre><hr><pre>
+<a name="Overview">WHDLoad/--Overview--</a>
+
+The calling conventions for all functions are similar to the OS-Library
+concept. Parameters are provided in registers (except for '<a href="#resload_Abort">resload_Abort</a>'),
+return codes come in D0 (on some functions additionally in D1). After a
+function call the registers D0-D1/A0-A1 are destroyed (D0, D1 may contain a
+return code). These are so called scratch registers. All other registers are
+preserved. Some resload functions do preserve all registers (e.g.
+<a href="#resload_FlushCache">resload_FlushCache</a>), see NOTE of the respective function to find out. The
+condition codes on returning from a function are set matching D0.L.
+The base of the JMP tower in WHDLoad is similar to a Library-Base. In
+difference to the OS the base must not be loaded into A6 on calling a function,
+but it is recommended to call all functions relative to a address register
+like:
+
+        move.l  (_resload,pc),a5
+        jsr     (<a href="#resload_Decrunch">resload_Decrunch</a>,a5)
+
+During the execution of resload functions interrupts are normally allowed. For
+some internal operations they will be disabled for a short time. If the option
+NoResInt/S is used the interrupts are disabled the whole time during executing
+a resload function.
+
+The resload functions will not use the registers A5 and A6 while interrupts are
+allowed. Therefore interrupts of the installed program may assume that these
+both registers contain previously set values. This is not true for all other
+registers. If the interrupts assume constants in other registers (e.g. A4)
+either the interrupt code must be patched accordingly or the interrupts must be
+disabled before calling resload functions.
+
+If option NoResInt/S is used all registers except D0-D1/A0-A1 remain unchanged
+as long as interrupts are allowed. But remember that option NoResInt/S is only
+for testing purposes and not to be used in public released installs.
+
+The resload base is over given in A0 on calling the Slave first via
+<a href="#ws_GameLoader">ws_GameLoader</a> (see chapter <a href="#SlaveOverview">WHDLoad.Slave/--Overview--</a>).
+
+All file names used with resload functions must be relative and must not access
+any higher-level directories. That means that file names must not start or end
+with a slash '/', must not contain multiple slashes '//' and must not contain a
+colon ':'. These restrictions are enforced starting WHDLoad v16.9. Earlier
+versions of WHDLoad will accept all names at the loss of being able to preload
+them.
+
+some terms used in this document:
+
+ Slave          file which contains the install specific interface code
+                (see section <a href="#SlaveOverview">WHDLoad.Slave/--Overview--</a>)
+
+ BaseMem        the memory which is used by the installed program, this memory
+                is always Chip-memory and starts at address $0, BaseMem is at
+                the same time the size and the end address of the used
+                Chip-memory, BaseMem is specified in the Slave-structure in
+                the field '<a href="#ws_BaseMemSize">ws_BaseMemSize</a>'
+
+ ExpMem         is the expansion memory, an extra memory area which can
+                optionally requested by the Slave-structure, it may be Chip- or
+                Fast-memory dependently on what is available,
+                ExpMem is supported starting WHDLoad version 8
+
+ Disk Image     a floppy disk stored as a file on hard disk
+
+logical values used for return codes (see dos/dos.i):
+ TRUE = -1 (or better &lt;&gt;0)
+ FALSE = 0
+
+</pre><hr><pre>
+<a name="resload_Abort">WHDLoad/resload_Abort</a>
+
+   NAME
+        <a href="#resload_Abort">resload_Abort</a> -- quit and return to operating system
+
+   SYNOPSIS
+        <a href="#resload_Abort">resload_Abort</a>( success, primary, secondary)
+                         (a7)    (4,a7)    (8,a7)
+                        ULONG    ULONG     ULONG
+
+   FUNCTION
+        This aborts and terminates the installed program and causes WHDLoad to
+        return to the operating system.
+
+   INPUTS
+        the 'success' parameter must be always provided, the 'primary' and
+        'secondary' parameter are only required by some TDREASON_#?
+        success -   the reason for aborting
+                    one of TDREASON_#? defined in the include file 'whdload.i',
+                    depending on this value WHDLoad continues differently
+                TDREASON_OK
+                    a normal exit will be performed
+                TDREASON_DEBUG
+                    WHDLoad will create dump files (.whdl_dump, .whdl_expmem,
+                    .whdl_memory, .whdl_register) and exits
+                TDREASON_#? (except the above)
+                    WHDLoad will show a requester explaining the reason of
+                    aborting and requests the user to choose one of the options
+                    'Quit', 'Restart' and 'Make CoreDump'
+        primary -   the primary return code further describes the reason of
+                    aborting
+                TDREASON_DELETEFILE, TDREASON_DISKLOAD, TDREASON_DISKLOADDEV,
+                TDREASON_DOSLIST, TDREASON_DOSREAD, TDREASON_DOSWRITE
+                    DOS or Trackdisk error code
+                TDREASON_DEBUG
+                    program counter (so it can by written to the dump files)
+                TDREASON_OSEMUFAIL
+                    name of the failed subsystem
+                TDREASON_FAILMSG
+                    custom message to display
+                TDREASON_MUSTNTSC, TDREASON_MUSTPAL, TDREASON_MUSTREG,
+                TDREASON_OK, TDREASON_REQ68020, TDREASON_REQAGA,
+                TDREASON_WRONGVER
+                    unused (can be omitted)
+        secondary - the secondary return code further describes the reason of
+                    aborting
+                TDREASON_DELETEFILE, TDREASON_DOSREAD, TDREASON_DOSWRITE
+                    name of file failed
+                TDREASON_DISKLOAD
+                    disk number
+                TDREASON_DOSLIST
+                    name of directory scanned
+                TDREASON_DEBUG
+                    status register (so it can by written to the dump files)
+                TDREASON_OSEMUFAIL
+                    error number, depending on the primary return code
+                TDREASON_DISKLOADDEV, TDREASON_FAILMSG, TDREASON_MUSTNTSC,
+                TDREASON_MUSTPAL, TDREASON_MUSTREG, TDREASON_OK,
+                TDREASON_REQ68020, TDREASON_REQAGA, TDREASON_WRONGVER
+                    unused (can be omitted)
+
+   RESULT
+        nothing, WHDLoad will never return from this call
+
+   EXAMPLE
+        to simply quit:
+                ...
+                ; primary and secondary are not needed with TDREASON_OK
+                pea     TDREASON_OK
+                move.l  (_resload,pc),a0
+                jmp     (<a href="#resload_Abort">resload_Abort</a>,a0)
+
+        to quit because reading of a file has failed:
+                ...
+                move.l  a0,-(a7)                        ;a0 = filename
+                move.l  d0,-(a7)                        ;d0 = DOS error code
+                move.l  #TDREASON_DOSREAD,-(a7)
+                move.l  (_resload,pc),-(a7)
+                addq.l  #<a href="#resload_Abort">resload_Abort</a>,(a7)
+                rts
+
+   BUGS
+
+   NOTE
+        This routine is the only one which must be called via JMP and not JSR
+        because the parameters are located on the stack (that has the
+        advantage that when aborting with TDREASON_DEBUG all registers can be
+        preserved and written to the dump files by WHDLoad for later
+        diagnostics)
+
+   SEE ALSO
+        example Slave sources provided with the WHDLoad developer package
+
+</pre><hr><pre>
+<a name="resload_Control">WHDLoad/resload_Control</a>
+
+   NAME
+        <a href="#resload_Control">resload_Control</a> -- get/set various variables, control WHDLoad
+
+   SYNOPSIS
+        success = <a href="#resload_Control">resload_Control</a>(tags)
+          D0                       A0
+         BOOL                    STRUCT
+
+   FUNCTION
+        control function of WHDLoad, allows to get and set various variables
+        concerning the software and hardware configuration and to control the
+        behavior of some WHDLoad operations
+
+   INPUTS
+        tags - pointer to a table of tag items
+
+        the following items are currently supported:
+
+        <a name="WHDLTAG_ATTNFLAGS_GET">WHDLTAG_ATTNFLAGS_GET</a>   - gets the AttnFlags describing the current
+                                  CPU, FPU and MMU, the returned value is
+                                  similar to execbase.AttnFlags but not equal
+                                  because WHDLoad uses some additional bits,
+                                  the Slave is allowed to only use the defines
+                                  from the NDK include file 'exec/execbase.i'
+                                  for testing
+        <a name="WHDLTAG_BPLCON0_GET">WHDLTAG_BPLCON0_GET</a>     - gets the system value of custom.bplcon0 as
+                                  stored in graphics.library base
+                                  gb_system_bplcon0, it can be used to reuse
+                                  genlock and lace mode
+        <a name="WHDLTAG_BUILD_GET">WHDLTAG_BUILD_GET</a>       - gets WHDLoad build number
+        <a name="WHDLTAG_BUTTONWAIT_GET">WHDLTAG_BUTTONWAIT_GET</a>  - returns -1 if WHDLoad option ButtonWait/S
+                                  has been enabled, otherwise returns 0
+        <a href="#WHDLTAG_CBAF_SET">WHDLTAG_CBAF_SET</a>        - sets a function which will be executed when
+                                  an access fault exception occurs (see
+                                  section <a href="#WHDLTAG_CBAF_SET">WHDLoad/WHDLTAG_CBAF_SET</a> for further
+                                  information)
+        <a href="#WHDLTAG_CBSWITCH_SET">WHDLTAG_CBSWITCH_SET</a>    - sets a function which will be executed when
+                                  WHDLoad switches from the operating system
+                                  to the installed program (see section
+                                  <a href="#WHDLTAG_CBSWITCH_SET">WHDLoad/WHDLTAG_CBSWITCH_SET</a> for further
+                                  information)
+        <a name="WHDLTAG_CHIPREVBITS_GET">WHDLTAG_CHIPREVBITS_GET</a> - gets the ChipRevBits describing the present
+                                  custom chips, see NDK include file
+                                  'graphics/gfxbase.i' for further info
+        <a name="WHDLTAG_CHKBLTHOG">WHDLTAG_CHKBLTHOG</a>       - enables the 'dmacon.blthog' check, requires
+                                  a active Snoop option and WHDLoad v13
+        <a name="WHDLTAG_CHKBLTSIZE">WHDLTAG_CHKBLTSIZE</a>      - enables the 'blitter size' check, requires a
+                                  active Snoop option and WHDLoad v13
+        <a name="WHDLTAG_CHKBLTWAIT">WHDLTAG_CHKBLTWAIT</a>      - enables the 'blitter wait' check, requires a
+                                  active Snoop option and WHDLoad v13
+        <a name="WHDLTAG_CHKCOLBST">WHDLTAG_CHKCOLBST</a>       - enables the 'bplcon0.color' check, requires
+                                  a active Snoop option and WHDLoad v13
+        <a name="WHDLTAG_CHKCOPCON">WHDLTAG_CHKCOPCON</a>       - enables the 'copcon' check, requires
+                                  a active Snoop option and WHDLoad v15.2
+        <a href="#WHDLTAG_CUST">WHDLTAG_CUST_DISABLE</a>
+        <a href="#WHDLTAG_CUST">WHDLTAG_CUST_READ</a>
+        <a href="#WHDLTAG_CUST">WHDLTAG_CUST_STROBE</a>
+        <a href="#WHDLTAG_CUST">WHDLTAG_CUST_WRITE</a>      - modifies the properties of custom registers
+                                  in conjunction with the Snoop*/S features,
+                                  thus making registers (not) readable or
+                                  writable (see section <a href="#WHDLTAG_CUST">WHDLoad/WHDLTAG_CUST</a>
+                                  for further information)
+        <a href="#WHDLTAG_CUSTOM_GET">WHDLTAG_CUSTOM1_GET</a>
+        <a href="#WHDLTAG_CUSTOM_GET">WHDLTAG_CUSTOM2_GET</a>
+        <a href="#WHDLTAG_CUSTOM_GET">WHDLTAG_CUSTOM3_GET</a>
+        <a href="#WHDLTAG_CUSTOM_GET">WHDLTAG_CUSTOM4_GET</a>
+        <a href="#WHDLTAG_CUSTOM_GET">WHDLTAG_CUSTOM5_GET</a>     - returns the numerical value of the
+                                  appropriate WHDLoad option Custom1/N ..
+                                  Custom5/N
+        <a name="WHDLTAG_DBGADR_SET">WHDLTAG_DBGADR_SET</a>      - sets a base address for debugging, this is
+                                  only used for error messages generated by
+                                  WHDLoad, on an error it will additionally
+                                  output the offset of the faulted address to
+                                  this base, useful if you have program code
+                                  somewhere (e.g. in ExpMem) and like to know
+                                  at which offset in the program it has happen
+                                  (without calculating it manually)
+                                  requires WHDLoad v14.5
+        <a name="WHDLTAG_DBGSEG_SET">WHDLTAG_DBGSEG_SET</a>      - nearly the same as <a href="#WHDLTAG_DBGADR_SET">WHDLTAG_DBGADR_SET</a>, but
+                                  instead of a memory address a BCPL pointer to
+                                  a dos.library Segment is given, on an error
+                                  WHDLoad will display the offset in the
+                                  relocated executable like you would see it in
+                                  a dis/reassembler
+                                  requires WHDLoad v15.0
+        <a name="WHDLTAG_ECLOCKFREQ_GET">WHDLTAG_ECLOCKFREQ_GET</a>  - gets the EClockFrequency, which is the
+                                  frequency the custom chips operate on, the
+                                  value is taken from the execbase (see NDK
+                                  include file 'exec/execbase.i')
+        <a href="#WHDLTAG_IOERR_GET">WHDLTAG_IOERR_GET</a>       - gets the DOS error code of a previously
+                                  called resload function
+        <a name="WHDLTAG_KEYTRANS_GET">WHDLTAG_KEYTRANS_GET</a>    - get a pointer to a table to perform a 'rawkey
+                                  to ascii' conversion, the table has a length
+                                  of 512 bytes and contains 4 sub tables, first
+                                  128 bytes representing the keys pressed
+                                  without any modifier, then 128 bytes with
+                                  Shift, then 128 bytes with Alt and at last
+                                  128 bytes with Shift and Alt
+                                  the tables are created from the actual
+                                  system keymap, dead keys are mapped like
+                                  pressing Space afterwards, keys resulting in
+                                  multibyte characters (F-Keys, Esc, ...) are
+                                  set to 0 in the tables
+        <a name="WHDLTAG_LANG_GET">WHDLTAG_LANG_GET</a>        - get language provided by lowlevel.library,
+                                  see 'libraries/lowlevel.i' for further info
+                                  requires WHDLoad v13.2
+        <a name="WHDLTAG_MONITOR_GET">WHDLTAG_MONITOR_GET</a>     - gets the used monitor/video mode, the
+                                  value returned is one of NTSC_MONITOR_ID and
+                                  PAL_MONITOR_ID (defined in the NDK include
+                                  file 'graphics/modeid.i'), the WHDLoad
+                                  options PAL/S and NTSC/S are affecting the
+                                  monitor/video mode
+        <a name="WHDLTAG_REVISION_GET">WHDLTAG_REVISION_GET</a>    - gets WHDLoad minor version number
+        <a name="WHDLTAG_TIME_GET">WHDLTAG_TIME_GET</a>        - gets the time and date when WHDLoad has been
+                                  started, returned will be a pointer to a
+                                  filled whdload_time structure which is
+                                  described in the include file 'whdload.i'
+        <a name="WHDLTAG_VERSION_GET">WHDLTAG_VERSION_GET</a>     - gets WHDLoad major version number
+
+   RESULT
+        success - true if all items in the taglist has been successfully
+                  processed
+
+   EXAMPLE
+        check if the present CPU is at least a MC68020:
+                ...
+                clr.l   -(a7)                           ;TAG_DONE
+                clr.l   -(a7)                           ;data to fill
+                move.l  #<a href="#WHDLTAG_ATTNFLAGS_GET">WHDLTAG_ATTNFLAGS_GET</a>,-(a7)
+                move.l  a7,a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Control">resload_Control</a>,a2)
+                move.w  (6,a7),d0                       ;D0 = AttnFlags
+                lea     (12,a7),a7                      ;restore sp
+                btst    #AFB_68020,d0
+                beq     .no68020
+                ...
+        get video mode and CPU:
+                ...
+                lea     (_tags,pc),a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Control">resload_Control</a>,a2)
+                move.l  (_mon,pc),d0                    ;D0 = video mode
+                cmp.l   #NTSC_MONITOR_ID,d0
+                beq     .ntsc
+                ...
+        _tags   dc.l    <a href="#WHDLTAG_MONITOR_GET">WHDLTAG_MONITOR_GET</a>
+        _mon    dc.l    0
+                dc.l    <a href="#WHDLTAG_ATTNFLAGS_GET">WHDLTAG_ATTNFLAGS_GET</a>
+                dc.w    0                               ;padding
+        _attn   dc.w    0
+                dc.l    0                               ;TAG_DONE
+
+   BUGS
+        if an unknown tag is encountered (e.g. because an older WHDLoad
+        version is used) the tag list processing stops and all following
+        tags are ignored
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 5
+
+   SEE ALSO
+
+</pre><hr><pre>
+<a name="WHDLTAG_CBAF_SET">WHDLoad/WHDLTAG_CBAF_SET</a>
+
+   NAME
+        <a href="#WHDLTAG_CBAF_SET">WHDLTAG_CBAF_SET</a> -- set Call Back Access Fault
+
+   SYNOPSIS
+        tag to be used with <a href="#resload_Control">resload_Control</a> to set call back on access fault
+
+        cont, adr,  data = CBAF(mode, size,  pc,  adr,  data/regs)
+         D0    A1    A2          D0    D1    A0    A1      A2
+        LONG  APTR  APTR        LONG  LONG  APTR  APTR    APTR
+
+   FUNCTION
+        Using this tag a function can be set which gets executed when an
+        access fault exception occurs which is not handled by WHDLoad itself.
+        It may be used to locate specific accesses in conjunction with
+        resload_Protect and to walk around invalid accesses during the
+        development process.
+        on the 68030 all access faults can be caught except:
+         - instruction stream faults
+         - faults caused by WHDLoad's blitwait and blitsize checks
+        on the 68040/60 only these access faults can be caught:
+         - faults caused by resload_Protect
+        The routine being set must not change any registers except the ones
+        holding a return value. The routine must return via RTS. On entering
+        the routine all interrupts are disabled (sr=$27xx).
+
+   INPUTS
+        The tag item data field contains a pointer to the function which is
+        called by WHDLoad with the following parameters:
+        mode - transfer mode of the faulted access
+                0 - read
+                1 - modify (only 68060)
+                2 - write
+        size - operand size of the attempted access
+                1 - Byte
+                2 - Word
+                4 - Long
+        pc   - program counter of the instruction which has faulted
+               (warning: on the write faults this often points to the
+               instruction after the one which has faulted (on the 68040 it
+               may also point two instructions ahead), read the appropriate
+               microprocessor user manual for further information)
+        adr  - the address which has been attempted to access
+        data - on the 68030/68040 valid only on write faults: the given memory
+               address contains the data which has been tried to write
+               on the 68060 on read/write faults: contains a pointer to memory
+               where the saved registers D0-A6 are stored
+
+   RESULT
+        The function has to return the following values:
+        cont - how to continue
+                0 - terminate, WHDLoad will show a requester notifying the
+                    access fault
+                1 - proceed, the faulted access will be emulated by the
+                    handler inside WHDLoad
+        adr  - only on 68030: in case of cont=proceed the address which will be
+               accessed
+        data - only on 68030/68040: in case of cont=proceed and mode=write a
+               pointer to the data which will be written
+
+   EXAMPLE
+        If you want to get informed at which point the installed program
+        writes the value 42 to the address $BABE the following code can be
+        used. It allows any write &lt;&gt; 42 to $BABE but will fault if 42 is
+        written (works on 68030/40 only):
+                ...
+                clr.l   -(a7)                           ;TAG_DONE
+                pea     (_af,pc)                        ;function
+                move.l  #<a href="#WHDLTAG_CBAF_SET">WHDLTAG_CBAF_SET</a>,-(a7)         ;tag
+                move.l  a7,a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Control">resload_Control</a>,a2)
+                lea     (12,a7),a7                      ;restore sp
+                moveq   #2,d0                           ;length
+                lea     ($BABE),a0                      ;address
+                jsr     (<a href="#resload_ProtectWrite">resload_ProtectWrite</a>,a2)       ;protect area
+                ...
+     _af        cmp.l   #$BABE,a1                       ;correct address?
+                bne     .term
+                cmp.w   #2,d1                           ;size
+                bne     .term
+                cmp.w   #42,(a2)                        ;valid on 68030/40 only
+                beq     .term
+                moveq   #1,d0                           ;proceed
+                rts
+    .term       moveq   #0,d0                           ;terminate
+                rts
+        If want you to redirect an access from $24 to the address $300, use the
+        following code (works on 68030 only):
+                ...
+                clr.l   -(a7)                           ;TAG_DONE
+                pea     (_af,pc)                        ;function
+                move.l  #<a href="#WHDLTAG_CBAF_SET">WHDLTAG_CBAF_SET</a>,-(a7)         ;tag
+                move.l  a7,a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Control">resload_Control</a>,a2)
+                lea     (12,a7),a7                      ;restore sp
+                moveq   #4,d0                           ;length
+                lea     ($24),a0                        ;address
+                jsr     (<a href="#resload_ProtectWrite">resload_ProtectWrite</a>,a2)       ;protect area
+                ...
+     _af        cmp.l   #$24,a1                         ;correct address?
+                bne     .term
+                lea     ($300),a1
+                moveq   #1,d0                           ;proceed
+                rts
+    .term       moveq   #0,d0                           ;terminate
+                rts
+
+   BUGS
+        fully supported is only the 68030, limited support for 68040/60
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 9
+        on the 68040 it's supported starting WHDLoad 18.0
+        on the 68060 it's supported starting WHDLoad 16.1
+        the parameter a2=regs on the 68060 is supported since WHDLoad 16.4
+        MUST not be used in public releases, use it during development process
+        only
+
+   SEE ALSO
+        <a href="#resload_Control">resload_Control</a>
+
+</pre><hr><pre>
+<a name="WHDLTAG_CBSWITCH_SET">WHDLoad/WHDLTAG_CBSWITCH_SET</a>
+
+   NAME
+        <a href="#WHDLTAG_CBSWITCH_SET">WHDLTAG_CBSWITCH_SET</a> -- set Call Back on switch mode
+
+   SYNOPSIS
+        tag to be used with <a href="#resload_Control">resload_Control</a> to set call back on Switch Mode
+
+        CBSWITCH()
+
+   FUNCTION
+        Using this tag a routine can be set which will executed each time
+        WHDLoad switches from the operating system to the installed program.
+        Such a routine is sometimes necessary because during the switch
+        between the installed program and the operating system some hardware
+        registers are modified by the operating system.
+        Known registers getting modified are cop2lc, bltafwm and bltalwm (maybe
+        there are more of them).
+        The routine must not change any registers except D0-D1, must not use
+        any stack and has to return via 'jmp (a0)'. At execution time of the
+        routine all interrupts and DMAs are disabled and the memory setup of
+        the installed program is active.
+
+   INPUTS
+        The tag item data field contains a pointer to the routine which
+        should be called by WHDLoad during a Switch Mode. A value equal 0
+        disables the execution of a routine.
+
+   EXAMPLE
+                ...
+                clr.l   -(a7)                           ;TAG_DONE
+                pea     (_cbswitch,pc)                  ;function
+                move.l  #<a href="#WHDLTAG_CBSWITCH_SET">WHDLTAG_CBSWITCH_SET</a>,-(a7)     ;tag
+                move.l  a7,a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Control">resload_Control</a>,a2)
+                lea     (12,a7),a7                      ;restore sp
+                ...
+     _cbswitch  move.l  (_c2,pc),(_custom+cop2lc)
+                jmp     (a0)                            ;return
+     _cb2       dc.l    $10e80
+
+   EXAMPLE
+        if stack is required, an own stack must be set:
+
+     _cbswitch  move.l  a7,d0                           ;save a7
+                lea     (.stack,pc),a7                  ;temporary stack
+                movem.l d0/a0-a1,-(a7)
+                ...
+                jsr     ...
+                ...
+                movem.l (a7),d0/a0-a1
+                move.l  d0,a7                           ;restore a7
+                jmp     (a0)                            ;return
+
+                ds.l    64                              ;how much needed?
+     .stack
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 7
+
+   SEE ALSO
+        <a href="#resload_Control">resload_Control</a>
+
+</pre><hr><pre>
+<a name="WHDLTAG_CUST">WHDLoad/WHDLTAG_CUST</a>
+
+   NAME
+        <a href="#WHDLTAG_CUST">WHDLTAG_CUST_DISABLE</a> - forbid all accesses
+        <a href="#WHDLTAG_CUST">WHDLTAG_CUST_READ</a> - allow reads
+        <a href="#WHDLTAG_CUST">WHDLTAG_CUST_STROBE</a> - allow reads and writes
+        <a href="#WHDLTAG_CUST">WHDLTAG_CUST_WRITE</a> - allow writes
+
+   SYNOPSIS
+        tag to be used with <a href="#resload_Control">resload_Control</a>
+        the tag data is the address of the custom register to be modified
+
+   FUNCTION
+        Using this tag the state of the specified custom register can be
+        modified regarding the readability and/or writability in WHDLoad.
+        WHDLoad knows about what custom registers can be read/written on the
+        existing chipsets OCS, ECS and AGA. These abilities are enforced when
+        using one of the options SnoopOCS/S, SnoopECS/S or SnoopAGA/S.
+        Sometimes it may be useful to allow read/writes to other registers then
+        the default to be able to use the Snoop#?/S feature without having to
+        fix all bad accesses present in an alien program.
+        Sometimes it may be useful to forbid access to valid custom registers
+        to detect specific operations in a program.
+        Using this function it is not possible to change the behavior of byte
+        write operations because such accesses are handled by WHDLoad in a
+        special way.
+
+   INPUTS
+        The tag item data field contains the custom register address which
+        should be modified. The address must be even and between 0 and $1fe.
+
+   EXAMPLE
+        Allow write access to the dummy register 'noop':
+                ...
+                clr.l   -(a7)                           ;TAG_DONE
+                pea     $1fe                            ;noop
+                move.l  #<a href="#WHDLTAG_CUST">WHDLTAG_CUST_WRITE</a>,-(a7)
+                move.l  a7,a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Control">resload_Control</a>,a2)
+                lea     (12,a7),a7                      ;restore sp
+                ...
+        Detect any writes to the vposw, vhposw and copjmp registers:
+                ...
+                lea     (_tags,pc),a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Control">resload_Control</a>,a2)
+                ...
+        _tags   dc.l    <a href="#WHDLTAG_CUST">WHDLTAG_CUST_DISABLE</a>,vhposw
+                dc.l    <a href="#WHDLTAG_CUST">WHDLTAG_CUST_DISABLE</a>,vposw
+                dc.l    <a href="#WHDLTAG_CUST">WHDLTAG_CUST_DISABLE</a>,copjmp1
+                dc.l    <a href="#WHDLTAG_CUST">WHDLTAG_CUST_DISABLE</a>,copjmp2
+                dc.l    0
+
+   BUGS
+        some custom registers are handled in a special way by WHDLoad, these
+        registers may remain unaffected by this facility, these registers are:
+                dmacon, cop1lc.l, cop2lc.l, aud*pt.l (if ChkAudPt is used),
+                bplpt*.l, bplcon1.l, bplcon2, all blitter registers (if
+                ChkBltSize/Wait is used), bplcon0 (if ChkColBst is used),
+                copcon and vhposw.l (if ChkCopCon is used)
+        changing custom registers which are also read/written by WHDLoad
+        itself may cause faults by WHDLoad or deadlocks
+        setting existing custom registers to disabled will also cause these
+        registers getting no longer displayed in the register dump file
+
+   NOTE
+        supported starting WHDLoad 18.0
+        should not be used in public releases, use it during development
+        process only
+
+   SEE ALSO
+        <a href="#resload_Control">resload_Control</a>
+
+</pre><hr><pre>
+<a name="WHDLTAG_IOERR_GET">WHDLoad/WHDLTAG_IOERR_GET</a>
+
+   NAME
+        <a href="#WHDLTAG_IOERR_GET">WHDLTAG_IOERR_GET</a> -- get IO Error code
+
+   SYNOPSIS
+        tag to be used with <a href="#resload_Control">resload_Control</a> to get the last DOS error code
+
+   FUNCTION
+        This tag can be used to get the DOS error code of the last called
+        resload function. All resload functions except <a href="#resload_Control">resload_Control</a> will
+        set/reset this error code.
+        Two resload functions are special in that way:
+            <a href="#resload_GetFileSize">resload_GetFileSize</a>
+                If a file with the specified name cannot be opened via
+                dos.Open, the error code will be set to the value returned
+                from dos.IoErr. So the error code may contain values like
+                ERROR_OBJECT_NOT_FOUND, ERROR_OBJECT_WRONG_TYPE,
+                ERROR_READ_PROTECTED or similar (see NDK include file
+                dos/dos.i). The error code can be used to distinguish between
+                a file with the size of 0 and a nonexistent file.
+            <a href="#resload_ListFiles">resload_ListFiles</a>
+                If the specified buffer to fill is not large enough to hold
+                all file names from the scanned directory, the error code will
+                be set to ERROR_NO_FREE_STORE.
+
+   RESULT
+        The tag item data field contains the last DOS error code.
+
+   EXAMPLE
+                ...
+                clr.l   -(a7)                           ;TAG_DONE
+                clr.l   -(a7)                           ;data to fill
+                move.l  #<a href="#WHDLTAG_IOERR_GET">WHDLTAG_IOERR_GET</a>,-(a7)        ;tag
+                move.l  a7,a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Control">resload_Control</a>,a2)
+                move.l  (4,a7),d0                       ;D0 = IoErr
+                lea     (12,a7),a7                      ;restore sp
+                ...
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 8
+
+   SEE ALSO
+        <a href="#resload_Control">resload_Control</a>, <a href="#resload_GetFileSize">resload_GetFileSize</a>, <a href="#resload_ListFiles">resload_ListFiles</a>
+
+</pre><hr><pre>
+<a name="resload_CRC16">WHDLoad/resload_CRC16</a>
+
+   NAME
+        <a href="#resload_CRC16">resload_CRC16</a> -- calculate ANSI conform 16 bit CRC checksum
+
+   SYNOPSIS
+        checksum = <a href="#resload_CRC16">resload_CRC16</a>(length,address)
+           D0                      D0     A0
+         UWORD                   ULONG   APTR
+
+   FUNCTION
+        calculate ANSI conform 16 bit CRC checksum
+        mostly used to differentiate between various program/data versions
+
+   INPUTS
+        length  - length of region to calculate sum over
+        address - pointer to region
+
+   RESULT
+        checksum - 16 bit CRC
+
+   EXAMPLE
+                ...
+                lea     $1000,a0                ;at address $1000
+                move.l  #256,d0                 ;up to address $1100
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_CRC16">resload_CRC16</a>,a2)
+                cmp.w   #$f2b7,d0
+                bne     .false_version
+                ...
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 3
+
+   SEE ALSO
+
+</pre><hr><pre>
+<a name="resload_Decrunch">WHDLoad/resload_Decrunch</a>
+
+   NAME
+        <a href="#resload_Decrunch">resload_Decrunch</a> -- uncompress data in memory
+
+   SYNOPSIS
+        size = <a href="#resload_Decrunch">resload_Decrunch</a>(source, destination)
+         D0                       A0        A1
+        ULONG                    APTR      APTR
+
+   FUNCTION
+        This unpacks compressed data in memory. Known compressed data formats
+        are RNC1, RNC2, IMP!, ATN!, TPWM and Cr[Mm][!2].
+        If the data source doesn't point to a known compressed format size=0
+        will be returned. Else the data will be unpacked to the destination
+        and the size of the decompressed data is returned.
+        Source and destination can be equal. In that case the packed data will
+        be overwritten. Also in this case some memory before (RNC1old,Cr*) or
+        after (RNC1/2,TPWM) the decompressed data may be temporarly
+        overwritten and at the end restored!
+
+        RNC1:   Rob Northen compressor - emphasis on packed size
+                Supported is the old and the new format. Both formats are using
+                the same id but different file formats and compression
+                algorithms. The function uses some heuristic checks to
+                determine the correct format. The decompressor for the new
+                common format is highly optimized and contains separate code
+                for the 68000/10 and for 68020+. On the 68060 it's faster than
+                the Imploder decompressor.
+        RNC2:   Rob Northen compressor - emphasis on unpacking speed
+                It's the fastest supported decompressor.
+        IMP!:   Imploder (FImp)
+                The packed data must not overlap the destination. The
+                destination must be either equal to the source or completely
+                outside the source data. In difference to the original explode
+                routine <a href="#resload_Decrunch">resload_Decrunch</a> does not destroy the source data (if
+                source is unequal to the destination).
+        ATN!:   identical to IMP! only id is different
+        TPWM:   Turbo Packer Wolfgang Mayerle
+                Supported starting WHDLoad v11. Because the file header does
+                not contain the length of the packed data there is no
+                integrity check performed.
+        Cr[Mm][!2]: Crunch-Mania by Thomas Schwarz
+                Supported starting WHDLoad v17. The packed source data must be
+                located on a word aligned address for 68000/10 compatibility!
+
+        All decompression routines have been modified to not modify the
+        registers A5 and A6 and to use nearly no stack space.
+        All decompression routines are performing a check if the decompression
+        was successful. On a failure the installed program will be terminated
+        and WHDLoad will display a message telling this.
+
+   INPUTS
+        source      - address of source in memory
+        destination - address of destination in memory (can be equal to source)
+
+   RESULT
+        size - the size of the uncompressed data or 0 if is not compressed
+               with a known format
+
+   NOTE
+        the routine performs automatically a <a href="#resload_FlushCache">resload_FlushCache</a> before
+        returning
+
+   SEE ALSO
+        <a href="#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>
+
+</pre><hr><pre>
+<a name="resload_Delay">WHDLoad/resload_Delay</a>
+
+   NAME
+        <a href="#resload_Delay">resload_Delay</a> -- wait some time or for a user action
+
+   SYNOPSIS
+        <a href="#resload_Delay">resload_Delay</a>(time)
+                       D0
+                      ULONG
+
+   FUNCTION
+        Waits the specified time or until any button/key is pressed. All
+        possible buttons (LMB, MMB, RMB) of both controllers (port 0/1) and the
+        keyboard is checked. After the time runs out or something has been
+        pressed the function waits until the pressed controller button has been
+        released. But it does not wait for a keyboard key up.
+        The wait routine is based on the raster beam. But checks the current
+        display and therefore waits the same time on PAL and NTSC displays.
+
+   INPUTS
+        time - time to wait in 1/10 seconds
+
+   RESULT
+        nothing, all registers are preserved
+
+   EXAMPLE
+                ...
+                moveq   #30,d0                  ;3 seconds
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Delay">resload_Delay</a>,a2)
+                ...
+
+   NOTE
+        in difference to most others resload_#? function this routine is
+        granted to preserve all registers
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 8
+
+   SEE ALSO
+
+</pre><hr><pre>
+<a name="resload_DeleteFile">WHDLoad/resload_DeleteFile</a>
+
+   NAME
+        <a href="#resload_DeleteFile">resload_DeleteFile</a> -- delete a file
+
+   SYNOPSIS
+        success,errorcode = <a href="#resload_DeleteFile">resload_DeleteFile</a>(name)
+          D0       D1                           A0
+         BOOL    ULONG                         CPTR
+
+   FUNCTION
+        This function deletes the file with the specified name.
+        If there are multiple data directories used the file to delete
+        must be located in the first data directory. Otherwise deleting
+        will fail with a DOS error code ERROR_OBJECT_NOT_FOUND.
+        If option SavePath/K is used and the save path is not yet created
+        or the file doesn't exist in the save path the function will
+        return with success without deleting a file.
+        If WHDLoad has been started from a read-only filesystem (not if
+        SavePath/K is used) the function will return with success without
+        deleting a file.
+
+   INPUTS
+        name - name of the file to delete
+
+   RESULT
+        success   - TRUE on success
+        errorcode - 0 on success
+                    otherwise a DOS error code from dos.IoErr()
+        if <a href="#WHDL_NoError">WHDLF_NoError</a> is set, the function only returns on success
+
+   EXAMPLE
+                ...
+                lea     (_name,pc),a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_DeleteFile">resload_DeleteFile</a>,a2)
+                ...
+        _name   dc.b    "C/WHDLoad",0
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 8
+        upto WHDLoad version 18.2 it was possible to delete also directories
+        using this function, now it will always fail with DOS error code
+        ERROR_DIRECTORY_NOT_EMPTY in this case
+
+   SEE ALSO
+
+</pre><hr><pre>
+<a name="resload_Delta">WHDLoad/resload_Delta</a>
+
+   NAME
+        <a href="#resload_Delta">resload_Delta</a> -- apply WDelta file
+
+   SYNOPSIS
+        <a href="#resload_Delta">resload_Delta</a>(src,  dest, delta)
+                       A0    A1    A2
+                      APTR  APTR  APTR
+
+   FUNCTION
+        Applies the differences provided via the delta data onto the source
+        data and creates the destination data.
+        WDelta is a tool to calculate a binary differences file from two data
+        files (like scompare/spatch). It can be found on aminet
+        (http://main.aminet.net/util/cli/WDelta.lha).
+        This function can be used to support different versions of data or
+        program files by converting them into one single version.
+
+   INPUTS
+        src   - source data
+        dest  - destination memory
+        delta - wdelta data
+
+   EXAMPLE
+                ...
+                lea     ($10000),a0             ;source
+                lea     ($400),a1               ;destination
+                lea     ($40000),a2             ;wdelta
+                move.l  (_resload,pc),a3
+                jsr     (<a href="#resload_Delta">resload_Delta</a>,a3)
+                ...
+
+   NOTE
+        The source, the delta and the destination data will be CRC checked.
+        If an error occurs WHDLoad will quit with an appropriate requester.
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 11
+
+   SEE ALSO
+
+</pre><hr><pre>
+<a name="resload_DiskLoad">WHDLoad/resload_DiskLoad</a>
+
+   NAME
+        <a href="#resload_DiskLoad">resload_DiskLoad</a> -- load part of a disk image
+
+   SYNOPSIS
+        success,errorcode = <a href="#resload_DiskLoad">resload_DiskLoad</a>(offset,size,diskno,dest)
+          D0       D1                          D0    D1    D2    A0
+         BOOL    ULONG                        ULONG ULONG UBYTE APTR
+
+   FUNCTION
+        Loads a part from a disk image as specified by the parameters.
+        The name of the disk images is expected as 'disk.' followed by the
+        number of the disk (e.g. 'Disk.1').
+        The size of the disk image is variable. An attempt to read data
+        outside of the disk image will result in a DOS error ERROR_SEEK_ERROR.
+
+   INPUTS
+        offset - offset in the disk image (relative to the beginning)
+        size   - amount of bytes to read
+        diskno - disk number
+        dest   - destination address
+
+   RESULT
+        success   - TRUE on success
+        errorcode - 0 on success
+                    otherwise a DOS error code from dos.IoErr()
+        if <a href="#WHDL_NoError">WHDLF_NoError</a> is set, the function only returns on success
+
+   EXAMPLE
+                ...
+                move.l  #880*512,d0             ;from block 880
+                move.l  #2*512,d1               ;2 blocks
+                moveq   #1,d2                   ;disk 1
+                lea     $80000,a0               ;destination
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_DiskLoad">resload_DiskLoad</a>,a2)
+                ...
+
+   NOTE
+        The routine performs automatically a <a href="#resload_FlushCache">resload_FlushCache</a> before
+        returning.
+        Starting WHDLoad version 17.1 there is a new functionality: if bit #31
+        of the diskno is set and the options FileLog/S and Expert/S are enabled
+        each loaded file part is saved to the first data directory using the
+        generated file name "D&lt;disk number&gt; &lt;start offset on disk&gt;-&lt;end offset
+        on disk&gt; @&lt;destination address&gt;". Starting WHDLoad version 18.1 the
+        destination address if located in ExpMem will be prepended with a "E "
+        and the offset in ExpMem is used.
+
+   SEE ALSO
+        <a href="#resload_LoadFileOffset">resload_LoadFileOffset</a>
+
+</pre><hr><pre>
+<a name="resload_DiskLoadDev">WHDLoad/resload_DiskLoadDev</a>
+
+   NAME
+        <a href="#resload_DiskLoadDev">resload_DiskLoadDev</a> -- load part from a floppy disk
+
+   SYNOPSIS
+        success,errorcode = <a href="#resload_DiskLoadDev">resload_DiskLoadDev</a>(offset, size,  dest,  tags)
+          D0        D1                            D0     D1     A0     A1
+         BOOL     ULONG                         ULONG  ULONG  UBYTE  STRUCT
+
+   FUNCTION
+        Loads a given amount of data from a floppy device.
+
+   INPUTS
+        offset - offset on the disk (must be a multiple of 512 bytes)
+        size   - amount of bytes to read (must be a multiple of 512 bytes)
+        dest   - destination address (must be aligned to 512 bytes)
+        tags   - pointer to a taglist, starting WHDLoad version 16.0
+                 there is one supported tag WHDLTAG_TDUNIT which
+                 specifies the trackdisk.device unit to read from, default
+                 is unit 0 (DF0:)
+
+   RESULT
+        success   - TRUE on success
+        errorcode - 0 on success
+                    otherwise a Trackdisk error code
+        if <a href="#WHDL_NoError">WHDLF_NoError</a> is set, the function only returns on success
+
+   EXAMPLE
+                ...
+                move.l  #880*512,d0             ;from block 880
+                move.l  #2*512,d1               ;2 blocks
+                lea     $80000,a0               ;destination
+                sub.l   a1,a1                   ;tag list
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_DiskLoadDev">resload_DiskLoadDev</a>,a2)
+                ...
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 2
+        At the moment all parameters (offset, size, address) must be aligned
+        to 512 bytes due restrictions of trackdisk.device.
+        The routine performs automatically a <a href="#resload_FlushCache">resload_FlushCache</a> before
+        returning.
+
+   SEE ALSO
+
+</pre><hr><pre>
+<a name="resload_Examine">WHDLoad/resload_Examine</a>
+
+   NAME
+        <a href="#resload_Examine">resload_Examine</a> -- get information about a file or directory
+
+   SYNOPSIS
+        success,errorcode = <a href="#resload_Examine">resload_Examine</a>(name, FileInfoBlock)
+          D0        D1                       A0         A1
+         BOOL     ULONG                     CPTR       APTR
+
+   FUNCTION
+        Fills the supplied FileInfoBlock with information about the
+        specified file or directory. See NDK include file dos/dos.i for the
+        structure of the FileInfoBlock.
+
+   INPUTS
+        name - name of the object to get info about
+        fib  - memory buffer of 260 bytes for the infos
+
+   RESULT
+        success - is true (-1) on success and false (0) on failure
+        errorcode - contains DOS error code (e.g. ERROR_OBJECT_NOT_FOUND)
+
+   EXAMPLE
+                ...
+                lea     (_filename,pc),a0
+                sub.l   #fib_SIZEOF,a7
+                move.l  a7,a1
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Examine">resload_Examine</a>,a2)
+                ...
+                add.l   #fib_SIZEOF,a7
+                ...
+
+   BUGS
+        Relative path names (starting/ending with '/' or containing '//') are
+        not supported. The name must also not contain a ':'.
+        The fib_Size will be incorrect if the file is more than two times
+        compressed using XPK or compressed using XPK and afterwards encrypted
+        using XPK.
+
+   NOTE
+        This function requires that the flag <a href="#WHDL_Examine">WHDLF_Examine</a> is set in the Slave
+        structure which tells WHDLoad to collect the information returned by
+        this function before running the Slave. Starting with WHDLoad 18.6
+        calling this function without <a href="#WHDL_Examine">WHDLF_Examine</a> set will terminate WHDLoad
+        with an appropriate error message.
+        The FileInfoBlock is not required to start at a long aligned address
+        as it is the case with dos.Examine.
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 15
+
+   SEE ALSO
+        <a href="#resload_GetFileSize">resload_GetFileSize</a>, <a href="#resload_GetFileSizeDec">resload_GetFileSizeDec</a>, <a href="#resload_ExNext">resload_ExNext</a>
+
+</pre><hr><pre>
+<a name="resload_ExNext">WHDLoad/resload_ExNext</a>
+
+   NAME
+        <a href="#resload_ExNext">resload_ExNext</a> -- get information about next directory entry
+
+   SYNOPSIS
+        success,errorcode = <a href="#resload_Examine">resload_Examine</a>(FileInfoBlock)
+          D0        D1                          A0
+         BOOL     ULONG                        APTR
+
+   FUNCTION
+        Fills the supplied FileInfoBlock with information about the next
+        directory entry. The FileInfoBlock must be previously initialized by
+        a call to <a href="#resload_Examine">resload_Examine</a>.
+
+   INPUTS
+        fib - memory buffer of 260 bytes for the infos
+
+   RESULT
+        success - is true (-1) on success and false (0) on failure
+        errorcode - if there are no more entries left it contains
+        ERROR_NO_MORE_ENTRIES
+
+   EXAMPLE
+                ...
+                lea     (_dirname,pc),a0
+                sub.l   #fib_SIZEOF,a7
+                move.l  a7,a1
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Examine">resload_Examine</a>,a2)
+                tst.l   d0
+                beq     .end
+   .next        move.l  a7,a0
+                jsr     (<a href="#resload_ExNext">resload_ExNext</a>,a2)
+                tst.l   d0
+                beq     .end
+                ...
+                bra     .next
+   .end         add.l   #fib_SIZEOF,a7
+                ...
+
+   BUGS
+        The fib_Size will be incorrect if the file is more than two times
+        compressed using XPK or compressed using XPK and afterwards encrypted
+        using XPK.
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 15
+
+   SEE ALSO
+        <a href="#resload_Examine">resload_Examine</a>
+
+</pre><hr><pre>
+<a name="resload_FlushCache">WHDLoad/resload_FlushCache</a>
+
+   NAME
+        <a href="#resload_FlushCache">resload_FlushCache</a> -- flush and clear the CPU caches
+
+   SYNOPSIS
+        <a href="#resload_FlushCache">resload_FlushCache</a>()
+
+   FUNCTION
+        clears all CPU caches
+
+   NOTE
+        In difference to most other resload_#? functions this routine is
+        granted to preserve all registers.
+        It's safe to call this routine from User and Supervisor mode and
+        independent of the actual CPU type (also on 68000/010).
+        It uses the CACR on 68020/30 and a 'cpusha bc' on 68040/60 to flush
+        the caches.
+
+   SEE ALSO
+        <a href="#resload_SetCPU">resload_SetCPU</a>
+
+</pre><hr><pre>
+<a name="resload_GetCustom">WHDLoad/resload_GetCustom</a>
+
+   NAME
+        <a href="#resload_GetCustom">resload_GetCustom</a> -- get Custom argument
+
+   SYNOPSIS
+        success = <a href="#resload_GetCustom">resload_GetCustom</a>(buflen, reserved, buffer)
+          D0                          D0       D1       A0
+         ULONG                       ULONG    ULONG    CPTR
+
+   FUNCTION
+        Get the string which has been specified via the Custom/S option.
+        The buffer is filled as far as possible. If buffer was not large
+        enough false will be returned.
+
+   INPUTS
+        buflen   - size of buffer
+        reserved - currently not used, must be set to 0
+        buffer   - memory area to fill
+
+   RESULT
+        success - false if buffer was too small
+
+   EXAMPLE
+                ...
+                move.l  #$100,d0
+                moveq   #0,d1
+                lea     ($1000),a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_GetCustom">resload_GetCustom</a>,a2)
+                tst.l   d0
+                beq     .error
+                ...
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 15
+
+   SEE ALSO
+
+</pre><hr><pre>
+<a name="resload_GetFileSize">WHDLoad/resload_GetFileSize</a>
+
+   NAME
+        <a href="#resload_GetFileSize">resload_GetFileSize</a> -- get the size of a file
+
+   SYNOPSIS
+        size = <a href="#resload_GetFileSize">resload_GetFileSize</a>(name)
+         D0                         A0
+        ULONG                      CPTR
+
+   FUNCTION
+        Gets the size of a file (checks if a file exists).
+        To distinguish between a file with a size of 0 and a nonexistent
+        file the tag <a href="#WHDLTAG_IOERR_GET">WHDLTAG_IOERR_GET</a> must be used in conjunction with
+        <a href="#resload_Control">resload_Control</a> afterwards.
+
+   INPUTS
+        name - name of the file to get the size of
+
+   RESULT
+        size - the size of the file or 0 if does not exist
+
+   EXAMPLE
+                ...
+                lea     (_filename,pc),a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_GetFileSize">resload_GetFileSize</a>,a2)
+                tst.l   d0
+                bne     .file_exist
+                clr.l   -(a7)                           ;TAG_DONE
+                clr.l   -(a7)                           ;data to fill
+                move.l  #<a href="#WHDLTAG_IOERR_GET">WHDLTAG_IOERR_GET</a>,-(a7)
+                move.l  a7,a0
+                jsr     (<a href="#resload_Control">resload_Control</a>,a2)
+                tst.l   (4,a7)
+                lea     (12,a7),a7                      ;restore sp, no cc
+                beq     .file_exist
+                ...
+
+   NOTE
+        This routine returns the file size obtained from the filesystem. If the
+        file is compressed and is loaded later via <a href="#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a> the
+        loaded file size will differ!
+        If <a href="#WHDL_Examine">WHDLF_Examine</a> is set in the Slave and the file was not preloaded and
+        the file is more than two times compressed using XPK or compressed
+        using XPK and afterwards encrypted using XPK the returned size will be
+        incorrect.
+
+   SEE ALSO
+        <a href="#resload_Control">resload_Control</a>, <a href="#resload_GetFileSizeDec">resload_GetFileSizeDec</a>, <a href="#resload_LoadFile">resload_LoadFile</a>,
+        <a href="#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>
+
+</pre><hr><pre>
+<a name="resload_GetFileSizeDec">WHDLoad/resload_GetFileSizeDec</a>
+
+   NAME
+        <a href="#resload_GetFileSizeDec">resload_GetFileSizeDec</a> -- get the size of a packed file
+
+   SYNOPSIS
+        size = <a href="#resload_GetFileSizeDec">resload_GetFileSizeDec</a> (name)
+         D0                         A0
+        ULONG                      CPTR
+
+   FUNCTION
+        Gets the uncompressed size of a packed file (checks if a file exists).
+        The routine knows about the same decrunchers as <a href="#resload_Decrunch">resload_Decrunch</a>.
+        To distinguish between a file with a size of 0 and a nonexistent
+        file the tag <a href="#WHDLTAG_IOERR_GET">WHDLTAG_IOERR_GET</a> must be used in conjunction with
+        <a href="#resload_Control">resload_Control</a> afterwards.
+
+   INPUTS
+        name - name of the file to get the size of
+
+   RESULT
+        size - the size of the file or 0 if does not exist
+
+   EXAMPLE
+                ...
+                lea     (_filename,pc),a0
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_GetFileSizeDec">resload_GetFileSizeDec</a>,a2)
+                tst.l   d0
+                beq     .file_not_exist
+                ...
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 11
+
+   SEE ALSO
+        <a href="#resload_Control">resload_Control</a>, <a href="#resload_GetFileSize">resload_GetFileSize</a>, <a href="#resload_LoadFile">resload_LoadFile</a>,
+        <a href="#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>
+
+</pre><hr><pre>
+<a name="resload_ListFiles">WHDLoad/resload_ListFiles</a>
+
+   NAME
+        <a href="#resload_ListFiles">resload_ListFiles</a> -- list file names in a directory
+
+   SYNOPSIS
+        amount,errorcode = <a href="#resload_ListFiles">resload_ListFiles</a>(buffersize, name, buffer)
+          D0      D1                             D0       A0     A1
+        ULONG   ULONG                          ULONG     CPTR   APTR
+
+   FUNCTION
+        Writes the names of all files in the specified directory to the
+        buffer. The file names are separated with a 0 character.
+        Only files are listed, directories are skipped.
+        If the buffer to fill is not large enough to hold all names the
+        routine fills it as far as possible. The errorcode or the tag
+        <a href="#WHDLTAG_IOERR_GET">WHDLTAG_IOERR_GET</a> in conjunction with <a href="#resload_Control">resload_Control</a> can be used
+        afterwards to check if all file names did fit into the buffer.
+        If multiple data directories are used, only the first data directory
+        will be scanned.
+        If the first data directory is a VFS file the function does return
+        entries only if all files were preloaded. Direct list files from a VFS
+        is not implemented.
+
+   INPUTS
+        buffersize - the size of the buffer to fill
+        name       - the name of the directory to scan
+        buffer     - pointer to the buffer to fill (up to WHDLoad v16.8 the
+                     buffer must be located inside the Slave, from WHDLoad
+                     v16.9 on it can also be located in ExpMem)
+
+   RESULT
+        amount    - amount of listed files in the buffer
+        errorcode - 0 on success
+                    otherwise a DOS error code from dos.IoErr()
+        if <a href="#WHDL_NoError">WHDLF_NoError</a> is set, the function only returns on success
+
+   EXAMPLE
+                ...
+                move.l  #_bufend-_buf,d0
+                lea     (_savepath,pc),a0
+                lea     (_buf,pc),a1
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_ListFiles">resload_ListFiles</a>,a2)
+                ...
+        _buf      ds.b    1000
+        _bufend
+        _savepath dc.b  "save",0
+
+
+   NOTE
+        Before WHDLoad release 18.7 a call to this resload function always
+        caused a switch to the operating system because the information to
+        provide is not cached. To avoid this switch <a href="#resload_Examine">resload_Examine</a> and
+        <a href="#resload_ExNext">resload_ExNext</a> could be used instead (but will require some additional
+        memory for the Directory PreLoad).
+        Starting WHDLoad release 18.7 the file cache created by the option
+        Preload will be used but only if all files could be preloaded.
+        In releases 18.7 and 18.8 reading from the file cache was unable to
+        handle the install root directory (a0="") correctly and returned
+        nothing with this argument. Fixed in release 18.9.
+
+   SEE ALSO
+        <a href="#resload_Control">resload_Control</a>
+
+</pre><hr><pre>
+<a name="resload_LoadFile">WHDLoad/resload_LoadFile</a>
+
+   NAME
+        <a href="#resload_LoadFile">resload_LoadFile</a> -- load a file into memory
+
+   SYNOPSIS
+        length,errorcode = <a href="#resload_LoadFile">resload_LoadFile</a>(name, address)
+          D0      D1                         A0      A1
+        ULONG    ULONG                      CPTR    APTR
+
+   FUNCTION
+        Loads the file to the specified memory address.
+
+   INPUTS
+        name    - name of the file to load
+        address - memory address to load the file on
+
+   RESULT
+        length    - the size of the loaded file, or 0 on error
+        errorcode - 0 on success
+                    otherwise a DOS error code from dos.IoErr()
+        if <a href="#WHDL_NoError">WHDLF_NoError</a> is set, the function only returns on success
+
+   EXAMPLE
+                ...
+                lea     (_filename),a0          ;name
+                lea     $1000.w,a1              ;destination
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_LoadFile">resload_LoadFile</a>,a2)
+                ...
+
+   NOTE
+        The routine performs automatically a <a href="#resload_FlushCache">resload_FlushCache</a> before
+        returning.
+
+   SEE ALSO
+        <a href="#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>, <a href="#resload_LoadFileOffset">resload_LoadFileOffset</a>
+
+</pre><hr><pre>
+<a name="resload_LoadFileDecrunch">WHDLoad/resload_LoadFileDecrunch</a>
+
+   NAME
+        <a href="#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a> -- load a file and uncompress it
+
+   SYNOPSIS
+        length,errorcode = <a href="#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>(name, address)
+          D0      D1                                 A0      A1
+        ULONG    ULONG                              CPTR    APTR
+
+   FUNCTION
+        Loads the specified file into memory and unpack it if compressed using
+        one of the supported formats. Supported are the same formats as with
+        <a href="#resload_Decrunch">resload_Decrunch</a>.
+        Using this routine instead of <a href="#resload_LoadFile">resload_LoadFile</a> allows it easily to add
+        support for compressed data files to an installed program. Because of
+        the transparent decompression the installed program will not notify if
+        the loaded files were compressed on disk or not. The only thing which
+        must be considered is that files which are written using
+        <a href="#resload_SaveFileOffset">resload_SaveFileOffset</a> or loaded via <a href="#resload_LoadFileOffset">resload_LoadFileOffset</a> must not
+        be compressed.
+
+   INPUTS
+        name    - name of the file to load
+        address - memory address to load the file on
+
+   RESULT
+        length    - the size of the loaded file
+                    if an error occurs 0 is returned
+        errorcode - 0 on success
+                    otherwise a DOS error code from dos.IoErr()
+        if <a href="#WHDL_NoError">WHDLF_NoError</a> is set, the function only returns on success
+
+   EXAMPLE
+                ...
+                lea     (_filename),a0          ;name
+                lea     $1000.w,a1              ;destination
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>,a2)
+                ...
+
+   NOTE
+        The routine performs automatically a <a href="#resload_FlushCache">resload_FlushCache</a> before
+        returning.
+
+   SEE ALSO
+        <a href="#resload_Decrunch">resload_Decrunch</a>, <a href="#resload_LoadFile">resload_LoadFile</a>, <a href="#resload_LoadFileOffset">resload_LoadFileOffset</a>,
+        <a href="#resload_SaveFile">resload_SaveFile</a>, <a href="#resload_SaveFileOffset">resload_SaveFileOffset</a>
+
+</pre><hr><pre>
+<a name="resload_LoadFileOffset">WHDLoad/resload_LoadFileOffset</a>
+
+   NAME
+        <a href="#resload_LoadFileOffset">resload_LoadFileOffset</a> -- loads a part of a file into memory
+
+   SYNOPSIS
+        success,error = <a href="#resload_LoadFileOffset">resload_LoadFileOffset</a>(size, offset, name, address)
+          D0     D1                             D0     D1     A0      A1
+         BOOL   ULONG                          ULONG  ULONG  CPTR    APTR
+
+   FUNCTION
+        Loads a part of a file into memory. The part of the file is specified
+        by an offset in the file and a byte count to read. The routine is
+        nearly identical to <a href="#resload_DiskLoad">resload_DiskLoad</a> but instead of specifying the
+        number of the disk to read from a filename is used to select the file.
+
+   INPUTS
+        size    - amount of bytes to read
+        offset  - offset in the file
+        name    - name of file
+        address - memory address to load the data on
+
+   RESULT
+        success   - TRUE on success
+        errorcode - 0 on success
+                    otherwise a DOS error code from dos.IoErr()
+        if <a href="#WHDL_NoError">WHDLF_NoError</a> is set, the function only returns on success
+
+   EXAMPLE
+                ...
+                move.l  #512,d0                 ;size
+                move.l  #$4000,d1               ;offset
+                lea     (_repo,pc),a0           ;name
+                lea     $5ac20,a1               ;destination
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_LoadFileOffset">resload_LoadFileOffset</a>,a2)
+                ...
+        _repo   dc.b    "repository",0
+
+   NOTE
+        The routine performs automatically a <a href="#resload_FlushCache">resload_FlushCache</a> before
+        returning.
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 6
+
+   SEE ALSO
+        <a href="#resload_DiskLoad">resload_DiskLoad</a>, <a href="#resload_LoadFile">resload_LoadFile</a>
+
+</pre><hr><pre>
+<a name="resload_LoadKick">WHDLoad/resload_LoadKick</a>
+
+   NAME
+        <a href="#resload_LoadKick">resload_LoadKick</a> -- load Kickstart image
+
+   SYNOPSIS
+        <a href="#resload_LoadKick">resload_LoadKick</a>(size, crc16,  name)
+                          D0     D1     A0
+                         ULONG  UWORD  CPTR
+
+   FUNCTION
+        Loads the Kickstart image with the specified name into ExpMem.
+
+   INPUTS
+        size    - size of Kickstart image
+        crc16   - CRC16 of Kickstart image
+        name    - base name of Kickstart image
+
+   RESULT
+        the function only returns on success
+
+   EXAMPLE
+                ...
+                move.l  #$40000,d0              ;size
+                move.w  #$f20b,d1               ;crc16
+                lea     (_kick,pc),a0           ;name
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_LoadKick">resload_LoadKick</a>,a2)
+                ...
+        _kick   dc.b    "34005.a500",0
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 11
+        This function is depreciated since WHDLoad v16 because loading a
+        Kickstart this way will cause a switch to the operation system.
+        Starting with WHDLoad v16 the Kickstart image to load can be
+        specified in the Slave structure and when used WHDLoad will load it
+        before the Slave will called.
+
+   SEE ALSO
+
+</pre><hr><pre>
+<a name="resload_Log">WHDLoad/resload_Log</a>
+
+   NAME
+        <a href="#resload_Log">resload_Log</a> -- put custom message into log file
+
+   SYNOPSIS
+        <a href="#resload_Log">resload_Log</a>(format, data stream)
+                      A0    (4,a7), ...
+                     CPTR    va_list
+
+   FUNCTION
+        This function puts a formatted message into the WHDLoad log file
+        '.whdl_log' which is also used by the FileLog/K/N facility.
+        The format string supports printf/exec.RawDoFmt like formatting
+        options. See <a href="#resload_VSNPrintF">resload_VSNPrintF</a> for available formatting options.
+        To get something into the log file the WHDLoad option FileLog/K/N must
+        be enabled. To avoid switches to the operating system because of
+        overflows of the internal log buffer it is recommended to specify a
+        large LogBuffer/K/N in the global WHDLoad configuration file.
+        Arguments for the formatted log message are provided on the stack and
+        must be freed yourself after returning from this function.
+        If LogBuffer/K/N is not large enough for the single message to log
+        WHDLoad will abort with an 'illegal arguments' reason.
+
+   INPUTS
+        format      - format string containing '%' commands
+        data stream - a stream of data interpreted according the parameters in
+                      the format string
+
+   RESULT
+        nothing, all registers are preserved
+
+   EXAMPLE
+        log the files and the loading destination addresses processed by a game
+                ...
+                move.l  a0,-(a7)                ;file name
+                move.l  a1,-(a7)                ;loading address
+                lea     _logmsg,a0
+                move.l  (_resload),a2
+                jsr     (<a href="#resload_Log">resload_Log</a>,a2)
+                add.w   #8,a7                   ;free parameters
+                ...
+   _logmsg      dc.b    "%5lx %s",0
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 18
+        In difference to most other resload_#? functions this routine is
+        granted to preserve all registers.
+
+   SEE ALSO
+        <a href="#resload_VSNPrintF">resload_VSNPrintF</a>
+
+</pre><hr><pre>
+<a name="resload_Patch">WHDLoad/resload_Patch</a>
+
+   NAME
+        <a href="#resload_Patch">resload_Patch</a> -- apply patch list
+
+   SYNOPSIS
+        <a href="#resload_Patch">resload_Patch</a>(patchlist, destination)
+                         A0          A1
+                        APTR        APTR
+
+   FUNCTION
+        Modifies memory using commands from the specified patch list.
+        To make an installed program work under WHDLoad it must be patched.
+        That means the program must be modified so that it will load data via
+        WHDLoad instead of using its own loader routines. Often also various
+        other things must be changed to make it working.
+        The modifying of the installed program can be done using this routine.
+        A patch list will be build using macros from the include file
+        'whdload.i'. Each entry in the patch list contains a command to
+        perform, an address to apply the command on and optional extra data.
+        <a href="#resload_Patch">resload_Patch</a> is especially useful if the memory to modify is located
+        in ExpMem and therefore the destination address in only known at
+        runtime and not at creation time of the Slave.
+
+   INPUTS
+        patchlist   - list of commands describing the patches to apply
+        destination - address of memory region to patch
+
+        The following commands are supported in a patch list:
+
+        Commands to organize the patch lists:
+        PL_START        starts a patch list, this will create a label which is
+                        later used to calculate offsets in the slave (the
+                        label is local, multiple patch lists must be separated
+                        by a global label to avoid name collisions)
+        PL_END          terminates a patch list
+        PL_NEXT lbl     continues with another patch list at the address
+                        where lbl points to in the slave, terminates current
+                        list
+        PL_IFBW         starts a conditional block which is executed only if
+                        option ButtonWait/S has been specified
+        PL_IFC?         starts a conditional block which is executed only if
+                        option Custom?/N has been specified, ? can be 1..5
+        PL_IFC?X bit    starts a conditional block which is executed only if
+                        the specified bit is set in the option Custom?/N,
+                        ? can be 1..5, bit must be 0..31
+        PL_ELSE         start a block which is executed alternatively to the
+                        previous if condition block
+        PL_ENDIF        closes the previous IF/ELSE block
+        IF condition blocks can be nested 31 times.
+
+        Commands which modify the patch destination area:
+        PL_A off1,off2  writes the address of destination+offset2 to
+                        destination+offset1 (address)
+        PL_AB off,byte  adds the byte at destination+offset
+        PL_AL off,long  adds the long at destination+offset
+        PL_AW off,word  adds the word at destination+offset
+        PL_B off,byte   writes the given byte to destination+offset
+        PL_C off,len    clears the memory at destination+offset in the given
+                        length, max 65536 bytes
+        PL_CB off       clears the byte at destination+offset
+        PL_CL off       clears the long at destination+offset
+        PL_CW off       clears the word at destination+offset
+        PL_DATA off,len,... writes the data following the command with the
+                        given length to destination+offset, next command must
+                        be word aligned, see example below
+        PL_I off        writes the opcode for the ILLEGAL instruction ($4afc)
+                        to destination+offset
+        PL_L off,long   writes the given long to destination+offset
+        PL_NOP off,len  fills the memory at destination+offset with NOP
+                        ($4e71) instructions in the given length
+        PL_NOPS off,cnt fills the memory at destination+offset with the
+                        given count of NOP instructions ($4e71)
+        PL_ORB off,byte ors the byte at destination+offset
+        PL_ORL off,long ors the long at destination+offset
+        PL_ORW off,word ors the word at destination+offset
+        PL_P off,lbl    writes the opcode for the JMP instruction ($4ef9) and
+                        the address where lbl points to in the slave to
+                        destination+offset (patch)
+        PL_PA off,lbl   writes the address where lbl points to in the slave
+                        to destination+offset (patch address)
+        PL_PS off,lbl   writes the opcode for the JSR instruction ($4eb9) and
+                        the address where lbl points to in the slave to
+                        destination+offset (patch sub)
+        PL_PSS off,lbl,len writes the opcode for the JSR instruction ($4eb9)
+                        and the address where lbl points to in the slave to
+                        destination+offset followed by NOP instructions
+                        ($4e71) in the given length, len doesn't include the
+                        length of JSR (patch sub skip)
+        PL_R off        writes the opcode for the RTS instruction ($4e75) to
+                        destination+offset (return)
+        PL_S off,dist   writes the opcode for the BRA instruction ($6000) and
+                        the distance given to destination+offset, will always
+                        use word branches (skip)
+        PL_STR off,str  writes the given string to destination+offset, see
+                        example below (string)
+        PL_STR0 off,str writes the given string plus a 0-byte to destination+
+                        offset, see example below (string 0-terminated)
+        PL_W off,word   writes the given word to destination+offset
+
+        Other commands which do not really change the patch destination:
+        PL_BELL off,tim similar to PL_BKPT but instead of entering a freezer a
+                        color cycle will be shown for the given time or LMB
+                        pressed, time is given in 1/10s (ring the bell)
+        PL_BKPT off     lets WHDload write an ILLEGAL ($4afc) to
+                        destination+offset and saving the original contents,
+                        when the ILLEGAL is executed the original contents is
+                        restored, a NMI stackframe is created and the detected
+                        freezer called, if there is no freezer nothing will be
+                        done, the VBR should be moved by WHDLoad to allow
+                        catching the illegal instruction exception (breakpoint)
+        PL_GA off,lbl   writes the address of destination+offset to where lbl
+                        points to in the slave (get address)
+
+   RESULT
+        the function only returns on success
+
+   EXAMPLE
+                ...
+                lea     (_pl,pc),a0             ;patch list
+                lea     ($10000),a1             ;destination
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Patch">resload_Patch</a>,a2)
+                ...
+
+        _pl1    PL_START
+                PL_R    $2046                   ;copylock
+                PL_PS   $560,_load              ;replace the loading routine
+                PL_P    $1460,_getx             ;provide value x
+                PL_S    $696,8                  ;skip 8 bytes
+                PL_I    $100                    ;break if reached
+                PL_IFC1                         ;if Custom1 option is not null
+                PL_B    $3500,$44               ;write byte
+                PL_ELSE
+                PL_B    $3500,$55               ;write byte
+                PL_ENDIF
+                PL_IFC2X 3                      ;if Custom2 bit #3 is set
+                PL_W    $3510,$4444             ;write word
+                PL_ENDIF
+                PL_L    $3520,$44444444         ;write long
+                PL_A    $20000,$10              ;write #$10010 to $30000
+                PL_PA   $500,_data              ;write address _data
+                PL_NOP  $3000,$36               ;fill with nops
+                PL_NOPS $4000,5                 ;write 5 nops
+                PL_C    $30,7000                ;clear 7000 bytes
+                PL_CB   $79                     ;clear one byte
+                PL_PSS  $8700,_load,4           ;jsr + skip 4 bytes
+                PL_NEXT _pl2                    ;goto second patch list
+
+        _load   ...
+                rts
+        _getx   ...
+                rts
+        _data   dc.l    0
+
+        _pl2    PL_START
+                PL_CL   $90
+                PL_AB   $100,'A'                ;add byte
+                PL_DATA $350,.stop-.strt
+        .strt   move.w  #67,$100                ;write code
+                dc.b    2,3,$ff,'x',0           ;write data
+        .stop   EVEN                            ;align!
+                PL_STR  $90000,&lt;NewString&gt;      ;write a string
+                PL_ORB  $710,$55                ;or byte
+                PL_GA   $18644,_adr1            ;get the address
+                PL_BKPT $5124                   ;set breakpoint
+                PL_BELL $9710,50                ;visual bell for 5 seconds
+                PL_END
+
+        _adr1   dc.l    0                       ;filled with $28644
+
+   NOTE
+        The routine performs automatically a <a href="#resload_FlushCache">resload_FlushCache</a> before
+        returning.
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 10, some patch commands require a more recent
+        version of WHDLoad, if WHDLoad encounters unknown patch commands it
+        will show a requester
+
+   SEE ALSO
+        <a href="#resload_PatchSeg">resload_PatchSeg</a>
+
+</pre><hr><pre>
+<a name="resload_PatchSeg">WHDLoad/resload_PatchSeg</a>
+
+   NAME
+        <a href="#resload_PatchSeg">resload_PatchSeg</a> -- apply patch list to a segment list
+
+   SYNOPSIS
+        <a href="#resload_PatchSeg">resload_PatchSeg</a>(patchlist, seglist)
+                           A0          A1
+                          APTR        BPTR
+
+   FUNCTION
+        This function is similar to <a href="#resload_Patch">resload_Patch</a>. But instead of patching a
+        memory block at a specific address a segment list will be modified. A
+        segment list is list of linked memory regions and usually returned by
+        dos.LoadSeg or <a href="#resload_Relocate">resload_Relocate</a> with <a href="#WHDLTAG_LOADSEG">WHDLTAG_LOADSEG</a>.
+
+   INPUTS
+        patchlist - list of commands describing the patches to apply, see
+                    function <a href="#resload_Patch">resload_Patch</a> for supported commands
+        seglist   - list of segments as returned by dos.LoadSeg or
+                    <a href="#resload_Relocate">resload_Relocate</a> (that is a BCPL pointer!)
+
+   RESULT
+        the function only returns on success
+
+   EXAMPLE
+                ...
+                lea     (_name,pc),a0
+                move.l  a0,d1                   ;filename
+                move.l  (_dosbase,pc),a6
+                jsr     (_LVOLoadSeg,a6)
+                lea     (_pl,pc),a0             ;patch list
+                move.l  d1,a1                   ;segment list
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_PatchSeg">resload_PatchSeg</a>,a2)
+                ...
+
+        _pl     PL_START
+                PL_P    $560,_loadfile          ;the loading routine
+                PL_R    $2046                   ;copylock
+                PL_END
+        _name   dc.b    "program",0
+
+   NOTE
+        The routine performs automatically a <a href="#resload_FlushCache">resload_FlushCache</a> before
+        returning.
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 15
+
+   SEE ALSO
+        <a href="#resload_Patch">resload_Patch</a>
+
+</pre><hr><pre>
+<a name="resload_ProtectRead">WHDLoad/resload_ProtectRead</a>
+
+   NAME
+        <a href="#resload_ProtectRead">resload_ProtectRead</a> -- mark memory as read protected
+
+   SYNOPSIS
+        <a href="#resload_ProtectRead">resload_ProtectRead</a>(length, address)
+                              D0      A0
+                             ULONG   APTR
+
+   FUNCTION
+        Protects the specified memory against reading by the processor.
+        The memory to protect must be located inside BaseMem or ExpMem.
+        This can be used for debugging to detect accesses to specific memory
+        locations.
+
+   INPUTS
+        length  - size of the memory area to protect
+        address - start address of the memory area to protect
+        The area to protect must be located inside the BaseMem or ExpMem.
+
+   RESULT
+        An "Exception 'Access Fault'" WHDLoad requester if the protected memory
+        has been read.
+
+   EXAMPLE
+                ...
+                moveq   #4,d0                   ;one longword
+                lea     $4070,a0                ;address
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_ProtectRead">resload_ProtectRead</a>,a2)
+                ...
+
+   BUGS
+        The amount of protected areas is currently limited to 16.
+        The page where the SSP points to must not be protected. Because then
+        the CPU will be unable to write the stack frame if an exception occurs.
+        Only reset will recover from the resulting Double Bus Fault.
+        Limitations on MC68020+MC68851:
+          This hardware is currently not supported.
+        Limitations on MC68030:
+          - 3-byte transfers are not supported (occurring on misaligned
+            longword accesses to page boundaries e.g. 'tst.l $fff' (assumed
+            4KByte page size))
+          - locked accesses (tas/cas/cas2) are not supported
+        Limitations on MC68040:
+          - instructions which are located on a protected page can read the
+            protected area without getting detected because these instructions
+            will cause an access fault for the instruction fetch and then get
+            executed by the WHDLoad handler without the protection enabled,
+            under some conditions this may also happen on writes
+          - locked accesses (tas/cas/cas2) are not supported
+          - instructions which are located on a protected page and access the
+            supervisor portion of the status register will be executed wrong
+            (these instructions will always see the trace bit as 1 and the
+            interrupt level as 7, any modification of the status register
+            supervisor portion will be without effect)
+          - movem instructions which read the memory may access a protected
+            area without creating a Access Fault exception (only the first bus
+            cycle of the execution unit will be verified to match the protected
+            area)
+          - move16 and double precision operations (FPU) are unsupported
+        Limitations on MC68060:
+          - instructions which are located on a protected page can access the
+            protected area without getting detected because these instructions
+            will cause an access fault for the instruction fetch and then get
+            executed by the WHDLoad handler without the protection enabled!
+          - misaligned access are not supported (occurring on accesses through
+            a page boundary, for example 'tst.l ($ffe)' (assumed 4 KByte page
+            size))
+          - locked accesses (tas/cas) are not supported
+          - instructions which are located on a protected page and access the
+            supervisor portion of the status register will be executed wrong
+            (these instructions will always see the trace bit as 1 and the
+            interrupt level as 7, any modification of the status register
+            supervisor portion will be without effect)
+          - movem instruction may access a protected area without creating a
+            Access Fault exception (only the first bus cycle of the execution
+            unit will be verified to match the protected area)
+          - move16 and double precision operations (FPU) are unsupported
+          - a 'move (mem),(mem)' with overlapping source and destination
+            address which generates an Access Fault because Misalignment
+            will be executed wrong, for example 'move.l ($ffc),($ffe)' where
+            page $1000..$1fff is protected and memory before execution
+            contains ($ffc)=$11112222,($1000)=$33334444, after execution
+            $1000 contains $11114444 and not $22224444)
+        Unsupported accesses will result in a "Exception 'Access Fault'"
+        WHDLoad requester.
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 6, for the 68040 requires <a href="#ws_Version">ws_Version</a> &gt;= 18
+        The MMU must be in use by WHDLoad, otherwise you will get WHDLoad
+        requester 'Unacceptable Arguments'.
+        Only accesses to the user and supervisor data stream are affected
+        (this means not affected are: CPU space accesses (e.g. getting values
+        from the vector table) and instruction stream accesses).
+
+   SEE ALSO
+        <a href="#resload_ProtectReadWrite">resload_ProtectReadWrite</a>, <a href="#resload_ProtectWrite">resload_ProtectWrite</a>, <a href="#resload_ProtectRemove">resload_ProtectRemove</a>
+
+</pre><hr><pre>
+<a name="resload_ProtectReadWrite">WHDLoad/resload_ProtectReadWrite</a>
+
+   NAME
+        <a href="#resload_ProtectReadWrite">resload_ProtectReadWrite</a> -- mark memory as read and write protected
+
+   SYNOPSIS
+        <a href="#resload_ProtectReadWrite">resload_ProtectReadWrite</a>(length, address)
+                                   D0      A0
+                                  ULONG   APTR
+
+   FUNCTION
+        Protects the specified memory against reading and writing by the
+        processor.
+        The memory to protect must be located inside BaseMem or ExpMem.
+        This can be used for debugging to detect accesses to specific memory
+        locations.
+
+   INPUTS
+        length  - size of the memory area to protect
+        address - start address of the memory area to protect
+        The area to protect must be located inside the BaseMem or ExpMem.
+
+   RESULT
+        An "Exception 'Access Fault'" WHDLoad requester if the protected memory
+        is accessed.
+
+   EXAMPLE
+                ...
+                moveq   #4,d0                   ;one longword
+                lea     $64,a0                  ;address
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_ProtectReadWrite">resload_ProtectReadWrite</a>,a2)
+                ...
+
+   BUGS
+        The amount of protected areas is currently limited to 16.
+        The page where the SSP points to must not be protected. Because then
+        the CPU will be unable to write the stack frame if an exception occurs.
+        Only reset will recover from the resulting Double Bus Fault.
+        Limitations on MC68020+MC68851:
+          This hardware is currently not supported.
+        Limitations on MC68030:
+          - 3-byte transfers are not supported (occurring on misaligned
+            longword accesses to page boundaries e.g. 'tst.l $fff' (assumed
+            4 KByte page size))
+          - locked accesses (tas/cas/cas2) are not supported
+        Limitations on MC68040:
+          - instructions which are located on a protected page can read the
+            protected area without getting detected because these instructions
+            will cause an access fault for the instruction fetch and then get
+            executed by the WHDLoad handler without the protection enabled,
+            under some conditions this may also happen on writes
+          - locked accesses (tas/cas/cas2) are not supported
+          - instructions which are located on a protected page and access the
+            supervisor portion of the status register will be executed wrong
+            (these instructions will always see the trace bit as 1 and the
+            interrupt level as 7, any modification of the status register
+            supervisor portion will be without effect)
+          - movem instructions which read the memory may access a protected
+            area without creating a Access Fault exception (only the first bus
+            cycle of the execution unit will be verified to match the protected
+            area)
+          - move16 and double precision operations (FPU) are unsupported
+        Limitations on MC68060:
+          - instructions which are located on a protected page can access the
+            protected area without getting detected because these instructions
+            will cause an access fault for the instruction fetch and then get
+            executed by the WHDLoad handler without the protection enabled!
+          - misaligned access are not supported (occurring on accesses trough
+            a page boundary, for example 'tst.l ($ffe)' (assumed 4 KByte page
+            size))
+          - locked accesses (tas/cas) are not supported
+          - instructions which are located on a protected page and access the
+            supervisor portion of the status register will be executed wrong
+            (these instructions will always see the trace bit as 1 and the
+            interrupt level as 7, any modification of the status register
+            supervisor portion will be without effect)
+          - movem instruction may access a protected area without creating a
+            Access Fault exception (only the first bus cycle of the execution
+            unit will be verified to match the protected area)
+          - move16 and double precision operations (FPU) are unsupported
+          - a 'move (mem),(mem)' with overlapping source and destination
+            address which generates an Access Fault because Misalignment
+            will be executed wrong, for example 'move.l ($ffc),($ffe)' where
+            page $1000..$1fff is protected and memory before execution
+            contains ($ffc)=$11112222,($1000)=$33334444, after execution
+            $1000 contains $11114444 and not $22224444)
+        Unsupported accesses will result in a "Exception 'Access Fault'"
+        WHDLoad requester.
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 6, for the 68040 requires <a href="#ws_Version">ws_Version</a> &gt;= 18
+        The MMU must be in use by WHDLoad, otherwise you will get WHDLoad
+        requester 'Unacceptable Arguments'.
+        Only accesses to the user and supervisor data stream are affected
+        (this means not affected are: CPU space accesses (e.g. getting values
+        from the vector table) and instruction stream accesses).
+
+   SEE ALSO
+        <a href="#resload_ProtectRead">resload_ProtectRead</a>, <a href="#resload_ProtectWrite">resload_ProtectWrite</a>, <a href="#resload_ProtectRemove">resload_ProtectRemove</a>
+
+</pre><hr><pre>
+<a name="resload_ProtectRemove">WHDLoad/resload_ProtectRemove</a>
+
+   NAME
+        <a href="#resload_ProtectRemove">resload_ProtectRemove</a> -- remove protection from memory area
+
+   SYNOPSIS
+        <a href="#resload_ProtectRemove">resload_ProtectRemove</a>(length, address)
+                                D0      A0
+                               ULONG   APTR
+
+   FUNCTION
+        Remove a previously set protection.
+        The specified area must exactly match the previously protected area.
+
+   INPUTS
+        length  - size of the memory area to protect
+        address - start address of the memory area to protect
+
+   RESULT
+        the function only returns on success
+
+   EXAMPLE
+                ...
+                moveq   #4,d0                   ;one longword
+                lea     $64,a0                  ;address
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_ProtectRemove">resload_ProtectRemove</a>,a2)
+                ...
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 6
+
+   SEE ALSO
+        <a href="#resload_ProtectRead">resload_ProtectRead</a>, <a href="#resload_ProtectWrite">resload_ProtectWrite</a>, <a href="#resload_ProtectWrite">resload_ProtectWrite</a>
+
+</pre><hr><pre>
+<a name="resload_ProtectSMC">WHDLoad/resload_ProtectSMC</a>
+
+   NAME
+        <a href="#resload_ProtectSMC">resload_ProtectSMC</a> -- detect self modifying code
+
+   SYNOPSIS
+        <a href="#resload_ProtectSMC">resload_ProtectSMC</a>(length, address)
+                             D0      A0
+                            ULONG   APTR
+
+   FUNCTION
+        Enables automatic detection of self modifying code (SMC) in the
+        selected area. The selected area will be write protected using the
+        <a href="#resload_ProtectWrite">resload_ProtectWrite</a> mechanism. Additional the trace mode will be
+        activated and a special handler for trace exceptions installed.
+        Each write access to the selected area will be logged to a private
+        memory location. On each instruction executed inside the selected
+        memory the trace handler verifies, if the instruction has been
+        previously modified. If an executed instruction has been altered
+        the installed program will be terminated and WHDLoad will show an
+        requester informing about the SMC-detection.
+
+        To determine the size of an instructions a table is used. This table
+        contains the opcode size in words depending on the first instruction
+        word. If the trace exception handler encounters a instruction with an
+        unknown size WHDLoad will abort displaying 'Internal Error #3'. The
+        reason for this may be an illegal instruction, an instruction available
+        only in higher processors than 68000 or an incompleteness of the
+        internal instruction size table (IST). To check the reason make a
+        coredump and see which instruction has caused the problem (the
+        instruction before the actual PC because trace exception occurs after
+        the execution of the traced instruction). Depending on the reason you
+        can aid this:
+        - If it is an illegal instruction you have to fix the installed
+          program by patching its code.
+        - If it's caused by a 68020+ instruction we have a problem, because
+          the IST is designed for 68000 instructions only, where the size of a
+          instruction can be estimated by the first word and the largest
+          possible instruction is 5 words. If the instruction size can be
+          estimated by the first word you may add the instruction to a own
+          IST (see below).
+        - If it is a valid 68000 instruction please inform the WHDLoad
+          author that he adds this instruction to the default IST inside
+          WHDLoad. For the moment you may add this instruction to an own
+          IST (see below)
+        Using an own IST: During the initialization of this function
+        WHDLoad searches first for an external IST. This external IST must be
+        located in the same directory where the WHDLoad executable resides and
+        is searched as 'PROGDIR:WHDLoad.IST'. If there is no external IST the
+        internal one is used. The assembler source of the internal IST is
+        included in the developer archive and can be used to build a external
+        IST.
+
+        Due the large exception overhead the execution speed in the selected
+        area will considerable slow down. To improve performance it is
+        therefore recommend to relocate the SSP to a Fast-Memory location using
+        <a href="#ws_ExpMem">ws_ExpMem</a> and an appropriate initialistion and modification of the
+        installed program.
+        To maximize performance when using this facility already during the
+        initialization of this function the BaseMem area will be set to NC, the
+        ExpMem and Slave to CB and all caches will be enabled (<a href="#resload_SetCPU">resload_SetCPU</a>).
+
+   INPUTS
+        length  - size of the memory area to protect
+        address - start address of the memory area to protect
+        The area to protect must be located inside the BaseMem or ExpMem.
+
+   RESULT
+        A "SMC detected" WHDLoad requester if previously modified memory is
+        tried to execute.
+
+   EXAMPLE
+        enable SMC-detection for the area $10000..$3e000:
+                ...
+                move.l  #$2e000,d0              ;length
+                lea     $10000,a0               ;address
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_ProtectSMC">resload_ProtectSMC</a>,a2)
+                ...
+
+   BUGS
+        Currently supported is the 68030-68060. For limitations and
+        restrictions regarding the MMU related part of operation see the BUGS
+        section of <a href="#resload_ProtectWrite">resload_ProtectWrite</a>.
+        You must not protect the page where the SSP points to, if you do so
+        an Double Bus Fault will occur because the CPU will be unable to
+        write the exception stack frame. Only reset will recover from a Double
+        Bus Fault.
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 10
+        The MMU must be in use by WHDLoad, otherwise you will get WHDLoad
+        requester 'Unacceptable Arguments'.
+        There must be no other resload_Protect* active at the same time.
+
+   SEE ALSO
+        <a href="#resload_ProtectWrite">resload_ProtectWrite</a>, <a href="#resload_SetCPU">resload_SetCPU</a>
+
+</pre><hr><pre>
+<a name="resload_ProtectWrite">WHDLoad/resload_ProtectWrite</a>
+
+   NAME
+        <a href="#resload_ProtectWrite">resload_ProtectWrite</a> -- mark memory as write protected
+
+   SYNOPSIS
+        <a href="#resload_ProtectWrite">resload_ProtectWrite</a>(length, address)
+                               D0      A0
+                              ULONG   APTR
+
+   FUNCTION
+        Protects the selected area against writing by the processor.
+        The area to protect must be located inside BaseMem or ExpMem.
+        This can be used for debugging to detect accesses to specific memory
+        locations.
+
+   INPUTS
+        length  - size of the memory area to protect
+        address - start address of the memory area to protect
+        The area to protect must be located inside the BaseMem or ExpMem.
+
+   RESULT
+        An "Exception 'Access Fault'" WHDLoad requester if the protected memory
+        is written.
+
+   EXAMPLE
+                ...
+                moveq   #4,d0                   ;one longword
+                lea     $64,a0                  ;address
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_ProtectWrite">resload_ProtectWrite</a>,a2)
+                ...
+
+   BUGS
+        The amount of protected areas is currently limited to 16.
+        The page where the SSP points to must not be protected. Because then
+        the CPU will be unable to write the stack frame if an exception occurs.
+        Only reset will recover from the resulting Double Bus Fault.
+        limitations on MC68020+MC68851:
+          This hardware is currently not supported.
+        limitations on MC68030:
+          - 3-byte transfers are not supported (occurring on misaligned
+            longword accesses to page boundaries e.g. 'tst.l $fff' (assumed
+            4 KByte page size))
+          - locked accesses (tas/cas/cas2) are not supported
+        limitations on MC68040:
+          - locked accesses (tas/cas/cas2) are not supported
+          - move16 and double precision operations (FPU) are unsupported
+        limitations on MC68060:
+          - misaligned access are not supported (occurring on accesses trough
+            a page boundary, for example 'tst.l ($ffe)' (assumed 4 KByte page
+            size))
+          - locked accesses (tas/cas) are not supported
+          - instructions which are located on a protected page and access the
+            supervisor portion of the status register will be executed wrong
+            (these instructions will always see the trace bit as 1 and the
+            interrupt level as 7, any modification of the status register
+            supervisor portion will be without effect)
+          - movem instruction may access a protected area without creating a
+            Access Fault exception (only the first bus cycle of the execution
+            unit will be verified to match the protected area)
+          - move16 and double precision operations (FPU) are unsupported
+          - a 'move (mem),(mem)' with overlapping source and destination
+            address which generates an Access Fault because Misalignment
+            will be executed wrong, for example 'move.l ($ffc),($ffe)' where
+            page $1000..$1fff is protected and memory before execution
+            contains ($ffc)=$11112222,($1000)=$33334444, after execution
+            $1000 contains $11114444 and not $22224444)
+        Unsupported accesses will result in a "Exception 'Access Fault'"
+        WHDLoad requester.
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 6, for the 68040 requires <a href="#ws_Version">ws_Version</a> &gt;= 18
+        The MMU must be in use by WHDLoad, otherwise you will get WHDLoad
+        requester 'Unacceptable Arguments'.
+        Only accesses to the user and supervisor data stream are affected
+        (this means not affected are: CPU space accesses (e.g. getting values
+        from the vector table) and instruction stream accesses).
+
+   SEE ALSO
+        <a href="#resload_ProtectRead">resload_ProtectRead</a>, <a href="#resload_ProtectReadWrite">resload_ProtectReadWrite</a>, <a href="#resload_ProtectRemove">resload_ProtectRemove</a>
+
+</pre><hr><pre>
+<a name="resload_Relocate">WHDLoad/resload_Relocate</a>
+
+   NAME
+        <a href="#resload_Relocate">resload_Relocate</a> -- relocate an AmigaDOS executable
+
+   SYNOPSIS
+        size = <a href="#resload_Relocate">resload_Relocate</a>(address, tags)
+         D0                       A0      A1
+        ULONG                    APTR   STRUCT
+
+   FUNCTION
+        Relocates a standard AmigaDOS executable in memory. By default the
+        excutable will be relocated over itself using a multi pass technique.
+
+   INPUTS
+        address - the start address of the executable in memory, this is the
+                  source and also the destination address, i.e.
+                  <a href="#resload_Relocate">resload_Relocate</a> will relocates the executable over itself
+        tags    - there are two valid tags starting WHDLoad version 14.1
+                  <a name="WHDLTAG_CHIPPTR">WHDLTAG_CHIPPTR</a> - specifies a extra memory location where
+                    to put hunks with the memory flag MEMF_CHIP
+                  <a name="WHDLTAG_FASTPTR">WHDLTAG_FASTPTR</a> - specifies a extra memory location where
+                    to put hunks with the memory flag MEMF_FAST
+                  the different memory locations must not overlap, WHDLoad
+                  will check that and report 'illegal args' if they do
+                  starting WHDLoad version 15.1 there is another tag:
+                  <a name="WHDLTAG_ALIGN">WHDLTAG_ALIGN</a> - it specifies an alignment for the hunks,
+                    the number given must be an positive integer which is
+                    a power of 2, all hunk lengths will be rounded up to
+                    a multiple of this value, useful is 8 to be compatible
+                    with exec.AllocMem used by dos.LoadSeg
+                  starting WHDLoad version 16.3 there is another tag:
+                  <a name="WHDLTAG_LOADSEG">WHDLTAG_LOADSEG</a> - if specified the function creates a
+                    segment list as if loaded via dos.LoadSeg,
+                    <a href="#resload_PatchSeg">resload_PatchSeg</a> can be used to modify the relocated
+                    segment list
+
+   RESULT
+        size - size of the relocated executable
+               (this may be more or less than the size of the executable,
+               depending on the presence and size of BSS hunks)
+               if <a href="#WHDLTAG_CHIPPTR">WHDLTAG_CHIPPTR</a> or <a href="#WHDLTAG_FASTPTR">WHDLTAG_FASTPTR</a> is used the returned size
+               excludes the size of the hunks relocated to different memory
+               destinations
+        tags - for <a href="#WHDLTAG_CHIPPTR">WHDLTAG_CHIPPTR</a> and <a href="#WHDLTAG_FASTPTR">WHDLTAG_FASTPTR</a> the ti_Data field will
+               be overwritten with the length of data stored in this area
+        the function only returns on success
+
+   EXAMPLE
+        simply relocate a executable over itself
+                ...
+                lea     (_main,pc),a0           ;name
+                lea     $400,a3                 ;A3 = address for program
+                move.l  a3,a1                   ;destination
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>,a2)
+                move.l  a3,a0                   ;address
+                sub.l   a1,a1                   ;tags
+                jsr     (<a href="#resload_Relocate">resload_Relocate</a>,a2)
+                ...
+                jmp     (a3)                    ;start the program
+                ...
+
+        _main   dc.b    "main-program",0
+
+        the executable is loaded to ExpMem, but the CHIP hunks will be
+        relocated to BaseMem, also align like dos.LoadSeg/exec.AllocMem
+                ...
+                move.l  (_freefast),a0          ;address of executable
+                clr.l   -(a7)                   ;TAG_DONE
+                move.l  (_freechip),-(a7)       ;chip area
+                pea     <a href="#WHDLTAG_CHIPPTR">WHDLTAG_CHIPPTR</a>
+                pea     8                       ;8 byte alignment
+                pea     <a href="#WHDLTAG_ALIGN">WHDLTAG_ALIGN</a>
+                move.l  a7,a1                   ;tags
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Relocate">resload_Relocate</a>,a2)
+                add.l   d0,(_freefast)
+                add.l   (12,a7),(_freechip)
+                add.w   #20,a7
+                ...
+
+        use segment lists and <a href="#resload_PatchSeg">resload_PatchSeg</a>
+                ...
+                move.l  (_freemem),a0           ;address
+                clr.l   -(a7)                   ;TAG_DONE
+                pea     -1                      ;true
+                pea     <a href="#WHDLTAG_LOADSEG">WHDLTAG_LOADSEG</a>
+                pea     8                       ;8 byte alignment
+                pea     <a href="#WHDLTAG_ALIGN">WHDLTAG_ALIGN</a>
+                move.l  a7,a1                   ;tags
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_Relocate">resload_Relocate</a>,a2)
+                add.w   #5*4,a7
+                lea     (_patchlist),a0
+                move.l  (_freemem),d0
+                addq.l  #4,d0                   ;segment starts at offset 4
+                lsr.l   #2,d0                   ;make BPTR
+                move.l  d0,a1
+                jsr     (<a href="#resload_PatchSeg">resload_PatchSeg</a>,a2)
+                ...
+
+   BUGS
+        The routine supports all hunks supported by Kickstart 1.3 except
+        OVERLAY. Anyway it is only tested with a limited amount of
+        executables, please report any problems or bugs.
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 8
+        The function uses several stack for variables. The amount depends on
+        the number of hunks in the executable and can be calculated as
+        'used stack = hunks * 20 + 40'.
+        Upto WHDLoad version 16.9 the executable must not contain more than 256
+        hunks. Starting WHDLoad version 17.0 512 hunks are supported. Beware of
+        the stack space, for 512 hunks more than 10 KiB stack are required.
+        The routine performs automatically a <a href="#resload_FlushCache">resload_FlushCache</a> before
+        returning.
+
+   SEE ALSO
+        <a href="#resload_Patch">resload_Patch</a>, <a href="#resload_PatchSeg">resload_PatchSeg</a>
+
+</pre><hr><pre>
+<a name="resload_SaveFile">WHDLoad/resload_SaveFile</a>
+
+   NAME
+        <a href="#resload_SaveFile">resload_SaveFile</a> -- write memory to a file
+
+   SYNOPSIS
+        success,errorcode = <a href="#resload_SaveFile">resload_SaveFile</a>(size, name, address)
+          D0       D1                         D0    A0      A1
+         BOOL     ULONG                     ULONG  CPTR    APTR
+
+   FUNCTION
+        Writes specified memory area to a file using the specified file name.
+        If multiple data directories are used the file will be created
+        always in the first data directory. Possible missing sub directories
+        are only created by WHDLoad if the option SavePath/S is in use.
+
+   INPUTS
+        size    - amount of bytes to write
+        name    - name of file to write
+        address - memory address of buffer to write
+
+   RESULT
+        success   - TRUE on success
+        errorcode - 0 on success
+                    otherwise a DOS error code from dos.IoErr()
+        If <a href="#WHDL_NoError">WHDLF_NoError</a> is set, the function only returns on success.
+
+   EXAMPLE
+                ...
+                move.l  #512,d0                 ;size
+                lea     (_save,pc),a0           ;name
+                lea     $5ac20,a1               ;source
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_SaveFile">resload_SaveFile</a>,a2)
+                ...
+        _save   dc.b    "saved",0
+
+   SEE ALSO
+        <a href="#resload_SaveFileOffset">resload_SaveFileOffset</a>
+
+</pre><hr><pre>
+<a name="resload_SaveFileOffset">WHDLoad/resload_SaveFileOffset</a>
+
+   NAME
+        <a href="#resload_SaveFileOffset">resload_SaveFileOffset</a> -- write memory to a file at given offset
+
+   SYNOPSIS
+        success,error = <a href="#resload_SaveFileOffset">resload_SaveFileOffset</a>(size, offset, name, address)
+          D0     D1                             D0     D1     A0      A1
+         BOOL   ULONG                          ULONG  ULONG  CPTR    APTR
+
+   FUNCTION
+        Writes specified memory area to a file at specified offset using the
+        specified file name.
+        If the file does previously not exist or is shorter than the given
+        offset the missing space before the write is filled with the
+        character $DD.
+        If multiple data directories are used always the file in the first
+        data directory will be written. If the file exist in an other data
+        directory than the first it will be copied to the first directory
+        before performing the save operation.
+        Possible missing sub directories are only created by WHDLoad if the
+        option SavePath/S is in use.
+
+   INPUTS
+        size    - amount of bytes to write
+        offset  - offset in the file to write
+        name    - name of file to write
+        address - memory address of buffer to write
+
+   RESULT
+        success   - TRUE on success
+        errorcode - 0 on success
+                    otherwise a DOS error code from dos.IoErr()
+        If <a href="#WHDL_NoError">WHDLF_NoError</a> is set, the function only returns on success.
+
+   EXAMPLE
+                ...
+                move.l  #512,d0                 ;size
+                move.l  #$4000,d1               ;offset
+                lea     (_save,pc),a0           ;name
+                lea     $5ac20,a1               ;source
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_SaveFileOffset">resload_SaveFileOffset</a>,a2)
+                ...
+
+        _save   dc.b    "saved",0
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 5
+
+   SEE ALSO
+        <a href="#resload_SaveFile">resload_SaveFile</a>
+
+</pre><hr><pre>
+<a name="resload_SetCACR">WHDLoad/resload_SetCACR</a>
+
+   NAME
+        <a href="#resload_SetCACR">resload_SetCACR</a> -- set cacheability for BaseMem
+
+   SYNOPSIS
+        old = <a href="#resload_SetCACR">resload_SetCACR</a>(new, mask)
+         D0                    D0   D1
+       ULONG                 ULONG ULONG
+
+   FUNCTION
+        This function enables/disables the CPU caches.
+        The changes will affect the CACR (Cache Control Register) and
+        the MMU-tables if the MMU is used by WHDLoad.
+
+   INPUTS
+        new  - new cache status
+        mask - status bits to change
+        valid values for new and mask are:
+                CACRF_EnableI - instruction cache
+                CACRF_EnableD - data cache
+        (bits are defined in the NDK include file 'exec/execbase.i')
+
+   RESULT
+        old - old cache status
+
+   EXAMPLE
+        to enable instruction cache:
+                ...
+                move.l  #CACRF_EnableI,d0       ;new status
+                move.l  d0,d1                   ;status to change
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_SetCACR">resload_SetCACR</a>,a2)
+                ...
+
+   NOTE
+        It is safe to call this routine from User or Supervisor mode and
+        independent from the actual CPU type (also on 68000/010).
+        If WHDLoad is launched with the option NoCache/S this routine will
+        return without changing anything (all memory is always noncacheable).
+        Don't be surprised if you see in the coredump or in a freezer that
+        caches are enabled even if not enabled by the Slave. Because if the
+        MMU is used by WHDLoad and no caches are switched on by the Slave,
+        WHDLoad marks the BaseMem using the MMU as noncacheable-serialized
+        and enables both caches so that the memory of WHDLoad and the Slave
+        are still cacheable to increase the performance.
+        The caches are flushed after returning from this routine.
+        This routine internal calls <a href="#resload_SetCPU">resload_SetCPU</a>.
+
+   SEE ALSO
+        <a href="#resload_SetCPU">resload_SetCPU</a>, <a href="#resload_FlushCache">resload_FlushCache</a>
+
+</pre><hr><pre>
+<a name="resload_SetCPU">WHDLoad/resload_SetCPU</a>
+
+   NAME
+        <a href="#resload_SetCPU">resload_SetCPU</a> -- control CPU setup
+
+   SYNOPSIS
+        old = <a href="#resload_SetCPU">resload_SetCPU</a>(new, mask)
+         D0                   D0   D1
+       ULONG                ULONG ULONG
+
+   FUNCTION
+        This function changes the cacheability of memory areas and changes the
+        CPU setup. It is possible to set the memory of BaseMem, ExpMem and the
+        Slave. Also specific caches can be set.
+        The changes will affect the CACR (Cache Control Register) on 68020-60,
+        the PCR (Processor Configuration Register) on 68060 and the MMU-tables
+        if the MMU is used by WHDLoad.
+        Check the WHDLoad manual section 'CPU Cache Handling' for further
+        information. See the include file 'whdload.i' for supported bit sets.
+
+   INPUTS
+        new  - new setup
+        mask - parts of the current setup to change
+
+   RESULT
+        old - the setup before
+
+   EXAMPLE
+        to enable the only instruction cache for BaseMem and ExpMem:
+                ...
+                move.l  #WCPUF_Base_WT|WCPUF_Exp_CB|WCPUF_IC,d0
+                move.l  #WCPUF_Base|WCPUF_Exp|WCPUF_IC|WCPUF_DC,d1
+                move.l  (_resload,pc),a2
+                jsr     (<a href="#resload_SetCPU">resload_SetCPU</a>,a2)
+                ...
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 10
+        It is safe to call this routine from User or Supervisor mode and
+        independent from the actual CPU type (also on 68000/010).
+        If WHDLoad is launched with the option NoCache/S this routine will
+        return without changing anything (all memory is always noncacheable).
+        Don't be surprised if you see in the coredump or in a freezer that
+        caches are enabled even if not enabled by the Slave. Because if the
+        MMU is used by WHDLoad and caches are disabled by the Slave,
+        WHDLoad marks the memory using the MMU as noncacheable-serialized
+        and enables both caches so that the memory of WHDLoad is still
+        cacheable to increase the performance.
+        The caches are flushed after returning from this routine.
+
+   SEE ALSO
+
+</pre><hr><pre>
+<a name="resload_VSNPrintF">WHDLoad/resload_VSNPrintF</a>
+
+   NAME
+        <a href="#resload_VSNPrintF">resload_VSNPrintF</a> -- format data into a character stream
+
+   SYNOPSIS
+        length,end = <a href="#resload_VSNPrintF">resload_VSNPrintF</a>(buflen, buffer, format, data stream)
+          D0   A0                        D0      A0      A1        A2
+        ULONG CPTR                     ULONG    APTR    CPTR      APTR
+
+   FUNCTION
+        This function performs a exec.RawDoFmt/C.sprintf-like formatting of
+        data stream values according to the provided format string. Where %
+        formatting commands found in the format string are replaced with the
+        corresponding elements in the data stream. %% must be used in the
+        format string if a % is desired in the output.
+        Formatting commands have the form:
+
+        %[flags][width][.limit][length]type
+
+        flags  - supported flags are:
+                 '0' zero padding; the converted value is padded with zeros
+                     rather than blanks
+                 '-' negative field with; converted value is to be left
+                     adjusted on the filed boundary, a '-' overrides a '0' if
+                     both are given
+        width  - field width; if the converted value has fewer characters
+                 than the field width, it will be padded with spaces on the
+                 left to fill out the field width
+        limit  - maximum number of characters to output from a string (only
+                 valid for %s)
+        length - length modifier; specifies size of the data value from the
+                 data stream, defaults to WORD for types d, x and c, 'l'
+                 changes this to long (32-bit)
+        type   - supported types are:
+                 'b' - BSTR, 32-bit BPTR to byte count followed by a byte
+                       string, or NULL terminated byte string
+                       a NULL BPTR is treated as an empty string
+                 'B' - BPTR, BCPL pointer, 32-bit value * 4 will by printed
+                       hexadecimal
+                 'd' - decimal
+                 'u' - unsigned decimal
+                 'x' - hexadecimal
+                 's' - string, a 32-bit pointer to a NULL terminated byte
+                       string. a NULL pointer is treated as an empty string
+                 'c' - single character (WORD)
+
+   INPUTS
+        buflen - length of the provided buffer
+        buffer - buffer to fill with the character stream
+        format - string containing formatting options using the % char
+        data stream - a stream of values (WORDs/LONGs) which are interpreted
+                according to the format string
+
+   RESULT
+        length - the amount of characters which would have been written to the
+                 buffer in case the buffer length were unlimited, not
+                 including the final '\0' character
+        end    - points to the final '\0' character written to the buffer (if
+                 buflen&gt;0)
+
+   EXAMPLE
+        Format a single number:
+                ...
+                lea     (_buf,pc),a0            ;buffer
+                moveq   #80,d0                  ;buffer length
+                lea     (_fmt,pc),a1            ;format
+                lea     (_val,pc),a2
+                move.l  (_resload,pc),a6
+                jsr     (<a href="#resload_VSNPrintF">resload_VSNPrintF</a>,a6)
+                ...
+        _val    dc.w    842
+        _fmt    dc.b    "NumberDecimal=%d",0
+        _buf    ds.b    80
+                ...
+        Format a text message containing some variables on the stack:
+                ...
+                lea     (_fmt,pc),a1            ;format
+                move.l  (_adr,pc),-(a7)         ;put vars on stack, last first
+                pea     (_nam2,pc)
+                move.l  (_seq,pc),-(a7)
+                move.l  a7,a2                   ;arguments
+                moveq   #200,d0                 ;buffer length
+                sub.l   d0,a7                   ;reserve buffer on stack
+                move.l  a7,a0                   ;buffer
+                move.l  (_resload,pc),a6
+                jsr     (<a href="#resload_VSNPrintF">resload_VSNPrintF</a>,a6)
+                move.l  a7,a0
+                jsr     (_DoSomethingWithStringA0)
+                add.w   #212,a7                 ;free vars and buffer
+                ...
+        _fmt    dc.b    "[%04ld] %s=$%lx",0
+                ...
+
+   NOTE
+        requires <a href="#ws_Version">ws_Version</a> &gt;= 18
+
+   SEE ALSO
+
+</pre><hr><pre>
+<a name="SlaveOverview">WHDLoad.Slave/--Overview--</a>
+
+The WHDLoad.Slave contains the interface code which makes the installed
+program able to load his files from harddisk. Additional it should provide
+a possibility to quit the program to return to the OS.
+
+   FORMAT
+        Is a standard AmigaDOS executable. But:
+        The Slave MUST consist of only ONE hunk (ONE section).
+        The Slave MUST be 100% PC-relative (must not contain relocations).
+        It may contain debug/symbol hunks which are ignored.
+
+   STRUCTURE
+        At the beginning of the Slave is the 'WHDLoadSlave' structure. After
+        it follows the specific code and data.
+
+             STRUCTURE  WHDLoadSlave,0
+                STRUCT  <a href="#ws_Security">ws_Security</a>,4
+                STRUCT  <a href="#ws_ID">ws_ID</a>,8
+                UWORD   <a href="#ws_Version">ws_Version</a>
+                UWORD   <a href="#ws_Flags">ws_Flags</a>
+                ULONG   <a href="#ws_BaseMemSize">ws_BaseMemSize</a>
+                ULONG   <a href="#ws_ExecInstall">ws_ExecInstall</a>
+                RPTR    <a href="#ws_GameLoader">ws_GameLoader</a>
+                RPTR    <a href="#ws_CurrentDir">ws_CurrentDir</a>
+                RPTR    <a href="#ws_DontCache">ws_DontCache</a>
+             (  LABEL   ws_SIZEOF_pre_v4  )
+                UBYTE   <a href="#ws_keydebug">ws_keydebug</a>
+                UBYTE   <a href="#ws_keyexit">ws_keyexit</a>
+             (  LABEL   ws_SIZEOF_pre_v8  )
+                ULONG   <a href="#ws_ExpMem">ws_ExpMem</a>
+             (  LABEL   ws_SIZEOF_pre_v10 )
+                RPTR    <a href="#ws_name">ws_name</a>
+                RPTR    <a href="#ws_copy">ws_copy</a>
+                RPTR    <a href="#ws_info">ws_info</a>
+             (  LABEL   ws_SIZEOF_pre_v16 )
+                RPTR    <a href="#ws_kickname">ws_kickname</a>
+                ULONG   <a href="#ws_kicksize">ws_kicksize</a>
+                UWORD   <a href="#ws_kickcrc">ws_kickcrc</a>
+             (  LABEL   ws_SIZEOF_pre_v17 )
+                RPTR    <a href="#ws_config">ws_config</a>
+                LABEL   ws_SIZEOF
+
+        <a name="ws_Security">ws_Security</a>
+                Contains the code
+                        moveq #-1,d0
+                        rts
+                to avoid problems if someone executes the Slave directly.
+
+        <a name="ws_ID">ws_ID</a>
+                Contains the string 'WHDLOADS' to identify the program as a
+                WHDLoad Slave.
+
+        (the macro SLAVE_HEADER defined in the include file 'whdload.i' can be
+        used to create the entries <a href="#ws_Security">ws_Security</a> and <a href="#ws_ID">ws_ID</a>)
+
+        <a name="ws_Version">ws_Version</a>
+                Contains the version of WHDLoad that is required by the Slave.
+                Some resload functions need at least a specific version of
+                WHDLoad. E.g. to use <a href="#resload_CRC16">resload_CRC16</a> you must set <a href="#ws_Version">ws_Version</a>
+                to 3 or higher.
+                On the other side the size of the WHDLoad Slave structure
+                differs for different Slave versions. I.e. if you set
+                <a href="#ws_Version">ws_Version</a> to 16 or higher you MUST also initialize the fields
+                up to <a href="#ws_kickcrc">ws_kickcrc</a> (even if you don't use a Kickstart image).
+
+        <a name="ws_Flags">ws_Flags</a>
+                <a name="WHDL_Disk">WHDLF_Disk</a> / WHDLB_Disk
+                   This flag should be enabled if the program uses disk images.
+                   As a result Preload/S is working slightly different.
+                   (starting WHDLoad 0.143 this flag is obsolete and ignored)
+                <a name="WHDL_NoError">WHDLF_NoError</a> / WHDLB_NoError
+                   If enabled every error occurring in a resload_#? function
+                   forces WHDLoad to quit immediately and showing an error
+                   requester about the reason.
+                   Using this flag makes it unnecessary for the Slave to check
+                   the return codes of resload_#? functions. The Slave can then
+                   be sure that if a function returns it was successful which
+                   simplifies the Slave code.
+                <a name="WHDL_EmulTrap">WHDLF_EmulTrap</a> / WHDLB_EmulTrap
+                   This flag has an effect only if the VBR is moved by WHDLoad
+                   (i.e. the machine is at least a 68010 and the tooltype
+                   NoVBRMove is not set).
+                   If the flag is set all 'Trap #0..15's are emulated by the
+                   exception handler inside WHDLoad. I.e. the handler checks
+                   if the appropriate trap vector ($80-$bc) is initialized,
+                   and if the routine at the vector address will be called by
+                   WHDLoad.
+                <a name="WHDL_NoDivZero">WHDLF_NoDivZero</a> / WHDLB_NoDivZero
+                   This flag has an effect only if the VBR is moved by WHDLoad
+                   (i.e. the machine is at least a 68010 and the tooltype
+                   NoVBRMove is not set).
+                   If the flag is set and a 'Division by Zero' exception
+                   occurs WHDLoad will not quit with an requester, but perform
+                   a RTE.
+                   This maybe useful if the demo/game creates randomly
+                   divisions by zero.
+                <a name="WHDL_Req68020">WHDLF_Req68020</a> / WHDLB_Req68020
+                   This flag indicates that the Slave/installed program
+                   requires at least a MC68020 CPU. WHDLoad will check at the
+                   startup if this requirement is fulfilled. If it doesn't the
+                   program will be terminated with an appropriate requester.
+                <a name="WHDL_ReqAGA">WHDLF_ReqAGA</a> / WHDLB_ReqAGA
+                   This flag indicates that the Slave/installed program
+                   requires at least the AGA chipset. WHDLoad will check at the
+                   startup if this requirement is fulfilled. If it doesn't the
+                   program will be terminated with an appropriate requester.
+                <a name="WHDL_NoKbd">WHDLF_NoKbd</a> / WHDLB_NoKbd
+                   This flag tells WHDLoad that it doesn't should acknowledge
+                   the keyboard if a key was pressed. This must be used with
+                   programs which doesn't check the keyboard from the PORTS
+                   interrupt ($68). Background information: In normal
+                   operation when NoVBRMove is inactive, WHDLoad checks if a
+                   key was pressed on each interrupt. If a key has been
+                   pressed it checks the rawkey code against QuitKey, DebugKey
+                   and FreezeKey. If it doesn't match any of them it checks if
+                   there is an initialized PORTS interrupt ($68). If there is
+                   no one it replies the keyboard that the keycode has been
+                   received. Therefore when the installed program later checks
+                   the keyboard from e.g. the VBI, it will never receive any
+                   keycodes. This flag avoids the keyboard acknowledge done by
+                   WHDLoad.
+                <a name="WHDL_EmulLineA">WHDLF_EmulLineA</a> / WHDLB_EmulLineA
+                   This flag has an effect only if the VBR is moved by WHDLoad
+                   (i.e. the machine is at least a 68010 and the tooltype
+                   NoVBRMove is not set).
+                   If the flag is set all exceptions 'Line-A' (caused by
+                   opcodes starting with %1010) are emulated by the
+                   exception handler inside WHDLoad. I.e. the handler checks
+                   if the vector ($28) is initialized and if the routine to
+                   which the vector points will be called by WHDLoad.
+                <a name="WHDL_EmulTrapV">WHDLF_EmulTrapV</a> / WHDLB_EmulTrapV
+                   This flag has an effect only if the VBR is moved by WHDLoad
+                   (i.e. the machine is at least a 68010 and the tooltype
+                   NoVBRMove is not set).
+                   If the flag is set all exceptions caused by a 'TrapV'
+                   instruction are emulated by the exception handler inside
+                   WHDLoad. I.e. the handler checks if the vector ($1C) is
+                   initialized and if the routine to which the vector points
+                   will be called by WHDLoad.
+                <a name="WHDL_EmulChk">WHDLF_EmulChk</a> / WHDLB_EmulChk
+                   This flag has an effect only if the VBR is moved by WHDLoad
+                   (i.e. the machine is at least a 68010 and the tooltype
+                   NoVBRMove is not set).
+                   If the flag is set all exceptions caused by a 'Chk/Chk2'
+                   instruction are emulated by the exception handler inside
+                   WHDLoad. I.e. the handler checks if the vector ($18) is
+                   initialized and if the routine to which the vector points
+                   will be called by WHDLoad.
+                <a name="WHDL_EmulPriv">WHDLF_EmulPriv</a> / WHDLB_EmulPriv
+                   This flag has an effect only if the VBR is moved by WHDLoad
+                   (i.e. the machine is at least a 68010 and the tooltype
+                   NoVBRMove is not set).
+                   If the flag is set all privilege violation exceptions are
+                   emulated by the exception handler inside WHDLoad. I.e. the
+                   handler checks if the vector ($20) is initialized and if
+                   the routine to which the vector points will be called by
+                   WHDLoad.
+                <a name="WHDL_EmulLineF">WHDLF_EmulLineF</a> / WHDLB_EmulLineF
+                   This flag has an effect only if the VBR is moved by WHDLoad
+                   (i.e. the machine is at least a 68010 and the tooltype
+                   NoVBRMove is not set).
+                   If the flag is set all exceptions 'Line-F' (caused by
+                   opcodes starting with %1111) are emulated by the
+                   exception handler inside WHDLoad. I.e. the handler checks
+                   if the vector ($2C) is initialized and if the routine to
+                   which the vector points will be called by WHDLoad.
+                <a name="WHDL_ClearMem">WHDLF_ClearMem</a> / WHDLB_ClearMem
+                   If that flag is set WHDLoad will not init BaseMem with the
+                   pattern $CCCCCCCC and ExpMem with $DDDDDDDD but simply
+                   clear these memories.
+                <a name="WHDL_Examine">WHDLF_Examine</a> / WHDLB_Examine
+                   This flag must be set if the functions
+                   <a href="#resload_Examine">resload_Examine</a>/ExNext will be used. It causes WHDLoad to
+                   cache information about all files and directories. This
+                   consumes memory and takes time at startup. Therefore it
+                   shouldn't be used without necessity.
+                <a name="WHDL_EmulDivZero">WHDLF_EmulDivZero</a> / WHDLB_EmulDivZero
+                   This flag has an effect only if the VBR is moved by WHDLoad
+                   (i.e. the machine is at least a 68010 and the tooltype
+                   NoVBRMove is not set).
+                   If the flag is set all division by zero exceptions are
+                   emulated by the exception handler inside WHDLoad. I.e. the
+                   handler checks if the vector ($14) is initialized and if
+                   the routine to which the vector points to will be called by
+                   WHDLoad.
+                   This flag has precedence over the flag NoDivZero.
+                <a name="WHDL_EmulIllegal">WHDLF_EmulIllegal</a> / WHDLB_EmulIllegal
+                   This flag has an effect only if the VBR is moved by WHDLoad
+                   (i.e. the machine is at least a 68010 and the tooltype
+                   NoVBRMove is not set).
+                   If the flag is set all illegal instruction exceptions are
+                   emulated by the exception handler inside WHDLoad. I.e. the
+                   handler checks if the vector ($10) is initialized and if
+                   the routine to which the vector points will be called by
+                   WHDLoad.
+
+        <a name="ws_BaseMemSize">ws_BaseMemSize</a>
+                The size of the memory that is required by the program.
+                The BaseMemory starts at $00000000 and ends at <a href="#ws_BaseMemSize">ws_BaseMemSize</a>.
+                BaseMemory is always ChipMem.
+                This value must be multiple of $1000.
+                The valid minimum is $2000 and the maximum is $200000.
+
+        <a name="ws_ExecInstall">ws_ExecInstall</a>
+                obsolete, must be set to 0
+
+        <a name="ws_GameLoader">ws_GameLoader</a>
+                A relative (to the start of the structure) 16-bit pointer
+                to the start code of the Slave. This is the entry point of the
+                Slave code.
+
+        <a name="ws_CurrentDir">ws_CurrentDir</a>
+                A relative (to the start of the structure) 16-bit pointer
+                to a 0 terminated string which is the name of the path
+                where all files are stored (sub directory).
+                If no sub directory should be used this must be initialized
+                with 0.
+                The path to the sub directory must be relative (must not
+                contain ':').
+
+        <a name="ws_DontCache">ws_DontCache</a>
+                A relative (to the start of the structure) 16-bit pointer
+                to a 0 terminated string which is a standard AmigaDOS
+                pattern (dos.ParsePattern, dos.MatchPattern).
+                All files matching this pattern will not by cached by WHDLoad.
+                If not in use it must be set to 0.
+
+      The following variables are only evaluated by WHDLoad if <a href="#ws_Version">ws_Version</a>
+      is set to &gt;= 4. The following variables MUST be initialized if you set
+      <a href="#ws_Version">ws_Version</a> to &gt;= 4.
+
+        <a name="ws_keydebug">ws_keydebug</a>
+                The raw key code to exit with writing debug files.
+                This variable will be overwritten by WHDLoad using the value
+                specified with the option DebugKey/K/N if set.
+                If the Slave provides an own handler to support a debug option
+                via the keyboard it should use this value for comparison. So
+                it will be possible for the user to change the key suggested
+                by the Slave.
+                WHDLoad itself also checks for this key code on each interrupt
+                if the VBR is moved (requires 68010+ and that NoVBRMove/S is
+                not set).
+                If this variable is set to 0 the WHDLoad default will be used.
+                Starting WHDLoad version 17.0 the contents of this variable
+                is ignored. It is always overwritten by WHDLoad with the
+                default or the specified DebugKey/K/N.
+                The recommended value is 0.
+
+        <a name="ws_keyexit">ws_keyexit</a>
+                The raw key code to exit.
+                This variable will be overwritten by WHDLoad using the value
+                specified with the option QuitKey/K/N if set.
+                If the Slave provides an own handler to support a quit option
+                via the keyboard it should use this value for comparison. So
+                it will be possible to the user to change the key suggested
+                by the Slave.
+                WHDLoad itself also checks for this key code on each interrupt
+                if the VBR is moved (requires 68010+ and that NoVBRMove/S is
+                not set).
+                The recommended value is $59 = 'F10'.
+
+      The following variables are only evaluated by WHDLoad if <a href="#ws_Version">ws_Version</a>
+      is set to &gt;= 8. The following variables MUST be initialized if you set
+      <a href="#ws_Version">ws_Version</a> to &gt;= 8.
+
+        <a name="ws_ExpMem">ws_ExpMem</a>
+                If the installed program requires expansion memory, the size
+                must be specified here. WHDLoad will allocate a memory block
+                of this size and writes a pointer to the start of the
+                allocated memory back to this entry. The memory is granted to
+                be aligned to $1000 (4096 bytes). The size specified must be
+                a multiple of $1000 (4096). If WHDLoad fails to allocate
+                this memory it terminates with an appropriate error requester.
+                That means the Slave will always get a valid pointer here.
+                Starting WHDLoad version 10.2 the value can be negative. A
+                negative size means that the memory is optional and not
+                required. WHDLoad will try to allocate it and if it fails it
+                will set <a href="#ws_ExpMem">ws_ExpMem</a> to zero. Therefore the Slave has to check
+                the contents of <a href="#ws_ExpMem">ws_ExpMem</a>.
+
+      The following variables are only evaluated by WHDLoad if <a href="#ws_Version">ws_Version</a>
+      is set to &gt;= 10. The following variables MUST be initialized if you set
+      <a href="#ws_Version">ws_Version</a> to &gt;= 10.
+
+        <a name="ws_name">ws_name</a>
+                A relative (to the start of the structure) 16-bit pointer
+                to a 0 terminated string containing the name of the installed
+                program. e.g. 'Super Hang Off'.
+                The name is used in the splash window and in conjunction with
+                the SavePath/K feature.
+
+        <a name="ws_copy">ws_copy</a>
+                A relative (to the start of the structure) 16-bit pointer
+                to a 0 terminated string containing the copyright of the
+                installed program. The string should start with the year
+                followed by the companies holding the copyright. Multiple years
+                or companies should be separated with ', '.
+                e.g. '1983 Schega, 1989 Bad Dreams'
+                The copyright is displayed in the splash window.
+
+        <a name="ws_info">ws_info</a>
+                A relative (to the start of the structure) 16-bit pointer
+                to a 0 terminated string containing additional infos about the
+                installed program. The string may also contain line feeds
+                ($0a). The character -1 has a special meaning. It results in
+                a line feed and an additional vertical skip of the half font
+                height. e.g.:
+                        dc.b    "installed &amp; fixed by Wepl",10
+                        dc.b    "version 1.4 (06.06.2066)",-1
+                        dc.b    "greetings to the world",0
+                The infos are displayed in the splash window.
+
+      The following variables are only evaluated by WHDLoad if <a href="#ws_Version">ws_Version</a>
+      is set to &gt;= 16. The following variables MUST be initialized if you set
+      <a href="#ws_Version">ws_Version</a> to &gt;= 16.
+
+        <a name="ws_kickname">ws_kickname</a>
+                A relative (to the start of the structure) 16-bit pointer
+                to a 0 terminated string containing the name of the Kickstart
+                image to be loaded by WHDLoad into ExpMem. The path
+                'DEVS:Kickstarts/' will be prepended by WHDLoad to find the
+                file. The name should be something like  'kick34005.A500'.
+
+        <a name="ws_kicksize">ws_kicksize</a>
+                The size of the Kickstart image to load.
+
+        <a name="ws_kickcrc">ws_kickcrc</a>
+                The CRC16 checksum for the Kickstart image to load.
+
+        Starting WHDLoad 16.1 there is a special mode which supports multiple
+        Kickstart images within the same Slave. The special mode is activated
+        by using -1 as the value for <a href="#ws_kickcrc">ws_kickcrc</a>. <a href="#ws_kickname">ws_kickname</a> contains then a
+        relative pointer to a table which contains pairs of CRC16 and relative
+        pointers to a Kickstart name. The table is terminated with a CRC16 of
+        0. WHDLoad will try to load Kickstarts from the table until it finds
+        one with the correct CRC16. After the successful load the CRC16 of the
+        loaded Kickstart image will be placed in <a href="#ws_kickcrc">ws_kickcrc</a> (overwriting the
+        -1) so the Slave can recognize which Kickstart image has been loaded.
+
+      The following variables are only evaluated by WHDLoad if <a href="#ws_Version">ws_Version</a>
+      is set to &gt;= 17. The following variables MUST be initialized if you set
+      <a href="#ws_Version">ws_Version</a> to &gt;= 17.
+
+        <a name="ws_config">ws_config</a>
+                A relative (to the start of the structure) 16-bit pointer
+                to a 0 terminated string containing infos about configuration
+                items to be displayed in the WHDLoad startup splash window.
+                Possible items are the options ButtonWait and Custom1-5. For
+                each item specified here a gadget will be added to the splash
+                window, allowing the user easily to modify this option.
+                The syntax in a EBNF is as follows:
+
+                Config = ConfigOption { ";" ConfigOption } ;
+                ConfigOption = Option [ ":" Type ":" Label [ ":" Spec ] ] ;
+                Option = "BW" | "C1" | "C2" | "C3" | "C4" | "C5" ;
+                        (* BW - ButtonWait, without Type  *)
+                        (* C1..C5 - Custom1..5, requires Type *)
+                Type = "B" | "L" | "X" ;
+                        (* B - Boolean *)
+                        (* L - List of values, cycle gadget, Spec is list of
+                               SpecOptions *)
+                        (* X - Boolean only 1 bit used, Spec is the bit number
+                               0-31 *)
+                Spec = Number | ( SpecOption { "," SpecOption } ) ;
+                Number = [0-9] ;
+                SpecOption = Label ;
+                Label = CHR(32..255) except [,:;] ;
+
+                On Type=Boolean (also ButtonWait) the result will be 0 for
+                unchecked and 1 for checked. On Type=List the result will be
+                0 for the first SpecOption and is incremented by 1 for each
+                subsequent SpecOption.
+
+                Example:
+
+                dc.b    "BW;"
+                dc.b    "C1:B:Skip Intro;"
+                dc.b    "C2:X:Activate Trainer:0;"
+                dc.b    "C3:L:Load Game Position:None,1,2,3,4,5,6,7,8,9;"
+                dc.b    "C4:L:Brightness:default,+50%,+100%"
+                dc.b    0
+
+   CONVENTIONS for <a href="#ws_GameLoader">ws_GameLoader</a>
+        The state of the whole system at the time when <a href="#ws_GameLoader">ws_GameLoader</a> is called
+        is as follows:
+
+        CPU:
+                SR   = $2000           Supervisor-mode, all interrupts enabled
+                SSP  = <a href="#ws_BaseMemSize">ws_BaseMemSize</a>  at the end of BaseMem
+                USP  = SSP-$400        at the end of BaseMem - 1024
+                A0   = Resload         pointer to the Jump-Tower in WHDLoad
+                D0-D7/A1-A6 random     (D0=$d0d0d0d0 D1=...)
+
+                Nothing more is interesting from the Slave programmers point
+                of view. All special registers like VBR,SFC,DFC,CAAR,CACR,MSP,
+                TC,MMUSR,CRP,SRP,URP,TT0,TT1,DTT0,DTT1,ITT0,ITT1,PCR,BUSCR are
+                WHDLoad private and MUST NOT BE CHANGED.
+
+        FPU:
+                At the moment not initialized by WHDLoad.
+
+        BaseMem:
+                $00000000.l = 0
+                $00000004.l = $f0000001
+                        an odd value to make any try to use it (the execbase)
+                        creating an 'Address Error' or 'Access Fault' exception
+                $00000008...$00000400
+                        if WHDLoad has moved the VBR it contains $CCCCCCCC
+                        else it contains a pointer to an exception handler
+                        inside WHDLoad
+                $00000400...<a href="#ws_BaseMemSize">ws_BaseMemSize</a>
+                        contains $CCCCCCCC, this memory fill pattern is used to
+                        easily recognize modified memory
+                $00001000.l = $FFFFFFFE
+                        the copper instruction 'CWAIT $ff,$1fe' (CEND)
+
+        ExpMem:
+                the memory is filled with the pattern $DDDDDDDD
+
+        custom registers:
+                dmacon = 0             all DMAs off
+                intena = 0             all interrupts off
+                cop1lc = cop2lc = $1000
+                an AGA-machine is switched to OCS mode
+
+        cias:
+                ------- ciaa ------     ------- ciab ------
+                pra in  = %00000000     pra in  = %00000000
+                pra out = %11111100     pra out = %11111000
+                ddra    = %00000011     ddra    = %11000000
+                prb in  = %00000000     prb in  = %00000000
+                prb out = %00000000     prb out = %11111111
+                ddrb    = %00000000     ddrb    = %11111111
+                ta      =     $21ff     ta      =     $ffff
+                tb      =     $21ff     tb      =     $ffff
+                event   =   $000000     event   =   $000000
+               (alarm   =   $ffffff     alarm   = execbase.EClockFrequency
+                        the alarm values are no longer initialized starting
+                        WHDLoad version 13.1 to avoid compatibility problems
+                        on Kickstart 2.0)
+                sdr     =       $00     sdr     =       $00
+                icr     = %00000000     icr     = %00000000
+                icm     = %00001000     icm     = %00000000
+                cra     = %00000000     cra     = %00000000
+                crb     = %00000000     crb     = %00000000
+
+   SEE ALSO
+        example Slaves
+</PRE>
+</BODY>
+</HTML>

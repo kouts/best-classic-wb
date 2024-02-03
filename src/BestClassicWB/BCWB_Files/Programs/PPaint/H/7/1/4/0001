@@ -1,0 +1,145 @@
+@DATABASE 0001
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 7. Das Text-Menü"
+@TOC PPaintCD:H/7/1/4/OO00/Main
+
+@{B}7.         Das Text-Menü@{UB}
+
+Personal Paint ist mit einem eigenen Texteditor ausgestattet, um das
+Einfügen von Text in Bilder zu ermöglichen. Die in diesem Abschnitt
+beschriebenen Menüpunkte werden durch Anwahl des Text-Symbols und
+anschließendes Positionieren des Mauszeigers an einer beliebigen Stelle
+des Bildschirms aktiviert. Grundlegende Funktionen zum Edieren von Text
+und zur Auswahl von Schriften werden in Abschnitt @{"3.1.3" LINK PPaintCD:H/7/1/4/0017/Main 397} beschrieben.
+
+
+@{B}7.1        Clipboard einfügen@{UB}
+
+Das Clipboard des Amiga wird von verschiedenen Textverarbeitungen,
+Texteditoren und Amiga-Systemfunktionen unterstützt. Mit diesem Befehl
+wird ein im Clipboard abgelegter Text so in das Bild eingefügt, als würde
+er über die Tastatur eingegeben. Dabei werden auch evtl. in den Text
+eingebettete ANSI-SGR-Steuerzeichen zur Stil- und Farbgebung korrekt
+interpretiert.
+
+Mehr zum Thema Amiga-Clipboard in Abschnitt @{"5.10" LINK PPaintCD:H/7/1/4/0048/Main 348}. Die folgenden
+Erläuterungen zu SGR-Sequenzen sind eher technischer Natur und daher nur
+für diejenigen Benutzer interessant, die Text mit einem externen
+Texteditor verfassen möchten.
+
+Bei SGR-Sequenzen handelt es sich um Steuerzeichen, die mit den Zeichen
+ESC+'[' beginnen (oder einem einzelnen CSI-Zeichen, Dezimalwert 155) und
+mit einem kleingeschriebenen 'm' abschließen. So steht z. B. SGR31 für
+ESC+'['+'3'+'1'+'m' ('3' und '1' sind dabei druckbare ASCII-Zeichen, keine
+Steuerzeichen). Normaler Text (oder andere Steuerzeichen) können einer
+SGR-Sequenz unmittelbar folgen. Hier einige der meistbenutzten
+SGR-Sequenzen:
+
+ Von SGR30 bis SGR 39: Textfarbe setzen
+   Von SGR40 bis SGR 49: Hintergrundfarbe setzen
+   SGR0: Alle Attribute aus
+   SGR1: Anfang Text fett
+   SGR22: Ende Text fett
+   SGR3: Anfang Text kursiv
+   SGR23: Ende Text kursiv
+   SGR4: Anfang Text unterstrichen
+   SGR24: Ende Text unterstrichen
+
+
+@{B}7.2        Folgende Farbe@{UB}
+
+Mit diesem Befehl wird die in der Palette auf die aktuelle Farbe folgende
+Farbe als Vordergrundfarbe ausgewählt und für den eingegebenen Text
+verwendet. Die Position des Textes und die Farben der Umgebung sind dabei
+unerheblich. Farbveränderungen ganzer Textzeilen können mit der Funktion
+"Bis Zeilenende ändern/Farbe" (Abschnitt @{"7.4.1" LINK Main 71}) vorgenommen werden.
+
+
+@{B}7.3        Vorhergehende Farbe@{UB}
+
+Dieser Befehl ähnelt der Funktion "Folgende Farbe", es wird jedoch die
+vorhergehende Farbe als Textfarbe bestimmt.
+
+Diese beiden Befehle haben die gleiche Funktion wie die Tastaturkürzel für
+den Malmodus (Standardmäßig <[> und <]>), mit denen die vorhergende oder
+folgende Farbe aktiviert werden kann. Beim Edieren eines Textes jedoch
+führen diese Tastaturkürzel zum Einfügen des entsprechenden Zeichens und
+nicht zum Ausführen eines Befehls.
+
+
+@{B}7.4        Bis Zeilenende ändern@{UB}
+
+Diese Gruppe von Befehlen verändert das Aussehen des Textes zwischen der
+aktuellen Cursorposition und dem Zeilenende.
+
+
+@{B}7.4.1      Farbe@{UB}
+
+Diese Funktion versieht den Text mit der aktuellen Vordergrundfarbe.
+
+
+@{B}7.4.2      Schriftattribute@{UB}
+
+Diese Funktion versieht den Text mit den aktuell eingestellten Attributen
+(wie fett oder kursiv). Diese müssen bereits vor dem Auswählen der
+Funktion eingestellt werden.
+
+
+@{B}7.4.3      Groß @{UB}
+
+Dieser Befehl verwandelt alle Zeichen zwischen der Cursorposition und dem
+Zeilenende in Großbuchstaben.
+
+
+@{B}7.4.4      Klein@{UB}
+
+Diese Funktion verwandelt alle ausgewählten Zeichen in Kleinbuchstaben.
+
+
+@{B}7.4.5      Löschen@{UB}
+
+Der Text zwischen aktueller Cursorposition und dem Zeilenende wird
+gelöscht.
+
+
+@{B}7.5        Schriftattribute@{UB}
+
+Zur Auswahl verschiedener Textattribute (normal, kursiv, fett, usw.)
+stehen mehrere Menüpunkte zur Verfügung. Es wird jedoch nur derjenige Text
+mit den neuen Attributen versehen, der nach der Attributeinstellung
+geschrieben wird. Die Aktivierung der aktuellen Attribute ist im
+dazugehörigen Menü mit einem kleinen Häkchen gekennzeichnet. Für Effekte
+wie @{B}@{I}@{U}kursiv fett unterstrichen@{UB}@{UI}@{UU} lassen sich Attribute auch kombinieren.
+
+Die Attribute von schon geschriebenem Text lassen sich mit Hilfe der
+"Attribute"-Funktion (Abschnitt @{"7.4.2" LINK Main 76}) nachträglich modifizieren.
+
+Sobald ein neues Attribut ausgewählt wird, sucht Personal Paint zunächst
+nach dem entsprechenden Schnitt in der aktiven Schriftfamilie. Ist dieser
+nicht vorhanden, generiert das Programm das gewünschte Attribut
+algorithmisch.
+
+Wie Text mit anderen Effekten wie Verwischen oder Umrissen versehen werden
+kann, wird in den Abschnitten @{"3.1.4" LINK PPaintCD:H/7/1/4/0017/Main 600} und @{"5.14" LINK PPaintCD:H/7/1/4/0048/Main 626} erläutert.
+
+
+@{B}7.6        Ausrichtung@{UB}
+
+Zur Ausrichtung des Textes stehen verschiedene Varianten (linksbündig,
+zentriert, rechtsbündig) zur Verfügung. Dieser Befehl wirkt sich immer auf
+den gesamten in der aktuellen Ediersitzung geschriebenen Text aus.
+
+Da Personal Paint zur Begrenzung des beschreibbaren Bereiches keine
+festgelegten Ränder verwendet, werden Texte immer an der senkrechten Linie
+ausgerichtet oder zentriert, an der der Textediervorgang begonnen hat.
+Durch Drücken der rechten Maustaste läßt sich der gesamte Text (und die
+Linie, an der er ausgerichtet ist) "greifen" und an einer anderen Stelle
+ablegen. Indem eine Veränderung der Ausrichtung mit einer Repositionierung
+des Textes kombiniert wird, kann dieser frei nach den Wünschen des
+Benutzers im Bild plaziert werden.
+
+@ENDNODE

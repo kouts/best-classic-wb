@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE>Funkcje sieciowe</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: net.html 1.1 2015/04/19 21:04:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>Dostęp do sieci - informacje</h3>
+
+WHDLoad potrafi wykorzystać dostęp do sieci w celu sprawdzenia czy są
+dostępne nowsze wersje pakietu, jak również nowsze wersje plików .slave.
+Cała komunikacja sieciowa odbywa się poprzez protokół HTTP. Opcja
+<a href="opt.html#Proxy">Proxy/S</a> w ustawieniach globalnych 
+może zostać wykorzystana do przekierowania całego ruchu sieciowego przez serwer
+pośredniczący proxy. W celu dostępu do serwera proxy wymagającego autoryzacji
+należy podać nazwę użytkownika i hasło w opcji <a
+href="opt.html#Proxy">Proxy/S</a>. WHDLoad obsługuje jedynie podstawowe tryby autoryzacji.
+
+<br>Jeśli nie życzysz sobie dostępu WHDLoad do sieci, cały ruch sieciowy można wyłączyć
+używając opcji globalnej <a href="opt.html#NoNetwork">NoNetwork/S</a>.
+
+<h3>Sprawdzanie aktualizacji WHDLoad i plików .slave</h3>
+
+Wykorzystując zapytania do strony WHDLoad pakiet sprawdza czy są dostępne nowsze wersje programu,
+jak również zainstalowanych pakietów (.slave).
+
+<br>Sprawdzenie jest dokonywane jedynie gdy jest otwarte okno <a href="opt.html#SplashDelay">informacji
+początkowych</a>, gdyż tylko w nim są wyświetlane wyniki sprawdzenia.
+
+<p>W celu sprawdzenia dostępności aktualizacji WHDLoad wysyłany jest numer wersji.
+Jeśli jest dostępna nowsza wersja, okno informacyjne pokaże numer nowej wersji oraz datę publikacji.
+Dodatkowo do okna informacyjnego zostanie dodany przycisk &quot;Update WHDLoad&quot;.
+Jeśli masz zainstalowany pakiet <a
+href="http://sourceforge.net/projects/openurllib/">openurl.library</a> naciśnięcie przycisku
+spowoduje otwarcie skonfigurowanej przeglądarki ze wskazaniem na stronę domową pakietu WHDLoad.
+Jeśli pakiet openurl.library nie jest dostępny zostanie wyświetlone okno
+z adresem URL strony domowej WHDLoad. Jeżeli jest ustawiona dodatkowo opcja <a href="opt.html#Expert">Expert/S</a>, sprawdzenie uwzględni również informacje o nowych wersjach beta pakietu.
+
+<p>W celu dokonania sprawdzenia aktualizacji pliku .slave, WHDLoad wylicza sumę SHA-256
+zainstalowanego pliku .slave i wysyła ją na stronę domową WHDLoad. Znajduje się tam baza danych
+wszystkich wydanych plików .slave. Jeśli istnieje nowsza wersja pliku .slave / pakietu instalacyjnego
+okno informacyjne wyświetli datę wydania najaktualniejszej wersji pakietu instalacyjnego.
+Dodatkowo w oknie tym pojawi się przycisk %quot;Update Slave&quot;.
+Jeśli masz zainstalowany pakiet <a
+href="http://sourceforge.net/projects/openurllib/">openurl.library</a> naciśnięcie przycisku
+spowoduje otwarcie skonfigurowanej przeglądarki ze wskazaniem na stronę domową pakietu WHDLoad ze wskazaniem
+na pakiet instalacyjny. Jeśli pakiet openurl.library nie jest dostępny zostanie wyświetlone okno
+z adresem URL strony z pakietem instalacyjnym.
+
+<p>Jeśli jest dostępna nowsza wersja pliku .slave, do okna informacyjnego zostanie dodany
+dodatkowy przycisk &quot;Start&quot;, a okno nie zostanie zamknięte automatycznie
+w celu zwrócenia uwagi na możliwość aktualizacji. Okno to może być zamknięte
+jak zwykle przy użyciu myszki, spacji klawiszy Return lub Esc.
+
+<p>Jeśli wykorzystywany jest pakiet <a href="http://sourceforge.net/projects/openurllib/">openurl.library</a>
+i zostanie naciśnięty przycisk &quot;Update&quot;, WHDLoad wykona polecenie
+<a href="opt.html#ExecuteCleanup">ExecuteCleanup/K</a> w celu ponownego włączenia zazwyczaj
+wyłączonego za pomocą polecenia <a href="opt.html#ExecuteStartup">ExecuteStartup/K</a> stosu TCP-IP.
+Działanie to może zakończyć się niepowodzeniem w przypadku posiadania niewystarczającej ilości wolnej pamięci
+do uruchomienia przeglądarki stron WWW, gdyż funckja <a href="opt.html#Preload">Preload/S</a>
+może zajmować większość pamięci. W przypadku systemów z małą ilością pamięci przycisk &quot;Update&quot;
+może nie być użyteczny.
+
+</BODY>
+</HTML>

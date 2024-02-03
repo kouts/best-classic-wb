@@ -1,0 +1,29 @@
+;
+; Create archive of JanoSyntax
+;
+
+set PRJ Syntax
+
+if exists ram:$PRJ
+	echo "Removing previous aborted operation"
+	ClearRam QUIET
+endif
+
+echo "Creating RAM:$PRJ directory"
+makedir ram:$PRJ
+copy /${PRJ}.info ram: >NIL:
+
+echo "Copying programme..."
+copy /$PRJ ram:$PRJ ALL >NIL:
+
+echo "Cleaning unnecessary files"
+cd ram:$PRJ
+rm #?.o quiet
+
+cd ram:
+echo "Creating archive in RAM:${PRJ}.Lha"
+lha a -rae ram:${PRJ}.Lha RAM:$PRJ RAM:${PRJ}.info >NIL:
+rm ram:$PRJ $PRJ.info ALL >NIL:
+cd hd4:$PRJ
+
+echo "all done"

@@ -1,0 +1,737 @@
+@DATABASE 0048
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 5. Das Pinsel-Menü"
+@TOC PPaintCD:H/7/1/4/OO00/Main
+
+@{B}5.         Das Pinsel-Menü@{UB}
+
+Die Abschnitte @{"3.1.1" LINK PPaintCD:H/7/1/4/0017/Main 42} ("Voreingestellte und individuelle Pinsel") und
+@{"3.1.6" LINK PPaintCD:H/7/1/4/0017/Main 1156} ("Pinsel definieren") dienen der Erläuterung übergreifender
+Konzepte bezüglich des Pinsels und seiner Verwendung. In diesem Kapitel
+werden folgende Pinselfunktionen behandelt: Laden, Speichern, Auswahl von
+Malmodus und Griffposition, Änderung von Farben, sowie Transformation des
+Pinsels.
+
+Bevor die meisten in diesem Kapitel beschriebenen Funktionen genutzt
+werden können, muß zunächst ein individueller Pinsel erstellt werden, da
+einige der aufgeführten Menüpunkte automatisch deaktiviert werden,
+(Abschnitt @{"1.9.6" LINK PPaintCD:H/7/1/4/0002/Main 735} "Menüs"), wenn es sich beim aktuellen Pinsel nicht um
+einen individuell erstellten handelt.
+
+
+@{B}5.1        Pinsel laden@{UB}
+
+Diese Funktion ähnelt der zum Laden eines Bildes (Abschnitt @{"4.1" LINK PPaintCD:H/7/1/4/0049/Main 10}), lädt
+aber das ausgewählt Bild als aktuellen Pinsel. Bei den meisten von
+Personal Paint unterstützten Dateiformaten wird nicht zwischen Bild- und
+Pinseldateien unterschieden. Einige Programme speichern evtl. mit der
+Bilddatei zusätzliche Informationen ab (z. B. Greifpunkt des Pinsels oder
+Informationen über den Bildschirmmodus), allerdings wird die
+Portierbarkeit dadurch nicht beeinträchtigt. Jedes Bild kann wahlweise als
+Bild oder Pinsel geladen werden.
+
+Der Bildschirmmodus (Größe, Farben, Interlace-Modus, usw.) wird durch das
+Laden einer Grafik als Pinsel nicht zwangsläufig verändert. Beim Laden als
+Bild wird der Bildschirmmodus angepaßt, außerdem wird die Anzahl der
+Bitplanes auf den höchstmöglichen, vom jeweiligen Amiga-Modell erlaubten
+Wert begrenzt.
+
+Bildschirmformat und Farben bleiben vom Laden eines Pinsels unbeeinflußt,
+was evtl. dazu führen kann, daß dieser über dem darunterliegenden Bild
+verzerrt dargestellt wird (z. B. zweimal breiter oder höher als normal,
+usw.) oder seine Farbpalette "zufällig" erscheint.
+
+Wenn der Pinsel über andere Farben verfügt als das aktuelle Bild, kann
+seine Palette auf die Bildpalette übertragen werden (Abschnitt @{"8.1.7" LINK PPaintCD:H/7/1/4/0016/Main 309})
+oder umgekehrt (Abschnitt @{"5.9.1" LINK Main 232}). Der erste Fall funktioniert nur dann,
+wenn das Bild mindestens die gleiche Anzahl von Farben besitzt wie der
+Pinsel, andernfalls kann das Format zur Erhöhung der maximalen
+darstellbaren Farbanzahl auch manuell verändert werden (Abschnitt @{"4.5.3" LINK PPaintCD:H/7/1/4/0049/Main 1172}).
+Personal Paint stellt mit der Funktion "Farben mischen" (Abschnitt @{"8.6" LINK PPaintCD:H/7/1/4/0016/Main 504})
+auch noch einen intelligenteren Weg zur Verfügung, Bilder mit
+unterschiedlichen Farben zu verarbeiten.
+
+In vielen Fällen stellt es sich als sehr nützlich heraus, daß ein Pinsel
+mehr Farben besitzen kann als das aktuelle Bild. So können z. B.
+Amiga-Modelle mit dem Original- und dem ECS-Chipset keine 256 Farben
+gleichzeitig darstellen, aber ein 256-Farben-Pinsel kann trotzdem ohne
+Datenverluste verarbeitet, gespeichert und gedruckt werden. Die Funktion
+"Abstreifen/Nicht sichtbar" (Abschnitt @{"5.13.4" LINK Main 603}) wird am besten zum
+Ausschneiden nicht erwünschter Teile eines sehr großen Pinsels verwendet.
+Bei der Bildschirmdarstellung werden nur so viele Bitplanes angezeigt, wie
+der jeweilige Rechner erlaubt. Meist führt das zu einer fehlerhaften
+Darstellung des Pinsels ("Fehlfarben"), aber Personal Paint verarbeitet
+intern die ursprünglichen Daten des Pinsels mit bis zu 8 Bitplanes. Wenn
+die Funktion zum Kopieren der Bildpalette (Abschnitt @{"5.9.8" LINK Main 336}) auf den
+Pinsel angewendet wird, werden die Farben des Bildes auch zu denen des
+Pinsels, andernfalls werden die ursprünglichen Farben des Pinsels in einer
+getrennten Farbpalette gespeichert (auch wenn er unter Verwendung der
+aktuellen Bildschirmfarben angezeigt wird).
+
+
+@{B}5.2        Pinsel speichern@{UB}
+
+Diese Funktion zum Speichern eines Pinsels entspricht genau der Funktion
+"Bild speichern" zum Speichern eines Bildes. Der Pinsel kann zu einem
+späteren Zeitpunkt entweder als Pinsel oder Bild wieder geladen werden.
+
+Wenn zum Speichern des Bildes das IFF-ILBM-Format gewählt wird, werden
+zusätzlich Informationen über Greifpunkt des Pinsels und Transparenz
+mitgespeichert.
+
+Dadurch, daß Teile, die kleiner als der Bildschirm sind, als Pinsel und
+nicht etwa als Bilder abgespeichert werden, läßt sich Speicher auf der
+Disk sparen. So sollten z. B. auch die "UIColors"-Dateien (Abschnitt
+@{"1.14" LINK PPaintCD:H/7/1/4/0002/Main 1428}) als Pinsel abgespeichert werden, wenn sie auf einem Laufwerk mit
+nur geringer Kapazität, wie der Programmdiskette von Personal Paint,
+abgelegt werden sollen.
+
+Bei den "UIColors"-Dateien handelt es sich um Beispiele für einen
+besonders "kniffligen" Dateityp: Sie sollten zwar als Pinsel abgespeichert
+werden, wenn es darum geht, Speicher zu sparen, sind aber zur Benutzung
+von korrektem Bildschirmmodus und den richtigen Farben besser als Bild zu
+laden. Diese Dateien sind grundsätzlich im IFF-ILBM-Format zu laden,
+welches bei Bildern auch den passenden Bildschirmmodus enthält. Wenn
+jedoch das Sparen von Speicherplatz Vorrang hat, können die
+"UIColors"-Dateien auch als einfache Paletten (Abschnitt @{"8.1.2" LINK PPaintCD:H/7/1/4/0016/Main 62})
+abgespeichert werden.
+
+
+@{B}5.3        Pinsel drucken@{UB}
+
+Mit dieser Funktion wird der aktuelle Pinsel gedruckt, ähnlich wie ein
+Bild mit der Funktion "Bild drucken" (Abschnitt @{"4.3" LINK PPaintCD:H/7/1/4/0049/Main 218}).
+
+Bei Amiga-Modellen, die noch nicht über das AA-Chipset verfügen, können
+Bilder mit mehr Farben (Bitplanes), als vom Betriebssystem unterstützt
+werden, nur als Pinsel gedruckt werden. Das Laden und Drucken als Bild
+würde zu einem Qualitätsverlust führen (auch wenn dieser, bedingt durch
+die leistungsfähigen Optionen von Personal Paint, nur sehr klein ausfallen
+könnte), da das Bild dem bestmöglichen Amiga-Bildschirmformat angepaßt
+werden müßte.
+
+Zum Drucken des Pinsels wird grundsätzlich das Höhen/Breitenverhältnis der
+aktuellen Umgebung herangezogen, was zu einer Verzerrung des Pinsels
+führen kann (genau so, wie er auf dem Bildschirm erscheint - Abschnitt
+@{"5.1" LINK Main 17}), wenn der Pinsel aus einer Umgebung mit anderen Seitenverhältnissen
+ausgeschnitten wurde. Das Erscheinungsbild eines Pinsels kann häufig durch
+Auswahl des passenden Bildschirmmodusses vor dem Druckvorgang optimiert
+werden (Abschnitt @{"4.5" LINK PPaintCD:H/7/1/4/0049/Main 1030}). So kann ein 320 x 200 Pixel großes GIF-Bild
+gestaucht erscheinen, wenn aus einer 320 x 256 Pixel großen PAL-Umgebung
+heraus gedruckt wird. Es führt zu besseren Ergebnissen, es aus einer
+NTSC-Umgebung gleicher Größe zu drucken.
+
+
+@{B}5.4        Fenster laden@{UB}
+
+Dieser Befehl unterscheidet sich nur insofern von seinem Gegenstück
+"Bildschirm laden" (Abschnitt @{"4.4" LINK PPaintCD:H/7/1/4/0049/Main 995}), als daß er es dem Benutzer erlaubt,
+ein einzelnes Fenster anstatt eines ganzen Bildschirms zu speichern und
+als aktuellen Pinsel zu verwenden. Dabei werden die Fenster nach ihrer
+Zugehörigkeit zum jeweiligen Bildschirm aufgelistet. Eine Zahl vor dem
+jeweiligen Fensternamen weist auf die Bildschirmgruppe hin, zu der das
+Fenster gehört.
+
+Mit Hilfe der Option "Fenster aktivieren" läßt sich sicherstellen, daß das
+zu ladende Fenster sowohl aktiv ist, (da insbesondere die Titelleiste
+inaktiver Fenster oft farblich anders dargestellt wird als die aktiver)
+als auch vollständig sichtbar. Wäre dies nicht der Fall, so ließen sich
+verdeckte Teile von im "Simple Refresh"-Verfahren dargestellten Fenstern
+nicht laden, da sie zunächst durch das Programm, welches sie ursprünglich
+geöffnet hatte, aktualisiert werden müßten.
+
+Weitere Informationen zu den von/mit Personal zu verwendenden
+Dateiformaten finden Sie in Abschnitt @{"2.7" LINK PPaintCD:H/7/1/4/2152/Main 549} (Dateiformate).
+
+
+@{B}5.5        Pinsel verarbeiten@{UB}
+
+Mit diesem Befehl werden die Bildverarbeitungsfunktionen von Personal
+Paint auf den aktuellen Pinsel - ähnlich wie auf das aktuelle Bild
+(Abschnitt @{"3.1.4" LINK PPaintCD:H/7/1/4/0017/Main 600}) - angewendet.
+
+Sobald ein "Verstreut"-, "Gruppiert"- oder "Floyd-Steinberg"-Filter zur
+Modifikation des Pinsels eingesetzt worden ist, wird die Farbpalette der
+aktuellen Umgebung über die Pinselpalette kopiert, da diese
+Rastertechniken die aktuellen Vorder- und Hintergrundfarben zur Simulation
+unterschiedlicher Schattierungen verwenden.
+
+
+@{B}5.6        Letzter Pinsel@{UB}
+
+Mit diesem Befehl wird die letzte Veränderung des Pinsels (einschließlich
+eines Ladevorgangs) rückgängig gemacht und das ursprüngliche
+Größenverhältnis wiederhergestellt.
+
+Wenn eine Operation der gleichen Klasse mehrere Male nacheinander
+durchgeführt wurde (z. B. Größenveränderung, Drehung, Änderung der
+Transparenz, usw.), erhält der Pinsel wieder das Größenverhältnis, das er
+vor der ersten Operation dieses Typs hatte.
+
+
+@{B}5.7        Pinsel löschen@{UB}
+
+Mit dieser Funktion wird der aktuelle Pinsel gelöscht und der dazugehörige
+Speicherplatz wieder freigegeben. Da dieser Vorgang mit der Funktion
+"Letzter Pinsel" nicht rückgängig gemacht werden kann, muß er nach einer
+Sicherheitsabfrage bestätigt werden.
+
+
+@{B}5.8        Malmodus@{UB}
+
+Individuelle Pinsel können in verschiedenen Malmodi verwendet werden,
+wobei jeder einzelne Modus beim Einfügen des Pinsels mit der Maus
+unterschiedliche Ergebnisse erzielt. Jeder Einstellung ist dabei ein
+anders Symbol in der Titelleiste zugeordnet.
+
+Beim Gebrauch der rechten Maustaste zum Malen wird - wenn nicht anders
+festgelegt - der gesamte Pinsel in der Hintergrundfarbe ausgefüllt.
+
+
+@{B}5.8.1      Matte@{UB}
+
+In diesem Modus malen Pinsel mit ihren eigenen Farben, dabei werden als
+transparent definierte Bereiche nicht mit in das Zielbild kopiert.
+Standardmäßig wird diesen Bereichen beim Ausschneiden des Pinsels die
+Hintergrundfarbe zugeordnet. Weitere Informationen, wie als transparent zu
+behandelnde Bereiche definiert werden können, sind in den Abschnitten
+@{"5.9.5" LINK Main 284}, @{"5.9.7" LINK Main 318} und @{"9.14.3" LINK PPaintCD:H/7/1/4/0047/Main 953} zu finden.
+
+
+@{B}5.8.2      Farbe@{UB}
+
+In diesem Modus wird der gesamte Pinsel (ohne die transparenten Teile) in
+der aktuellen Vorder- oder Hintergrundfarbe eingefügt (abhängig davon,
+welche Maustaste gedrückt wird).
+
+
+@{B}5.8.3      Ersetzen@{UB}
+
+Wie auch beim Matte-Modus, wird hier mit den individuellen Farben des
+Pinsels gemalt, allerdings werden Transparenzinformationen des Pinsels
+ignoriert.
+
+
+@{B}5.8.4      HBrite@{UB}
+
+Beim Malen im "HalfBrite"-Bildschirmmodus (Abschnitt @{"4.5" LINK PPaintCD:H/7/1/4/0049/Main 1030}) können 32
+Farben frei eingestellt werden, bei den anderen 32 handelt es sich um
+dunklere Schattierungen der ersten 32. Es erweist sich hier als nützlich,
+schnell zwischen den beiden möglichen Zuständen eines Pixels wechseln zu
+können.
+
+Dieser Modus ist dem "Farbe"-Modus recht ähnlich, da alle
+nicht-transparenten Pixel des Pinsels gleich behandelt werden. Wenn die
+linke Maustaste zum Malen verwendet wird, werden alle Pixel des Bildes
+unter dem Pinsel in ihre Gegenstücke der dunkleren HBrite-Farbe
+verwandelt, wohingegen das Malen mit der rechten Maustaste den helleren
+Ton jedes Farbpaares aktiviert.
+
+
+@{B}5.9        Farbe@{UB}
+
+Alle Unterpunkte dieses Menüs dienen dazu, die Farb- und Transparenzwerte
+des aktuellen Pinsels zu modifizieren.
+
+
+@{B}5.9.1      Neu verteilen@{UB}
+
+Wenn ein Pinsel aus einer Umgebung mit einer anderen Farbpalette geladen
+oder importiert wird, kann es unter Umständen nötig werden, daß der
+Originalpinsel so weit wie möglich erhalten wird, ohne die Farben des
+aktuellen Bildes zu beeinflussen. Während die Funktion "Farbe mischen"
+(Abschnitt @{"8.6" LINK PPaintCD:H/7/1/4/0016/Main 504}) sämtliche Farben aller vorhandenen Bilder vergleicht,
+verändert, kombiniert und mischt, wirkt sich diese Funktion nur auf den
+aktuellen Pinsel aus.
+
+"Neu verteilen" wählt für den aktuellen Pinsel diejenigen Farben aus, die
+denen des Originalpinsels am nächsten kommen. Vorausgesetzt, daß die
+entsprechenden Optionen aktiv sind (Abschnitt @{"9.8" LINK PPaintCD:H/7/1/4/0047/Main 396}), werden auf den Pinsel
+auch Rasterung und Fehlerverteilung angewendet. Nach einer Neuverteilung
+der Farben besitzt der Pinsel die gleiche Anzahl von Farben wie der
+aktuelle Bildschirm.
+
+
+@{B}5.9.2      Invers@{UB}
+
+Dieser Befehl verändert die Farben des Pinsels, indem jeder Farbposition
+in der Palette das Komplement des dieser Position zugeordneten Binärwertes
+zugeordnet wird. Dies kann z. B. für Programmierer sinnvoll sein, die den
+Effekt des Hervorhebens bei der Amiga-Benutzeroberfläche "Intuition" (der
+bei Symbolen, Piktogrammen, usw. auftritt) beobachten wollen.
+
+
+@{B}5.9.3      Hintergrund zu Vordergrund@{UB}
+
+Diese Funktion ersetzt alle Pixel des Pinsels in der Hintergrundfarbe
+durch solche in der Vordergrundfarbe. Sie stellt einen selektiven Weg zur
+Veränderung ganz bestimmter Farben des Pinsels dar.
+
+Auch wenn nicht mit Pinseln, sondern mit ganzen Bildern gearbeitet wird,
+können auf einen bestimmten Bereich begrenzte Ergebnisse erzielt werden:
+Dazu ist die Farbe, die nicht verändert werden soll, zu maskieren
+(Abschnitt @{"8.2.3" LINK PPaintCD:H/7/1/4/0016/Main 393}) und dann ein gefülltes Rechteck (Abschnitt @{"3.1.2.6" LINK PPaintCD:H/7/1/4/0017/Main 311})
+über den gewünschten Bereich zu legen.
+
+
+@{B}5.9.4      Hintergrund mit Vordergrund vertauschen@{UB}
+
+Dieser Befehl vertauscht die Pixel des Pinsels in der Hintergrundfarbe mit
+denen in der Vordergrundfarbe und umgekehrt.
+
+Die Funktion könnte z. B. dazu dienen, Workbench-Piktogramme, die für
+Betriebssystemfunktionen der Version 1.@{I}x@{UI} entwickelt wurden, den
+Farbpaletten neuerer Versionen anzupassen. Dazu sollten die Vorder- und
+Hintergrundfarbe der zweiten und dritten Farbe in der Palette zugeordnet
+werden.
+
+
+@{B}5.9.5      Neue Transparenz@{UB}
+
+Jeder Pinsel kann über transparente Bereiche verfügen, die beim Einfügen
+in ein Bild den unter ihnen liegenden Bereich nicht verändern. Der
+transparente Bereich wird durch eine zusätzliche Bitplane definiert, die
+entweder einer bestimmten Farbe zugeordnet ist (z. B. der
+Hintergrundfarbe) oder eine individuelle erstellte Form haben kann. Diese
+Bitplane wird zusammen mit dem Pinsel im IFF-ILBM-Dateiformat
+abgespeichert.
+
+Standardmäßig wird durch diesen Befehl der transparente Bereich neu
+festgelegt, d. h. er gleicht den Teilen des Bildes, die die
+Hintergrundfarbe besitzen.
+
+Durch entsprechende Auswahl der Option "Hintergrund-Transparenz"
+(Abschnitt @{"9.14.3" LINK PPaintCD:H/7/1/4/0047/Main 953}) können zwei verschiedene Einstellungen getroffen
+werden: Beim Erstellen eines Pinsels kann seine Transparenz entweder der
+Hintergrundfarbe entsprechen oder der des einfarbigen Bereiches um den
+Pinsel herum. Die Option "Neue Transparenz" ermöglicht es, einen zu einem
+früheren Zeitpunkt erstellten Pinsel mit der neuen Transparenz zu
+versehen.
+
+
+@{B}5.9.6      Füll-Transparenz@{UB}
+
+Hierbei wird die Position des "Greifpunktes" eines Pinsels (wie dieser
+gewählt werden kann, ist in Abschnitt @{"5.15" LINK Main 665} beschrieben) als Ausgangspunkt
+für eine "Fläche füllen" Operation verwendet, die den ausgewählten Bereich
+(d. h. eine Gruppe von Pixeln mit der gleichen Farbe) transparent werden
+läßt. Der Pinsel selbst wird nicht modifiziert, sondern nur diejenige
+Bitmap, die für die Transparenz sorgt. Im umgekehrten Fall wird der
+ausgewählte Bereich wieder sichtbar, wenn er schon transparent war.
+
+
+@{B}5.9.7      Nächste Transparenz@{UB}
+
+Wie oben erläutert, besitzt jeder Pinsel eine Bitplane, die Transparenz
+oder Sichtbarkeit bestimmter Bereiche festlegt. Personal Paint erlaubt das
+Erstellen und Benutzen von bis zu neun Pinseln zur gleichen Zeit. Wenn
+diese die gleiche Größe besitzen, kann die Transparenzbitplane eines
+Pinsels auch für die anderen verwendet werden.
+
+Dieser Befehl kopiert die Transparenzbitplane des folgenden Pinsels auf
+den aktuellen Pinsel. Wenn nötig, durchsucht Personal Paint dabei alle
+Pinsel und beginnt nach dem letzten wieder am Anfang.
+
+Es ist möglich, durch das Malen und Erstellen eines zweifarbigen Pinsels
+passender Größe eine Transparenzbitplane für einen anderen Pinsel zu
+erzeugen. Damit wird eine höhere Genauigkeit erzielt als mit den normalen
+Hintergrund- und Füll-Transparenzmodi erreicht werden kann.
+
+
+@{B}5.9.8      Bildpalette kopieren@{UB}
+
+Wenn ein Pinsel aus einer Umgebung mit anderen Farben importiert oder
+geladen wird, behält er auch dann seine Originalpalette, wenn er in den
+Farben der aktuellen Umgebung dargestellt werden muß. Dieser Befehl löscht
+die interne Palette des Pinsels und paßt sie derjenigen der aktuellen
+Umgebung an.
+
+Diese Operation wird automatisch durchgeführt, wenn der Pinsel das erste
+Mal in das Bild eingefügt wird.
+
+
+@{B}5.10       Clipboard@{UB}
+
+Das Amiga-Betriebssystem stellt eine Standardvorrichtung zum Austausch von
+Daten (hauptsächlich von Grafiken und Texten) zwischen Programmen zur
+Verfügung, die als "Clipboard" (Klemmbrett) bezeichnet wird. Der Inhalt
+des Clipboards wird in der Fachsprache auch @{I}public@{UI}, d. h. öffentlich,
+genannt, da die Clipboard-Daten von jedem Programm gelesen oder
+geschrieben werden können.
+
+Die Unterstützung des Clipboards ermöglicht es z. B., ein
+Workbenchpiktogramm in das Fenster des Programms "IconEdit" zu ziehen, es
+über das Clipboard an Personal Paint zu übergeben, es dort zu
+modifizieren, wieder in IconEdit zu laden und dann als neues Piktogramm zu
+speichern.
+
+Wenn es Personal Paint nicht gelingt, das Clipboard Device des Amiga zu
+öffnen (Datei "clipboard.device" in der Schublade "devs"), werden die mit
+dem Clipboard zusammenhängenden Funktionen außer Kraft gesetzt.
+
+Unter bestimmten Umständen können nachlässig programmierte Anwendungen das
+Clipboard blockieren. Dies ist z. B. bei Texteditoren der Fall, die als
+Inhalt des Clipboards grundsätzlich Text annehmen oder bei Software, die
+das Clipboard nicht vollständig ausliest und daher die Resourcen nicht für
+den Gebrauch durch ein anderes Programm wieder freigibt. Die Funktion
+Clipboard löschen dient dazu, solche Probleme - falls bekannt - zu
+vermeiden.
+
+
+@{B}5.10.1     Pinsel lesen@{UB}
+
+Dieser Befehl durchsucht das Clipboard auf Grafikdaten. Wenn ein Bild
+erkannt wird, wird es zum aktuellen Pinsel gemacht, die ursprünglichen
+Grafikdaten verbleiben aber im Clipboard.
+
+
+@{B}5.10.2     Pinsel schreiben@{UB}
+
+Diese Funktion schreibt eine Kopie des aktuellen Pinsels in das Clipboard,
+die dann von anderen Programmen benutzt werden kann (auch von Personal
+Paint). Alle vorher im Clipboard vorhandenen Daten werden durch das neue
+Bild ersetzt.
+
+
+@{B}5.10.3     Löschen@{UB}
+
+Dieser Befehl löscht die im Clipboard enthaltenen Daten, unabhängig von
+deren Typ (Grafik, Text, usw.) Dies erweist sich besonders dann als
+nützlich, wenn der Speicher zur Neige geht und sich noch ein sehr großer
+Pinsel im Clipboard befindet, der nicht mehr benötigt wird.
+
+
+@{B}5.11       Größe@{UB}
+
+Die in den folgenden Unterabschnitten beschriebenen Funktionen dienen
+dazu, die Größe des aktuellen Pinsels zu verändern. Es kann sich dabei um
+einen Standardpinsel des Programms oder auch um einen individuellen
+(benutzerdefinierten) Pinsel handeln, der dann auf die neue Größe
+gestreckt wird.
+
+Wie sich die "Mit Größe ändern"-Funktion auf die Größenveränderung eines
+Pinsels auswirkt, ist Abschnitt @{"9.13.3" LINK PPaintCD:H/7/1/4/0047/Main 814} zu entnehmen.
+
+
+@{B}5.11.1     Frei wählbar@{UB}
+
+Diese Funktion streckt den Pinsel auf eine mit der Maus bestimmte Größe.
+Bei Anwahl dieses Befehls verwandelt sich der Mauszeiger in ein
+Strecksymbol und zeigt damit an, daß der Pinsel-Streckmodus aktiviert
+ist.
+
+Sobald die linke Maustaste gedrückt wird, wird die linke obere Ecke des
+Pinsels fixiert und die rechte untere Ecke folgt der Bewegung der Maus,
+wobei Form und Größe des Pinsels verändert werden können. Die neue Größe
+wird bestimmt, indem zunächst die linke Maustaste gedrückt, dann die Maus
+bewegt und schließlich die Taste wieder losgelassen wird.
+
+Wenn gleichzeitig <Shift> gedrückt wird, kann die Größenveränderung des
+Pinsels mit der Maus nur unter Beibehaltung seiner ursprünglichen
+Größenverhältnisse erfolgen. Daraus folgt, daß das Bild in feinen
+Abstufungen vergrößert, aber nicht verzerrt werden (also unproportional
+horizontal oder vertikal gestreckt) werden kann.
+
+
+@{B}5.11.2     Kleiner@{UB}
+
+Mit Hilfe dieses Befehls wird der Pinsel um den kleinstmöglichen Schritt
+verkleinert, wobei das korrekte Seitenverhältnis (d. h. die x/y
+Proportionen) beibehalten wird.
+
+
+@{B}5.11.3     Größer@{UB}
+
+Gegenteil von "Kleiner", wird hier der Pinsel leicht vergrößert.
+
+
+@{B}5.11.4     Halbieren@{UB}
+
+Mit dieser Funktion wird die Größe des Pinsels halbiert. Da sowohl Breite
+als auch Höhe um 50% verringert werden, verringert sich die
+Pinseloberfläche auf ca. 25% des Originalpinsels.
+
+Diese Funktion (wie alle, die die Abmessungen eines Bildes verringern)
+führt zu einem Verlust von Daten. Da sich ja die Größe der Punkte, aus
+denen das Bild zusammengesetzt wird, nicht ändert, muß sich zwangsläufig
+deren Anzahl verringern. Bei dieser Funktion verringert sich die Anzahl
+der Punkte, aus denen der Pinsel besteht, etwa auf ein Viertel. Selbst für
+einen Menschen ist hier nur schwer zu entscheiden, welche Punkte dem
+Reduzierungsvorgang zum Opfer fallen sollen.
+
+Wenn die "Mit Größe ändern"-Option (Abschnitt @{"9.13.3" LINK PPaintCD:H/7/1/4/0047/Main 814}) aktiviert ist,
+werden auch diejenigen Pixel bei der Berechnung der Zielpixel
+berücksichtigt, die verloren gehen. So kann z. B. eine Gruppe von zwei
+roten und zwei gelben Pixeln zu einem einzigen orangen Pixel werden. An
+Grenzen zwischen stark kontrastierenden Farben wird dieser Effekt auch als
+"Kantenglättung" oder "Anti-Aliasing" bezeichnet.
+
+
+@{B}5.11.5     Halbe Breite@{UB}
+
+Dieser Befehl stellt eine Unterfunktion von "Halbieren" dar. Es wird nur
+die Breite um 50% verringert, die Höhe bleibt unverändert.
+
+
+@{B}5.11.6     Halbe Höhe@{UB}
+
+Diese Funktion "staucht" den Pinsel. Die Breite bleibt unverändert, die
+Höhe wird halbiert.
+
+
+@{B}5.11.7     Verdoppeln@{UB}
+
+Diese Funktion verdoppelt sowohl die horizontalen als auch die vertikalen
+Ausmaße des Pinsels. Der sich daraus ergebende Pinsel besitzt, verglichen
+mit dem Original, die vierfache Punktanzahl.
+
+
+@{B}5.11.8     Doppelte Breite@{UB}
+
+Dieser Befehl ist eine Unterfunktion von "Verdoppeln", der Pinsel wird
+lediglich in seiner horizontalen Ausdehnung verdoppelt. Die Höhe bleibt
+unverändert.
+
+
+@{B}5.11.9     Doppelte Höhe@{UB}
+
+Dieser Befehl ist eine Unterfunktion von "Verdoppeln", der Pinsel wird
+lediglich in seiner vertikalen Ausdehnung verdoppelt. Die Breite bleibt
+unverändert.
+
+
+@{B}5.12       Drehen@{UB}
+
+Mit dieser Funktion läßt sich der Pinsel auf verschiedene Art und Weise
+rotieren.
+
+
+@{B}5.12.1     Beliebig@{UB}
+
+Dieser Befehl fixiert bei einem Druck auf die linke Maustaste die linke
+obere Ecke des Pinsels und ermöglicht es, diesen durch Umherbewegen der
+Maus zu drehen. Wegen der höheren Geschwindigkeit wird bei der Festlegung
+des Drehwinkels nur der Umriß des Pinsels dargestellt.
+
+
+@{B}5.12.2     90 Grad@{UB}
+
+Diese Funktion dreht den Pinsel jeweils um 90 Grad im Uhrzeigersinn, wobei
+die horizontale und vertikale Ausdehnung des Pinsels vertauscht werden.
+Handelt es sich um einen quadratischen Pinsel (d. h. wenn er genau so
+breit wie hoch ist), verändert sich das Seitenverhältnis nicht.
+
+Der Greifpunkt folgt grundsätzlich der Drehung des Pinsels. Wenn die
+Funktion viermal hintereinander auf den gleichen Pinsel angewendet wird,
+ist das Ergebnis wieder mit dem Ausgangspinsel identisch.
+
+
+@{B}5.12.3     Horizontal kippen@{UB}
+
+Die gleiche Spiegelungsfunktion, die schon in Abschnitt @{"4.7" LINK PPaintCD:H/7/1/4/0049/Main 1236} beschrieben
+wird und den Inhalt des gesamten Bildes modifiziert, existiert auch für
+Pinsel.
+
+Dieser Befehl verwandelt die Grafik, welche den Pinsel bildet, in sein
+eigenes "Spiegelbild". Die Punktzeilen von links nach rechts, aus denen
+sich das Originalbild zusammensetzte, werden in umgekehrter Reihenfolge
+angeordnet (d. h. von rechts nach links).
+
+
+@{B}5.12.4     Vertikal kippen@{UB}
+
+Wie "Horizontal kippen" modifiziert auch diese Funktion die grafische
+Darstellung des Pinsels. Bei jeder Aktivierung dieses Befehls wird der
+Pinsel "auf den Kopf gestellt".
+
+Das Ergebnis dieser Funktion kann durch ihr erneutes Anwenden auf den
+Pinsel rückgängig gemacht werden. Dies gilt im übrigen auch für
+"Horizontal kippen".
+
+
+@{B}5.12.5     Verzerren@{UB}
+
+Dieser Befehl führt zu ähnlichen Ergebnissen wie eine Kombination aus
+Streckung und Rotation, er kann dazu benutzt werden, den Pinsel um ein
+bestimmtes Maß zu verzerren. Wie auch in den oben beschriebenen Modi, kann
+die rechte untere Ecke bei gedrückter Maustaste frei bewegt werden. Wird
+die Maus horizontal bewegt, bleibt die Oberseite des Pinsels fixiert,
+während bei einer Vertikalbewegung der Maus die linke Seite festgehalten
+wird. Eine kombinierte Mausbewegung führt zu Ergebnissen zwischen den
+beiden Extremwerten. Dieser Vorgang kann am ehesten mit dem Verzerren
+einer dünnen Gummifolie verglichen werden. Wie auch bei einigen anderen
+Bildverarbeitungswerkzeugen, kann hier eine Erklärung die praktische
+Erfahrung kaum ersetzen.
+
+Das gleichzeitige Drücken der <Shift>-Taste begrenzt die Mausbewegung auf
+die Ebene, in die die Maus zuerst gezogen wurde.
+
+
+@{B}5.13       Abstreifen@{UB}
+
+Die Unterpunkte dieses Menüs dienen dazu, den zum Speichern eines Pinsels
+erforderlichen Speicher zu untersuchen und zu optimieren.
+
+
+@{B}5.13.1     Information@{UB}
+
+Dieses Dialogfenster dient zur Darstellung von Informationen über die
+Größe und die Anzahl der Bitplanes des aktuellen Pinsels. Außerdem werden
+die minimale Größe und die Mindestanzahl von Bitplanes angezeigt, mit
+denen der gleiche Pinsel ohne Datenverlust abgespeichert werden kann.
+
+Mit Hilfe dieser Informationen kann geprüft werden, ob bestimmte Bitplanes
+nicht benötigt werden (wenn z. B. ein Pinsel nur einige der ersten Farben
+des Bildes enthält) und ob externe, transparente Bereiche vorhanden sind,
+die gelöscht werden können. Werden mehr Bitplanes benutzt, als notwendig
+sind oder wenn Randzonen dieser Bitplanes zur Speicherung von
+Transparenzdaten verwendet werden, kann mit Hilfe der anderen Funktionen
+dieses Menüs Speicher eingespart werden.
+
+
+@{B}5.13.2     Kanten@{UB}
+
+Dieser Befehl schneidet alle Kanten am Rand des Pinsels ab, die
+ausschließlich transparente Pixel enthalten.
+
+
+@{B}5.13.3     Bitplanes@{UB}
+
+Diese Funktion entfernt die letzte unbenutzte Bitplane des aktuellen
+Pinsels. So wird z. B. die letzte Bitplane gelöscht, wenn die zweite
+Hälfte der Farben in der Pinselpalette nicht verwendet wird.
+
+Die daraus resultierende Pinselpalette verliert dann im Verhältnis zu den
+unbenutzten Farben einen Teil der Informationen.
+
+
+@{B}5.13.4     Nicht sichtbar@{UB}
+
+Dieser Befehl entfernt alle nicht sichtbaren Teile des Pinsels (d. h.
+Teile, die z. B. durch die Titelleiste oder die Werkzeugleiste verdeckt
+sind, die außerhalb des sichtbaren Bildschirmbereichs oder außerhalb des
+Vergrößerungsfensters liegen).
+
+Wenn z. B. nur der zentrale Teil eines Pinsels mit 256 Farben, der größer
+ist als der Bildschirm, gedruckt werden soll, wird der Griff des Pinsels
+zunächst in der Pinselmitte plaziert (Abschnitt @{"5.15.4" LINK Main 707}). Dann wird der
+Pinsel in die Ecke des Bildschirms bewegt, bevor dieser Befehl über sein
+Tastaturkürzel zu aktivieren ist. Der verbleibende Teil des Pinsels kann
+dann in die gegenüberliegende Ecke des Bildschirms verlagert werden, wo
+die anderen Ecken abgeschnitten würden. Schließlich könnte das in der
+Mitte verbleibende Rechteck gedruckt werden.
+
+Da zur Bewegung der Maus und zur Auswahl der auszuschneidenden Teile eine
+ständige visuelle Kontrolle notwendig ist, sollte dieser Befehl nur durch
+das ihm zugeordnete Tastaturkürzel aufgerufen werden. Wenn der Mauszeiger
+zur Ausführung des Menübefehls verwendet wird, kann dies zu
+unvorhersehbaren Ergebnissen führen.
+
+
+@{B}5.14       Konturen@{UB}
+
+Diese Funktionen erzeugen verschiedene Umrisse um die nicht-transparente
+Begrenzung des Pinsels, wobei die Farbe des Vordergrundes verwendet wird.
+Zum Erzielen dreidimensionaler Effekte wird angenommen, daß sich die
+gedachte Lichtquelle in der linken oberen Ecke des Pinsels befindet und
+einen Schatten nach rechts unten wirft.
+
+
+@{B}5.14.1     Einfach@{UB}
+
+Dieser Befehl zieht einen einfachen Rahmen in der Vordergrundfarbe um den
+Pinsel. Um die Kanten wird kein Umriß gezogen.
+
+
+@{B}5.14.2     Eckig @{UB}
+
+Dieser Effekt ähnelt dem vorhergenden, erzeugt aber schärfer definierte
+Kanten.
+
+
+@{B}5.14.3     Schatten@{UB}
+
+Diese Funktion ähnelt der zum Erzeugen eines einfachen Rahmens, versieht
+aber die untere und rechte Seite des Pinsels mit einem doppelt so dicken
+Rahmen.
+
+
+@{B}5.14.4     3-D@{UB}
+
+Dieser Effekt versieht die obere und die linke Seite des Pinsels mit einem
+Rand in der aktuellen Hintergrundfarbe, für die Umrahmung der unteren und
+rechten Seite wird entsprechend die Vordergrundfarbe benutzt. Wenn eine
+Kombination aus hellen und dunklen Farben gewählt wird, erscheint das
+resultierende Objekt optisch hervorgehoben. Im Gegensatz dazu erscheint
+der Pinsel "eingedrückt", wenn die Hintergrundfarbe dunkel und die
+Vordergrundfarbe hell gewählt wird.
+
+
+@{B}5.15       Greifpunkt@{UB}
+
+Als Greifpunkt wird derjenige Punkt der Pinselfläche bezeichnet, dem der
+Mauszeiger zugeordnet ist. Er kann frei bestimmt werden und sich sogar
+außerhalb des Pinsels befinden, was besonders bei sehr großen Pinseln
+sinnvoll sein kann.
+
+Die Position des Greifpunktes wird bei Verwendung des IFF-ILBM-Formates
+automatisch mit den Pinseldaten abgespeichert.
+
+Einige Funktionen führen automatisch zur Positionierung des Mauszeigers an
+einer bestimmten Stelle des Pinsels (z. B. Drehen, Größenveränderung,
+usw.)
+
+
+@{B}5.15.1     Frei wählbar@{UB}
+
+Diese Option ermöglicht die freie Bestimmung des Greifpunktes. Dazu wird
+der Mauszeiger mit gedrückter linker Maustaste über die gewünschte
+Position auf dem Pinsel bewegt (der Pinsel wird dabei fixiert) und die
+Taste dann wieder losgelassen.
+
+Dieser Befehl kann auch zur Auswahl der durch die Funktion
+"Füll-Transparenz" (Abschnitt @{"5.9.6" LINK Main 307}) beeinflußten Bereiche zum Ausfüllen
+bestimmter Bereiche verwendet werden.
+
+
+@{B}5.15.2     Links oben@{UB}
+
+Mit dieser Option wird der Greifpunkt in der linken oberen Pinselecke
+plaziert.
+
+Diese Position ist die einzige, die durch die Funktion zur
+Größenveränderung eines Pinsels unbeeinflußt bleibt.
+
+
+@{B}5.15.3     Rechts oben@{UB}
+
+Diese Option verbindet den Pinselgriff mit der rechten oberen Ecke des
+Rechtecks, welches den Pinsel enthält.
+
+
+@{B}5.15.4     Mitte@{UB}
+
+Der Greifpunkt wird in der Mitte des Pinsels plaziert. Wenn die Mitte
+genau zwischen zwei Punkten liegt, wird der untere zweier Punkte in der
+gleichen Spalte oder der rechte von zwei nebeneinanderliegenden Punkte
+gewählt.
+
+Dies ist die von Personal Paint benutzte Standardposition für den
+Pinselgriff.
+
+
+@{B}5.15.5     Links unten@{UB}
+
+Mit dieser Option wird der Greifpunkt in der linken unteren Ecke des
+Pinsels plaziert.
+
+
+@{B}5.15.6     Rechts unten@{UB}
+
+Diese Option verbindet den Greifpunkt mit der rechten unteren Pinselecke.
+
+@ENDNODE

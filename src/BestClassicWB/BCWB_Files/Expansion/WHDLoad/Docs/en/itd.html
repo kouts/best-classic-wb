@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE>ITD * Image To Disk</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: itd.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>ITD * Image To Disk</h3>
+Tool to write disk images back to a floppy like device.
+<h4>Installation</h4>
+ITD is contained only in the <tt>DEV</tt> archive, not in the <TT>USR</tt>
+archive.<br>Copy it to C: or a similar place.
+<h4>Options</h4>
+<table>
+<tr><td colspan=2>
+<tt>File/A,Device,Format/S,BS=BlockSize/N,ASync/S,ForceOverwriteLargeDevice/S</tt>
+</td></tr><tr><td valign=top>
+<tt>File/A</tt>
+</td><td>
+name of the file which contains the disk image to write to the device
+</td></tr><tr><td valign=top>
+<tt>Device</tt>
+</td><td>
+the device to which ITD will write the image
+<br>default "DF0:"
+<br>example "RAD:"
+</td></tr><tr><td valign=top nowrap>
+<tt>Format/S</tt>
+</td><td>
+if enabled the disk will also be formatted while written, for most devices this
+makes no difference
+</td></tr><tr><td valign=top>
+<tt>BlockSize/N</tt>
+</td><td>
+the amount of data read and written during each cycle, the default is the size
+of a track (BlocksPerTrack*SizeBlock)<br>
+if operating on larger devices it may improve the performance to use a larger block
+size but beware that some devices don't work correctly with block sizes larger
+then 130,560 ($1fe00) or even 65,024 ($fe00)
+</td></tr><tr><td valign=top>
+<tt>ASync/S</tt>
+</td><td>
+if enabled ITD will write asynchron to the destination device<br>
+don't use if source file and destination device are located on the same
+physical device, because it will slow down the operation<br>
+if either of source file and destination device supports DMA it will
+significant improve the performance of the copy operation
+</td></tr><tr><td valign=top>
+<tt>ForceOverwriteLargeDevice/S</tt>
+</td><td>
+normally ITD will not read from files or write to devices larger
+than 2,000,000 bytes. Using this switch it will operate on files and devices
+with any size.
+</td></tr>
+</table>
+<h4>Return code</h4>
+Set to 0 on success otherwise 20.
+<h4>Background</h4>
+ITD can write to any trackdisk like device. To avoid problems (e.g. corrupting
+your harddrive) it does not write to devices larger than 2,000,000 bytes except
+option ForceOverwriteLargeDevice/S is used. If the write operation will go outside
+the 4 GiB bounds it will use TrackDisk64 commands.<br>
+There will be NO verify performed.<br>
+If the image is smaller than the device you will get a warning message. ITD
+will not change the remaining tracks in this case but will round up the size to
+a full block and clear the trailing space. If the image is larger you will also
+get a message and ITD will write as much data as fits on the device.
+</BODY>
+</HTML>

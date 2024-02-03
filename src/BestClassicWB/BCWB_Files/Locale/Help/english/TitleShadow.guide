@@ -1,0 +1,338 @@
+@database
+@node main "Titleshadow v1.0"
+
+@{u}@{b}Titleshadow 1.0@{ub}@{uu}
+
+©2001 Peter Gordon. This patch is FREEWARE!
+
+This software is a PATCH. It works fine here, but it IS a kludge, so your mileage
+may vary. Please e-mail me any problems you find. YOU USE THIS PATCH AT YOUR
+OWN RISK!
+
+@{"Disclaimer       " LINK discl}
+@{"Introduction     " LINK intro}
+@{"Requirements     " LINK requi}
+@{"Usage            " LINK usage}
+@{"The Prefs Program" LINK prefr}
+@{"Troubleshooting  " LINK troub}
+@{"Contact Me       " LINK contc}
+@{"To Do            " LINK todo}
+@{"Known Bugs       " LINK bugs}
+@{"History          " LINK history}
+
+@{"Thanks!          " LINK thanks}
+
+Please e-mail me if you like this software! --> mrtickle@amiga4k.ndo.co.uk
+@endnode
+
+@node discl "Disclaimer"
+
+@{u}@{b}Disclaimer@{ub}@{uu}
+
+Usage of this software is ENTIRELY at the users risk. The author takes no
+responsibility for ANY damage or unexpected behaviour caused by the use
+of this software. The author makes NO guarrantee either explicit or
+implied of any kind about this software.
+
+By using this software, you agree to be bound by these terms.
+
+@endnode
+
+@node intro "Introduction"
+
+@{u}@{b}Introduction@{ub}@{uu}
+
+I recently installed the fantastic Birdie patch on my system. It looked
+great, but with some window patterns, it was hard to read the titlebars
+of windows, so I thought i'd try and write a patch that would add a shadow
+effect to window titles so I could read it, and here is the result.
+
+TitleShadow can add either a shadow or border with the pen of your choice
+to window titles. By default it only works on the workbench screen, but you
+can make it work on any pubscreen you like.
+
+Please e-mail me if you like this software! --> mrtickle@amiga4k.ndo.co.uk
+
+@endnode
+
+@node requi "Requirements"
+
+@{u}@{b}Requirements@{ub}@{uu}
+
+Umm... an Amiga. It has been tested on OS3.5 and OS3.9, but it should work with
+kickstart 2+
+
+@endnode
+
+@node usage "Usage"
+
+@{u}@{b}Usage@{ub}@{uu}
+
+Installing TitleShadow is very easy, just run the supplied install script.
+If you are using TitleShadow alongside VisualPrefs, it is important that you
+make sure that TitleShadow is run BEFORE VP, which the installer is unable
+to detect automatically!
+
+It also needs to be run BEFORE birdie.
+
+The installer, by default, places TitleShadow at the END of the user-startup.
+Simply cut everything between ";BEGIN TitleShadow" and ";END TitleShadow"
+and paste it BEFORE VP & Birdie.
+
+Once you have installed TitleShadow and rebooted, your windowtitles may look
+a little horrible (with black text on a black shadow), so you will need to
+run the @{"prefs editor" LINK prefr} to configure titleshadow to your tastes.
+
+@endnode
+
+@node prefr "TitleShadow Preferences"
+
+@{u}@{b}TitleShadow Preferences@{ub}@{uu}
+
+TitleShadow can have different types of shadows for active and inactive
+windows, can render titles in different colours, and has different sets
+of preferences for every public screen you tell it to patch. The
+preferences editor is used to configure all of these options.
+
+Once you have run the prefs you will see the following gadgets:
+
+· Public Screens
+
+  This is a list of all the screens that TitleShadow will patch. By default
+  it only contains "Workbench". To add other screens, make sure the screen is
+  open, and click "Add". This will bring up another window with all the
+  currently open public screens. If the screen you want to patch doesn't show
+  up on this list, it is a private screen and therefore you cannot patch it
+  with TitleShadow.
+  
+  Simply click on the screen name you wish to add, and it will be added to the
+  public screens list on the main window.
+  
+  To configure TitleShadow for the screen you just added, click on its name
+  in the "Public Screens" list, and the preferences program will "Jump" to
+  that screen and allow you to configure it.
+
+· Shadow Type
+
+  This changes the type of shadow rendered for Active and Inactive windows.
+  The currently selected options will show up in the "Preview" to the right
+  hand side of the window.
+
+· Custom Pens?
+
+  People using VisualPrefs can set different pens for their window titles
+  using the "Gui" preferences program. If this option is NOT checked, your
+  window title colours will stay to whatever they are set in VisualPrefs
+  (or Palette prefs if VP is not installed).
+  
+  By setting this checkbox, you can make TitleShadow override the window
+  title colours with another pen. (Active Pen & Inactive Pen)
+
+· Shadow Pen
+
+  This is the colour of the shadows.
+
+· Birdie Mode
+
+  Make sure this box is checked for ALL screens that Birdie patches,
+  and not checked for ALL screens that it doesnt.
+
+@endnode
+
+@node troub "Troubleshooting"
+
+@{u}@{b}Troubleshooting@{ub}@{uu}
+
+@{b}After a while my titles change colour, whats going on?@{ub}
+
+Another program is changing the colour of the pen that you have selected
+to use with TitleShadow. You should use a utility like FullPalette
+(available on Aminet) to lock the pens.
+
+
+@{b}The titles on inactive windows are in a solid rectangle of colour,
+instead of my birdie backdrop!@{ub}
+
+Make sure you have "Birdie Mode" ticked in TitleShadowPrefs for this screen
+
+@{b}I have my windowtitles centered, but the shadow appears in the wrong place@{ub}
+
+Make sure TitleShadow is run BEFORE any patch that centres your window titles
+(such as VisualPrefs)
+
+@{b}Sometimes my window titles disappear (i'm running Birdie)@{ub}
+
+Make sure TitleShadow is run BEFORE Birdie.
+
+@{b}All my windows are rendered the same, but I have different settings for
+active and inactive windows@{ub}
+
+If you use the same pen for active windows and inactive windows (Fill Pen and
+Inactive Fill Pen in VisualPrefs), TitleShadow cannot tell the difference
+between active and inactive windows. Simply create two pens with the exact same
+colour, and use one of them as the Fill Pen and the OTHER one as Inactive Fill
+Pen.
+
+@endnode
+
+@node contc "Contact Me"
+
+@{u}@{b}Contact Me@{ub}@{uu}
+
+Send me bug reports, suggestions, praise etc. to:
+
+mrtickle@amiga4k.ndo.co.uk
+
+Please don't report bugs listed @{"here" LINK "bugs"} because I'm already
+aware of them and they should be fixed in future versions.
+
+My ICQ UIN is 34403081
+
+@endnode
+
+@node todo "To Do"
+
+@{u}@{b}To Do@{ub}@{uu}
+
+· Fix any bugs people find
+· Write better docs
+· Make it a commodity
+· Localisation
+· An option to set global preferences for ALL public screens, and use pen
+  sharing to find the appropriate pens dynamically (suggested by Andreas
+  Kürzinger)
+· Different shadow colours for Active/Inactive window titles
+· Suggestions... :)
+
+@endnode
+
+@node bugs "Known bugs"
+
+@{u}@{b}Known Bugs@{ub}@{uu}
+
+  Please don't report these bugs, I already know them :)
+
+  · Prefs editor cannot detect inactive pen colours set within VisualPrefs.
+    The preview in the editor in this case is wrong, but it will look fine
+    on the actual window titles.
+  · When you change the settings in the prefs editor and click "Use", "Save",
+    or "Test", the windows only change to the new settings when you activate,
+    move, or otherwise cause them to be refreshed.
+
+@endnode
+
+@node history "History"
+
+@{u}@{b}History@{ub}@{uu}
+
+v1.00 (24.09.2001)
+
+  + Final touches to documentation
+  + Full release
+
+v0.94ß (15.07.2001) (Internal release to beta testers)
+
+  + Included installer script
+  + Completed amigaguide documentation
+  + Re-synchronised version numbers :D
+
+v0.93ß (03.07.2001) (Internal release to beta testers)
+
+  + Fixed a (dumb) bug which caused nasty crashes introduced with 0.92
+
+v0.92ß (03.07.2001) (Internal release to beta testers)
+
+  + Fixed bug where if a program updated its window title, it could trash the
+    title if you werent running Birdie (reported by Ernie Chorny, Gabriele Svelto,
+    Uros Lepota, Stefan Martens, Jaca/Dreamolers-CAPS, and Martin Nolastnamegiven ;)
+  + Completely re-wrote the active window detection. Before it used
+    intuitionbase->activewindow, which is WRONG during window refreshes. This
+    caused inactive windows to be temporarily drawn with active titles. It now
+    uses a completely different method which should work much better. This
+    also completely removes the AWeb bug, rather than just working around it,
+    and also fixes the same bug in the Storm C environment and some other programs
+    (reported by Jaca/Dreamolers-CAPS)
+  + Added ability to have different preferences for each pubscreen
+  + Finished this guide file
+  + Included third-party icons with the release archive
+
+
+v0.91ß
+
+  + Added a workaround to avoid a bug with AWeb. This bug caused the contents
+    of the website window to be erased until you resized or scrolled the AWeb
+    window. I know why this bug happens, and I will try and fix it properly in
+    time for the full 1.0 release.
+
+v0.9ß (25.03.2001)
+
+  + Bumped revision to 0.9 as this is basically 1.0 without an installer script,
+    proper guide, or enough testing for it not to be considered BETA.
+  + Added prefs editor
+  + Removed command line options
+  + Added ability to work on a selected list of pubscreens
+  + Added seperate settings for active and inactive windows
+  + Actually runs under OS2.0 now (oops!) Whether it actually works under 2.0 is
+    another matter (please let me know!!)
+  + Removed VisualPrefs GUI patch because it didn't work properly
+  + You can now remove titleshadow, as long as no conflicting patches
+    are run after it (titleshadow can detect this and will warn you if
+    you try to quit it in these circumstances)
+
+v0.3ß (31.12.2000)
+
+  + Added option to set an alternative pen for when a windowtitle is rendered
+    with the same pen as the shadow (suggestion by Daniel Westerberg)
+  + Added ability to modify settings without a reboot (suggestion by Daniel
+    Westerberg)
+
+v0.2ß (25.12.2000)
+
+  + Added (buggy) Visual Patch option
+  + Added big shadow option
+
+v0.1ß (??.12.2000)
+
+  First public release
+
+@endnode
+
+@node thanks "Thanks!"
+
+@{u}@{b}Thanks@{ub}@{uu}
+
+@{b}Extra special thanks to the following:@{ub}
+
+  Stefan Martens for translating the installer and guide into german.
+  Philippe Bovier for translating the installer into french.
+  Daniel Lindqvist for translating the installer and guide into swedish.
+
+  Uros Lepota <beauty@tesla.rcub.bg.ac.yu>,
+  Andreas Kürzinger <Satanas666@freenet.de>, and
+  Fabrizio Bartoloni <lanch@tiscalinet.it> for the icons
+
+@{b}Special thanks to the beta testing team:@{ub}
+
+  Daniel Lindqvist
+  Espen Terjesen
+  Stefan Martens
+  Andreas Kürzinger
+  Allan Nyholm Nielsen
+  Philippe Bovier
+  James Maurice Battle
+  Efim Shuvikov
+
+@{b}Thanks also to everyone who has sent feedback:@{ub}
+
+  Lazy Jones
+  Stuart Caie
+  Daniel Westerberg
+  Ernie Chorny
+  Gabriele Svelto
+  Jaca/Dreamolers-CAPS
+  Martin (no last name given)
+  Richard Friend
+  Jack York
+  .. any i forgot!
+
+@endnode

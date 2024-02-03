@@ -1,0 +1,125 @@
+<HTML>
+<HEAD>
+<TITLE>Preguntas Mas Frecuentes (Frequently Asked Questions, FAQ)</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: faq.html 1.4 2015/12/23 22:35:27 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>Preguntas Mas Frecuentes (Frequently Asked Questions, FAQ)</h3>
+<table>
+<tr><td valign=top><i>
+Pregunta:
+</i></td><td><b>
+Vale, me baje el instalador y tengo problemas ya sea con la instalación o el
+inicio. Estoy seguro que estoy haciendo todo correctamente. Que hago ahora?
+</b></td></tr><tr><td valign=top><i>
+Respuesta:
+</i></td><td>
+Este comportamiento erróneo puede deberse a un numero de razones:
+<ul>
+<li>Tooltypes faltantes o erróneas <br> Algunos parches no se ejecutan correctamente (o no se ejecutan para nada) si
+Ud. no configura las Tooltypes correctas para su sistema. Lea la documentación para encontrar
+que Tooltypes están soportadas. Ejemplos de Tooltypes que pueden ayudar son
+NoCache, NoVBRMove, NoAutoVec, PAL/NTSC, NoMMU.
+<li>lea el fichero readme que viene con el paquete del instalador <br>Allí usualmente se explican
+algunos problemas específicos, claves o tooltypes que deben configurarse.
+<li>versión incorrecta de WHDLoad<br> La mayoría de los instaladores requieren la última versión de WHDLoad
+y no se ejecutarán con una versión mas vieja. La regla de oro es siempre tener instalada
+la última versión.
+<li>su máquina es incompatible <br> Especialmente una CPU 68040/060 o algunas tarjetas
+turbo/otro hardware pueden causar problemas. Intente desactivar todo el hardware extra
+y arrancar el instalador nuevamente.
+<li>versión no soportada <br> Muchos juegos comerciales se han vendido en mas de una
+versión (versión de precio completo/nueva versión a precio reducido/versión de cubierta de revista, versión
+PAL/NTSC,...). Por supuesto un instalador solo puede funcionar si ha sido escrito específicamente para una
+versión en particular de un juego. Si Ud. tiene una versión diferente del mismo juego, no funcionará. En este
+caso, la única forma de usar el instalador es contactar al autor del instalador y pedirle que brinde soporte para
+su versión. En la mayoría de los casos el autor le ayudara a parchar su versión del juego también, dentro
+de unos pocos días.
+<li>versión vieja del instalador <br> Tan pronto como se detecta y remueve un error, la
+nueva versión del parche se pone disponible en el sitio de Internet de WHDLoad. Siempre
+obtenga la última versión del instalador. Por favor tenga en cuenta que la última versión
+no siempre es la disponible en Aminet. Algunos parches no aparecen nunca en Aminet,
+y muchos aparecen allí con varias semanas de retraso!
+<li>Ud. descubrió un error <br> Si bien todos los parches son testeados antes de liberarlos para su uso, un
+error puede haberse escapado sin ser detectado. Si Ud. piensa que ha descubierto un error, escriba
+un reporte detallado de su problema al autor del parche. Para esto, use el formulario
+de reporte de errores. Intente reportar su problema de forma tan exacta como sea posible.
+Si nosotros no somos informados acerca de los errores no podremos corregirlos. Nota: el UNICO lugar
+correcto para reporte de problemas/errores es el formulario de reporte de errores, no
+comp.sys.amiga.games o cualquier otro foro dado que no todos los desarrolladores leen allí.
+</ul>
+</td></tr>
+<tr><td valign=top><i>
+Pregunta:
+</i></td><td><b>
+Tengo un juego para el cual no encuentro un instalador.
+</b></td></tr><tr><td valign=top><i>
+Respuesta:
+</i></td><td>
+Haga un listado de los programas que desea soportados. También puede incluir juegos
+que son instalables a disco duro por si mismos (archivos que pueden copiarse y/o instalador
+provisto por el mismo juego) que tengan problemas (aun con simples problemas de
+degradación o carecer de la posibilidad de salir del juego).
+Tenga en mente que una persona solamente es capaz de parchar unos 25 juegos por
+año. Indique con una prioridad cuales son sus juegos favoritos (por ej.
+mediante ! y +) y cuales no le agradan (-), y confirme por Ud. mismo que juegos
+ya disponen de la posibilidad de ser instalados a disco duro.
+</td></tr>
+<tr><td valign=top><i>
+Pregunta:
+</i></td><td><b>
+Es posible utilizar WHDLoad para instalar una demo o un juego que utiliza el
+sistema operativo?
+</b></td></tr><tr><td valign=top><i>
+Respuesta:
+</i></td><td>
+En general no es posible para una demo o un juego que se ejecuta dentro de WHDLoad acceder
+al SO fuera del mismo, desde el momento en que WHDLoad ha sido arrancado. Ud. como el programador del
+Esclavo requerido debe parchar todos los accesos al SO. Ya sea deshabilitando tales accesos o emulándolos
+adecuadamente. Para la emulación existen los paquetes llamados KickEmu. Están disponibles para diferentes
+versiones de la Kickstart (por ej. 'Sources/whdload/kick13.s'). Usando una imagen de una kickstart
+real, crean un entorno de SO completo dentro de la memoria de WHDLoad. También hay un fichero
+ReadMe extra relacionado con esto: 'Sources/whdload/kick.readme'.
+</td></tr>
+<tr><td valign=top><i>
+Pregunta:
+</i></td><td><b>
+Si WHDLoad usa la MMU (la opcion <a href="opt.html#NoMMU">NoMMU/S</a> no
+está configurada y en un 68030 la opción <a href="opt.html#MMU">MMU/S</a> esta configurada)
+hay breves errores en los gráficos y(o en la música (ej. Beast2). Un error?
+</b></td></tr><tr><td valign=top><i>
+Respuesta:
+</i></td><td>
+Esto ocurre durante la carga. La razón es que WHDLoad debe deshabilitar las interrupciones
+durante la carga por un corto periodo de tiempo si la MMU esta siendo usada. Esto
+comportamiento no puede ser cambiado.
+</td></tr>
+<tr><td valign=top><i>
+Pregunta:
+</i></td><td><b>
+Cuando intento usar el Tooltype NTSC WHDLoad muestra un Gurú.
+</b></td></tr><tr><td valign=top><i>
+Respuesta:
+</i></td><td>
+Existe un error en el ScreenManager del MCP 1.30 que causa que las
+llamadas OpenScreenTags de WHDLoad se corrompan. Desactive el
+ScreenManager en MCP para intentar solucionar el problema.
+</td></tr>
+<tr><td valign=top><i>
+Pregunta:
+</i></td><td><b>
+Cuando ejecuto juegos estos van mas rápido que lo normal (la música suena extraña) y la
+parte inferior de la pantalla ha desaparecido. He intentado ambas Tooltypes PAL y NTSC pero
+nada parece ayudar.
+</b></td></tr><tr><td valign=top><i>
+Respuesta:
+</i></td><td>
+Si Ud. esta usando el manejador de monitor Voodoo, desactive "FakeNativeModes" en las Tooltypes
+del manejador del monitor.
+</td></tr>
+</table>
+</BODY>
+</HTML>

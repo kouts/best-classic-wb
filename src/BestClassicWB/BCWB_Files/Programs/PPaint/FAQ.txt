@@ -1,0 +1,679 @@
+
+ [1mPersonal Paint Frequently Asked Questions[22m
+
+ The following part was copied from the Amiga FAQ (Frequently Asked
+ Questions) section on the Cloanto web site. For an updated version of
+ this document, please refer to <http://www.cloanto.com/amiga/faq.html>.
+ If you have a question which is not answered here, please refer to the
+ Cloanto web site at <http://www.cloanto.com>.
+
+
+ [1mUpgrades[22m
+
+ [3mCan I upgrade my copy of Personal Paint to the latest version? [23m
+
+ Yes. All commercial versions of Personal Paint can be upgraded to the
+ latest version at a special price. A special upgrade offer from this
+ version of Personal Paint to the latest version is available in the
+ ReadMe.txt file, contained in the same directory as this text. Personal
+ Paint included with the Personal Suite, and the Personal Paint bundles
+ which are part of the Computer Combat and Amiga Magic packs can also be
+ upgraded. All of these packages have a serial number on the software
+ which must be indicated when ordering the upgrade. There are no other
+ formalities: only indicate the serial number of the current version of
+ Personal Paint when ordering the upgrade. The serial number can be found
+ on the disk label for packages manufactured by Cloanto, on the inside
+ cover of CD-ROMs like the Personal Suite and Personal Paint, or on the
+ registration card for bundle packs and some other packages manufactured
+ under license. Demonstration versions, free samples and cover disk issues
+ of Personal Paint (which have no serial number) cannot be upgraded. The
+ Kara Collection contains a free upgrade to Personal Paint 6.4 (and not
+ the full program), but the serial number of the The Kara Collection
+ itself cannot be used to upgrade to a higher version of Personal Paint:
+ to upgrade again, please use the old Personal Paint serial number. Each
+ serial number can be used to upgrade to a specific new version only
+ once.
+
+
+ [3mDo all dealers and distributors who carry Personal Paint also offer the
+ upgrades? [23m
+
+ No, because the upgrade procedure involves some additional overhead for
+ the organizations handling it. The largest distributors of Cloanto
+ products also sell Personal Paint upgrades. In particular, companies like
+ Schatztruhe and Software Hut (see the Amiga Distributors section on the
+ Cloanto web site) accept orders via mail, telephone, fax and E-mail,
+ accept credit cards and ship upgrades worldwide.
+
+
+ [3mHow much does the upgrade cost? [23m
+
+ Please contact our Distributors directly (contact information is
+ available at http://www.cloanto.com/amiga/). Depending on your location,
+ they will be happy to specify the exact upgrade and shipping costs. An
+ upgrade of the Personal Paint software (main program, I/O libraries,
+ blitting libraries, Rexx scripts and user interface languages) from
+ version 7.0 to version 7.1 is available at no cost in the Amiga Download
+ section of the Cloanto web site (it does not upgrade cover disk
+ version).
+
+
+ [1mUser Interface[22m
+
+ [3mThe "Pull-Down" and "Pop-up" options are shadowed. Why? [23m
+
+ These user interface features were introduced with Personal Paint 7, and
+ are implemented in the "personal_req.library", which is used by Personal
+ Paint, as well as by other Cloanto programs. Personal Paint 7 contains
+ and installs the new library (in the local "libs" directory). If,
+ however, an older version of the library is in use when Personal Paint 7
+ is run, then the menu items associated to the new features remain
+ shadowed. To correct this, terminate the other programs using the old
+ library, force a "FlushLibs" (type "Avail FLUSH" in the Shell) and
+ restart Personal Paint. You can safely replace the libraries used by
+ other programs with the newer one, which is compatible with previous
+ versions.
+
+
+ [3mI want to use NewIcons for my image icons, but the NewIcons menu item is
+ shadowed. What can I do? [23m
+
+ This feature requires the "newicon.library", which is available from the
+ Internet as well as from other free distribution sources such as Aminet
+ CD-ROMs.
+
+
+ [3mWhy do some user interface add-ons have no effect on Personal Paint? [23m
+
+ In Personal Paint, there are different contexts in which the available
+ palette colors can change, at which parts of the user interface have to
+ be redrawn in consideration of the new environment. Because the system
+ functions that handle the drawing of certain user interface details like
+ gadgets and borders do not support dynamic change of palette colors and
+ drawing pens, Personal Paint has to use its own code to render many user
+ interface objects. This means that, for example, if you have a tool like
+ "CycleToMenu", it has no effect on Personal Paint (which, by the way,
+ provides equivalent functionality through a specific option).
+
+
+ [3mWhy doesn't Personal Paint use the system Locale library for the
+ localization of the user interface? [23m
+
+ Personal Paint was already multilingual before this component was added
+ to the operating system, so this was not an option. By using plain ASCII
+ files, we give users full access to the user interface strings and
+ shortcuts. Being able to make small or big changes with a standard text
+ editor is in general very appreciated. Personal Paint uses the
+ locale.library for other things, such as detecting the system default
+ language when the program starts.
+
+
+ [1mSpeed and Memory[22m
+
+ [3mDoes Personal Paint use the FPU? Do you have custom versions of Personal
+ Paint for the different 680x0 and PowerPC microprocessors? [23m
+
+ Yes, Personal Paint detects and uses the FPU (floating point unit, part
+ of optional mathematical processor hardware), if present, to do things
+ like rotating objects. However, most calculations in a graphics package
+ like this are done using integer mathematics rather than floating point
+ functions. Therefore, a FPU has no impact on overall performance.
+ Personal Paint, which ships in a single executable version, is also
+ already optimized for different microprocessors. Critical parts are
+ optimized for execution within the cache of a 68020+. Regarding other
+ microprocessors, such as the 68040/60, it should be kept in mind that the
+ major performance boost comes from the improved speed and efficiency of
+ the newer microprocessors, and not from new instructions. We recompiled
+ Personal Paint for these microprocessors, but noticed that there was no
+ perceivable speed improvement. Indeed, it appears that having different
+ versions of Personal Paint optimized for the various CPUs would in part
+ increase user satisfaction. However, this mainly psychological advantage
+ is challenged by a reality in which we have to do considerable
+ maintenance, support and testing for each version which we ship, and
+ which we want to be as reliable as possible. On the other hand, as you
+ probably know, in Personal Paint 7 some of the most performance-critical
+ code is now in external libraries, which can easily be replaced with
+ versions compiled for different CPU and blitter architectures.
+ Recompilation of code for a PowerPC processor rather than a 68K CPU which
+ would otherwise have to be emulated does indeed provide significant speed
+ advantages. While our default Amiga reference CPU remains the 68000, we
+ are working with various emerging Amiga architectures, and have included
+ different 68K and PowerPC versions of the main program and its libraries
+ on the Personal Paint 7.1 CD-ROM. Some of these are also available in the
+ Download section.
+
+
+ [3mOn my Amiga, Personal Paint 7 is slower than the previous version. Is
+ this right? [23m
+
+ No, and it can easily be corrected by changing some settings. Personal
+ Paint 7 introduces for the first time support for different CPUs (68K,
+ PowerPC, emulators, etc.) and blitter logic through external libraries.
+ The program itself is more refined than the previous version, and is
+ therefore faster. If you notice a performance degradation, you are most
+ likely using a library which is causing some functionality to be
+ emulated. For example, blitting on a 68020 Amiga is at least 50% slower
+ if the 68K blitting libraries are used instead of the Agnus blitter
+ library. Obviously, this setting is not recommended, although it may be
+ automatically selected by the program if, for example, it detects that
+ the host graphics system does not store bitmaps in a type of RAM
+ accessible by the Amiga blitter. Please check the instructions included
+ with the software, and the newest libraries available in the Download
+ section.
+
+
+ [3mWhy is image processing with some true color programs faster than with
+ Personal Paint's palette-based image processing? [23m
+
+ One aspect that many graphics enthusiasts do not immediately appreciate
+ is that palette-based graphics is much more difficult, in complexity and
+ computation, than true color graphics. It comes natural to think that "It
+ uses less memory, so it must be simpler and faster..." The palette-based
+ algorithms of Personal Paint are very advanced, but still, whenever for
+ example the programs does some processing on a pixel, it must first look
+ up the value of that pixel in the palette, then modify the value, and
+ then, for that new color, either search the palette for the most similar
+ color entry available, or apply some type of dithering. This must be done
+ for each pixel. In true color graphics, instead, all a program needs to
+ do is to directly access and modify the pixel color value. If you
+ consider that Personal Paint allows for real time editing of
+ palette-based graphics on a plain 68000 computer, you can better
+ understand what an achievement this is. Image processing in Personal
+ Paint has another difference, compared to some other programs. All image
+ processing effects in Personal Paint can be edited by the user and are
+ interpreted on the fly during execution. Other programs have most effects
+ hard-coded, maybe even in optimized machine language code. While Personal
+ Paint's effects are faster than those of some other programs, they could
+ indeed be even faster if we added some hard-coded effects.
+
+
+ [3mI have 20 Mbytes of Fast RAM, 1 Mbyte of Chip RAM and a graphics board:
+ Why does Personal Paint still use some of my precious Chip RAM? [23m
+
+ Only Amiga makes it possible... Two crucial parts of the Amiga system
+ require bitmap data to be stored in Chip RAM: the original (Agnus)
+ blitter chip, and the Graphics library. Personal Paint uses both. By
+ using its own virtual memory functions, Personal Paint limits the use of
+ Chip RAM to the objects currently being processed (for example, graphics
+ environments, brushes and animation frames other than the current one can
+ be stored in Fast RAM, or even on disk). If you look at the documentation
+ included with the program and with the blitter libraries available in the
+ Download section, you will see that Personal Paint 7 can work without
+ using Chip RAM for its bitmaps. This is done in two steps: first, a
+ blitting library not using the Agnus blitter must be selected (turn off
+ "Settings/Graphics/Amiga Blitter" in Personal Paint); second, all
+ functions of the Graphics library which require Chip RAM must be replaced
+ with compatible functions which can work on Fast RAM. The original Amiga
+ graphics.library does not support this, but some of the newer third-party
+ replacement libraries (e.g. original CyberGraphX from version 40.100
+ upwards, with NOCHIPSCREEN and PLANES2FAST active) do. Click here for
+ additional information.
+
+
+ [3mI disabled the Amiga Blitter option, but Personal Paint still seems to
+ store some bitmaps in Chip RAM. [23m
+
+ Your graphics system probably does not provide for full graphics.library
+ functionality in Fast RAM. Personal Paint would normally detect such an
+ environment automatically. The use of Fast RAM for all bitmaps can
+ however also be forced by setting the PBlit_ChipMem environment variable
+ to No. Manually setting this variable to No can be dangerous: if the
+ graphics system does not provide full functionality for bitmaps in Fast
+ RAM, then the system may crash, or Personal Paint functions like the
+ Rectangle and pixel Freehand tools, among others, may not work properly.
+ In general, make sure that you have the latest Personal Paint program
+ file and blitting libraries (available in the Download section), and that
+ your graphics system replaces the original Amiga graphics.library in a
+ way that all bitmap operations can be performed in Fast RAM. If you are
+ using CyberGraphX, make sure that the NOCHIPSCREEN and PLANES2FAST
+ CyberGraphX settings are active (=1), and that you are using at least
+ CyberGraphX version 40.100. Please note that some CyberGraphX
+ "compatible" systems may have higher version numbers but still not
+ provide a fully Fast RAM-compatible graphics.library replacement. As an
+ additional step, useful with certain RTG drivers, you may want to
+ completely remove all original Amiga monitor files from the system (they
+ are stored in "Devs/Monitors", from where they can be moved to
+ "Storage/Monitors"), leaving only the modes associated to the drivers
+ providing support for bitmaps in Fast RAM, and also disable the Amiga ROM
+ video modes by switching off "Settings/Graphics/15 kHz Video" in Personal
+ Paint.
+
+
+ [3mI am running Personal Paint on an Amiga with very little RAM. Are there
+ any tricks to minimize the use of RAM? How can I know exactly how much
+ free RAM is available for use? [23m
+
+ If you are installing the floppy disk edition of Personal Paint to a hard
+ disk, make sure that you activate the "Decompress installed program
+ files" installation option. On the floppy disk version, Personal Paint is
+ compressed, and because of this it temporarily uses more RAM during load.
+ To get the maximum possible amount of RAM for Personal Paint, boot from a
+ default Workbench, with no utilities or commodities. Disable, or reduce
+ to a minimum, the buffers and cache RAM assigned to floppy disks, hard
+ disk partitions and other devices. Set the Workbench screen to the
+ smallest possible size, using only two colors. The memory indication on
+ the Workbench title bar is not very useful, as it does not account for
+ memory fragmentation. If you need to know how much memory is available
+ for bitmaps, for example, type "Avail" in the Shell, and see the
+ "Largest" fields. Personal Paint's Memory Information requester provides
+ both accurate memory information, and options to flush certain types of
+ buffers. Section 11.1 of the User Guide lists several other suggestions.
+
+
+ [1mAnimation[22m
+
+ [3mDoes animation require double-buffering, and what exactly is
+ double-buffering? [23m
+
+ All native Amiga screen modes support double-buffering, which is a
+ combination of hardware features and software functionality. Officially,
+ on the Amiga, animation without double-buffering is not supported, but
+ Personal Paint can do it nevertheless. This is especially useful, for
+ example, to work with 256-color animations on older Amigas that do not
+ support these screen depths, and using a display card that does not
+ support double-buffering. Personal Paint can create and play animations
+ even in screen modes which do not support double-buffering, although more
+ complex animations might run more smoothly in double-buffering screen
+ modes. We have determined that most third-party display cards would
+ support some form of double-buffering in hardware. Unfortunately, in most
+ cases the graphics drivers supplied with these cards do not provide
+ double-buffering functionality. When creating animations in
+ non-double-buffered modes, please keep in mind that in the IFF ANIM
+ format, information on the default screen mode for the animation must be
+ stored with the file. Personal Paint stores the Display ID of the current
+ screen mode. If this is a non-double-buffering mode, some older players
+ may fail to play the animation, especially if no other screen modes with
+ the required number of colors are available on the target machine.
+ Personal Paint displays a warning message to remind you of this, but the
+ message does not indicate an error. For additional information on
+ associating screen modes with your artwork, please refer to the document
+ "Personal Paint for Authors" in the tutorial section.
+
+
+ [3mOnce I have an animation, how do I copy or cut part of it to create an
+ anim-brush? [23m
+
+ Click three times on the Define Brush tool (until a "+" sign appears).
+ Sections 3.1.6 and 6.9 of the User Guide.
+
+
+ [3mIs there a way to automatically paste all frames of an anim-brush to
+ consecutive animation frames? [23m
+
+ Yes, it works that way if <Caps Lock> on the keyboard is on when you
+ paste. Make sure that there are at least as many frames in the animation
+ as there are frames in the anim-brush. Section 6.8 of the User Guide.
+
+
+ [3mI experimented with fade-in, fade-out and multiple palettes, but the
+ resulting animations tend to "flicker" whenever there is a palette
+ change. Any suggestions? [23m
+
+ This usually happens in screen modes that do not support
+ double-buffering, as well as in some particular combinations of hardware
+ and software. Yes, we do have a few suggestions to correct this. The
+ problem which you describe happens because for a brief moment the old
+ frame is displayed with a new palette. In these cases, try to split the
+ change in two frames. For example, let's assume that you wish your
+ animation to start with a black frame, and slowly fade-in. We always
+ recommend not to use an "all black" palette for the first frame, as this
+ can make editing difficult. For the first frame, use a standard palette,
+ having for example black as the first entry. Leave the frame completely
+ black. Beginning with the second frame, you can already put the image as
+ you want it to appear after the fade-in sequence, only that this time the
+ palette would be completely black. Use the Storyboard to create
+ intermediate frames, progressively revealing the fully-colored frames
+ starting from the third frame.
+
+
+ [3mIs there a way to remap all frames of a multi-palette animation to a
+ single palette? [23m
+
+ Yes, but it requires two steps. A "single palette" remap mode is
+ activated by pressing <Shift> when requesting a color-reduction. In order
+ to color-reduce an animation, the number of colors must first be
+ increased ("Project/Image Format/Colors"), and then reduced again.
+ Section 6.9 of the User Guide.
+
+
+ [1mTips & Tricks[22m
+
+ [3mI only have 64 levels of color accuracy on my graphics board. Is there
+ any way of achieving a proper 24-bit palette? [23m
+
+ Yes: set REDBITS, GREENBITS and BLUEBITS to 8 in the "Startup_1.set"
+ settings file. Section C.3 of the User Guide.
+
+
+ [3mIs it possible to change the Default Tool for the file that gets saved to
+ something else, a picture viewer for instance? [23m
+
+ Of course: Personal Paint takes this data from a reference icon stored in
+ the local "PPaint_Icons" drawer. Just change that icon. There is one for
+ pictures, one for animations, etc. Alternatively, you can leave the
+ preset "PPView" Default Tool, and reprogram PPView to use a viewer of
+ your choice by using SetPPView ("Utilities" drawer).
+
+
+ [3mThe Edit Palette requester contains only a row of colors. Instead of
+ scrolling this row, can I see and access all colors at once? [23m
+
+ It was not possible to fit an extended color palette and the palette
+ requester in the smaller screen resolutions. However, even when the Edit
+ Palette requester is displayed, you can still select and pick colors both
+ from the image and, most importantly, from the palette which is displayed
+ under the tool bar.
+
+
+ [1mTroubleshooting[22m
+
+ [3mPersonal Paint sometimes opens a screen in a mode which my monitor cannot
+ display. Can this be changed? [23m
+
+ Yes. Personal Paint queries the system Display Database to determine the
+ best available screen mode when it starts, when the display settings are
+ changed, and when an image is loaded. In theory, the system should
+ neither contain information on screen modes that cannot be displayed, nor
+ allow the use of such screen modes. Such a condition, if present, should
+ be corrected by removing any inappropriate Monitor files. In general,
+ even if you have a third-party display card which is fully supported by
+ your monitor, and unless you explicitly remove the original Amiga Monitor
+ entries, Personal Paint may still prefer some original Amiga screen modes
+ because they provide a better color resolution, for example (the AGA chip
+ set supports 24-bit palettes, whereas some display cards do not). Look at
+ the monitor files in "Devs/Monitors": if there are any screen modes that
+ are not supported by your hardware, move them to "Storage/Monitors". Some
+ Amiga systems incorporate support for some 15 kHz screen modes in ROM (an
+ not in a Monitor file). If this is the case, and your monitor cannot
+ display these frequencies, disable the "Settings/Graphics/15 kHz Video"
+ option in Personal Paint. If the problem affects the initial screen of
+ Personal Paint, so that you cannot access this menu, edit the
+ "Startup_1.set" settings file with a text editor. Personal Paint also has
+ a "Lock Display Mode" option ("Project/Image Format") which is very
+ useful if you prefer to always use the same screen mode, regardless of
+ the format and screen mode information which may be best when loading a
+ new image.
+
+
+ [3mThe brushes and drawing tools are not aligned with the mouse pointer. [23m
+
+ This is a known bug of several third-party Amiga graphics libraries. It
+ affects mouse pointers (of any program) having a "hot spot" other than
+ 0:0 (top left of the pointer), and only on AGA systems. The result is
+ that the drawing pen is not aligned with the center of the cross-hair
+ pointer, for example. If you experience this problem, try and boot in ECS
+ mode, or upgrade your graphics drivers.
+
+
+ [3mWhen I clear the screen, it doesn't get cleared behind the tool bar and
+ the screen bar. Certain drawing tools also seem to have no effect in
+ those regions. [23m
+
+ It looks like you have "Settings/Graphics/Clip" active. Turn it off.
+
+
+ [3mGIF animations using transparency created with Personal Paint leave a
+ "trail" when viewed with certain browsers. [23m
+
+ There are two possible reasons for this, and both are related to the use
+ of transparency. The first involves the Amiga IBrowse software prior to
+ version 1.11, and the second appears with some PC browsers displaying
+ some very specific animation sequences generated by the original release
+ of Personal Paint 7.0. In general, it can be said that not all aspects of
+ GIF animation, especially when transparency is used, are covered by the
+ GIF89a specification. The standards in this field are set and extended by
+ companies like Netscape and Microsoft, which do not always fully
+ implement the specifications. If you have Personal Paint 7.0, please
+ refer to the update available in the Download section
+ ("AnimGIF_Update.lha"). Along with other enhancements to the GIF
+ animation modules originally released with Personal Paint, the update
+ offers increased compatibility with some aspects of GIF animation which
+ are interpreted in different ways by different browsers. The Amiga
+ IBrowse software up to version 1.1 incorrectly displays some types of GIF
+ animation with transparency (to be precise: those in which the frame size
+ is not constant). This can be solved by upgrading the IBrowse software.
+ In general, we make one recommendation: if transparency is not necessary
+ in an animated GIF, it should be disabled ("Settings/Transparency/None")
+ before creating the anim-brush, or removed on existing anim-brushes
+ ("Settings/Transparency/None", then "Brush/Color/New Transparency"). This
+ prevents ambiguities, and can also considerably reduce the file size.
+
+
+ [3mThe Storyboard window sometimes "freezes", especially when the scroll bar
+ is moved very quickly. [23m
+
+ The Storyboard, like other parts of Personal Paint and of the Amiga
+ operating system, relies on a carefully-designed balance of tasks having
+ different priorities, and which run in parallel to each other.
+ Third-party utilities like "Executive" change this balance. We have seen
+ that while this can improve the responsiveness of some applications, it
+ can also create problems with multi-tasked programs like Personal Paint.
+ The Storyboard problem described here is a typical symptom of this, but
+ functions like loading an animation and changing screen environment may
+ also be affected. If you are using a program like Executive, make sure
+ that it does not modify in any way the task priorities of Personal Paint
+ and its child tasks. The task name of Personal Paint is "PPaint".
+
+
+ [3mAfter a time-consuming task is completed, the mouse pointer remains in
+ "busy" mode. [23m
+
+ This may happen if the "SleepingPointers" utility is installed without
+ the associated "PatchPointer" program. When both tools are installed, the
+ animated pointers work just fine.
+
+
+ [3mSome Rexx scripts give an "Error 37" (Not enough memory) [23m
+
+ This can easily happen with scripts like "Image Catalog", which need a
+ lot of memory, if the "Work Directory" is set to a device using RAM (even
+ indirectly, e.g. "T:", which is usually assigned to "RAM:T"). To use the
+ hard drive instead of RAM, set the path accordingly (e.g. "Work:T" or
+ "PPaint:T" instead of "T:") in the initial script settings.
+
+
+ [3mCertain Rexx scripts do not seem to produce any action or result, or even
+ produce an error. [23m
+
+ So-called "tool" scripts can only be run from within Personal Paint,
+ because they need some specific interaction which is only possible from
+ the program screen. If they are launched from the Workbench, they are not
+ be executed. Also, some tool scripts require an entry in the
+ "Startup_1.set" file (as provided by default with the software), whereas
+ for non-tool scripts this entry is in general optional. Make sure that
+ the script is run from the program tool bar, and that it has a matching
+ entry in the program startup file.
+
+ Due to a bug in certain versions of the Amiga operating system, Rexx
+ scripts executed with a path name longer than about 70 characters may not
+ be executed (a "The file does not exist" error occurs). If this is the
+ case, it is necessary to either shorten some of the directory names which
+ make up the path leading to the scripts, or move the Rexx scripts to a
+ higher level in the directory structure.
+
+ Personal Paint 7.0 has a small inconsistency in the Rexx interface which
+ does not impair the functionality of any known scripts, but might confuse
+ developers of new scripts. It only affects "tool" scripts which require
+ the user to define a rectangular area on the image as part of the usage
+ of that tool ("%w" and/or "%h" parameters). For these tools, unlike other
+ script tools, the mouse button ("%b") parameter is passed to the script
+ in the 0-2 range, instead of the standard (and documented) 1-3 range.
+ This can be corrected by inserting the following piece of code in the
+ part of the script which processes the "button" variable (initialized
+ with "PARSE ARG ..."):
+
+     Version 'PROGRAM'
+     PARSE VAR RESULT pver'.'prev
+     IF pver < 7 | (pver = 7 & prev < 1) THEN
+     button = button + 1
+
+
+ [3mDo you recommend a particular procedure for debugging Rexx scripts? [23m
+
+ Yes, and we advise to also use it before contacting us for support issues
+ related to possible problems with the macros included with Personal
+ Paint:
+
+ - Load the script in a text editor, insert a "TRACE R" instruction
+ (without quotes) on a new line immediately after the first comments ("/*
+ ... */") and save the script
+
+ - Type "TCO" in a Shell window to open the Rexx Tracing Console
+
+ - Execute the script
+
+ - When the problem occurs, go back to the Tracing Console, open it in
+ full screen mode, select all the trace output with the mouse, and copy it
+ to the clipboard (with <Amiga-c>)
+
+ - Paste the trace output in your favorite text editor or E-mail
+ software.
+
+
+ [3mI experience a system crash or Software Failure during the use of
+ Personal Paint. What can I do? [23m
+
+ Please try if this also happens booting from an original Workbench floppy
+ disk. If you do not have a "clean" Workbench disk to boot from, check the
+ "S:startup-sequence" and the "S:user-startup" scripts and the
+ "SYS:Wbstartup" directory to see what programs are launched from there.
+ Try to remove as many programs as possible, especially commodities,
+ screen promotion utilities and programs using DataTypes. Disable all
+ system backdrop images. Set the printer driver to a standard system
+ printer driver. Check the system with a good antivirus program. If you
+ have the "personal _sview_io.library" in "PPaint/libs", but you have
+ doubts about the functionality of your version of the SuperView software
+ (older versions are known to cause problems), also remove that library
+ from "PPaint/libs". Then reboot your system and start Personal Paint as
+ the first program. If you use a third-party display card, manually
+ activate the "Project/Image Format/RTG" option in Personal Paint. If you
+ have Enforcer, run it with the "ShowPC" option. Does the problem persist?
+ If not, try to restore, one after the other, the features that had been
+ disabled, and see what was causing the problem. Neither Personal Paint
+ 6.4 nor Personal Paint 7 have any bugs known to be able to cause a crash,
+ but it remains our goal to be compatible with all configurations around,
+ so whatever happens, we would like to know about it. Of course, if there
+ is something unexpected in our own software, we would like to fix it
+ immediately. If the software error can be traced with Enforcer, please
+ send us the first few "PC*" fields which are output by Enforcer. Please
+ note that the 68060 CPU is supported only by Enforcer version 37.70 or
+ higher.
+
+
+ [1mOther Information[22m
+
+ [3mI read that there is a scanner plug-in for Personal Paint. I am very
+ interested: where can I get it, and what does it do? [23m
+
+ It is available from RBM Computertechnik, telephone +49 5251 640646, as
+ part of the ScanQuix package. This component allows you to treat scans as
+ direct loads in Personal Paint, without intermediate steps (scan, save,
+ load). Parameters can be set through an interface provided by ScanQuix.
+
+
+ [1mGeneral (All Products)[22m
+
+ [3mWhere can I get pricing information? [23m
+
+ Please contact our Distributors directly (see
+ http://www.cloanto.com/amiga/).
+
+
+ [3mInstallation fails with an apparent filing system error.
+ Some AmigaGuide links do not work.
+ Selecting Retrace in an AmigaGuide document does not work.
+ Some files cannot be accessed.
+ The selection of a configuration icon (e.g. "English") always results in
+ a "ShowPath failed returncode 22" message. [23m
+
+ The majority of such reports are caused by problems of the CD-ROM filing
+ system being used. We recommend that another filing system be tried, such
+ as the excellent and freely distributable AmiCDROM (it is included in
+ most Aminet and Fred Fish collections). AmiCDROM also solves certain
+ problems specific to the original software of the CDTV, CD³² and A570
+ CD-ROM drive. In case of difficulties with AmiCDROM up to version 1.15,
+ it is recommended to try a newer version of AmiCDROM itself (at least v.
+ 2.x, available under the new name "AmiCDFS"), or the CD-ROM filing system
+ included from version 3.1 of the Amiga OS. Users of Asim CDFS prior to
+ version 3.5 may want to contact Asimware Innovations Inc. for an upgrade
+ to the latest version of the Asim CDFS.
+
+
+ [3mARexx programs do not run, and an error message such as "RexxMast:
+ Unknown command" or "ARexx server not active" appears. [23m
+
+ The system does not have ARexx, or the RexxMast software was not started.
+ RexxMast is a program normally stored in the "System" drawer of the
+ Workbench (System) disk. It is usually launched automatically from the
+ Startup-Sequence, or when executing ARexx scripts with the "RX" command,
+ but it can also be started manually by double-clicking on the RexxMast
+ icon. On older operating systems such as 1.3, ARexx must be installed
+ separately.
+
+
+ [3mWhen a documentation file is opened with a double-click, the
+ corresponding manual appears and everything works fine, but if the file
+ is opened using "drag and drop" with ToolManager and MultiView, only a
+ page with AmigaDOS commands appears. [23m
+
+ AmigaDOS command scripts are used to make sure that the AmigaGuide
+ documents are loaded in the correct language and with the correct viewing
+ software depending on the computer's configuration. If these scripts
+ appear on the screen as a text page instead of being executed, it means
+ that the system lacks the DataType which recognizes and executes AmigaDOS
+ files instead of displaying them as text. Such a DataType (the Script
+ DataType) is included in most Cloanto products, and is also available in
+ the Download section.
+
+
+ [3mAfter manual hard disk installation, a few links in certain manuals
+ appear to be "broken". [23m
+
+ The manuals were designed to be used from the original medium or a full
+ installation, where all files are available at the same time. In order to
+ preserve the complex hypertext cross-references which link together
+ hundreds of different text and graphics files, it is necessary to install
+ the entire CD-ROM.
+
+
+ [3mSome items installed to the hard disk do not work properly if the
+ original product's CD-ROM is in the drive while the system boots. [23m
+
+ Under certain versions of the operating system, the presence of a
+ specific storage volume interferes with an Assign command trying to
+ assign or reassign the same name as the storage volume (e.g. "PPaintCD").
+ Remove the CD-ROM while the system boots.
+
+
+ [3mAfter double-clicking on a configuration icon (e.g. English, Deutsch,
+ etc.) to configure a program to run without installation, some programs
+ which normally run from the hard drive begin to interact with the medium
+ from which the configuration was run. While this is normally acceptable,
+ there may be reasons for preferring otherwise. [23m
+
+ The floppy disk and CD-ROM configuration procedures are designed in a way
+ that they do not interfere with existing installed programs. However, the
+ simple fact that the configuration scripts add some references to the
+ CD-ROM in order for the software to be able to run from there may be
+ undesired in some cases. All programs on the CD-ROM also run properly
+ without a prior configuration of the CD-ROM (i.e. a double-click on one
+ of the language icons), although in that case it is not possible to
+ guarantee a consistent environment (e.g. the operating system may not
+ know where to find some viewers). With this in mind, the (uninstalled)
+ software can be used without selecting any of the configuration icons.
+
+
+ [3mWhen the medium used to run a non-installed program is removed from the
+ drive, the icon remains displayed on the Workbench screen. Using other
+ programs, a system requester may appear asking the user to insert the
+ medium again. [23m
+
+ Before removing the medium (CD-ROM, floppy, etc.) from the drive,
+ double-click on the Reset icon which appears on the bottom right of the
+ medium's Workbench window. This cancels any references (such as an
+ AmigaDOS Assign to ColorFonts on the CD-ROM) that may have been
+ associated to the medium during its use.
+
+
+
+ [3mCopyright © 1992-1998 Cloanto[23m

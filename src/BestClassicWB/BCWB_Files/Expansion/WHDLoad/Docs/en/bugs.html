@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<TITLE>Bugs</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: bugs.html 1.13 2021/12/21 21:58:14 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Unknown Bugs</h3>
+If you discover any new bugs or do have any other problems please report them
+via the bugtracker at <a
+href="http://mantis.whdload.de/search.php?project_id=4&hide_status_id=-2">
+http://mantis.whdload.de</a>.
+<h3>Known Bugs</h3>
+<h4>General problems</h4>
+<ul>
+<li>There is a general problem with all extra hardware connected to the Amiga
+which generates Interrupts at random or regular times. An example is my
+network card (Hydra). If I have my TCP/IP stack running, nearly every
+installed program will freeze after a short time because the card creates
+PORTS interrupts (the same type as interrupts created by the keyboard) which
+cannot correctly replied to by the installed program. This is because as soon
+as the request has been acknowledged with an rte, the next interrupt occurs.
+To avoid this problem, the TCP/IP stack must be stopped <a
+href="opt.html#ExecuteStartup">before starting</a> WHDLoad.<br>
+In the same category are falling USB-stacks (use "AddUSBHardware REMOVE ALL"
+for Poseidon) and the Voodoo interrupt of Mediator boards (you have to set
+"VoodooInt = No"). Starting WHDLoad version 16.8 there is a built-in work around
+for the interrupts created by Mediator boards, therefore no special settings are
+required.
+
+<li>If you get errors concerning reading/writing of files check that your hard
+disks are correctly configured. WHDLoad reads large chunks of data (>1 MiB) which
+may easily show up improper configurations although other applications seems to
+work fine. That means make sure that the setting of MaxTransfer and Mask in
+HDToolBox on all partitions are correctly set. A safe value (for awkward
+hardware) is MaxTransfer = 0x07FEC and Mask = 0x07FFFFC. This applies
+especially to cards in the PCMCIA slot and to IDE-CF-card adapters.<br>
+
+Another reason for problems can be memory allocations. There are configurations
+which have problems with Reverse memory allocations. In such a case WHDLoad can
+be forced to not use the Reverse mode by setting the <a
+href="opt.html#NoMemReverse">NoMemReverse/S</a> option.
+
+<li>If you are using the Picasso96 software you must make sure that the
+option FakeNativeModes is set to NO (tooltype of the monitor driver).
+Otherwise there will be graphics errors and maybe crashes.
+<li>There are some rare hardware configurations which don't support the MMU
+related features of WHDLoad. The only systems affected are 68030 based ones. The
+option <a href="opt.html#MMU">MMU/S</a> must be not enabled on these systems! If
+the option is set, WHDLoad will freeze the whole machine. Currently the
+following hardware is known to cause problems: accelerator boards "Apollo
+A630", "Apollo 1230", "Elbox 1230" and "Magnum MK2".
+<li>There seems to be problems with RAM expansions via PCMCIA on A1200.
+WHDLoad may show error requesters like <tt>Dos error #235 (executable not valid)
+on loading "xxx.slave"</tt>. The reasons seems to be that the memory is incorrectly
+bound into the system memory lists, because WHDLoad attempt to allocate
+memory using the flag MEMF_REVERSE and gets an invalid return value (pointer to non
+existent memory). It's not known if this happens only with specific cards or under
+specific configurations.
+</ul>
+<h4>Developer related</h4>
+<ul>
+<li>The operation of switching between the operation system (OS) and the
+installed program is not completely reliable. The problem is that most Custom
+registers and some CIA registers cannot be read and therefore cannot be saved
+and restored. WHDLoad itself does not change these registers, but when it
+switches from the installed program to the OS (e.g. to load a file from disk)
+the OS may change some of these not restorable registers. If the installed
+program depends on all registers remaining unchanged, this will cause
+problems. It is known that the OS changes at least cop2lc, bltafwm and
+bltalwm, and perhaps more. As a workround for this problem there is a
+possibility to restore the changed registers during the switch sequence. See
+<A HREF="../autodoc.html#WHDLTAG_CBSWITCH_SET">WHDLTAG_CBSWITCH_SET</A> for more
+info.
+</ul>
+</BODY>
+</HTML>

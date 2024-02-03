@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<TITLE>Utilisation de resload_Protect#?</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: prot.html 1.8 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Utilisation de resload_Protect#?</h3>
+<h4>Th&eacute;orie</h4>
+Dans certaines situations, il est tr&egrave;s utile d'&ecirc;tre inform&eacute; quand le programme
+install&eacute; acc&egrave;de &agrave; certaines zones de la m&eacute;moire.
+Avec la fonction <a href="../autodoc.html">resload_Protect#?</a>, il est
+possible de prot&eacute;ger certaines parties de la m&eacute;moire contre la lecture et/ou
+l'&eacute;criture du processeur. "Prot&eacute;ger" veut dire que chaque acc&egrave;s &agrave; une r&eacute;gion
+de la m&eacute;moire prot&eacute;g&eacute;e cr&eacute;era un Access Fault exception avec comme r&eacute;sultat
+un message appropri&eacute; g&eacute;n&eacute;r&eacute; par WHDLoad. Si vous d&eacute;clarez une partie de la
+m&eacute;moire comme prot&eacute;g&eacute;e en utilisant la fonction <a
+href="../autodoc.html">resload_Protect#?</a> WHDLoad modifiera les
+"affected page descriptor" dans l'arbre de traduction MMU.
+Maintenant chaque acc&egrave;s &agrave; cette page prot&eacute;g&eacute;e, le CPU provoquera un Access Fault
+exception. Cette exception est trait&eacute;e dans WHDLoad qui en v&eacute;rifiera la raison.
+Si c'&eacute;tait un acc&egrave;s &agrave; une page prot&eacute;g&eacute;e mais que l'acc&egrave;s ne touche pas &agrave; la
+m&eacute;moire prot&eacute;g&eacute;e, cet acc&egrave;s sera &eacute;mul&eacute;, et le programme continuera &agrave; fonctionner
+normalement. Autrement, WHDLoad quittera avec un message appropri&eacute;. Si l'acc&egrave;s
+&eacute;tait un acc&egrave;s &agrave; des "instructions stream" (par ex. le CPU essaye de charger
+le code), ce sera toujours &eacute;mul&eacute;, en d'autres termes, les fonctions <a
+href="../autodoc.html">resload_Protect#?</a> affecteront seulement
+la lecture et l'&eacute;criture des donn&eacute;es. Le fait est que chaque acc&egrave;s &agrave; une page
+prot&eacute;g&eacute;e (actuellement la taille de la page est de 4096 octets) produira un Access Fault,
+m&ecirc;me si la partie prot&eacute;g&eacute;e n'est que de 1 octet, en cons&eacute;quence la vitesse
+d'ex&eacute;cution du programme pourra ralentir &eacute;norm&eacute;ment. Sp&eacute;cialement si une partie du
+code se trouve dans la m&ecirc;me page. Si le programme d&eacute;pend de la vitesse d'ex&eacute;cution,
+il se peut que le programme ne fontionnera pas avec les fonctions resload_Protect.
+<h4>Exemple: checksums en dehors du code</h4>
+Si vous installez un jeu en utilisant WHDLoad, vous devez patcher les routines
+originales du loader dans le jeu, dans un m&ecirc;me temps, elles utiliseront WHDLoad
+pour charger les donn&eacute;es du jeu. Quelques jeux ex&eacute;cutent des sommes de contr&ocirc;le
+en dehors du code pour d&eacute;tecter si le code original a &eacute;t&eacute; modifi&eacute;. Ces d&eacute;tections
+peuvent &ecirc;tre difficiles &agrave; trouver. Cela sera plus facile en utilisant les
+fonctions <a href="../autodoc.html">resload_Protect#?</a> dans WHDLoad.
+Ce que devez faire n'est d'autre que de prot&eacute;ger en lecture les octets que vous
+avez chang&eacute;s dans le code du jeu. Maintenant chaque routine qui essayera de calculer
+un checksum et lira votre code patch&eacute;, provoquera un Access Fault.
+Vous saurez donc o&ugrave; la routine se trouve.
+<h4>Limitations</h4>
+Vous ne devez pas prot&eacute;ger une page de m&eacute;moire o&ugrave; le pointeur de pile superviseur
+(SSP) se trouve. Si vous
+faites cela, et qu'une exception se produit, il y aura un "Double Bus Fault"
+car le CPU sera incapable d'&eacute;crire le stackframe de l'exception. Apr&egrave;s un
+Double Bus Fault, un reset de l'ordinateur doit &ecirc;tre effectu&eacute; pour pouvoir continuer.
+WHDLoad s'assure qu'il n'y pas de conflit entre la zone protégée et le SSP pour quitter.
+Mais ceci n'aide pas si le changement de SSP se fait par la suite.
+<p>Pour plus de limitations et d'informations, veuillez s'il vous plait vérifier la documantation Autodoc
+des différentes fonctions resload_Protect:
+<ul>
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+</ul>
+</ul>
+</BODY>
+</HTML>

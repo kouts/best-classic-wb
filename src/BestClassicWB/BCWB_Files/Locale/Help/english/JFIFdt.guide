@@ -1,0 +1,450 @@
+@database JFIFdt.guide
+@author Gunther Nikl
+@$VER: JFIFdt.guide 44.13 (17.05.2020)
+
+@node Main "JFIF picture datatype"
+
+                 JFIF Picture DataType for Workbench 3.0 or above
+               Written by @{"Gunther Nikl" link Author} in 1998-2001
+         LibJPEG-Turbo port, 68k and AMMX acceleration by Henryk Richter in 2018-2020
+
+                             @{"GiftWare" link Copyright}
+
+
+                        @{" Disclaimer      " link Disclaimer}
+                        @{" Introduction    " link Introduction}
+                        @{" Features        " link Features}
+                        @{" Installation    " link Installation}
+                        @{" Preferences     " link Preferences}
+                        @{" Datatype FAQ    " link FAQ}
+                        @{" Acknowledgments " link Acknowledgments}
+                        @{" History         " link History}
+                        @{" Future          " link Future}
+                        @{" Author          " link Author}
+
+Final note: Use at your own risk!
+
+@endnode
+
+@node Copyright
+This JFIF package is Copyright � 1998-2019 by Gunther Nikl and Henryk Richter.
+All Rights Reserved.
+
+This software package may be used freely. Distribution of this software
+package in unaltered form is encouraged.
+
+If you use this datatype you should consider to send the @{"author" link Author} a small
+gift.
+
+This software is based in part on the work of the Independent JPEG Group.
+
+   libjpeg 6b - March 27, 1998
+   Copyright (C) 1991-1998, Thomas G. Lane.
+
+This software is using a modified version of libjpeg-turbo. The detailed 
+license conditions for both libjpeg and libjpeg-turbo can be found in
+the Source/libjpeg folder.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+- Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+- Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+- Neither the name of the libjpeg-turbo Project nor the names of its
+  contributors may be used to endorse or promote products derived from this
+  software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS",
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+@endnode
+
+@node "Disclaimer"
+The author takes no responsibility for any results of the use of  this
+program. This software is provided "AS IS" and there is no warranty of
+any kind, so that you use this software at your own risk.
+@endnode
+
+@node Introduction
+Starting with OS Release 3 the Amiga has the concept of `datatypes', which
+allow reading and viewing files of different types and formats. MultiView is
+an application that utilizes these datatypes and handles any file for which
+you have a data types class installed.
+
+This jfif.datatype can be used with either an old V42 style picture.datatype
+or with a new V43 one. It adapts itself to the underlying version of the
+picture.datatype. Since this datatype @{"currently" link Future} doesn't support secondary
+backing store, one should have enough physical memory available.
+I wrote this datatype because I wasn't satisfied with the ones available ;-)
+
+This datatype was tested on an A4000/060 with a PicassoIV running OS3.5 + P96,
+an A4000/060 with Cybervision64 running OS3.1/P96 and an A500/VampireV2 running
+OS3.1/P96.
+
+@endnode
+
+@node Features
+  - supports normal and progressive JFIFs with all its flavours
+  - supports RGB, YCbCr, YCCK, CMYK color models within the JPEGs
+  - supports HAM output (HAM6 as well as HAM8)
+  - switches to V43 mode if a new picture.datatype V43 is found
+  - asynchronous file I/O to speedup image loading and decoding
+  - utilizes WritePixelLine8() for chunky-to-planar in V42 mode
+  - automatic colour quantizing of true-colour data for V42
+  - can be @{"configured" link Preferences} to suit personal preferences
+  - OS 3.5 support (disables dithering for hi/true colour screens)
+  - FBlit support (affects V42 mode only)
+  - uses memory pools
+  - based on libjpeg-turbo
+  - XMP JPEG file support
+@endnode
+
+@node Installation
+This "JFIF" datatype distribution should consist of the following files:
+
+   � Classes/DataTypes/jfif.datatype
+
+   � Devs/DataTypes/JFIF
+   � Devs/DataTypes/JFIF.info
+
+   � JFIFdt.guide
+   � JFIFdt.guide.info
+
+   � Source code
+
+Copy "jfif.datatype" into the "SYS:Classes/DataTypes" drawer.
+The file "JFIF" and its info file should be placed in the "DEVS:DataTypes"
+drawer. In order to use the datatype doubleclick on "JFIF.info" (or reboot
+the machine). If there was another JPEG datatype installed, then its descriptor
+needs to be removed from the "DEVS:Datatypes" drawer (typical names for JPEG
+descriptors in DEVS:Datatypes start with "JPEG" or "JFIF-..."). A reboot 
+is required in this case to get the new datatype activated.
+
+Note: the current build is suitable for any 68020+ Amiga. FPU usage and AMMX 
+      acceleration will be enabled on the fly (if available).
+
+@endnode
+
+@node Preferences
+The datatype can be configured by placing desired options in an environment
+variable. The name of this variable is "classes/datatypes/jfif44.prefs".
+Please use Setenv (or Echo if you prefer) to create *global* or Set to create
+*local* preference settings. Local settings do override global ones.
+
+Note: You have to copy the variable from ENV: to ENVARC: if you want to keep
+      global settings permanently!
+
+The preference template is:
+
+  V42MODE/S,GRAY/S,HAM/K/N,UNSAFE/S,DEPTH/K/N,SCALE/K/N,DITHER/K,DCT/K,
+  FLIPX/S,FLIPY/S,MAXLENGTH/K/N,FANCYRESAMPLE=FANCY/S,IGNORE/S,VERBOSE/S
+
+  Example (from CLI/Shell)
+  ------------------------
+ 
+  ; set MAXLENGTH -> saves memory and decoding time for large images
+  Setenv classes/datatypes/jfif44.prefs MAXLENGTH=2048
+  ; permanently save settings in ENVARC: (note: the "?" is intentional)
+  Copy ENV:classe? ENVARC: ALL
+
+
+  V42MODE
+  -------
+  Forces the datatype to work in the old V42 mode even if a new V43 picture
+  datatype is installed. The datatype switches automatically into this mode
+  if no V43 aware picture.datatype is found.
+
+  GRAY
+  ----
+  If specified the datatype emits grayscale images. This is significantly
+  faster than colourmapped output.
+
+  HAM
+  ---
+  Request the conversion of true-colour data into HAM. A value of 6 invokes
+  HAM6 and a value of 8 invokes HAM8 mode.
+
+  Note: This option is silently ignored when working in grayscale mode or if
+        the supplied argument is invalid.
+
+  UNSAFE
+  ------
+  When working in V42 mode this option enables a FBlit related optimization
+  provided FBlit is installed.
+
+  DEPTH
+  -----
+  This argument allows you to select the number of palette colours. Valid
+  inputs are between 3 and 8 giving between 8 and 256 colours. Anything >8
+  selects true-colour output (24bit) but only if the datatype works in V43
+  mode and grayscaling is off. If 24bit output isn't possible the datatype
+  switches to 256 colour palette output.
+
+  Note: If HAM mode is selected a given DEPTH option is *ignored*.
+
+  SCALE:
+  ------
+  This option requests the datatype to scale the image by 1/1, 1/2, 1/4 or
+  1/8. The scale factor may be 0..3 which specifies the scale as exponent.
+
+  MAXLENGTH
+  ---------
+  This option limits the maximum pixel size of the decoded images. A value
+  in pixels is given as argument. If either the width or the height is 
+  larger than than the MAXLENGTH argument, the image will be scaled down.
+  Please note that the supported scaling factors range from 1/8...7/8. The
+  resulting pixel size of downscaled images will approximate one of the
+  scaling factors.
+
+  DITHER
+  ------
+  To improve the image quality for *palette based* output a dither method
+  may be choosen:
+
+    NONE    - no dithering (bad quality,fast)
+    ORDERED - ordered dithering (better quality,slower)
+    FS      - floyd-steinberg dithering (best quality,slow)
+
+  The default is to use floyd-steinberg dithering.
+
+  DCT
+  ---
+  Selects the decode method to be used. Possible choices are:
+
+    FAST  - fastest, but less accurate integer algorithm
+    SLOW  - slow, but accurate integer algorithm
+    FLOAT - slow, but accurate floating-point algorithm (*)
+    FASTGOOD - fast and accurate integer algorithm
+
+  The default algorithm choosen is 'FASTGOOD' if nothing was specified
+  in the environment file. 
+
+  (*) The floating-point algorithm is only available with the 68020+
+      binary and when a math coprocessor is actually present in the
+      system. Without FPU, the datatype reverts to 'SLOW' when 'FLOAT'
+      is requested.
+
+  FLIPX,FLIPY
+  -----------
+  When specified the switches cause the image to be mirrored in X direction
+  (horizontally) and/or Y direction (vertically). Although this is only a
+  datatype these options may be quite useful.
+
+  IGNORE
+  ------
+  Requests the datatype to ignore all non-memory related decoding errors.
+
+  NOTE: This switch does *only* affect the error handling of libjpeg!
+
+  FANCYRESAMPLE
+  -------------
+  This option will enable chroma (color channel) interpolation for images
+  where the chroma resolution was reduced in the encoder. This feature
+  is supposed to improve the visual quality of resulting images. Please
+  note that this feature will affect decoding speed negatively.
+
+  VERBOSE
+  -------
+  This switch (currently) affects the behaviour of error messages. By default
+  no error message is displayed in case something goes wrong. When this jfif
+  datatype is in "verbose" mode there might be a requester to show the error
+  message since the requester will be suppressed if the calling process does
+  not want a message displayed. The message should appear on the callers
+  prefered screen (if there is one) rather than on the default public screen.
+@endnode
+
+@node FAQ
+Q: Why is the datatype so slow with the P96 picture.datytpe V43?
+A: The picture.datatype coming with P96 dithers 24bit data even for 15/16 bit
+   screens. Either use only 24bit screens or disable dithering globally this
+   way (posted on the PML by Olaf "Olsen" Barthel):
+
+      setenv classes/datatypes/picture/dither 0
+
+and then following it up with
+
+      copy env:classes envarc:classes all
+
+   Note: it may be necessary to create the picture drawer manually to get the
+         Setenv command to succeed!
+
+Q: Can I speedup decoding in V42 mode?
+A: Since the OS function graphics.library/WritePixelLine8() utilized for c2p
+   conversation when working in V42 mode is not the fastest one possible you
+   should consider installing a patch for this function. Highly recommended
+   is NewWP8 from Michael van Elst available on AmiNet.
+   Note: This probably affects native graphic chip-sets only!
+
+@endnode
+
+@node Acknowledgments
+This "JFIF" datatype was written from scratch using GNU CC 2.7.2.1 and 2.95.2
+(ADE/GG) for 000/020+FPU/040+FPU versions and SAS/C 6.58 for the 060+FPU
+version. All required information how to create a datatype were obtained from
+sample source code by David N. Junod found in the 3.1 NDK.
+
+This datatype is based on the work of the Independent JPEG Group (IJG).
+Without their work the datatype wouldn't exist at all.
+
+The asynchronous file I/O functions used are taken from an example file of the
+original picture.datatype V43. It was written by Matthias Scheler who allowed
+me to use his `ffr.c'. I made some changes to adapt it to my needs, to add
+save capabilities and to get it compile with GNU CC cleanly.
+
+I have to thank Frank Wille for pointing out a problem I was unaware of. This
+datatype used quite some stackspace and the original IPrefs has very little of
+it thus crashing when loading a picture. Since my IPrefs runs with more stack
+I didn't noticed the problem...
+
+The class init code is loosely based on the class initialization from the AIFF
+datatype 1.16 by Olaf `Olsen' Barthel. The HAM6 and HAM8 conversion functions
+are derived from assembler functions written by Olaf.
+
+Futhermore, a thanks must go to Roland Mainz who pushed further datatypes
+development in the past and supplied useful example codes.
+
+Finally, I have to thank Timm S. Mueller (author of eg. MysticView) for being
+the first one sending a small gift. Congratulation ;-)
+@endnode
+
+@node History
+44.16(15/12/2021) - fixed occasionally missing rows of pixels in cases where the
+                    SCALE or MAXLENGTH options are active
+                  - prepared for additional speedup on OS3.2.1 (about 100ms per
+                    megapixel on 060/50)
+
+44.15(01/08/2021) - fixed incompatibility with picture.datatype 45.17
+
+44.14(16/06/2021) - arithmetic coding enabled
+                  - improvements to Huffman decoding
+                  - V47 picture.datatype awareness (i.e. 10% more speed)
+                  - improvements to grayscale image handling
+
+44.13(17/05/2020) - new iDCT algorithm using the full 32 bit integer 
+                    dynamic range, thus better quality than the old default
+                  - improved color transform accuracy and speed
+                  - again some percent faster than the previous release 
+
+44.12(01/05/2020) - some fine-tuning to color transform for a little additional
+                    gain
+                  - refined checks in JPEG detection code (JFIF in devs:datatypes)
+                  - new option "FANCYRESAMPLE" which offers the higher quality
+                    chroma interpolation feature from libjpeg to interested
+                    users (slow)
+                  - the dispatcher now buffers up to 8 rows to enable more efficient
+                    handling of vertical subsampling cases in libjpeg, also reduces
+                    calling overhead to libjpeg
+                  - same approach for picture.datatype, write 8 rows at once for 
+                    a little more efficient spoon-feeding of rendered pixel data 
+                    into picdt
+
+44.11(27/12/2019) - fix for a clipping bug in color conversion, along
+                    with some modest speed improvements
+
+44.10(10/09/2018) - rewrote detection code to include XMP files, too
+
+44.9 (22/07/2018) - increased buffer requirements for Huffman fast path
+                  - RGBA/RGBx support in AMMX routines (no relevance
+                    for datatype)
+
+44.8 (30/01/2018) - updates to the dispatcher code, grayscale fixes
+                  - replaced libjpeg with libjpeg-turbo
+                  - ASM optimizations for 68k and AMMX
+
+44.7 (09/09/2001) - added much improved datatype descriptor for better
+                    jpeg recognition (Exif, Mavi, whatever ;-)
+                  - disabled own save handling to make Multiview happy
+                    (Luca 'Hexaae' Longone)
+
+44.6 (03/03/2001) - modified library initialization to fix some holes
+                    according to hints from Thomas 'Thor' Richter
+                  - added FBlit support for V42 mode
+                    (Luca 'Hexaae' Longone)
+
+44.5 (17/09/2000) - added (probably) missing WaitBlit()s in V42 mode
+                  - changed method handling in V43 datatype mode
+                    (switched from vararg to "normal" method call)
+                  - disables dithering on hi/truecolour screens if
+                    picture.datatype V44 is detected (-> OS 3.5+)
+                  - refined jpeg decoding options to gain speed
+                  - added ability to ignore image errors
+                  - added a scoptions file
+                  - added color icons ;-)
+                  - recompiled with gcc 2.95.2 and SAS/C 6.58
+     (18/02/2000) - adaptions for V44 includes
+
+44.4 (08/11/1998) - fixed serious bug in mem copy/clear functions
+                    (never occured but would crash very badly :-(
+                  - several minor changes
+
+44.3 (19/09/1998) - added support for local preferences
+                  - reduced stack usage (I hate IPrefs)
+                  - recompiled with EGCS 1.0.3a / 1.1b
+                  - disabled abort feature
+
+44.2 (18/08/1998) - added conversion of 24bit data into HAM6/8
+                  - added decoding abort when detecting Ctrl-E
+                  - changed handling of grayscale pictures
+                  - several minor improvements
+
+44.1 (17/06/1998) - initial release
+@endnode
+
+@node Future
+Things that might be added in a future release:
+
+  - support for reading comment markers
+  - support for secondary backing store
+  - localization of error messages
+  - a PPC version
+  - an encoder
+  - ...
+
+The future of this program depends on YOU!
+@endnode
+
+@node Author
+
+
+  Gunther Nikl
+
+  IMPORTANT, my current email can be found in: AmiNet:/docs/anno/munk.lha
+
+  email: gnikl\@informatik.uni-rostock.de
+
+         or
+
+  www:   http://home.pages.de/~munk/
+
+         or
+
+  irc:   munk on #amigager
+
+         or
+
+  snail: Gunther Nikl
+         Ziegendorfer Chaussee 96
+         Parchim
+         19370
+         GERMANY
+ 
+  Henryk Richter
+
+  email: henryk.richter\@gmx.net
+
+  irc:   _bax_ on freenode.net, typically in #apollo-team
+
+  
+@endnode

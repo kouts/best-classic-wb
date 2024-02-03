@@ -1,0 +1,74 @@
+.k ""
+.bra {
+.ket }
+
+
+; ***  If you did a "drag and drop" to read an AmigaGuide  ***
+; ***  document, and this text appeared instead, you may   ***
+; ***  want to install the Script DataType by Cloanto.     ***
+
+
+Assign >NIL: PPaintCD: EXISTS
+If WARN
+  Assign >NIL: PPaintCD: ""
+EndIf
+
+Failat 21
+
+If NOT EXISTS ENV:Language
+  SetEnv Language english
+EndIf
+
+If $Language EQ "deutsch"
+  If EXISTS SYS:Utilities/MultiView
+    Run >NIL: <NIL: SYS:Utilities/MultiView >NIL: <NIL: PPaintCD:H/7/1/4/OO00
+  Else
+    Which >NIL: MultiView
+    If WARN
+      If EXISTS SYS:Utilities/AmigaGuide
+        Run >NIL: <NIL: SYS:Utilities/AmigaGuide >NIL: <NIL: PPaintCD:H/7/1/4/OO00
+      Else
+        Run >NIL: <NIL: PPaintCD:H/2/AG34 >NIL: <NIL: PPaintCD:H/7/1/4/OO00
+      EndIf
+    Else
+      Run >NIL: <NIL: MultiView >NIL: <NIL: PPaintCD:H/7/1/4/OO00
+    EndIf
+  EndIf
+Else
+  If $Language EQ "italiano"
+    If EXISTS SYS:Utilities/MultiView
+      Run >NIL: <NIL: SYS:Utilities/MultiView >NIL: <NIL: PPaintCD:H/7/2/4/OO00
+    Else
+      Which >NIL: MultiView
+      If WARN
+        If EXISTS SYS:Utilities/AmigaGuide
+          Run >NIL: <NIL: SYS:Utilities/AmigaGuide >NIL: <NIL: PPaintCD:H/7/2/4/OO00
+        Else
+          Run >NIL: <NIL: PPaintCD:H/2/AG34 >NIL: <NIL: PPaintCD:H/7/2/4/OO00
+        EndIf
+      Else
+        Run >NIL: <NIL: MultiView >NIL: <NIL: PPaintCD:H/7/2/4/OO00
+      EndIf
+    EndIf
+  Else
+    If EXISTS SYS:Utilities/MultiView
+      Run >NIL: <NIL: SYS:Utilities/MultiView >NIL: <NIL: PPaintCD:H/7/0/4/OO00
+    Else
+      Which >NIL: MultiView
+      If WARN
+        If EXISTS SYS:Utilities/AmigaGuide
+          Run >NIL: <NIL: SYS:Utilities/AmigaGuide >NIL: <NIL: PPaintCD:H/7/0/4/OO00
+        Else
+          Run >NIL: <NIL: PPaintCD:H/2/AG34 >NIL: <NIL: PPaintCD:H/7/0/4/OO00
+        EndIf
+      Else
+        Run >NIL: <NIL: MultiView >NIL: <NIL: PPaintCD:H/7/0/4/OO00
+      EndIf
+    EndIf
+  EndIf
+EndIf
+
+
+; Cloanto ® CD-ROM Configuration Scripts
+; Copyright © 1995-1997 Cloanto Italia srl - All Rights Reserved
+; Cloanto is a registered trademark of Cloanto Italia srl

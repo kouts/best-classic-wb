@@ -1,0 +1,553 @@
+@DATABASE 0044
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - C. Program and Environment Settings"
+@TOC PPaintCD:H/7/0/4/OO00/Main
+
+@{B}C.         Program and Environment Settings@{UB}
+
+Sections @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323}, @{"9.1" LINK PPaintCD:H/7/0/4/0047/Main 9} and @{"9.2" LINK PPaintCD:H/7/0/4/0047/Main 76} explain how to save program and environment
+settings to a file. The format and function of the individual settings and
+their associated file-keywords is described here.
+
+All numbers may be expressed either in decimal or hexadecimal (preceded by
+a "0x" prefix) notation. For example, "COLORS = 16" is equivalent to
+"COLORS = 0x10". Each settings file may contain zero or more assignments.
+In case of duplicate settings (i.e. if the same keyword appears more than
+once in the same file), the last definition prevails. LONGMIN and LONGMAX
+respectively indicate the minimum and maximum 32-bit number which is
+handled (from several billions negative to several billions positive, i.e.
+0x7FFFFFFF). Similarly, SHORTMIN = -32768 and SHORTMAX = 32767 (0x7FFF).
+
+
+@{B}C.1        Program Settings@{UB}
+
+Program settings are global to Personal Paint. Program settings which
+appear in a settings file which is loaded are applied to all
+environments.
+
+
+@{B}AUDCUE@{UB}  (Audio Cues Volume - Section @{"9.5" LINK PPaintCD:H/7/0/4/0047/Main 280})
+
+Range: 0 .. 64.
+
+
+@{B}AUDERR@{UB}  (Audio Errors Volume - Section @{"9.5" LINK PPaintCD:H/7/0/4/0047/Main 280})
+
+Range: 0 .. 64.
+
+
+@{B}AUDIO@{UB}  (Audio Feedback - Section @{"9.5" LINK PPaintCD:H/7/0/4/0047/Main 280})
+
+0 = No, 1 = Yes.
+
+
+@{B}BARS@{UB} (Tool and title Bar - Sections @{"9.12.1" LINK PPaintCD:H/7/0/4/0047/Main 656} and @{"9.12.2" LINK PPaintCD:H/7/0/4/0047/Main 664})
+
+Range: 0.. 3 (obtained by adding 1 for Tool Bar activation and 2 for the
+Title Bar).
+
+
+@{B}BKFTRANSP@{UB}  (Brush Backfill Transparency - Section @{"9.14.3" LINK PPaintCD:H/7/0/4/0047/Main 855})
+
+0 = No, 1 = Yes.
+
+
+@{B}BLITLIBS@{UB}  (Virtual Blitter library - Section @{"9.13.7" LINK PPaintCD:H/7/0/4/0047/Main 803})
+
+BLITLIBS = @{I}"DefLibraryName", "AltLibraryName", UseDef@{UI}
+
+DefLibraryName: Name of default library for blitting, usually employing
+Amiga blitter and Chip RAM.
+
+AltLibraryName: Name of alternate library for blitting, which uses the CPU
+and/or a non-Amiga blitter, and might optionally replace functions of the
+graphics library with custom functions in order to allow bitmaps to be
+kept in Fast RAM.
+
+UseDef: 0 = Use alternate library, 1 = Try to use default library.
+
+
+@{B}CAVRESIZE@{UB}  (Color Average Resize - Section @{"9.13.3" LINK PPaintCD:H/7/0/4/0047/Main 734})
+
+0 = No, 1 = Yes.
+
+
+@{B}CREDUC@{UB}  (Color Reduction - Section @{"9.7" LINK PPaintCD:H/7/0/4/0047/Main 319})
+
+0 = Qualitative, 1 = Quantitative.
+
+
+@{B}CREMAP@{UB}  (Color remapping - Section @{"9.8" LINK PPaintCD:H/7/0/4/0047/Main 366})
+
+0= Simple, 1 = Pattern Dithering, 2 = Floyd-Steinberg
+
+
+@{B}FILREQ@{UB}  (File Requester Flags - Section @{"9.9" LINK PPaintCD:H/7/0/4/0047/Main 452})
+
+Range: 0 .. 63. The individual values must be added: 1 = Expand Path, 2 =
+Directories on Top, 4 = Sort by Date, 8 = Double-Click, 16 = Confirm
+Overwriting and 32 = ASL (system) file requester.
+
+
+@{B}FILTER@{UB}  (Image Processing Filters - Section @{"3.1.4" LINK PPaintCD:H/7/0/4/0017/Main 521})
+
+Format: @{I}FILTER = "Name", Type, <Kernel>, DivFac, Bias, BiasDX, BiasDY@{UI}
+
+The quoted Name field may contain quote and backslash signs only if these
+are preceded by a backslash sign ('\\').
+
+Filter Types: 0 = Convolution, 1 = Popularity, 2 = Random, 3 = Dispersed
+Dithering, 4 = Clustered Dithering, 5 = Floyd-Steinberg Dithering, 6 =
+Environment Transparency, 7 = Brush Transparency, 8 = Stereogram.
+
+Kernel: 5 blocks (rows of the convolution matrix) of 5 values each. Empty
+fields must be set to 0. The range for each field is SHORTMIN ..
+SHORTMAX.
+
+DivFac (Division Factor) must be in the range SHORTMIN .. -1 or 1 ..
+SHORTMAX for Convolution and 1 .. 3 for Dispersed and Clustered Dithering;
+the value is ignored for the other filter types.
+
+If the Type is Convolution, Bias, BiasDeltaX and BiasDeltaY are also
+considered, and should be in the range SHORTMIN .. SHORTMAX. For the Brush
+Transparency type, Bias values of -1 and -2 are used to respectively
+indicate "Next Brush" and "Same Brush" alpha channel modes.
+
+@{I}The following notes apply to the Stereogram Filter Type.@{UI}
+
+A value of DivFac (Division Factor, range SHORTMIN .. SHORTMAX) greater
+than zero generates SIRDS (random dot) stereograms and indicates how many
+columns are to be created. This means that the pattern of random dots will
+be as wide as the image width divided by DivFac. Values of zero or less
+generate SIPS stereograms, which use the current brush as a pattern.
+
+Bias (range 1 .. 16) allows the user to make some changes which affect the
+perceived quality of the stereogram. Lower quality stereograms (low Bias
+values) allow for more levels of depth, but may generate defects in
+certain shapes (e.g. thick vertical bars may appear thin). Higher quality
+images are easier to recognize, but their "flatness" (which is relative,
+because the contrast is excellent) leaves less room for different levels
+of depth.
+
+BiasDx (range SHORTMIN .. SHORTMAX) is used as a Random Seed for SIRDS in
+general and for SIPS with Echo suppression. Negative values cause a
+different seed to be generated automatically each time the filter begins
+processing. Values >= 0 allow for exact reproduction of SIRDS, as the
+patter remains constant for each single value.
+
+BiasDy controls different other options, which are associated to its
+individual bits. The range is 0 .. 3, and the values must be added: 1 =
+Help Symbols (on top of image), 2 = Echo Suppression.
+
+
+@{B}GADGETS@{UB}  (Cycle Gadgets - Section @{"9.12.3" LINK PPaintCD:H/7/0/4/0047/Main 678})
+
+0 = Standard Cycle Gadgets, 1 = Pull-Down Cycle Gadgets, 2 = Pop-Up Cycle
+Gadgets.
+
+
+@{B}GCLIP@{UB}  (Clip Graphics - Section @{"9.13.2" LINK PPaintCD:H/7/0/4/0047/Main 723})
+
+0 = No, 1 = Yes.
+
+
+@{B}ICONS@{UB}  (Workbench Icons - Section @{"9.10" LINK PPaintCD:H/7/0/4/0047/Main 538})
+
+0 = No, 1 = Default Icons, 2 = Picture Icons (Standard), 3 = Preserve
+Original Icons, 4 = Picture Icons (NewIcons).
+
+
+@{B}LANG@{UB}  (User Interface Language - Section @{"9.11" LINK PPaintCD:H/7/0/4/0047/Main 636})
+
+00 = English     (.eng)
+01 = German      (.deu)
+02 = Italian     (.ita)
+03 = French      (.fra)
+04 = Spanish     (.esp)
+05 = Dutch       (.hol)
+06 = Swedish     (.swe)
+07 = Danish      (.dan)
+08 = Norwegian   (.nor)
+09 = Finnish     (.fin)
+10 = Portuguese  (.prt)
+11 = Polish      (.pol)
+12 = Hungarian   (.hun)
+13 = Czech       (.cze)
+14 = Slowak      (.svk)
+15 = Slovenian   (.svn)
+16 = Croatian    (.hrv)
+
+99 = Custom      (.custom)
+
+0xFFFFFFFF = Locale Default
+
+
+@{B}PATHANBSH@{UB}  (Anim-Brush Default Path - Section @{"6.8" LINK PPaintCD:H/7/0/4/2151/Main 338})
+
+PATHANBSH = @{I}"Path"@{UI}
+
+
+@{B}PATHBSH@{UB}  (Brush Default Path - Section @{"5.1" LINK PPaintCD:H/7/0/4/0048/Main 14})
+
+PATHBSH = @{I}"Path"@{UI}
+
+
+@{B}PATHSET@{UB}  (Settings Requester Default Path - Section @{"9.1" LINK PPaintCD:H/7/0/4/0047/Main 9})
+
+PATHSET = @{I}"Path"@{UI}
+
+
+@{B}UNDOLIM@{UB}  (Multi-level Undo - Sections @{"3.1.10" LINK PPaintCD:H/7/0/4/0017/Main 1137} and @{"9.3.2" LINK PPaintCD:H/7/0/4/0047/Main 192})
+
+UNDOLIM = @{I}MaxLevels, MaxBuffer@{UI}
+
+MaxLevels range: 1 .. SHORTMAX (number of Undo/Redo levels).
+
+MaxBuffer range: 1 .. LONGMAX (in bytes: 1 Mbyte = 1 048 576 bytes).
+
+MaxBuffer indicates the maximum amount of memory (including virtual
+memory) which can be used to store the Undo levels (up to a maximum of
+MaxLevels Undo levels).
+
+Once the maximum is reached, the oldest levels are progressively freed to
+leave room for the most recent levels.
+
+Whatever the settings, one level of undo and redo is always guaranteed
+(even if it exceeds the memory limit set by the MaxBuffer setting).
+
+
+@{B}USE15KHZ@{UB}  (15 kHz Video - Section @{"9.13.6" LINK PPaintCD:H/7/0/4/0047/Main 784})
+
+0 = Exclude 15 kHz modes, 1 = Consider 15 kHz modes (if present).
+
+
+@{B}VIRTMEM@{UB}  (Virtual Memory Settings - Section @{"9.3.1" LINK PPaintCD:H/7/0/4/0047/Main 130})
+
+VIRTMEM = @{I}"RAM Storage", RAM VM Enable, RAM MinFree, "Disk Storage", Disk
+VM Enable, Disk MinFree@{UI}
+
+Storage: quoted storage path.
+
+Enable: 0 = Disabled, 1 = Enabled.
+
+MinFree: expressed in bytes (1 Mbyte = 1 048 576 bytes).
+
+
+@{B}WBCLOSE@{UB}  (Emergency Closing of Workbench Screen - Sections @{"4.10.2" LINK PPaintCD:H/7/0/4/0049/Main 1176} and
+@{"9.3.3" LINK PPaintCD:H/7/0/4/0047/Main 212})
+
+WBCLOSE = @{I}Permission Status@{UI}
+
+0 = Not allowed, 1 = Allowed.
+
+In case of RAM shortage, and if allowed to do so, Personal Paint may
+automatically try to close the Workbench screen to free some memory.
+
+
+@{B}WBENCH@{UB}  (Workbench Screen - Section @{"9.15" LINK PPaintCD:H/7/0/4/0047/Main 863})
+
+0 = Closed, 1 = Open.
+
+
+@{B}C.2        Environment Settings@{UB}
+
+Environment settings are local to the environment from which the settings
+file is loaded (any program settings appearing in the same file are
+applied to all environments).
+
+
+@{B}ASCROLL@{UB}  (Autoscroll - Section @{"4.5.4" LINK PPaintCD:H/7/0/4/0049/Main 1027})
+
+0 = No, 1 = Yes.
+
+
+@{B}COLORS@{UB}  (Number of Colors - Section @{"4.5.3" LINK PPaintCD:H/7/0/4/0049/Main 1015})
+
+The number of screen and image colors must be valid for the current
+DISPLAY setting. On Advanced Graphics Architecture systems, valid values
+are: 2, 4, 8, 16, 32, 64, 128 and 256.
+
+
+@{B}COORD@{UB}  (Coordinates - Section @{"9.6" LINK PPaintCD:H/7/0/4/0047/Main 303})
+
+0 = None, 1 = Origin 0:0, 2 = Origin 1:1.
+
+
+@{B}DISPLAY@{UB}  (Amiga DisplayID - Section @{"4.5" LINK PPaintCD:H/7/0/4/0049/Main 901})
+
+This is the ID associated to the screen mode. Programmers may find the
+relative assignments in "graphics/displayinfo.h" (1.@{I}x@{UI} and 2.@{I}x@{UI} @{I}include@{UI}
+files) or in "graphics/modeid.h" (3.@{I}x@{UI} includes).
+
+A value of 0xFFFFFFFF indicates to use the same screen mode as the
+Workbench screen. This was designed with the program startup files in
+mind. By default, Personal Paint is launched with the same screen mode as
+the Workbench, which avoids monitor flickering in combination with
+graphics boards.
+
+
+@{B}IMAGEH@{UB}  (Image Height - Section @{"4.5.2" LINK PPaintCD:H/7/0/4/0049/Main 997})
+
+This is the height of the current image (original blitter limit: 1024; ECS
+and AA blitter: 32767).
+
+
+@{B}IMAGEW@{UB}  (Image Width - Section @{"4.5.2" LINK PPaintCD:H/7/0/4/0049/Main 997})
+
+This indicates the width of the current image, and may be larger than the
+screen format. The maximum is defined by the Amiga blitter chip (1008
+pixels on original chips, 32752 on ECS and AA chips).
+
+
+@{B}LOCKDISP@{UB}  (Lock Display Mode - Section @{"4.5" LINK PPaintCD:H/7/0/4/0049/Main 901})
+
+LOCKDISP = @{I}Lock Activation@{UI}
+
+0 = Unlocked, 1 = Locked.
+
+
+@{B}MGFYGRID@{UB}  (Magnify Mode Grid - Section @{"3.1.8" LINK PPaintCD:H/7/0/4/0017/Main 1084})
+
+Specifies the optional raster type: 0 = None, 1 = Lines, 2 = Dots.
+
+
+@{B}PALETTE@{UB} (Palette File - Sections @{"8.1.1" LINK PPaintCD:H/7/0/4/0016/Main 43} and @{"9.1" LINK PPaintCD:H/7/0/4/0047/Main 9})
+
+The format is: @{I}PALETTE = "File Name"@{UI}
+
+The quoted File Name field may contain quote and backslash signs preceded
+by a backslash sign ('\\').
+
+
+@{B}PATHANIM@{UB}  (Animation Default Path - Section @{"6.1" LINK PPaintCD:H/7/0/4/2151/Main 105})
+
+PATHANIM = @{I}"Path"@{UI}
+
+
+@{B}PATHCOL@{UB}  (Color Palette Default Path - Section @{"8.1.1" LINK PPaintCD:H/7/0/4/0016/Main 43})
+
+PATHCOL = @{I}"Path@{UI}"
+
+
+@{B}PATHPIC@{UB}  (Picture Default Path - Section @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11})
+
+PATHPIC = @{I}"Path"@{UI}
+
+
+@{B}PATHPLAY@{UB}  (Play Animation File Default Path - Section @{"6.3" LINK PPaintCD:H/7/0/4/2151/Main 161})
+
+PATHPLAY = @{I}"Path"@{UI}
+
+
+@{B}PATHPS@{UB}  (PostScript Output Default Path - Section @{"4.3.3.5" LINK PPaintCD:H/7/0/4/0049/Main 683})
+
+PATHPS = @{I}"Path"@{UI}
+
+
+@{B}PATHSTEN@{UB}  (Color Stencil Default Path - Section @{"8.2.1" LINK PPaintCD:H/7/0/4/0016/Main 331})
+
+PATHSTEN = @{I}"Path"@{UI}
+
+
+@{B}PRINT@{UB}  (General Printer Settings - Section @{"4.3" LINK PPaintCD:H/7/0/4/0049/Main 201} and subsections)
+
+Format: @{I}PRINT = NumCopies Mode@{UI}
+
+NumCopies may range from 1 to SHORTMAX.
+
+Mode: System Printer = 0, Personal Paint PostScript = 1.
+
+
+@{B}PRINTCOR@{UB}  (Printer Color Correction - Section @{"4.3.2.8" LINK PPaintCD:H/7/0/4/0049/Main 518})
+
+PRINTCOR = @{I}GraphType, GrayBrightness, GrayContrast, GrayGamma,
+CyanBrightness, CyanContrast, CyanGamma, MagentaBrightness,
+MagentaContrast, MagentaGamma, YellowBrightness, YellowContrast,
+YellowGamma, BlackBrightness, BlackContrast, BlackGamma, UcrM, UcrY@{UI}
+
+GraphType: 0 = Normal Graph, 1 = Reversed Notation.
+
+Brightness and Contrast range: -100 .. 100.
+
+Gamma range: 1000 .. 160000 (in units/10000, i.e. 0.1 .. 16.0)
+
+UCR range: LONGMIN .. LONGMAX (in percent/10000 - 0% = No Correction)
+
+
+@{B}PRINTLAY@{UB}  (Printer Page Layout - Section @{"4.3.1" LINK PPaintCD:H/7/0/4/0049/Main 282})
+
+Format: @{I}PRINTLAY = Flags MsrUnit PaperWidth PaperHeight LeftOffs TopOffs
+XSizeAuto YSizeAuto XSizePercent YSizePercent XSizeUnits YSizeUnits
+XSizePixels YSizePixels XSizeTimes YSizeTimes SizeType@{UI}
+
+Flags is the sum of: 1 = Center X, 2 = Center Y, 4 = Landscape.
+
+MsrUnit: 0 = Inch, 1 = Centimeter, 2 = PS Points
+
+PaperWidth PaperHeight LeftOffs TopOffs: micrometers, LONGMIN .. LONGMAX.
+
+XSizeAuto, YSizeAuto: must be 0.
+
+XSizePercent, YSizePercent range: 0 .. 100
+
+XSizeUnits, YSizeUnits: micrometers, 0 .. LONGMAX.
+
+XSizePixels, YSizePixels, XSizeTimes, YSizeTimes: 0 .. SHORTMAX
+
+SizeType: 0 = Automatic, 1 = Paper Percent, 2 = Units, 3 = Pixels, 4 =
+Times.
+
+
+@{B}PRINTPS@{UB}  (PostScript settings - Section @{"4.3.3" LINK PPaintCD:H/7/0/4/0049/Main 588})
+
+Format: @{I}PRINTPS = Flags Dpi Lpi Spot Output AngC AngM AngY AngK UcrM UcrY
+UcrK Gcr Process@{UI}
+
+Flags is the sum of the following: 1 = Negative, 2 = Mirror, 4 = EPS, 8 =
+Crops, 16 = Manual Feed, 32 = Compress, 64 = Cyan, 128 = Magenta, 256 =
+Yellow, 512 = Black.
+
+Dpi: 0 .. SHORTMAX (0 = Device Default)
+
+Lpi: 0 .. LONGMAX (in 1/10000s of Lpi, 0 = Device Default)
+
+Spot: Default = 0, following = same order as Spot cycle gadget, starting
+from 1.
+
+Output: 0 = System Printer, 1 = Serial Port, 2 = Parallel Port, 3 = File.
+
+AngC, AngM, AngY, AngK range: 0 .. LONGMAX (in degrees/10000, deg > 360 =
+Device Default)
+
+UcrM, UcrY, UcrK range: LONGMIN .. LONGMAX (in percent/10000 - 0% = No
+Correction)
+
+GCR range: 0 .. LONGMAX (in percent/10000 - 100% = Black Unchanged)
+
+Process: 0 = gray, 1 = color, 2 = CMY, 3 = CMYK
+
+
+@{B}PRINTSYS@{UB}  (System Printer Settings - Section @{"4.3.2" LINK PPaintCD:H/7/0/4/0049/Main 346})
+
+Format: @{I}PRINTSYS = Flags Dither Shade TShold Density@{UI}
+
+Flags: 1 = Integer Scaling, 2 = Negative, 4 = Smoothing, 8 = Correct Red,
+16 = Correct Green, 32 = Correct Blue, 64 = Form Feed.
+
+Dither: 0 = Ordered Dithering, 1 = Halftone Dithering, 2 =
+Floyd-Steinberg.
+
+Shade: 0 = Black and White, 1 = Gray-1, 2 = Gray-2, 3 = Color, 4 = 8-bit
+Grayscale, 5 = 24-bit Color.
+
+TShold range: 1 .. 15.
+
+Density range: 1 .. 7.
+
+
+@{B}RTG@{UB}  (Retargetable Graphics - Section @{"4.5.5" LINK PPaintCD:H/7/0/4/0049/Main 1040})
+
+0 = No, 1 = Yes, 2 = Auto.
+
+
+@{B}SBOARD@{UB}  (Animation Storyboard - Section @{"6.4" LINK PPaintCD:H/7/0/4/2151/Main 189})
+
+SBOARD = @{I}ThumbnailWidth, Columns, Rows@{UI}
+
+Width: In low-resolution pixels.
+
+Columns: Frames (thumbnail-format) per row.
+
+Rows: Number of thumbnail rows.
+
+
+@{B}SCREENH@{UB}  (Screen Height - Section @{"4.5.2" LINK PPaintCD:H/7/0/4/0049/Main 997})
+
+Must range from 200 to the maximum overscan height. Negative numbers
+select overscan height values in the same order as in SCREENW.
+
+
+@{B}SCREENW@{UB}  (Screen Width - Section @{"4.5.2" LINK PPaintCD:H/7/0/4/0049/Main 997})
+
+Indicates the screen width of the current environment. It must range from
+320 (minimum) to the maximum system overscan width. Negative values
+indicate system overscan widths: -1 = No overscan, -2 = Text, -3 =
+Standard, -4 = Extreme and -5 = Maximum.
+
+
+@{B}SNAPGRID@{UB}  (Grid Settings - Section @{"9.13.1" LINK PPaintCD:H/7/0/4/0047/Main 705})
+
+SNAPGRID = @{I}XStep, YStep, XOffset, YOffset@{UI}
+
+XStep YStep range: 1 .. SHORTMAX
+XOffset YOffset range: 0 .. SHORTMAX
+
+
+
+@{B}C.3        Read-Only Settings@{UB}
+
+The following program settings are dedicated to the more technical users.
+Personal Paint does not write these settings. They can only be inserted in
+a file using a text editor or a word processor such as Personal Write.
+
+
+@{B}ICONFMT@{UB}  (Icons - Section @{"9.10" LINK PPaintCD:H/7/0/4/0047/Main 538})
+
+ICONFMT = @{I}MaxIconWidth, MaxIconHeight, UseMaxColors, DotIcons@{UI}
+
+Width and Height: maximum value is 93 if used to create NewIcon icons.
+
+UseMaxColors: 0 = Not allowed, 1 = Allowed.
+
+DotIcons: 0 = Standard Icon, 1 = Single-Dot Icon
+
+UseMaxColors is equivalent to the <Shift> key being pressed. The DotIcons
+option is useful to limit the standard Workbench icon image to a single
+pixel when NewIcons icons are generated.
+
+
+@{B}REDBITS, GREENBITS, BLUEBITS@{UB}
+
+REDBITS = @{I}RedBits@{UI}
+
+GREENBITS = @{I}GreenBits@{UI}
+
+BLUEBITS = @{I}BlueBits@{UI}
+
+Range: 0 .. 8 (0 = Display Mode Default; All set to 8 = 24-bit palette)
+
+This option forces Personal Paint to use a certain number of bits for each
+color component in the color palette, regardless of the hardware being
+used.
+
+For example, to emulate the limitations of an Original Chip Set system on
+an AGA computer, all three values should be set to 4. Conversely, in order
+not to lose information when working with some common 12-bit or 18-bit
+hardware (e.g. ECS systems, or Picasso graphics boards), all three values
+should be set to 8.
+
+Interesting image processing effects can be obtained by selecting low
+values (e.g. 1 to emulate CMYK/RGBW devices).
+
+
+@{B}THICKX, THICKY@{UB}
+
+THICKX = @{I}HorizontalThickness@{UI}
+
+THICKY = @{I}VerticalThickness@{UI}
+
+These settings determine the horizontal and vertical thickness of most
+user interface items (tools, borders, bars, etc.) A value of 0 indicates
+dynamic thickness (i.e. selected by the program depending on the screen
+size), 1 = single thickness, 2 = double-thickness, 3 =
+quadruple-thickness, and so on. In practice, manual thickness setting
+never causes objects to appear larger than they would with the option set
+to 0. Otherwise, some requesters would not fit on the screen.
+
+Range: 0 .. 128.
+
+@ENDNODE

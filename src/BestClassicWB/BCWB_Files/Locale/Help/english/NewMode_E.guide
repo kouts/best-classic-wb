@@ -1,0 +1,872 @@
+@DATABASE "NewMode_E.guide"
+@WIDTH 71
+@VER$ NewMode-Manual V3.9 (01.10.95)
+@AUTHOR Andreas Linnemann (program), Tom Kuhlenkamp (manual)
+@(C) 1992-95 by Andreas Linnemann
+
+
+
+
+
+
+## Important:
+## ----------
+##
+## To view this documentation, you'll need 'AmigaGuide' found on
+## AmigaLibDisk 920 or 870, or a different program capable to show
+## HyperText files. This documentation was not converted into ASCII
+## as HyperText viewers are easily available using Public Domain and
+## a manual is much easier to understand. Additionally, the same
+## manual needn't come in two or three different text formats. This
+## saves space, especially when using a modem also telephone costs.
+##   
+## The author
+
+
+
+
+
+
+@NODE MAIN "NewMode - English manual"
+@{B}
+              *   * **** *     *   *   *  ***  ***  ****
+              **  * *    *  *  *   ** ** *   * *  * *
+              * * * **   *  *  *   * * * *   * *  * ***
+              *  ** *    *  *  *   *   * *   * *  * *
+              *   * ****  ** **    *   *  ***  ***  ****
+               
+          @{I}"...to boldly go where no screen has gone before."@{UI}
+
+
+                             Version: 3.9@{UB}
+
+
+                         The NewMode chapters:
+
+      @{" Why NewMode ?       " link ABOUT     }    Information about NewMode
+
+      @{" Installation        " link INSTALL   }    How to install NewMode
+      @{" Tooltypes           " link TOOLTYPES }    All the Tool-Types
+      @{" A quick start       " link EXAMPLE   }    Learning to control NewMode quickly
+
+      @{" Main window         " link WINMAIN   }    The NewMode main window 
+      @{" Edit window         " link WINEDIT   }    The NewMode edit window
+      @{" Options             " link WINOPTIONS}    The Options page of the edit window
+
+      @{" Still problems ?    " link PROBLEMS  }    Troubleshooting
+
+      @{" Copyright           " link COPYRIGHT }    Copyright information
+
+      @{" Thanks to           " link THANKS    }    The author says "Thank you!"
+
+      @{" Addresses           " link ADRESS    }    Where you can send your bug reports
+
+      @{" History             " link STORY     }    About the programming process
+@ENDNODE
+
+
+
+
+
+
+@NODE ABOUT "NewMode - English manual"
+@{B}*** Why NewMode ? ***@{UB}
+
+NewMode is a utility which makes it easily possible to promote screens which
+are not opened the way you like it. NewMode 'hooks' into the OpenScreen and
+OpenScreenTags procedure, changes the parameters to your favourites (e.g.
+screenmode, number of colours, position, size, overscan...) and then opens
+the screen using the changed parameters.
+
+So it is possible to assign an 800*600 graphics card screen mode to a text
+program, which usually only offered the screenmodes 640*256 and 640*512.
+
+NewMode enables these changes in a simple way, as a kind of a screen mode
+requester appears before opening the screen, in which you can perform your
+changes. 
+
+@{B}Important! You should remember this:@{UB}
+
+NewMode should be only used for programs which do not offer a screenmode
+requester themselves yet. Because of this reason NewMode was made program-
+dependent, i.e. you include these (mostly older) programs or games into
+NewMode e.g. by using the @{B}"Ask for new screens"@{UB} feature, change the desired
+parameters, include the next program and so on. After that procedure,
+change NewMode to @{B}"Ask for no screens"@{UB} mode. Now NewMode will promote all
+the screens you included (it already did so before), but it will be quiet,
+so you won't notice NewMode any more... 
+
+Through this feature, NewMode differs from standard screen promoters.
+Though it is possible to operate NewMode like one, but you do not take
+advantage of the full capability of NewMode. This actually unique system
+is distinguished by the following advantages:
+
+   - Small memory consumption, as only the programs which must really be
+     promoted are taken into the NewMode list (I received messages from
+     people using a config file of more than 30 KB! My own config file does
+     not exceed 3.5 KB with 16 entries).
+
+   - No nerve-shattering requester. Many screen promoters open a requester
+     each time before promoting, if unknown screens appear. I would not be
+     very happy with such a program.
+
+   - High compatibility rate, as programs reacting quite aggressive on any
+     manipulation remain untouched.
+
+   - A list which is easy to survey, because only the "important" programs
+     which must really be promoted are shown in the list.
+@ENDNODE
+
+
+
+
+
+@NODE INSTALL "NewMode - English manual"
+@{B}*** Installing NewMode ***@{UB}
+
+For using NewMode, AmigaOS V2.04 (37.175) or higher is required, and your
+Workbench must be installed correctly.
+
+If you have been using NewMode V1.x or NewMode V2.x, you can not use your
+old configurations with this version I'm afraid. Lots of changes make it
+nearly impossible to convert the files. You will have to promote your
+programs once again. It's worth it!
+
+The NewMode package includes an installation script which makes it easy for
+you to install NewMode.
+
+If you have the Installer program (a program used to install programs), it
+will be used. You will be asked if you want to "Install/Actualize" or if
+you want to "Remove" NewMode. Then start the procedure by pressing the
+"Proceed" button. If NewMode is still running in the background, it will
+be removed to prevent complications. After the installation you can start
+NewMode by rebooting or by double-clicking on the NewMode icon in your
+"SYS:WBStartup" drawer.
+
+If the Installer can not be found, a window will be opened and you will be
+asked if you really want to install NewMode. Enter a "y", press Enter and
+wait a few moments.
+
+The following data will be installed:
+
+NewMode         -> SYS:WBStartup/
+                   (will be installed in every case)
+
+NewMode.info    -> SYS:WBStartup/
+                   (will be installed if no icon is present)
+
+NewMode.catalog -> LOCALE:catalogs/deutsch/
+                   (will be installed, if the destination directory is
+                   present, i.e. if you are using the German language)  
+                   (would you read this file if you did...?)
+                  
+If you want to use NewMode effectively, it must be active in the background
+(like a screenblanker). If NewMode is started being already active in the
+background, the main window is opened and pushed into foreground.
+
+You can also include NewMode into your User-Startup. Then you must add the
+CLI parameters according to the @{"Tooltypes" link TOOLTYPES}. Simply enter "NewMode ?" and
+see the given parameter list.
+
+If you start NewMode the first time, an error message will occur saying
+that the config file could not be opened. This is normal. Simply confirm
+the error message and press the "Save" gadget in the main menu. The error
+message should not occur any more.
+@ENDNODE
+
+
+
+
+
+@NODE TOOLTYPES "NewMode - English manual"
+@{B}*** Tooltypes ***@{UB}
+
+Here follows a list of the NewMode tooltypes, with which you can change the
+basic parameters. These tooltypes (except DONOTWAIT) can be taken as CLI
+arguments, e.g.
+
+            run C:NewMode CX_POPUP CX_POPKEY="CONTROL ALT n"
+
+@{B}DONOTWAIT@{UB}
+   If NewMode is started from WBStartup, you should enter this tooltype, so
+   that Workbench continues working and does not wait for NewMode to finish
+   working.
+
+@{B}CX_POPUP=<yes/no>@{UB}
+   Here you can make NewMode's window pop up if NewMode is started.
+
+@{B}CX_POPKEY=<key>@{UB}
+   This tooltype defines the key combination to pop up NewMode's window.
+   Default is "LAlt n". More information about popkeys is found in your
+   Workbench manual.
+
+@{B}CX_PRIORITY=<x>@{UB}
+   For <x> you can adjust the Commodity priority of NewMode. If two Com-
+   modities use the same popkey, the one with the higher priority is opened.
+   Default is "CX_PRIORITY=0"
+ 
+@{B}DEFAULTFONT@{UB}
+   If you have problems with the automatic font adaptation, you should
+   activate this tooltype. NewMode will use the font "Topaz 8" in all its
+   windows. 
+
+@{B}MENUENTRY=<name>@{UB}
+   Using this tooltype you can make NewMode appear in your Workbench "Tools"
+   menu. Default is "NewMode".
+
+A tooltype is deactivated, when it is set into brackets!
+@ENDNODE
+
+
+
+
+
+
+@NODE EXAMPLE "NewMode - English manual"
+@{B}*** A quick start ***@{UB}
+
+This part was written for everyone who wants to control NewMode without
+reading for hours. Here are some steps which should illuminate how to
+control NewMode effectively (I hope so...).
+
+In spite of this passage, you should read the rest of this manual
+eventually (at least one reason is the work I had writing it...), for
+you will get to know all the functions of NewMode only this way. The
+chapter @{"'Why NewMode'" link ABOUT} will also give you some hints to use NewMode really
+effectively. 
+
+Now let's have a short tutorial:
+
+ 1.) @{"Install" link INSTALL} NewMode using the installer script and start it.
+
+ 2.) Open the @{"main window" link WINMAIN} by pressing LALT N (left Alt key and the "N"
+     key).
+
+ 3.) Switch NewMode to "Promote" and "Ask for new screens" mode.
+
+ 4.) Now start a program whose screen should be promoted. When the program
+     is trying to open its screen, it is caught by NewMode and the
+     @{"edit window" link WINEDIT} will be opened.
+
+ 5.) Now change the parameters (e.g. screenmode).
+
+ 6.) You can change some more parameters in the @{"Options window" link WINOPTIONS}.
+
+ 7.) If you have finished 5.) and 6.), press "Use". The program will open
+     the screen with your new parameters.
+
+ 8.) Repeat step 4 to 7 if there are still programs which should be
+     promoted but are still unknown to NewMode.
+
+ 9.) Otherwise go to the @{"main window" link WINMAIN} again.
+
+10.) Switch NewMode to "Ask for no screens" mode and save your configs
+     by pressing the "Save" key (do not forget!)
+
+If a program which is known to NewMode opens it screen now, this screen
+will be quietly promoted with your changed parameters.
+
+Other screens not known (yet) will be opened normally, NewMode will
+ignore these screens.
+
+If you want to take more programs into the list, repeat step 2 to 10.
+
+Now a short hint for the people who have already worked with screen
+promoters. Perhaps you have already noticed that NewMode can run without
+making trouble if unknown screens are opened and promote known screens
+at the same time. @{B}Make use of this function, as it offers quite a lot
+of advantages!@{UB}. More in the chapter @{"Why NewMode" link ABOUT}.
+@ENDNODE
+
+
+
+
+
+@NODE WINMAIN "NewMode - English manual"
+@{B}*** The Main Window ***@{UB}
+
+The main window will be opened, e.g. if you press the Hotkey or choose the
+Tools menu entry. Here you can change NewMode's behaviour or re-edit the
+programs (screens) you have already promoted. From this window you can also
+save (or even load) the configuration.
+
+The gadgets can also be accessed using the keyboard. The underlined char-
+acters in a function label show which key will activate the function. Lists
+can be operated using the cursor keys. The rimmed gadgets are pressed if
+you hit the return key. Pressing the ESC key will activate the close gadget
+of the window.
+
+Here's a list of the functions in this window:
+
+@{B}Objects:@{UB} 
+   All known programs are found in this list.
+
+@{B}Edit...:@{UB}
+   Press this button to change the parameters of the selected screen in the
+   @{"Edit window" link WINEDIT}.
+   Caution: If you finished your changes in the edit window and then
+            re-enter the edit window, your changes will be active, even if
+            the window is still opened.   
+
+@{B}Remove:@{UB}
+   Removes the entry from the program list.
+
+@{B}Screens promote/do not promote:@{UB}
+   These buttons offer a simple possibility to deactivate NewMode for a
+   short time. If 'promote' is active, NewMode will promote all screens in
+   the way that's defined in it's list and for whom promotion has been per-
+   mitted in the @{"Edit window" link WINEDIT}. If 'do not promote' is activated, screens will
+   be opened in the normal way, no screen data will be changed. NewMode re-
+   moves the patch for this purpose.
+   This function is similar to the "Active/Inactive" function in the
+   "Exchange" commodity. But be careful: If NewMode has been "deactivated"
+   by Exchange, it will not be possible to call NewMode by pressing the hot
+   key!
+
+@{B}Ask for@{UB}
+   @{B}no screen:@{UB}
+      NewMode will only become visible if it is intentionally opened press-
+      ing the Hotkey or choosing "NewMode" at Tools Menu.
+      ** Normally this is the standard mode! **
+   @{B}new screens:@{UB}
+      NewMode opens the @{"Edit window" link WINEDIT} if screens are opened
+      which don't appear in the program list.
+   @{B}all screens:@{UB}
+      Whenever a new screen is opened, NewMode will open the @{"Edit window" link WINEDIT}.
+      It does not play a role if the screen has already been included into
+      NewMode or not.
+   @{B}none, take new ones:@{UB}
+      If an unknown screen is opened, it is taken into the NewMode list
+      without any question. An information window will appear saying
+      that the screen was included into NewMode. This function is suitable
+      for nasty programs blocking the keyboard and mouse functions. If you
+      let NewMode "ask for new screens", you would not be able to control
+      the NewMode window, as all inputs would be blocked! Funny, isn't it?
+  
+@{B}Save:@{UB}
+   Closes the main window and saves the current data into the config file.
+   Self-evidently your changes are active at once.
+
+@{B}Use:@{UB}
+   Closes the main window and activates the last changes. Does not save your
+   changes ! After a reset your changes would be lost.
+
+@{B}Cancel:@{UB}
+   Closes the main window and rejects all changes (the same as pressing the
+   close gadget)
+
+
+@{B}Pull-Down-Menus:@{UB}
+
+In the Pull-Down-Menu you find some more functions which can only be
+accessed this way.
+
+@{B}Project:@{UB}
+   @{B}Open...:@{UB}
+      Here it's possible to open a different-named config file. So you can
+      use more than one config file. A file requester is therefore opened.
+   @{B}Save as...:@{UB}
+      You can save your current data using a different name (a file re-
+      quester is opened). See also "Open...".
+   @{B}About...:@{UB}
+      Information about the program and its author.
+   @{B}Quit:@{UB}
+      The only possibility to remove NewMode from memory (except of using
+      Exchange or the tool "KillNewMode").
+
+@{B}Edit:@{UB}
+   @{B}Last Saved:@{UB}
+      Opens the last saved configs (rejects your current changes!)
+   @{B}Restore:@{UB}
+      Rejects all changes and rebuilds NewMode to the same status which was
+      present when you opened the main window. Equals "Cancel", but the main
+      window remains open.
+
+The expert user surely noticed similarities to the Prefs-files. But NewMode
+is ONE program, and it is not split into Prefs and Work program. So please
+do not copy it into the Prefs directory to prevent misunderstandings.
+@ENDNODE
+
+
+
+
+
+
+@NODE WINEDIT "NewMode - English manual"
+@{B}*** The Edit window ***@{UB}
+
+In the edit window you can see and change the screen data of the selected
+program list entry. Parameters like screenmode, position, size, number of
+colours and overcan mode can be changed.
+
+Here is a list of functions in the edit window:
+
+@{B}Object name:@{UB}
+   Here you can change the name of the list entry, but it is just a help for
+   you to keep survey. Default is the name of the program having tried to
+   open a screen.
+
+@{B}Promote/Ignore@{UB}
+   Here you can exclude single screens from being promoted.
+
+@{B}Mode filter:@{UB}
+   Makes it possible to reduce the shown screenmodes according to certain
+   characteristics:
+
+   @{B}- Standard:         @{UB} Lists all normally available screenmodes.
+   @{B}- Workbench:        @{UB} Lists all screenmodes compatible to Workbench.
+   @{B}- Extra Half Brite: @{UB} Lists only ExtraHalfBrite (EHB) modes.
+   @{B}- Hold And Modify:  @{UB} Lists only Hold and Modify (HAM) modes.
+   @{B}- Others:           @{UB} Lists all screenmodes filtered out
+                        using the other mode filters
+   @{B}- Default           @{UB} Keeps the default screenmode of the program.
+
+@{B}Screenmode:@{UB}
+   Lists the available screenmodes and enables the choice of a new screen-
+   mode for the current program list entry. Here it can occur, especially
+   with screens with a "Custombitmap", that not all modes are available for
+   a program. In this case these modes are removed from the list.
+
+@{B}? (question mark):@{UB}
+   Shows some information about the current screenmode.
+
+@{B}Colours:@{UB}
+   If the switch in front of this gadget is activated, you can change the
+   number of colours used in the screen. If it is deactivated, the number
+   of colours given by the program is used. The switch cannot be activated,
+   if a CustomBitmap is used.
+    
+
+@{B}Position:@{UB}
+   Here you can change the horizontal and vertical position of the screen:
+
+   @{B}- Default:@{UB}      Takes the position given by the program
+   @{B}- H-Center:@{UB}     Centers the screen horizontally (x-positioned)
+                   This is only possible in Overscan/AutoScroll mode
+   @{B}- Custom:@{UB} Enables the definition of a custom position in
+                   the number gadgets "Left" (horizontal position)
+                   and "Top" (vertical position).
+
+@{B}Size:@{UB}
+   Here you can define the screen size:
+
+   @{B}- Default:@{UB}      Takes the size given by the program.
+   @{B}- Screen:@{UB}       Takes the size of the selected screenmode
+                   including Overscan.
+   @{B}- Custom:@{UB}       Enables the definition of a custom size in the
+                   number gadgets "Width" and "Height".
+   
+   This function is disabled if screens with a Custombitmap occur.
+
+   If you enter your own size, it may occur that the screen is bigger than
+   the size your monitor can currently display. An example would be a
+   1024*1024 screen in an Euro72 mode. In this case NewMode automatically
+   activates Autoscroll mode. If you touch the screen borders with the
+   mouse pointer, the screen will scroll to show the "invisible" parts of
+   the screen. This function is found as the "Autoscroll" switch in the
+   "Screenmode"-Prefs.
+   
+@{B}Overscan:@{UB}
+   Enables the selection between the following overscan modes:
+
+     @{B}- Text size@{UB}
+     @{B}- Graphics size@{UB}
+     @{B}- Maximum size@{UB}
+     @{B}- Extreme size@{UB}
+
+   Text and graphics size for a screenmode can be changed in the "Overscan"
+   prefs.
+
+@{B}Use:@{UB}
+   - when promoting a screen: changes the screen parameters the way you
+     selected them, opens the screen with these changes and takes them
+     into the program list.
+   - if opened by pressing "Edit": Takes your changes into the list and
+     returns you to the main window.
+
+@{B}Save: (only available when promoting)@{UB}
+   Saves the complete configuration to disk/harddisk.
+
+@{B}This time: (only available when promoting)@{UB}
+   Opens the screen considering changes, but does not take any changes into
+   the program list; your changes will be lost. Excellent for trying out
+   some possibilities.
+
+@{B}Options...:@{UB}
+   Opens the @{"options window" link WINOPTIONS} of the edit window. This was needed
+   because all functions did not fit on the edit window (considering the
+   users still working on a 640*200 screen).
+   
+@{B}Cancel:@{UB}
+   - when promoting a screen: Open the screen without any changes
+   - if opened by pressing "Edit": Do not take changes into the list and
+     return to the main window
+@ENDNODE
+
+
+
+
+
+
+@NODE WINOPTIONS "NewMode - English manual"
+@{B}*** Options ***@{UB}
+
+Now one more window offering some special options is opened (there was not
+enough room in the edit window)
+
+@{B}Compare:@{UB}
+   @{B}- Program name:@{UB} identifies the screen using the file name of the program
+         having opened the screen; please do not change the file name later,
+         or NewMode won't be able to identify the screen in this way any
+         more. The file name is shown below.
+   @{B}- Screen name:@{UB} identifies the screen by comparing its title. You can also
+         specify the number of characters to be compared. So many charac-
+         ters are displayed below (followed by an arrow). If the screen is
+         untitled, this option will be deactivated.
+   @{B}- Screen data:@{UB} identifies the screen comparing the other screen data
+         (resolution, mode, colour depth ...). Resolution and depth are shown
+         below, but showing more data would have exceeded the space of this
+         window.
+           
+   Generally it is the easiest way to identify a screen comparing the file
+   name, unless you keep renaming your files or the file name is changed by
+   the program. For this case, the other options are available.
+
+@{B}Use font 'Topaz 8':@{UB}
+   Forces the screen to use the font "Topaz 8" (mainly for older programs
+   which do not yet support different fonts.
+
+@{B}Update screen:@{UB}
+   If you have a graphics card and a driver offering a "ChipCopy" mode (a
+   mode for copying the ChipRam into the graphics card memory), you can
+   specify here how often the memory is to be copied per second. In this
+   way, specially some games (e.g. ManiacMansion, ZakMcKracken) can be
+   promoted on a graphics card. But your machine will slow down, the higher
+   this value is chosen!
+
+   At the moment, only the PicassoII with VillageTronic driver cooperates
+   with NewMode in ChipCopy mode. I have already talked to a programmer of
+   the CyberGFX software about this function. If this feature is built into
+   the software, it will work with a newer version of NewMode, too.
+@ENDNODE
+
+
+
+
+
+
+
+@NODE PROBLEMS "NewMode - English manual"
+@{B}*** Troubleshooting ***@{UB}
+
+Here you can find some vital hints to cope with trouble occurring during
+the work with NewMode. The following passage contains frequently asked
+questions, their cause and their solution, of course.
+
+@{U}@{B}Problem:@{UU}  How can I exclude certain screen modes from promoting or generally
+          promote one screen mode to the other?
+@{B}Cause:   @{UB} NewMode is made program-dependent and not screenmode-dependent.
+          This feature offers some advantages.
+@{B}Solution:@{UB} Please read the chapter @{"'Why NewMode'" link ABOUT}.
+
+
+@{U}@{B}Problem:@{UU}  When I'm trying to patch a certain program (e.g. Protracker 3.15),
+          the computer is hanging, after the NewMode window was opened.@{UB}
+@{B}Cause:   @{UB} Mostly the machine itself is not hanging, but the program whose
+          screen you wanted to patch blocks all keyboard and mouse action.
+          As you can't control NewMode any more now, the machine seems to
+          be hanging.         
+@{B}Solution:@{UB} Use the function "Ask for none, take new ones". This function has
+          been implemented for these cases.
+
+@{U}@{B}Problem:@{UU}  Starting NewMode, the error message "Can't open config file"
+          occurs.@{UB}
+@{B}Cause:   @{UB} NewMode is trying to load the configuration file from "ENVARC:", 
+          although it has not been generated yet.         
+@{B}Solution:@{UB} Open the main window by pressing the Hotkey (default is "LAlt n").
+          Click on the "Save" gadget then. The config file is now generated,
+          and the error message won't occur any more.
+
+@{U}@{B}Problem:@{UU}  The program "RTPatch" cannot be started.@{UB}
+@{B}Cause:   @{UB} Unknown. This error was reported only once to me.
+@{B}Solution:@{UB} Make sure that RTPatch is started @{B}before@{UB} NewMode is run. (e.g. in
+          the User-Startup). This should work.
+
+@{U}@{B}Problem:@{UU}  NewMode does not offer all screen modes.@{UB}
+@{B}Cause:   @{UB} NewMode contains an "intelligent mode filter". If a screen mode
+          does not have the characteristics to satisfy the program, it is
+          removed from the list.
+          Example: A program opens a screen and uses a custom bitmap with
+                   16 colours. Here you can't change the number of colours.
+                   If you have an Amiga offering "only" the ECS Chipset,
+                   the modes offering less than 16 colours (e.g. Multiscan:
+                   Productivity) are removed from the list.
+          This is only one example. Showing all possibilities would exceed
+          the space of this manual. This way is needed to prevent your
+          machine from hanging up by choosing an incompatible screen mode.
+@{B}Solution:@{UB} Go and get an AA Amiga or buy a graphics card.
+
+@{U}@{B}Problem:@{UU}  The number of colours or the size of the screen cannot be changed
+          in the edit window.@{UB}
+@{B}Cause:   @{UB} The program uses a custom bitmap. These parameters cannot be
+          changed in this case.
+@{B}Solution:@{UB} None.
+
+@{U}@{B}Problem:@{UU}  The edit window is opened when promoting a screen, but the screen
+          isn't opened. In some cases, an error message (e.g. "Can't open
+          screen") is issued.@{UB}
+@{B}Cause:   @{UB} The program needs a screen with certain characteristics. As you
+          changed them, the program can't open the screen any more.
+@{B}Solution:@{UB} Frequently the screen size is the cause of these errors. Try to
+          set the screen size in the edit window to "Default". In my
+          experience, this method helps in 80 percent of the cases.
+
+@{U}@{B}Problem:@{UU}  NewMode comes into view if the screenblanker becomes active.
+@{B}Cause:   @{UB} NewMode definitely *IS* a screen promoter, and as screen blankers
+          usually open screens, NewMode tries to promote them, if "Ask for
+          new screens" or "Ask for all screens" is active. 
+@{B}Solution:@{UB} Take the screen blanker into your list and turn "Promote" in the
+          edit window to "No". Make sure that you turn on only  "Compare
+          program name" in the options window, as modern screen blankers
+          keep changing the screen values.
+
+@{U}@{B}Problem:@{UU}  SysInfo does not run if NewMode is active.@{UB}
+@{B}Cause:   @{UB} SysInfo pretends a wrong screenmode (SuperHires). When pressing
+          "Use" without looking at the screenmode list, NewMode will patch
+          SysInfo to SuperHires, and in case you own an ECS machine, patch
+          it to 4 colours. As SysInfo insists on getting 8 colours, this will
+          cause your machine to take a trip to India (Guru country).         
+@{B}Solution:@{UB} Look at the screenmode list and correct it to PAL- or NTSC-
+          HiRes. Set the number of colours to 8. Now SysInfo should be con-
+          tent and run perfectly. 
+
+@{U}@{B}Problem:@{UU}  A screen in the list is not promoted any more.@{UB}
+@{B}Cause:   @{UB} Perhaps NewMode compares the program name and it has been
+          changed.
+@{B}Solution:@{UB} Re-change the program name or try a different comparison mode.
+          If it does not work yet, remove the entry and include it once
+          more. Now it should work.
+@ENDNODE
+
+
+
+
+
+
+@NODE COPYRIGHT "NewMode - English manual"
+@{B}*** Copyright ***@{UB}
+
+ @{B}NewMode V3.9 (Amiga) - 
+ © 1992-95 by Andreas Linnemann, Ringstraße 26, D-27313 Dörverden-Barme@{UB}
+
+NewMode is freely distributable, but the only copyright still belongs to
+Andreas Linnemann. This means that NewMode may be freely given for private
+usage, if there is not taken more than a copy fee. This fee must not be more
+than 4 DM or $3 US.
+
+NewMode can be included into Public Domain series, for example the Amiga-
+LibDisk (Fred Fish), SaarAG ... This includes the CD-ROM versions of these
+series.
+
+In case NewMode is sold on any media, these media must be filled with at
+least 60 % of different public domain software. This shall prevent NewMode
+from being sold individually on single disks.
+
+Any commercial publication or usage of NewMode and the corresponding files
+is prohibited. This is only possible with my written permission.
+
+There is no guarantee for NewMode to work 100% correctly. Usage of NewMode
+at your own risk. The author can not be taken responsible for any damage
+caused by using NewMode.
+@ENDNODE
+
+
+
+
+
+@NODE THANKS "NewMode - English manual"
+@{B}*** Thanks! ***@{UB}
+
+Here I'd like to say thanks to the following persons, who took part in the
+development of NewMode (more or less):
+
+- Tom Kuhlenkamp for correcting the German manual and for translating it
+  into English. In order to prevent me from working on NewMode all day and
+  night, he occasionally gets me some tickets for the Cinemaxx in Hannover.
+
+- Marco Krause, who helped me with his great knowledge about the SAS/C
+  compiler and the Amiga Operating System. Besides, he is testing NewMode
+  for some bugs. He sometimes finds the most impossible bugs, which no one
+  would have ever found.
+
+- Kai Kohlmorgen, who forces me to build in this and that feature, so that
+  I finally do it. Without him, no keyboard control or "Update Screen"
+  feature would have been built in yet, I'm afraid. He also finds some bugs
+  nobody found before...
+
+- Marcel Offermans, for his hints and tests of NewMode.
+
+- Thomas Kessler, who developed an Installer script and gave it to me.
+  He could not tolerate my old Shell script any more.
+
+- Stefan Schmidt, who asked me (1992), if I could just write a little
+  screen promoter. Without him, NewMode would not have been written
+  probably.
+
+- Stefan Raudonis, for his Mailbox "COSMOSBOX", where I'm a point, and
+  for testing NewMode.
+
+- Oliver Oster, who includes the new versions of NewMode into the Aminet.
+
+- Everyone who writes me about NewMode and gives me some suggestions for
+  more and more features to build in.
+
+- Phase5, who took NewMode under licence.
+
+- SAS, for the unique SAS/C compiler on the Amiga and for the excellent
+  support.
+
+- ESCOM, who is carrying on the Amiga technology.
+
+- Gene Rodenberry, for his wonderful science fiction world StarTrek.
+
+Many thanks from the author also to everyone using NewMode.
+
+   Andreas Linnemann
+
+   (program author)
+@ENDNODE
+
+
+
+
+
+@NODE ADRESS "NewMode - English manual"
+@{B}*** Adresses/support ***@{UB}
+
+If you have problems using NewMode, need a newer version oder have hints
+about NewMode, you can contact us whenever you want.
+
+Please take into view, however, that this all is only @{B}a hobby@{UB} of mine,
+i.e. I am not interested in spending a fortune for disks and postage. So
+please understand that letters are only answered if you enclose a
+@{B}correctly stamped and addressed envelope (requesting a new version also a
+disk)@{UB}.
+
+@{B}Written requests (mail) please to:@{UB}
+
+   Andreas Linnemann, 
+   Ringstraße 26,
+   D-27313 Dörverden-Barme (GERMANY)
+   
+@{B}Better, cheaper and faster: E-Mail@{UB}
+
+  E-Mail: andreas@cosmos-l.gun.de
+   
+
+@{B}Thanks to Stefan Raudonis, Sysop of the Cosmosbox in Langwedel in the
+vicinity of Bremen. Now is is possible to get the newest versions upload-
+free in his BBS:@{UB}
+
+   +49/(0)4232/94040 -> 19200 bps ZyXEL
+   +49/(0)4232/94041 -> 64000 bps ISDN X.75
+
+   Enter "GAST" as user name, and then choose the board "Amiga Binär/
+   07.Freedownload-Brett/Sonstige". (State: 03.sep.95)
+@ENDNODE
+
+
+
+
+
+
+@NODE STORY "NewMode - English manual"
+@{B}*** The history of NewMode ***@{UB}
+
+(...or the story of the to guys who marched away to buy a Hires Denise)
+
+Once upon a time, in the beginning of 1992, a hobby programmer and his
+friend marched away to buy a Hires Denise after having bought and installed
+OS 2.04. After buying and installing it they had to see that hardly any
+program dared to support those new excellent (in those times) resolutions
+and screen frequencies. Then the friend said: "You could write a screen
+promoter to solve this problem..."
+
+The hobby programmer was me, and so I created NewMode.
+
+@{B}V0.1-@{UB}  First published version, which was developed, because there were no
+@{B}V1.1@{UB}   reasonable screen promoters when the ECS chipset was published. The 
+       basic concept for NewMode was constituted: NewMode orientates to the
+       screenmodes of the PROGRAMS and not, like other screen promoters, to
+       the screenmode itself. NewMode does NOT promote PAL:Hires to NTSC:
+       Hires, but is promotes the screenmode of a program. This basic concept
+       was continued until today.
+
+@{B}V2.0b-@{UB} Published in a "small circle" only. NewMode consisted of two programs
+@{B}V2.02b@{UB} now, a patch and a prefs program. Unfortunately I overloaded the
+       program with too many wishes from the users, so that the patch it-
+       self was put into the background. But this version worked well, and
+       it had the decisive advantage, that also the OpenScreenTags function
+       was promoted. I had to do lots of other things in those times: I
+       bought a new machine (an Amiga of course), and I was busy with a new
+       compiler version. Having installed a graphics card, and with NewMode
+       users keeping screaming for a new version, I began writing a new
+       version after having planned it carefully...
+       
+@{B}V3.0a-@{UB} Completely new programming. Experience I collected during programming
+@{B}V3.0b8@{UB} and new OS versions (2.1, 3.x) required a new program. Completion of
+       the basic functions.
+
+@{B}V3.0-@{UB}  Completion of the version to be published: 3.0. Bug in catalog and
+@{B}V3.1@{UB}   in the commodity functions fixed. The main window has a zoom gadget
+       now.
+
+@{B}V3.2b@{UB}  Fixed bug in catalog loading routine. Extended mode filter ("Others").
+       Improved font adaptation routine.
+
+@{B}V3.3b-@{UB} Fixed bug in HAM mode filter. Fixed one enforcer hit. Under certain
+@{B}V3.3@{UB}   circumstances the screens were not compared correctly, so that some
+       entries occured twice ore even more often. This bug was fixed. Im-
+       plemented activation/deactivation with Exchange. New function for
+       including difficult screens. The error message "Config file not
+       found" will occur only if NewMode is started for the first time, as
+       long as no config file exists. False entries at "Left", "Top",
+        "Width" and "Height" are checked out now.
+
+@{B}V3.4@{UB}   There are no more double messages, if a screen patch is cancelled.
+       The CheckBox- and Radio gadgets are now enlarged if OS3.0 or higher
+       is available.
+
+@{B}V3.5@{UB}   NewMode is now completely keyboard controllable (locale-capable). It
+       is possible to save while patching a screen. Locale- and Sourcefile
+       were optimized, so that the program itself did not grow in spite of
+       several new functions. The stack consumption was reduced, and also
+       window operations were accelerated. Choosing a new screenmode, the
+       original number of colours will be held (as possible), even if a
+       screen mode offering less colours was selected in the meantime. From
+       OS3.0 (V39), only OpenScreenTags will be patched, OpenScreen won't,
+       because OpenScreen calls OpenScreenTags anyway.
+
+@{B}V3.6@{UB}   NewMode now supports the "ChipCopy" mode of the PicassoII driver by
+       VillageTronic. The screenmode and the number of colours can be
+       excluded from promoting. When new screens are taken, the tag
+       "SA_Like-Workbench" is supported. If "Default" was chosen, the
+       corresponding tag is set to "TAG_IGNORE", so the default values are
+       really used. The Overscan gadget is now deactivated, if no overscan
+       is permitted. Some gadgets and texts were changed for a better font
+       adaptation. If a mode is not present in the list any more, a similar
+       mode is picked out by the BestModeID() function. In this context,
+       I removed an Enforcer hit, which occured sometimes. The alerts,
+       which were opened in corresponding graphics card modes using the
+       CyberGFX software, are not (with NewMode V3.6 and CyberGFX software
+       V40.49 (cyberintui.library V40.22) ) promoted any more.
+
+@{B}V3.7@{UB}   The patch function was reworked. Now there are no problems with
+       other programs which patched OpenScreen()/OpenScreenTags().
+
+@{B}V3.8@{UB}   Fixed a bug in the new patch function (the NS_EXTENDED Flag was
+       cleared).
+
+@{B}V3.9@{UB}   Now there are no problems if a Task called OpenScreen()/OpenScreen-
+       Tags(). Fixed a bug in the "H-Center" function.
+@ENDNODE

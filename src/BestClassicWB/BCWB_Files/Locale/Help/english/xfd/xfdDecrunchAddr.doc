@@ -1,0 +1,94 @@
+NAME
+	xfdDecrunch 1.6
+
+SYNOPSIS
+	xfdDecrunchAddr SOURCE/A,DEST=TO,HEADER/N,ADDHEAD/S,DECRADDR,
+	JMPADDR,STCO=STORECOMMENT/S
+
+DESCRIPTION
+	xfdDecrunchAddr unpacks address crunched executablefiles. It
+	requires Kickstart V37+.
+
+	When calling it "xfdDecrunchAddr ?" you get above synopsis.
+	Entering "?" here again brings you a deeper help.
+
+	SOURCE specifies the file(s) that should be decrunched.
+	Wildcards are not supported.
+
+	DEST is the file to save the result to.
+	Without DEST, the old file will be overwritten.
+
+	HEADER specifies the header type, which should be linked to
+	the decrunched file:
+	0 - No header is linked.
+	1 - Only the executable hunk information is linked. This is useful
+	    when the executable program is completely relocatable and thus
+	    needs not to be forced to a certain memory region.
+	2 - Only the executable hunk information is linked, but this
+	    contains one additional BSS hunk.
+	3 - The xfdDecrunch 1.08 simple header is linked.
+	4 - The xfdDecrunch 1.08 professional header is linked.
+	11- This is like 1, but the header overwrites file start and end.
+	12- This is like 2, but the header overwrites file start and end.
+	13- This is like 12, but has an additional empty RELOC hunk.
+	
+	Header types 1 and 2 are useful, when the decrunched file is again
+	crunched with another cruncher. The other headers would hide this
+	and xfd cannot recognize the file. Be careful when using this
+	header, as created files will crash, when using absolute addresses.
+
+	Header types 11 to 13 are useful, when a file is double time
+	address crunched and the inner file-structure is overwritten by
+	NOP's or other commands. Be sure you know what you do when using
+	these headers!
+
+	xfdDecrunchAddr automatically checks if destination is normal
+	executable (should not happen ever - only when someone forgot to
+	unhunk the file before crunching) or if it is double crunched
+	by testing header type 1 and 2 internally. A message appears in
+	case xfdDecrunchAddr got such an file.
+	You should save the file with the header type printed there and
+	start xfdDecrunchAddr again. When header type 0 is told it maybe
+	needed to use types 11 to 13.
+
+	A special XFD external is supplied in LIBS:xfd/, which recognizes
+	xfdDecrunch, Object Master and other link headers and removes them.
+	You can use it to change the header type of decrunched file.
+
+	ADDHEAD forces xfdDecrunchAddr to do nothing except adding one
+	of above headers. For headers 3 and 4 you need to specify DECRADDR
+	and JMPADDR. If no JMPADDR is given, xfdDecrunchAddr uses the
+	DECRADDR instead for JumpIn as well.
+	
+	STORECOMMENT stores the jump address and decrunch address of file
+	in file comment when uncrunching with xfd.
+
+HISTORY
+	xfdDecrunchAddr 1.6
+	- corrected email address
+
+	xfdDecrunchAddr 1.5
+	- added STORECOMMENT keyword
+
+	xfdDecrunchAddr 1.4
+	- Fixed serious bug. Previous versions switched decrunch address
+	  and jump address, when the file was crunched.
+
+	xfdDecrunchAddr 1.3
+	- added new headers
+
+	xfdDecrunchAddr 1.2
+	- bug fix in help text
+
+	xfdDecrunchAddr 1.1
+	- added ADDHEAD, DECRADDR and JMPADDR keywords and header addition
+
+	xfdDecrunchAddr 1.0
+	- first version
+
+COPYRIGHT
+	xfdDecrunchAddr is freely distributable and for
+	noncommercial use only.
+
+AUTHOR
+	Dirk Stöcker <stoecker@epost.de>

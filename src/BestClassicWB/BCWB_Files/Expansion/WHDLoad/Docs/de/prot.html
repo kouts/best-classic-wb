@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<TITLE>Benutzung von resload_Protect#?</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: prot.html 1.7 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Benutzung von resload_Protect#?</h3>
+<h4>Theorie</h4>
+
+Es gibt viele Situationen, bei denen es sehr hilfreich wäre informiert zu
+werden, wenn das installierte Programm auf bestimmte Speicherzellen zugreift.
+Mithilfe der <a href="../autodoc.html">resload_Protect#?</a> Funktionen ist es
+möglich, bestimmte Speicherbereiche vor dem Lesen und/oder Schreiben durch den
+Prozessor zu schützen. Schützen meint dabei, dass jeder Zugriff auf ein
+solcherart markierten Bereich eine "Access Fault" Exception auslöst, die in
+einem Fehlerrequester von WHDLoad angezeigt wird. Wenn ein Speicherbereich
+durch <a href="../autodoc.html">resload_Protect#?</a> geschützt wird, verändert
+WHDLoad die entsprechenden Kachel-Descriptoren im MMU-Übersetzungsbaum. Dadurch
+generiert jeder Zugriff auf eine geschützte <a href="mmu.html">Kachel</a> durch
+den Prozessor eine "Access Fault" Exception. Der Exception-Handler im WHDLoad
+prüft den Grund für jede Exception. Wenn der Grund ein Zugriff auf eine
+geschützte Kache l war, aber die zugegriffene Adresse nicht in einem
+geschützten Bereich lag, wird der Zugriff emuliert und die normale
+Programmausführung fortgesetzt. Ansonsten wird das installierte Programm mit
+einem entsprechendem Fehlerrequester beendet. Zugriffe des Instruction-Stream
+(d.h. Zugriffe bei denen Prozessorcode geladen wird) werden immer emuliert,
+oder mit anderen Worten: die <a href="../autodoc.html">resload_Protect#?</a>
+Funktionen überwachen nur das Schreiben und Lesen von Daten.<br>
+
+Dadurch, dass jeder Zugriff auf eine geschützte Kachel (Kachelgröße gegenwärtig
+4096 Byte) ein "Access Fault" generiert auch wenn der geschützte Bereich nur
+eine Größe von einem Byte hat, bedingt eine starke Verlangsamung der
+Ablaufgeschwindigkeit des installierten Programmes. Insbesondere wenn sich
+Programmcode auf derselben Kachel befindet. Wenn das installierte Programm sehr
+von seiner Ausführungsgeschwindigkeit abhängt, können sich Unterschiede in der
+Ausführung ergeben. Es kann auch sein, dass einige Programme deshalb nicht mit
+resload_Protect zusammen arbeiten.
+
+<h4>Beispiel: Codeprüfsummen</h4>
+
+Wenn ein Spiel mit WHDLoad installiert werden soll, muss die original
+Laderoutine so verändert werden, dass sie nun WHDLoad nutzt um die Spieldaten
+zu laden. Einige Spiele verwenden Prüfsummen über Codebereiche um
+festzustellen, ob der ursprüngliche Code verändert worden ist. Solche
+Prüfsummenroutinen sind manchmal nicht leicht zu finden. Unter Verwendung der
+<a href="../autodoc.html">resload_Protect#?</a> Funktionen in WHDLoad ist dies
+aber ganz einfach! Alles was man tun sollte, ist die veränderten Bytes mit
+Leseschutz zu versehen. Dadurch erzeugt jede Routine, die versucht eine
+Prüfsumme zu berechnen indem sie die geänderten Bytes liest, eine "Access
+Fault" Exception. Womit die entsprechende Routine identifiziert ist.
+
+<h4>Einschränkungen</h4>
+
+Die Kachel, auf den der SSP zeigt, darf nicht geschützt werden. Falls dies doch
+getan wird und eine Exception auftritt, führt dies zu einem "Double Bus Fault",
+weil der Prozessor nicht in der Lage ist das Exception Stackframe zu schreiben.
+Nach einem "Double Bus Fault" ist nur noch ein Hardwarereset möglich. WHDLoad
+prüft beim Setzen des geschützten Bereiches ob dieser sich mit dem aktuellen
+SSP überdeckt. Wenn dies der Fall ist, beendet es sich mit einer entsprechenden
+Fehlermeldung. Das hilft aber natürlich nicht wenn sich der SSP später ändert.
+
+<p>Weitere Einschränkungen und zusätzliche Informationen sind unter den
+entsprechenden resload_Protect-Funktionen in den Autodocs dokumentiert:
+
+<ul>
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+</ul>
+
+</BODY>
+</HTML>

@@ -1,0 +1,141 @@
+<HTML>
+<HEAD>
+<TITLE>Requirements</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: need.html 1.11 2020/10/26 00:21:55 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Requirements</h3>
+<h4>... to run installed programs:</h4>
+<ul>
+<li>CPU 68000 (68010+ is recommended because some installs require the VBR for
+the 'quit by a key' feature)
+<li>Kickstart 2.0 (version 37)
+<li>a minimum of 1.0 MiB RAM (sometimes more, it depends on the installed
+program)
+</ul>
+
+<h5>Kickstart Emulation</h5>
+<p>Some installs use a so called <cite>kickemu</cite> to have a complete AmigaOS
+environment for the installed program. For that <cite>kickemu</cite> an
+original kickstart image is required. This image can be extracted from a real
+Amiga with tools like <cite>GrabKick</cite> or similar which can be found on
+aminet (make sure to have a <a href="bugs.html">correct setup for your disks
+(MaxTransfer, Mask)</a> or the created image may be broken). The supported
+image version depends on the installed program.
+You should find an information
+about which image must be used in the supplied <i>ReadMe</i> file. The image
+for kickstart versions 1.2 and 1.3 can only extracted from a appropriate A500,
+for version 3.1 it can be extracted from a A500/A600/A2000, A1200 or A4000 which
+must be equipped with a Kick3.1 ROM. If the image cannot be found
+by WHDLoad or the image is of the wrong version or altered in any way, WHDLoad
+will quit with an appropriate error message. Additionally a relocation file
+with the extension <tt>.RTB</tt> matching the kickstart image must be present.
+This relocation file can be found on aminet in the archive
+<a href="http://aminet.net/package/util/boot/skick346.lha">util/boot/skick346.lha</a>.
+Both files, the kickstart image and the
+relocation file must be located in the directory <i>Devs:Kickstarts/</i> and
+must have the correct name. Starting WHDLoad version 17.0 the files can also be
+located in the directory <i>WHDCOMMON:</i>. The table below shows the names
+of the files depending on the kickstart version.</p>
+
+Starting WHDLoad version 16.5 also the kickstart images from the Cloanto Amiga
+Forever CDs may be used. The images must be renamed according the table
+below. Additionally the <i>rom.key</i> must be copied to
+<i>Devs:Kickstarts/</i> or <i>WHDCOMMON:</i>.
+
+The Cloanto Plus Edition ROMs are no longer encoded and do not require the
+<i>rom.key</i>. For further information please refer to <a
+href="http://amigaforever.com/kb/15-120">Amiga Forever</a>.<p>
+
+<table border=1 cellpadding=3><tr>
+	<th rowspan=2>Version</th>
+	<th rowspan=2>Name Kickstart Image</th>
+	<th rowspan=2>Name Relocation File</th>
+	<th colspan=4>Cloantos 'Amiga Forever' file names</th>
+</tr><tr>
+	<th>release 3.0 (1999)</th>
+	<th>release 6.1 (2005)</th>
+	<th>release 6.7 (2011)</th>
+	<th>release 7.0 (2014)</th>
+</tr><tr>
+	<td align=center>1.2</td>
+	<td>Devs:Kickstarts/kick33180.A500</td>
+	<td>Devs:Kickstarts/kick33180.A500.RTB</td>
+	<td></td>
+	<td></td>
+	<td align=center colspan=2>amiga-os-120.rom</td>
+</tr><tr>
+	<td align=center>1.3</td>
+	<td>Devs:Kickstarts/kick34005.A500</td>
+	<td>Devs:Kickstarts/kick34005.A500.RTB</td>
+	<td align=center>kick130.rom</td>
+	<td align=center colspan=3>amiga-os-130.rom</td>
+</tr><tr>
+	<td align=center rowspan=3>3.1</td>
+	<td>Devs:Kickstarts/kick40063.A600</td>
+	<td>Devs:Kickstarts/kick40063.A600.RTB</td>
+	<td></td>
+	<td></td>
+	<td align=center>amiga-os-310-a500.rom</td>
+	<td align=center>amiga-os-310-a600.rom</td>
+</tr><tr>
+	<td>Devs:Kickstarts/kick40068.A1200</td>
+	<td>Devs:Kickstarts/kick40068.A1200.RTB</td>
+	<td></td>
+	<td></td>
+	<td align=center colspan=2>amiga-os-310-a1200.rom</td>
+</tr><tr>
+	<td>Devs:Kickstarts/kick40068.A4000</td>
+	<td>Devs:Kickstarts/kick40068.A4000.RTB</td>
+	<td align=center>kick310.rom</td>
+	<td align=center colspan=2>amiga-os-310.rom</td>
+	<td align=center>amiga-os-310-a4000.rom</td>
+</tr></table>
+
+<h4>optional packages:</h4>
+<ul>
+
+<li>Kickstart 3.1 (version 40), it fixes some problems in earlier releases, it
+also provides some new features which are used by WHDLoad when available like
+MemoryPools giving better performance if many files are used by the installed
+program
+
+<li>to use XPK-compressed data files the XPK-libraries must be installed, these
+can be found on <a
+href="http://aminet.net/package/util/pack/xpk_User">aminet</a>, all data files
+can be compressed using XPK, WHDLoad will decompress these during loading, XPK
+decompression requires extra memory and should therefore be used carefully in
+environments with low free memory, files written by WHDLoad are always
+uncompressed
+
+<li>for the automatic language selection used in some installs the
+lowlevel.library is used, this library is part of Workbench 3.1 but can also be
+installed on previous OS releases as an extension, if the lowlevel.library is
+absent the installs will default to english language
+
+<li>if installed WHDLoad will use reqtools.library to display any requesters,
+reqtools can be configured to for example to control where the requesters will
+appear, it can be downloaded from <a
+href="http://aminet.net/package/util/libs/ReqToolsUsr.lha">aminet</a>
+
+</ul>
+
+<h4>... to write new Slaves / install programs</h4>
+<ul>
+<li>recommended is a 68030+ with MMU to use all features of WHDLoad (a fat
+machine is always a good choice to develop software ;-))
+<li>know how about machinecode, assembler, amiga hardware ...
+<li>an assembler (should be able to optimize)
+<li>some other tools will be useful (hexedit, disasm, ...)
+<li>some more MiB's RAM
+<li>access to different machines for testing reasons (68000 - 68060, OCS, AGA,
+GfxCard)
+<li>a hardware or software freezer like AR3, HRTmon, TK
+<li>an NMI button to interrupt a running program or to enter a
+software-monitor/freezer
+</ul>
+</BODY>
+</HTML>

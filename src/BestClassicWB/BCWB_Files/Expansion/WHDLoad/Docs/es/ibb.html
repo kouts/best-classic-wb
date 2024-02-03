@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE>InstallBB * Instalando Sectores de Arranque (Bootblocks)</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: ibb.html 1.2 2004/04/07 19:57:54 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>InstallBB * Instalando Sectores de Arranque (Bootblocks)</h3>
+InstallBB lee o escribe sectores de arranque desde o hacia disco. Los sectores de arranque
+son manejados como ejecutables. Al escribirlos preservaran el tipo de sistema de archivos
+original leyendo primero el sector de arranque actual y uniendo el DosType (<tt>DOS0</tt>,
+<tt>DOS1</tt> ...) al del nuevo sector. La suma de control del sector de arranque
+se calcula automáticamente.
+<h4>Instalación</h4>
+InstallBB solo se encuentra en el archivo <tt>DEV</tt> archive, no en el archivo
+<TT>USR</tt>
+<br>cópielo a C: o una ubicación similar
+<h4>Opciones</h4>
+<table>
+<tr><td colspan=2>
+<tt>PROGRAM/A,UNIT/K/N,WRITE/S</tt>
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>PROGRAM/A</tt>&nbsp;&nbsp;
+</td><td>
+el fichero ejecutable que será leído o escrito, debe ser especificado
+</td></tr>
+<tr><td valign=top>
+<tt>UNIT/K/N</tt>
+</td><td>
+el numero de unidad del trackdisk (numero de unidad de discos)
+<br>por defecto es 0 (DF0:)
+</td></tr>
+<tr><td valign=top>
+<tt>WRITE/S</tt>
+</td><td>
+conmutador, si no se especifica el sector de arranque será leído desde el
+disco a un archivo, si se especifica el programa especificado será escrito
+al disco
+</td></tr>
+</table>
+</BODY>
+</HTML>

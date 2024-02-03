@@ -1,0 +1,108 @@
+<HTML>
+<HEAD>
+<TITLE>Frequently Asked Questions (FAQ) (Domande Più Frequenti)</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: faq.html 1.6 2015/12/23 22:35:27 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Frequently Asked Questions (FAQ)</h3>
+<table>
+<tr><td valign=top><i>
+Domanda:
+</i></td><td><b>
+Ok, ora ho l'installatore ma ci sono problemi con l'installazione o l'avvio. Sono sicuro di aver fatto tutto nel modo
+giusto. Cosa posso fare?
+</b></td></tr><tr><td valign=top><i>
+Risposta:
+</i></td><td>
+Questo malfunzionamento potrebbe essere causato da molte cose:
+<ul>
+<li>Tooltype mancanti/errati<br>Alcuni fix non gireranno nel modo giusto (o proprio per niente) se non imposterai i
+tooltype corretti per il tuo sistema. Leggi la documentazione per scoprire quali sono i tooltype supportati. Alcuni
+tooltype che potrebbero aiutare sono NoCache, NoVBRMove, NoAutoVec, PAL/NTSC, NoMMU.
+<li>Il file readme fornito con il pacchetto di installazione<br>Spesso questo illustra qualche specifico problema, tasti o
+tooltype che devono essere impostati.
+<li>Versione non corretta di WHDLoad<br>La gran parte degli installatori necessita dell'ultima versione di WHDLoad e non
+gireranno con una precedente. La regola d'oro è di avere sempre l'ultima versione disponibile installata.
+<li>Il tuo sistema è incompatibile<br>In particolar modo una CPU 68040/060 o qualche scheda acceleratrice/altro hardware
+può causare problemi. Prova a disattivare tutto l'hardware aggiuntivo e riavvia l'installatore.
+<li>Versione non supportata<br>Molti giochi commerciali sono stati venduti in più d'una versione (a prezzo
+pieno/riedizione budget/coverdisk, PAL/NTSC, ...). Un installatore funziona esclusivamente con la versione del gioco per
+cui è stato scritto. Se hai una versione differente dello stesso gioco, questo non funzionerà. In questo
+caso l'unico modo per utilizzare l'installatore è di contattare l'autore dell'installatore stesso e chiedergli di
+supportare la versione da te posseduta. Nella maggioranza dei casi l'autore ti aiuterà e scriverà una patch per la tua
+versione del gioco in pochi giorni.
+<li>Vecchia versione dell'installatore<br>Appena un bug è stato trovato e rimosso, la nuova versione del fix viene resa
+disponibile sul sito di WHDLoad. Scaricati sempre l'ultima versione dell'installatore. Tieni presente che l'ultima versione
+non è sempre quella disponibile su Aminet. Alcune patch non vengono rilasciate su Aminet, ed alcune vengono rese
+disponibili con alcune settimane di ritardo!
+<li>Hai scoperto un bug<br>Sebbene tutti i fix vengano testati prima del loro rilascio, un bug potrebbe essere sfuggito al
+controllo. Se credi di aver scoperto un bug, scrivi un dettagliato resoconto del tuo problema all'autore della patch. A
+questo scopo utilizza il form per il resoconto dei bug (bug report form). Cerca di illustrare il problema più accuratamente
+possibile. Se non veniamo informati della presenza di eventuali bug non possiamo correggerli. Nota: L'UNICO modo corretto
+per riportare problemi/bug è il bug report form e non comp.sys.amiga.games o qualche forum perché non tutti gli sviluppatori li leggono.
+</ul>
+</td></tr>
+<tr><td valign=top><i>
+Domanda:
+</i></td><td><b>
+Possiedo un gioco ma non riesco a trovarne l'installatore.
+</b></td></tr><tr><td valign=top><i>
+Risposta:
+</i></td><td>
+Crea una lista dei tuoi desideri. Puoi anche includere giochi che possono già essere installati nell'HD (file copiabili e/o
+un installatore fornito con il gioco stesso) che hanno problemi (da semplici problemi di degrading al fatto che non si
+possano terminare). Tieni presente che una persona è in grado di creare patch per circa 25 giochi all'anno. Indica con una
+priorità quali sono i tuoi preferiti (ad esempio con ! e +) e quali no (-), e controlla quali giochi possiedono già
+un'installatore.
+</td></tr>
+<tr><td valign=top><i>
+Domanda:
+</i></td><td><b>
+E' possibile utilizzare WHDLoad per installare un demo/gioco che usa il sistema operativo?
+</b></td></tr><tr><td valign=top><i>
+Risposta:
+</i></td><td>
+Generalmente non è possibile per un demo/gioco che gira all'interno di WHDLoad di accedere le funzionalità dell'OS
+all'esterno, da dove WHDLoad è stato avviato. Tu come programmatore dello Slave devi patchare tutti gli accessi all'OS.
+O li disabiliti o devi emularli appropriatamente. Per l'emulazione esistono i pacchetti KickEmu. Sono disponibili per
+molte versioni del Kickstart (esempio 'Sources/whdload/kick13.s'). Mediante l'utilizzo dell'immagine di un Kickstart reale,
+creano un completo ambiente OS all'interno della memoria di WHDLoad. C'è un apposito file ReadMe a riguardo:
+'Sources/whdload/kick.readme'.
+</td></tr>
+<tr><td valign=top><i>
+Domanda:
+</i></td><td><b>
+Se WHDLoad utilizza la MMU (l'opzione <a href="opt.html#NoMMU">NoMMU/S</a> non è impostata e l'opzione
+<a href="opt.html#MMU">MMU/S</a> viene impostata) con un 68030 appaiono degli errori di breve durata nella grafica e/o nella
+musica (ad esempio con Beast2). E' un bug?
+</b></td></tr><tr><td valign=top><i>
+Risposta:
+</i></td><td>
+Questo succede durante il caricamento. Il motivo è che WHDLoad deve disattivare gli interrupt durante il caricamento per
+un breve periodo se la MMU è utilizzata. Questo modo di funzionare non può essere cambiato.
+</td></tr>
+<tr><td valign=top><i>
+Domanda:
+</i></td><td><b>
+Quando provo ad utilizzare il tooltype NTSC, WHDLoad va in Guru.
+</b></td></tr><tr><td valign=top><i>
+Risposta:
+</i></td><td>
+C'è un bug nello ScreenManager di MCP 1.30 che causa un crash durante la chiamata ad OpenScreenTags di WHDLoad. Disattiva
+lo ScreenManager di MCP per risolvere questo problema.
+</td></tr>
+<tr><td valign=top><i>
+Domanda:
+</i></td><td><b>
+I giochi girano più veloci del normale (la musica suona male) ed il fondo del display è mancante. Ho provato entrambi i tooltype PAL &amp; NTSC ma non ho ottenuto niente.
+</b></td></tr><tr><td valign=top><i>
+Risposta:
+</i></td><td>
+Se usi il monitor driver Voodoo, disabilita "FakeNativeModes" nei suoi tooltype.
+</td></tr>
+</table>
+</BODY>
+</HTML>

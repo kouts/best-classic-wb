@@ -1,0 +1,555 @@
+@DATABASE 0016
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 8. The Color Menu"
+@TOC PPaintCD:H/7/0/4/OO00/Main
+
+@{B}8.         The Color Menu@{UB}
+
+In a paint and image processing program like Personal Paint, color is
+everything. Or, at least, nothing could be done without color. An
+appropriate choice of colors can make a 64-color image look like a
+photograph, give life to a faded picture, or reduce an image's memory
+consumption to a fraction of the original, without significant loss of
+detail.
+
+The items in the color menu allow the user to access and modify single
+colors, as well as apply global color changes. Color palettes can be
+loaded, saved and exchanged between objects.
+
+
+@{B}8.1        Palette@{UB}
+
+A @{I}palette@{UI} is the entire set of colors associated to an image. It is
+similar to a painter's palette, which contains many different colors that
+can be used together. On the Amiga, the more colors are used, the more
+resources are needed to process and store an image. Section @{"1.3.2" LINK PPaintCD:H/7/0/4/0002/Main 89}
+explains the relationship between the image size, number of colors and
+memory. The maximum number of colors in a digital palette is always a
+power of two (2, 4, 16, 64, 256 etc.)
+
+Different pictures may require special colors, and at the same time may
+not use some colors which appear very often in other pictures. Although
+palettes having a wide range of different colors (256 colors, for example)
+may come very close to fulfilling the needs of most pictures, there may
+still be good reasons for using palettes with more limited numbers of
+colors.
+
+Using a palette of well selected colors for each picture not only saves
+memory and reduces processing time, but also serves the cause of
+consistency and style, especially if several pictures must share the same
+"atmosphere".
+
+It is easy to forget that it is always possible to move the mouse outside
+the requester and pick a color. In particular, the full palette which
+appears on the Tool Bar can be used while the palette requester is
+displayed.
+
+
+@{B}8.1.1      Load Palette@{UB}
+
+Color palette information is stored with all pictures, regardless of the
+storage format which is used (except for some two-color formats where
+black and white is implied). A color palette can also be saved alone: the
+file, instead of containing an image plus a palette, will contain only a
+palette.
+
+Load Palette will find and load the color palette from different types of
+graphic files (GIF, IFF-ILBM, PCX, etc.), both with or without image. The
+new palette will become the palette of the current environment. If the
+current screen mode has more colors than the palette which is specified,
+then only as many of the first colors as exist in the new palette will be
+changed.
+
+As with other functions which modify the palette, the original palette can
+be restored invoking Restore Palette (section @{"8.1.6" LINK Main 266}).
+
+
+@{B}8.1.2      Save Palette@{UB}
+
+This command stores the current color palette into an IFF-ILBM file (the
+BMHD, CMAP and CAMG IFF chunks are written). This is a standard and space
+efficient way of storing color information, which can be loaded again with
+Personal Paint, or by other software.
+
+This command can also be used to overwrite the original "UIColors" files
+which define Personal Paint's default menu colors in the "PPaint_Prefs"
+disk. This will save about 5 kbytes of disk space (which may be precious,
+on floppy disks), since the "UIColors" files are originally stored as
+images containing a painted menu and requester to ease editing. A copy of
+the original user interface color files should however also be kept stored
+for possible future editing requirements.
+
+
+@{B}8.1.3      Edit Palette@{UB}
+
+This requester allows the user to individually set each color in the
+palette with the maximum precision allowed by the current screen mode.
+There are also functions to copy, swap and sort colors and create new
+ranges of colors.
+
+Experimenting with colors, it may sometimes happen that the entire screen
+becomes invisible, i.e. all items on the screen have the same color. The
+<Help> key can be used to restore the default colors of Personal Paint for
+the current screen mode.
+
+Depending on the current color palette, Personal Paint may use different
+colors to draw the user interface. The choice for these colors is
+determined by legibility, contrast, and "3-D look" parameters. The colors
+external to the requester are updated as soon as the mouse pointer is
+moved outside the palette requester.
+
+
+@{B}8.1.3.1    Picking a Color@{UB}
+
+The topmost row of colors shows the ordered sequence of palette colors. An
+arrow-sign appears over the current color. Upon display of the requester,
+this indicates the current foreground color. If the palette has more
+colors than can be shown in a line, two scroll-gadgets are displayed to
+the right of the color-bar. Clicking on one of these gadgets, or keeping
+the gadgets clicked for a longer time, shows more colors in the selected
+direction.
+
+In "Extra Half Brite" video modes (64 colors), only the first 32 colors of
+the palette can be defined freely. The remaining 32 are automatically
+rendered using darker shades of the first 32. The palette requester
+therefore only allows the user to edit the first 32 colors.
+
+The current color can be selected by clicking on it with the mouse (left
+button). It is also possible to select a color outside the requester,
+either in the image or in the main palette. The <Left> and <Right> cursor
+keys respectively move the current color to the previous and next color in
+the palette.
+
+A small box below the row of palette colors indicates the current color
+both by displaying a rectangle painted with that color, and by showing the
+position number of that color within the palette (for example, the number
+can range from 0 to 15 in a 16-color map).
+
+
+@{B}8.1.3.2    RGB and HSB Color Models@{UB}
+
+The current color can be modified using the sliders (knobs) which appear
+below the row of colors. Two different color models (or coordinate
+systems) can be used to specify a color: RGB (@{I}Red, Green, Blue@{UI}) and HSB (@{I}
+Hue, Saturation, Brightness@{UI}). The two sets of knobs give a different way
+of accessing the same color space. Either one of the two sets of knobs can
+be used independently from the other. All possible colors can be obtained
+by manipulating only one set of knobs.
+
+In the RGB model, a color is described as a combination of three primary
+colors: red, green and blue. The intensity of each color is specified by a
+number in the range from 0 to the maximum, which may vary depending on the
+screen mode and the version of the Amiga custom chips. In most modes of
+Original and Enhanced Amiga sets, red, green and blue can have 16
+different intensities. This means that a color may be picked from a set of
+4096 different colors (16 to the 3rd power). Some ECS video modes, the
+A2024 mode and other modes have less (e.g. four) intensity levels, leading
+to fewer (e.g. 64) possible colors or gray levels. On Advanced Graphics
+Architecture Amiga systems, most video modes can handle 256 intensity
+levels for each primary color. 256 to the power of three gives 16 777 216
+possible combinations (so that's where the famous "16 million colors"
+comes from). Section @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323} explains how "UIColors" files with different
+"granularities" are used for this reason.
+
+Theoretically, if the three primary colors had equal intensity, the
+perceived result would be a pure gray ranging from white to black.
+
+In the HSB model (also called HSV, from Hue, Saturation and Value), a
+color is described as a position on a @{I}color wheel@{UI}, plus a brightness
+value. This abstract color wheel is a sort of a circular rainbow. On the
+perimeter of the circle, pure colors (red, green and blue) respectively
+appear every 120 degrees (i.e. one third of a circle). The circle begins
+and ends with red. Intermediate position values correspond to intermediate
+colors. The colors are completely visible around the perimeter of the
+circle, and slowly fade out towards the inside of the circle. The center
+is completely gray (from white to black, depending on the brightness).
+
+The Hue parameter specifies the angular position of a color on the wheel:
+0 (or 360) = red, 60 = yellow, 120 = green, 180 = cyan, 240 = blue, 300 =
+magenta, etc. Saturation indicates the distance of the color from the
+center of the circle, in the range from 0 (gray) to 100 (pure color).
+Brightness specifies the overall intensity of light (as opposed to the
+specific color intensity, which is determined by its saturation). A
+brightness of 0 is always black. 100 indicates the maximum possible
+brightness for each particular hue/saturation combination.
+
+
+@{B}8.1.3.3    Copy Color@{UB}
+
+To copy a color which already exists in one position in the palette to
+another position, it is sufficient to select the first color, click on the
+Copy Color gadget, and select the destination position.
+
+
+@{B}8.1.3.4    Swap Colors@{UB}
+
+This is similar to Copy Color, except that the destination color is not
+overwritten, but exchanged with the first color.
+
+
+@{B}8.1.3.5    Sort Colors@{UB}
+
+These gadgets sort existing colors in positions from the current color to
+the color which is selected after the Sort Colors gadget. Two types of
+color sorting exist: from the lightest color in the range to the darkest
+one, and from the darkest to the lightest.
+
+Alternate sort methods can be activated by holding down the <Shift>, <Alt>
+or <Ctrl> key, which respectively cause the sorting to be based on hue,
+saturation or frequency. The latter option may be useful for PCX images,
+which occupy less space if the palette is arranged in order of decreasing
+usage.
+
+
+@{B}8.1.3.6    Create Range@{UB}
+
+These two gadgets create new colors in the position between the current
+color and the color which is selected after the gadget. The first (left)
+gadget picks colors at intermediate Red, Green and Blue component
+positions, while the second calculates the intervals in the Hue,
+Saturation and Brightness system.
+
+
+@{B}8.1.3.7    Undo@{UB}
+
+The Undo Last Change gadget undoes the last editing action in the palette
+requester, while Restore All restores the initial settings.
+
+
+@{B}8.1.3.8    Hide Requester@{UB}
+
+While this gadget is selected, the requester disappears (only as long as
+the left mouse button is held down), making it possible to view those
+parts of the image which may normally be hidden. If the right mouse button
+is pressed while the left button is held down, the current color "cycles".
+Both options are very useful for verifying the possible effects of color
+changes without leaving the requester.
+
+
+@{B}8.1.4      Adjust Palette@{UB}
+
+This requester allows the user to apply global color changes to the
+current image. This is particular useful when processing for the first
+time an image which has been scanned, or before printing an image (colors
+generated by scanning and printing devices may differ from the colors
+which are displayed, and may therefore require some sort of adjustment).
+
+With the six sliders, it is possible to completely remove, double or apply
+intermediate changes to particular color components. All colors in the
+palette are affected by the changes. The Edit Palette requester (section
+@{"8.1.3" LINK Main 78}) must be used to individually modify selected colors. In "Extra
+Half Brite" video modes (sections @{"8.1.3.1" LINK Main 97}), the first 32 colors are
+changed directly, whereas the second 32 always represent darker variations
+of the first 32.
+
+From top to bottom, the sliders respectively affect the color, brightness,
+contrast, red, green and blue components. Adjusting the color is
+equivalent to modifying the saturation value in the HSB model (section
+@{"8.1.3.2" LINK Main 124}). The contrast knob reduces or increases the distance of the RGB
+levels from the median values.
+
+The Keep gadget resets all sliders to the central position after applying
+the selected changes. This allows the user to apply changes which more
+than double some values, or select a particular order in which to apply
+the changes (by default, the adjustments modify all colors in order
+indicated by the sliders).
+
+Pressing the <Help> key clears all correction factors, bringing the
+sliders back to 0%.
+
+
+@{B}8.1.5      Default@{UB}
+
+This command changes all colors to Personal Paint's default palette. This
+palette may either be the program's internal one, or a color palette file
+referenced in one of the the "Startup" files (section @{"9.1" LINK PPaintCD:H/7/0/4/0047/Main 9} and Appendix
+@{"C" LINK PPaintCD:H/7/0/4/0044/Main 1}).
+
+By default, the associated shortcut key for this function is <Help>.
+
+
+@{B}8.1.6      Restore@{UB}
+
+This command cancels the last changes made to the color palette, restoring
+the colors previously used. It can be invoked twice to restore a Restore
+operation.
+
+
+@{B}8.1.7      Copy Brush Palette@{UB}
+
+This function copies the colors of the current custom brush (the one whose
+number appears in the tool bar) to the current environment palette. If the
+brush has fewer colors than the image, or vice versa, only the first
+colors are copied.
+
+
+@{B}8.1.8      Copy Font Palette@{UB}
+
+Color fonts (section @{"3.1.3.2" LINK PPaintCD:H/7/0/4/0017/Main 398}) are generally created using a specific
+color palette which makes them appear best. In these cases, using the font
+with a wrong palette would be inappropriate. After loading the desired
+font, this command can be used to apply its palette to the current
+environments.
+
+If the font's range of colors is too limited for the remaining artwork, it
+is sufficient to increase the number of colors (section @{"4.5.3" LINK PPaintCD:H/7/0/4/0049/Main 1015}), leaving
+the first colors (i.e. the font's colors) unchanged.
+
+
+@{B}8.1.9      Copy Screen Palette@{UB}
+
+This function copies the colors of the selected screen to the current
+environment, without grabbing the screen. The selection of the screen
+works as in the Grab Screen function, described in section @{"4.4" LINK PPaintCD:H/7/0/4/0049/Main 870}.
+
+
+@{B}8.2        Stencil@{UB}
+
+A digital stencil (or color mask) works in a way which is similar to the
+sheet of paper or metal with shapes which are cut to define where to let
+the ink through. When a stencil is defined or loaded, a new bitmap is
+created in addition to the existing image bitplanes. This concept is
+somehow similar to the transparency plane, described in section @{"5.9.5" LINK PPaintCD:H/7/0/4/0048/Main 251}.
+The Stencil bitmap contains information about which parts of the image
+should be protected from painting operations. Where there are ones, the
+underlying image pixels are "protected", where there are zeros all paint
+operations will work normally.
+
+A stencil is usually defined in one of two ways: by selectively protecting
+all areas having a certain color (@{I}color-masking@{UI}), or by painting a
+two-color image, color-masking it and then loading it as a stencil. Even
+if the stencil was originally defined by color masking, it is immediately
+transformed into a bitmap. This means that Personal Paint does not protect
+certain pixels because they appear in a certain color, but because there
+is a one in the corresponding stencil plane.
+
+The similarity with the brush transparency plane, which was mentioned
+before, may become a confusing equivalence at the file-format level. The
+IFF format specifications use the same bitplane to provide both brush
+transparency (unless the transparency can be algorithmically defined) and
+image stencil information. When a picture with such an additional bitplane
+is loaded as a brush, this bitplane would be interpreted as the
+transparency plane, while loading the picture as an image would also load
+the data as a stencil (and activate that stencil).
+
+
+@{B}8.2.1      Load Stencil@{UB}
+
+This command loads the data stored in a stencil or picture file. In the
+IFF-ILBM format, stencil data is always stored with an image if there is
+an active stencil when the image is saved.
+
+The size of the stencil should be equal to the image size. If the stencil
+is larger, it is cut; if it is smaller, parts of the image (the lower and
+right strips missing in the stencil file) will not be protected.
+
+
+@{B}8.2.2      Save Stencil@{UB}
+
+The stencil plane which was last used in the current environment is saved
+in a standard IFF-ILBM stencil file. The IFF chunks which are written are:
+BMHD, CAMG and BODY.
+
+
+@{B}8.2.3      Edit Stencil@{UB}
+
+With this requester, it is possible to create a stencil bitmap by
+associating the areas to be protected to particular colors. Subsequent
+painting operations will not change pixels associated to colors which
+appear checkmarked in the requester.
+
+The stencil plane itself is not updated by painting commands, which may,
+for example, create new areas in the colors originally protected by the
+stencil. The Update Stencil command (section @{"8.2.4" LINK Main 388}) should be used for
+this purpose.
+
+The protection status of a color can be set by clicking on a color box, or
+picking a color from the image with the left or right mouse button (to
+select or deselect that color). Checkmarks indicate the colors which are
+protected.
+
+Multiple colors can be selected or deselected with a single mouse click by
+dragging the mouse (with the mouse button pressed) over the color boxes in
+the the Stencil requester (just as in the tool bar palette). This is
+especially useful with large palettes.
+
+The Clear gadget removes all checkmarks (such a stencil would be
+equivalent to not having a stencil). Invert reverses the on/off status of
+the colors. Show removes the requester while the left mouse button is held
+down on the gadget, showing masked areas in black and other areas in
+white.
+
+When a custom brush is defined (section @{"3.1.6" LINK PPaintCD:H/7/0/4/0017/Main 1027}), only those pixels which
+are not masked by the stencil are picked. It is also possible to create a
+stencil by drawing it in two colors as an image, and then mask one of the
+two colors with this requester.
+
+Section @{"3.1.4" LINK PPaintCD:H/7/0/4/0017/Main 521} mentions a case in which a stencil can be used to protect
+certain colored areas of the screen from image processing operations.
+
+The two program environments have independent stencil planes.
+
+
+@{B}8.2.4      Update Stencil@{UB}
+
+Normally, a stencil defined as a color mask is defined using the Edit
+Stencil requester. Areas which have a particular color may be masked with
+that requester, but are not extended when new colors are painted to the
+image. This command forces an explicit update of the stencil bitplane
+after new colors have been added.
+
+
+@{B}8.2.5      Invert Stencil@{UB}
+
+This function inverts masked stencil areas with unmasked areas. If the
+stencil was defined as a color mask, this command has a similar effect as
+Invert in the Edit Stencil requester. However, if the stencil was
+originally created by drawing it (and is therefore independent from any
+particular image colors), only Invert Stencil can be used without
+resetting the stencil.
+
+
+@{B}8.2.6      Stencil On/Off@{UB}
+
+This command turns the stencil mask on or off. If the stencil is switched
+on for the first time, the Edit Stencil requester appears. Even if the
+stencil is switched off, its bitmap is preserved.
+
+A symbol is displayed on the title bar to indicate that the stencil is
+active.
+
+
+@{B}8.2.7      Free Stencil@{UB}
+
+This function switches the stencil off and frees the stencil bitplane.
+After this command is executed, a stencil must be redefined or loaded to
+be used again.
+
+
+@{B}8.3        Remap@{UB}
+
+Sometimes, the colors of an image may be changed even if this is not
+desired. This may happen, for example, after applying font or brush colors
+to the current image, or after manually changing some colors or simply
+replacing the positions of some colors in the palette. After such an
+operation, the image which is displayed may have "all colors wrong".
+
+The Remap command uses the current colors to make the image look as much
+as possible like it appeared with the previous set of colors (which may
+still be used invoking the Restore Palette function). If the same color
+exists in both the original and the new palette, Remap simply updates all
+references to that color's position in the palette. If some of the old
+colors do not exist in the new palette, Personal Paint may either choose
+the closest colors, or apply Dithering, Floyd-Steinberg, or other more
+sophisticated remapping techniques, as specified in the associated program
+options (section @{"9.8" LINK PPaintCD:H/7/0/4/0047/Main 366}).
+
+
+@{B}8.4        Change Background to Foreground@{UB}
+
+This command applies the foreground color to all background-colored pixels
+in the image. It is similar to the same command which can be applied to
+brushes (section @{"5.9.3" LINK PPaintCD:H/7/0/4/0048/Main 228}).
+
+
+@{B}8.5        Swap Background and Foreground@{UB}
+
+Like the previous command, this function exchanges the colors of
+background and foreground colored pixels.
+
+
+@{B}8.6        Merge@{UB}
+
+It is often necessary to mix different images, or parts thereof, into a
+single picture. For example, this may happen when a scanned photograph is
+overlayed over a digital background, when pasting a brush originally
+defined in a different environment, or if more than one reduced image is
+to be shown on the same page. All these cases may have one common problem:
+if the elements which must be joined have different color palettes, the
+majority of pixels may appear to have the wrong colors.
+
+With this function, it is possible to selectively merge the color palettes
+of all brushes and images currently in use. As a result, one single
+palette is created for all the selected items. The final palette has the
+same number of colors as that of the current environment. The colors are
+carefully chosen, but it may nevertheless happen that there are not enough
+colors to correctly represent all individual pixels of all images and
+brushes. For this reason, when all items are remapped to the new palette,
+dithering, Floyd-Steinberg or other error diffusion algorithms may be
+employed, as indicated in the relative program setting (section @{"9.8" LINK PPaintCD:H/7/0/4/0047/Main 366}).
+Section @{"9.7" LINK PPaintCD:H/7/0/4/0047/Main 319} describes different methods of color reduction.
+
+To preserve as many of the original colors as possible, it may be
+appropriate to increase the number of colors of the current image (section
+@{"4.5.3" LINK PPaintCD:H/7/0/4/0049/Main 1015}). If all the items to be merged had completely different colors,
+the resulting map should have as many colors as the sum of the individual
+palettes. Fortunately, Personal Paint's color quantization, remapping and
+reduction algorithms are so advanced that it is often hard to notice any
+difference between the original items and the final image, even if heavy
+color reduction has to be applied.
+
+For example, if an image with a 16-color palette, of which only 8 are
+used, is merged with an 8-color brush, no colors are lost. Both the image
+and the final brush will have a 16-color palette.
+
+After the selected items have been color-merged, they can easily be pasted
+as necessary.
+
+
+@{B}8.7        Less Colors@{UB}
+
+This function allows the user to reduce the number of different colors
+which are used in the current image. The slider which is displayed in the
+requester allows the user to specify the desired number of colors, in the
+range from 2 to the amount currently in use. If two or less colors are
+used, it would not make sense to further reduce the number of colors.
+
+As the slider is moved, the picture is updated to show the changes, while
+the Pixels Lost field informs the user on the relative (percent) and
+absolute value of the amount of pixels which had to be "sacrificed". In
+qualitative color reduction (section @{"9.7.1" LINK PPaintCD:H/7/0/4/0047/Main 337}), colors for which there are
+similar colors in the palette are eliminated first. If the quantitative
+color reduction is selected (section @{"9.7.2" LINK PPaintCD:H/7/0/4/0047/Main 354}), less used colors are the
+first to be suppressed.
+
+If one or more colors appear more than once in the palette, it is possible
+to reduce the number of colors used by simple remapping, without any loss
+of visual information.
+
+Color reduction is a quite computation-intensive process. The higher the
+number of destination colors, the more time it will take to reduce the
+image. For example, on Amigas based on the 68000 CPU, it may take some
+time every time the slider is moved, if the number of destination colors
+is higher than 32.
+
+In "Extra Half Brite" modes (section @{"8.1.3.1" LINK Main 97}), Personal Paint always
+maintains separate blocks of light and dark colors in the palette. A
+HBrite palette has always an even number of colors, with the group of
+darker colors starting 32 bytes from the beginning.
+
+This command does not explicitly reduce the number of color entries in the
+palette; it only reduces the amount of colors used in the image and groups
+the colors which are used in the first palette positions. The desired
+number of palette colors can be specified in the Screen and Image Format
+requester, as explained in section @{"4.5.2" LINK PPaintCD:H/7/0/4/0049/Main 997}.
+
+
+@{B}8.8        Statistics@{UB}
+
+This requester displays statistics on the colors used in the current
+image. For each color in the palette, the program counts how many pixels
+exist in the image, and displays the result in the form of a histogram.
+
+If there are more colors than can be represented in the requester, two
+scroll arrows are displayed to scroll the histogram in the desired
+direction. Additional information (palette color position, amount of
+pixels used, surface occupied in percent) on a particular color can be
+displayed by clicking on the associated color bar in the histogram. When
+the requester is first displayed, this information refers to the current
+foreground color.
+
+@ENDNODE

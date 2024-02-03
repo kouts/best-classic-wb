@@ -1,0 +1,806 @@
+@DATABASE 0045
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - A. Messaggi del programma"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}A.         Messaggi del programma@{UB}
+
+Questa appendice elenca (in ordine alfabetico) e commenta i più importanti
+messaggi di Personal Paint. Per una descrizione dettagliata dei singoli
+argomenti si rimanda alle relative sezioni.
+
+Se un messaggio viene visualizzato in un quadro dotato unicamente dei
+gadget "Procedere" e "Annullare", oppure del solo gadget "Va bene", la
+pressione del tasto <Return> corrisponde alla selezione dei gadget
+"Procedere" e "Va bene", mentre è possibile premere il tasto <Esc> in
+sostituzione del gadget "Annullare". Le sezioni @{"1.10.12" LINK PPaintCD:H/7/2/4/0002/Main 1153} ("Il tasto
+<Return>") e @{"1.10.16" LINK PPaintCD:H/7/2/4/0002/Main 1205} ("Il tasto <Esc>") contengono ulteriori informazioni
+sull'argomento.
+
+
+@{B}Animazione impossibile: l'immagine è più grande dello schermo@{UB}
+
+Come spiegato nell'introduzione all'animazione, il formato del fotogramma
+non può eccedere i limiti dello schermo. Può essere necessario aprire uno
+schermo più grande selezionando un modo overscan o un differente modo
+video, oppure attivando l'autotraslazione.
+
+
+@{B}Audio non attivabile@{UB}
+
+Personal Paint non è riuscito ad attivare il programma CloantoAudio, dopo
+averlo cercato nell'unità logica "DEVS" e nel cassetto (o volume) da cui è
+stato caricato il programma. Normalmente il volume logico "DEVS" viene
+assegnato al cassetto "devs" del disco Workbench utilizzato per avviare il
+calcolatore. È possibile che Personal Paint abbia trovato il modulo audio,
+ma questo non abbia risposto in tempo utile (funzione "handshake") a causa
+di un'altra operazione in corso sul disco o per insufficienza di memoria.
+Personal Paint tenta di caricare il modulo audio solo se il calcolatore
+utilizzato è dotato di una sufficiente quantità di memoria e se tale
+modulo non è già stato caricato da un altro programma Cloanto. Lo stesso
+modulo CloantoAudio può essere utilizzato da un numero illimitato di
+programmi Cloanto: tale soluzione consente di superare il limite imposto
+dal sistema operativo circa il numero massimo di canali audio apribili. Se
+è stato attivato manualmente il modulo CloantoAudio (ad es. selezionando
+con un doppio click la sua icona), quest'ultimo rimane residente in RAM
+fino al riavvio o allo spegnimento del calcolatore e non deve
+ulteriormente essere caricato dai programmi clienti. Si rimanda alle
+sezioni @{"1.11" LINK PPaintCD:H/7/2/4/0002/Main 1254} ("Variabili di programma e cassetti predefiniti") e @{"1.13" LINK PPaintCD:H/7/2/4/0002/Main 1458}
+("Installazione di Personal Paint").
+
+
+@{B}Dati non corretti@{UB}
+
+Questo messaggio di carattere generale viene utilizzato da Personal Paint
+per segnalare l'individuazione di dati incongruenti. Un'operazione che
+determina tale errore è ad esempio, la lettura di un'immagine avente
+dimensioni 0 per 0. Il messaggio può anche indicare un uso improprio dei
+byte di allineamento in un file IFF.
+
+
+@{B}Decrittazione impossibile@{UB}
+
+Si è cercato di leggere un'immagine in formato crittato senza aver immesso
+il codice di crittazione esatto. Per leggere un'immagine crittata è
+necessario che il codice utilizzato (menu "Parametri/Codice crittazione")
+sia lo stesso definito per memorizzare l'immagine. Il messaggio potrebbe
+apparire anche se il disco ha subito danni o se il file è stato modificato
+da un altro programma, anche se ciò è molto raro. Sezioni @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11}, @{"4.2" LINK PPaintCD:H/7/2/4/0049/Main 163} e
+@{"9.4" LINK PPaintCD:H/7/2/4/0047/Main 254}.
+
+
+@{B}Dimensione maschera colori non coincide@{UB}
+
+Per l'operazione richiesta, è necessario che le dimensioni della maschera
+colori coincidano con quelle dell'immagine da mascherare. Sezione @{"8.2" LINK PPaintCD:H/7/2/4/0016/Main 345} e
+rispettive sotto-sezioni.
+
+
+@{B}Dimensioni attuali ..., ... piani
+Area utilizzata ..., ... piani@{UB}
+
+La funzione "Troncare/Informazioni" del menu Pennello visualizza un
+requester contenente alcuni dati sul pennello in uso. Per ulteriori
+dettagli si veda la sezione @{"5.13" LINK PPaintCD:H/7/2/4/0048/Main 547}.
+
+
+@{B}Dimensioni finestra non valide@{UB}
+
+Per adattarsi ai testi in esso contenuti, il requester che si è tentato di
+visualizzare dovrebbe assumere dimensioni superiori a quelle dello
+schermo. Questo messaggio può apparire se sono state apportate modifiche
+ai testi di un file "UIText", senza considerare i limiti di spazio imposti
+dai modi video a bassa risoluzione. Sezioni @{"1.14" LINK PPaintCD:H/7/2/4/0002/Main 1520} e @{"9.11" LINK PPaintCD:H/7/2/4/0047/Main 721}.
+
+
+@{B}Errore di sintassi nella linea ...@{UB}
+
+È stato individuato un errore in un file parametri. Nella riga indicata
+dal messaggio è presente un codice non riconosciuto, oppure un comando è
+privo di uno o più parametri, o questi sono in un formato non corretto.
+Sezione @{"9.2" LINK PPaintCD:H/7/2/4/0047/Main 87} e appendice @{"C" LINK PPaintCD:H/7/2/4/0044/Main 1}.
+
+
+@{B}Errore durante la scrittura dell'archivio@{UB}
+
+Nella maggior parte dei casi, questo messaggio indica che non c'è più
+memoria disponibile (in RAM o su disco) per memorizzare i dati
+dell'archivio. Sezioni @{"5.10.2" LINK PPaintCD:H/7/2/4/0048/Main 376} e @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8}.
+
+
+@{B}Errore: i codici sono differenti@{UB}
+
+Quando si imposta il codice di crittazione, Personal Paint richiede che il
+codice venga scritto due volte di seguito. Se il primo codice e il codice
+di controllo sono differenti appare questo messaggio. Questo controllo ha
+lo scopo di prevenire che un'immagine memorizzata con un codice di
+crittazione sbagliato a causa di una distrazione non sia più ricuperabile.
+Sezione @{"9.4" LINK PPaintCD:H/7/2/4/0047/Main 254} ("Codice di crittazione").
+
+
+@{B}Errore nel caricamento di UIGraphics.pic@{UB}
+
+Il file contenente le immagini dell'interfaccia utente di Personal Paint
+non può essere caricato. Tra le possibili cause: il file non è stato
+trovato, memoria insufficiente, file corrotto. Quando si edita l'immagine
+in questione è importante che le linee di riferimento usate per delimitare
+le aree grafiche non vengano in alcun modo alterate (sezione @{"1.14" LINK PPaintCD:H/7/2/4/0002/Main 1520}).
+
+
+@{B}Errore nella gestione del file@{UB}
+
+Personal Paint visualizza diversi messaggi di errore per segnalare i vari
+problemi che possono verificarsi durante le operazioni di lettura e di
+scrittura. Il sistema operativo può, tuttavia, riportare un codice di
+errore non traducibile in un messaggio più preciso. Se ciò accade durante
+un'operazione di lettura/scrittura di un file, il programma visualizza
+questo messaggio.
+
+
+@{B}Errore nella gestione della stampante@{UB}
+
+Il sistema operativo ha riscontrato un errore durante l'invio di dati alla
+stampante. Le possibili cause sono: la stampante è spenta o non è in linea
+(@{I}off-line@{UI}); non vi è carta nella stampante o la carta è inceppata; il
+coperchio della stampante è aperto; il cavo di alimentazione della
+stampante non è connesso correttamente; è stata selezionata, tramite
+Preferences, la porta errata (seriale o parallela). Sezioni @{"4.3" LINK PPaintCD:H/7/2/4/0049/Main 254} e @{"11.3" LINK PPaintCD:H/7/2/4/0046/Main 146}.
+
+
+@{B}Errore nell'apertura di diskfont.library versione 34
+Errore nell'apertura di icon.library versione 33@{UB}
+
+La libreria specificata non esiste, oppure il suo numero di versione è
+inferiore a quello richiesto.
+
+
+@{B}È stato raggiunto il limite della memoria virtuale@{UB}
+
+Questo messaggio di avvertimento indica che una o entrambe le periferiche
+usate dalla memoria virtuale hanno uno spazio libero di memorizzazione
+uguale o ingeriore al minimo richiesto. Ciò può accadere in seguito alla
+selezione di una nuova periferica, oppure modificando i valori minimi.
+
+
+@{B}I fotogrammi del pennello verranno persi@{UB}
+
+Il pennello attuale è un anim-brush con più di un fotogramma. L'anim-brush
+non è ancora stato memorizzato. Il comando selezionato porterebbe alla
+perdita di tutti i fotogrammi tranne quello attuale.
+
+
+@{B}Il cassetto non è vuoto@{UB}
+
+La funzione "Cancellare" è stata applicata a un cassetto non vuoto.
+
+
+@{B}Il file dei testi interfaccia utente non può essere aperto@{UB}
+
+Il file "UIText" associato alla lingua selezionata non è stato trovato.
+Personal Paint cerca i file parametri e i file con i testi
+dell'interfaccia nel cassetto "PPaint_Prefs" all'interno del volume
+"PPaint". Sezioni @{"1.14" LINK PPaintCD:H/7/2/4/0002/Main 1520} e @{"9.11" LINK PPaintCD:H/7/2/4/0047/Main 721}.
+
+
+@{B}Il file esiste e verrebbe sovrascritto@{UB}
+
+È stata selezionata un'operazione che comporta la sovrascrittura di un
+file esistente. L'opzione "Conferma sovrascrittura" (sezione @{"9.9.6" LINK PPaintCD:H/7/2/4/0047/Main 592}) è
+attivata, quindi il programma visualizza questo messaggio assieme al nome
+del file oggetto di modifica. L'operazione può essere annullata
+selezionando il gadget "Annullare" del quadro contenente il messaggio.
+Così facendo, è possibile eseguire nuovamente la funzione, utilizzando un
+nome diverso.
+
+
+@{B}Il file non contiene i dati richiesti@{UB}
+
+Il file selezionato per un'operazione di lettura non contiene dati nel
+formato richiesto, oppure i dati del file sono danneggiati. L'errore in
+questione può essere segnalato, ad esempio, se Personal Paint tenta di
+leggere un file parametri, ma il file selezionato contiene invece un
+pennello. Per evitare simili inconvenienti si sconsiglia di memorizzare
+file contenenti dati di tipo diverso in uno stesso cassetto. È inoltre
+buona norma aggiungere opportuni suffissi ai nomi dei file. Sezioni @{"1.4" LINK PPaintCD:H/7/2/4/0002/Main 260} e
+@{"1.11" LINK PPaintCD:H/7/2/4/0002/Main 1254}.
+
+
+@{B}Il file non esiste@{UB}
+
+È stato specificato il nome di un file per un'operazione di lettura, ma
+tale file non è stato trovato nel percorso specificato. La sezione @{"3.4" LINK PPaintCD:H/7/2/4/0017/Main 1478}
+("Il quadro di selezione file") spiega come evitare possibili errori di
+scrittura di nomi di file e cassetti.
+
+
+@{B}Il file sarà cancellato@{UB}
+
+La funzione "Cancellare file" sta per agire sul file specificato.
+L'operazione può essere annullata selezionando il gadget "Annullare" nel
+requester contenente il messaggio.
+
+
+@{B}Il filtro selezionato richiede due ambienti@{UB}
+
+Alcuni filtri, tra cui quelli per la creazione di stereogrammi, richiedono
+la presenza contemporanea di entrambi gli ambienti di lavoro (cioè due
+immagini). I filtri elaborano l'immagine attuale, usando quella
+alternativa come sorgente.
+
+
+@{B}Il filtro selezionato richiede un pennello@{UB}
+
+Alcuni filtri usano il pennello attuale per effettuare particolari
+elaborazioni dell'immagine. Questo messaggio viene visualizzato se il
+pennello attuale non è stato definito.
+
+
+@{B}Il filtro selezionato richiede un ulteriore pennello@{UB}
+
+Filtri come la trasparenza pennello in modo @{I}alpha channel@{UI} richiedono la
+presenza di due pennelli consecutivi.
+
+
+@{B}Il font non può essere aperto@{UB}
+
+Il programma non può accedere al font indicato nel quadro selezione font.
+Questo può capitare se il nome del font non è stato digitato
+correttamente, o se non vi è sufficiente memoria libera, o se si è
+verificato un errore di lettura nell'operazione. Sezione @{"3.1.3.2" LINK PPaintCD:H/7/2/4/0017/Main 477}.
+
+
+@{B}Il modo video richiesto non gestisce double-buffering@{UB}
+
+Il modo video selezionato non è in grado di gestire la tecnica
+double-buffering. La sezione introduttiva sull'animazione ha maggiori
+dettagli in merito. Dopo che il messaggio di avvertimento è stato
+visualizzato una prima volta, esso non viene più usato (a meno che non
+cambi il modo video).
+
+
+@{B}Il modulo PostScript non può essere aperto@{UB}
+
+Personal Paint non è stato in grado di accedere al file "PPaint_PS", il
+modulo esterno che permette al programma di comunicare con una stampante
+PostScript. Sezioni @{"1.13" LINK PPaintCD:H/7/2/4/0002/Main 1458} e @{"4.3.3" LINK PPaintCD:H/7/2/4/0049/Main 734}.
+
+
+@{B}Il pennello n° ... sarà cancellato@{UB}
+
+Questo messaggio viene visualizzato prima che la funzione "Liberare
+pennello" (sezione @{"5.7" LINK PPaintCD:H/7/2/4/0048/Main 158}) venga eseguita. Se l'operazione viene confermata,
+il pennello non potrà essere recuperato con la funzione "Ripristinare
+pennello" (sezione @{"5.6" LINK PPaintCD:H/7/2/4/0048/Main 147}).
+
+
+@{B}Il testo interfaccia utente ... andrebbe accorciato
+Il testo interfaccia utente ... andrebbe reso divisibile@{UB}
+
+La lettura del file "UIText" per la lingua selezionata è stata completata
+con successo, ma alcuni testi sono troppo lunghi per essere visualizzati
+in alcuni modi video. Un testo può essere reso divisibile inserendovi uno
+o più caratteri di sottolineatura ("_"): i punti così individuati indicano
+a Personal Paint come scindere, quando necessario, il testo in più righe.
+Alcuni testi (quelli non compresi nella sezione "TMS") possono essere
+visualizzati solo su un'unica riga. Se questi sono troppo lunghi, devono
+essere necessariamente accorciati. Sezioni @{"1.14" LINK PPaintCD:H/7/2/4/0002/Main 1520} e @{"9.11" LINK PPaintCD:H/7/2/4/0047/Main 721}.
+
+
+@{B}Immagine troppo grande@{UB}
+
+L'hardware di Amiga pone dei limiti ai formati grafici gestibili da
+Personal Paint. Il chip blitter originale può manipolare aree grafiche
+fino ad un massimo di 1008 per 1024 pixel. I modelli di Amiga con chip ECS
+o con architettura grafica avanzata, invece, sono in grado di gestire
+immagini fino a 32752 per 32767 pixel.
+
+
+@{B}Inibita cancellazione file
+Inibita lettura file
+Inibita scrittura file@{UB}
+
+Al file è associata una protezione software che ne impedisce, da parte del
+sistema operativo, la cancellazione, la lettura o la modifica. Occorre
+utilizzare il comando Workbench "Information" (o "Info") o il comando
+Shell/CLI "Protect" per modificare lo stato di protezione del file.
+
+
+@{B}Inibita scrittura supporto@{UB}
+
+Il programma non può scrivere su un disco protetto. Per abilitare la
+scrittura bisogna coprire il foro posto nell'angolo del disco, spostando
+l'apposito cursore di plastica. Sezione @{"11.2" LINK PPaintCD:H/7/2/4/0046/Main 55}.
+
+
+@{B}I parametri della memoria virtuale non possono essere modificati@{UB}
+
+Non vi è abbastanza spazio di memorizzazione per spostare gli oggetti che
+si trovano in memoria virtuale. I cambiamenti apportati ai parametri della
+memoria virtuale vengono ignorati.
+
+
+@{B}L'altra immagine è stata modificata@{UB}
+
+È stato selezionato il menu "Progetto/Ambiente di lavoro/Copiare in
+alternativo", ma l'immagine dell'altro ambiente ha subito modifiche e non
+è stata memorizzata. Confermando l'operazione, tale immagine viene persa.
+Sezione @{"4.8.2" LINK PPaintCD:H/7/2/4/0049/Main 1367}
+
+
+@{B}L'animazione è stata modificata@{UB}
+
+L'animazione è stata modificata e non ancora memorizzata su file.
+Procedendo con l'operazione richiesta, l'animazione sarà persa.
+
+
+@{B}L'animazione può essere visualizzata con "Animare file"@{UB}
+
+Alcuni tipi di animazione (ad es. alcuni file HAM e HAM8) non possono
+essere letti ed editati da Personal Paint, ma solo visualizzati da file.
+
+
+@{B}L'animazione sarà persa@{UB}
+
+Il comando selezionato comporta la perdita dell'animazione corrente.
+
+
+@{B}L'archivio non contiene i dati richiesti@{UB}
+
+Una funzione del programma ha tentato di utilizzare il contenuto
+dell'archivio, ma questo è risultato vuoto, oppure i dati trovati non sono
+nel formato richiesto. Questo messaggio può apparire, ad esempio,
+attivando la funzione "Archivio/Leggere pennello" quando l'archivio
+contiene del testo.
+
+
+@{B}L'archivio non può essere aperto@{UB}
+
+L'archivio di sistema (il dispositivo che consente ai programmi di
+scambiare dati) non può essere aperto. Probabilmente il sistema operativo
+non è riuscito ad accedere al file "clipboard.device" nell'unità logica
+"DEVS". Personal Paint tenta comunque di aprire l'archivio (se non è già
+stato aperto) ad ogni operazione che ne faccia uso.
+
+
+@{B}L'area di ripristino sarà liberata@{UB}
+
+È stata esplicitamente richiesta la cancellazione della memoria riservata
+alla funzione di ripristino (ad es. il gadget "Annullare ultima modifica"
+è stato selezionato con il pulsante destro del mouse) oppure, per mancanza
+di memoria chip, l'operazione da effettuare non potrà essere
+successivamente annullata. Se la memoria disponibile non permette di
+visualizzare questo messaggio, l'area di ripristino viene liberata senza
+richiedere conferma. Sezioni @{"3.1.10" LINK PPaintCD:H/7/2/4/0017/Main 1334} e @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8}.
+
+
+@{B}Le dimensioni del pennello successivo non corrispondono@{UB}
+
+Il comando "Pennello/Colori/Trasparenza successiva", non può essere
+eseguito in quanto le dimensioni del pennello attuale e quelle del
+pennello successivo non coincidono. Sezione @{"5.9.7" LINK PPaintCD:H/7/2/4/0048/Main 313}.
+
+
+@{B}Librerie di I/O non individuate@{UB}
+
+Questo messaggio di errore indica che Personal Paint non è stato in grado
+di trovare e caricare le sue librerie di I/O (utilizzate per la lettura e
+la scrittura di file). Normalmente queste librerie si trovano nel cassetto
+"libs", all'interno del cassetto del programma. Questo potrebbe essere
+dovuto a un'installazione errata. Di solito Personal Paint cerca questi
+file sia nel cassetto locale, sia nel percorso di sistema "LIBS:",
+utilizzando le librerie con versione più recente.
+
+
+@{B}L'immagine è incompleta@{UB}
+
+Personal Paint può ora leggere file incompleti o danneggiati.
+
+
+@{B}L'immagine è stata modificata@{UB}
+
+L'immagine attuale ha subito modifiche successive alla sua ultima
+memorizzazione. L'operazione selezionata (ad es. "Leggere immagine" o
+"Fine operazioni") sta per causare la perdita dell'immagine.
+
+
+@{B}Linea troppo lunga: ...@{UB}
+
+È stato incontrato un errore durante la lettura di un file parametri. La
+linea indicata nel messaggio è eccessivamente lunga (cioè contiene troppi
+caratteri). Sezioni @{"9.1" LINK PPaintCD:H/7/2/4/0047/Main 9}, @{"9.2" LINK PPaintCD:H/7/2/4/0047/Main 87} e appendice @{"C" LINK PPaintCD:H/7/2/4/0044/Main 1}.
+
+
+@{B}Lo schermo non è più disponibile@{UB}
+
+Lo schermo selezionato nel quadro "Copiare schermo" è stato chiuso prima
+che l'operazione potesse essere eseguita. Sezione @{"4.4" LINK PPaintCD:H/7/2/4/0049/Main 1089}
+
+
+@{B}Lo schermo richiesto non può essere usato
+Lo schermo richiesto richiede S.O. 2.x
+Lo schermo richiesto richiede i chip ECS@{UB}
+
+Il programma ha letto un file IFF-ILBM contenente informazioni su un
+particolare modo video. A causa delle limitazioni dell'hardware o del
+sistema operativo in uso, Personal Paint dovrà visualizzare l'immagine in
+un modo video differente. Sezioni @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11} e @{"11.4" LINK PPaintCD:H/7/2/4/0046/Main 351}.
+
+
+@{B}Lo schermo Workbench non può essere aperto@{UB}
+
+Personal Paint non ha potuto aprire lo schermo Workbench, come richiesto
+in un file parametri o tramite l'apposita voce menu. Probabilmente non vi
+è sufficiente memoria chip libera. Sezioni @{"9.15" LINK PPaintCD:H/7/2/4/0047/Main 973} e @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8}.
+
+
+@{B}Lo schermo Workbench non può essere chiuso@{UB}
+
+Personal Paint non è stato in grado di chiudere lo schermo Workbench,
+poiché questo contiene altre finestre oltre a quelle dedicate al contenuto
+di dischi e cassetti. Sezione @{"9.15" LINK PPaintCD:H/7/2/4/0047/Main 973}.
+
+
+@{B}L'unità stampante non può essere aperta@{UB}
+
+Personal Paint non è stato in grado di attivare l'unità stampante per
+eseguire una operazione di stampa. È possibile che non vi sia sufficiente
+memoria libera, o che il sistema operativo non sia stato in grado di
+accedere al file "printer.device" nel cassetto "Printers" dell'unità
+logica "DEVS". Sezioni @{"1.11" LINK PPaintCD:H/7/2/4/0002/Main 1254}, @{"1.13" LINK PPaintCD:H/7/2/4/0002/Main 1458} e @{"11.3" LINK PPaintCD:H/7/2/4/0046/Main 146}.
+
+
+@{B}Memoria chip insufficiente per aprire quadro
+Memoria chip insufficiente per lo schermo richiesto@{UB}
+
+Non vi è sufficiente memoria di tipo chip per aprire lo schermo, la
+finestra o il requester. Sezioni @{"1.3.2" LINK PPaintCD:H/7/2/4/0002/Main 94} e @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8}.
+
+
+@{B}Memoria insufficiente
+Memoria insufficiente per leggere i testi interfaccia utente @{UB}
+
+Non vi è sufficiente memoria libera per eseguire l'operazione richiesta.
+Sezioni @{"1.3.2" LINK PPaintCD:H/7/2/4/0002/Main 94} e @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8}.
+
+
+@{B}Modo risparmio memoria@{UB}
+
+Questo messaggio indica che Personal Paint è in esecuzione in un sistema
+con poca RAM: il programma opea in modo da ridurre al minimo l'occupazione
+di memoria. Il modo risparmio memoria può anche essere attivato
+manualmente, tenendo premuto il tasto <F1> durante l'avvio del programma.
+Rispetto al modo operativo normale, il programma non si avvale delle
+funzioni audio (il modulo CloantoAudio non viene attivato) e non memorizza
+le liste del quadro selezione file per velocizzarne le operazioni. Alla
+partenza del programma, inoltre, viene chiuso lo schermo Workbench e il
+dispositivo di gestione della stampante non viene pre-caricato (lo stesso,
+inoltre, viene immediatamente rimosso dalla RAM dopo ogni operazione di
+stampa). Sezioni @{"9.15" LINK PPaintCD:H/7/2/4/0047/Main 973} e @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8}.
+
+
+@{B}Nessun fotogramma può essere eliminato@{UB}
+
+La funzione "Ottimizzare fotogrammi" non ha trovato fotogrammi identici.
+
+
+@{B}Non ci sono altri pennelli@{UB}
+
+Il comando "Pennello/Colori/Trasparenza successiva" (che permette di
+copiare le informazioni di trasparenza da un pennello all'altro) è fallito
+in quanto il pennello in uso è l'unico attualmente disponibile.
+
+
+@{B}Non è possibile fondere animazioni@{UB}
+
+La funzione "Fusione colori" può gestire solo immagini e pennelli, non
+animazioni.
+
+
+@{B}Non è possibile leggere Anim-Brush come animazioni
+Non è possibile leggere animazioni come Anim-Brush@{UB}
+
+Per gli anim-brush Amiga viene utilizzato un formato di memorizzazione
+(descritto nella sezione @{"6.8.2" LINK PPaintCD:H/7/2/4/2151/Main 402}) diverso da quello normalmente usato per
+le animazioni. Inoltre le dimensioni degli anim-brush possono essere
+incompatibili con i formati richiesti per la visualizzazione di
+animazioni. Queste differenze rendono difficile una gestione comune di
+animazioni e anim-brush. Personal Paint permette di convertire tra i due
+formati grazie a specifici programmi ARexx. Un anim-brush può inoltre
+venire "ritagliato" dall'animazione attuale premendo tre volte sullo
+strumento di Definizione pennello (sezione @{"3.1.6" LINK PPaintCD:H/7/2/4/0017/Main 1200}).
+
+
+@{B}Non esiste una mappa colori per il font attuale@{UB}
+
+È stato eseguito il comando "Colori/Tavolozza/Da font", ma al font
+corrente non è associata una tavolozza di colori. Sezioni @{"3.1.3.2" LINK PPaintCD:H/7/2/4/0017/Main 477} e
+@{"8.1.8" LINK PPaintCD:H/7/2/4/0016/Main 323}.
+
+
+@{B}Non è stato installato il monitor per lo schermo richiesto@{UB}
+
+Si è cercato di leggere un file IFF-ILBM contenente riferimenti a un modo
+video non gestito dall'hardware o dal sistema operativo in uso. (Di
+solito, i file in altri formati non contengono informazioni relative ai
+modi video.) Questo può anche accadere se il sistema è teoricamente in
+grado di attivare il modo video richiesto, ma questo non è stato abilitato
+come indicato nella sezione @{"11.4" LINK PPaintCD:H/7/2/4/0046/Main 351}.
+
+
+@{B}Numero colori non ammesso per lo schermo richiesto@{UB}
+
+Nella maggior parte dei casi, questo messaggio indica che l'hardware di
+cui si dispone non è in grado di visualizzare contemporaneamente il numero
+di colori indicati in un file immagine o in un file parametri.
+Probabilmente, il file che si sta leggendo è stato creato con un
+calcolatore che è in grado di gestire tale modo video con un numero di
+colori più elevato rispetto a quanto consentito dal calcolatore in uso. In
+questi casi Personal Paint imposta automaticamente il modo video che più
+si adatta alla situazione.
+
+
+@{B}Oggetto troppo grande@{UB}
+
+È la traduzione di un messaggio interno del sistema operativo di Amiga.
+Durante l'accesso a un file, il sistema operativo si è imbattuto in un
+insieme di dati che non ha potuto elaborare a causa del loro eccessivo
+volume.
+
+
+@{B}Operazione impossibile@{UB}
+
+Una funzione del sistema operativo di Amiga ha dato un esito negativo,
+senza specificare la precisa causa dell'errore. Personal Paint non ha
+potuto proseguire con l'operazione.
+
+
+@{B}Operazioni non annullabili@{UB}
+
+Lo storyboard non sarà in grado di annullare l'operazione richiesta.
+Confermando l'operazione, le funzioni "Ripristinare" e "Annullare"
+verranno disabilitate.
+
+
+@{B}Parametro non valido nella linea ...@{UB}
+
+È stato incontrato un errore durante la lettura di un file parametri. Uno
+o più parametri di una istruzione nella linea specificata è impostato con
+valori fuori dai limiti ammessi. Sezioni @{"9.1" LINK PPaintCD:H/7/2/4/0047/Main 9}, @{"9.2" LINK PPaintCD:H/7/2/4/0047/Main 87} e appendice @{"C" LINK PPaintCD:H/7/2/4/0044/Main 1}.
+
+
+@{B}Parte dell'immagine sarà persa@{UB}
+
+Le dimensioni specificate in un cambio di formato sono inferiori a quelle
+dell'immagine attuale. Se nel requester di selezione del formato non si è
+attivata l'opzione "Rimodellare", il programma visualizza questo ulteriore
+messaggio di avvertimento. Sezioni @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11} e @{"4.5" LINK PPaintCD:H/7/2/4/0049/Main 1127}.
+
+
+@{B}Percorso errato@{UB}
+
+Il percorso (cioè l'insieme dei nomi dei cassetti separati da segni "/")
+indicato nel quadro selezione file non esiste nel volume specificato. Uno
+o più nomi di cassetti sono errati o troppo lunghi (25 caratteri al
+massimo), oppure sono stati utilizzati caratteri non consentiti. Sezioni
+@{"1.4" LINK PPaintCD:H/7/2/4/0002/Main 260} ("Nomi e titoli"), @{"1.5" LINK PPaintCD:H/7/2/4/0002/Main 317} ("I cassetti") e @{"3.4" LINK PPaintCD:H/7/2/4/0017/Main 1478} ("Il quadro di
+selezione file").
+
+Le procedure della memoria virtuale usano questo messaggio per indicare
+che non è possibile accedere al percorso indicato. Personal Paint tenta di
+creare l'ultimo cassetto del percorso (di solito, il cassetto "t"), ma il
+resto del percorso deve riferirsi a periferiche e cassetti esistenti.
+
+
+@{B}Percorso troppo lungo@{UB}
+
+Il percorso indicato comprende un numero troppo elevato di livelli
+(cassetti all'interno di cassetti), che il sistema operativo di Amiga non
+è in grado di gestire.
+
+
+@{B}Personal.font non può essere aperto@{UB}
+
+Personal Paint utilizza un font particolare, contenente speciali simboli,
+per visualizzare i testi della sua interfaccia utente. All'avvio, il
+programma tenta di accedere al font "Personal.font" nell'unità logica
+"FONTS" o nel cassetto "PPaint:Fonts". Sezione @{"1.13" LINK PPaintCD:H/7/2/4/0002/Main 1458}.
+
+
+@{B}Procedura di compressione dati non riconosciuta@{UB}
+
+I dati grafici possono occupare una quantità di memoria considerevole.
+Esistono diverse tecniche per @{I}comprimere@{UI} questi dati, in modo da ridurre
+l'occupazione di memoria. Personal Paint utilizza e riconosce diverse
+tecniche per la compressione delle immagini, nell'ambito dei vari formati
+file (IFF-ILBM, GIF, PCX, ecc.). Può accadere, però, che un altro
+programma abbia scritto dei dati utilizzando un metodo (o @{I}algoritmo@{UI}) di
+compressione non riconosciuto da Personal Paint. Quando quest'ultimo tenta
+di leggere i dati, l'operazione viene annullata e appare questo messaggio.
+Per consentire la lettura dei dati in questione occorre memorizzare gli
+stessi in un formato diverso.
+
+
+@{B}Saranno eliminati ... fotogrammi su ...@{UB}
+
+La funzione "Ottimizzare fotogrammi" indica quanti fotogrammi verrebbero
+eliminati, chiedendo conferma prima di procedere.
+
+
+@{B}Selezione formato
+Formato richiesto ...
+Formato attuale ... - ... colori
+Formato immagine ...
+Formato attuale ... - ... colori@{UB}
+
+Il formato dell'immagine attuale (ad es. dimensioni e/o numero di colori)
+sta per essere modificato secondo quanto specificato nel quadro "Formato
+immagine e schermo" o indicato in un file grafico o in un file parametri.
+Nell'operazione di lettura di un'immagine, questo requester permette di
+scegliere tra il formato nuovo e quello corrente. Se i due formati sono
+differenti, è anche possibile attivare l'opzione "Rimodellare" per
+ridimensionare l'immagine. Sezioni @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11}, @{"4.5" LINK PPaintCD:H/7/2/4/0049/Main 1127}, @{"9.7" LINK PPaintCD:H/7/2/4/0047/Main 363}, @{"9.8" LINK PPaintCD:H/7/2/4/0047/Main 414} e @{"9.13.3" LINK PPaintCD:H/7/2/4/0047/Main 833}.
+
+
+@{B}Selezione modo video
+Immagine selezionata...
+Modo attuale ... - ... colori@{UB}
+
+L'immagine selezionata per un'operazione di lettura ha le stesse
+dimensioni dell'immagine attuale. Tuttavia, per visualizzare il file
+selezionato occorrerebbe attivare un modo video diverso da quello in uso
+(secondo le informazioni sul modo video trovate in un file IFF-ILBM o
+calcolate da Personal Paint). Questo requester permette di decidere se
+mantenere il modo video attuale o se adottare il modo video indicato.
+Sezione @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11}.
+
+
+@{B}Stampa copia ... di ...@{UB}
+
+Il programma sta stampando un'immagine o un pennello. Dall'indicatore
+dello stato di avanzamento è possibile trarre informazioni sulla quantità
+di dati già inviati alla stampante e su quelli ancora da inviare. Sezioni
+@{"4.3" LINK PPaintCD:H/7/2/4/0049/Main 254}, @{"5.3" LINK PPaintCD:H/7/2/4/0048/Main 94} e @{"11.3" LINK PPaintCD:H/7/2/4/0046/Main 146}.
+
+
+@{B}Struttura IFF malformata@{UB}
+
+Il file in formato IFF letto da Personal Paint non è conforme allo
+standard definito per il formato. Alcuni programmi non si servono
+correttamente del formato IFF.
+
+
+@{B}Studio Print Server non può essere attivato@{UB}
+
+È stato selezionato il modo di stampa "Studio", ma il programma non è
+stato in grado di attivare il server di stampa di Studio. La causa più
+probabile è che il programma Studio non sia stato installato, o è presente
+una versione non recente di tale software. Personal Paint si interfaccia
+con la versione 2 (e successive) di Studio e CanonStudio. Entrambi i
+programmi dispongono della funzione Server. Per sfruttare una versione
+precedente di Studio si deve usare il modo di stampa "PRT" (stampante di
+sistema) di Personal Paint. In questo caso, può essere preferibile
+attivare anche la stampa a 24 bit di Personal Paint (sezione @{"4.3.2.4" LINK PPaintCD:H/7/2/4/0049/Main 527}).
+
+
+@{B}Supporto incompatibile@{UB}
+
+Il disco nel drive specificato non è stato riconosciuto dal sistema
+operativo come un disco in formato AmigaDOS. Il disco può essere
+danneggiato, non formattato, o predisposto per il formato di un altro
+calcolatore. Sezioni @{"1.3.4" LINK PPaintCD:H/7/2/4/0002/Main 211}, @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11} e @{"11.2" LINK PPaintCD:H/7/2/4/0046/Main 55}.
+
+
+@{B}Supporto inesistente@{UB}
+
+La periferica indicata non contiene alcun supporto di memorizzazione.
+Probabilmente non vi è alcun disco nel drive specificato. Tale errore può
+verificarsi solo se l'opzione "Espandere percorso" è stata disattivata:
+normalmente, infatti, Personal Paint accede ai file utilizzando
+esclusivamente nomi di volumi (non di periferiche). Sezione @{"9.9.1" LINK PPaintCD:H/7/2/4/0047/Main 519}.
+
+
+@{B}Supporto non convalidato @{UB}
+
+Il sistema operativo di Amiga non ha potuto effettuare il controllo di
+validità (@{I}validating@{UI}) del disco. L'operazione può essere fallita, oppure
+ancora in corso (se il disco è stato inserito da poco). Se il disco non
+viene validato con successo (messaggio di sistema "Disk not validated")
+non si può scrivere sul disco, ma solo leggere o copiare i dati su un
+altro disco. Sezione @{"11.2" LINK PPaintCD:H/7/2/4/0046/Main 55}.
+
+
+@{B}Supporto non inserito@{UB}
+
+Il disco specificato non è inserito in alcun drive. Sezione @{"11.2" LINK PPaintCD:H/7/2/4/0046/Main 55}
+("Problemi con i dischi").
+
+
+@{B}Supporto pieno@{UB}
+
+L'unità coinvolta in un'operazione di scrittura è piena o non può
+contenere la quantità richiesta di dati. I dati in questione possono
+essere memorizzati su un supporto diverso che disponga di sufficiente
+spazio libero. I dischi del pacchetto Personal Paint sono pressoché pieni
+e non andrebbero utilizzati per la memorizzazione di ulteriori dati (ad
+es. immagini). È consigliabile dedicare ai file di Personal Paint un nuovo
+disco (dopo un'eventuale formattazione dello stesso) oppure un cassetto
+apposito in una partizione di un disco rigido. Sezioni @{"1.3.4" LINK PPaintCD:H/7/2/4/0002/Main 211}, @{"1.5" LINK PPaintCD:H/7/2/4/0002/Main 317}, @{"1.13" LINK PPaintCD:H/7/2/4/0002/Main 1458}
+e @{"11.2" LINK PPaintCD:H/7/2/4/0046/Main 55}.
+
+
+@{B}Tipo di immagine non gestito@{UB}
+
+Il file grafico selezionato contiene un'immagine codificata in un formato
+non gestito da Personal Paint. Ad esempio, il file può presentare un
+insolito formato IFF o includere dati grafici non liberamente editabili
+(ad es. un'immagine in formato Dual Playfield).
+
+
+@{B}Titolo non corretto@{UB}
+
+In una operazione di lettura o scrittura è stato usato un nome di file o
+di percorso non corretto. Sezioni @{"1.4" LINK PPaintCD:H/7/2/4/0002/Main 260}, @{"1.5" LINK PPaintCD:H/7/2/4/0002/Main 317} e @{"3.4" LINK PPaintCD:H/7/2/4/0017/Main 1478}.
+
+
+@{B}UIText: errore nella linea ...@{UB}
+
+Il programma ha individuato un errore di sintassi in un file con i testi
+dell'interfaccia utente ("UIText"). Ad esempio, un'abbreviazione da
+tastiera non è stata racchiusa tra i caratteri "<" e ">", oppure è stato
+usato un qualificatore sconosciuto. Se il numero di linea riportato nel
+messaggio è superiore al numero di linee contenute nel file, è probabile
+che uno o più testi siano stati omessi. Sezioni @{"1.14" LINK PPaintCD:H/7/2/4/0002/Main 1520} e @{"9.11" LINK PPaintCD:H/7/2/4/0047/Main 721}.
+
+
+@{B}Un altro processo utilizza il file@{UB}
+
+L'operazione sul file specificato non può procedere perché il file è
+attualmente bloccato da un'altra operazione in corso. Ciò accade, ad
+esempio, quando un altro programma sta lavorando con lo stesso file che si
+vorrebbe caricare o memorizzare con Personal Paint.
+
+
+@{B}Una o più icone non caricate@{UB}
+
+Personal Paint non è riuscito ad accedere al cassetto "PPaint_Icons", o
+questo non contenere tutte le icone predefinite. Sezioni @{"1.14" LINK PPaintCD:H/7/2/4/0002/Main 1520} e @{"9.10.2" LINK PPaintCD:H/7/2/4/0047/Main 646}.
+
+
+@{B}Versione errata dei testi interfaccia utente@{UB}
+
+È probabile che il programma non sia stato installato correttamente, in
+quanto è stato letto un file con i testi dell'interfaccia utente
+appartenente ad una diversa versione del programma. Questo può accadere,
+ad esempio, quando si prova una nuova versione del programma senza averla
+installata (e avendo un'altra versione del programma già installata, o
+inserita in un'unità a dischi).
+
+
+@{B}Versione non attuale del font Personal@{UB}
+
+Questo messaggio può apparire quando si avvia, per la prima volta, una
+nuova versione di Personal Paint. Il programma ha trovato una versione non
+corretta (probabilmente vecchia) del font dell'interfaccia utente (il nome
+di tale font è "Personal"). Normalmente Personal Paint cerca questo font
+nel cassetto "PPaint:fonts" (primo tentativo) e nel percorso di sistema
+"FONTS:" (secondo tentativo). Eventuali vecchi file "Personal.font"
+memorizzati in questi percorsi vengono aggiornati automaticamente dalla
+procedura di installazione. Lo stesso andrebbe fatto in caso di
+installazione manuale. Se occorre utilizzare sullo stesso computer
+differenti versioni di Personal Paint o di Personal Fonts Maker, e queste
+richiedono diverse versioni del font Personal, è meglio rimuovere il file
+"Personal.font" dal cassetto "FONTS:".
+
+Questo messaggio può anche essere visualizzato se è stata installata una
+versione corretta del font Personal, ma una versione precedente è ancora
+utilizzata dal sistema o da un'applicazione. In questo caso, è sufficiente
+impartire il comando "Avail FLUSH" in una finestra Shell oppure riavviare
+il sistema.
+
+La sezione @{"10.4" LINK PPaintCD:H/7/2/4/0015/Main 90} contiene ulteriori informazioni sul font Personal.
+
+@ENDNODE

@@ -1,0 +1,106 @@
+@DATABASE "History"
+@NODE "Main" "Main"
+
+                        - Development History of FMS - 
+
+                           @{" 1.0   " LINK "1.0"}
+                           @{" 2.0   " LINK "2.0"}
+                           @{" 3.0   " LINK "3.0"}
+                           @{" 4.0   " LINK "4.0"}
+                           @{" 5.0   " LINK "5.0"}
+@ENDNODE
+
+
+@NODE "1.0" "1.0"
+
+ 1.0  3-Nov-89  First version ever 5176 bytes (4424 without symbols hunk)
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                ° Written by Matt Dillon.
+@ENDNODE
+
+@NODE "2.0" "2.0"
+
+There was a problem with 2.0, which I didn't forsee until after I released it.
+Aparently, Matt Dillon released a 2.0 version himself, which was not spread as
+much as v1.0, and as my work was based on the 1.0 disassembly, Matt's 2.0 was
+better. Maybe he fixed some bugs, but I know for sure, that he improved his
+algorithms, as the performance of his 2.0 matches, and sometimes beats my 2.0
+Not so much crap code was generated, but still, some unused code exist ;^)
+
+Because of this confusion, some people thought my version may be a fake, or
+worst still, a virus! I ensure you, that no such code exists, and my coding
+was a genuine release.
+
+ 2.0
+
+ Matts Version  16-Apr-90 2684 bytes
+                ~~~~~~~~~~~~~~~~~~~~
+                ° I'm unsure what exactly Matt changed as I don't have the
+                  history file, just the actual device.
+                ° Compiler changed, better code generated.
+                ° Uses registers instead of stack-based args.
+
+ My version     10-Apr-96 3992 bytes (3832 bytes-68020+ version)
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                ° Disassembled, and rewritten in Assembly.
+                ° Removed Data hunk, so all variables can be addressed
+                   using PC relative addressing modes.
+                ° Removed duplicate routines.
+                ° Made as PC relative as possible (Smaller executable)
+                ° Removed possible odd-address violations.
+                ° Moved some routines inline.
+                ° Replaced Dice-C MovMem with a call to Exec/CopyMem()
+                   This will be faster, esp. if CopyMemQuicker is running.
+                ° All jumptables, and common called routines have been
+                   aligned to 32bit boundaries.
+                ° Include 68020+ version.
+                ° Various obvious optimisations.
+                ° Converted some standard C routines to use register based
+                   arguments instead of stack-based args.
+                ° All Jump-tables are now word-based.
+                ° ExtFunc entry of jumptable was missing, Now added, for
+                   future compatability.
+                ° Uses a BSS area at the end of Code hunk for smaller
+                   executable size.
+@ENDNODE
+
+@NODE "3.0" "3.0"
+
+ 3.0            16-Jun-96
+                ~~~~~~~~~
+                ° Rebuilt using Matts 2.0 device, as this has better
+                  algorithms, and may have fixed bugs I don't know about.
+                ° Jump table is now byte-based, for speed.
+                ° Merged all into one hunk, added as much PC relativity as
+                  possible.
+                ° Removed duplicate routines.
+                ° Moved some routines inline.
+                ° Common called routines aligned to 32bit boundaries.
+                ° Included 68020+ version.
+                ° ExtFunc entry of jumptable was missing, Now added, for
+                   future compatability.
+                ° Uses a BSS area at the end of Code hunk for smaller
+                   executable size.
+
+ Note, I have only added in-depth optimisation to the BeginIO function
+ as the rest of the device code is only executed at open/close time, which
+ is pretty pointless optimising. I may optimise it for 3.1, but there won't
+ be any speed gains, but maybe a smaller executable.
+@ENDNODE
+
+@NODE "4.0" "4.0"
+No information available.
+@ENDNODE
+
+@NODE "5.0" "5.0"
+
+ 5.0            Aug-97
+                ~~~~~~
+                ° Completely rewritten by Thomas Omilian
+                ° No longer a need for a 68020 version
+
+ 5.1            6-Sep-97
+                ~~~~~~~~
+                ° Lib_Expunge bug fixed.
+                ° Some optimisations made.
+@ENDNODE

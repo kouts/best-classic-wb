@@ -1,0 +1,156 @@
+NAME
+	xfdDecrunch 1.9
+
+SYNOPSIS
+	xfdDecrunch SOURCE/A,DEST,ALL/S,FORCE/S,CLONE/S,
+	            ND=NODIRS/S,NA=NOASK/S,LS=LINKSIMPLE/S,
+	            LP=LINKPRO/S,CA=COPYALL/S,SH=STRIPHUNKS/S,
+	            NE=NOEXTERN/S,NX=NOXPKPWD/S
+
+DESCRIPTION
+	xfdDecrunch unpacks crunched files. It requires either
+	Kickstart V37+ or the arp.library together with older
+	releases of the OS.
+
+	SOURCE specifies the file(s) that should be decrunched.
+	Wildcards of any kind are supported.
+
+	DEST is the file/drawer to save the result to.
+	If SOURCE contains wildcards/is a drawer, DEST must be
+	a directory. If it doesn't exist, it will be created.
+	If SOURCE is a single file, DEST can be an existing
+	directory or a (new) filename. In the first case, the
+	old filename will be used in the new directory.
+	Without DEST, the old files will be overwritten.
+
+	Files that cannot be decrunched will usually not appear
+	in the DEST drawer. COPYALL tells xfdDecrunch to simply
+	copy all these files to the DEST drawer too. Certainly
+	this option only works if DEST is given.
+
+	ALL makes xfdDecrunch go through all subdirectories
+	that exist in SOURCE. Note that these drawers are
+	created in the same order in the DEST directory.
+	If there exists a file with the name of a drawer to be
+	created, files will be written to the parent drawer.
+	If NODIRS is given, no subdirectories will be created
+	and files from all drawers will be written to DEST.
+
+	If DEST already exists, you will be asked if you want
+	to overwrite the file. With FORCE, this request will
+	be skipped.
+
+	With CLONE, the decrunched files (and drawers) receive
+	the same comments and protection bits as the source
+	files.
+
+	Usually, when an error occurs while decrunching a file,
+	xfdDecrunch asks if you want to continue with the next
+	files or quit. With NOASK specified, this request will
+	be skipped and decrunching continues automatically.
+
+	With files that are crunched with an absolute address
+	cruncher, you have two additional options: LINKSIMPLE
+	and LINKPRO. The first one links a quite simple header
+	to the decrunched data that simply copies the file to
+	the required location and executes it. The second
+	header is more complex. It tries to allocate the wanted
+	memory area and works with overlays thus not needing
+	any memory at all before allocating the desired area.
+	This is absolutely system-friendly and should work
+	even on machines with less RAM.
+
+	Sometimes it may happen that you get a crunched file
+	that is decrunch-protected with an additional hunk
+	linked somewhere in front of or after the decrunch
+	header of the file. With STRIPHUNKS, you can remove
+	name, symbol and debug hunks from the file, giving
+	you a better chance to finally decrunch that file.
+
+	NOEXTERN prohibits the use of external slaves for
+	recognition and decrunching. This is very useful for
+	files that crash your machine everytime they are tried
+	to be decrunched, for example SFX files.
+
+	When NOXPKPWD is used, then the program does not try
+	to use XPK password requester, but always uses shell
+	request.
+
+HISTORY
+	xfdDecrunch 1.9
+	- Added support for XPK password requests.
+
+	xfdDecrunch 1.8
+	- Added NOEXTERN option.
+
+	xfdDecrunch 1.7
+	- Fixed xfdFreeObject() call. Some bytes have not been
+	  released correctly. Thanks to WEPL for the hint.
+	- Fixed problem with single '*' wildcard. This was not
+	  interpreted as '#?', but as the current Shell window.
+	  This actually is a DOS problem, but replacing a '*'
+	  internally with '#?' fixes the problems. Thanks to
+	  Holger Wessling for the hint.
+	- Fixed problems with empty files. They caused the
+	  stupid 'Not enough memory' error. Now they are
+	  reported as 'Empty file'.
+
+	xfdDecrunch 1.6
+	- Fixed 'Continue after error?' request. If there
+	  aren't any more files after the error occured,
+	  you won't get that request any longer.
+	- Fixed problem with empty files and COPYALL option.
+	  Now empty files are created in the destination
+	  drawer too. Thanks to Axel Folley for that hint.
+
+	xfdDecrunch 1.5
+	- Added option STRIPHUNKS.
+	- xfdmaster.library v36+ is required now.
+
+	xfdDecrunch 1.4a
+	- Debugged some arp.library stuff.
+
+	xfdDecrunch 1.4
+	- Added decrunch support for files that are locked
+	  with 16/32 bit keys.
+	- Special hello to all Kickstart 1.2/1.3 users.
+	  Yes, it works again. Re-added full arp.library
+	  support for the old Kickstart versions.
+	- Modified the professional header for address
+	  files a bit for Kickstart 1.2/1.3 support.
+
+	xfdDecrunch 1.3
+	- CLONE doesn't clone the creation dates anymore.
+	- CLONE now also clones the comments and protection
+	  bits of any drawers that are created.
+	- Added COPYALL option.
+	- Added abbrevations for NODIRS and NOASK options.
+
+	xfdDecrunch 1.2
+	- Totally removed arp.library and Kick 1.3 support.
+	  It was impossible to implement all OS 2 features.
+	- xfdDecrunch now creates the same drawer hierarchy
+	  in the destination drawer as given in the source
+	  drawer (with ALL option).
+	- Source and destination lengths are printed now.
+	- Added NODIRS and NOASK options.
+	- Added LINKSIMPLE and LINKPRO options.
+
+	xfdDecrunch 1.1
+	- Fixed bug in CLONE routine. SetFileDate() has been
+	  called on Kick 1.3, but it's not available there!
+	- Changed some internal stuff for the documented
+	  release of xfdmaster.library 33.2.
+
+	xfdDecrunch 1.0
+	- First public release.
+
+COPYRIGHT
+	xfdDecrunch is freely distributable and for
+	noncommercial use only.
+
+AUTHOR
+	Georg Hörmann
+	Martinswinkelstraße 16c
+	82467 Garmisch-Partenkirchen
+	Germany

@@ -1,0 +1,5066 @@
+@database Eagleplayer.Guide
+@$VER: Eagleplayer Main_English.Guide V2.05 (09-Sep-2016)
+@author "Jan Blumenthal, Henryk Richter"
+@index Index
+@wordwrap
+
+@node "Main" "Eagleplayer 2.05 Documentation"
+
+
+
+                   Documentation Guide
+                           for
+                       Eagleplayer
+
+
+                     
+                      Version  2.05
+           © 1993-2016 Defect Software Productions
+
+
+  @{b}@{u}Table of contents:@{ub}@{uu}
+
+
+     @{"Introduction              " Link     "Einleitung"} @{i}System Requirements, @{b}Features @{ub}, Legal Stuff @{ui}
+     @{"Installation              " Link     "Installation"} @{i}How I have to install it on harddisk ? @{ui}
+
+     @{"Usage of Eagleplayer      " Link     "Benutzung"} @{i}@{b}Buttons, Menus, Configuration @{ub}@{ui}
+     @{"Audio Performance/Quality " Link     "Quality"} @{i}@{b}Authenticity vs. True HiFi, setup guide @{ub}@{ui}
+
+     @{"The Players               " ALink "EP_Player.Guide/Die Player"} @{i}All about the Players @{ui}
+     @{"The Engines               " ALink "EP_Engine.Guide/Die Engines"} @{i}All about the Engines @{ui}
+
+     @{"Hints & Tricks            " Link    "Tips"}
+     @{"Problems                  " Link    "Problems"} @{i}some possible problems + some solution hints @{ui}
+
+     @{"History                   " ALink "EP_History.Guide/Main"} @{i}History of Program Development @{ui}
+     @{"Credits                   " ALink "EP_History.Guide/Danksagungen"}
+     @{"Readme - ATO              " System "Multiview ato.readme"}
+
+@endnode
+@node "Einleitung" "Introduction & Reliability"
+
+        @{u}Introduction & Reliability@{uu}
+
+         @{"Copyright and Conditions            " link "Copyright" 0}
+         @{"Distribution                        " link "Distribution" 0}
+
+         @{"What is Eagleplayer all about?      " link "Features" 0}
+         @{"System Requirements                 " link "Systemanforderungen" 0}
+         @{"Background Infos on Development     " link "Background" 0}
+         @{"What is missing in this version yet?" link "Future" 0}
+         @{"When does the next version come out?" link "Updates" 0}
+
+         @{"Update Service                      " link "Update-Service" 0}
+         @{"Error Handling                      " link "Fehlerbeschreibung" 0}
+         @{"Using the Keyfile                   " link "Keyfile-Benutzung" 0}
+
+@endnode
+
+@node "Quality" "Audio Performance and Quality"
+
+ @{u}TL;DR@{uu}
+
+ For the impatient: just fire up @{"Amplifier Manager" alink "EP_Engine.guide/Amplifiermanager"} and move one of the variants
+ mentioned to the top, depending on your preference:
+
+ @{b}1. Speed on 68000@{ub}
+    ChipRAM amplifier on top, disable "LoadFast" - requires sufficient ChipRAM
+    @{u}or@{uu} leave "LoadFast" (menu item) on to use the FastRAM amplifier
+
+ @{b}2. Speed, authenticity and nice headphone sound on 68020+@{ub}
+    - load 8 Bit Amplifier, move it to the top of the list
+    - configure mixing rate(s) and surround level in the Amplifier 
+      config window
+
+ @{b}3. Quality over Paula@{ub}
+    - load @{"14 Bit Amplifier" alink "EP_Engine.guide/14 Bit Amplifier"}, move it to the top of the list
+    - configure mixing rate(s) and surround level in the Amplifier 
+      config window
+    - select "Highboost Polyphase Sinc" in the cycle gadget (68040+)
+    - The highboost is tuned to perform optimally at 28 kHz or 44 kHz 
+      mixing frequencies
+
+ @{b}4. Soundcards@{ub}
+    - If you have a @{"Toccata" alink "EP_Engine.guide/ToccataAmplifier"} compatible sound hardware (Toccata or Melody,
+      Prelude via the respective emulation libs), use the Toccata Amplifier
+      instead of the 8/14 Bit Amplifiers. See @{"here" alink "EP_Engine.guide/ToccataAmplifier"} for  known caveats/issues.
+    - For any other soundcard, EP 2.05+ supports @{"AHI" alink "EP_Engine.guide/AHIAmplifier"}. It must be noted, 
+      however that AHI requires considerably more CPU resources than the other
+      Amplifiers.
+
+
+
+ @{u}Introduction@{uu}
+
+ Starting with release 2.05, Eagleplayer no longer tries to retain the typical
+ Amiga sound  under all circumstances.  Instead,  I've written some code  that
+ reduces  the  typical distortions with sampled inputs. Of course,  the way EP
+ reproduces the sound is user selectable. For synthesized tunes  (chip tunes),
+ the Amiga way is still the way to go.
+
+ The reason for implementing serious  Audio filters is simply that I've read a
+ lot of bad comments about Paula's sound quality recently.  Well,  while it is 
+ not really undeserved to criticize the design decisions,  one must  also take 
+ into account  that 4 channel variable rate stereo sound output  requires com-
+ promises  on the analog side.  Measuring a design that came to market in 1985 
+ with today's high fidelity criteria is not really fair.
+ 
+ Regardless,  EP can prove that Paula is actually able to output a near-linear
+ 14 Bit frequency response curve up to 18 kHz(!). The prerequisite for that is
+ that the Chipset is running in ECS mode. Else, the hard limit is at about 
+ 14 kHz (with 28 kHz sampling rate). To run your Amiga in ECS mode, either set
+ the native screen mode to a doublescan variant (VGA, DoublePAL, DoubleNTSC,
+ Productivity) or use an RTG screenmode,  where the Amiga chipset will be  put 
+ into an appropriate mode implicitly (SetEnv EnvArc:Picasso96/AmigaVideo 31kHz).
+ See also @{"here" alink "EP_Engine.guide/GFXBoards"}.
+
+
+ @{u}Technical@{uu}
+
+ The improved output quality over Paula (compared to earlier 14 Bit approaches)
+ consists of two components: filtered upsampling and a digital highpass filter
+ that  compensates for the  Amiga's weak  analog reconstruction filter.  While 
+ recapping  my A4000,  I took the time to analyze it's  behavior and frequency
+ response (Chirp method). While the measured transfer curve basically confirms 
+ earlier investigations from the UADE team and Toni Wilen, it gave me a useful
+ dataset to design an appropriate compensation filter. 
+ In essence,  I've  implemented exactly the  opposite  of what  the  emulation 
+ people were doing, directly on unmodified Amiga hardware.
+
+ The filtered upsampling is based on a polyphase implementation of the classic
+ Sinc interpolator. Due to the fact that the implemented interpolator requires 
+ 4 multiplications per sample per channel/track,  it a 68040 with local RAM is
+ the bare minimum to have fun. This way, the typical distortions caused by low
+ output  rates with  unfiltered data  (some people call it Aliasing)  will  be
+ attenuated quite well (given the computational constraints on m68k).
+
+ Now, after this (in terms of signal processing correct) filtering - the sound
+ will appear quite muffled.  There are two reasons for this effect.  One, the
+ perceived high frequencies were mostly caused by the spectral repetition dis-
+ tortions - which are now gone. Second, the Amiga analog reconstruction filter
+ is first order lowpass filter with the bad habit of affecting the interesting
+ frequency range as well (3dB cutoff frequency around 5 kHz).
+
+ The second effect can be compensated. All you need is a first order IIR high-
+ pass.  After some tinkering,  I found a solution  for a multiplier-less  IIR 
+ filter that works surprisingly well.
+
+ So for good Amiga sound quality,  one has to pay the computational price for
+ proper filtered upsampling but the frequency response compensation comes
+ cheap.
+
+
+ @{u}Amplifier concept@{uu}
+
+ Beginning with  version 2.0,  Eagleplayer is using plugins  for audio output.
+ This way, it can use additional sound cards as well.  It is left to the user 
+ to decide whether speed, authenticity, quality or sound effects are criteria
+ of choice. By default, Eagleplayer will offer it's internal Amplifiers which
+ handle 4 channel sound directly from ChipRAM or FastRAM.  These two internal
+ Amplifiers should be considered on 68000 machines.
+
+ The other Amplifiers are available as Engines to be loaded at runtime. EP is
+ very  flexible in the configuration  of active Amplifiers.  For example, one
+ could use the FastRAM  Amplifier for 4 channel modules,  the 8 Bit Amplifier
+ for multichannel tunes  and the 14 Bit Amplifier  just  for the case of  two 
+ channel stereo output.
+
+ The configuration of priorities (top-down list) is done using the Amplifier
+ Manager Engine.  The default main UI (@{"BifatGUI" link "Das Hauptfenster"}) offers a shortcut to the 
+ @{"Amplifier Manager" alink "EP_Engine.guide/Amplifiermanager"} ("note" symbol).
+ Please follow the link above for the Amplifier Manager documentation.
+
+ 
+
+@endnode
+
+
+@node "Tips" "Tips & Tricks"
+
+ @{u}Eagleplayer on own Pubscreen@{uu}
+ 
+ Eagleplayer currently doesn`t offer the option to open an own screen.
+ If you on the other hand want to use the program this way the MUI
+ package offers a suitable tool, "PSI" (public screen inspector).
+ Just define a screen fitting your needs (refer to MUI`s documentation),
+ give it a name (e.g. "EagleplayerScreen") and switch the option
+ "autoclose" on (that makes the screen automatically close when 
+ quitting Eagleplayer)
+
+ Then create a script for starting Eagleplayer in the following way
+ using a text editor of your choice:
+ @{i} MUI:PSI EagleplayerScreen open
+  Eagleplayer2:Eagleplayer Pubscreen=EagleplayerScreen @{ui}
+ Don`t forget to set the Protection bits to "script" (e.g. "protect StartEP +s").
+ This script may be called now from Shell or using ICONX also from WB.
+
+ It is possible to call both command lines from a toolstarter like
+ Toolmanager, Barnone, Screentab etc. directly after each other.
+
+
+ @{u}Eagleplayer & Aminet CD`s@{uu}
+
+ Eagleplayer may be used directly in conjunction with the AminetCD-Guidebrowser
+ as moduleplayer. More to the topic can be found @{"here" link "AminetCD"}.
+
+
+ @{u}Eagleplayer & DirectoryOpus@{uu}
+ 
+ Hints for working with DOPUS V4.x can be found @{"here" link "Rexx_Dopus4.x"}.
+
+ @{b}DOPUS5...@{ub}
+
+  @{u}playing a module by double click from DOpus5@{uu}
+
+  Just copy the soundmodule filetype from Eagleplayer2:Goodies/Dopus5/Filetypes
+  to Dopus5:Filetypes. Then you should be able to play your modules simply
+  be double click onto their names in the DOpus listers. Maybe you have
+  to add your own name prefixes or suffixes in the file class. Please
+  refer to DOpus5`s manual for more instructions about fileclasses
+  handling.
+ 
+  @{u}starting Eagleplayer from DOpus (or other programs) invisible@{uu} 
+
+  There are several ways to achive this effect. First it is possible to set
+  the "Iconify" Option in the command line.
+  advantage:    when deiconifying Eagleplayer you`ve got your whole preferred
+                environment
+  disadvantage: all Engines specified in your configuration will be loaded upon
+                startup.
+  
+  Another method is to disable all visible Engines (scopes, Moduleinfo or
+  whatever) by specific @{"command line options" link "NoEngine"} and start Eagleplayer in 
+  @{"NoGUI" link "NoGUI"} mode.
+  advantage:    saves memory and needed time to load Eagleplayer
+  disadvantage: Eagleplayer can only be handled using Arexx in NoGUI mode
+
+ @{u}starting to play with a specified subsong@{uu}
+ 
+ Some sound systems produce multi-modules containing more than only one
+ jingle within a module. Sometimes it happens that the main melody is
+ not within the first subsong. (e.g. the tunes from Beast-I)
+ To start playing automatically with the desired subsong, just add
+ a comment to the file starting with SS=xxx where xxx is the number
+ of the subsong to play.
+ example(type in the shell): Filenote Modules:Whittaker/WH.Beast-2 SS:2
+
+
+ @{u}fast background patterns for @{"BifatGui" alink "EP_Engine.guide/BifatGui"} in 15/16/24 Bit@{uu}
+
+ BifatGui is compliant to the V43 datatype system. Due to the fact that
+ Ralph Schmidt`s datatype (continued by Thomas Scheler) requires
+ compatible applications to be defined you have to start the "PCDT"
+ preferences program and add the task "Eagleplayer" to the list
+ or use the V43 picture.datatype from the Picasso96 distribution.
+ This step will make the datatype create a picture which suits
+ in an optimal way to the used screen and makes BifatGui show
+ it`s background pattern much faster than in V39/40 compatibility
+ mode.
+ 
+@endnode
+
+@node "Introduction" "First steps"
+
+@endnode
+
+@node "Problems" "Problems / Bugs in Eagleplayer"
+
+ @{u}Executive@{uu}
+
+ When using Executive it may happen that the tempo of tunes played by
+ Eagleplayer doesn`t match at all or even nothing is played. This may
+ be caused by the fact that EP and Executive try to use the same 
+ CIA-Interrupt. Please change the settings of @{"Eagleplayer" link "Timingmode"} 
+ and/or Executive to "Timer.device". That should solve the problem.
+
+ Furthermore it is suggested to set the Task "Eagleplayer" in Executive
+ prefs to "noschedule" and "above".
+
+
+ @{u}Screennotify.library@{uu}
+ 
+ The Screennotify.library was written for a very useful task, to force
+ all programs opening their Windows e.g. on Workbench closing them
+ for prefschanges.
+ But due to some system limitations if may happen that screennotify
+ causes System-Lockups. If that happens quite frequently on your
+ machine (not only in conjunction with EP), especially when using
+ CyberGFX you should try deleting or renaming the libaray (e.g. to
+ "screennotify.bak").
+
+
+ @{u}A1200 & exteral PCMCIA HD/CD-Rom Controller@{uu}
+
+ The Software of some Harddisks and CD-Roms connected via PCMCIA
+ sometimes uses the CIA-B Interrupt without caring of it`s momentary
+ use by other programs. That may cause serious problems when this
+ option is enabled in the @{"Timingmode" link "timingmode"}. Please change
+ it back to the default setting ("Timer.device").
+ It is known that the software of "SquirrelSCSI" is not very stable,
+ especially in case of heavy interrupt load in the Amiga system.
+ (caused by e.g. the mixing routines of the Amplifiers) If your
+ Amiga crashes quite often in case of high CPU load or when reading
+ from devices connected to the Squirrel, try if it helps removing
+ that controller.
+
+ 
+ @{u}User interface accidentally disabled@{uu}
+ 
+ If you by a mistake disabled the current user interface (e.g. by
+ Clicking on the active GUI`s item in Eagleplayer`s Engines-menu)
+ you can get it back using the "Show Interface" option of
+ Commodities Exchange.@{i}(can be found in SYS:tools/commodities) @{ui}
+ Another way is to type the following line in your shell:
+ @{i}rx "address 'rexx_EP';loadengine 'BifatGUI'" @{ui}
+
+@endnode
+
+@node "Copyright" "Copyright and Conditions on Distribution"
+
+           @{u}Copyright and Conditions on Distribution@{uu}
+
+The Eagleplayer, external programs, documentation, all interfaces  and  the
+developer examples are ©1993-2016 Henryk Richter and Jan Blumenthal. Eagleplayer
+has been made free (as in beer) in 2004. Since then, both the program(s)
+and the source code are available under the terms of the GNU general public
+license. 
+
+The binary distribution includes a generic keyfile. Please don't forget
+to install it. Else, the program might behave erratically.
+
+Third party software copyrights:
+
+xfdmaster.library                     (C) Georg Hoermann
+
+req.library                           (C) Colin Fox & Bruce Dawson
+
+reqtools.library,powerpacker.library  (C) Nico Francois
+
+lh.library                            (C) Stephan Furmann
+
+LHA,LHX                               (C) Stefan Boberg
+
+Installer Program                     (C) Commodore Bussiness Machines
+
+     Installer and Installer project icon
+     (c) Copyright 1991-93 Commodore-Amiga, Inc.  All Rights Reserved.
+     Reproduced and distributed under license from Commodore.
+@endnode
+@node "Distribution" "Distribution"
+
+
+  @{u}Distribution@{uu}
+
+The Eagleplayer is a program-package, which is spread on 2 disks or as  LHA
+archive through Aminet.
+
+About  the 2-Disk-Version: If possible, leave the files on both disks where
+they are to prevent problems during booting or installing. Please  keep  in
+mind, that if you relabel the disks e.g. for a pd-serie, you have to change
+the  install-script  and  "Deutsche_Anleitung"  +   "English_Documentation"
+respectively.
+
+Internet Release: (packed as LHA-file)
+@endnode
+@node "Features" "What is Eagleplayer all about ?"
+
+  @{u}What is Eagleplayer all about ?@{uu}
+
+The Eagleplayer is a program  package  for  replaying  music  of  different
+soundformats  in  a  very  comfortable  way. It CANNOT be used for creating
+music, therefore it should not be mistaken for  a  musiceditor,  sequencer,
+tracker   and   so   on.   Internally,   it   consists   of  replayers  for
+Sound/Noise/Protracker,   Startrekker(AM)   &   Audiosculpture(AM),   other
+Protracker-Packers  and  a  special Customplayer-Port, yet. But it can also
+reload other needed external players.  The  advantage  of  this  method  is
+clear:  Only the needed players have to be loaded, which saves loading time
+and memory. Besides, the length of the mainprogram doesn't reach  infinity.
+All   the   internal  SoundTrackerRePlayers  support  Song-Loading  (except
+Protracker-Packers). Songs and  samples  can  be  in  crunched  state.  The
+instruments-path can be changed with the configuration-file. Packed samples
+are allowed. They will be loaded as RAW-data.
+
+Some features of Eagleplayer:
+
+    - @{b}several different user-interfaces@{ub}, free adjustable, free choice
+      of menufonts, partly free choice of backgroundpictures and resizable
+      @{" ! " alink "EP_Engine.guide/BifatGUI"}, including @{"graphically orientated" alink "EP_Engine.guide/EMPYGui"}
+      ones
+
+    - hardware-independent replay system, where the sound output can be re-
+      directed to different @{"amplifiers" alink "EP_Engine.guide/14 Bit Amplifier"} to get e.g. @{"digital delayed Surround" alink "ep_engine.guide/8 bit amplifier"}
+      or @{"14 Bit Output with Echo-Effects" alink "EP_engine.guide/14 bit amplifier"}, modules can be played from fast-
+      ram, 16 bit samples can be played with maximum quality directly  and
+      without 8-bit-precalculation in 14 bit
+
+    - modular structure, with over 150! supported @{"moduleformats" alink "EP_Player.guide/Die Player"}, external
+      @{"engines" alink "EP_Engine.guide/Die Engines"} and low-memory system, where the external plug-ins are only
+      loaded when needed, which saves up to 1 MB memory.
+
+    - Up to 64 external loadable @{"engines" alink "EP_Engine.guide/Die Engines"} (e.g. amplifiers, user-interfaces,
+      ext. depacker, analyzer, patternscrollers known from Protracker, mod-
+      infos, module-selector, ...)
+
+    - Easy and comfortable configuration, all settings can be @{"saved" link saveconfig} with
+      one action (inclusive actual music, state and position of engines,
+      current directory, packmode for saving etc.)
+
+    - @{b}Online Help@{ub} per Amigaguide
+
+    - can be opened on any @{"pubscreen" link "Pubscreens"}
+
+    - supports @{"AppWindow" link "Appwindow"}
+
+    - very comfortable handling: e.g. module selecting directly by the
+      @{"pulldown-menu" link "Menues"}
+
+    - changing directory in the @{"pulldown-menu" link "Menues"}
+
+    - the number of reloadable players is now only limited by your RAM.
+
+    - alphabetic ordering of players and engines in the manager, the entire
+      directory will be displayed, manual reloading of players and engines
+      by simply doubleclicking on the entry
+
+    - @{"Speed control" link "Speed"} by sliders, partly even with @{b}Pitch up/down@{ub}
+
+    - separately switching on/off all @{"voices" link "Voice"}
+
+    - scrolling status-information
+
+    - carefully and extensively adapted @{"playeroutines," ALink     "EP_Player.Guide/Die Player"} nearly all of them
+      allow at minimum @{"volume" link "Volume"}- and @{"balance-setting" link "Balance"},
+      a big amount of players already supports the Amplifier system
+
+    - can load nearly all kinds of @{"packed files" link "Depacker"}, e.g. XPK, Powerpacker,
+      FileImploder, Crunchmania, lh.library, Stonecracker and supports
+      archives (LHA,LZX,ZIP,RAR etc.) in a unique way: @{b}archives are
+      handled like normal directories@{ub}. Besides, the new XFDMaster-
+      library from Georg Hoermann is supported, which offers a huge amount
+      of other depackers, XPK-packed files can be @{b}depacked during
+      loading@{ub}, even with status display
+
+    - extensive module infos, if the replayer was adapted for that,
+      inclusive @{"playtime calculation" link "Calcduration"} for different soundformats
+      (Protracker, Oktalyzer, SonicArranger, Jamcracker etc.)
+
+    - mighty @{"ARexx-Port" link "ArexxIntro"}
+
+    - @{"DoubleBuffering" link "Loadbefore"}-function for continuous replay of modules by
+      immediatly loading the next module
+
+    - different @{"filerequesters" link "Filerequestermode"}, depending on personal taste (ASL, Req,
+      ReqTools)
+
+    - runs without problems in multitasking, audio-channels are reserved
+      properly, all cpu-intensive parts (scopes) are running at low priority
+
+    - @{b}CyberGraphX@{ub} is direclty supported by some scopes. (@{"FFT Analyzer" alink "EP_Engine.guide/FFT Analyzer"})
+
+    - it's a commodity (hotkey-activation, control via Exchange)
+
+    - Music- @{"Fadein" link "Fadein"}- and @{"Fadeout" link "Fadeout"} possible
+
+    - replay of a randomly selected module from the current directory
+      immediatly after program start @{" ! " link "Randomstart"}
+
+    - can be configured using the @{"configfile" link "Configfile"}, by @{"Tooltypes" link "WBStart"} and with
+      @{"Shell" link "Clistart"}-arguments
+
+    - the instruments of a soundmodule can @{"replayed" aLINK "EP_Engine.Guide/Moduleinfo"} and @{"saved" alink "EP_Engine.Guide/Samplesaver"}.
+
+    - even plays RAW-files e.g. @{" CDDA " ALINK "EP_Engine.Guide/Formatloader"}
+
+    - able to use CIA-Timers as well as VBlank and Timer.device for synchronizing
+      of the replays
+
+    - supports Screennotify.library
+
+    - is able to find modules in files and executable programs
+      (@{"Eagleexotic" alink "EP_Engine.guide/Eagleexotic"})
+
+    - loads modules lists of nearly all music players
+
+    - offers a powerful @{"module database" alink "EP_Engine.guide/Pysion"}
+    
+    - lists created & saved by @{"Pysion" alink "EP_Engine.guide/Pysion"}  can be handled like normal subdirectories
+    .
+    .
+    .
+    .
+
+The modular structure allows an optimal  setup  for  each  system  and  the
+special likings of its user.
+
+@endnode
+@node "Background" "Development of Eagleplayer"
+
+  @{u}Development of Eagleplayer@{uu}
+
+The  whole  thing  started  way  back  with  the  Phenomena-demo  "Enigma".
+NoisePacker was used there. We ripped the music, but there was no replayer.
+Now, a tool was coded in a hurry for playing back this really good  module.
+Later,  other  playroutines  were  implemented  (NoiseTracker...).  So  the
+Megaplayer 1.0 was born, which was released on 04/16/1992. At that time  it
+could  replay  16  soundformats.  It  went up to 25 and the mainprogram got
+everytime more obscure. In June 1992, after others had slandered about  his
+Noiseplayer-styled    Megaplayer,    Jan    decided   to   write   an   new
+Soundplayerprogram, which should set up new standards. He coded diligently,
+created  a  nice user interface, tried to get even more playroutines and to
+implement them into  the  program.  A  concept  for  external  players  was
+designed. Because the concept from Delirium was better that time, this port
+was built in. Later, our port was extended and improved so much,  that  our
+players  could  only  been  used  with  Eagleplayer. We didn't want to live
+without graphic gimmics, so we developed a system for  external,  asynchron
+running  analyzertools,  which  we started to program with the intention to
+document this new port officially. During development this intention got  a
+dimension an outstanding person cannot understand. Hence this strange name.
+This anaylzerport has changed to an universal interface  for  all  kind  of
+applications,  e.g.  converter  (Noiseconverter),  list  managment,  module
+infos, pubscreenselector, patternscroller and many more.
+
+@endnode
+@node "Future" "Future"
+
+  @{u}What is missing in this version yet?@{uu}
+
+There are many ideas left to be implemented. The thing is, they will need a
+while to be included.
+
+some examples:
+ - full 16 Bit samplesupport, probably only for 68040/060 processors due
+   to the extreme expense of calculation times
+ - user configurable user interface in style of WinAMP
+ - ...
+
+@endnode
+@node "Updates" "Updates"
+
+  @{u}Where and when can i get new versions of Eagleplayer ?@{uu}
+
+New versions can be downloaded in any case from  Aminet  'mus/play'.  There
+the  new  versions  will  be  available  at first. Also a homepage is under
+construction, where you will even find betaversions.
+
+@endnode
+@node "Update-Service" "Update-Service"
+
+  @{u}Update-Service@{uu}
+
+Historical: registration no longer needed, nor available
+
+Every registered user can order the newest version from us  without  paying
+anything.  We  only expect from him to send us 2 disks and an envelope with
+enough postage for our reply. One of these disks must contain  the  keyfile
+of the registered user. Furthermore, we ask you to fill out the @{"updatecard" ALink "EP_Registration.Guide/Updatekarte" 0}
+together with your keyfilenumber (you can find it by selecting  "About"  in
+the "Project Menu" and then clicking on "Key").
+
+If you are in the mood, you can answer perhaps some questions:
+
+        - Are you satisfied with the delivering of Eagleplayer?
+        - Are there problems with special system-configurations?
+        - Did you expect more or less from your registered Eagleplayer?
+        - Is the documentation sufficient for you?
+        - Which missing function should be included by all means?
+        - Does Eagleplayer work together with all programs?
+        - Do the playroutines do their job correctly?
+        - Are your friends also using the Eagleplayer? If not, why not?
+
+We will copy the actual version of Eagleplayer onto these  disks  and  send
+them back to you. If the actual Eagleplayer should be the same yet, we will
+wait for the next version.
+
+@endnode
+@node "Fehlerbeschreibung" "Error Description"
+
+  @{u}Error Description@{uu}
+
+If you want to report an  error  in  Eagleplayer  to  us,  you  should  pay
+attention to some aspects and try to get the error being as reconstructable
+as possible. A note like "Eagleplayer  crashes  sometimes  during  loading"
+doesn't help us at all. May be the module is defect or the decruncher fails
+or the memory is corrupted by something. There are many reasons.  Here  are
+some  points  you  should  answer  in  any  case  to prevent such uncorrect
+error-reports:
+
+ * Are you a registered user?
+ * Which Eagleplayer version do you use?
+ * Add your hardware-configuration!
+ * Which patches do you have installed?
+ * Free memory at the moment of crashing?
+ * Which players/engines were loaded? Is it obviously equal, wether engines
+   or players are loaded or not?
+ * Does the errror occurs on other system-configurations?
+ * Add your configuration-file!
+ * Are there problems with a specific module? Please always post it !!!
+ * Does the error only occur on machines with cache?
+ * How were the internal settings of Eagleplayer? Is it obviously equal,
+   how they are?
+ * Was the module recognized correctly?
+ * Were the gadgets already released  (at moduleloading)?
+ * Was the main window in opened state (yet)?
+ * Under which kickstart version the error occured? Is it obviously equal?
+ * Which engines were active?
+
+@endnode
+@node "Keyfile-Benutzung" "Using the Keyfile"
+
+  @{u}Using the Keyfile@{uu}
+
+Eagleplayer looks for the keyfile in it's own directory and in @{i}devs:@{ui}. The
+keyfile has the name @{i}eagleplayer.key@{ui}. If the keyfile was successfully
+loaded, EP will include the string @{i}registered@{ui} in it's window and screen
+titles.
+
+@endnode
+@node "Systemanforderungen" "System Requirements"
+
+  @{u}System Requirements@{uu}
+
+Minimal Configuration:
+
+ - an Amiga with 68000 CPU
+ - OS 2.04
+ - 0.5 MB ChipRam and 2 MB Fastram
+ - harddsik
+ - monitor with speakers (which must be properly connected, of course)
+ 68000 compatibility is checked in irregular intervals. Since 2.05, 
+ the 68000 is supported (again) but a lot of Engines are still 020+.
+ Some Engines (EMPYGui etc.) require Kickstart 3.0, because of the
+ expanded graphics capabilities.
+
+
+@{b}Recommended Configuration:@{ub}
+
+ - 68030/50 MHz or better (68040/40 for the filtering amplifiers)
+ - OS 3.0 / 3.1
+ - 4 MB or more Fastram
+ - HiFi-equipment
+
+
+Please keep in mind that many functions are disabled under  Kickstart  2.0.
+From  now on we will always refer to OS 3.0 in this guide. Please take care
+about not runnig another program which uses  the  sound-channels.  In  this
+case  you  will  get  an  error-message after loading a module, see also at
+"Error Messages".
+
+Beside the standard-system libraries the player  also  tries  to  open  the
+XPKMaster.library,  PowerPacker.library, CRM.library, XFDMaster.library and
+LH.library in order to load  compressed  files.  These  libraries  are  not
+really  needed  for  starting the program. For the optional file-requesters
+beside ASL, the "req.library" or "reqtools.library" are needed.
+
+@endnode
+@node "Registration" "Registering"
+
+  @{u}Registering Eagleplayer@{uu}
+
+Registration is no longer required, nor available. Some donation might 
+encourage us to continue development, though.
+
+Contact:
+ Henryk Richter <henryk.richter@gmx.net>
+ Jan Blumenthal <eagleeis@gmx.de>
+
+In  case  you have any remarks,suggestions, bug reports, new sound formats,
+threatening  letters, Amigas to give away, ... for us or problems at using,
+you can contact the addresses above.
+
+If  you  want  to  describe  us errors, please pay attention to the chapter
+@{"Error Description" link "Fehlerbeschreibung" 0} to  make  the  debugging 
+easier.
+
+
+@endnode
+@node "Installation" "Installation auf der Festplatte,..."
+
+        @{u}Installation@{uu}
+
+
+         @{"Installation on Harddisk " link "Installation auf Festplatte"}
+
+         @{"Start from CLI           " link "CLIStart"}
+         @{"Start from Workbench     " link "WBStart"}
+         @{"Configuration-File       " link "Configfile"}
+
+         @{"The Playerbatch-File     " link "Playerbatch-Datei"}
+
+@endnode
+@node "Installation auf Festplatte" "Installation on harddisk,..."
+
+  @{u}Installation on harddisk@{uu}
+
+Eagleplayer is shipped  with  a  Commodore  Installerscript  for  a  nearly
+automatic  installation.  Please  follow the instructions to avoid problems
+(there are  also  help-texts  for  all  the  install  steps  available).  A
+directory  for  Eagleplayer will be created during installation, from where
+the program can be started later.
+
+ATTENTION: The structure of the Eagleplayer directory has fully changed  in
+           version 2.0 !  Don't try  to  install Eagleplayer manually as in
+           version 1.54 - it would fail 100% .
+
+@endnode
+@node "CliStart" "Starting Eagleplayer"
+
+  @{u}Starting Eagleplayer from CLI/SHELL@{uu}
+
+For running from Cli/Shell you only have to simply call the  player.  Don't
+forget  to change to the player-dir before starting it (with the DOScommand
+'CD') or call it with the full path (e.g. Work:Eagleplayer/Eagleplayer).
+
+Eagleplayer offers many arguments in shell/cli-mode. So you can  specify  a
+module  name  which  should  be  loaded automatically. You also can run the
+Eagleplayer twice, evetually specified modules will be handed over  to  the
+already  running  Eagleplayer.  In  any  case  entered Shell-arguments have
+priority over the saved parameters in the  config-file.  The  corresponding
+options  can  be  found in the ARexx-chapter and at all descriptions of the
+@{"menuoptions" link "Menues"}.
+
+@{b}Attention!@{ub} Since version 2.0 the behaviour at  a  shellstart  has  changed,
+Eagleplayer  doesn't disconnect itself from the shell anymore. It has to be
+started with 'Run' for that case.  This  was  necessary  due  to  some  new
+features, like support for Aminet-CD's.
+
+@{i}Example:
+ Eagleplayer loadmodule="dh2:Protracker/Industrial/Mod.Bifat_Bunker"
+or
+ Eagleplayer loadmodule "dh2:Protracker/Ravy/Mod.Ani_Soundcompo"
+
+@{ui}
+
+@endnode
+@node "WBStart" "Starting from Workbench"
+
+  @{u}Starting from Workbench@{uu}
+
+You can start Eagleplayer from Workbench by simply doubleclicking its icon.
+It will be loaded immediatly.
+
+Eagleplayer supports  tooltypes  since  version  2.0,  which  can  be  used
+together with the @{"configuration file" link "Configfile"}. Please make sure, that the tooltypes
+have got a higher priority than the settings in the configfile in any  case
+and  that they are not reset during saving. In cleartext: The options which
+are set manually by tooltypes can  also  only  be  changed  this  way.  The
+corresponding  options  can  be  found  in  the  ARexx-chapter  and  at all
+descriptions of the @{"menuoptions" link "Menues"}.
+
+@{i}Example for tooltypes:
+ config="work:eagleplayer2/my_second_configs/"
+ (would force Eagleplayer to search the configs in the alternative directory
+  "my_second_configs")
+@{ui}
+
+@endnode
+@node "Configfile" "The configuration file"
+
+  @{u}The configuration file@{uu}
+
+Since version 1.10 Eagleplayer loads a configfile. It consists  of  special
+commandlines,  which  are  typed  in  as  strings. You can specify e.g. the
+actual player dir or if fadein should be (de-)activated etc. This  file  is
+usually located in the "configs/" dir.
+
+You can specify an alternative config-path. this is  done  by  setting  the
+environment  variable "EP-Configpath". It allows you to use the player with
+more than one configuration.
+
+Example:  setenv EP-Configpath Work:Music/Player/Eagleplayer/configs_2
+          copy env:EP-Configpath envarc:
+
+Please keep in mind, that a @{"saved" link "Saveconfig"} config contains the  complete  state  of
+the  whole  Eagleplayer, that means modulename, actual engine settings, all
+paths and all preference settings. The  commands  for  the  configfile  are
+listed  in  the  config,  which  is  shipped  with the installation or in a
+selfmade one. Not all commands must be specified in  the  configfile.  They
+are in nearly all cases compatible with the ones from the ARexxport.
+
+@endnode
+@node "PlayerBatch-Datei" "Die PlayerBatch-Datei"
+
+ @{u}The Playerbatch-file@{uu}
+
+The Playerbatchfile is an ASCII-File needed to load certain extern  players
+by recognizing certain file patterns. That means that every external player
+only needs to be loaded when a module of this format is  to  be  read  into
+memory.  In  the  playerbatch  File is the Name-recgognition string and the
+path of every player written.
+
+Example:
+                FC.*|FC13.*             ="DH0:Eagleplayers/FC 1.3"
+                *.sdata                 ="DH0:Eagleplayers/MusicMaker8"
+                *.sdata          ="DH0:Eagleplayers/MusicMaker4"
+                FC.*|Fc14.*          ="DH0:Eagleplayers/FC 1.4"
+
+Please remark that the pathname must be in " ". How you can see  more  than
+one  filepatterns  are  possible. It is even possible to load more than one
+replayer for one Filepattern, e.g. when you have  got  MusicMaker  or  TFMX
+modules  where  different  module  types  have  got the same prefixes. When
+"Eject Players" is switched off every replayer will only be loaded once.  A
+complete   Eagleplayer-Batch   File   you  can  find  within  the  original
+Eagleplayerpackage.
+
+To use this file, the @{"Playerbatch" link "Playerbatch"}-function must be activated.
+
+@{b}Since  Version  2.0  there  is  the  @{"Playerloader" alink "EP_Engine.guide/Playerloader"},  which   replaces   the
+Playerbatch,  so  that  the loaded files are analysed for its type and then
+the appropriate player will be loaded automatically.@{ub}
+
+@endnode
+@node "Benutzung" "Usage, Program Control and  Configuration"
+
+ @{u}Using Eagleplayer@{uu}
+
+  @{"Introduction" link "Introduction"} @{i} First Steps @{ui}
+
+  @{"Mainwindow  " link "Das Hauptfenster"} @{i} Gadgets @{ui}
+  @{"Menus       " link "Menues"} @{i} Pulldown-Menus @{ui}
+  @{"Appwindow   " link "Appwindow"} @{i} Drag & Drop @{ui}
+  @{"Pubscreens  " link "Pubscreens"} @{i} Where should it show up? @{ui}
+
+  @{"Arexx       " link "ArexxIntro"} @{i} Introduction to the Arexx-Port @{ui}
+  @{"Commands    " link "Arexx-Kommandoübersicht"} @{i} List of Arexx-Commands @{ui}
+  @{"DirOpus 4   " link "Rexx_Dopus4.x"} @{i} How can I control Eagleplayer via Opus? @{ui}
+
+  @{"Aminet-CD`s " link "AminetCD"} @{i} Eagleplayer and Aminet CD`s @{ui}
+
+@endnode
+@node "Das Hauptfenster" "The Mainwindow"
+
+  @{u}The Mainwindow@{uu}
+
+The Mainwindow is a graphic user interface (GUI), realised as  an  external
+program  (a  so  called engine) - so it can be exchanged depending on users
+taste. It tried to  redraw  the  look  of  the  window  with  the  help  of
+AmigaGuides features, so don't blame me if it's unreadable due to your font
+settings in multiview (please use a fixed-with font). If so, I suggest  to  
+check  out  the  @{"online help" link "Help"} instead.
+
+@{"BifatGUI" alink "EP_Engine.guide/Bifatgui"}
+_________________________________________________________________________
+|@{"*" link quit}| Eagleplayer V2.05 Generic/Registered           |@{"][" link togglefilter}|@{">[]" link Pubscreen}|@{"[.]" link Iconify}|   |   |
+|-----------------------------------------------------------------------|
+|@{" O|  " link Volume}|    @{"   " link volume}                                                   |@{"O|<< " link Volume}|
+|     -------------------------------------------------------------     |
+|@{"  \  " link Balance}|               @{"   " link balance}                                        |@{"  /  " link Balance}|
+|     -------------------------------------------------------------     |
+|@{" ||: " alink "EP_Engine.guide/Manager"} @{" |< " link prevmodule} @{" |< " link prevsong} @{" << " link prevpatt} @{" ||> " link replaysong} @{"  >|  " link play} @{" >> " link fastplay} @{" >> " link nextpatt} @{" >| " link nextsong} @{" >| " link nextmodule} @{"  ^  " link eject} @{" 00  " link loadmodule}|
+|      _________________________________________________ ________       |
+|@{"[]" alink "EP_Engine.guide/BifatGUI_ActiveAmplifier"}@{" / " alink "EP_Engine.guide/Amplifiermanager"}|  @{"Welcome to Eagleplayer" link "Scrollfont"}                      | |      | [] @{"[]" link lockmodule} |
+|      ------------------------------------------------- --------       |
+-------------------------------------------------------------------------
+
+
+@{"Eagleplayer1.x-GUI" alink "EP_Engine.guide/Eagleplayer1x-GUI"}
+________________________________________________________________
+|@{"*" link quit}| Eagleplayer V2.05 Generic/Registered                   | | |
+|--------------------------------------------------------------|
+|¯|@{"1" link Voice}|   |   | Volume |                    @{" " link Volume}               |@{"zz" link Iconify}|
+| |--|@{"I" link AboutEP} |@{"P" link AboutModule} |----------------------------------------------|   |
+|_|@{"2" link Voice}|   |   | Balance|                @{" " link Balance}                   |@{"][" link ToggleFilter}|
+|@{" " link Speed}|-|----------------------------------------------------------|
+|¯|@{"3" link Voice}|@{"|<" link PrevModule}| @{"< " link PrevSong} |@{"<<|" link Prevpatt}|@{"[]>" link ReplaySong}|@{"|>" link Play} |@{">>" link Fastplay} |@{"|>>" link NextPatt}| @{" >" link NextSong} |@{">|" link NextModule} |@{" []" link Stop} | @{" ^ " link eject} |@{" 00 " link Loadmodule}|
+| |--|---------------------------------------------------------|
+| |@{"4" link Voice}| @{"Welcome to Eagleplayer" link "Scrollfont"}                                   |
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+
+
+
+@{"EMPYGui" alink "EP_Engine.guide/EMPYGui"}
+Please use the online @{"help" link "help"} to get to know the meanings of the
+buttons.
+
+@endnode
+@node "Menues" "Control by the pulldown menus"
+
+ @{u}Control by the pulldown menus@{uu}
+
+Eagleplayer offers the following pulldown-menus, which can be  selected  by
+the mouse in the usual manner.
+
+
+@{b}Project@{ub}
+ @{"Load Module   " link "LoadModule"}
+ @{"Save Module   " link "SaveModule"}
+ @{"About Module  " link "AboutModule"}
+ @{"Load Player   " link "AddPlayer"}
+ @{"Delete File   " link "Deletefile"}
+ @{"Help          " link "Help"}
+ @{"Documentation " link "Documentation"}
+ @{"Iconify       " link "Iconify"}
+ @{"About         " link "AboutEP"}
+ @{"Quit          " link "Quit"}
+
+
+@{b}Commands@{ub}
+ @{"Voices           " link "Voice"}
+ @{"Volume           " link "Volume"}
+ @{"Balance          " link "Balance"}
+ @{"Speed            " link "Speed"}
+ @{"Previous Module  " link "Prevmodule"}
+ @{"Previous Subsong " link "Prevsong"}
+ @{"Previous Pattern " link "PrevPatt"}
+ @{"Restart Song     " link "restartsong"}
+ @{"Play             " link "Play"}
+ @{"Fast Play        " link "FastPlay"}
+ @{"Next Pattern     " link "Nextpatt"}
+ @{"Next Subsong     " link "Nextsong"}
+ @{"Next Module      " link "NextModule"}
+ @{"Stop             " link "Stop"}
+ @{"Remove Module    " link "Eject"}
+
+
+@{b}Engines@{ub}   @{"(see also here)" alink "EP_Engine.guide/Control"}
+ @{"Load Engine          " link "LoadEngine"}
+ ****-GUI Prefs       <- Settings for the actual user interface
+ @{"14 Bit Amplifier     " alink "EP_Engine.guide/14 Bit Amplifier"}
+ @{"8 Bit Amplifier      " alink "EP_Engine.guide/8 Bit Amplifier"}
+ @{"Amplifiermanager     " alink "EP_Engine.guide/Amplifiermanager"}
+ @{"BifatGUI             " alink "EP_Engine.guide/BifatGUI"}
+ @{"Dirlistviewer        " alink "EP_Engine.guide/Dirlistviewer"}
+ @{"Eagleexotic          " alink "EP_Engine.guide/Eagleexotic"}
+ @{"Extractor            " alink "EP_Engine.guide/Extractor"}
+ @{"FFT Analyzer         " alink "EP_Engine.guide/FFT Analyzer"}
+ @{"Formatloader         " alink "EP_Engine.guide/Formatloader"}
+ @{"Levelgraph           " alink "EP_Engine.guide/Levelgraph"}
+ @{"Levelmeter           " alink "EP_Engine.guide/Levelmeter"}
+ @{"Manager              " alink "EP_Engine.guide/Manager"}
+ @{"Messagewindow        " alink "EP_Engine.guide/Messagewindow"}
+ @{"Moduleinfo           " alink "EP_Engine.guide/Moduleinfo"}
+ @{"Noiseconverter       " alink "EP_Engine.guide/Noiseconverter"}
+ @{"Patternscroll        " alink "EP_Engine.guide/Patternscroll"}
+ @{"Patternscroll++      " alink "EP_Engine.guide/Patternscroll++"}
+ @{"Playerloader         " alink "EP_Engine.guide/Playerloader"}
+ @{"Publicscreenselector " alink "EP_Engine.guide/PublicScreenSelector"}
+ @{"Pysion               " alink "EP_Engine.guide/Pysion"}
+ @{"Quadrascope          " alink "EP_Engine.guide/Quadrascope"}
+ @{"Samplesaver          " alink "EP_Engine.guide/Samplesaver"}
+ @{"SpaceScope+          " alink "EP_Engine.guide/SpaceScope+"}
+ @{"StereoScope          " alink "EP_Engine.guide/Stereoscope"}
+ @{"Time                 " alink "EP_Engine.guide/Time"}
+
+
+@{b}Configuration@{ub}
+ @{i}Global @{ui}
+  @{"Scroll Information " link "ScrollInfos"}
+  @{"Fade In            " link "Fadein"}
+  @{"Fade Out           " link "Fadeout"}
+  @{"Filter             " link "Filter"}
+  @{"Mastervolume       " link "Mastervolume"}
+  @{"Songname           " link "Songname"}
+  @{"Prefix             " link "UsePrefix"}
+  @{"Load Into Fastram  " link "LoadFast"}
+  @{"Playerbatch        " link "Playerbatch"}
+
+ @{i}Modulesprefs @{ui}
+  @{"Rescan Directory " link "RescanDir"}
+  @{"Load Directory   " link "LoadDir"}
+  @{"EPDir            " link "EPDir"}
+  @{"Dos-Message      " link "Notify"}
+  @{"Always Load Dir  " link "ScanAlways"}
+  @{"Hide All         " link "HideAll"}
+
+ @{i}Saving@{ui}
+  @{"Uncompressed       " link "Crunchmode"}
+  @{"Powerpacker        " link "Crunchmode"}
+  @{"LH.Library         " link "Crunchmode"}
+  @{"XPK.Library        " link "Crunchmode"}
+  @{"Crunchmania        " link "Crunchmode"}
+  @{"Automatic Save     " link "AutomaticSave"}
+  @{"Overwrite          " link "Overwrite"}
+  @{"Safe Save          " link "SafeSave"}
+  @{"Samplemode         " link "Samplemode"}
+  @{"Save as Protracker " link "SaveAsProtracker"}
+  @{"Protect Module     " link "Protect"}
+  @{"Protectionbits     " link "Protectionbits"}
+
+  @{"Set Save Directory " link "SaveDir"}
+  @{"Change XPK-Packer  " link "XPKPackMethod"}
+  @{"Change Password    " link "Password"}
+
+ @{i}Programming@{ui}
+  @{"No New Module         " link Programmode}
+  @{"Next Module           " link Programmode}
+  @{"Previous Module       " link Programmode}
+  @{"Random Module         " link Programmode}
+  @{"Songend               " link "Songend"}
+  @{"Load next yet         " link "loadbefore"}
+  @{"Random Subsongs       " link "Randomsong"}
+  @{"Automatic Subsong     " link "Autosubsong"}
+  @{"Load Always           " link "Loadalways"}
+  @{"Directory Jumps       " link "Dirjump"}
+  @{"Timemode              " link "Timemode"}
+  @{"Calculate Playtime    " link calcduration}
+  @{"Start with Random Mod " link Randomstart}
+  @{"Immmediate Start      " link Quickstart}
+  @{"Minimum Playtime      " link "Mintimeout"}
+  @{"Maximum Playtime      " link Timeout}
+
+ @{i}Timing@{ui}
+  @{"CIA-Timing            " link "Timingmode"}
+  @{"VBLANK-Timing         " link "Timingmode"}
+  @{"Timer.device          " link "Timingmode"}
+  @{"Automatic Wait        " link "Waitingmode"}
+  @{"Rasterline Wait       " link "Waitingmode"}
+  @{"DBF-Loop Wait         " link "Waitingmode"}
+  @{"reserve Audiochannels " link "Allocchannels"}
+  @{"Softinterrupt         " link "Softint"}
+  @{"Set Rasterlines       " link "Rasterlines"}
+  @{"Set DBF-Loops         " link "DBFLoops"}
+
+ @{i}Decrunching@{ui}
+  @{"Password automatically        " link "Autopassword"}
+  @{"Decrunch first Module         " link "Extractfirstmodule"}
+  @{"Decrunch files with XFD       " link "xfddecrunch"}
+  @{"Decrunch Executables with XFD " link "Xfdloadseg"}
+
+ @{i}Warning@{ui}
+  @{"Small Module  " link "smallmodule"}
+  @{"Big Module    " link "Bigmodule"}
+  @{"Defect Module " link "Modulefault"}
+
+ @{"Filerequester " link "Filerequestermode"}
+
+ @{"Iconify " link "Iconifymode"}
+
+ @{i}Look@{ui}
+  @{"Choose Menufont   " link "Menufont"}
+  @{"Choose Modulefont " link "Modulesfont"}
+  @{"Choose Scrollfont " link "Scrollfont"}
+
+ @{"Change PublicScreen " link "Pubscreen"}
+ @{"Filter              " link "Filter"}
+ @{"Save Configuration  " link Saveconfig}
+
+
+ @{b}Modules-Directory, *** Entrys@{ub}
+  @{"<<Parent Directory>>" link "Module"}
+  @{"Mod.A                " link "Module"}
+  @{"Mod.B                " link "Module"}
+  @{"OK.C                 " link "Module"}
+@endnode
+@node "Appwindow" "The AppWindow-Function"
+
+ @{u}The AppWindow-Function@{uu}
+
+For the  mainwindow  Eagleplayer  uses  the  appwindow-function,  which  is
+available  since  Kickstart  2.0 . Appwindow is a kind of Drag & Drop - the
+possibility to click on the workbench-icons of modules,  dragging  it  over
+the  Eagleplayerwindow and release it there. The module will then be loaded
+and played back. If  you  drop  several  icons  via  multiselect  over  the
+Eagleplayerwindow,    the   corresponding   modules   will   be   overtaken
+alphabetically into the pulldown-menu.  The  icons  can  be  selected  from
+different directories!
+
+Since  Opus5  this  function got even more important, because Opus lets you
+Drag& Drop opuslister-entries into other windows, if they  support  it.  So
+you  also  can  pick  a  file  from  a  opus-lister and release it over the
+Eagleplayer-mainwindow in order to load & play it back automatically.
+
+@endnode
+@node "Pubscreens"
+
+ @{u}Pubscreens@{uu}
+
+Since version 1.10 Eagleplayer is able to open itself on  pubscreens.  This
+pubscreensupport   affects  to  all  windows  of  Eagleplayer  and  of  the
+subprograms, if not mentioned otherwise, so all engines open  on  the  same
+screen. Here a small list of publicscreen names:
+
+        CygnusEdScreen1 (under "Rendering choices" in the Environment-Menu
+                        set "make screen public"to on)
+        BootX
+        PowerPacker
+        DOPUS.1
+        TERM
+        EDGE
+
+
+Since Version 1.52 the engine called @{"PubScreenSelector" alink "EP_Engine.guide/Pubscreenselector"} exists, with  which
+you  can  choose a pubscreen by simply clicking with the mouse on an entry,
+so Eagleplayer will open itself an the choosen Screen. It can't be easier!
+
+@endnode
+@node "Commodity-Funktionen" "Commodity-funktions"
+
+ @{u}Commodity-functions@{uu}
+
+Since  version  1.10  Eagleplayer  has  a  commodity-port,  which  is  only
+available under Kickstart 2.0 and upper versions. Eagleplayer can be called
+up by selfdefined hotkeys. Default is the key-combination "CONTROL ALT  E".
+When  activating  this  hotkey,  the mainwindow with engines, config-window
+etc. will be opened and put to front or it will be closed.
+
+With the help of Commodities-Exchange furhter  commands  can  be  realised,
+e.g. Quit.
+
+The options "CX_Popup", "CX_Popkey" and "CX_Priority" can be  specified  in
+the configuration file as well as via Shell and Tooltypes.
+
+In   opposite   to  the  rules  for  small  commodities,  which  close  its
+configurationwindow  but  stay  in  memory,  the  Eagleplayer  quits,  when
+@{"closing" link "quit"} its window. An @{"Iconify" link Iconify}-function is extra available.
+
+@endnode
+@node "Depacker" "Internal DePackers"
+
+ @{u}Internal DePackers@{uu}
+
+Eagleplayer can depack datafiles in the current version, if they are packed
+with one of the following crunchers:
+
+        - CrunchMania     ;only with Library, but all modi
+        - Powerpacker      (if available, the library will be used)
+        - LH               (PMC from Powerplayer- but where is the POWER
+                           of the Powerplayer???)
+        - Fimp
+        - Pack (Soundtracker-Songpacker)
+        - XPK              (with most packers (SQSH,NUKE) the file will
+                            be decrunched during loading !!!)
+        - StoneCracker V4.0
+
+The supported XFDMaster.library offers further packers, please refer to its
+documentation, which formats are handled by this library.
+
+Using  Fimp,  only one memoryblock will be allocated, into which the module
+will be loaded and decrunched. This method works very well, but  only  with
+Fimp.  With other packers a memoryblock for loading and one for decrunching
+must be allocated. This method needs ofcourse much memory and this is  less
+fine. After decrunching, the memory of the loaded and crunched file will be
+freed.
+
+Eagleplayer supports the XPKMaster.library, if the corresponding  libs  are
+installed  on  harddisk. If a file needs a password, you can type it into a
+stringgadget in the mainwindow. The advantage of XPK is, that the file  can
+be  depacked  during  loading.  Besides,  this saves sometimes much memory,
+depending on the used XPKLibrary.
+
+For decrunching PCM-files, meaning files packed with the  LH.library,  this
+library is needed. If it can't be found the module can't be depacked.
+
+Pack  is  the  SongPacker  of  the  old trackers (NoiseTracker, ProTracker,
+Startrekker).
+
+Powerpacker-, Fimp-, Pack-  and  Stonecracker4.0-files  can  be  decrunched
+without  any  further  tools.  These  decrunchroutines  are  built into the
+Eagleplayer. If the Powerpacker.library is  found,  it  will  be  used  for
+depacking PP-files.
+
+Furthermore, Eagleplayer can also depack executables, if  they  are  packed
+with   ImploderV4.0   (NormalMode   without  Library).  This  function  was
+implemented, because the program got  bigger  and  bigger,  especially  the
+players  and  engines. To make these usable for a disk-user they all can be
+simply packed. CustomModules can also be imploded, RonKlaren-mods  may  not
+be packed! In coming versions more file-decrunchers will be supported. I'am
+sorry for chosing imploder for that, but better than not crunching, or?
+
+Since version V1.52 the XFDMaster.Library is supported, that means that you
+also  can load PowerPacker-Executables if you own the appropriate slave. So
+you can also pack players and  engines  with  Powerpacker,  Crunchmania  or
+Stonecracker,  if  your  version  of  the  XFDMaster.library supports this.
+@{b}Attention: Before activating this, please read  the  documentation  to  the
+corresponding @{"function" link "XFDLoadseg"} !@{ub}.
+
+
+You can get XFDMaster.library from
+Georg Hörmann
+Martinswinkelstraße 16c
+82467 Garmisch-Partenkirchen
+or on wellsorted PD-series / Aminet.
+
+@endnode
+@node "ArexxIntro" "Introduction and Description of the Arexx-port"
+
+ @{u}Introduction and Description of the Arexx-port@{uu}
+
+Finally, from Version 1.10 on the Eagleplayer supports ARexx. Therefore the
+Eagleplayer offers a lot of @{"commands" link "Arexx-Kommandoübersicht"} which make the Eagleplayer able to be
+practically remote controlled.  All  arexx-commands  which  belong  to  the
+corresponding @{"Menufunctions" link "menues"} are also listed in these parts of the guide.
+
+The ARexx-port is named @{b}rexx_EP@{ub}.
+
+An @{"Adaption to DOPUS" Link "Rexx_DOpus4.x"} is therefore no problem at all.
+
+
+Attention: Due to the new structure of the whole Eagleplayer 2.0 some
+           commands have changed, furhtermore, it is recommended in
+           some cases to use the shell-options instead.
+           So, an ARexx-script for loading a file via opus is no more
+           needed. The commandline Eagleplayer Loadmodule="{f}" toge-
+           ther with the command-type "AmigaDOS" and the option "run
+           asynchronously" does the same.
+
+@endnode
+@node "Arexx-Kommandoübersicht" "Arexx-command overview"
+
+ @{u}Arexx-command overview@{uu}
+
+Following this text you will  find  all  ARexx-commands  supported  by  the
+Eagleplayer.  If no error occurs, the result returned by the Eagleplayer to
+the calling Arexx-Script is the same which would be scrolled into the  main
+window .Of course not if the Eagleplayer expects exact arguments e.g. using
+the status command. If an error occurs in RX_result the error-text will  be
+returned.
+
+The  User  should of course test if the different possibilities can be used
+in any case. It won't work e.g. if you wanna save a module but the  current
+replayer  doesn`t  support  saving. If you tested it before, the problem is
+solved. We offer a lot of status informations, make use of  them  !  If  we
+talk  filenames  from  now  on we mean FILE AND PATH ! (if no other case is
+mentioned)
+
+
+        @{"AboutEP" link "AboutEP"}
+        @{"Aboutmodule" link "Aboutmodule"}
+        @{"Addlistentry" link "Addlistentry"}
+        @{"Addlist" link "Addlist"}
+        @{"Allocchannels" link "Allocchannels"}
+        @{"ASCEngine" link "ASCEngine"}
+        @{"Automaticsave" link "Automaticsave"}
+        @{"Autopassword" link "Autopassword"}
+        @{"AutosubSong" link "AutosubSong"}
+        @{"Balance" link "Balance"}
+        @{"BigModule" link "BigModule"}
+        @{"CalcDuration" link "CalcDuration"}
+        @{"ChipRamAmplifier" link "ChipRamAmplifier"}
+        @{"CX_Popup" link "CX_Popup"}
+        @{"CX_Popkey" link "CX_Popkey"}
+        @{"CX_Priority" link "CX_Priority"}
+        @{"Config" link "Config"}
+        @{"Crunchmode" link "Crunchmode"}
+        @{"DBFLoops" link "DBFLoops"}
+        @{"Defaultspeed" link "Defaultspeed"}
+        @{"DeleteAllEngines" link "DeleteAllEngines"}
+        @{"DeleteAllPlayer" link "DeleteAllPlayer"}
+        @{"DeleteEngine" link "DeleteEngine"}
+        @{"DeleteFile" link "DeleteFile"}
+        @{"DeleteGui" link "DeleteGui"}
+        @{"DeletePlayer" link "DeletePlayer"}
+        @{"Dirjump" link "Dirjump"}
+        @{"Enable" link "Enable"}
+        @{"Eject" link "Eject"}
+        @{"EjectPlayers" link "EjectPlayers"}
+        @{"EjectEngines" link "EjectEngines"}
+        @{"EPDir" link "EPDir"}
+        @{"ExtractFirstModule" link "ExtractFirstModule"}
+        @{"FadeIn" link "FadeIn"}
+        @{"FadeOut" link "FadeOut"}
+        @{"Fasterspeed" link "Fasterspeed"}
+        @{"FastRamAmplifier" link "FastRamAmplifier"}
+        @{"Fastplay" link "Fastplay"}
+        @{"Filerequestermode" link "Filerequestermode"}
+        @{"Filter" link "Filter"}
+        @{          è                @{"Helplink" link "Helplink"}
+        @{"Hide" link "Hide"}
+        @{"HideAll" link "HideAll"}
+        @{"Iconify" link "                  @{"Iconifymode" link "Iconifymode"}
+        @{"Instruments" link "Instruments"}
+        @{"Loadalways" link "Loadalways"}
+        @{"Loadbefore" link "Loadbefore"}
+        @{"LoadConfig" link "LoadConfig"}
+        @{"LoadDir" link "LoadDir"}
+        @{"LoadEngine" link "LoadEngine"}
+        @{"LoadEngineDir" link "LoadEngineDir"}
+        @{"LoadFast" link "LoadFast"}
+        @{"LoadGui" link "LoadGui"}
+        @{"LoadModule" link "LoadModule"}
+        @{"LoadPlayer" link "LoadPlayer"}
+        @{"LoadPlayerConfig" link "LoadPlayerConfig"}
+        @{"LoadPlayerDir" link "LoadPlayerDir"}
+        @{"LockModule" link "LockModule"}
+        @{"Mastervolume" link "Mastervolume"}
+        @{"Menufont" link "Menufont"}
+        @{"Mintimeout" link "Mintimeout"}
+        @{"Module" link "Module"}
+        @{"ModuleFault" link "ModuleFault"}
+        @{"Modulesfont" link "Modulesfont"}
+        @{"NextModule" link "NextModule"}
+        @{"NextSong" link "NextSong"}
+        @{"NextPatt" link "NextPatt"}
+        @{"NoEngine" link "NoEngine"}
+        @{"NoGui" link "NoGui"}
+        @{"Notify" link "Notify"}
+        @{"Overwrite" link "Overwrite"}
+        @{"ParentDir" link "ParentDir"}
+        @{"Password" link "Password"}
+        @{"Pause" link "Pause"}
+        @{"PBits" link "PBits"}
+        @{"Play" link "Play"}
+        @{"PlayerBatch" link "PlayerBatch"}
+        @{"Playerconfig" link "Playerconfig"}
+        @{"PrevModule" link "PrevModule"}
+        @{"PrevPatt" link "PrevPatt"}
+        @{"PrevSong" link "PrevSong"}
+        @{"Prefix" link "Prefix"}
+        @{"Printtext" link "Printtext"}
+        @{"ProgramMode" link "ProgramMode"}
+        @{"Protect" link "Protect"}
+        @{"PubScreen" link "PubScreen"}
+        @{"Quit" link "Quit"}
+        @{"QuitEagle" link "QuitEagle"}
+        @{"QuickStart" link "QuickStart"}
+        @{"Randomsong" link "Randomsong"}
+        @{"Randomstart" link "Randomstart"}
+        @{"Rasterlines" link "Rasterlines"}
+        @{"ReplaySong" link "ReplaySong"}
+        @{"RescanDir" link "RescanDir"}
+        @{"SafeSave" link "SafeSave"}
+        @{"Samplemode" link "Samplemode"}
+        @{"SaveAsProtracker" link "SaveAsProtracker"}
+        @{"SaveConfig" link "SaveConfig"}
+        @{"SaveDir" link "SaveDir"}
+        @{"SaveModule" link "SaveModule"}
+        @{"SaveModulePrefs" link "SaveModulePrefs"}
+        @{"SavePlayerConfig" link "SavePlayerConfig"}
+        @{"SaveT" link "SaveT"}
+        @{"Scanalways" link "Scanalways"}
+        @{"Scrollfont" link "Scrollfont"}
+        @{"ScrollInfos" link "ScrollInfos"}
+        @{"Scrolltext" link "Scrolltext"}
+        @{"Slowerspeed" link "Slowerspeed"}
+        @{"SoftInt" link "SoftInt"}
+        @{"SongEnd" link "SongEnd"}
+        @{"SongName" link "SongName"}
+        @{"SmallModule" link "SmallModule"}
+        @{"Speed" link "Speed"}
+        @{"SSDir" link "SSDir"}
+        @{"Status" link "Status"}
+        @{"Stop" link "Stop"}
+        @{"SubSong" link "SubSong"}
+        @{"Timemode" link "Timemode"}
+        @{"Timeout" link "Timeout"}
+        @{"Timingmode" link "Timingmode"}
+        @{"ToggleFilter" link "ToggleFilter"}
+        @{"Voice" link "Voice"}
+        @{"Volume" link "Volume"}
+        @{"Waitingmode" link "Waitingmode"}
+        @{"XFDDecrunch" link "XFDDecrunch"}
+        @{"XFDLoadSeg" link "XFDLoadSeg"}
+        @{"XPKPackmethod" link "XPKPackmethod"}
+
+
+ That's all yet! :-)
+
+@endnode
+@node "Rexx_Dopus4.x" "Arexx-Adaption to Directory Opus"
+
+ @{u}Arexx-Adaption to Directory Opus@{uu}
+
+In this chapter is described how to adapt  ARexx  Scripts  to  control  the
+Eagleplayer  via  the  Directory  Opus.  Therefore  a  lot  of  scripts are
+supplied. Our ARexx-Scripts are adapted to DOpus4. (ARexx portname  of  the
+first opened DOPUS: "DOPUS.1"). Please notice that the DirectoryOpus 3 uses
+another Arexx portname ! To Adapt the  Arexx-Scripts  copy  these  to  your
+assigned  "rexx:"  directory. After this start the configuration program of
+the DOpus. Choose the "BUTTON"-Gadget and click on one of the free  Gadgets
+of  the  gadget  bank appearing at the top of the screen. It is best if you
+open a  new  bank  before  (click  on  "NEW  BANK")  because  of  the  many
+Arexx-Scripts  we  wrote for this piece.Now appears the Button-Edit-Screen.
+Enter the name of the button (e.g. "Load Mod"). Click on  the  gadget  "NEW
+ENTRY".  Then  some  gadgets  are  freed and the cursor appears in the line
+under the big listview gadget. Here you enter "rx rexx:EP_Loadmodules.dopus
+{s}".  Lefthand to this line you find a cycle button.If there doesn't stand
+"AmigaDOS" click on this switch until "AmigaDOS" appears as type.  Now  you
+still  have  to  change  the  mode.  This  will  be  done  by  setting "run
+asynchronously" in the "FLAGS ..." to on. Now select "OKAY" until  you  are
+back  to Opus (or save the configuration first). Select one or more modules
+and then click onto the Loadmodule gadget.
+
+This  Arexx-Script  takes  all  selected  files  and  gives  them  to   the
+Eagleplayer  which  loads the first of them and puts the rest into the pull
+down menu. If only one module is  selected  the  whole  directory  will  be
+loaded. If the Eagleplayer wasn`t loaded at this time the Arexx-script does
+it for you but make sure that the  path  for  the  Eagleplayer  program  is
+correctly  set  in  this  script.  If  not  so  then load the script into a
+texteditor and change the path of the Eagleplayer to the right one.
+
+If you for example wanna load a module via double click you have to  define
+a  filetype. Therefore click on the gadget "Filetypes". Now choose the item
+"NEW" from the Pulldown Menu. There where  the  cursor  now  appears  enter
+"Soundmodule"  and  in the next stringgadget "Music". These inputs are only
+for Orientation and have no special meaning. Now choose "New Entry".  Click
+on  the  Lens-symbol and then in the appearing requester "Matchname". There
+where the cursor now appears enter "(MOD|CU).*". Then press "OKAY"
+
+Now you are back to the window where you entered the "NEW" menuitem.  There
+you  click  on the "NEW" gadget. Now a requester appears where you can find
+the word "Soundmodule" anywhere. Click there and a new window will open. At
+the  top in the middle of the window there you click onto the event "Double
+Click". As event description you enter a text of your choice e.g.  "Loading
+soundmodule".  Click  on  "New Entry", enter "rx rexx:EP_loadmodule.dopus",
+and click "OKAY".
+
+Now  you  have  created  a  fileclass  that  would  DOPUS  make   to   give
+automatically  the  double-clicked musicfile to the Eagleplayer which loads
+and plays it when the name of the musicfile starts with "MOD." or "CU." But
+don`t  forget  to  set  the  path  for  the  Eagleplayer  correctly  in the
+scriptfile.
+
+@endnode
+@node "AminetCD"
+
+ @{u}Using Aminet-CD`s with Eagleplayer@{uu}
+
+What is the Aminet at all? Aminet is a huge shared archive,  where  authors
+can  release  their  PD-  and  FD-programs.  Aminet  is  built up by ca. 15
+computers worldwide - connected by Internet,  a  computer  network  between
+most  of the universities and many firms over the world. Also at many other
+places - e.g. at over 50 mailboxes - you can get regularly  updated  Aminet
+files. It doesn't matter where a software is uploaded to Aminet, it will be
+available worldwide within 24 hours. A speed, no other media can offer. The
+archive  consists of more than 9 gigabytes of software, therefore it is the
+biggest network-based software archive of the Internet at this  moment.  So
+we  take  now  the chance to thank Urban Mueller a lot not only for XPK :-)
+but also for administrating Aminet.
+
+Ok, back to the topic: On the Aminet CD's, consisting of the new stuff from
+the  archive at the time, a huge number of music modules can be found. They
+can be directly selected in the AmigaGuide-Index and played  back  with  an
+external  modplayer.  To  use  the Eagleplayer for it you have to start the
+"Prefs"-program on the CD and type in the following line  under  the  label
+"Mod  Player":  "<Eagleplayer-path>/Eagleplayer loadmodule" The path is the
+position of the Eagleplayer-drawer  on  your  harddsik  (you  can  use  the
+filerequester  instead  by clicking on the "Set"-gadget) and after the path
+and name the word @{b}loadmodule@{ub} must follow.
+
+@{i}Example1: work:music/players/Eagleplayer loadmodule
+Example2: work:music/players/Eagleplayer iconify=on loadmodule
+@{ui}
+
+@endnode
+
+
+
+@node "AboutEP" "AboutEP"
+
+ @{u}AboutEP@{uu}
+
+This function shows some information about Eagleplayer, wether the  program
+is   registered  or  not,  and  if  yes  the  name  and  address  plus  the
+keyfilenumber of the user.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  aboutEP
+
+@endnode
+@node "AboutModule" "AboutModule"
+
+ @{u}About Module@{uu}
+
+Scrolls an information text through the mainwindow, containing infos  about
+the  music and replayer. The amount of the info depends on the replayer. In
+the worst case only the name and length of the module will be shown. If  no
+module is loaded, the @{"Aboutwindow" link "AboutEP"} of Eagleplayer will be opened.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  Aboutmodule   - These two function return the same text, which is also
+  status m abo    shown in the scroller.
+
+
+@endnode
+@node "AutoSubsong"
+
+ @{u}Automatic subsong@{uu}
+
+Using soundsystems, which contain several musicparts, all subsongs will  be
+replayed  before  a  new  file  is  loaded  - depending on the settings for
+@{"Programmode" link "Programmode"}. Supposition is either the support of  @{"Songend detection" link "Songend"}  by
+the player or @{"Timeout" link "Timeout"}, respectively @{"Randomsong" link "Randomsong"} set by the user.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Autosubsong state      - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g ass           - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Autosubsong=state      - state: see above
+
+@endnode
+@node "AutomaticSave"
+
+ @{u}Automatic saving@{uu}
+
+If activated, the file will be @{"saved" link "SaveModule"} without further  name-requests  under
+the  actual  filename (or the @{"songname" link "Songname"} + @{"filename extension" link "prefix"}, depending on
+settings) to the @{"preset directory" link "SaveDir"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  AutomaticSave state     - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g ats            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  AutomaticSave=state     - state: see above
+
+@endnode
+@node "AllocChannels"
+
+ @{u}Allocate Audiochannels@{uu}
+
+The audio-hardware and its software-based interface of the  Amiga  are  not
+designed  in  the  way, that several programs can use them simultaneous (or
+only with enormous restrictions). Therefore the Eagleplayer has to use them
+alone  and  without  any  influences  from  other  programs.  To avoid such
+problems, Eagleplayer allocates (if activated) the audiochannels  for  sole
+usage  for  the  time  in  which  the  replay is done. It's recommended, to
+@{b}not@{ub} switch off this option.
+
+Since version 2.0 the audiochannels are also given back  when  the  @{"Pause-" link "Play"}
+function  is used and only allocated during replay, so the actual musicfile
+hasn't to be @{"removed" link "Eject"} from memory.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Allocchannels state     - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g ach            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Allocchannels=state     - state: see above
+
+@endnode
+@node "AutoPassword"
+
+ @{u}Automatic password@{uu}
+
+For unpacking/decoding of files, protected with passwords, you can allow by
+this  option  an  automatic decoding with the password, which is set in the
+@{"change password" link Password}function. This makes only sense, if the files have got  the
+same password.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Autopassword state      - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g aps            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Autopassword=state      - state: see above
+
+@endnode
+@node "Addlistentry" "Add list entry"
+
+ @{u}Add list entry@{uu}
+
+        Not documented!
+@endnode
+@node "ASCEngine" "ASCEngine"
+
+ @{u}ASCEngine@{uu}
+
+        Not documented!
+@endnode
+@node "Addlist" "Add list"
+
+ @{u}Add list@{uu}
+
+        Not documented!
+@endnode
+@node "Balance"
+
+ @{u}Balance@{uu}
+
+This regulator can be used to change the volume-ratio between the left  and
+right  channel.  If  the  slider is dragged to the left, the volume for the
+right channel decreases and vice versa. A balance value of "0" means,  that
+both  sides  work  with  the  same  volume.  If  a replayer doesn't support
+balance, this slider (and the corresponding menu entries) will be disabled.
+
+The @{"BifatGUI" alink "EP_Engine.guide/Bifatgui"} owns 2 extra buttons for the balance. If  clicked  once,  the
+left button sets the balance to the maximum left, and if selected again, to
+the middle position. The left button works analogue.
+
+The  possibilities  offered  by  the  menu,  allow  the  shifting  of   the
+volume-ratio  by  one  step  to  the  left/right  and a reset to the middle
+position.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}9@{ub} = Balance further to the left
+  @{b}@{i}A-@{ui}0@{ub} = Balance further to the right
+  @{b}@{i}A-@{ui}8@{ub} = reset to the middle, same amount on both sides
+
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Balance number          - number: -255...0...255 (-255=outer left; 0=middle,
+                                                     255=outer right)
+                            @{i}Remark: Eagleplayer calculates internally with
+                                    256*2 balance steps, but offers the user
+                                    actually a range from -64..64 as value,
+                                    to go conform with the Amiga-hardware-
+                                    restrictions)@{ui}
+                                       
+
+
+@{i}Arexx: @{ui}
+
+  status g bal            - returns actual value (-255...255)
+                            @{i}Remark: Because Arexx has got problems with
+                                    negative numbers, the returned numbers
+                                    for values <0 go from 65535 (=-1) to
+                                    65281 (=-255), which have to be re-
+                                    calculated by the Arexx-program.@{ui}
+
+
+@{i}Tooltype: @{ui}
+
+  Balance=number          - number: see above
+
+@endnode
+@node "Bigmodule"
+
+ @{u}Warning on big modules@{uu}
+
+If the option is activated and a too long module  should  be  played  next,
+Eagleplayer  opens  a  requester, which informs about that. Too big modules
+are (normally) no problem, but so you can find  out,  where  to  save  some
+harddisk space.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Bigmodule state         - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g bmo            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Bigmodule=state         - state: see above
+
+@endnode
+@node "CHIPRamAmplifier" "ChipRAMAmplifier"
+
+ @{u}ChipRamAmplifier@{uu}
+
+        Not documented!
+@endnode
+@node "cx_popup" "Popup"
+
+ @{u}PopUp@{uu}
+
+This  function  opens/closes  Eagleplayers  mainwindow,  depending  on  the
+specified arguments.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  CX_Popup yes - mainwindow will be opened
+  CX_Popup no  - mainwindow will be closed
+
+  status g mwi - yes/no as result
+
+@{i}Tooltype: @{ui}
+
+  CX_Popup=yes - opens the mainwindow on startup
+  CX_Popup=no  - the mainwindow will not be shown on startup
+
+@endnode
+@node "Crunchmode"
+
+ @{u}Crunchmode@{uu}
+
+The options set here change the behaviour of Eagleplayer when  @{"saving" link "SaveModule"}  the
+actual  file(s). You have the choice to save the file(s) either unpacked or
+packed  with  the  compressors  mentioned  later.  Some  of  these  methods
+(Powerpacker,     Crunchmania    and    LH.library)    can    activate    a
+soundmodule-specific, a socalled @{"delta-mode" link "Samplemode"}, in order to  gain  much  more
+compression in most cases, than a normal packmode.
+
+   ( ) unpacked            - the file(s) will not be packed
+   ( ) Powerpacker         - powerpacker.library from Nico Francois is used
+   ( ) LH.Library          - lh.library from Stefan Fuhrmann is used
+   ( ) XPK.Library         - the actual set @{"XPK-Packer" link "XPKPackmethod"} is used
+                             for saving
+   ( ) Crunchmania         - crm.library from Thomas Schwarz is used for
+                             packing
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Crunchmode number      - number: 0 = unpacked
+                                   1 = Powerpacker
+                                   2 = LH.Library
+                                   3 = XPK.Library
+                                   4 = Crunchmania
+
+@{i}Arexx: @{ui}
+
+  status g cmo           - returns actual state (0...4)
+
+
+@{i}Tooltype: @{ui}
+
+  Crunchmode=number      - number: see above
+
+@endnode
+@node "CalcDuration"
+
+ @{u}Calculate duration@{uu}
+
+If activated and supported by the @{"replayer" ALink "EP_Player.Guide/Die Player"}  the  duration  of  the  actual
+musicfile  will be calculated and shown in the moduleinfo. You can refer to
+the @{"Manager" alink "EP_Engine.guide/Manager"} if you want to know  which  replayer  supports  this  duration
+calculation  (e.g. Protracker+Clones, SonicArranger, Jamcracker, Oktalyzer,
+AIFF, ADPCM)
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  CalcDuration state     - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g cad           - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  CalcDuration=state     - state: see above
+
+@endnode
+@node "cx_popkey" "CX_Popkey"
+
+ @{u}PopKey@{uu}
+
+This function sets the hotkey, with which the  entire  Eagleplayer  can  be
+hidden or opened again.
+
+
+@{i}Tastatur: @{ui}
+
+  -
+
+@{i}Menü-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  CX_Popkey <Hotkey> - the hotkey will be set
+
+  status g pke       - hotkeystringyes as result
+
+@{i}Tooltype: @{ui}
+
+  CX_Popkey=<Hotkey> - the hotkey will be set
+
+@endnode
+@node "cx_priority" "CX_Priority"
+
+ @{u}CX_Priority@{uu}
+
+ this function sets the commoditiy priority.
+
+
+@{i}Tastatur: @{ui}
+
+  -
+
+@{i}Menü-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  CX_Pri <number>  - Priority
+
+
+@{i}Tooltype: @{ui}
+
+  CX_Pri= <number> - Priority
+
+@endnode
+@node "Config"
+
+ @{u}Config@{uu}
+
+
+        Not documented!
+@endnode
+@node "DefaultSpeed"
+
+ @{u}Default Speed@{uu}
+
+The @{"Replay Speed" link "Speed"} will be reset to the normal value.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}#@{ub}
+
+
+@{i}Arexx: @{ui}
+
+  Defaultspeed
+
+@endnode
+@node "Documentation"
+
+ @{u}Documentation@{uu}
+
+This command forces Eagleplayer to open and view  (via  amigaguide.library)
+this file you're reading now (documentation or online-help respectively).
+
+@{i}Remark: When you close the amigaguide-window, the file of the Doc will  not
+be automatically freed. To achieve this choose the menu item again.@{ui}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  Documentation
+
+@endnode
+@node "DBFLoops"
+
+ @{u}set DBF-Loops@{uu}
+
+When  the  @{"waitingmode" link "Waitingmode"}  is  set  to   "wait   with   DBF-loops",   several
+waiting-loops  are run by the CPU in order to play the musicfiles correctly
+timed. This mode however strongly depends on the CPU, so it's recomended to
+use the other timing methods instead, which are offered. A useful value for
+the 7.09 MHz 68000-processor is  ca.  300.  If  somebody  has  boredom  and
+desire, he can perhaps check out, which value works fine on 68060, i really
+would like to see this number...
+
+You can recognize a too small waiting-loop value if some notes are  clipped
+during   replay.   Increase   in   this   case   the  value  or  switch  to
+"@{"automatic wait" link "Waitingmode"}".
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  DBFLoops number         - number: amount of cycles to be waited
+
+
+@{i}Arexx: @{ui}
+
+  status g dbl            - returns actual value
+
+
+@{i}Tooltype: @{ui}
+
+  DBFLoops=number         - number: see above
+
+@endnode
+@node "Dirjump"
+
+ @{u}Directory jumps@{uu}
+
+If activated: During automatic loading of a next  file,  Eagleplayer  jumps
+into  the  subdirs  of the last user-specified directory and searches there
+for the next file to be played. This function is very useful, especially if
+you e.g. sorted your musicfiles by the composers into different directorys.
+
+This  function  makes  only  sense  in connection with @{"LoadDir" link "LoadDir"} and "random
+module" (set in @{"programmode" link "Programmode"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Dirjump state          - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g dij           - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Dirjump=state          - state: see above
+
+
+@{i}
+Example:
+ Assume, your directorys on your harddisk are organised in this way:
+
+ Modules:
+   |
+   Protracker
+   | |
+   | Audiomonster
+   | |
+   | Dreamer
+   | |
+   | Folxmusix
+   | |
+   | Gabba
+   | |
+   | Hardcore
+   .
+   .
+   .
+If Dirjump is activated, then,  if  you  select  the  protracker-dir  by  a
+filerequester, Arexx etc and activate NextModule, Eagleplayer will take the
+next file either from "Audiomonster", "Dreamer"  or  "Folxmusix"  etc.  and
+return to the protrackerdir, waiting for a next file-request.
+@{ui}
+
+@endnode
+@node "DeleteFile" "DeleteFile"
+
+ @{u}Delete file@{uu}
+
+This function opens a filerequester for selecting a file to be deleted.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  deletefile [path+name] - if a file is specified, no requester pops up
+                           and the file will be deleted immediatly
+
+@endnode
+@node "Extractfirstmodule"
+
+ @{u}Extract first module@{uu}
+
+This option changes the behaviour of  Eagleplayer  regarding  to  archives.
+(LHA,  LZX,ZIP  etc.).  Normally,  the @{"Extractor" alink "EP_Engine.guide/Extractor"} behaves in such a manner,
+that archives are handled like normal directories, so the archived  modules
+can  be selected separatly. This however causes some trouble when accessing
+the modulearchives on the Aminet-CD's,  because  normally,  these  archives
+contain  one module only - The expense for going through the archives would
+raise unnecessarily.
+
+In short words: If the option is activated,  the  first  file  found  in  a
+selected  archive will be decrunched and played back, if it is a module. It
+is  highly  recommended  to  activate  the  @{"Hideall" link "Hideall"}-function  when   using
+"extractfirstmodule",   because   otherwise  it  can  easily  happen,  that
+Eagleplayer tries to decrunch  and  play  back  the  "readme"-file  in  the
+archive.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Extractfirstmodule state   - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g efm               - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Extractfirstmodule=state   - state: see above
+
+@endnode
+@node "EPDir"
+
+ @{u}EPDir@{uu}
+
+EPDir is a function for speeding up the directory-scan. The whole  contents
+of  the directory will be written to a small file named ".epdir". When that
+directory should be scanned afterwards, this file will be used instead  and
+the  entries  will  be  shown  in  the menu, if the contens has not changed
+during saving  the  ".epdir"-file.  The  resulting  speedup  is  especially
+remarkable when using large directorys, fragmented harddisks which run with
+the normal FFS filesystem. This function shows only  effect  in  connection
+with  @{"LoadDir" link "LoadDir"}.
+@{b}Attention: In rare  cases  the  @{"Notify" link "Notify"}-function  can  collidate  with  the
+EPDir-function,  where  the  directory will always be scanned directly from
+disk. In this case you should switch off "EPDir" or @{"Notify" link "Notify"}.@{ub}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  EPDir State           - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g epd          - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  EPDir=state           - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "Enable" "Enable"
+
+ @{u}Enable@{uu}
+
+This function allows you to switch on/off a replayer. The first argument is
+the number of the replayer, the second one the wanted player-state.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  enable num state  - "num"=number of replayer, "state" = 1 for enabled,
+                      0 for disabled
+  status p ena      - returns, wether the corresponding replayer is enabled
+                      or not
+
+@endnode
+@node "Eject" "Eject"
+
+ @{u}Eject Module@{uu}
+
+Stops the actual module (if one is replayed) and removes  it  from  memory.
+Then  the  audio-channels  are  released, so other programs kann access the
+audiofunctions of your Amiga.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}e@{ub}
+
+@{i}Arexx: @{ui}
+
+  Eject
+
+@endnode
+@node "FadeIn" "FadeIn"
+
+ @{u}Fade in@{uu}
+
+If Fadein is set, all modules will be slowly faded in upto the set volume.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Fadein state          - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g fai          - returns the actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Fadein=state          - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "Filter" "Filter"
+
+ @{u}Filter@{uu}
+
+Switches on/off the LowPass-filter of the Amiga. This doesn't work for  the
+Amiga  1000  and  2000A. If activated, the output sounds very dull, because
+all frequencies above 7 KHz are cut by the LowPass.  So  this  function  is
+rather meant for setting the filter on/off during the start of Eagleplayer,
+see also the comment about @{"ToggleFilter" link "ToggleFilter"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  filter state   - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g led   - returns the actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  filter=yes/no - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "Filerequestermode"
+
+ @{u}Filerequester@{uu}
+
+With these 3 options you can choose  your  preferred  filerequester,  which
+will  then  be  used by the Eagleplayer. You can choose between ASL (system
+standard), reqtoolslibrary (Nico Francois) an the older req.library (Cygnus
+Software).
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Filerequestermode number - number: 0=req.library,1=reqtools.library,
+                                     2=asl.library
+
+
+@{i}Arexx: @{ui}
+
+  status g frm             - returns actual state (0...2)
+
+
+@{i}Tooltype: @{ui}
+
+  Filerequestermode=number - number: see above
+
+@endnode
+@node "FasterSpeed"
+
+ @{u}Faster speed@{uu}
+
+The @{"replay speed" link "Speed"} will be incremented by one step.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}+@{ub}
+
+
+@{i}Arexx: @{ui}
+
+  Fasterspeed
+
+@endnode
+@node "FadeOut" "FadeOut"
+
+ @{u}Fade out@{uu}
+
+If Fadeout is set, all modules will be slowly faded out and stopped at  the
+end of replaying.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  FadeOut state         - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g fao          - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  FadeOut=state         - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "FastPlay" "FastPlay"
+
+ @{u}Fast Play@{uu}
+
+"Fast play" makes it easier to find a special passage in the title.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}o@{ub}
+
+@endnode
+@node "HideAll"
+
+ @{u}HideAll@{uu}
+
+HideAll takes care about not showing files from the actual directory in the
+menu or dirlistviewer, which names are known as non-music-files.
+
+List of hidden file suffixes:
+".info",".s",".m",".i",".o",".h",".c",".a",".z",".hlp",".nfo",".lib"
+".bat",".bak",".dmp",".dms",".doc",".bbs",".msd",".dok",".asc",".diz"
+".txt",".ins",".asm",".rs",".nt",".fd",".ss",".as",".nt.pp",".catalog"
+".guide",".hyper",".pic",".gui",".offs",".help",".rexx",".prefs",".instr"
+".config",".device",".library",".font",".samp",".ilbm",".fastdir"
+".backdrop",".speeddir",".isdir",".sadir",".okdir",".epdir",".display"
+".displayme",".readme","readme","liesmich",".ip",".i.n",".ip.n",".ip.l"
+"-handler"
+
+List of hidden file prefixes:
+"info.","smpl.","rsmp.","smp.","jpns.","index",
+
+This function makes only sense in connection with @{"LoadDir" link "LoadDir"}.
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  HideAll state         - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g hia          - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  HideAll=state         - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "Hide" "Hide"
+ Hide
+
+This option closes  all  windows,  which  belong  to  Eagleplayer.  In
+opposite  to the "iconify"-function all visual parts of eagleplayer will be
+hidden. You can activate the mainwindow again by  different  possibilities.
+Firstly  by  using the hotkey (normal: CTRL-LALT-E), open it via "Exchange"
+or by relaunching Eagleplayer (this sends an "open"-message to the  already
+running Eagleplayer).
+
+@endnode
+
+@node "Help" "Help"
+
+ @{u}Help@{uu}
+
+This function enables Eagleplayers online-help. After  activating  it,  all
+gadgets  and  menus  are  available.  Selecting  one, results in opening an
+Amigaguide-window where the corresponding  item  is  described  using  this
+documentation.
+
+
+@{i}Keyboard: @{ui}
+
+  @{b}HELP@{ub}
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{i}A-@{b}h@{ub} @{ui}
+
+@{i}Arexx: @{ui}
+
+  help yes/no         - switch on/off
+  status g hel        - returns the state of the help-function as result
+                        (yes/no)
+
+@endnode
+@node "Iconifymode"
+
+ @{u}Iconifymode@{uu}
+
+Here you have the choice between the 2 options, how the Eagleplayer  should
+react  on  the @{"Iconify" link "Iconify"}-command. On the one hand a appropiate menu-entry in
+the tools-menu of the workbench will be created, on the other hand an  icon
+will be created on the workbench, with which the windows of Eagleplayer can
+be reactivated.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Iconifymode number       - number: 0=Appicon,1=Appitem
+
+
+@{i}Arexx: @{ui}
+
+  status g icm             - returns actual state (0...1)
+
+
+@{i}Tooltype: @{ui}
+
+  Iconifymode=number       - number: see above
+
+@endnode
+@node "Iconify" "Iconify"
+
+ @{u}Iconify@{uu}
+
+Closes the mainwindow and all  other  opened  windows  of  Eagleplayer  and
+creates  a  so  called  "AppIcon"  on the Workbench or adds an entry to the
+"tools"-menu of the  Workbench.  To  re-open  Eagleplayers  windows  simply
+doubleclick on the appicon or select the menu item.
+
+
+@{i}Keyboard: @{ui}
+
+  i
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{i}A-@{b}@{ui}i@{ub}
+
+@{i}Arexx: @{ui}
+
+  iconify yes
+  iconify no
+  status g ico     - yes/no as result
+
+@{i}Tooltypes: @{ui}
+
+  iconify=yes
+  iconify=no
+
+
+@endnode
+@node "LoadEngine" "LoadEngine"
+
+ @{u}Engine laden@{uu}
+
+Opens a filerequester for adding/removing one/several engine(s) to/from the
+available ones.
+
+@{b}Remark: All engines located in the "engines"-dir are already shown  in  the
+pulldown-menu + manager. They can be (de)avtivated by simply doubleclicking
+it in the manager, so this function is normally not necessary.@{ub}
+
+
+@{i}Keyboard: @{ui}
+
+  e
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}u@{ub}
+
+@{i}Arexx: @{ui}
+
+  LoadEngine [name] - if a engine-name is specified, it will be loaded imme-
+                      diatly, otherwise a filerequester pops up (analog to the
+                      menu-function)
+
+@endnode
+@node "LoadPlayerDir" "LoadPlayerDir"
+
+ @{u}LoadPlayerDir@{uu}
+
+This function allows to include many @{"Abspieler" alink "EP_Player.guide/Einleitung"} at once manually.  That  is
+normally  not  necessary  in cases where @{"Playerloader" alink "EP_Engine.guide/Playerloader"} and @{"Playerbatch" link "Playerbatch"} are
+activated. All replayers from the chosen directory will  be  included  into
+the playerlist.
+
+@{i}Remark:   The   @{"Manager" alink "EP_Engine.guide/Manager"}   already   lists   all   replayers    from    the
+"Eagleplayers"-dir, which can be loaded/removed by simply doubleclicking on
+the specific list entry.@{ui}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  LoadPlayerDir [path] - when specifying a path, the replayers will be loaded
+                         immediatly, otherwise a filerequester pops up.
+  status g dir         - returns the actual replayer-path
+
+  see also: @{"LoadPlayer" link "LoadPlayer"}
+@endnode
+@node "LoadPlayer" "LoadPlayer"
+
+ @{u}LoadPlayer / AddPlayer@{uu}
+
+This function allows to include a @{"replayer" alink "EP_Player.guide/Einleitung"} manually. That is normally  not
+necessary in cases where @{"Playerloader" alink "EP_Engine.guide/Playerloader"} and @{"Playerbatch" link "Playerbatch"} are activated. When
+calling it from the  menu  a  filerqeuster  pops  up,  where  one  or  more
+replayers can be selected, which will be attached to the list.
+
+@{i}Remark:   The   @{"Manager" alink "EP_Engine.guide/Manager"}   already   lists   all   replayers    from    the
+"Eagleplayers"-dir, which can be loaded/removed by simply doubleclicking on
+the specific list entry.@{ui}
+
+
+@{i}Keyboard: @{ui}
+
+  a
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  LoadPlayer [path and name] - If a path is specified, the replayer will be
+                               immediatly loaded, otherwise a filerequester
+                               pops up. (analog to the menu-function)
+
+  see also: @{"LoadPlayerDir" link "LoadPlayerDir"}
+@endnode
+@node "LoadBefore"
+
+ @{u}Load next module yet@{uu}
+
+This option forces Eagleplayer to immediatly load the next module from  the
+actual  list  /actual dir after loading a new musicfile. The choose of this
+next module  depends  on  the  settings  in  @{"Programmode" link "Programmode"}.  This  allows  a
+continuous play of musicfiles without break. This function is also known as
+"Doublebuffering". Especially megamixes,  which  are  spread  over  several
+musicfiles,  can  be  replayed  correctly  (e.g. "RAF Megamix2", "LSD-Total
+Kaos" or "Max Mix"[Flash Prod.]).
+
+This function makes only sense in connection with @{"LoadDir" link "LoadDir"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Loadbefore state      - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g lbf          - returns actual state (yes/no)
+
+                                           rmi
+@{i}Tooltype: @{ui}
+
+  LoadBefore=state      - state: see above
+
+
+
+
+
+@{i}Small note: In the doc from the APlayer was stated, that the APlayer is the
+first  Player  with  such  a feature. Very curious, because this option was
+built into Eagleplayer far before the APlayer itself got released...@{ui}
+
+@endnode
+@node "LoadDir"
+
+ @{u}Load Directory@{uu}
+
+When Loading a musicfile you have the choice by  that  option,  wether  the
+whole  directory should be scanned and viewed in the @{"Pulldown-Menu" link "Module"} and the
+@{"Dirlistviewer" alink "EP_Engine.guide/Dirlistviewer"}, or not.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  LoadDir state         - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g ldd          - returns the actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  LoadDir=state         - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "LoadFast"
+
+ @{u}Load into Fastram@{uu}
+
+You can choose, wether the musikfiles should be loaded into chipram or into
+the speedy fastram (if activated).
+
+@{b}It is strongly recommended to activate this option, especially  when  using
+@{"8 Bit" alink "EP_Engine.guide/8 Bit Amplifier"} or @{"14 Bit-Amplifier" alink "EP_Engine.guide/14 Bit Amplifier"}, because the chipram is up to ten times slower
+than fastram, especially on fast machines. @{ub} If  a  soundformat  is  active,
+which  doesn't  work  together  with the @{"Amplifiers" alink "EP_Engine.guide/AIntroduction"} the sounddatas will be
+automatically redirected to chipram, if  "LoadFast"  is  active.  The  only
+reason  for  deactivating  this  option,  which  comes  to  my  mind, is an
+unexpanded Amiga500/2000 with 68000-CPU,  which  heavily  slows  down  when
+modules  are  played  from  fastram.  In  this  case  you  should  set  the
+ChipRam-Amplifier as the first entry in the  amplifier-list  by  using  the
+@{"Amplifiermanager" alink "EP_Engine.guide/Amplifiermanager"},  so  the  calc-time will be minimated during replay from
+chipram, as known from the 1.xx-versions of Eagleplayer.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  LoadFast state        - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g lfa          - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  LoadFast=state        - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "LockModule"
+
+ @{u}Lock module@{uu}
+
+This switch takes care about not automatically stop or replace  the  actual
+module  by  the  @{"next" link "programmode"}  one  from  the  list  or  removing  it from memory,
+independent from the settings for @{"TimeOut" link "Timeout"},  @{"Songend" link "Songend"}  etc.  This  function
+will be deactivated if the button is selected again, or if the user selects
+the next musicfile.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  LockModule state        - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g mlo            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  LockModule=state        - state: see above
+
+@endnode
+@node "LoadAlways"
+
+ @{u}Load always@{uu}
+
+In this case, after @{"Songend" link "Songend"} or Timeout, Eagleplayer  will  search  through
+the  list of available files for the first file it knows it is a musicfile.
+This is a help in cases, where the directory also contains e.g.  textfiles.
+If the loadalways-function is deactivated, Eagleplayer would stop after the
+end of the actual module with the message "unknown  format",  if  the  next
+file is a non-musicfile.
+
+This   function  makes  only  sense  in  connection  with  @{"LoadDir" link "LoadDir"}  and  a
+@{"Programmode" link "Programmode"} exclusive "no new module".
+
+@{i}Remark: if Eagleplayer doesn't find any playable file, the directory  would
+be completely scanned again and again. To prevent and stop this, switch off
+this function in this case by the corresponding menu-item.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  LoadAlways state       - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g law           - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Loadalways=state       - state: see above
+
+@endnode
+@node "LoadModule" "LoadModule"
+
+ @{u}Load Module@{uu}
+
+Opens the filerequester for selecting a module to be  played,  it  is  also
+allowed  to  select  several  modules at once (holding shift-key down while
+selecting); in this case the list of selected files will be remembered  and
+used  by the functions "next module" and "previous module"; Furthermore the
+modules can be directly selected from the pulldown-menu (modulesdirectory).
+If  only  one  module  was  selected, the whole directory will be read; all
+files, which are per definition no musicfiles (e.g. '.readme', '.txt', '.c'
+or  '.asm')  will  be  hidden  automatically  (@{"HideAll" link "HideAll"}).  They will not be
+displayed in the menu.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}l@{ub}
+
+@{i}Arexx/Shellstart: @{ui}
+
+  loadmodule name1 name2 ... - Eagleplayer loads the first specified module
+                               and reads the whole dir, if only one argument
+                               was typed. Otherwise only the specified modules
+                               will be included into the modules-menu
+
+                               @{i}Example:
+                                loadmodule "dh2:Protracker/Mod.Bifat_deadlocked EBM" @{ui}
+
+@{i}Tooltype: @{ui}
+
+  loadmodule=name   - as above, but connected with a equal-sign
+
+
+@endnode
+@node "Menufont" "Menufont"
+
+ @{u}choosing a menufont@{uu}
+
+Opens a font-requester for choosing a font for  the  pulldown-menus  except
+the @{"modules-menu" link "Modulesfont"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  Menufont [name.size]  - if a name is specified, the corresponding font will
+                          be automatically set, otherwise the font-requester
+                          pops up
+  status g mfo          - returns the actual font
+
+@endnode
+@node "Mintimeout"
+
+ @{u}min. playtime@{uu}
+
+If you specify a minimal playtime, the replay will be  stopped  after  this
+time,  independent on @{"Songend" link "Songend"} and/or @{"max. playtime" link "Timeout"}. This function is very
+useful for very short musicfiles, which nevertheless should be played  some
+minutes.  The  value  is  specified  in seconds and typed in a requester, @{b}a
+value of "0" deactivates the function@{ub}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  MinTimeout number      - number: max. playtime in seconds (0=off)
+
+
+@{i}Arexx: @{ui}
+
+  status g ti2           - returns actual value (in seconds)
+
+
+@{i}Tooltype: @{ui}
+
+  MinTimeout=number      - number: see above
+
+@endnode
+@node "Mastervolume" "Mastervolume"
+
+ @{u}Mastervolume@{uu}
+
+Is Mastervolume set, the volume values for the  scopes  are  changed,  that
+means  the  swing  of @{"FFT-Analyzer" alink "EP_Engine.guide/FFT Analyzer"}, @{"Levelmeter" alink "EP_Engine.guide/Levelmeter"}, @{"Levelgraph" alink "EP_Engine.guide/Levelgraph"}, @{"Quadrascope" alink "EP_Engine.guide/Quadrascope"}
+depends on the @{"volume settings" link "volume"}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  mastervolume state    - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g msv          - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  mastervolume=state    - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "ModuleFault"
+
+ @{u}warn on corrupt modules@{uu}
+
+If activated, Eagleplayer opens an  Info-Requester,  when  a  module  fault
+occurs e.g. through a harddiskcrash or during net-transfer.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  modulefault state       - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g mfa            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  modulefault=state       - state: see above
+
+@endnode
+@node "Modulesfont" "Modulesfont"
+
+ @{u}choosing a modulesfont@{uu}
+
+Opens the fontrequester for setting the font for the modules-menu.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  modulesfont [name.size]  - if a name is specified the corresponding font will
+                             be automatically set, otherwise a font-requester
+                             pops up.
+  status g mof             - returns the actual font
+
+@{i}   Example:
+    /* small ARexx-Example */
+    address 'rexx_EP'
+    modulesfont 'Helvetica.18'
+@{ui}
+@endnode
+@node "NextPatt" "NextPatt"
+
+ @{u}next Pattern@{uu}
+
+You can compare a pattern with a notesheet,  some  soundsystems  are  based
+upon such lists containing commands, which are executed successively. These
+commandlists (or notesheets = patterns) can mostly be freely combined. This
+function  is  able  to  skip  to  the next pattern in this order within the
+module.
+
+Calling it, will result in playing back the next pattern  relative  to  the
+current  played  one. If the last pattern is reached, the first one will be
+replayed. Attention: If @{"Songend" link "Songend"} is activated, a new module will be  loaded
+(set  in  @{"Program Mode" link "ProgramMode"})  or  the  replay  will  stop,  if @{"Lock Module" link "LockModule"} is
+activated.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}x@{ub}
+
+@{i}Arexx: @{ui}
+
+  NextPatt
+
+@endnode
+@node "NextSong" "NextSong"
+
+ @{u}next Song@{uu}
+
+There exist musicformats containing more than one musicpart per file  (e.g.
+Hippel,  TFMX, OctaMED) These parts are called "Subsongs", songs within the
+soundmodule. This function jumps  to  the  next  subsong  relative  to  the
+currently  played  one. If the played subsong is the last, the function has
+no effect. If the module only consists of one subsong, the button  and  the
+corresponding menu entry will be disabled.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}v@{ub}
+
+@{i}Arexx: @{ui}
+
+  NextSong
+
+@endnode
+@node "NoEngine" "NoEngine"
+
+ @{u}NoEngine@{uu}
+
+This Tooltype/Shellstart option disables specified engines from beeing loaded
+upon startup. It is intended to be used for temporary disabling visible Engines
+in certain situations. Normally you shouldn`t need this option since all states
+of windows belonging to Eagleplayer are saved automatically within the main
+@{"configuration" link "saveconfig"} file.
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  -
+
+@{i}Shellstart: @{ui}
+
+  NoEngine=names         - names: name(s) of the engine(s) not to load, if wanted
+                                  to disable more than 1 engine, all names have
+                                  to be separated by SPACE and the whole string
+                                  has to be quoted
+                           Example: Eagleplayer noengine="FFT-Analyzer Moduleinfo DirListViewer"
+
+@{i}Tooltype: @{ui}
+
+  Autosubsong=names      - names: see above
+
+
+
+@endnode
+@node "NoGUI"
+
+ @{u}Using Eagleplayer without user interface@{uu}
+
+This function, which can only be called via ARexx or Shell/Workbenchoptions
+(or  by  a  manul entry in the config), is meant for running Eagleplayer in
+the background with a minimum  of  memory  consumption.  Please  read  this
+chapter  carefully  before  you try it out, to understand it and to prevent
+unnecessary frustration!
+
+If NoGUI is activated, Eagleplayer will not load any user interface in  the
+future,  so  the  program  will be controllable via ARexx only. You can use
+this e.g. for  custom  buttons  in  Directory  Opus  or  for  ARexx-scripts
+realised as Toolmanagerdocks.
+
+For  preparation  you  should close all windows except the mainwindow. Then
+you should save the @{"configuration" link "Saveconfig"}, quit Eagleplayer and relaunch  it  with
+the  @{"Shelloption" link "Clistart"}  or with the @{"Tooltype" link Wbstart} "nogui=yes". Alternatively you can
+do this via Shell by typing rx "address 'rexx_EP';nogui yes;saveconfig". In
+this  case  the  nogui-command will be overtaken into the configuration. If
+you call the hotkey (normal: CTRL-ALT-E) or the "Show interface"-button  in
+the  Commodities-Exchange  a filerequester pop up, where you can select one
+or more modules to be played. To quit Eagleplayer  in  the  nogui-mode  use
+Commodities-Exchange or the ARexx-command @{"Quit" link "Quit"}.
+
+To switch off the NoGUI-Option, the following ARexx-sequence can be  simply
+typed  into  the Shell: rx "address 'rexx_EP';nogui no". Then the @{"BifatGUI" alink "EP_Engine.guide/BifatGUI"}
+will be opened and you can work with Eagleplayer in the usual manner.
+
+
+@{b}If this sounds too complicated to you, but you want to start Eagleplayer in
+the   background,  then  launch  it  with  the  @{"Iconify=yes" link Iconify}-Shelloption  /
+tooltype.@{ub}
+@{i}example: run >nil: Eagleplayer Iconify=yes @{ui}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  NoGUI state             - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g ngu            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  NoGUI=state             - state: see above
+
+@endnode
+@node "Notify"
+
+ @{u}Dos-Message@{uu}
+
+If activated, Eagleplayer watches over the actual directory for changes and
+reloads in this case the directory automatically.
+
+This function makes only sense in connection with @{"LoadDir" link "LoadDir"}.
+
+@{b}Attention: In  rare  cases  the  Notify-function  can  collidate  with  the
+@{"EPDir" link "EPDir"}-function,  where  the directory will always be scanned directly from
+disk. In this case you should switch off @{"EPDir" link "EPDir"} or Notify.@{ub}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Notify state          - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g not          - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Notify=state          - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "NextModule" "NextModule"
+
+ @{u}Next Module@{uu}
+
+This function forces Eagleplayer to load the next module  from  the  actual
+modulelist.If  the  acutally  played  module  is already the last, then the
+first one will be loaded. This function is disabled in cases where the list
+consists only of one entry or the 'Load Dir' function is set off.
+
+Attention:  If  "Random  Module" is activated under @{"Program Mode" link "ProgramMode"}, then the
+next module will be chosen randomly, independent  from  the  order  in  the
+list.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}n@{ub}
+
+@{i}Arexx: @{ui}
+
+  NextModule
+
+@endnode
+@node "Overwrite"
+
+ @{u}Overwrite@{uu}
+
+If activated, a requester pops up when @{"saving" link "Savemodule"} the actual musicfile over an
+existing  one,  so you can cancel this action in order not to overwrite the
+other file.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Overwrite state         - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g owv            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Overwrite=state         - state: see above
+
+@endnode
+@node "PrevModule" "previous module"
+
+ @{u}previous module@{uu}
+
+This function forces Eagleplayer to  load  the  previous  module  from  the
+actual  modulelist.If  the acutally played module is the first one then the
+last one will be loaded. This function is disabled in cases where the  list
+consists only of one entry or the 'Load Dir' function is set off.
+
+Attention: If "Random Module" is activated under @{"Program Mode" link "ProgramMode"}, then the next
+module will be chosen randomly, independent from the order in the list.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}b@{ub}
+
+@{i}Arexx: @{ui}
+
+  PrevModule
+
+@endnode
+@node "PrevSong" "PrevSong"
+
+ @{u}previous Song@{uu}
+
+There exist musicformats containing more than one musicpart per file  (e.g.
+@{"Hippel" alink "EP_Player.guide/Hippel"},@{"TFMX" alink "EP_Player.guide/TFMX"},@{"OctaMED" alink "EP_Player.guide/OctaMED"}).  These  parts  are called "Subsongs", songs within
+the soundmodule. This  function  switches  back  to  the  previous  subsong
+relative  to  the currently played one. If the played subsong is the first,
+the function has no effect. If the module only consists of one subsong, the
+button will be disabled.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}c@{ub}
+
+@{i}Arexx: @{ui}
+
+  PrevSong
+
+@endnode
+@node "Password"
+
+ @{u}Change password@{uu}
+
+If an encrypted file is loaded, Eagleplayer tries at first to  decipher  it
+with  the  password  which  is  specified  here  in  the  requester. If the
+deciphering fails, a requester pops up asking for the appropiate passoword.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Password String         - String: the new password as string
+
+
+@{i}Arexx: @{ui}
+
+  status g paw            - returns the actual password as string or "RESULT" for
+                            no password
+
+
+@{i}Tooltype: @{ui}
+
+  Password=string         - string: see above
+
+@endnode
+@node "Play" "Play"
+
+ @{u}Play / Pause@{uu}
+
+Eagleplayer stops or starts the actual music, dependent on  wether  he  was
+already  playing  or  not.  Remark:  If the player his mode from "pause" to
+"play" the music will be replayed from the actual position, not from start,
+see  also @{"Replaysong" link "Replaysong"}. The corresponding button for the play function looks
+in  the   @{"BifatGUI" alink "EP_Engine.guide/Bifatgui"}   and   @{"Eagleplayer1.x-GUI" alink "EP_Engine.guide/Eagleplayer1x-GUI"}   like   a   tapedeck-   or
+CD-Player-button and is located nearly in the middle of the control window.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}p@{ub}
+
+@{i}Arexx: @{ui}
+
+  Play
+
+@endnode
+@node "PrevPatt" "PrevPatt"
+
+ @{u}Previous pattern@{uu}
+
+You can compare a pattern with a notesheet,  some  soundsystems  are  based
+upon such lists containing commands, which are executed successively. These
+commandlists (or notesheets = patterns) can mostly be freely combined. This
+function is able to skip a pattern in order to go back within the module.
+
+Calling  it,  will  result in playing back the previous pattern relative to
+the current played one. If the first pattern is reached, the last one  will
+be replayed.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}y@{ub}
+
+@{i}Arexx: @{ui}
+
+  PrevPatt
+
+@endnode
+@node "Pubscreen"
+
+ @{u}Pubscreen@{uu}
+
+This function allows it to change the screen, on which  Eagleplayer  should
+show  up.  If  called from the pulldown-menu a stringrequester opens, where
+the complete pubscreenname must be entered, @{b}check for Lower- and  Uppercase
+- its important@{ub}. Alternatively, the @{"Pubscreenselector" alink "EP_Engine.Guide/Pubscreenselector"} can be used instead.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  pubscreen name    - Eagleplayer will be opened on the pubscreen named 'name'
+
+                      @{i}Example: pubscreen "DOPUS.1" @{ui}
+
+@{i}Arexx: @{ui}
+
+  status g pub      - returns the name of the acutal pubscreen
+
+@{i}Tooltype: @{ui}
+
+  pubscreen=name    - as described above, but connected with equal-sign
+
+@endnode
+@node "Playerbatch" "Playerbatch"
+
+ @{u}Playerbatch@{uu}
+
+The Playerbatch-function allows it to load the replayers only, if they  are
+really   needed   -   resulting   in   reduction   of   loading   time  and
+memory-consumption of Eagleplayer. More info you can find @{"there" link "PlayerBatch-Datei"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Playerbatch state     - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g eab          - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Playerbatch=state     - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "ParentDir"
+
+ @{u}ParentDir@{uu}
+
+If called, the parent directory relative to the actual one will be read in.
+
+This function makes only sense in connection with @{"LoadDir" link "LoadDir"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  ParentDir
+
+@endnode
+@node "Protect"
+
+ @{u}Protect module@{uu}
+
+Some Compression-routines (Powerpacker and Crunchmania), which are  offered
+by  Eagleplayer for @{"saving" link "Savemodule"} the actual file, allow you to protect the saved
+file with a password. this  option  activates  the  passwordrequest  during
+file-saving.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Protect state           - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g prt            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Protect=state           - state: see above
+@endnode
+@node "Protectionbits"
+
+ @{u}Protectionbits@{uu}
+
+When @{"saving" link "Savemodule"} musicfiles, Eagleplayer sets these bits  to  "read  only",  so
+they can't be overwritten erroneously by the user.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Protectionbits state    - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g pbi            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Protectionbits=state    - state: see above
+
+@endnode
+@node "ProgramMode"
+
+ @{u}Programming@{uu}
+
+The settings made here change the behaviour of Eagleplayer at  the  end  of
+replaying the actual musicfile. The following 4 settings are possible:
+
+  no new module    - When a @{"songend" link "Songend"} is automatically detected,
+                     no new module will be loaded and the replay stops.
+  previous module  - If Songend or @{"PlayTime" link "Timeout"} is activated, the
+                     previous module will be loaded after replaying the
+                     actual one.
+  next module      - If Songend or PlayTime is activated, the next module
+                     will be loaded.
+  RandomPlay       - If Songend or PlayTime is activated, a randomly chosen
+                     module will be loaded. When selecting Next- or Prev-
+                     Module also a random module will be replayed.
+                     At first, all modules from the scanned directory will
+                     be played before loading a module twice. But it's
+                     possible to select a module from the @{"Pull-Down Menu" link "Module"} -
+                     the internal counter doesn't recognize this, so that
+                     module can also be replayed again per RandomPlay. The
+                     function @{"Directoryjumps" link "Dirjump"} offers another way of random-
+                     play.
+
+This function makes only sense in connection with @{"LoadDir" link "LoadDir"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  programmode number    - number: 0 = no next module
+                                  1 = next module
+                                  2 = previous module
+                                  3 = random module
+
+@{i}Arexx: @{ui}
+
+  status g pmo          - returns actual state (0...3)
+
+
+@{i}Tooltype: @{ui}
+
+  programmode=number    - number: see above
+
+@endnode
+@node "Printtext"
+
+ @{u}Printtext@{uu}
+
+This ARexx-command forces Eaglepplayer to show a text in the statusline  of
+the mainwindow (@{"Bifat" alink "EP_Engine.guide/BifatGUI"}- or @{"Eagleplayer1.x-GUI" alink "EP_Engine.guide/Eagleplayer1x-GUI"} ).
+
+
+@{i}Arexx: @{ui}
+
+  Printtext string         - string: any text
+
+@{i} Example:
+  /* simple Example */
+  address 'rexx_EP'
+  printtext 'I l*ve Eagleplayer'
+@{ui}
+@endnode
+@node "Prefix"
+
+ @{u}Prefix@{uu}
+
+When @{"Saving" link "Savemodule"} the actual musicfile, a prefix will be added in front  of  the
+modulename,  if  @{b}a)@{ub}  the  module  has  an  own name (located in the modfile
+itself) and @{b}b)@{ub} if the replayer supports this and supplies such a prefix for
+the soundformat.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Prefix state          - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g upr          - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Prefix=state          - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "QuickStart" "QuickStart"
+
+ @{u}Immediate start@{uu}
+
+The music will be replayed immediatly after loading it, if the  menu  entry
+is activated, otherwise the @{"Play" link "Play"}-function has to be used.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Quickstart state   - [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g qst       - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Quickstart=state   - [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "Quit"
+
+ @{u}Quit@{uu}
+
+Do you really think about using this (totally senseless  :-)  function?  It
+simply quits Eagleplayer.
+
+@{b}Attention:@{ub} In opposite  to  old  programversions  Eagleplayer  2.0  will  be
+automatically  closed  when clicking on the close-gadget of the mainwindow.
+That's because at least the @{"BifatGUI" alink "EP_Engine.guide/BifatGUI"} has a seperate @{"Iconify" link "Iconify"}-Button.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{i}A-@{b}@{ui}q@{ub}
+
+@{i}Arexx: @{ui}
+
+  quit
+
+@endnode
+@node "RandomSong"
+
+ @{u}Random Subsong@{uu}
+
+
+When playing a musicfile of a soundsystem, which supports several subsongs,
+the first played subsong will be choosen randomly. See also @{"here" link "NextSong"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Randomsong state       - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g rns           - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Randomsong=state       - state: see above
+
+@endnode
+@node "RescanDir"
+
+ @{u}Rescan Directory@{uu}
+
+By activating  this  function  the  actual  directory  will  be  completely
+rescanned,  noticing  the  state  of the @{"Hideall" link "HideAll"}-switch. The settings from
+@{"EPDir" link "EPDir"} will be ignored.
+
+This function makes only sense in connection with @{"LoadDir" link "LoadDir"}.
+
+@{i}Keyboard: @{ui}
+
+  r
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  RescanDir
+
+@endnode
+@node "Rasterlines"
+
+ @{u}set rasterlines@{uu}
+
+In the settings "wait for rasterlines" within the @{"Waitingmode" link "Waitingmode"} an amount of
+rasterlines  are  count for a timed replay to get the same waitingtime with
+on CPUs. The suggested value, which should be entered in the requester,  is
+8.  But  remember  that  the time used for one rasterline is not normed and
+depends on the actual screenmode of the Amiga!
+
+A too small value of rasterlines to be waited for  can  be  recognized,  if
+some  notes  of  the  played musicfile are clipped. In this case you should
+increase the value or switch to "@{"Automatic wait" link "Waitingmode"}".
+
+
+@{i}usual values for some screenmodes:
+ PAL/NTSC/EURO36                 - 8...10
+ DBLPAL/DBLNTSC/MULTISCAN/EURO72 - 18...30
+
+When using graphiccards, the last active amiga-screen  before  opening  the
+Cybergraphics-screen  is  relevant  (in  most  cases PAL or NTSC), see also
+@{"here" alink "EP_Engine.guide/GFXBoards"}. @{ui}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Rasterlines number      - number: amount of rasterlines to be waited
+
+
+@{i}Arexx: @{ui}
+
+  status g ral            - returns actual value as number
+
+
+@{i}Tooltype: @{ui}
+
+  Rasterlines=number      - number: see above
+
+@endnode
+@node "Randomstart"
+
+ @{u}Start with random module@{uu}
+
+If activated, Eagleplayer  (when  started)  doesn't  search  for  the  file
+specified  in  the  @{"configuration" link "Saveconfig"},  but  chooses  another  file  from  the
+directory. The advantage is, that you haven't to search a  file  always  by
+yourself  when  starting  Eagleplayer and that you will not hear always the
+same music on start.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  RandomStart state      - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g rst           - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Randomstart=state      - state: see above
+
+@endnode
+@node "ReplaySong" "ReplaySong"
+
+ @{u}Replay Song@{uu}
+
+The loaded music will be replayed from start.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}r@{ub}
+
+@{i}Arexx: @{ui}
+
+  ReplaySong
+
+@endnode
+@node "SaveModule"
+
+ @{u}Save module@{uu}
+
+Opens the filerequester for specifying a filename  for  saving  the  actual
+music into. If the music consists of several files (e.g. TFMX) they will be
+automatically saved into the same directory. Eagleplayer can save the files
+also in compressed form.
+
+This function works only in the @{"registered" link "Registrierung"} version of Eagleplayer.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}w@{ub}
+
+@{i}Arexx: @{ui}
+
+  SaveModule [name] - Eagleplayer saves the file under the name 'name' or
+                      opens a filerequester if no name was specified
+
+                      @{i}Example: savemodule "ram:Mod.DMR_folx-vagen" @{ui}
+@endnode
+@node "Stop" "Stop"
+
+ @{u}Stop@{uu}
+
+This  function  stops  the  replay   of   the   actual   module.   If   the
+@{"Play/Pause" link "Play"}-button  is  then pressed at any time, the music starts from the
+beginning.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}s@{ub}
+
+@{i}Arexx: @{ui}
+
+  Stop
+
+@endnode
+@node "Subsong" "Subsong"
+
+ @{u}Subsong@{uu}
+
+If the module has several @{"Subsongs" link "NextSong"}, you can specify, which one  should  be
+replayed. A number is expected as argument.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  Subsong Number - Specifying subsong as number
+  status g snd   - returns actual subsong
+
+@endnode
+@node "ScrollFont" "Scrollfont"
+
+ @{u}choosing a Srollfont@{uu}
+
+Opens the font-requester for setting  the  font  for  the  GUI-scroller  of
+@{"BifatGUI" alink "EP_Engine.guide/Bifatgui"} and @{"Eagleplayer1.x-GUI" alink "EP_Engine.guide/Eagleplayer1x-GUI"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  Scrollfont [name.size]  - if a name is specified the corresponding font will
+                            be automatically set, otherwise a font-requester
+                            pops up.
+  status g scf            - returns the actual font
+
+@{i}   Example:
+    /* small ARexx-Example */
+    address 'rexx_EP'
+    scrollfont 'Helvetica.18'
+@{ui}
+@endnode
+@node "ScrollInfos" "ScrollInfos"
+
+ @{u}Scroll information@{uu}
+
+If this menu-entry is activated, all information  texts  will  be  scrolled
+into the mainwindow, otherwise simply print into the window.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  scrollinfo state     - [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g sci        -  returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  scrollinfo=state    - [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "Songname" "Songname"
+
+ @{u}Songname@{uu}
+
+If this menu-entry is activated, not the name of the loaded  file  will  be
+shown  in the titlebar / scroller, but the internal name of the music found
+in the file. This is only possible if the musicformat supports  that  (e.g.
+@{"Protracker" alink "EP_Player.guide/Protracker"}, @{"(OctaMED" alink "EP_Player.guide/OctaMED"}, @{"Screamtracker" alink "EP_Player.guide/PS3M"}).
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  songname state   - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g sna     - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  songname=state   - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "ScanAlways"
+
+ @{u}Always Scan Directory@{uu}
+
+If activated, everytime when loading a musicfile via  filerequester,  Arexx
+or  an  external  engine  the entire directory will be rescanned. Normally,
+this function should stay disabled. But when you activate it,  you  can  at
+the very least switch off @{"EPDir" link "EPDir"}.
+
+This function makes only sense in connection with @{"LoadDir" link "LoadDir"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  ScanAlways state      - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g alw          - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  ScanAlways=state      - state: [yes,on or 1]=on, [no,off or 0]=off
+
+@endnode
+@node "Songend"
+
+ @{u}Songend@{uu}
+
+If a songend is detected by the @{"player" ALink "EP_Player.Guide/Die Player"}, then the replay stops (if set  so)
+and, depending on the programmode-settings, a new file will be loaded or it
+will be waited for user  input.  You  can  consult  the  @{"Manager" alink "EP_Engine.guide/Manager"}  for  the
+information, which players support this songend-function.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Songend state          - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g end           - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Songend=state          - state: see above
+
+@endnode
+@node "SaveDir"
+
+ @{u}set directory for saving@{uu}
+
+With this function you can set the directory, which will  be  automatically
+preset in the filerequester used by Eagleplayer for @{"saving" link "Savemodule"} the actual file
+into. However, the main reason for this function is due to the existence of
+the @{"Automatic saving" link "Autosave"} - option.
+
+@{i}Remark: If the user sets another path in the filerequester during a  manual
+save, this path will be used from then on. @{ui}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  SaveDir [path]         - path: either a directorypath or a requester pops up
+
+@{i}Arexx: @{ui}
+
+  status g sap           - returns actual path
+
+
+@{i}Tooltype: @{ui}
+
+  SaveDir=path           - path: see above
+@endnode
+@node "SafeSave"
+
+ @{u}Safe saving@{uu}
+
+If activated, Eagleplayer at first @{"saves" link "Savemodule"} the actual file under a different
+name  and renames it only then, if the file was really completly written to
+the medium. This avoids an overwriting of an existing  file  especially  in
+cases,  where the writing process fails due to media-errors, which normally
+result in data loss.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  SafeSave state         - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g sfs           - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  SafeSave=state         - state: see above
+
+@endnode
+@node "Samplemode"
+
+ @{u}Samplemode@{uu}
+
+Some of the compression-methods (Powerpacker, Crunchmania and  LH.library),
+offered  by  Eagleplayer  for  @{"saving" link "Savemodule"}  the  actual  file,  can  activate a
+soundmodule-specific, a so called delta-mode, in order to  gain  much  more
+compression in most cases, than a normal packmode. And exactly this feature
+this switch activates.
+
+@{i}Remark: We have inofficially introduced the samplemode for Powerpacker,  so
+Eagleplayer is actually the only program, which can load such packed files.
+A decrunch-slave for the xfd.library from Georg Hoermann is in work.@{ui}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Samplemode state       - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g smo           - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Samplemode=state       - state: see above
+
+@endnode
+@node "SaveasProtracker"
+
+ @{u}save as Protracker@{uu}
+
+Mainly, this option was included  for  the  internal  Eagleplayer-replayers
+(Player5.x/  6.x,  Trackerpacker,  Noisepacker  etc).  If  activated, these
+modules will be @{"saved" link "Savemodule"} in the normal Protracker-format, which can be loaded
+and  manipulated  by  the  wellknown  trackers  like Protracker or OctaMED.
+Programs like Noiseconverter or Prowizard aren't needed anymore, especially
+in connection with the @{"Eagleexotic" alink "EP_Engine.guide/Eagleexotic"}.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  SaveasProtracker state   - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g spt             - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  SaveasProtracker=state   - state: see above
+
+@endnode
+@node "Softint"
+
+ @{u}Softinterrupt@{uu}
+
+This option was implemented  to  avoid  negative  interactions  with  other
+timecritical  programs  (e.g.  Modem-Usage). Because the @{"CIA-Interrupt" link "Timingmode"} has
+got a higher priority then the one for the modem-usage, transfer errors can
+occur. To minimalize this danger a so called soft-interrupt will be started
+right after the CIA-interrupt call. This softinterrupt will only be run  if
+requests from the serial interface occur. If there still should be problems
+(e.g. with slow CPUs) then you may  reduce  the  serial  baudrate  in  your
+terminalprogam.
+
+When using "timer.device" for @{"timing purposes" link "Timingmode"} this switch has got no
+effect.
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Softint state           - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g sit            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Softint=state           - state: see above
+
+@endnode
+@node "Speed"
+
+ @{u}Speed@{uu}
+
+
+This slider stands for the replay-speed of the played musicfile. If  it  is
+in  middle  position,  the  normal speed is set, moving it up increases the
+speed, moving it down decreases it.  If  the  actual  replayer  should  not
+support this speedcontrol, the corresponding sliders and menu-items will be
+disabled.
+
+Some  replayers  additionally  offer  a   pitch   up/down   (changing   the
+tone-heigth). The resulting effect sounds like in/decreasing the speed of a
+record player. (e.g. @{"Protracker" alink "EP_Player.guide/Protracker"}, @{"AIFF" alink "EP_Player.guide/AIFF"}, @{"Oktalyzer" alink "EP_Player.guide/Oktalyzer"}, @{"David Whittaker" alink "EP_Player.guide/David Whittaker"}).
+
+Using the menu, the speed can be in/decreased by one step and reset to  the
+normal position.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}+@{ub}   - increasing speed by one step
+  @{b}@{i}A-@{ui}-@{ub}   - decreasing speed by one step
+  @{b}@{i}A-@{ui}#@{ub}   - normal speed
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Speed number            - number: -25...0...25 (-25=slow;0=normal, 255=fast)
+
+
+@{i}Arexx: @{ui}
+
+  status g spe            - returns actual value (-255...255)
+                            @{i}Remark: Because Arexx has got problems with
+                                    negative numbers, the returned numbers
+                                    for values <0 go from 65535 (=-1) to
+                                    65511 (=-25), which have to be re-
+                                    calculated by the Arexx-program.@{ui}
+
+
+@{i}Tooltype: @{ui}
+
+  Speed=number            - number: see above
+
+@endnode
+@node "SlowerSpeed"
+
+ @{u}Slower speed@{uu}
+
+The @{"Replay speed" link "Speed"} will be decremented by one step.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}-@{ub}
+
+
+@{i}Arexx: @{ui}
+
+  Slowerspeed
+
+@endnode
+@node "Status" "Status"
+
+ @{u}Status@{uu}
+
+
+With the help of the status-command you can eaxamine Eagleplayers extensive
+settings-  possibilities.  Following  an  overview  over  the corresponding
+arguments. They can also be found in the docs of the commands itself.
+
+
+@{i} Arexx/Shellstart: @{ui}
+
+ Status <group> <dependent>
+
+
+  Returns the actual status. You have to differ between the following groups:
+                 - Globale settings (g),
+                 - Modul-dependent settings (m)
+                 - Player-dependent settings (p)
+                 - SampleInfo (s)                 (not yet implemented !!!)
+                 - UserPrograms (u)
+
+Depending on the group different arguments are  expected.  Below  you  will
+find all status commands of the Eagleplayer
+
+
+                          The global settings
+        --------------------------------------------------------------------
+        status <group> <dependent>   ;<group>     = g
+                                     ;<dependent> = <cmd>
+
+
+
+               <cmd>            Meaning     and       Return value
+        --------------------------------------------------------------------
+                ver             Eagleplayer Version             Zahl
+                dve             DeliTracker Version             Number
+                dir             Playerdirectory                 String
+                udi             Userprogramdirectory            String
+                fon             actual Font                     String
+                hep             Help Path                       String
+                ins             Instruments directory           String
+                sap             Save Path                       String
+                pbp             PlBatchPath                     String
+                ubp             UPrgBatch Path                  String
+                pke             HotKey                          String
+                num             Number of players               Number
+                ico             Iconify on                      <Yes|no>
+                mwi             Main-Window opened              <yes|no>
+                pli             Playerwindow opened             <yes|no>
+                vol             actual volume                   Number
+                bal             actual balance                  Number
+                spe             actual Speed                    Number
+                ply             Song is playing                 <yes|no>
+                hel             HelpMode                        <yes|no>
+                pub             actual public screen            String
+                mau             Max. Userprograms               Number
+                usp             loaded Userprograms             Number
+                snd             actual SongNumber               Number
+                mil             Number of Modules in List       Number
+                epb             Eagleplayer Globals             Address
+                vo1             Voice1-state                    <yes|no>
+                vo2             Voice2-state                    <yes|no>
+                vo3             Voice3-state                    <yes|no>
+                vo4             Voice4-state                    <yes|no>
+                eab             EP-Batch-State                  <yes|no>
+                ejp             EjectPlayer-state               <yes|no>
+                flp             FlashPointer                    <yes|no>
+                msv             MasterVolume                    <yes|no>
+                sna             Use Songname                    <yes|no>
+                qsf             Quit Surface                    <yes|no>
+                que             Quit Eagle                      <yes|no>
+                sat             SaveT                           <yes|no>
+                sci             Scroll-Infos                    <yes|no>
+                led             Filter-state                    <yes|no>
+                fid             Fadein-state                    <yes|no>
+                fad             Fadeout-state                   <yes|no>
+                aps             AutoPasswort-state              <yes|no>
+                ldd             Load Dir-state                  <yes|no>
+                aud             Auto Dir-state                  <yes|no>
+                sdn             Show Dirnames-state             <yes|no>
+                hia             HideAll-state                   <yes|no>
+                uep             Use EPDir-state                 <yes|no>
+                not             Notify-state                    <yes|no>
+                alw             Scan Always-state               <yes|no>
+                mme             Size of MenuMem                 Number
+                end             Songend-state                   <yes|no>
+                lbf             Load Before-state               <yes|no>
+                law             Load Always-state               <yes|no>
+                qst             Quickstart-state                <yes|no>
+                rns             RandomSong-state                <yes|no>
+                ass             AutoSubSong                     <yes|no>
+                tim             TimeOut                         Number
+                ovw             Overwrite-state                 <yes|no>
+                ats             AutomaticSave                   <yes|no>
+                ssd             SS Dir                          <yes|no>
+                prt             Protect Module                  <yes|no>
+                pbi             Protection Bits                 <yes|no>
+                smo             SampleMode                      <yes|no>
+                spt             Save As Protracker              <yes|no>
+                smo             Small Module                    <yes|no>
+                bmo             Big Module                      <yes|no>
+                mof             Module fault                    <yes|no>
+                icm             actual IconifyMode              String
+                frm             actual Filerequester            String
+
+
+
+                                Module dependend settings
+        --------------------------------------------------------------------
+        status <group> <dependent>   ;<group>     = m
+                                     ;<dependent> = <cmd>
+
+               <cmd>            Meaning and      Return value
+        --------------------------------------------------------------------
+                pat             ModulePath                      String
+                dir             Module directory                String
+                fil             Modulename                      String
+                pnr             Number of active Player         Number
+                num             Position in Module-list         Number
+                min             mix. Number of SubSongs         Number
+                max             max. Number of SubSongs         Number
+                aut             Authorname                      String
+                son             Songname                        String
+                len             PatternLength                   Number
+                dpt             different Patterns              Number
+                stp             Steps                           Number
+                sam             Samples                         Number
+                chk             CheckMod (mod ok?)              <yes|no>
+                pon             PositionNr                      Number
+                icm             actual Playernumber             Number
+                dur             calculated playtime             Number
+                siz             entire module length            Number
+
+
+
+                                Player dependend settings
+        --------------------------------------------------------------------
+        status <group> <dependent>   ;<group>     = p
+                                     ;<dependent> = <playernum> <cmd>
+
+
+               <cmd>            Meaning  and    Return value
+        --------------------------------------------------------------------
+                nam             Playername                      String
+                cre             Creatorname                     String
+                pin             PlayerInfo                      String
+                ver             Versionnumber                   Number
+                vol             Volumecontrol available         <yes|no>
+                bal             Balance control available       <yes|no>
+                jmp             Patternjump available           <yes|no>
+                pos             GetPositionsNr                  <yes|no>
+                spd             Playspeed changeable            <yes|no>
+                sub             Subsong available               <yes|no>
+                cfg             Player can be configurated      <yes|no>
+                pck             Supports Packed Mods            <yes|no>
+                upr             Userprogram support             <yes|no>
+                csa             Config saveable                 <yes|no>
+                clo             Config loadable                 <yes|no>
+                msa             Module saveable                 <yes|no>
+                mii             ModuleInfo possible             <yes|no>
+                sai             SampleInfo possible             <yes|no>
+                msm             Max. Samples                    Number
+                msy             Max. SynthSamples               Number
+                mle             Max. Length                     Number
+                mpa             Max. Pattern                    Number
+                mst             Max. Steps                      Number
+                mso             Max. SubSongs                   Number
+                rst             Player restartable              <yes|no>
+                sge             Player supports Songend         <yes|no>
+                voi             Voicescontrol available         <yes|no>
+                plf             Player supports PlayFaster      <yes|no>
+                mch             Module change                   <yes|no>
+                mrs             Module restore                  <yes|no>
+                dat             Creator-Date                    String
+                tgl             Taglist of Player               Number
+
+
+
+                            the engine dependend settings
+        ---------------------------------------------------------------------
+        status <group> <dependent>   ;<group>     = u
+                                     ;<dependent> =  <UserNr> <cmd>
+
+
+               <cmd>              Meaning       and      Return value
+        ----------------------------------------------------------------------
+                nam             Name of UserPrg                 String
+                abo             About Userprogram               String
+                cre             Creator of Userprg              String
+                ver             Version of Userprg              Number
+                rev             Revision of Userprg             Number
+                eve             min. EP-Version                 Number
+                dat             Creation-Date                   String
+                kis             Kickstart UserPrg needs         Number
+                prz             Processname of Userprg          String
+                win             Window opened                   <yes|no>
+                con             Config of User-Prg              Number
+                kox             X-coordinate of Window          Number
+                koy             Y-coordinate of Window          Number
+
+
+@endnode
+@node "Smallmodule"
+
+ @{u}Warn on too short modules@{uu}
+
+If the option is activated and a too short module should  be  played  next,
+Eagleplayer  opens a requester, which informs about that. Some soundsystems
+(e.g. @{"Deltamusic2" alink "EP_Player.guide/Deltamusic 2"}) can produce heavy problems with too short modules.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Smallmodule state       - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g smo            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  Smallmodule=state       - state: see above
+
+@endnode
+@node "Scrolltext"
+
+ @{u}Scrolltext@{uu}
+
+This ARexx-command forces Eagleplayer to show a text in the  statusline  of
+the    mainwindow    (@{"Bifat" alink "EP_Engine.guide/BifatGUI"}-or   @{"Eagleplayer1.x-GUI" alink "EP_Engine.guide/Eagleplayer1x-GUI"}   ).   However,   the
+@{"Scrollinfos" link "Scrollinfos"}-option must activated for this.
+
+
+@{i}Arexx: @{ui}
+
+  Scrolltext String        - String: any text
+
+@{i} Example:
+  /* simple Example */
+  address 'rexx_EP'
+  scrollinfos yes
+  scrolltext 'I l*ve Eagleplayer'
+@{ui}
+
+@endnode
+@node "SaveConfig" "Save Configuration"
+
+ @{u}Save Configuration@{uu}
+
+This function opens the filerequester for  specifying  the  configfile-name
+and  saves  all settings of the player into that file. The settings contain
+all positions, sizes and states  of  the  mainwindow,  engines,  replayers,
+special  settings  of  replayers/engines,  the  actual module-dir and which
+music is momentally played..
+
+@{i}Hint: If you don't want a module to be replayed  automatically  on  startup
+but  a specific module directory being available after startup, then change
+into that directory, @{"eject" link "eject"} the replayed module, set @{"Randomstart" link "Randomstart"}  to  off,
+and save the configuration.@{ui}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx: @{ui}
+
+  SaveConfig [path+name] - if a path/name is specified, the config will be imme-
+                           diatly saved without filerequester under that name
+
+@endnode
+@node "ToggleFilter"
+
+ @{u}Toggle Filter@{uu}
+
+Switches on/off Amiga's low-pass-filter. That means if the filter  was  off
+before, it will be activated and vice versa.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{i}A-@{b}@{ui}f@{ub}
+
+@{i}Arexx: @{ui}
+
+  togglefilter
+
+@endnode
+@node "Timemode"
+
+ @{u}Timemode@{uu}
+
+This  function  overruns  the  settings  for  the  maximal   @{"Playtime" link "Timeout"}   at
+soundsystems,  which  automatically detect the @{"end" link "Songend"} of a musicfile. Result:
+One the one hand some musicfiles won't run endlessly, on the other hand the
+remaining musicfiles won't be interrupted in the middle of the replay.
+
+This  function  makes  only  sense  in connection with @{"LoadDir" link "LoadDir"} and with an
+activated @{"Songend" link "Songend"}.
+
+see also @{"min. Playtime" link "Minplaytime"}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Timemode state         - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g tmo           - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+  
+  Timemode=state         - state: see above
+
+@endnode
+@node "Timeout"
+
+ @{u}max. Playtime@{uu}
+
+If you specify a maximum playtime, the replay will be stopped exactly after
+this  timespan  and  the  prog  will continue depending on the settings for
+@{"Programmode" link "Programmode"}. The value has to be given in seconds via a requester. @{b}A value
+of "0" disables this function!@{ub}.
+
+see also @{"min. playtime" link "Mintimeout"} and @{"Timemode" link "Timemode"}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ui}z@{ub}
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Timeout number         - number: max. playtime in seconds (0=off)
+
+
+@{i}Arexx: @{ui}
+
+  status g tim           - returns actual state (in seconds)
+
+
+@{i}Tooltype: @{ui}
+  
+  Timeout=number         - number: see above
+
+@endnode
+@node "Voice" "Voice"
+
+ @{u}Voices@{uu}
+
+This function allows a seperate switching  on/off  of  all  voices  of  the
+musicfile.  Standard-Amigamodules consist of 4 voices, multichannel-modules
+can have up to 32 (or more) voices, which however are not switchable (yet).
+If  the  button  looks  "pressed"  (so  it  differs in the borders from the
+others) the corresponding voice is off, otherwise on; a  checkmark  in  the
+menus means an active voice.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{i}A-@{b}@{ui}1@{ub}
+  @{i}A-@{b}@{ui}2@{ub}     Switch on/off voices 1 - 4
+  @{i}A-@{b}@{ui}3@{ub}
+  @{i}A-@{b}@{ui}4@{ub}
+
+  @{i}A-@{b}@{ui}d@{ub}     normal setting, all voices are on with full volume
+
+@{i}Arexx: @{ui}
+
+  voice x y       -  x=voicenumber (1...4),y=number for volumevalue from 0(=off)
+                     to 255(=max.)
+  status g voi x  -  x=voicenumber (1...4), result is a value between 0 = off
+                     and 255=max for the volume
+
+@endnode
+@node "Timingmode"
+
+ @{u}Timing@{uu}
+
+The timingmode defines, how the replay of the musicfile will be  timed.  At
+the  moment  there  are  two main timing-possibilities: CIA and VBlank. The
+CIA-Timer of the Amiga works much more exactly and in all machines with the
+same  speed.  The  VBlank however (=Vertical Blanking Interrupt) depends on
+the actual scanrate of the OCS/ECS/AGA-Amigas. Normally, CIA-Timing  should
+be  set.  There  are  only  a  few  (old)  modules,  which  require  VBlank
+(mod.FaceAnotherDay,  mod.Techdust).  At  this   point   we   mention   the
+Noiseconverter  (a  commercial for us), which can fix such modules with the
+"correct tempo" - function.
+
+If the CIA-Timer should be used by another program yet and is therefore not
+available, an error message pops up.
+
+From V2.0 of Eagleplayer on we added the option of using timer.device.
+(default setting) Due to the fact that the program no longer uses the
+hardware interrupts directly some problems in conjunction with other
+programs and hardware extensions should be solved. On the other hand
+this mode needs a little bit more CPU time caused by the timer.device
+overhead.
+
+@{b}If you even now don't understand the thing behind these options, please  do
+not  touch them. With the preset options no problems raised until now since
+Eagleplayer 1.53 . (A500-A4000/60)@{ub}
+
+see also @{"Waitingmode" link "Waitingmode"}
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Timingmode number       - number: the mode to be used
+                            0 = CIA
+                            1 = VBlank
+
+@{i}Arexx: @{ui}
+
+  status g tmd            - returns actual state as number,
+                            0 = CIA
+                            1 = VBlank
+
+@{i}Tooltype: @{ui}
+
+  Timingmode=number       - number: see above
+
+@endnode
+@node "Volume"
+
+ @{u}Volume@{uu}
+
+Controlling the volume of the replayed file. If the actual replayer  should
+not   support   volume-control  then  this  slider  and  the  corresponding
+menu-items will be disabled.
+
+The @{"BifatGUI" alink "EP_Engine.guide/Bifatgui"} has 2 extra buttons for the volume. After the first click  the
+left  one  sets the volume to 0 (mute-function) and when selected again, to
+the last value. The right one does this analogue, but after the first click
+the volume will be set to the maximum value.
+
+Via  the  menu  you  can  decrease/increase  the volume by one step and the
+resetting to the maximum volume.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  @{b}@{i}A-@{ub}@{ui}6 = decrease volume by 1
+  @{b}@{i}A-@{ub}@{ui}7 = increase volume by 1
+  @{b}@{i}A-@{ub}@{ui}5 = set volume to the preset value (=Maximum)
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Volume Number           - Number: 0...255 (0=off, 255=maximum)
+                            @{i}Remark: Eagleplayer calculates internally with
+                                    256 volume steps, but offers the user
+                                    actually a range from 0..64 as value,
+                                    to go conform with the Amiga-hardware-
+                                    restrictions)@{ui}
+
+
+@{i}Arexx: @{ui}
+
+  status g vol            - returns actual value (0...255)
+
+
+@{i}Tooltype: @{ui}
+
+  Volume=number           - number: see above
+
+@endnode
+@node "Waitingmode"
+
+ @{u}Waitingmode@{uu}
+
+
+Due to the work of the Amiga-hardware it is neccessary to wait a  specified
+timespan,  when  starting  a  new playback of datas by the soundchip paula.
+Eagleplayer offers  therefore  some  possibilities.  Normally,  the  option
+"automatic wait" is suggested, which uses the best method when needed. When
+using some of the Amplifiers (@{"8 Bit" alink "EP_Engine.guide/8 Bit Amplifier"}, @{"14 Bit Amplifier" alink "EP_Engine.guide/14 Bit Amplifier"}), these settings are
+relevant  for  the  replay  and  will  be  ignored.  The  waiting  for  the
+audiohardware is not needed in that case.
+
+
+Here are the options
+ () Automatic wait           - uses CIA-timer, when possible, if not, a specified
+                               amount of @{"rasterlines" link "Rasterlines"} wil be waited
+ () wait for rasterlines     - dependend on settings, several @{"rasterlines" link "Rasterlines"}
+                               will count, before the replay continues
+ () wait with  @{"DBF-loops" link "DBFLoops"}  - this function was only implemented
+                               for 68000er-CPU-Amigas. By this setting simply a
+                               processor-waitingloop will be run, which we cannot
+                               recommend anymore for CPUs with cache.
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  Waitingmode number      - number: Mode to be used
+                            0 = automatic
+                            1 = Rasterlines
+                            2 = DBF-Loops
+
+@{i}Arexx: @{ui}
+
+  status g wam            - returns actual state as number,
+                            0 = automatic
+                            1 = Rasterlines
+                            2 = DBF-Loops
+
+@{i}Tooltype: @{ui}
+
+  Waitingmode=number      - number: see above
+
+@endnode
+@node "XFDDecrunch"
+
+ @{u}Depack files with XFD@{uu}
+
+XFD is a program library from Georg Hoermann, which is able to detect  most
+of  the  existing  amiga-crunchers  and  its  data  in  order to depack it.
+Although Eagleplayer is able to detect and operate the most  used  packers,
+the  option  was  built  in  to  use  XFD  for  furhter  crunchmodes.
+(very practicable when using the engine @{"Eagleexotic" alink "EP_Engine.guide/Eagleexotic"}.)
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  XFDDecrunch state       - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g xfd            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  XFDDecrunch=state       - state: see above
+
+@endnode
+@node "XFDLoadSeg"
+
+ @{u}Depack executables with XFD@{uu}
+
+If activated, Eagleplayer also tries to depack executables via XFD  and  to
+use  them.  So you can pack all players and engines onto the harddisk (e.g.
+with Powerpacker), if there shouldn't be enough space left. This  ofcourse,
+will increase Eagleplayers loadingtime.
+
+@{b}Attention!@{ub}@{i} If you want to activate this function, then make sure  that  the
+XFD-slaves  @{ui}@{b}`XFD_FIMP_LHLib_XPK.Slave`  @{ub}@{i}and  @{ui}@{b}`XFD_ATN!_LHLib_XPK.Slave`@{ub} are
+NOT!  placed  in  your  @{ui}@{b}Libs:xfd/ @{ub}@{i}- directory.   These   XFD- slaves   were
+testversions from us, which were spread because of a misunderstanding. They
+caused big problems when using this XFD-option  for  executables.  (Massive
+enforcer-hits  ->  loading  Eagleplayer1.54  on  some machines took several
+minutes).  The  reason,  because  this  problem  occured  only  when  using
+Eagleplayer,  is,  that Eagleplayer isobviously the only program which uses
+this XFD-feature.@{ui}
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  XFDLoadseg state        - state: [yes,on or 1]=on, [no,off or 0]=off
+
+
+@{i}Arexx: @{ui}
+
+  status g xfl            - returns actual state (yes/no)
+
+
+@{i}Tooltype: @{ui}
+
+  XFDLoadSeg=state        - state: see above
+
+@endnode
+@node "XPKPackMethod"
+
+ @{u}Change XPK Packer@{uu}
+
+When  calling  this  function,  a  requester  pops  up  asking  you  for  a
+4-letter-index,  which stands for the xpk-library, which should be used for
+@{"saving" link "Savemodule"} the actual musicmoule.
+
+@{i}Examples: SQSH, CRMS, SMPL, GZIP, MASH, NUKE@{ui}
+
+For packing musicfiles with samples (e.g. @{"Protracker" alink "EP_Player.guide/Protracker"}, @{"OctaMED" alink "EP_Player.guide/OctaMED"}) we suggest
+you to use SQSH or CRMS, which offer brilliant packrates.  For  us, SQSH is
+faster and works better.
+
+
+@{i}Keyboard: @{ui}
+
+  -
+
+
+@{i}Menu-Shortcut: @{ui}
+
+  -
+
+
+@{i}Arexx/Shellstart: @{ui}
+
+  XPKPackmethod Name      - Name: 4-lettered-name of the XPK-packer
+
+
+@{i}Arexx: @{ui}
+
+  status g xpk            - returns actual packername, a String with 4 letters
+
+@{i}Tooltype: @{ui}
+
+  XPKPackmethod=Name      - Name: see above
+
+@endnode
+
+; Einführung in Benutzung
+; Exoticripper
+; Nicht dokumentiert:  Addlistentry, Addlist, AscEngine, ChipRamPlayer, Config
+; Speicherverbrauch im Vergleich
+

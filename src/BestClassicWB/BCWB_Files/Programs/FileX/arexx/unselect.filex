@@ -1,0 +1,39 @@
+/* */
+
+   /* Falls gerade ein Block markiert ist, */
+   /* die Markierung aufheben */
+
+options results
+
+POSITION SOF
+GETATTR VIEW MARK
+IF result=TRUE THEN SETBLOCKMARK
+
+REQUESTSTRING PROMPT '"Nach welchem Text suchen?"'
+suchtext = result
+
+REQUESTSTRING PROMPT '"Ersetzen durch?"'
+ersatztext = c2x( result )
+
+FIND QUIET TEXT suchtext
+sucherfolg = rc
+
+DO WHILE sucherfolg ~= 5
+	SETBLOCKMARK
+
+	suchtextlen = length( suchtext ) - 1
+	COLUMN suchtextlen
+
+	CUT
+
+	GETBLOCK
+
+	SETBLOCK ersatztext
+
+	INSERT
+
+	FIND QUIET TEXT suchtext
+	sucherfolg = rc
+
+	END
+

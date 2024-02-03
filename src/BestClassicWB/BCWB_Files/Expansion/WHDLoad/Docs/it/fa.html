@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE>FindAccess * Trova Accessi</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: fa.html 1.5 2013/11/25 22:13:32 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>FindAccess * Trova Accessi di una locazione di memoria</h3>
+Questo programma carica il file specificato e lo analizza per trovare accessi ad uno specifico indirizzo. Trova tutte le
+referenze assolute e relative a 8, 16 e 32 bit. E' stato scritto per analizzare i file coredump. E' simile al comando FA
+dei Freezer ma non disassembla l'accesso ma lo mostra come dump esadecimale.
+<h4>Installazione</h4>
+FindAccess è contenuto solo nell'archivio <tt>DEV</tt>, non in quello <TT>USR</tt>
+<br>copialo in C: o in un posto simile
+<h4>Uso</h4>
+Io utilizzo il seguente alias (aggiunto alla mia S:Shell-Startup) per cercare nell'ultimo dump della memoria salvato da WHDLoad:
+<p><tt>alias fa FindAccess C:.whdl_memory</tt></p>
+in questo modo posso aprire una Shell e scrivere ad esempio:
+<p><tt>fa $15000</tt></p>
+e ottengo l'output:
+<p><tt>FindAccess 1.2 (17-Jan-99 14:45:18) by Bert Jahn
+<br>loading file <B>Workbench:CE/.whdl_memory</B>
+<br>scanning accesses to $15000 (86016)  file: $0-$80000
+<br>Relative  Word at $ 14240 -> 06C00000 07C00000 <B>0DC0</B> 00000CC0 000004C0
+</tt></p>
+<h4>Opzioni</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,ADDRESS/A,ORG</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+il nome del file da analizzare
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>ADDRESS/A</tt>&nbsp;&nbsp;
+</td><td>
+l'indirizzo dell'accesso che stai cercando, puoi usare semplici espressioni come "$5000" = "20480" = " -$Ff +-33+ 19512+$4e8" (preponi "$" per i numeri esadecimali, gli operatori supportati sono "+" e "-",  a singolo e doppio operatore)
+</td></tr>
+<tr><td valign=top>
+<tt>ORG</tt>
+</td><td>
+l'indirizzo logico di inizio del file, se non specificato verrà utilizzato $0, puoi usare le stesse espressioni semplici
+dell'opzione ADDRESS/A
+</td></tr>
+</table>
+</BODY>
+</HTML>

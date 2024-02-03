@@ -1,0 +1,1062 @@
+@Database History_Deutsch.Guide
+@$VER: Eagleplayer History_Deutsch.Guide V2.02 (01-Jul-1998)
+@author "Eagleeye & Buggs of DEFECT"
+@wordwrap
+@node "Main" "Biographie"
+
+		  @{u}Eagleplayer - Entstehungsgeschichte@{uu}
+
+ V2.02
+   20.05.98
+	- noch mehr unterstützte @{"Sprachen" alink "ATO.Readme"}
+ 	- frei wählbares AppIcon in Configs/AppIcon.info ablegbar
+ 	- Empygui auch in 24Bit-Qualität
+	- TFMX-Pro Amplifier (Testversion)
+	- Eagleplayer kann jetzt endlich eigene Screens öffnen 
+
+ V2.01
+   22.4.98:
+        - EP: FastRam-Amplifier Fix für die Sampleabspielfunktion des @{"Moduleinfo" alink "EP_Engine.guide/Moduleinfo"}
+        - EMPYGui: FFT Analyzer Fix, mögliche Absturzquelle behoben
+                   Umbau sämtlicher FloatingPoint-Routinen, anstelle der FPU werden
+                   jetzt die Mathematik-Libraries verwendet
+   12.4.98:4
+        - @{"MPEG Audio" alink "EP_Player.guide/Mpeg Audio"} replayer: - neue Checkroutine
+        - TME, Promizer 0.1, Promizer 1.x, MarkII-old mit Amplifier-Unterstützung
+        - Delitracker(TM)-Emulationsmodus für z.B. 669, DMF, Impulsetracker, Polytracker
+          & Stonetracker Deliplayers(TM)
+        - Customplay disable/enable fixed
+        - AllPlayer (früher: Deliplay) Supportfunktionen eingebaut
+        - Neue Ripper: PSA, ST26, Future Composer, David Hanney, Tim Follin
+        - Magnetic Fields Fix bei der Samplesuche für die Suche in einigen Customsongs
+        - Playerloader an alle verfügbaren Player angepaßt
+        - Localeunterstützung für 15 Sprachen, danke an @{"ATO" SYSTEM "Multiview ato.readme"}
+        
+	6.4.98:
+		- Eagleplayer.i: - Moduleinfo Tags hinzugefügt für MP3 Infos
+		- MPEG Audio replayer: - Priorität des Dekoder-Tasks einstellbar
+		                       - TAG Informationen ausgewertet
+		                       - läuft wieder mit 8 Bit Amplifier
+		- Moduleinfo: - neue Tags implementiert
+
+	26.3.98:
+		- @{"EMPYGui" alink "EP_Engine.guide/EMPYGui"}: - ein paar neue "Hidden-Features" implementiert, wer klicket, der findet
+		- MPEG Audio replayer: - Konfigurationsfenster implementiert, Settings analog zum
+        		                 MPEGAPlayer von Stéphane Tavenard
+                		       - FIFO-Pufferzeit einstellbar von 1-8 Sekunden je nach Bedarf
+
+
+	15.3.98:
+		- EMPYGui: 
+		       - Umschaltung zwischen Originalpalette und grauem statt braunen Hintergrund
+       		   - neue FFT Routine im EMPYGui, besser optimiert als die des FFT-Analyzers,
+           		 somit verbraucht der Analyzer auf 060 mit Z-III CGFX Screen in etwa 3-5%
+            	 Rechenzeit je nach Modus (8/16 Bit)
+        	   - FFT Analyzer arbeitet jetzt genau wie das eingebaute Levelmeter in
+            	 dB, etwas gewöhnungsbedürftig aber eher dem bei HiFi-Anlagen zu
+            	 erwartenden Output entsprechend
+        	   - der Speed-Regler funktioniert jetzt wie beim originalen EMPY
+		- FFT-Analyzer: - Anzeige bei Entfernen des Modules gelöscht
+
+
+	17.2.98:
+		- erste Schritte mit eigenem MPEG Audio Player, noch fehlt die
+		  Konfigurationsmöglichkeit
+		- EMPYGui: - Balance fix bei Drehen des Reglers nach links kam keine Vollaussteuerung
+        		     zustande
+        		   - Levelmeter überarbeitet, mehr Werte aufgerechnet, exakte logarithmische
+        		     Skala von -40 bis 3 dB, damit bis zu 32768 verschiedene Amplituden
+            		 einbezogen, sogar 8 Bit Quantisierungsrauschen (~-40 dB) erfaßt
+           		   - FFT Analyzer mit allen Modi eingebaut (momentan noch unoptimierte
+            	     Integer-Routine, wird für 060-er Computer vielleicht noch durch 
+            	     kompletten FPU-Code ersetzt)
+		- MPEG Audio replayer unter Verwendung der mpega.library zum Laufen gebracht
+
+	Ende 1997-Februar 1998
+		- relative stressbedingte Funkstille, lediglich sporadische Änderungen
+
+	9.10.97
+		- EMPYGui: Volume/Balance/Mute eingebaut, Remote-Modus hinzugefügt
+		- Eagleplayer: Check auf CPU/FPU überarbeitet
+		- Manager: der Programmierer der Engines wird mit Zeilenumbruch angezeigt
+		- SoundFX 2.0: Anzahl der max. Samples im Moduleinfo korrigiert
+		- SoundMon/Soundmon 2.2: Es wird die Anzahl der Steps, sowie die aktuelle
+		  Position in Moduleinfo und EMPYGui mit angezeigt. (Steffen Medrow),
+		  beide Player funktionieren jetzt auch wieder mit dem Chipram Amplifier
+
+	2.10.97
+		- Eagleplayer:
+		   - unreg. Version ließ sich nicht von der Shell aus starten (oops)
+		   - Bei Verwendung des timer.device kam es zu Abstürzen, insbesondere in
+		     Verbindung mit einem gewissen SASG Systeminstabilisierer, der Fix
+		     hat so lange gedauert, weil mein Rechner auch ohne Eagleplayer schon
+		     ständig beim Bootup abstürzte, MagicCX sei Dank :-(
+		- 8 Bit Amplifier, 14 Bit Amplifier: DTG_Led ausgewertet beim Start, so daß
+		  entsprechend dem Filter switch gearbeitet wird
+
+	29.9.97
+		- Moduleinfo/Samplesaver: eventuelle Mungwall-Hits (harmloser Art) behoben
+
+	24.9.97
+		- Toccata-Amplifier: größerer Puffer, um eventuelles Aussetzen zu vermeiden,
+        		             beim Umschalten der Frequenzen Neustart des Abspielens
+
+	16.9.97
+		- Fastramplayer/Chipramplayer: DTG_Led ausgewertet beim Start, so daß
+		  entsprechend dem Filter switch gearbeitet wird
+		- FFT-Analyzer: FFT Routine um etwa 10% beschleunigt
+		- Absturz des EP beim Beenden des Toccata-Amplifiers behoben, wenn der
+		  noch spielte
+		- Activision Pro Check im Playerloader überarbeitet, Modules werden
+		  jetzt wieder schneller geladen
+		- Toccata-Amplifier: Problem bei Umschaltung der Abspielfrequenz behoben
+
+	13.9.97
+		- THX Player neu geschrieben
+
+	10.9.97
+		- engl. Main.guide: Problems Seite ins englische übersetzt (oops!)
+		- Datatype: Crash in Verbindung mit Fastram Amplifier behoben
+
+	 8.9.97
+		- Fasttracker II crasht nicht mehr bei versuchtem Abspielen nicht existierender
+		  Patterns
+
+ V2.00
+    - die History  der Eagleplayer2.0 Betaversionen finden Sie @{"hier" link "EP2Betas"}
+	- Das komplette Programm wurde völlig überarbeitet, aber völlig !!!
+	- Kick2.0+
+	- Die Userprogramme heißen jetzt @{"Engines" alink "EP_Engine.Guide/Die Engines"}.
+	- Der Aufbau des Eagleplayerverzeichnisses hat sich geändert. Die
+	  Konfigurationsdatei liegt in /Config
+	  Zum Auffinden der Konfiguration wird eine Env-Variable
+	  ("EP-Configpath") gesucht.
+	- Der Eagleplayer wertet jetzt auch Tooltypes und ShellArgumente aus.
+	- Der Eagleplayer ist voll zu Grafikkarten kompatibel.
+	- Der EP unterstützt jetzt @{"Amplifier" alink "EP_Engine.guide/AIntroduction"} und ist dadurch zukunfts-
+	  kompatibel zu Soundkarten.
+	- Die Eagleplayeroberfläche (das Benutzerfenster) wurde in 
+	  eine Engine ausgelagert und ist somit gegen einen
+	  komplett neuen Look beliebig austauschbar.
+	- Die Menus sind jetzt fontsensitiv. Für Engines gibt es ein
+	  eigenes Menu, welches teilweise Untermenüs benutzt.
+	- Die Online Hilfe wurde neu geschrieben und unterstützt jetzt
+	  das Guidefile direkt. Der Helpmode erstreckt sich auf alle 
+	  Gadgets und Menus in den Hauptwindows sowie alle Player & Engines
+	  im Manager, sowie einige weitere Engines.
+	- Der Eagleplayer ist größtenteils lokalisierbar. Die Kataloge
+	  wurden aufgeteilt um möglichst wenig Speicher zu verbrauchen
+	  und werden erst bei Bedarf geladen.
+	- Für die Modulesliste kann ein separater Font gewählt werden.
+	- Das Playerwindow wurde entfernt.
+	- Die Textrequestfunktion wurde neu geschrieben und benutzt jetzt
+	  die Reqtools.Library.
+	- Die Funktion Dirmemsize wurde entfernt, das Menü wird jetzt dynamisch
+	  erzeugt.
+	- Die Funktion @{"Entferne Engines" Alink "EP_Main.Guide/EjectEngines"} (EjectUserPrgs) wurde überarbeitet
+	  und arbeitet jetzt sicherer und vor allem merkt sie sich die
+	  Windowpositionen.
+	- Libraries werden erst geladen, wenn Sie benötigt werden
+	  (XFD, Reqtools)
+	- Der Eagleplayer unterstützt die Screennotify.library, die leider
+	  im Moment noch fehlerbehaftet ist (Sollte gelöscht werden!).
+	- folgende Engines sind neu hinzugekommen:
+	   * @{"Bifatgui" alink "EP_Engine.guide/Bifatgui"}
+		Die Standard-Benutzeroberfläche.Designed von Captain Bifat/TEK.
+		Ein in der Größe beliebig ziehbares Fenster mit einstellbarem
+		Hintergrundbild, sowie frei wählbarer Schriftart für den
+		Scroller.
+		Weiterhin können wahlweise dem Titleleiste des Windows
+		Gadgets (@{"Iconify" ALINK "EP_Main.Guide/Iconify"}, @{"PubScreenjump" ALINK "EP_Main.Guide/PubScreenJump"} & @{"Filter" ALink "EP_Main.Guide/Filter"}) hinzugefügt
+		werden.
+	   * @{"Eagleplayer1.x-Gui" ALINK "EP_Engine.Guide/Eagleplayer1.x-Gui"}
+		Das gute alte Window für Leute die nicht genug kriegen
+		können.
+	   * @{"14-Bit Amplifier" aLink "EP_Engine.Guide/14-Bit Amplifier"}
+	   * @{"8-Bit Amplifier" aLink "EP_Engine.Guide/8-Bit Amplifier"}
+	   * @{"Amplifiermanager" ALINK "EP_Engine.Guide/Amplifiermanager"}
+	   	 (Handling der Amplifier (8Bit, 14Bit, FastRam, Chipram))
+	   * @{"FFT-Analyzer" ALINK "EP_Engine.Guide/FFT-Analyzer"}
+		Anzeigen des kompletten Spectrums der angeschlagenen
+		Instrumente im Frequenzbereich von 0-8KHz. Der @{"FFTA" ALINK "EP_Engine.Guide/FFT Analyzer"} hat
+		natürlich, eagleplayertypisch, mehr als 20 Modi.
+		!!! Extra: beinhaltet CyberGraphX&Picasso96 direkt unterstützende
+		Modi, inclusive Multicolor & 3D !!!
+	   * @{"Playerloader" ALINK "EP_Engine.Guide/Playerloader"}
+		Um lästiges Laden der Player beim Start des Eagleplayers
+		zu unterbinden und um entsprechende Player bei fehlendem
+		Prefix zu laden, wurde der @{"Playerloader" Alink "EP_Engine.Guide/Playerloader"} geschrieben.
+		Er testet das Modul und lädt den richtigen Player.
+	   * @{"Eagleexotic" Alink "EP_Engine.Guide/Eagleexotic"}
+		Ein Engine zum Rippen von Modulen aus Dateien (z.B. Memory-
+		dumps) oder aus ausführbaren Programmen (z.B. Demos).
+		Diese werden entpackt und durchsucht. Dabei wird der
+		Exoticripper verwendet.
+		Lokaleunterstützung!
+	   * @{"Extractor" ALInk "EP_Engine.Guide/Extractor"}
+		Abspielen von Modulen in Archiven (Arj, LHA, ZIP, RAR
+		Zoo) und übernehmen des Archivinhaltes in die
+		Directoryliste. Ein Speichern des EPDirs ist ebenfalls
+		möglich.
+		Über ein Preferencewindow können die Pfade der
+		einzelnen Archiver eingestellt werden.
+		Lokaleunterstützung!
+	   * @{"Manager" ALink "EP_Engine.Guide/Manager"}
+		Der Manager ist der Nachfolger des Playerwindows. Er
+		ist fontsensitiv und in der Fenstergröße veränderbar.
+		Er kann gleichzeitig alle Informationen über die
+		verfügbaren Player sowie die geladenen Engines an-
+		zeigen.
+		Lokaleunterstützung!
+	   * @{"Moduleinfo" ALink "EP_Engine.Guide/Moduleinfo"}
+		Das Moduleinfo ersetzt das alte selbigen Namens. Jetzt
+		können Instrumente angehört und sogar gespeichert werden.
+		Es erscheinen mehr Informationen im Anzeigefeld. Es
+		ist lokalsierbar, fontsensitiv, natürlich größenveränderbar
+		und besitzt eine umfangreiche Tastaturunterstützung.
+	   * @{"Samplesaver" ALink "EP_Engine.Guide/Samplesaver"}
+		Der Samplesaver ist das Engine, mit dem man die im @{"Moduleinfo" ALink "EP_Engine.Guide/Moduleinfo"}
+		angewählten Instrumente in verschiedenen Sampleformaten
+		speichern kann.
+		Lokaleunterstützung!
+	   * @{"Formatloader" ALink "EP_Engine.Guide/Formatloader"}
+		Mit Hilfe des Formatloaders können Sounds eingeladen werden,
+		die gar nicht oder sehr schlecht zu erkennen sind(z.B.
+		RAW-Samples wie sie im Protracker verwendet werden).
+		Lokaleunterstützung!
+	   * @{"Pysion" ALink "EP_Engine.Guide/Pysion"}
+		Die herausragende Listenverwaltung des Eagleplayers. Hier
+		können Sie Modulelisten erstellen und jedes Modul einer
+		Gruppe zuordnen und weiterhin jedes Modul komplett konfigu-
+		rieren.
+		Lokaleunterstützung!
+	   * @{"Noiseconverter" ALink "EP_Engine.Guide/Noiseconverter"}
+		Ein Converterutility, der Soundformate ineinander umwandelt.
+		Dabei werden externe Converter, die jeder User selber schreiben
+		kann verwendet.
+	- Dirlistviewer wurde überarbeitet
+	- neue Player (@{"THX" alink "EP_Player.guide/THX"}, @{"FastTracker II" alink "EP_Player.guide/Fasttracker II"}, @{"Tim Follin" alink "EP_Player.guide/Follinplayer II"})
+      und mehr....
+	- folgende Player unterstützen den Amplifierstandard
+		* alle internen @{"Protracker" ALink "EP_Player.Guide/ProTracker"}/Packer
+		* @{"ADPCM" ALink "EP_Player.Guide/ADPCM"}
+		* @{"AIFF" ALink "EP_Player.Guide/AIFF"}
+		* @{"Art of Noise" ALink "EP_Player.Guide/Art of Noise"}
+		* @{"Audio Sculpture" ALINK "EP_Player.Guide/Audio Sculpture"}
+		* @{"Chiptracker" ALink "EP_Player.Guide/Chiptracker"}
+		* @{"Datatype" ALink "EP_Player.Guide/Datatype"}
+		* @{"David Whittaker" ALink "EP_Player.Guide/David Whittaker"}
+		* @{"Deltamusic 1.0" ALink "EP_Player.Guide/Deltamusic 1.0"}
+		* @{"Deltamusic 2.0" ALink "EP_Player.Guide/Deltamusic 2.0"}
+		* @{"Digital Mugician" ALink "EP_Player.Guide/Digital Mugician"}
+		* @{"DSS" ALink "EP_Player.Guide/DSS"}
+		* @{"EMS" ALink "EP_Player.Guide/EMS"}
+		* @{"FastTracker II" ALink "EP_Player.Guide/FastTracker II"}
+		* @{"FutureComposer 1.3" ALink "EP_Player.Guide/FutureComposer"}
+		* @{"FutureComposer 1.4" ALink "EP_Player.Guide/FutureComposer"}
+		* @{"Fred" ALink "EP_Player.Guide/Fred"}
+		* @{"Hippel" ALink "EP_Player.Guide/Hippel"}
+		* @{"Hippel-COSO" ALink "EP_Player.Guide/Hippel-COSO"}
+		* @{"In Stereo 1.0" ALink "EP_Player.Guide/In Stereo"}
+		* @{"In Stereo 1.0" ALink "EP_Player.Guide/In Stereo 2.0"}
+		* @{"Jamcracker" ALink "EP_Player.Guide/JamCracker"}
+		* @{"Jason Page" ALink "EP_Player.Guide/Jason Page"}
+		* @{"MED" ALink "EP_Player.Guide/MED"}
+		* @{"M.O.N." ALink "EP_Player.Guide/M.O.N."}
+		* @{"Musik Assembler" ALink "EP_Player.Guide/Music Assembler"}
+		* @{"PS3M (Multitracker/Taketracker/FastTracker/Screamtracker/Startrekker8)" ALink "EP_Player.Guide/PS3M"}
+		* @{"Pumatracker 1.0" ALink "EP_Player.Guide/Pumatracker 1.0"}
+		* @{"Octamed 7" ALink "EP_Player.Guide/Octamed"}
+		* @{"Oktalyzer" ALink "EP_Player.Guide/Oktalyzer"}
+		* @{"Quadracomposer" ALink "EP_Player.Guide/IFF-EMOD"}
+		* @{"Sidmon 1.0" ALink "EP_Player.Guide/Sidmon 1.0"}
+		* @{"Sidmon 2.0" Alink "EP_Player.Guide/Sidmon 2.0"}
+		* @{"Synth 4.0" ALink "EP_Player.Guide/In Stereo"}
+		* @{"Sonic Arranger" ALink "EP_Player.Guide/SonicArranger"}
+		* @{"SoundMon" ALink "EP_Player.Guide/SoundMon"}
+		* @{"Soundtracker 2.6" ALink "EP_Player.Guide/Soundtracker 2.6"}
+		* @{"Startrekker" ALINK "EP_Player.Guide/Startrekker"}
+		* @{"TFMX 1.5" ALink "EP_Player.Guide/TFMX"}
+		* @{"THX" ALink "EP_Player.Guide/THX"}
+		* @{"Tim Follin II" ALink "EP_Player.Guide/Tim Follin II"}
+		* @{"Vectordean" ALink "EP_Player.Guide/Vectordean"}
+
+		* ... und viele andere
+
+ V1.54	- Vereinfachung des Pfadhandlings durch Benutzung der
+	  "GetProgramDir"-Funktion, daher brauchen bei Nutzung der
+	  Eagleplayer-Batch Funktion im Normalfall keine Absoluten Pfade
+	  mehr gesetzt werden, was bisher beim Start vom Opus aus mitunter
+	  nötig war
+	- Moduleprotector und Propacker 1.0 sind jetzt intern im EP und
+	  wurden gleichzeitig überarbeitet, unterstützen nun auch
+	  Patternscroller etc.
+	- es liegen nun zwei komplett neue TFMX Replays für TFMX Pro und
+	  7V dabei, die neben Moduleinfo, optimale Scopeanpassung und
+	  sogar Patternscroller unterstützen
+	- Mit dem Erscheinen des Exotic Ripper 3.0 wurde das externe
+	  Interface nochmals überarbeitet und ein kleiner Fehler, der
+	  ein paar Bytes Speicher unterschlug, ausgebaut
+	- Der Sound- und Protracker Songloader wurde vollständig neu
+	  geschrieben und versucht jetzt die Samples zuerst im aktuellen
+	  InstrumentenPfad zu lesen, bevor dann die Sampledisks (ST-xx:)
+	  verlangt werden. Weiterhin können Samples, die nicht mehr
+	  gefunden werden, einfach ignoriert werden. Schluss mit den
+	  ST-01: bis ST-xx: Assigns !
+	- Als weiteres gibt es ein neues Moduleinfo, das endlich auch
+	  ziehbar obendrein 100% fontsensitiv ist. Außerdem wurde es
+	  noch etwas schneller beim Wechsel zwischen den einzelnen
+	  Modulen 
+	- Bei den Playern "Digital Mugician" und "SidMON 1.0" wurden
+	  gelegentliche Knackgeräusche beseitigt
+	- Beim Löschen der Audioregister beim Protracker Replay wurde
+	  durch ein Versehen ein Byte zuviel gesetzt, was ab und zu
+	  beim Wechsel zwischen Modulen zum kurzen Bildschirmaufblitzen
+	  führte.
+       
+ V1.54b	- neue MED/OctaMED Abspieler hinzugefügt, die (endlich) all die
+	  Features der üblichen Tracker wie Patternscroll, Moduleinfo, 
+	  Sampleinfo, Patternumschaltung, Anmerkungstexte, Vorspulen usw.
+	  unterstützen.
+	- Der Jamcracker wurde (auf Anfrage von Marley/Infect) komplett
+	  überarbeitet und bietet nun alles, was das Herz begehrt,
+	  Patternscroll, Moduleinfo, vernünftige Scope-Unterstützung und
+	  sogar eine Spielzeitberechnung.
+	- 3 neue Anzeigemodi im Moduleinfo dazugefügt, nun kann auch 
+	  die aktuelle/übrigbleibende Spielzeit (wenn verfügbar) oder
+	  auch die Systemzeit anstelle der Tracknummer angezeigt werden.
+	- die Abspielet "PS3M_Eagle" und "Instereo2" liefen nicht auf
+	  68000er Maschinen, ich hatte einfach vergessen, das 
+	  "020 ODD Data" Flag meines Assemblers zu entfernen
+
+ V1.54c	- im Moduleinfo kann nun auch angezeigt werden, wieviel Prozent des
+	  aktuellen Moduls schon abgespielt wurden.
+	- Quadrascope wurde komplett neu geschrieben und bietet nun ein
+	  frei ziehbares Fenster und eine Menge neuer Anzeigemodi.
+	  Weiterhin kam der "Slow Mode" hinzu, durch den c.a. 40% Rechen- 
+	  zeit gespart werden kann.
+	- für die XFDMaster.library kamen nun 2 Optionen hinzu, durch die
+	  es möglich wird, sowohl den Normalmodus, als auch den 
+	  "Executable File" Modus auszuschalten. Dies wurde notwendig, da
+	  2 Slaves (= externe Module zur XFD library) existieren, die
+	  durch falsche Verfahrensweise Enforcer Hits und sogar Abstürze
+	  hervorrufen können. STELLEN SIE SICHER, DASS SIE WEDER DIE
+	  DATEI "XFD_FIMP_LHLIB_XPK.Slave", noch "XFD_ATN!_LHLib_
+	  XPK.Slave" in Ihrem "libs:XFD"-Verzeichnis haben. Ansonsten
+	  garantieren wir bei aktiviertem "XFD-Loadseg" für nichts. Diese
+	  Option wird übrigens sowieso nur dann benötigt, wenn Sie
+	  vorhaben, externe Abspieler und Engines zu packen.
+
+
+ V1.54
+	- Levelgraph und Levelgraph2 wurden zusammengeworfen in nunmehr
+	  ein Programm
+	- das Engine Time wurde in seiner Höhe an die des
+	  Eagleplayers angepaßt
+	- "The Player 6.1A", "Amos Music Bank", "FC-M Packer", "Fuzzac
+	  Packer", "Heatseeker MC 1.0" und  "TrackerPacker 1" werden nun
+	  auch unterstützt
+	- es wurde der "Invertierte" Modus für den Patternscroller
+	  eingebaut, der ihn weitaus besser aussehen läßt
+	- Moduleinfo bietet jetzt auch die Möglichkeit, den "Standard-
+	  System-Textfont" anstelle des Bildschirm-Fonts zu benutzen,
+	  welcher dann eine bessere Sortierung erlaubt.
+
+ V1.53
+	- Bug im "The Player 4.x" beseitigt, durch den Abstürze auf 68000er
+	  Maschinen hervorgerufen wurden
+	- selbiges bei Promizer 2
+	- Spielzeitberechnung noch einmal überarbeitet, nun fast 100%
+	  richtige Werte, sogar Module wie "MOD.A shade in Waiting" werden
+	  richtig behandelt
+	- komplett neuer Fastram Replayer für die internen Tracker, der
+	  nur noch 1 kByte Chipmem braucht und dabei genauso schnell ist,
+	  wie der alte
+	- ein Fehler in der Zufallsroutine sorgte für gelegentliche
+	  Enforcer-Hits
+	- PS3M kam als externer Player dazu, der Screamtracker3,Multitracker-
+	  module und Fast/Taketracker verarbeiten kann
+	  mit umfangreicher Konfiguration, Analyzer Unterstützung und
+	  Patternscroller Unterstützung (vorerst nur Multitracker/S3M)
+	- Moduleinfo/Patternscroll und Space-Scope+ wurden für Kickstart 1.3
+	  umgeschrieben. Zum Betrieb ist allerdings die Gadtools13.library
+	  erforderlich. Diese liegt nicht dem Paket dabei, da ich deren
+	  Vertriebsbedingungen nicht kenne.
+	- es können nun auch mit Stonecracker 4.04 gepackte Module ent-
+	  packt werden (ohne die xfdmaster.lib zu bemühen)
+	- Unterstützung von Hardlinks (bei Nutzung des Pulldown-Menüs)
+	- Unterstützung von Dircaching bei Reqtools eingebaut
+	- die Kick 2.x+ Versionen der Patternscroller sind nun ziehbar
+	  und unerstützen nun bis zu 16 bzw. 32 Stimmen, weiterhin
+	  wurde die auch beim Protracker existierende "Blankzero"-Option,
+	  die für mehr Übersicht sorgt, implementiert
+
+	Release: Doomsday Party Karlsruhe, 9.10.1994
+
+
+	Aufgrund eines Versehens wurde das "ß"-Zeichen nicht entfernt, es
+	handelt sich aber um die voll lauffähige Version.
+	Bei der Release ohne das Beta-Zeichen (Internet) wurde die
+	Gelegenheit genutzt, um den Eureka-Packer Player zu überarbeiten,
+	außerdem wurde der Vectordean wieder für 68000er Maschinen
+	nutzbar gemacht. Fast- und Taketracker Module werden nun
+	vollständig inclusive Patternscroller und Moduleinfo unterstützt.
+	Die Erweiterung des "Speed"-Kommandos des Protracker Players wurde
+	rückgängig gemacht, da diese - eigentlich zum Beheben von Problemen,
+	durch falsch genutzte Kommandos in Modulen gedachte - Funktion nun mit
+	richtig eingespielten (Extrem)-Modulen Probleme bereitete. Wenn nun
+	Probleme mit Modulen wie "MOD.Face another day" (Heatbeat/Virtual
+	Dreams)  auftreten, sollte die "Tempo berichtigen"(Fix BPM)-Funktion
+	des Noiseconverters genutzt werden. Diese Probleme erscheinen dann
+	allerdings auch bei anderen Playern, die Protracker voll
+	unterstützen.
+
+
+
+V1.52b  Einige kleine Fehler in diversen Enginesn wurden entfernt,
+	Trackerpacker 3.0 kam dazu, außerdem wurde in der Spielzeit-
+	berechnungsroutine ein Check eingebaut, der eine Endlosschleife
+	mittels Patternrepeat erkennt. Ehhm.. Außerdem wurde ein Bug
+	beseitigt, durch den die CRM.library nicht geschlossen wurde.
+	Weiterhin wurde der XANN-Packer Replayer verbessert und funktioniert
+	nun auch mit dem Song von einem Liquid Trackmo. Der Fastram-
+	player wurde nochmals verbessert. Es wurde die Randomplay
+	Routine noch einmal komplett neu geschrieben, da ab und zu
+	unter bestimmten Bedingungen noch Fehler auftraten. Außerdem
+	sollte die Streuung nun weit besser sein, so daß auch bei
+	großen Modullisten die hinteren Module nicht "vergessen" werden.
+	Als Player kam nun noch der "MellicaPacker" dazu, ein altes
+	Kefrens Format. Ein Fehler, der nur in der registrierten Version
+	auftrat, wenn man bei eingeschaltetem "load before" den Fastram-
+	player ausschaltete, wurde beseitigt.
+	!!! Achtung Achtung !!! Der Eagleplayer besitzt nun genau 100
+	unterstützte Musikformate !!! Zeigt mir den Player, der mehr
+	Musikformate abspielen kann !
+
+	Release Date: Ende Juni 1994
+
+
+
+V1.52   Als erstes wurde eine neue Timingroutine eingebaut, die unabhängig
+	von der Zeilenfrequenz arbeitet. Erfolg: Es wurden bei umfangreichen
+	Tests auf dem A4000/40 in allen Auflösungen keine Probleme mit
+	Protrackermodulen gefunden. Als nächstes wurden einige kleine Fehler
+	in den Enginesm ausgebaut, durch die der Speicher nicht 
+	komplett freigegeben wurde.(~3.5 k) Es wurden im Eagleplayer einige
+	neue interne Player eingebaut. Dabei handelt es sich um "Noise-
+	packer 2.x", "Noisepacker 3.x", "EUREKA-Packer" "The Player
+	V5.0A/6.0A". (Mehrlänge des Eagleplayers: ~6.5k !!!)
+	Weltneuheit !! Als erster Soundplayer hat der Eagleplayer eine echte
+	Patternscrollfunktion ! Funktioniert mit allen internen Trackern,
+	sowie Soundtracker2.6-Icetracker (wurde zu einem Player zusammen-
+	gefaßt und spart 4.5k), IFF-EMOD (Quadracomposer), SonicArranger
+	und Oktalyzer bis 8 Stimmen !!
+	Die Anzeigefunktion des aktuellen Verzeichnisses im Menü wurde über-
+	arbeitet und zeigt nun auf einem normalen Hires Overscan Screen 
+	(724*283 Pixel) weit über 500 Einträge an.
+	Als nächstes kam der "ProTracker FASTRam" Abspieler hinzu, der 
+	Protrackermodule ins Fastram lädt, soweit nicht mehr Chip-Puffer-
+	speicher benötigt wird, als im Normalfall. So ist es beispielsweise
+	möglich auf einem Rechner mit nur 1MB Chipmem locker irgendwelche
+	2MB Module abzuspielen (wenn entsprechend Fastmemory vorhanden).
+	Es wurde endlich die "Moduleinfo"-Funktion fertiggestellt.
+	Das Quadrascope wurde um einige neue Modi erweitert und besitzt
+	nun 4 verschiedene Anzeigemöglichkeiten. Außerdem arbeitet es jetzt
+	mit der "Mastervolume"-Funktion des Eagleplayers zusammen. Auch 
+	Space-Scope wurde noch einmal verbessert. (teilweise schon mit der
+	V1.51 ausgeliefert)
+	Der TFMX 7V Replayer wurde neu geschrieben und arbeitet nun auf
+	A4000.
+	Für das Moduleinfo kam eine Berechnung der Spielzeit von Protracker-
+	SonicArranger- und Oktalyzermodulen auf die Sekunde genau dazu. !!!
+	WELTNEUHEIT !!!
+	(Wer kein registrierter Benutzer des Eagleplayers ist, kann diese
+	Funktion immerhin über den Noiseconverter testen. Dieser ist jetzt
+	auch in der Lage, P50 und P60 zu erkennen und zu entpacken.)
+	Außerdem wurde ein kleines Facelifting der Benutzeroberfläche
+	durchgeführt.
+	Aus lauter Langeweile wurden auch noch ein paar auf OS3.0 zu-
+	geschnittene Engines dazugepackt, die allerdings mindestens
+	einen 16-farbigen Screen voraussetzen.
+	Das Space-Scope wurde noch ein wenig Geschwindigkeitsoptimiert und
+	arbeitet nun mindestens 20% schneller.
+	Für die allerliebsten Cracker wurde der Eagleplayer intern noch
+	einmal kräftig überarbeitet und geschützt. Viel Spaß damit !!
+	Wer es als erstes schafft, den Eagleplayer 100% zu cracken, bekommt
+	eine Registration gratis !
+
+	Release Date: 18.04.1994
+
+
+
+V1.51	QUICK UPDATE
+	Es wurde im Eagleplayer ein Fehler ausgebaut, weswegen er nicht
+	auf dem A4000/40 im CopyBack Modus lief. (Eigentlich wurde dieser
+	Fehler schon mal ausgebaut, aber es gab wohl Trouble mit dem Quell-
+	code.) Weiterhin kam der externe Replayer "Aprosys" dazu. Die
+	nächste Änderung betrifft die Installationsdatei, die überarbeitet
+	wurde. Als nächstes kam das Useprogramm "Space-Scope" hinzu, welches
+	allerdings auf unbeschleunigten Maschinen einen Großteil der 
+	Rechenzeit beansprucht.
+	Der Noiseconverter kann nun auch Promizer 2.0 und MEXX-Packer laden.
+	Mexxpacker ist jetzt ebenfalls ein interner Replayer. Die Random-
+	play Routine wurde ebenfalls überarbeitet. Einige kleine Fehler in 
+	der Showdirnames Funktion, Stimmenumschaltung und bei Fehler-
+	meldungen wurden entfernt.
+
+	Release Date: ab Anfang Januar 1994
+
+
+
+V1.50	Der Eagleplayer wurde intern umfangreich umgebaut. Es wurden im Main-
+	und im Playerwindow Tastaturkürzel eingeführt. Die Gadgets des Player-
+	windows wurden endlich geändert. Die internen Soundtrackercheck-
+	routinen mußten nochmals überarbeitet werden. Die Songenderkennung
+	arbeitet jetzt auch besser. Weiterhin sind ein paar Bugs in den Sound-
+	trackerplayroutinen beseitigt. Eine Konvertierungsroutine von etwas
+	älteren Soundtrackermods auf den Protracker-Standard wurde eingebaut.
+	Somit wird teilweises Piepen verhindert.
+	Die LoadDir-Routine wurde komplett überarbeitet und arbeitet jetzt
+	sauberer. Wenn nun der private Dirmem voll ist, stürzt der Player
+	nicht mehr ab. Er übernimmt dann soviele Einträge, wie hineinpassen
+	und zeigt diese an. Zudem kann übers Pull_Down-Menu das Directory
+	ausgewählt werden. Beim AppWindow können Files unnd Dirs aus ver-
+	schiedenen Direktories übergeben werden.
+	Beim Playerladen ist jetzt Multiselect möglich. Neu ist außerdem, daß
+	die externen Playroutinen erst geladen werden, wenn sie benötigt
+	werden sowie ein Entfernen derselben bei "Eject Module". Somit wird
+	der Speicher verbrauch und das Warten beim Start des Eagleplayer in
+	Grenzen gehalten.
+	Der Eagleplayer kann nun von fremden Programmen teilweise gesteuert
+	werden (NoiseConverter, Exotic-Ripper <- immer noch nicht fertig,
+	Turbo ist OBERFAUL ! ).
+	Von registrierten Usern kann die Funktion "Load Before" genutzt
+	werden. Das Einbinden des Hotkeys funktioniert jetzt besser. Als
+	Default-Hotkey ist nun "Ctrl Alt E" eingetragen. Die Richtlinien
+	für ein Commodity werden jetzt besser befolgt. Es wurde ein "Hide"
+	Commando im Pull-Down-Menu hinzugefügt.
+	Neu ist auch der umfangreiche Save-Modus. Man kann zwischen Normal
+	und AutomaticSave auswählen. Ein Funktion zum setzen des Save-Dirs
+	existiert auch. Die Module können jetzt gepackt werden.
+	Dabei kann teilweise zwischen Samplemode und Protection unter-
+	schieden werden. Wir haben jetzt den Powerpacker-SampleMode entwickelt
+	(Packt sehr gut). Die Protectionbits für gespeicherte Module können
+	angegeben werden. Der XPK-Packmode kann selbst gewählt werden.
+	Die Crunchmania SampleDecrunchroutine wurde (über library) eingebaut.
+	Die interne Decrunch-Routine wurde entfernt, weil keine SampleMode
+	und keine Passwort-Unterstützung vorhanden war. Der Eagleplayer kann
+	jetzt Crm in allen Varianten packen. Beim Packen wird in der Status-
+	anzeige ein Balken gezeichnet, der angibt, wie weit der Packer ist.
+	Der Pubscreenname, auf dem der Eagleplayer sich befinden soll, kann
+	jetzt von der Oberfläche aus eingegeben werden.
+	In der Preference sind die Punkte: Autopassword und QuitEagle hinzu-
+	gekommen.
+	Der Eagleplayer arbeitet jetzt endlich mit RTPatch zusammen. Der
+	Eagleplayer scrollt nun auch, wenn die diskfont.library nicht ge-
+	funden wird.
+	Es gibt jetzt ein "Warning Menu". Es kann eingestellt werden, ob zB.
+	ein Warnrequester erscheinen soll, wenn das Module zu kurz, zu lang
+	oder kaputt ist.
+	Fast alle externen Replayer wurden überarbeitet und sind an den neuen
+	Eagleplayer-Standart angepaßt und somit nicht mehr delitracker-
+	kompatibel. Der MusicMaker-Mods können jetzt auch gepackt werden.
+	Ab dieser Version sind jetzt endlich englische Dokumentationen ver-
+	fügbar.
+	Es wurde ein Fehler bei LoadConfig behoben, der vor allem bei Rechnern
+	mit 32 BitRam auftritt.
+	Es kam ein weiteres SubMenu hinzu: Modules-Directory. Damit läßt sich
+	die Prefs des Pull-Down-Menus einstellen. Weiterhin kann der interne
+	Speicher für den DirPuffer gesetzt werden. Notify wird ebenfalls ge-
+	nutzt.
+	Ebenfalls eine Neuerung stellen die verschiedenen Filerequester dar.
+	Es wird nur die benötigte Library geöffnet. Die Arp.Library wird trotz
+	Planung nicht implementiert. Der Eagleplayer benötigt jetzt keine
+	Library mehr, da ein FileReqMode "No FileReq" existiert, d.h. der
+	Filename kann jetzt direkt im Statuswindow eingeben werden.
+	Es kann eingestellt werden, daß der entsprechende externe Eagleplayer
+	erst geladen wird, wenn das dazugehörige Module angewählt wird. Die
+	Erkennung wird anhand des Prefixes vorgenommen, der in einer EPBatch
+	Datei definiert wird und beim Module im Namen enthalten ist. Diese
+	Funktion ist ebenfalls für Engines verfügbar (r.V).
+	Engines können nun auch entfernt werden. Die Anzahl der max.
+	ladbaren Engines ist zur Zeit auf 32 begrenzt.
+	Als Engine ist nun eine Listenverwaltung verfügbar.
+	Der Eagleplayer kann jetzt auch LHA-Archive entpacken. Dabei wird
+	zur Zeit nur der erste Eintrag geladen. 
+
+	Release Date: 29.12.93 auf der "THE PARTY III" Herning/Dänemark.
+
+
+
+V1.40	Der Eagleplayer unterstützt nun ein eigenes FastDir namens ".EPDIR",
+	dadurch wird erreicht, daß das Dir schneller geladen wird. Weiterhin
+	wurde eine Funktion "SaveT" eingebaut. Sie ermöglicht es, gepackte
+	Module, die eigentlich nicht gepackt werden dürfen, doch geladen
+	werden können. Der Eagleplayer hat nun auch eine Hotkey-Funktion.
+	Bis auf das Hotkey sind alle neue Funktionen nur für registrierte
+	User zugänglich.
+	Es wurden folgende neue Replayer hinzugefügt: LME, MTH, IFF-SMUS
+	IFF-8SVX, Music-Maker 4+8, Rob Hubbard und SoundControl.
+	Die sich modifizierenden Replayer werden zum Umbauen Ihrer Play-
+	routinen nun zunehmend die internen Routinen "EPG_ModuleChange" und
+	"EPG_ModuleRestore" nutzen. Weiterhin wurden die Unterprogramme
+	"EPG_Hexdez" und "EPG_TypeText" eingebaut.
+	Die Funktion "Quit Surface" wurde hinzugefügt. Damit kann bei der
+	Beendigung eines User-Programms der Eagleplayer beendet werden.
+	Der Fehler beim Configladen (AppIcon) wurde beseitigt. Ein Bug in der
+	VolVoice-Routine wurde beseitigt.
+
+	Release Date: 20.09.1993
+
+
+
+V1.29b	Ein gepatchter Eagleplayer, der nicht von uns kommt. Es handelt sich
+	um einen PP-gepackten und wieder entpackten Eagleplayer. Da der Power-
+	packer den Code beim Entpacken modifiziert, stürzt dieser Player nur
+	ab. Außerdem wurden alle "V1.11"-Kennungen durch "V1.29" ersetzt und
+	eine total schwachsinnige Doc, sowie einige sch.. Module auf eine
+	3. Disk kopiert.
+
+
+
+V1.11	Die erste für registrierte User herausgegebene Eagleplayerversion
+	mit Keyfile. Registrierte User können jetzt die Save-Funktion,
+	die HelpFunction sowie die anderen Engines nutzen.
+	Es wurden 3 neue Replayer geschrieben, Player V5.0A, Syntracker,Major
+	Tom's Player. In den Replayern SIDMonII, ActionAmics, Noisepacker,
+	Prorunner V1.0/V2.0, Synth & InStereo wurden Fehler beseitigt. Der
+	Prorunner Vx.x wurde in NoiseRunner umbenannt. Fast alle ab V1.11
+	bearbeiteten Player werden nur noch ab Eagleplayer V1.11 und nicht
+	mehr auf dem Delitracker laufen. Der Grund dafür liegt in der neuen
+	VolVoiceroutine, die es erlaubt, die Lautstärke jeder einzelnen Stimme
+	zu steuern. Der Programm-Mode wurde um Randomsong, AutoSubSong und
+	LoadAlways erweitert. Alle neuen Funktionen werden nur noch für
+	registrierte User nutzbar sein.
+	Die Configuration der Engines wurde nochmal überarbeitet. Ein
+	großer Bug, der an der Intuition.Library liegt, wird nun umgangen. Der
+	Fehler trat auf, wenn kein Engine geladen wird, dann ist das
+	Pull-DownMenu "Special-->Engines" nur mit dem Item Add Userprg
+	belegt. Normalerweise ist eine 2. IText-Strukture angegeben, die unter
+	dem Text "Add Userprg" eine Wellenlinie zeichnet. Diese wird aber
+	nicht gezeichnet. Es wird stattdessen im Speicher rumgesaut.
+	Die Anzahl der in ein Menu aufgenommenen Module wird jetzt von der
+	Screenhoehe bestimmt. Die Prioritäten der Engines werden nun
+	richtig gesetzt.
+
+
+
+V1.10     Ein Laden und Saven der Config ist nun endlich möglich. Ein Arexx-
+	Port ist eingebaut mit einem äußerst umfangreichem Befehlssatz.
+	Es werden demzufolge Beispiel-Arexx-Scripts zur Installation, z.B für
+	DOpus 4, mitgeliefert.
+	Der Eagleplayer ist nun ein Commodity. Eine Pubscreen-Unterstützung
+	ist ebenfalls vorhanden. Zudem kann der Eagleplayer Fonts laden, aber
+	nur 8*8 und keine proportional Fonts. Der Iconify-Modus wurde auch
+	fertiggestellt. Nun sind AppItem & AppIcon auch möglich. Eine OnLine
+	Hilfe ist für registrierte Anwender verfügbar, wenn das File
+	"Eagleplayer.Help" gefunden wird. Die Tags EP_Date und EP_Check3
+	wurden implementiert. Nun können z.B ungepackte FTM und Oktalyzer
+	(8Voices-Mods) ins Fastram geladen werden. Die EP_Globals wurden
+	umfangreich erweitert. (EPG_LoadFile2, EPG_Loadexecutable,
+	EPG_Filerequest, EPG_TextRequest, EPG_FindTag, diverse Librarybasen
+	und wichtige Merkzellen)
+	Vorsicht: Der Eagleplayer V1.0 testet nicht auf EP_PlayerVersion !!!
+	Die Eagleplayer-Status-Strukture wurde entfernt, da alle Daten nun
+	in den EPG_Globals definiert sind. Eine HelpFile-Strukture und eine
+	GadgetStrukture fürs Textrequester sind im Include-File definiert.
+	Der EnginePort wurde erweitert. Die Message-Class "Command"
+	ist implementiert. Es ist jetzt möglich, eigene Oberflächen zu ent-
+	werfen und den Eagleplayer lediglich im Hintergrund als Grundprogramm
+	laufen zu lassen. Die Engines können so den Eagleplayer steuern.
+	Ein Beispiel dieser neuen Möglichkeiten ist das Engine
+	'NoiseEagle' (ein simpler nachgeahmter Noiseplayer).
+	In den Replayern Actionamics, Sidmon II, Player 4.0a/4.0b/4.1a,
+	Propacker, Oktalyzer wurden Bugs beseitigt. Die Erkennung der Autoren
+	wurde verbessert und kann jetzt von externen Replayern genutzt werden.
+	Ein peinlicher Bug in der SetSpeed-Routine wurde beseitigt (die
+	Parameter wurden falschrum übergeben). Die Anzeige der player-
+	typischen Eigenschaften im Playerwindow funktioniert jetzt richtig.
+	Früher stürzten manchmal die Engines beim Verlassen des Players
+	ab, sollte nicht mehr passieren. Einige Bugs in der LoadModule-Routine
+	und der Change-Voice-Routine wurde removed. Tag-Skip wird jetzt auch
+	genutzt. Der Hippel-Replayer spielt jetzt auch Module, bei denen das
+	Init-Bit nicht gesetzt ist. Ein Bug im JamCracker wurde beseitigt.
+	Die Player Promizer 4.0 & ChaosEngine hinzugefügt. Die CheckRoutinen
+	der interne Soundtracker wurde nochmals überarbeitet.
+	Die Fehlermeldungen im Include-File wurden umbenannt um sie zu ver-
+	einheitlichen. Ein Resource-Symbol File zum disassemblieren von
+	Eagleplayern wird mitgeliefert.
+
+	Release Date: 10.07.93 auf der Sun'n'Fun Party Hellental
+
+
+
+ V1.01	Mehrere Bugs in der LoadRoutine und in der OpenWindow-Funktion wurden
+	beseitigt. Die DTG_Globals wurden um DTG_WaitAudioDMA erweitert, so
+	daß der Eagleplayer jetzt Delitracker V1.37 kompatibel sein sollte.
+	Die Programmierrichtlinien der Replayeranpassung wurden erweitert.
+	Der Eagleplayer wurde erstmals Enforcer getestet und siehe da, es
+	kamen einige Bugs ans Tageslicht.
+	Die internen Checkroutinen der internen Soundtracker wurden nochmals
+	überarbeitet und der Startrekker stürzt hoffentlich auch nicht mehr
+	ab. Zur Eagleplayer-Package gehören nun auch der Promizer 0.1 und der
+	Promizer 2.0. Grouleff wurde endlich an den EP-Standard angepaßt.
+	Fast alle Replayer wurden nochmals bearbeitet und es wurden Enforcer-
+	Hits (ActionAmics, SidmonII, P4xx-Tracker) beseitigt. Weiterhin
+	erkennen jetzt fast alle Replayer SongEnde !
+
+	Release Date: 15.05.93
+
+
+
+ V1.0	Erste freigegebene Demoversion mit vielen Bugs und gesperrten
+	Funktionen. Include-File wird teilweise vom Player noch nicht
+	unterstützt.
+
+	Release Date: 24.04.93 auf der Datalive in Dessau
+
+@endnode
+
+
+@node "EP2Betas" "Eagleplayer 2.00 Betaversionen"
+
+  06.09.97 (Eagleplayer 2.00 release)
+   - letzte Änderungen in Readme-File, History, hinzugefügte
+     Dänische Kataloge
+
+  03.09.97
+   - Fix bei Fadeout, Knacken abgestellt
+   - Appwindow funktioniert wieder
+
+  31.08.97
+   - Parameter bei EUT_Ripp erweitert
+   - Sampleinfo bei Tim Follin, SoundImage, Jesper Olsen, Scott Johnston
+   - SubSongRange bei DigitalMugician
+
+  25.08.97
+   - Songname2comment/Songname2filename update
+   - .cd/ct Engine/Main
+   - MagneticFields Ripper
+   - Jesper Olsen Check fix & playerloader
+
+  24.08.97
+   - SaveT mit 2 Files eingebaut
+   - interne Catalogerweiterung
+   - Playerloader (ActivisionPro/SeanConran)
+   - Installscript  fertiggestellt
+   - SonicArranger/Soundmon/Soundmon2.2 Sampleinfo
+   - SaveT-Nervrequest entfernt
+   - Playerbatch/Playerloader THX/THX2
+   - MagneticFields Converter
+   - Noiseconverter update
+   - Convert bei gerippten Modulen
+
+  15.08.97
+   - Jesper Olsen Amplifier
+   - Ripper include file
+
+  12.08.97
+   - MarkII recoded
+   - Playfaster schaltet Play automisch mit ein
+   - Bei eingeschaltetem LoadBefore und NoNextModule bei ProgrammMode wird
+     das nächste Module geladen, da Funktion sonst abbricht (NoNextModule)
+   - Abortmöglichkeit bei Dirjump und loadbefore
+   - Dirjump auch mit Verzeichnissen mit je einem Eintrag möglich
+   - Main/Engine.catalog
+   - Fehlernr bei Next/PrevModule wenn keine Einträge
+   - Startrekkerfix bei korruptem NTFile (St_PlayMacro)
+   - CD/CT Files hergestellt und in EP:Developer/catalogs abgelegt
+   - Playerbatch
+   - MarkII
+   - Startsong per Comment (Whittaker, Jesper Olsen) "SS:" oder "SS="
+   - Jesper Olsen (Playerloader auch)
+
+  04.08.97
+   - Archivesupport verbessert (für Pysion)
+   - Playerbatch (*.MPG|*.MP3)
+   - Exotic3.2 Textrequest + Filesizeangabe (Upload von Exotic3.2 auf Aminet)
+   - DeleteAllEngines im Manager disabled
+   - Dirjump geht nur mit Randommodus --> Randomplay wird automatisch
+     eingeschaltet
+   - ActivisionPro Amplifier
+   - Scott Johnston (Amplifier)
+   - Grouleff (Amplifier)
+   - JC.Brooke (Amplifier)
+   - LME (Amplifier)
+   - Gluemaster (Amplifier)
+   - Playerbatch (Scott Johnston|SunTronic|MPEG)
+   - Manager (Voicesanzeige)
+   - Dirlistviewer
+   - Pysion AddEntries
+   - kein AllocAudio bei Initplayer, wenn Initplayertag bei Amplifierplayern
+     gefunden wurde
+
+  02.08.97
+   - Hardwarezugriff gespeert, wenn kein Module geladen ist (ClrVolumes,Filter ...)
+   - Dirlistviewer (Sprache)
+   - 14Bit-AmplifierGui auch im EP1.54Gui über Menu anwählbar
+   - Playerbatch (MPEG,ADPCM (war nicht drin))
+   - Gui kommt jetzt immer bei Exchange "Show", aber nicht bei Hotkey!!!
+   - SaveT auch für unregistrierte User (testweise) mit Nervrequest (IFF)
+   - Listensupport für alle Listen, die Pysion auch unterstützt
+   - Pysion releasefertig(abgespeckt) mit Executefunktion
+   - Execute von Pysion auch im EP incl Kompatiblität zu kompakten Pysionlisten
+   - Starterrors im CONWindow korrigiert
+   - bei Fehlschlagen des Öffnens von CIAB.resource kein Quit mehr
+
+  5.6.97 (EP 2.00 B5 release)
+   - Timer.device als Timingalternative zu CIA-B und VBlank eingebaut, vorteilhaft
+     bei A1200`s mit PCMCIA Festplatten/CDRom-Controllern und bei serieller Datenüber-
+     tragung
+   - IORequest geändert, funktionierte (immer noch) nicht richtig
+
+  31.05.97
+   - Playerloader/Playerbatch erweitert
+   - Soundcontrol fix
+
+  26.5.97
+   - Ergänzungen/Änderungen in Include-Files
+   - FFT-Analyzer: die Anzeige des Spektrums kann nun auch bis 16 kHz bzw. 24 kHz erfolgen
+
+  23.5.97
+   - einige kleine Erweiterungen und Bugfixes im Hauptprogramm
+   - 8 Bit Amplifier: gelegentliches Knacken beim Start eines Moduls beseitigt
+
+  10.5.97
+   - Playsample-Funktion des Moduleinfo funktioniert nun auch mit dem Fastram Amplifier
+     (2 Zeilen im Source vertauscht..... 8-)
+
+  5.5.97
+   - PS3M Fehlerbehebung in S3M Replay, gelegentliches Knacken bei falsch
+     durch den Tracker abgespeicherten Samplelängen abgeschafft
+   - funktionierenden VSS Player rausgesucht und in Release eingefügt
+
+  4.5.97
+   - Oktalyzer überarbeitet, zu kurze Module werden jetzt solange erkannt, wie
+     sich zumindestens 1 abspielbares, korrektes Sample darin befindet und dabei
+     allerdings sämtliche Patterns zumindestens äußerlich o.k. sind
+
+  1.5.97
+   - FFT Analyzer löscht Display bei "Pause" nicht mehr, somit kann man sich
+     dann z.B. den 3d-Output in Ruhe beäugen
+
+  20.4.97
+   - Digibooster Replay unterstützt nun auch Module mit ungepackten Patterns
+   - Patternscroll opaque sizing fix
+   - Engines.guide (deutsch und englisch) um Tips zu Picasso96 ergänzt
+
+  18.04.97
+   - Digibooster Replay fertiggestellt, incl. Moduleinfo, Sampleinfo,
+     Patternscroll, Calcduration, Amplifier usw.
+   - Protracker4 Replay überarbeitet, Calcduration verbessert, 8 Stimmen
+     support funktioniert jetzt wirklich..., weiterhin Songend eingebaut,
+     hatte ich ganz vergessen
+   - Mark Cooksey Fix für MC.Grand_National, Division durch 0 abgefangen
+
+  16.04.97
+   - Moduleinfo Bugfix in Sampleinfo Routine, mitunter nachfolgende Bytes
+     der Samplenamen überschrieben, dadurch wurden einige Module verstümmelt
+     abgespielt
+
+  13.04.97
+   - englische EP_Engine.guide fertiggestellt
+   - Formatloader Workaround für Gadtools Bug beim Hintergrundlöschen
+ 
+  11.04.97
+   - RIFF Wave Samplesaver geschrieben
+   - IFF Samplesaver fix
+   - Playerloader fix für Digibooster
+   - Sampleinfo in Datatype Player eingebaut
+ 
+  05.04.97
+   - Moduleinfo2, Workaround für gadtools Bug beim Hintergrundlöschen
+   - FFT-Analyzer, Levelgraph, Levelmeter, Messagewindow, Patternscroll(++)
+     Quadrascope, Spacescope+, Stereoscope, Time -> DatumFix
+   - Manager Opaque Sizing Fix, Gadtools Background clear workaround
+ 
+  03.04.97
+   - Protracker 4.0 Fileformat implementiert in eigenem Player, 4 und 8 Stimmen
+     unterstützt, Spielzeitberechnung, Sampleinfo, Amplifier, VBL Flag Auswertung
+     alles drin...
+   - Soundtracker Pro fix bei Tempoberechnung
+   - Playerloader für PT4 erweitert
+   - Oktalyzer Fix für OK.Intro1, zu kurze Module wurden vom Player rigoros
+     abgelehnt als Schutz vor Abstürzen des von Haus aus extrem labilen Players
+   - Moduleinfo2 Fix, linke Umrandung bei Verwendung von MCP`s NewGadtools
+     wurde überschrieben
+ 
+  01.04.97
+   - Moduleinfo 2.0: Fontrequester eingebaut, Opque Sizing Fix, Gadgethintergrund bei
+     Textgadgets wird gelöscht, Workaround für Gadtools Bug bei Zeitanzeige,
+     Enforcer Hit Fix in MList-Mainloop
+   - Oktalyzer fix bei Sampleinfo
+   - AIFF Samplesaver
+   - AIFF Fix beim Start, Doppelabspielen vermieden
+ 
+  30.03.97
+   - FFTScope 3D gefixed, neue Palette, in public Release eingefügt
+   - Quadrascope, Amplifiermanager Iconify fix
+ 
+  14.01.97-28.03.97
+   * Scumm in Playerbatch, Scumm Amplifier, PSA-Amplifier
+   * umfangreiche Änderungen im Engineport
+   * FindAuthor verbessert
+   * Dirlistviewer Tastatureinbindung verbessers
+   * ArexxScript verbessert: Load_One_Module.dopus
+   * Manager zeigt Anzahl der Players und Engines
+   * Pumatracker neu geschrieben
+   * Benn Daglish fixed
+   * neues Engine: Noiseconverter
+   * David Hanney Amplifierunterstützung
+ 
+   * Jamcracker save
+   * EngineDok umfangreich überarbeitet
+   * Formatloader + externe loader, neue Tags, Catalog
+   * Sampleplay per Eagleplayer, Samples können im @{"Moduleinfo" alink "EP_Engine.guide/Moduleinfo"} per
+     Doppelklick angewählt, abgespielt und dann wenn gewünscht
+     mit dem @{"Samplesaver" alink "EP_Engine.guide/Samplesaver"} in einem der unterstützten Formate
+     abgespeichert werden
+   * neue Player. BFB,Magnetic,JasonPage
+   * XFD external Cruncher
+   * Some players updated
+   * Jamcracker sucht songnamen
+   * Soundcontrol unterstützt jetzt Amplifier, weiterhin Fehler behoben
+     mit einigen Modulen
+   * BFB Master Player and Formatloader
+ 
+ 
+  10.01.97
+    - Whittaker Fix bei DWOld.Feud, dazu noch entsprechende fixes in 8 Bit und 14 Bit Amplifier
+  - FFT Analyzer verhält sich besser bei Fenstervergrößerung in Echtzeit (Opaquemove, MCX, MCP)
+ 
+  09.01.97
+   - 14 Bit Amplifier fix (in ganz bestimmten raren Situationen Speicher überschrieben)
+     Danke an Michael Knoke für den Hinweis
+ 
+  08.01.97
+   - 8SVX Player verbessert, kommt mit MAESTRO gespeicherten Samples (leicht korrupt)
+     besser klar
+ 
+  07.01.97
+   - Hippel COSO Fix für z.B. `HPC.Axis`, einige Hardwarehacks wurden nicht umgeleitet,
+     außerdem wurde in einer PokeAdr Routine D1 erst verändert und dann in D0 übergeben,
+     sehr sinnvoll.... (und vor allen Dingen nur durch Zufall gefunden)
+   - Fix im P60/P61 Player
+ 
+  03.01.97
+   - @{"Moduleinfo" alink "EP_Engine.guide/Moduleinfo"} fix bei Anzeige des Soundsystems
+   - Moduleinfo & @{"BifatGUI" alink "EP_Engine.guide/BifatGUI"} verhalten sich besser bei Fenstervergrößerung in
+     Echtzeit (Opaquemove, MCX, MCP)
+   - BifatGUI Buttons in der Titelzeile werden jetzt vom MCP Sysihack
+     auf 3D Look gepatched
+   - @{"Hippel" alink "EP_Player.guide/Hippel"} an Amplifier angepaßt (Testweise)
+   - Crashproblem beim @{"FFT Analyzer" alink "EP_Engine.guide/FFT Analyzer"} fix bei Multicolor AGA-Modi und Screens 
+     mit weniger als 8 Farben 
+ 
+  27.12.96
+   - Deltamusic 1.0/2.0, MarkII, EMS, SoundFX (+PatternScroll) 1.3/2.0,
+     sowie SoundMon 2.2 Amplifieranpassung
+   - Maxtrax läuft jetzt
+   - EP Filerequest fix
+   - PlayAY added (Amplifier)
+   - DirListViewer Doubleklick besser
+ 
+  22.12.96
+   - Tronic an Amplifier angepaßt
+   - Mark Cooksey fix
+   - Playerloader: Musicline/Tronic/PSA
+   - Playerdok erweitert
+   - Subsongs bei Customs (Timemachine, JamesPond) gefixed
+   - Playerbatch erweitert
+ 
+  13.12.96
+   - STP3 V2.0 Replayer geschrieben und angepaßt
+ 
+  11.12.96
+   - Oktalyzer: beim manuellen Patternzurückschalten wird kein Songend mehr 
+     ausgelöst
+   - Digital Mugician II aus "eagleplayers/" entfernt, dessen Funktion wird vom 
+     normalen Digital Mugician mit erledigt, Update Playerbatch
+   - FastRamPlayer läuft wieder
+    - Eagleplayer1x-GUI: Crunch/Decrunchdisplay eingebaut
+
+  10.12.96
+   - Playerloader funktionierte nur mit Keyfile und SaveT: eingeschaltet und mit 
+     Moduletypen wie MED, XM usw. usf.
+   - der Datatype Player wird nur noch benutzt, wenn wirklich kein anderer Player
+     für die entsprechenden Samples gefunden wird
+ 
+  8.12.96
+   - der 14 Bit Amplifier kann jetzt 16 Bit Samples direkt in 14 Bit abspielen
+     (AIFF, WAVE), wird er nicht gefunden, werden die Samples automatisch in
+     8 Bit umgerechnet
+   - AIFF überarbeitet
+   - IFF 8SVX überarbeitet
+   - RIFF WAVE geschrieben
+    - Playerloder: RIFF WAVE neu, IFF 8SVX korrigiert, bessere Versionsnummerangabe (intern)
+  - Bifatgui: GUIMenu läuft wieder
+ 
+  7.12.96
+   - Amplifiermanager und Moduleinfo verbessert, Positionen der Fenster wurden gelegentlich
+     beim Beenden unterschlagen
+ 
+  2.12.96:
+   - Playerbatch: AIFF aus Datatype Zeile rausgenommen, 8SVX geupdated
+   - IFF 8SVX neu geschrieben, unterstützt nun auch FibDelta und Nachladen während
+     des Abspielens
+   - Gluemon neu angepaßt und M.O.N., sowie MarkCooksey auf Amplifierunterstützung umgebaut
+   - SonicArranger überarbeitet
+
+@endnode
+
+@node "Danksagungen" "Danksagungen"
+
+ @{u}8. Grüße und Danksagungen@{uu}
+
+Der Eagleplayer als unser Hauptprojekt hat sich über die Jahre entwickelt
+und eine ganze Menge Support, Hilfestellungen und Hinweise durch sehr viele
+leute erhalten. Wenn wir jetzt im folgenden eine (unsortierte) Aufzählung
+der Namen derer, denen wir ein kurzes "Hallo" widmen wollen, folgt, so
+erhebt diese keinerlei Anspruch auf Vollständigkeit und wenn wir jemanden
+hier nicht nennen, so geschieht das keinesfalls aus Boshaftigkeit...
+
+Als erstes seien hier alle registrierten User bedankt, die uns sehr oft
+mit Vorschlägen, Fehlermeldungen und auch veschiedensten Modulen
+weiterhalfen.
+
+Timm "Captain Bifat" Müller, Frank "Crazy Copper" Pagels,Jörg "M.U.D.U."
+Krempien, Marley & Turbo / Infect, Frank Riffel & Peter Kunath,  Oliver
+Borrmann (der 1. registrierte User), Manfred Jacobi, Michael Wesp,
+Daniel Lars Reuß, Dirk Stötzer, Thomas Schwarz, Thomas Winischhofer,
+Carsten Schlote, Mathias Praschel, Rainer Theuerkorn, Ron Birk,
+Ronny "RoPa" Passenheim, Mathias "MAT" Uhlig, The Exterminators, 
+Thomas Wenzel, Michael Jestram, Steffen Medrow, Alexis Nasr, Mike
+Herrin, Michael Knoke & Stefan Sommerfeld, Alexander Kneer, Tik/Retire,
+unsere Schweriner Crew (Insider, Animal, Latte, Mohr), Alexander Balow, 
+Mr. Larmer & Don Adan / Wanted Team, Bastian Spiegel, Markus Stiebeling,
+Jörn Plewka, Thorsten Hansen, Teijo Kinnunen, Christian Buchner, all
+on #AmigaGER, 
+
+Der einzige besondere Dank geht an Gregor "Bommel" Möller, der sich tapfer
+aufgeopfert hat, die Anleitung ins Englische zu übersetzen.
+
+
+Dank auch allen Beta-Testern, die noch nicht erwähnt wurden, Sorry !!!
+
+Ok, Leute das wars !!! Viel Spaß wünscht Euch das Eagleplayer-Programmierteam.
+
+                                                Eagleeye & Buggs of DEFECT
+
+
+
+PS: Der Eagleplayer kann intern SoundTracker und ProTracker abspielen sowie einige
+Customsongs und SoundTracker, die als Songs vorliegen, aber auch Propacker1.0 und
+Prorunner, nicht zu vergessen der unwahrscheinlich oft genutzte Wantonpacker und
+natürlich Noisetracker, aber auch Startrekker und AudioSculpture und ProTracker und
+OldSoundtracker sowie UnicTracker und ProTracker sowie einige ProTrackerPacker.
+Darunter wären Unic-Tracker, ProRunner und natürlich nicht zu vergessen der der ... ehm
+Wantonpacker und der Prorunner sowie natürlich die gesammten Soundtracker, die da wären
+ProTracker und NoiseTracker und SoundTracker und Startrekker.......... Frei nach Helge
+Schneider !              :-)
+
+@endnode

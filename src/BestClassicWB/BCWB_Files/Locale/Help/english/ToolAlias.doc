@@ -1,0 +1,125 @@
+short: substitute loadseg'd programs with others
+
+                              ToolAlias v1.02
+                              ---------------
+                     PUBLIC DOMAIN BY Martin W. Scott
+               NO WARRANTIES ATTACHED - USE AT YOUR OWN RISK
+                          RELEASED FEBRUARY 1993
+
+                ToolAlias requires AmigaDos 2.0 or higher.
+
+ToolAlias  provides  a  mechanism  for rerouting specific programs to other
+programs.  For example, with ToolAlias, you could reroute all references to
+':c/muchmore'  to use instead 'sys:utilities/ppmore', so that when browsing
+documents on a Fish disk, you get to use your favourite text viewer, rather
+than loading the one specified in the document's ToolTypes.
+
+I  take  no credit for this idea:  I got it from a program called Replex by
+Ekke  Verheul,  that  appeared  on a recent fish disk.  That program was as
+good  as  this incarnation, except that the method of patching the AmigaDos
+LoadSeg routine caused software failures when (blink-created) overlays were
+loaded.   Since  one  of  the  programs  I  use  a  lot (Yak) utilised such
+overlays, Replex was unusable on my system.  But I really liked the idea.
+
+So,  now  the  instructions.   ToolAlias is implemented as a commodity that
+should  be  started  by  dropping its icon into your WBStartup drawer.  The
+DONOTWAIT  ToolType  should  therefore  be  set;  the  standard Commodities
+ToolTypes  may  also  be  used,  to modify ToolAlias's HotKey and determine
+whether or not the settings window opens on startup.
+
+The standard Commodities ToolTypes are:
+
+Name		Default		Description
+-------------------------------------------------------------------------
+CX_PRIORITY	0		Commodity priority.
+CX_POPUP	TRUE		Whether to show window on startup.
+CX_POPKEY	control alt t	Key to open/show settings window.
+
+The  settings  window may be opened at startup, or more usually by pressing
+the  HotKey  (or  using the Exchange).  The window has a number of gadgets,
+whose use should be fairly obvious; the descriptions are:
+
+	Old	The old name to be substituted
+	New	The new name to replace the old name
+
+	<<	Move to start of list of substitutions
+	<	Move to previous member in list
+	Add	Add a new entry after the current member
+	Del	Delete current member
+	>	Move to next member in list
+	>>	Move to end of list of substitutions
+
+	Save	Save current configuration (and close window)
+	Load	Restore last-saved configuration
+	Use	Use current configuration (and close window)
+	Quit	Terminate ToolAlias, removing patches        
+
+The   configuration   is  saved  to  the  file  's:ToolAlias.config'.
+
+
+(slightly) Technical Details
+----------------------------
+The  system  LoadSeg  routine  is  patched, and a list of all substitutions
+kept.   When  a program calls LoadSeg with a name, the patch first searches
+it's  list  for  a  matching  name,  and  if  found, calls LoadSeg with the
+corresponding new name. When names are compared, case is insignigicant.
+
+Heres an example list:
+
+	old	:c/less
+	new	ppmore
+
+	old	:c/muchmore
+	new	ppmore
+
+	old	:c/xicon
+	new 	c:xicon
+
+	old	:c/iconx
+	new	c:iconx
+
+This  list  would  enable  you  to  browse  Fish disks while using your own
+preferred text viewer (in this example ppmore), and the Workbench scripting
+programs from your own C:  directory (which may be on a hard-disk, sppeding
+things  up).   I  should  stress  that  names  must  match  exactly  to  be
+substituted;  with the above list, a default tool of 'muchmore' wouldn't be
+substituted with another name as it doesn't match any of the 'old' names.
+
+I  have  to be honest and say I can't think of any uses for ToolAlias other
+than  circumventing default tool types with your own preferences, but since
+I get a lot of PD stuff and magazine coverdisks, I find it useful.
+
+
+History
+-------
+ v1.02	- enforcer-hit removed.
+
+	- cache-friendly patching now used.
+
+ v1.01	- initial release.
+
+
+Distribution
+------------
+As  with  all  my programs, ToolAlias is freeware, though I'm not averse to
+receiving contributions should you feel the need to send them.  Source in C
+is  included,  and  compiles  with  SAS/C  v5.10.   ToolAlias comes with no
+warranties,   and  any  loss  or  damage  arising  from  it's  use  is  the
+responsibility of the user, you, not the programmer, me.  This isn't to say
+that I think it will crash your system (in fact I'm pretty sure it won't).
+
+You  may contact me with comments, suggestions, bug-reports, cash, etc.  by
+postal mail at:
+
+	Martin W. Scott
+	23 Drum Brae North
+	Edinburgh  EH4 8AT
+	United Kingdom
+
+or by email until Summer 1993 at:
+
+	mws@castle.ed.ac.uk
+
+Enjoy,
+
+	Martin.

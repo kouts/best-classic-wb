@@ -1,0 +1,197 @@
+@database WBDock2
+
+
+@node Main "Introduction"
+
+  Welcome to WBDock2!
+
+  @{" Installation   " link Install}
+  @{" Options        " link Options}
+  @{" ARexx Commands " link ARexx}
+
+@endnode
+
+
+
+@node Install "Installation"
+
+  @{B}Installation@{UB}
+
+    @{B}Method 1@{UB}
+        - move WBDock to WBStartup
+        - move wbdock.config to somewhere else
+        - add the path to wbdock.config to WBDock's tooltypes.
+
+    @{B}Method 2@{UB}
+        - move WBDock anywhere on your harddisk
+        - move wbdock.config to WBStartup
+        - rename wbdock.config to WBDOCK
+        - add a project icon to WBDOCK and set the default tool to WBDock.
+
+    With method 2 the name of the config file becomes the name of the
+    ARexx port. This way you can have multiple docks. Settings will also
+    be saved to the icon of the config file rather than the WBDock tool.
+
+@endnode
+
+
+@node Options "Options"
+
+  @{B}Options@{UB}
+
+    CONFIG
+        The path and name of the config file. Default is wbdock.config in
+        the current directory.
+
+    POS=POSITION
+        Two letters specifying the position and alignment of the dock.
+        The first determines the orientation and position of the dock.
+        The second determines the alignent. If no second letter is given
+        the dock will be centered.
+        Each letter can be one of 
+         T - top
+         B - bottom
+         L - left
+         R - right
+        The default is B (centered in the bottom of the screen)
+
+    DISTANCE/K/N
+        Number of pixels the dock should keep from the border.
+        If you use the menu to set this it is either 0 or 5.
+        Put custom values into the tooltypes or command line.
+        Default is 0.
+
+    STYLE/K
+        One of
+         A - like AmiDock
+         T - like the ToolManager dock in Amiga Forever
+         M - using a brush as background for each icon, like the
+             ToolManager docks with MagicWB dock brushes.
+         F - similar to the MacOS dock, but icons moving in a
+             funny way.
+
+    FONT/K
+        The font to use for text in the dock. Format is name/size,
+        for example topaz/8.
+
+    NOTEXT/S
+        Do not show text in the dock.
+
+    ND=NODRAGBAR/S
+        Do not show a drag bar.
+
+    STICKY/S
+        Keep the menu open without holding the right mouse button.
+
+    PATTERN
+        The path and file name of the background pattern for the 
+        AmiDock style.
+
+    DRAGBAR
+        The path and file name of the background pattern of the dragbar 
+        of the AmiDock style.
+
+    TEXTURE/K
+        The path and file name of the platter pattern of the funny style. 
+
+    TRANSPARENCY/K/N
+        The transparency of the platter of the funny style between 0
+        (opaque) and 100 (invisible).
+
+    PLATTER/K/N
+        The height of the platter of the funny style in percent of the
+        window height.
+        Set this to 0 to take the height of the texture image.
+
+    FUNNYICONW/K/N
+    FUNNYICONH/K/N
+        Width and height of the icon on the funny style dock in normal
+        position. Default is 25 x 25.
+
+    FUNNYGROWTH/K/N
+        Growth of the icon on the funny style dock when the mouse hovers
+        over it. Default is 100 (which means the icon will be scaled to
+        50 x 50).
+
+    USEHAM/S
+        Use HAM for the platter. Only on HAM screens. Transparency might
+        look better but HAM artifacts will be shown when the icons move.
+
+    DOCKBRUSH/K
+        The brush to use as icon background for the MagicWB style.
+
+    DOCKFRAME/K/N
+        This number of pixels is cut off from each side of the icon
+        to keep the frame of the brush visible.
+        If you use the menu to set this it is either 0 or 2.
+        Put custom values into the tooltypes or command line.
+        Set it to 0 if the brush does not have a visible frame.
+        Default is 2.
+
+    BEVEL/S
+        Draw a bevel around the MagicWB dock.
+
+    RECESSED/S
+        Draw the bevel recessed.
+
+    CLIWINDOW/K
+        The console window which opens if a program is run in CLI mode.
+
+    PUBSCREEN/K
+        The name of the public screen the dock should open on.
+
+    QUIET/S
+        Do not show any messages.
+
+    DELAY/N/K
+        Wait this number of 1/50 seconds before the dock opens.
+
+    VERBOSE/S
+        Show more messages.
+
+    NOBLINK/S
+        Disable icon flashing after a click
+
+    SMARTREFRESH/S
+        Changes the refresh mode of the dock window to SMART_REFRESH.
+        Needs a bit more Chip RAM but flickers less.
+        
+
+@endnode
+
+
+@node ARexx "ARexx Commands"
+
+  @{B}ARexx Commands@{UB}
+
+    The default ARexx port name is WBDOCK. It can be changed if WBDock is
+    started by a project icon (see installation method 2).
+
+    QUIT
+        Close the dock and leave the program.
+
+    HIDE
+        Close the dock but stay in the background.
+
+    SHOW
+        Open the dock after HIDE.
+
+    REFRESH
+        Close and reopen the dock.
+        Meant for the funny style to refresh the background.
+
+    REMOVE ICON/A
+        Remove the named icon.
+
+    MOVE ICON/A,AFTER/K
+        Move the named icon in the dock after the second icon.
+        If no second icon is given the user is asked to move the icon with
+        the cursor keys.
+
+    ADD ICON/A,AFTER/K
+        Add a new icon to the dock. The full path to the icon must be
+        given.
+        If no second icon is given the icon will be added at the end of the
+        list.
+
+@endnode

@@ -1,0 +1,610 @@
+@DATABASE 0016
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 8. Das Farbe-Menü"
+@TOC PPaintCD:H/7/1/4/OO00/Main
+
+@{B}8.         Das Farbe-Menü@{UB}
+
+Bei einem Mal- und Bildverarbeitungsprogramm wie Personal Paint geht ohne
+Farben verständlicherweise gar nichts, zumindest könnte kein Bild erstellt
+werden. Bei einer sorgfältigen Auswahl können schon 64 Farben ein Bild wie
+ein Foto aussehen lassen, ein undeutliches Bild zu neuem Glanz erwecken
+oder auch den Speicherverbrauch eines Bildes auf einen Bruchteil des
+Originals schrumpfen lassen, ohne dabei Einzelheiten zu opfern.
+
+Mit Hilfe der Unterpunkte im Menü "Farbe" können einzelne Farben
+ausgewählt und modifiziert werden, aber auch globale Farbveränderungen
+sind möglich. Außerdem können Farbpaletten geladen, gespeichert und
+zwischen Objekten ausgetauscht werden.
+
+
+@{B}8.1        Palette@{UB}
+
+Als @{I}Palette@{UI} wird der gesamte, einem bestimmten Bild zugewiesene Farbraum
+bezeichnet. Dieser ähnelt der bekannten Palette eines Künstlers, die
+ebenfalls viele verschiedene Farben enthält, die zusammen verwendet werden
+können. Beim Amiga gilt: Je mehr Farben verwendet werden, desto mehr
+Systemresourcen (Speicher, Rechenzeit, usw.) sind zum Bearbeiten eines
+Bildes notwendig. Die Beziehung zwischen Bildgröße, Anzahl der Farben und
+Speicherverbrauch wird in Abschnitt @{"1.3.2" LINK PPaintCD:H/7/1/4/0002/Main 95} näher erläutert. Die maximale
+Anzahl der in einer digitalen Palette verfügbaren Farben ist immer eine
+Zweierpotenz (2, 4, 16, 64, 256, usw.)
+
+Unterschiedliche Bilder erfordern oft auch verschiedene Farben. Es kann
+dabei durchaus vorkommen, daß ein Bild bestimmte Farben kaum verwendet,
+die in einem anderen Bild dagegen verstärkt auftreten. Obwohl Paletten mit
+einer großen Farbanzahl (z. B. 256 Farben) für die Darstellung der meisten
+Bilder optimal sind, kann es dennoch Gründe für den Einsatz von Paletten
+mit weniger Farben geben.
+
+Die Verwendung einer aus genau abgestimmten Farben zusammengesetzten
+Palette spart nicht nur Speicher und Rechenzeit, sondern sorgt auch für
+ein einheitliches Erscheinungsbild und einen durchgängigen Stil; dies ist
+besonders dann wichtig, wenn verschiedene Bilder eine einheitliche
+Atmosphäre erzeugen sollen.
+
+
+@{B}8.1.1      Laden@{UB}
+
+Informationen über die Farbpalette werden grundsätzlich mit einem Bild
+gespeichert, unabhängig vom verwendeten Format (eine Ausnahme bilden nur
+Formate mit zwei Farben, die schwarz und weiß verwenden). Paletten lassen
+sich allerdings auch separat abspeichern: Die resultierende Datei enthält
+dann nicht ein Bild plus Palette, sondern nur die Palette selbst.
+
+Diese Funktion kann Paletten verschiedener Grafikformate (GIF, IFF-ILBM,
+PCX, usw.) entweder mit oder ohne dazugehöriges Bild identifizieren und
+laden. Die neue Palette wird dann zu der der aktuellen Umgebung gemacht.
+Wenn der aktuelle Bildschirmmodus mehr Farben als die angegebene Palette
+besitzt, werden nur so viele der ersten Farben in der Palette modifiziert,
+wie in der neuen Palette vorhanden sind.
+
+Wie auch bei anderen Funktionen, die zur Modifikation der Palette dienen,
+kann die Originalpalette durch den Befehl "Alte Werte" (Abschnitt @{"8.1.6" LINK Main 301})
+wiederhergestellt werden.
+
+
+@{B}8.1.2      Speichern@{UB}
+
+Mit diesem Befehl wird die aktuelle Palette in einer IFF-ILBM-Datei
+gespeichert (dabei werden die BMHD-, CMAP- und CAMG-IFF-Chunks
+geschrieben). Diese Methode stellt einen standardisierten und effektiven
+Weg zur Speicherung von Farbinformationen dar, die später mit Personal
+Paint oder anderen Programmen wieder geladen werden können.
+
+Diese Funktion kann auch dazu benutzt werden, die ursprünglichen
+"UIColors"-Dateien auf der "PPaint_Prefs"-Diskette, welche die
+Standard-Menüfarben festlegen, zu überschreiben. Dadurch lassen sich ca. 5
+kbyte Speicherplatz auf der Diskette sparen (dies kann bei Disketten
+bereits entscheidend sein), da die "UIColors"-Originaldateien zur
+leichteren Bearbeitung noch ein gemaltes Menü und Dialogfenster enthalten.
+Davon abgesehen, sollte von den Originaldateien zur Verwendung in späteren
+Projekten stets eine Kopie vorhanden sein.
+
+
+@{B}8.1.3      Ändern@{UB}
+
+In diesem Dialogfenster läßt sich jede Farbe der aktuellen Palette so
+genau einstellen, wie es der eingestellte Bildschirmmodus erlaubt.
+Außerdem werden Funktionen zum Kopieren, Vertauschen und Anordnen von
+Farben sowie zur Erstellung neuer Farbräume bereitgestellt.
+
+Beim Herumexperimentieren mit Farben kann es durchaus vorkommen, daß
+plötzlich der gesamte Bildschirm unsichtbar wird, weil alle dargestellten
+Objekte die gleiche Farbe besitzen. In diesem Fall lassen sich durch einen
+Druck auf die <Help>-Taste wieder die Originalfarben von Personal Paint
+für den aktuellen Bildschirmmodus aufrufen.
+
+Die von Personal Paint für die Darstellung der Benutzeroberfläche
+verwendeten Farben hängen nicht zuletzt auch von der aktuellen Palette ab,
+ihre Auswahl wird abhängig von Lesbarkeit, Kontrast und "3-D Effekt"
+vorgenommen. Die Farben außerhalb des Dialogfensters werden aktualisiert,
+sobald die Maus aus dem Dialogfenster für die Palettenauswahl bewegt
+wird.
+
+
+@{B}8.1.3.1    Auswählen einer Farbe@{UB}
+
+Der horizontal verlaufende Balken im oberen Bereich des Fensters enthält
+die Anordnung der in der Palette verfügbaren Farben. Über der aktuellen
+Farbe (beim Aufruf des Dialogfensters ist dies die Vordergrundfarbe) wird
+ein nach unten gerichtetes Pfeilsymbol dargestellt. Wenn die Palette mehr
+Farben enthält, als in dem Balken angezeigt werden können, läßt sich die
+Anzeige mit Hilfe der beiden Rollpfeile rechts neben dem Balken
+verschieben, damit auch die anderen Farben sichtbar werden. Wird über
+einem der Pfeile die linke Maustaste gedrückt gehalten, führt dies zum
+fortlaufenden Verschieben des Balkens.
+
+In den "HalBrite"-Videomodi (64 Farben) können nur die ersten 32 Farben
+der Palette frei gewählt werden, da die zweiten 32 automatisch durch
+Halbierung der Helligkeitswerte der ersten 32 berechnet werden. Aus diesem
+Grund lassen sich im Dialogfenster auch nur die ersten 32 Farben edieren.
+
+Die aktuelle Farbe läßt sich durch einen Druck auf die linke Maustaste
+auswählen. Dies gilt jedoch nicht nur für das Dialogfenster selbst,
+vielmehr kann die Farbe auch im dargestellten Bild oder dem
+Haupt-Palettenfenster angewählt werden. Die Cursortasten <Links> und
+<Rechts> verschieben die aktuelle Farbe in der Palette jeweils um eine
+Position nach hinten, bzw. nach vorn.
+
+Rechts unter dem Balken mit den in der aktuellen Palette verfügbaren
+Farben befindet sich ein rechteckiges Feld, in dem die aktuelle Farbe und
+deren Positionsnummer innerhalb der Palette angezeigt werden (wobei die
+Nummern bei einer Palette mit 16 Farben im Bereich von 0 bis 15 liegen
+können).
+
+Es wird häufig vergessen, daß die Maus zur Auswahl einer beliebigen Farbe
+auch über die Grenzen des Dialogfensters hinwegbewegt werden kann. Dabei
+ist zu beachten, daß auch die unter der Werkzeugleiste befindliche
+Hauptpalette zur Verfügung steht.
+
+
+@{B}8.1.3.2    RGB- und FSH-Farbmodelle@{UB}
+
+Die aktuelle Farbe kann unter Einsatz der Schieberegler (-Knöpfe) unter
+dem Farbbalken modifiziert werden. Zur Festlegung einer Farbe lassen sich
+zwei verschiedene Farbmodelle (oder Koordinatensysteme) verwenden: RGB
+(Rot, Grün, Blau) und HSB (Hue (= Farbton), Saturation (= Sättigung),
+Brightness (= Helligkeit)). Im Deutschen hat sich für die Bezeichnung des
+des HSB-Modells auch die Bezeichnung "FSH-Modell" (= Farbton, Sättigung,
+Helligkeit) etabliert. Die zwei Gruppen von Schiebereglern stellen zwei
+verschiedene Zugriffsarten auf den gleichen Farbraum dar, dabei kann jede
+Gruppe unabhängig von der anderen eingesetzt werden. Daraus folgt, daß
+auch durch Arbeit mit nur einer Reglergruppe auf alle verfügbaren Farben
+zugegriffen werden kann.
+
+Beim RGB-Modell wird eine Farbe als Kombination dreier Primärfarben
+definiert: Rot, Grün und Blau. Die Intensität jeder dieser drei Farben
+wird durch einen Wert zwischen Null und dem Maximalwert festgelegt, wobei
+dieses Maximum sowohl vom Bildschirmmodus als auch vom verwendeten
+Amiga-Modell abhängt. In den meisten Modi von Original-Amiga-Chipsatz und
+ECS-Chipsatz können Rot, Grün und Blau jeweils 16 verschiedene
+Intensitätswerte besitzen, was dazu führt, daß eine Farbe aus einem
+Farbraum von 4096 möglichen gewählt werden kann (16 hoch 3). Einige
+Bildschirmmodi des ECS-Chipsatzes, der A2024-Modus und andere Modi
+besitzen eine geringere Anzahl an Intensitätsstufen (z. B. vier), es kann
+daher dann nur aus z. B. 64 Farben oder Graustufen gewählt werden. Bei
+Amigas mit AA- (Advanced Architecture-) Chipsatz verfügen die meisten
+Bildschirmmodi über die Möglichkeit, jeder Primärfarbe bis zu 256
+Intensitätsstufen zuzuordnen. 256 hoch 3 ergibt 16.777.216 verschiedene
+Kombinationsmöglichkeiten (daher kommen also die berühmten "16 Mio.
+Farben"). In Abschnitt @{"1.14" LINK PPaintCD:H/7/1/4/0002/Main 1428} wird erklärt, warum deshalb
+"UIColors"-Dateien mit verschiedenen Auflösungen benutzt werden.
+
+Theoretisch gilt: Wenn die drei Primärfarben den gleichen Intensitätswert
+besitzen, ist das Ergebnis ein "reines" Grau im Bereich von Weiß bis
+Schwarz.
+
+Im HSB- oder FSH-Modell (wird engl. auch als HSV-Modell bezeichnet, wobei
+dann das "V" für "Value" (=Wert) steht) wird eine Farbe als Position
+innerhalb eines Farbrades plus einem Helligkeitswert definiert. Bei diesem
+Farbrad handelt es sich um eine Art runden Regenbogen (Besitzer der
+Betriebssystemversion 3.0 wissen, was gemeint ist). Im Randbereich des
+Kreises erscheinen alle 120 Grad (d. h. jeweils im Abstand eines Drittels
+des Kreisumfangs) "reine" Farben (Rot, Grün und Blau), wobei angenommen
+wird, daß Rot den Anfang und das Ende des Kreises darstellt.
+Positionswerte zwischen den reinen Farben stehen für Mischtöne. Im
+Randbereich des Farbrades sind die Farben kontrastreich sichtbar, zur
+Mitte hin verlaufen sie immer weiter Richtung grau. Der Mittelpunkt des
+Farbrades enthält immer einen Grauton, dessen Helligkeit im Bereich
+zwischen Weiß und Schwarz liegt.
+
+Der "Farbton"-Parameter legt die Winkelposition einer Farbe im Farbrad
+fest: 0 (oder 360) = Rot, 60 = Gelb, 120 = Grün, 180 = Cyan, 240 = Blau,
+300 = Magenta, usw. "Sättigung" beschreibt den Abstand einer bestimmten
+Farbe von der Mitte des Farbrades im Bereich von 0 (Grau) bis 100 (reine
+Farbe). "Helligkeit" steht für die gesamte Lichtintensität (im Gegensatz
+zur Farbintensität einzelner Farben, die durch den Sättigungswert bestimmt
+wird). Ein Helligkeitswert von 0 bedeutet grundsätzlich Schwarz. 100 steht
+für die maximal mögliche Helligkeit bei einer bestimmten
+Farb-/Sättigungs-Kombination.
+
+
+@{B}8.1.3.3    Farbe kopieren@{UB}
+
+Zum Kopieren einer schon vorhandenen Farbe an einen anderen Platz
+innerhalb der Palette ist zunächst die erste Farbe (diejenige, die kopiert
+werden soll) auszuwählen und dann das "Farbe kopieren"-Symbol anzuklicken,
+bevor die Zielfarbe (diejenige, die überschrieben werden soll) angeklickt
+wird.
+
+
+@{B}8.1.3.4    Farben vertauschen@{UB}
+
+Diese Funktion ähnelt der vorherigen, allerdings wird hier die Zielfarbe
+nicht überschrieben, sondern mit der ersten Farbe vertauscht.
+
+
+@{B}8.1.3.5    Farben sortieren@{UB}
+
+Diese Symbole sortieren Farben im Bereich zwischen der aktuellen Farbe und
+derjenigen, die nach dem Aktivieren der Sortiersymbole angeklickt wird.
+Farben können auf zwei verschiedene Arten sortiert werden: Von der
+hellsten des ausgewählten Bereiches zur dunkelsten und umgekehrt.
+
+Durch Gedrückthalten der <Shift>-, <Alt>- oder <Ctrl>-Taste kann zwischen
+drei unterschiedlichen Sortierverfahren umgeschaltet werden, die eine
+Sortierung entweder nach Farbton, -sättigung oder -helligkeit bewirken.
+Letztgenannte Option eignet sich besonders für die Verarbeitung von im
+PCX-Format vorliegenden Bildern, die aus technischen Gründen weniger
+Speicherplatz benötigen, wenn ihre Palette absteigend nach der Häufigkeit
+der vorhandenen Farben angeordnet ist.
+
+
+@{B}8.1.3.6    Bereich erstellen@{UB}
+
+Diese beiden Symbole führen zum Erzeugen neuer Farben im Bereich zwischen
+der aktuellen Farbe und derjenigen, die nach dem Aktivieren der Symbole
+angeklickt wird. Das erste (linke) Symbol führt zur Auswahl von
+Mittelwerten nach dem RGB-Modell, wohingegen das zweite die Abstände nach
+dem HSV-System berechnet.
+
+
+@{B}8.1.3.7    Undo@{UB}
+
+Das Undo-Symbol macht die letzte Veränderung der Palette in diesem
+Dialogfenter rückgängig, die Anwahl von "Alles wiederherstellen" ruft
+wieder die Standardeinstellung auf.
+
+
+@{B}8.1.3.8    Kein Fenster@{UB}
+
+Durch die Anwahl dieses Symbols wird das Dialogfenster ausgeblendet (nur
+solange die linke Maustaste gedrückt bleibt) und die normalerweise durch
+das Fenster verdeckten Bildbereiche werden sichtbar. Wird bei gedrückter
+linker Maustaste zusätzlich die rechte gedrückt, führt dies zum "Rotieren"
+der Farben. Beide Optionen ermöglichen eine Vorschau möglicher Effekte
+durch Veränderung von Farben, ohne dazu das Dialogfenter verlassen zu
+müssen.
+
+
+@{B}8.1.4      Palette einstellen@{UB}
+
+Mit dieser Funktion lassen sich die Farben des aktuellen Bildes global
+modifizieren. Die Funktion eignet sich besonders zur erstmaligen
+Bearbeitung gescannter Bilder oder zur Druckvorbereitung (Farben, die von
+Scannern oder Druckern erzeugt werden, können von der Bildschirmanzeige
+abweichen und bedürfen daher häufig manueller Korrekturen).
+
+Mit Hilfe der sechs Schieberegler können verschiedene Farbkomponenten
+entfernt, verdoppelt oder zwischen diesen beiden Extremwerten eingestellt
+werden, wobei sich der entsprechende Effekt auf alle Farben der Palette
+auswirkt. Zur Modifikation einer einzelnen Farbe muß das Dialogfenster der
+Funktion "Palette Ändern" (Abschnitt @{"8.1.3" LINK Main 80}) benutzt werden. In den
+"HalfBrite"-Bildschirmmodi (Abschnitt @{"8.1.3.1" LINK Main 101}) werden die ersten 32
+Farben direkt verändert, die zweiten 32 ergeben sich aus deren dunkleren
+Varianten.
+
+Von oben nach unten gesehen, können mit den Schiebereglern die folgenden
+Faktoren beeinflußt werden: Farbe, Helligkeit, Kontrast, Rot, Grün, Blau.
+Das Einstellen der Farben entspricht der Modifikation des Sättigungswertes
+im HSB-Modell (Abschnitt @{"8.1.3.2" LINK Main 137}). Mit dem Kontrastregler läßt sich der
+Abstand der RGB-Werte von den Medianwerten verringern oder vergrößern.
+
+Das Symbol mit der Aufschrift "Erhalten" bringt nach einer Veränderung
+alle Schieberegler wieder in die Mittelstellung zurück. Dadurch können
+größere Veränderungen als eine Verdoppelung eines Wertes vorgenommen
+werden, auch die Bestimmung der Reihenfolge von Veränderungen ist möglich
+(standardmäßig beeinflussen die Einstellungen alle Farben in der
+Reihenfolge der Schieberegler von oben nach unten).
+
+Ein Druck auf die <Help>-Taste macht alle Korrekturen rückgängig und setzt
+die Schieberegler wieder auf 0%.
+
+
+@{B}8.1.5      Standard@{UB}
+
+Mit diesem Befehl werden alle Farben wieder der Standardpalette von
+Personal Paint angepaßt. Dabei handelt es sich entweder um die
+programminterne Palette oder um eine, die durch eine der "Startup"-Dateien
+aufgerufen wird (siehe Abschnitte @{"9.1" LINK PPaintCD:H/7/1/4/0047/Main 9} und Anhang @{"C" LINK PPaintCD:H/7/1/4/0044/Main 1}).
+
+Standardmäßig ist dieser Funktion der Tastaturkurzbefehl <Help>
+zugeordnet.
+
+
+@{B}8.1.6      Alte Werte@{UB}
+
+Mit dieser Funktion werden die letzten Veränderungen der Palette
+rückgängig gemacht und die vorher benutzten Farben wiederhergestellt. Auch
+dieser Vorgang läßt sich durch zw einmaliges Aufrufen wieder rückgängig
+machen.
+
+
+@{B}8.1.7      Von Pinsel@{UB}
+
+Diese Funktion kopiert die Farben des aktuellen individuellen Pinsels
+(dessen Nummer in der Titelleiste angezeigt wird) in die Palette der
+aktuellen Umgebung. Wenn der Pinsel über weniger Farben als die Palette
+verfügt (oder umgekehrt), werden nur die ersten Farben kopiert.
+
+
+@{B}8.1.8      Von Schrift@{UB}
+
+Farbige Schriften (sog. "Color-Fonts") werden üblicherweise unter
+Verwendung einer Palette erstellt, die ihrem Erscheinungsbild am besten
+gerecht wird. In einem solchen Fall würde der Einsatz der Schrift mit
+einer anderen Palette zu einem wenig zufriedenstellenden Ergebnis führen.
+Nach dem Laden der gewünschten Schrift kann deren Palette mit dieser
+Funktion zur Palette der aktuellen Umgebung gemacht werden.
+
+Wenn der Farbraum der geladenen Schrift für die geplante Arbeit zu
+begrenzt ist, reicht es aus, die Anzahl der Farben zu erhöhen (Abschnitt
+@{"4.5.3" LINK PPaintCD:H/7/1/4/0049/Main 1172}) und die ersten Farben (d. h. die Farben der Schrift) unverändert
+zu lassen.
+
+
+@{B}8.1.9      Von Bildschirm@{UB}
+
+Diese Funktion kopiert die Farben des ausgewählten Bildschirms in die
+aktuelle Umgebung, allerdings wird dabei der Bildschirm selbst nicht
+kopiert. Die Auswahl des Bildschirms, dessen Farben für das Erzeugen der
+neuen Palette dienen sollen, erfolgt wie bei der Funktion Bildschirm laden
+(Abschnitt @{"4.4" LINK PPaintCD:H/7/1/4/0049/Main 995}).
+
+
+@{B}8.2        Maske@{UB}
+
+Die Arbeitsweise einer digitalen Schablone (oder Maske) ist der bei der
+Verwendung eines ausgeschnitten Blattes Papier oder einer Metallfolie sehr
+ähnlich. Sobald eine Maske definiert oder geladen wird, wird auch eine
+neue Bitmap zusätzlich zu den schon vorhandenen Bild-Bitplanes erzeugt.
+Das Konzept ähnelt dem zur Erzeugung einer Transparenz-Bitplane, wie es in
+Abschnitt @{"5.9.5" LINK PPaintCD:H/7/1/4/0048/Main 284} beschrieben wird. Die Masken-Bitmap enthält Informationen
+darüber, welche Teile des Bildes von Maloperationen nicht beeinflußt
+werden sollen. Wo in der Bitmap Einsen vorhanden sind, werden die
+darunterliegenden Bereiche vor Veränderungen geschützt; wo Nullen stehen,
+funktionieren alle Maloperationen wie gewohnt.
+
+Eine Maske kann auf zweierlei Arten definiert werden: Entweder durch
+selektives Ausgrenzen aller Bereiche mit einer bestimmten Farbe
+(Farbmaskierung) oder durch Erstellen eines zweifarbigen Bildes, welches
+dann farbmaskiert und als Maske geladen wird. Selbst wenn die Maske
+ursprünglich durch Farbmaskierung definiert wurde, wird sie sofort in eine
+Bitmap umgewandelt. Das bedeutet, daß Personal Paint bestimmte Pixel nicht
+aufgrund ihrer Farbe vor Veränderungen schützt, sondern sondern weil sich
+in der dazugehörigen Maskenbitplane eine Eins befindet.
+
+Auf der Ebene des Dateiformates kann die Ähnlichkeit mit der oben
+beschriebenen Bitplane für die Pinseltransparenz zu einer verwirrenden
+Gleichheit führen. Der Grund: Die Spezifikationen des IFF-Formates
+benutzen für die Transparenz eines Pinsels (wenn diese nicht algorithmisch
+definiert werden kann) und die Maskeninformation eines Bildes die gleiche
+Bitplane. Wenn eine Grafik mit solch einer zusätzlichen Bitplane als
+Pinsel geladen wird, würde diese Bitplane als Transparenzbitplane
+interpretiert, während ein Laden der Grafik als Bild die Daten zusätzlich
+als Schablone dazuladen würde (die Schablone würde aktiviert).
+
+
+@{B}8.2.1      Maske laden@{UB}
+
+Dieser Befehl lädt die in einer Bilddatei oder einer Maske enthaltenen
+Daten. Beim IFF-ILBM Format werden beim Abspeichern eines Bildes mit
+aktiver Maske die Maskendaten grundsätzlich mitgespeichert.
+
+Die Größe der Maske sollte mit der des Bildes identisch sein. Wenn die
+Maske größer ist, wird sie abgeschnitten; ist sie kleiner, werden
+bestimmte Teile des Bildes (die in der Maskendatei fehlenden unteren und
+rechten Streifen) nicht geschützt.
+
+
+@{B}8.2.2      Maske speichern@{UB}
+
+Die Masken-Bitplane, die zuletzt in der aktuellen Ungebung verwendet
+wurde, wird in einer normalen IFF-ILBM-Maskendatei gespeichert. Dabei
+werden folgende IFF-Chunks geschrieben: BMHD, CAMG und BODY.
+
+
+@{B}8.2.3      Maske ändern@{UB}
+
+Dieses Fenster ermöglicht die Erstellung einer Maske, indem die zu
+schützenden Bereiche bestimmten Farben zugeordnet werden. Nachfolgende
+Maloperationen können Pixel, die im Fenster mit einem Häkchen
+gekennzeichnet sind, dann nicht mehr beeinflussen.
+
+Die Maskenbitplane selbst wird durch Malbefehle, die z. B. einen neuen
+Bereich innerhalb des ehemals durch die Maske geschützten Bereiches
+erstellen, nicht aktualisiert. Dazu ist die Funktion "Neu erstellen"
+(Abschnitt @{"8.2.4" LINK Main 434}) zu verwenden.
+
+Der Schutzstatus einer Farbe kann entweder durch das Anklicken eines
+Farbkästchens oder durch die Auswahl der Farbe direkt im Bild mit der
+linken oder rechten Maustaste (um die entsprechende Farbe zu wählen, bzw.
+nicht zu wählen) bestimmt werden. Die geschützten Farben sind mit einem
+Häkchen gekennzeichnet. Indem der Mauszeiger mit gedrückter Maustaste über
+die Farbfelder im Maske-Dialogfenster bewegt wird, lassen sich mehrere
+Farben in einem einzigen Arbeitsgang selektieren oder deselektieren. Dies
+erleichert besonders den Umgang mit größeren Paletten.
+
+Das Symbol mit der Aufschrift "Löschen" entfernt alle Häkchen (eine solche
+Maske ist gleichbedeutend mit keiner Maske). "Umstellen" invertiert den
+"An/Aus"-Status der Farben. "Zeigen" blendet das Fenster aus bei über dem
+Symbol gedrückt gehaltener linker Maustaste aus und zeigt maskierte
+Bereiche in Schwarz, andere in Weiß.
+
+Bei der Definition eines individuellen Pinsels (Abschnitt @{"3.1.6" LINK PPaintCD:H/7/1/4/0017/Main 1156}) werden
+nur diejenigen Pixel berücksichtigt, die nicht maskiert sind. Eine Maske
+kann auch erstellt werden, indem sie zunächst als zweifarbiges Bild gemalt
+wird;  eine der beiden Farben kann dann in diesem Fenster maskiert
+werden.
+
+In Abschnitt @{"3.1.4" LINK PPaintCD:H/7/1/4/0017/Main 600} wird ein Fall beschrieben, bei dem eine Maske dazu
+benutzt wird, bestimmte, farbige Bereiche eines Bildschirms vor dem
+Überschreiben durch Bildbearbeitungsfunktionen zu schützen.
+
+Die beiden Umgebungen des Programms verfügen über verschiedene
+Maskenbitplanes.
+
+
+@{B}8.2.4      Maske neu erstellen@{UB}
+
+Normalerweise wird eine als Farbmaske definierte Maske unter Verwendung
+des "Maske ändern"-Fensters erzeugt. Bereiche einer bestimmten Farbe
+können mit den Funktionen in diesem Fenster maskiert werden, aber sie
+werden nicht erweitert, wenn neue Farben in das Bild eingefügt werden.
+Dieser Befehl führt zu einer Neuerstellung der Maske, nachdem einem Bild
+weitere Farben hinzugefügt worden sind.
+
+
+@{B}8.2.5      Maske invertieren@{UB}
+
+Diese Funktion vertauscht maskierte und unmaskierte Bereiche. Wenn die
+Maske als Farbmaske definiert wurde, wirkt sich dieser Befehl ähnlich aus
+wie die Funktion "Invertieren" im "Maske ändern"-Dialogfenster. Wenn die
+Maske jedoch gemalt wurde (und daher von nicht abhängig von bestimmten
+Farben des Bildes ist), kann ohne Löschen der Maske nur diese Funktion
+angewendet werden.
+
+
+@{B}8.2.6      Maske Ein/Aus@{UB}
+
+Dieser Befehl schaltet die Maske ein oder aus. Wenn die Maske zum ersten
+Mal eingeschaltet wird, erscheint das "Maske ändern"-Dialogfenster. Selbst
+wenn die Maske ausgeschaltet wird, bleibt ihre Bitmap erhalten. Ein in der
+Titelleiste angezeigtes Symbol zeigt an, daß die Maske aktiv ist.
+
+
+@{B}8.2.7      Maske freigeben@{UB}
+
+Diese Funktion schaltet die Maske aus und löscht die dazugehörige
+Bitplane. Nach der Ausführung dieses Befehls muß zur Maskierung eines
+Bereiches eine Maske neu definiert oder eine vorhandene geladen werden.
+
+
+@{B}8.3        Neu verteilen@{UB}
+
+Es kommt hin und wieder vor, daß Farben eines Bildes unbeabsichtigt
+verändert werden. Dies kann z. B. der Fall sein, wenn Schrift- oder
+Pinselfarben das aktuelle Bild beeinflussen, wenn Farben manuell verändert
+werden oder auch, wenn die Position von Farben in der Palette umgestellt
+wird. Nach einer solchen Operation passen die vorhandenen Farben oft nicht
+zum angezeigten Bild.
+
+Dieser Befehl benutzt die aktuellen Farben, um das Erscheinungsbild des
+aktuellen Bildes so weit wie möglich der Ausgangspalette anzugleichen (die
+natürlich weiterhin mit der Funktion Standard wieder aufgerufen werden
+kann). Wenn die gleiche Farbe sowohl in der Ausgangs- als auch in der
+neuen Palette vorkommt, werden durch diesen Befehl lediglich alle Hinweise
+auf die Position der Farbe in der Palette aktualisiert. Wenn einige der
+alten Farben in der aktuellen Palette nicht vorhanden sind, wählt Personal
+Paint entweder eine ähnliche Farbe aus oder versucht, die verlangte
+Zielfarbe durch Mechanismen wie Rasterung, das Floyd-Steinberg-Verfahren
+oder intelligente Mischtechniken zu erzeugen, die in den dazugehörigen
+Programmoptionen (Abschnitt @{"9.8" LINK PPaintCD:H/7/1/4/0047/Main 396}) näher erläutert werden.
+
+
+@{B}8.4        Hintergrund zu Vordergrund@{UB}
+
+Mit diesem Befehl werden alle Pixel in der Hintergrundfarbe mit der
+Vordergrundfarbe versehen. Er ähnelt dem Befehl gleichen Namens, der auf
+Pinsel angewendet werden kann (Abschnitt @{"5.9.3" LINK PPaintCD:H/7/1/4/0048/Main 259}).
+
+
+@{B}8.5        Hintergrund mit Vordergrund vertauschen@{UB}
+
+Ähnlich wie bei der vorherigen Funktion, werden auch hier die Farben der
+Vorder- und Hintergrundpixel vertauscht.
+
+
+@{B}8.6        Mischen@{UB}
+
+In vielen Fällen soll aus verschiedenen Bildern oder Bildteilen ein
+einziges Bild geschaffen werden. Dies ist z. B. der Fall, wenn ein
+gescanntes Foto über einen digitalen Hintergrund gelegt wird, wenn ein
+Pinsel aus einer anderen Umgebung in die aktuelle eingefügt wird oder wenn
+mehr als ein verkleinertes Bild auf der gleichen Seite angezeigt werden
+soll. Bei all' diesen Fällen stellt sich das gleiche Problem: Wenn die zu
+mischenden Elemente über unterschiedliche Paletten verfügen, erhält der
+Großteil der Pixel beim Zusammenstellen des Bildes die falsche Farbe.
+
+Mit Hilfe dieser Funktion lassen sich die Farbpaletten aller gerade
+benutzten Pinsel und Bilder selektiv, d. h. Farbe für Farbe, mischen. Das
+Ergebnis ist eine einzige Palette für alle ausgewählten Elemente, die so
+viele Farben besitzt, wie die aktuelle Umgebung. Die Farben werden
+sorgfältig ausgewählt, aber es kann sein, daß nicht genügend Farben zur
+Verfügung stehen, um jeden individuellen Pixel aller Bilder und Pinsel
+wiederzugeben. Aus diesem Grunde werden bei der Palettenangleichung der
+Einzelelemente Mechanismen wie Rasterung, das Floyd-Steinberg-Verfahren
+oder andere Fehlerverteilungsalgorithmen angewendet, wie in den relativen
+Programmeinstellungen angegeben (Abschnitt @{"9.8" LINK PPaintCD:H/7/1/4/0047/Main 396}). Die verschiedenen
+Verfahren zur Farbenreduzierung werden in Abschnitt @{"9.7" LINK PPaintCD:H/7/1/4/0047/Main 344} beschrieben.
+
+Damit soviele der Originalfarben erhalten werden wie möglich, sollte evtl.
+die Farbanzahl des aktuellen Bildes erhöht werden (Abschnitt @{"4.5.3" LINK PPaintCD:H/7/1/4/0049/Main 1172}). Wenn
+alle zusammenzufügenden Bildelemente völlig verschiedene Farben besitzen,
+sollte die resultierende Palette soviele Farben besitzen wie alle
+Einzelpaletten zusammen. Personal Paint verfügt über sehr leistungsfähige
+Algorithmen zur Quantisierung, Mischung und Reduktion von Farben, so daß
+es häufig kaum möglich ist, Unterschiede zwischen den Originalbildern und
+dem fertigen Ergebnis zu sehen, selbst wenn starke Reduzierung von Farben
+unvermeidlich ist.
+
+Ein Beispiel: Wenn ein Bild mit einer 16-Farben-Palette, von der nur acht
+Farben benutzt werden, mit einem Pinsel mit Acht-Farben-Palette gemischt
+wird, gehen keine Farben verloren. Sowohl das Bild als auch der
+resultierende Pinsel besitzen dann eine Palette mit 16 Farben.
+
+Nach dem Mischen der ausgewählten Elemente können diese wie gewünscht
+eingefügt werden.
+
+
+@{B}8.7        Farbenreduzierung@{UB}
+
+Diese Funktion erlaubt die Verringerung der Farbanzahl des aktuellen
+Bildes. Mit Hilfe des Schiebereglers in diesem Fenster kann die gewünschte
+Anzahl von Farben in einem Bereich zwischen zwei und dem Maximalwert
+festgelegt werden. Wenn nur zwei Farben benutzt werden, ist eine weitere
+Reduktion natürlich kaum sinnvoll.
+
+Beim Bewegen des Schiebereglers wird die Bilddarstellung fortlaufend
+aktualisiert, um die Veränderungen anzuzeigen. Gleichzeitig informiert das
+"Verlorene Pixel"-Feld relativ (in Prozent) und absolut darüber, wie viele
+Farben verlorengegangen sind. Bei qualitativer Farbenreduzierung
+(Abschnitt @{"9.7.1" LINK PPaintCD:H/7/1/4/0047/Main 365}) werden zunächst Farben eliminiert, die innerhalb der
+Palette durch einen ähnlichen Farbton repräsentiert werden. Ist
+quantitative Reduktion aktiviert (Abschnitt @{"9.7.2" LINK PPaintCD:H/7/1/4/0047/Main 380}), so werden zunächst
+weniger verwendete Farben unterdrückt.
+
+Wenn eine oder mehrere Farben in der Palette mehrmals vorhanden sind, kann
+die Anzahl von Farben durch einfache Neuverteilung reduziert werden, ohne
+daß dabei visuelle Informationen verloren gehen.
+
+Der Vorgang der Farbenreduzierung ist sehr rechenintensiv. Je höher die
+Anzahl der Farben des Zielbildes, desto länger dauert dessen Berechnung.
+So dauert es bei Amiga-Modellen mit 68000-CPU häufig einige Zeit, bis nach
+der Bewegung des Schiebereglers Ergebnisse sichtbar werden. Dies gilt
+besonders, wenn die Anzahl der Farben des Zielbildes höher ist als 32.
+
+In den "HalfBrite"-Modi (Abschnitt @{"8.1.3.1" LINK Main 101}) rechnet Personal Paint intern
+immer mit getrennten Blöcken von hellen und dunklen Farben in der Palette.
+Eine HBrite-Palette besitzt immer eine gerade Anzahl von Farben, wobei die
+Gruppe der dunklen Farben immer 32 Bytes vom Anfang entfernt beginnt.
+
+Dieser Befehl reduziert nicht explizit die Anzahl der Farbeinträge einer
+Palette, sondern er verringert lediglich die für das Bild verwendeten
+Farben und faßt diese in Gruppen zusammen. Die gewünschte Anzahl von
+Farben in einer Palette kann in den Dialogfenstern für das Bild- und
+Bildschirmformat festgelegt werden, wie auch in Abschnitt @{"4.5.2" LINK PPaintCD:H/7/1/4/0049/Main 1151}
+beschrieben.
+
+
+@{B}8.8        Statistik@{UB}
+
+In diesem Fenster werden Statistiken über die für das aktuelle Bild
+verwendeten Farben angezeigt. Dabei wird ermittelt, wie viele Pixel jeder
+Farbe innerhalb des Bildes vorkommen, das Ergebnis wird in Form eines sog.
+"Histogramms" dargestellt.
+
+Wenn mehr Farben vorhanden sind, als im Fenster gleichzeitig dargestellt
+werden können, kann das Histogramm mit zwei Rollpfeilen in die gewünschte
+Richtung verschoben werden. Durch Anklicken des entsprechende Farbbalkens
+mit der Maus werden zusätzliche Informationen zu einer bestimmten Farbe
+(Position innerhalb der Palette, Anzahl der Pixel in dieser Farbe,
+beanspruchte Oberfläche in Prozent) angezeigt. Beim ersten Aufrufen dieses
+Fensters beziehen sich die Daten auf die aktuelle Vordergrundfarbe.
+
+@ENDNODE

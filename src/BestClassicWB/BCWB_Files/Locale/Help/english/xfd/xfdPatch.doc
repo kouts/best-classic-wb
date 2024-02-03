@@ -1,0 +1,106 @@
+NAME
+	xfdPatch 1.03
+
+SYNOPSIS
+	xfdPatch REMOVE/S,CHIP/S,FAST/S,DEFAULT/S,EXTERN/S,NOEXTERN/S,
+	         FAILATERROR/S,NOFAILATERROR/S
+
+DESCRIPTION
+	xfdPatch patches the dos.library/[New]LoadSeg() vectors in
+	order to avoid that the decrunch headers of crunched programs
+	are executed. This is indeed very useful as some old decrunch
+	headers will not work correctly with new OS versions or are
+	written quite badly. xfdPatch requires Kickstart v37+.
+
+	With xfdPatch, [New]LoadSeg() will first check the loaded
+	segment list for decrunch headers known by xfdmaster.library.
+	If nothing is found, then everything works as usual. But if a
+	decrunch header has been recognized, the xfdDecrunchSegment()
+	function will be called and the decrunched segment list is
+	passed back as the result of [New]LoadSeg().
+
+	On the user level, you will in most cases simply notice that
+	the annoying color/LED flashing of most decrunchers has been
+	disappeared. This shows you that xfdPatch works correctly.
+
+	Please note that xfdPatch currently doesn't support password
+	or key requests and therefore simply passes on such files to
+	the calling program.
+
+	If there should ever be a reason to remove xfdPatch from
+	memory, use the REMOVE option to do this. Please note that
+	xfdPatch cannot be removed if another program has changed the
+	dos vectors in the meantime.
+
+	All segment decrunchers in the xfdmaster.library support
+	so-called relocation modes which means that you can force the
+	segments to be relocated to a special type of memory. With
+	CHIP and FAST, you can force segments to chip or fast memory,
+	DEFAULT causes xfdPatch to use the memory types given within
+	the hunks. Note that these attributes are only used while
+	decrunching, uncrunched files cannot be relocated somewhere
+	else. These options are useful with old games or intros that
+	need chipram but don't have the correct attributes set in the
+	hunk header.
+
+	With option EXTERN/NOEXTERN, you can permit/forbid the use of
+	external slaves for recognition and decrunching of segments.
+	This will be of very rare use as there currently don't exist
+	any external segment decrunchers as far as I know.
+
+	With option FAILATERROR/NOFAILATERROR, you can tell xfdPatch
+	how to react on decrunch errors. If fail is enabled, the
+	patch returns NULL which means the file is not executable.
+	If fail is disabled, the crunched segment list is passed to
+	the calling program unmodified. This option is mainly useful
+	for testing purposes. You can check out which crunched files
+	are not fully supported by xfdmaster.library. Note that these
+	unsupported files will mostly be hand-made modifications of
+	e.g. demo coders.
+
+TECHNICAL INFO
+	This section is especially written for programmers of system
+	monitors or antivirus programs. It tells you how to detect
+	xfdPatch in memory.
+
+	First of all, if xfdPatch is installed, both the NewLoadSeg()
+	and LoadSeg() vectors of dos.library point to the following
+	piece of code:
+
+	            dc.l   "XFDP"
+	JumpIn      ...
+
+	Second, there exists a port called 'xfdPatch.rendezvous'.
+	The fields of this port are all private, so just test if the
+	port exists and nothing else.
+
+HISTORY
+	xfdPatch 1.03
+	- Arghh!! Sometimes you test a piece of code 100 times and
+	  after releasing it, you find the bug. Whenever xfdPatch
+	  failed to decrunch a packed file, the machine crashed.
+	- Added option EXTERN. The EXTERN/NOEXTERN pair now works
+	  similar to the relmode options.
+	- Added options FAILATERROR/NOFAILATERROR.
+	- xfdPatch passes args in D2/D3 and returns result in D0
+	  and D1 for compatibility with old overlay/linker code now.
+
+	xfdPatch 1.02
+	- Added option NOEXTERN.
+
+	xfdPatch 1.01
+	- Added options CHIP, FAST and DEFAULT.
+
+	xfdPatch 1.00
+	- First public release. I used a very simple version of this
+	  program for testing purposes for about one year now.
+	  But why not giving it to the public?
+
+COPYRIGHT
+	xfdPatch is freely distributable for noncommercial use.
+
+AUTHOR
+	Georg Hörmann
+	Martinswinkelstraße 16c
+	82467 Garmisch-Partenkirchen
+	Germany

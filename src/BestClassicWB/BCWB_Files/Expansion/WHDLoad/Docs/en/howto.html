@@ -1,0 +1,290 @@
+<HTML>
+<HEAD>
+<TITLE>Programming WHDLoad</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: howto.html 1.7 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Schematic execution flow</h3>
+<p>The following table shows the program flow when a WHDLoad installed program
+will be executed. I hope it helps to understand how WHDLoad works and how
+WHDLoad, the Slave and the installed program does cooperate.</p>
+<table cellpadding=3>
+  <tr>
+    <td valign=top>The USER</td>
+    <td>
+      <ul>
+        <li>starts the demo or game by clicking a Icon or by starting
+            WHDLoad via the command line
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>The Operating System</td>
+    <td valign=top>
+      <ul>
+        <li>loads the WHDLoad executable and starts it
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>WHDLoad</td>
+    <td>
+      <ul>
+        <li>checks the Software and Hardware environment
+        <li>loads and checks the Slave
+        <li>allocates required memory for the installed program
+        <li>if <a href="opt.html#Preload">Preload/S</a> is enabled it loads
+            disk images and files into the RAM (as far as free memory is
+            available)
+        <li>switches OS off (disables mutitasking and interrupts, degrades
+            graphics hardware to OCS, inits all hardware with defined values)
+	<li>jumps into the Slave
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Slave</td>
+    <td>
+      <ul>
+        <li>loads the main executable of the installed program by calling a
+            WHDLoad function (e.g. <a
+            href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a> or <a
+            href="../autodoc.html#resload_LoadFile">resload_LoadFile</a>)
+	<li>patches the main executable (so that the program will load his data
+            via the Slave, to fix compatibility problems, to enable an exit
+            from the program)
+        <li>calls the main executable
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Installed program</td>
+    <td>
+      <ul>
+        <li>will do his stuff
+        <li>on loading data from disk it will call the Slave (because the
+	    Slave has patched it this way previously), and the Slave
+            will call WHDLoad, and WHDLoad will partially enable the OS to
+            load the data (only if the data is not <a
+            href="opt.html#Preload">Preload</a>'ed), then return, return
+            and the installed program continues
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>The USER</td>
+    <td>
+      <ul>
+        <li>exits the program by pressing the <a
+            href="opt.html#QuitKey">QuitKey</a>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Slave</td>
+    <td>
+      <ul>
+        <li>returns to WHDLoad by calling <a
+            href="../autodoc.html#resload_Abort">resload_Abort</a>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>WHDLoad</td>
+    <td>
+      <ul>
+        <li>re-enables the OS (restores hardware registers, display and memory)
+        <li>frees all allocated resources
+        <li>returns to the OS
+      </ul>
+    </td>
+  </tr>
+</table>
+<h3>How to install a simple one disk trackloader</h3>
+This is a very small and short step by step guide on how to create an install
+for a NDOS demo/game
+using WHDLoad. The guide reflects an ideal simple case. In the real world such a
+case will probably never occur. For special cases and problems, read the
+chapters that follow this.
+<ol>
+  <li>Prework
+    <ul>
+      <li>Make a drawer which will hold all files.
+      <li>Create a disk image using  <A HREF="dic.html"> DIC </A> in this
+          drawer.
+      <li>Create a <a href="opt.html#optwb">#?.info</a> file with "WHDLoad"
+          as &lt;Default Tool&gt; and a Tooltype "SLAVE=#?" containing the
+          name of the Slave. (or simply copy the icon from an Example
+          Install, and disable all tooltypes except "SLAVE=").
+    </ul>
+  <li>The Slave<br>
+    To write the Slave we need following information:
+    <ol>
+      <li>Where on disk is the main executable located?
+      <li>Where inside the main executable is the disk loader located?
+    </ol>
+    To get this information we first analyze the bootblock. Most times
+    the main executable will be loaded from here via exec.DoIO(). Sometimes
+    a special trackloader is in the bootblock. We now write a Slave which
+    will simulate the bootblock and load the main executable from the disk
+    image. Now we rip the main executable from the image or a <a
+    href="dump.html#memory">memory dump</a>. After that we have to find the
+    loader in the main exe. A fast way is to search for the pattern
+    <tt>$AAAAAAAA</tt> (used by the MFM decoding) with a hex-editor. Then cut the area
+    (+/- <tt>$1000</tt> bytes) found, disassemble it, and search for the start of the
+    routine. Understand the parameterlist. Now we create code for the Slave
+    which will patch this loader routine in a way that all calls to the
+    loader will be redirected to the Slave. The Slave will then adjust the
+    parameters and call the WHDLoad function <a
+    href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a>.
+  <li>In the ideal case the install is now complete.<br>
+
+One thing left to do is to create a nice Icon. Rip two pictures using the <a
+href="snoop.html">snoop feature</a> of WHDLoad and <a href="sp.html">SP</a> or
+use a freezer or some kind of UAE to extract pictures and build the icon. The
+16 color <a href="http://aminet.net/package/pix/mwb/RomIcons10.lha">RomIcon</a>
+palette is recommended.
+
+</ol>
+<h3>Possible problems and special cases</h3>
+<h4>Non standard trackloader</h4>
+Some programs use their very own disk format. This means that <a
+href="dic.html">DIC</a> is unable to create the disk images. To create files
+or images from such disks the use of <a href="rawdic.html">RawDIC</a> is
+recommended. See the documentation of RawDIC for more information.
+<h4>Multiple disks</h4>
+If the program uses more than one disk the Slave must redirect the disk
+accesses to the appropriate image file. Sometimes this is not easy. Some
+programs support more than one drive, so you can use the drive number to
+select the disk. Most programs use an ID on every disk to distinguish them.
+In this case, use a variable which holds the disk number, and on every access
+to the disk ID (determine such an access by analyzing the parameters for the
+disk loader) increase the variable (if the last disk is reached, decrease it). So
+hopefully the loader will read the ID again and again up until the correct
+disk is inserted. Perhaps there is a request from the program that the user
+should insert the right disk, disable it.
+<h4>Highscore saving</h4>
+Use <a
+href="../autodoc.html#resload_SaveFile">resload_SaveFile</a> to write the appropriate
+memory area to the disk. If you like, encrypt it a bit so lamers can't patch
+it too easily. It is not recommended to write directly into disk images (using
+<a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>), because if
+something goes wrong (e.g. crash) it's possible that the images will be
+damaged.
+<h4>Savegames</h4>
+Savegame handling is the same as with highscores.
+
+<h4>Accesses to the operating system</h4> At the time the Slave and the
+installed program is executed, absolutely no OS exists nor is accessible nor
+makes any sense to access! Therefore all accesses attempted by the installed
+program must be disabled. If there aren't many of them and they don't
+make sense in the WHDLoad environment (like exec.Disable() or
+exec.SuperState()) simply NOP (<tt>$4e71</tt>) them. If the accesses have an
+important function (like exec.DoIO()), redirect them to the Slave and emulate
+them. If there are loads of them, create a simple exec.library in an unused
+memory area (initialize the longword at address <tt>$4</tt>). You can check the
+source for the Oscar.Slave, which emulates exec.AllocMem(). To detect accesses
+to the OS, the initial execbase is set to <tt>$f0000001</tt> with the intention
+that all routines which like to use the execbase will create an "Address Error"
+exception.<br> If there is heavy use of OS functions, use one of the kickemu
+packages which can be found in the WHDLoad-dev package. There is one package
+for Kick 1.3 (<a
+href="../../src/sources/whdload/kick13.s">'src/sources/whdload/kick13.s'</a>)
+and one for Kick 3.1 (<a
+href="../../src/sources/whdload/kick31.s">'src/sources/whdload/kick31.s'</a>).
+These packages require an original kickstart image and will create an complete
+OS enviroment inside the WHDLoad space. Consult also the approriate <a
+href="../../src/sources/whdload/kick.readme">readme</a> supplied for further
+information.
+
+<h3>Common compatibility problems</h3>
+
+<h4>Limited address space on 68000/68010/68ec020</h4>
+
+On these processors the address space is limited to 16 MiB
+(<tt>$000000...$ffffff</tt>) because these CPUs do have only 24 address lines.
+As a result all accesses to higher addresses are performed to the lower 16 MiB
+by ignoring the most significant 8 bits. Some programs use these bits to store
+data, or simply forget to clear them. On a processor with full 4 GiB address
+space like the 68020/680ec30/68030/68040/68060 this does not work, because the
+full 32-bit addresses will be accessed.<br>
+
+To solve this you have to patch these accesses and redirect them to the
+correct	addresses.<br>
+
+Sometimes the reason for accesses to strange addresses may be an uninitialized
+pointer. In these cases it may help to clear the memory <tt>$400</tt> - <a
+href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a> which can also be
+accomplished by using the flag <a
+href="../autodoc.html#WHDL_ClearMem">WHDL_ClearMem</a>.
+
+<h4>Different stackframes on each processor</h4> The stackframes created by the
+processor on interrupts and exceptions are different for the members of the 68k
+family. On the 68000 a stackframe is 6 bytes long, except for Bus and Address
+Errors. The stackframe contains the saved SR at (a7) and the saved PC at
+(2,a7). On all other processors (68010+) the minimal stackframe is 8 bytes and
+additionally contains the vector number as a word at (6,a7). This Four-Word
+stackframe format <tt>$0</tt> is created for "Trap #xx" and Interrupts on
+68010-68060. The stackframes on other exceptions are different on each
+processor. The RTE instruction works differently on the 68000 compared to 68010+.
+On a 68000 it simply restores the SR and PC and continues program execution at
+the interrupted address. On the 68010+ it will additionally free the stackframe
+depending on the stackframe format. <br>Some programs push an address (PC) and
+an SR and then execute an RTE instruction. This works on a 68000 only, on
+68010+ this will have unexpected results. <br>If a program does so, you'll
+have to fix this. Sometimes it may be enough to replace the RTE with a RTR.
+
+<h4>MOVEM.x RL,-(An) on 68000/010 and 68020-68060</h4>
+
+There is a difference if the register used in predecrement mode (RL) is also
+contained in the register list. For the 68020-68060 the value written to memory
+is the initial register value decemented by the size of the operation. The
+68000 and 68010 write the initial register value (not decremented).<br>
+
+Currently no software is known to have problems because of this.
+
+<h3>General guidelines for writing installs</h3>
+<ul>
+
+<li>Don't modify CPU registers present in higher processors like VBR or CACR.
+The VBR is always 0 from the Slave programmers point of view, even when it's
+moved because Auto Vectors (and Traps if the Flag <a
+href="../autodoc.html#WHDL_EmulTrap">WHDL_EmulTrap</a> is set) are emulated.
+The bits in the CACR are different for each processor. There is only one valid
+way to modify the <a href="cache.html">caches</a>, use <a
+href="../autodoc.html">resload_SetCACR/SetCPU</a> and the bitdefs from the
+include files 'exec/execbase.i' and 'whdload.i'. Also all stuff present in the
+program to install banging these registers must be disabled or skipped,
+otherwise WHDLoad cannot work correctly!
+
+<li>Never modify disk images. That has the advantage that if anybody wishes to
+start the program from a floppy he must only write the images back to a disk
+(assumed that the program runs without several fixes).
+
+<li> Never use original stuff from the program directly in the Slave (copyright
+problem).
+
+<li>Enable the Caches only if you are sure it runs on all processors.
+
+<li>Use as little memory as possible for <a
+href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a>. Some people have
+resident tags on the end of the Chip memory, so it helps to use only
+<tt>$1f0000</tt> instead <tt>$200000</tt> and WHDLoad can use absolute
+allocated memory.
+
+</ul>
+<h3>Tips &amp; tricks</h3>
+
+<h4>What's better, using diskimages or files ?</h4> Sometimes you will have the
+choice to use disk images or real files. Both has his advantages. The use of
+disk images is usually the easier and faster way to create the Slave. But real
+files are more easily cached (if there is very little memory or the memory is
+fragmented). The needed space on harddisk will also be smaller with real files
+than with disk images. You should only use disk images if there are a lot of
+files (more than 30).
+
+</BODY>
+</HTML>

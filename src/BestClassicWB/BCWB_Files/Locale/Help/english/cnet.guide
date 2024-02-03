@@ -1,0 +1,269 @@
+@DATABASE "cnet.guide"
+@WIDTH 77
+@(c) "2000-2002 Harry Sintonen"
+@NODE "Main" "cnet.device - NE2000 compatible PCMCIA Network Card driver"
+@{B}
+                NE2000 compatible PCMCIA Network Card driver
+			        "cnet.device"
+                           Pre-V1.2 By Bruce Abbott
+                    Version v1.2 - v1.8 By Harry Sintonen
+                       v1.9beta1 - v1.9 by Rolf Anders
+                                [08-Aug-2007]
+@{UB}
+
+   @{" Copyright    " LINK "copyr"}	Who owns this ?
+   @{" Introduction " LINK "intro"}	What is this ?
+   @{" Requirements " LINK "requirements"}	What do you need ?
+   @{" Usage        " LINK "usage"}	How to use it ?
+   @{" Performance  " LINK "preform"}	How fast is it ?
+   @{" History      " LINK "history/main"}	The past.
+   @{" Limitations  " LINK "limits"}	Limitations !
+   @{" Netax1200    " LINK "netax"}	Netax1200 owners !
+   @{" Source       " LINK "source"}	What about it ?
+   @{" Legal Mush   " LINK "legal"}	Some dull info
+
+@ENDNODE
+
+@NODE "copyr" "Copyright"
+
+
+
+ 
+            Pre - v1.2 by @{B}Bruce Abbott@{UB} (bhabbott@inhb.co.nz)
+           v1.2 - v1.8 by @{B}Harry "Piru" Sintonen@{UB} <sintonen@iki.fi>
+           v1.9        by @{B}Rolf Anders@{UB} <rolf.anders@physik.uni-augsburg.de>
+           ------------------------------------------------------
+
+
+           Guide by @{B}Niclas Aronsson@{UB} (nickman@hem.passagen.se)
+
+
+
+@ENDNODE
+
+@NODE "intro" "Introduction"
+
+  Many A1200 owners have been asking the question "will a PC-CARD work
+  on my Amiga?". The usual reply to this is "No, because there are no
+  drivers for the Amiga". It has also been suggested that the A1200
+  PCMCIA port is incompatible with the PC-CARD standard.
+
+  With PC-CARD Modems and Ethernet cards being so cheap, it was only a
+  matter of time before "Only the Amiga makes it possible".
+
+  This is an PCMCIA (aka PC Card) ethernet card SANA2 driver for Amiga
+  600 and Amiga 1200 computers. Most NE2000 @{"compatible" LINK "compatibility/main"} cards are
+  supported (I hope). Full source code in assembler is included.
+
+@ENDNODE
+
+@NODE "requirements" "Requirements of cnet.device."
+
+  - A @{"compatible" LINK "compatibility/main"} PCMCIA ethernet card (see the @{"compatibility list" LINK "compatibility/main"}).
+
+  - An Amiga 1200 or Amiga 600.
+
+  - A1200's might need a hardware @{"modification" LINK "A1200mod.txt/main"}, see @{"Limitations" LINK "limits"}.
+
+  - Network software. Tested with Genesis 1.0.6, AmiTCP 4.0 Demo and
+    MiamiDx 1.0c.
+
+  - A network, obviously. :-)
+
+@ENDNODE
+
+@NODE "usage" "Usage of cnet.device"
+
+@{B}  Versions @{UB}
+
+  Four different versions of cnet.device are provided:
+
+  - cnet.device.000     - 68000 version, for stock A600s.
+  - cnet.device         - 68020 version, for 68020+ CPUs.
+  - cnet.device.turboio - 68020 version with DMA speedup hack, for
+                          68020+ CPUs.
+  - cnet.device.debug   - 68020 version with debug output to debug
+                          terminal enabled, use sashimi to capture.
+
+  For each of these there is also a cnet16-variant, which needs to be
+  used for cards that need 16-bit accesses for register reads (some
+  Fast Ethernet cards).
+
+  The 68000 version is intended to be used with unexpanded A600. The
+  68020 version is for machines with 68020 or better CPU.
+
+  The `turboio' version has a special speedup hack implemented (tech:
+  it uses longword access to 16-bit hardware register) that in most
+  cases give better performance than the regular 68020 version.
+  However some beta testers reported that the regular version is faster.
+  Do your own benchmarking to figure out which one is faster for you.
+  If you don't care that much about the speed (the speed difference is
+  quite minor anyway) then just pick the regular version.
+
+  If cnet.device fail to work properly `cnet.device.debug' probably can
+  help. It includes full line debug information and has extensive debug
+  output to debugging terminal. The output can be captured with sashimi.
+  Such sashimi log is recommended when reporting device bugs.
+ 
+@{B}  Install @{UB}  
+
+  Simply copy the preferred version of "cnet.device" to where you want
+  it (usually "DEVS:networks/") and set up your network software for 
+  an ethernet driver.
+ 
+  For AmiTCP 3.0 this would involve editing the "interfaces" file and
+  adding a line like "cnet dev = devs:networks/cnet.device".
+  Then you would start it up with "ifconfig cnet0 192.168.0.1".
+
+  With Genesis and Miami(Dx) setup is really easy, use provided
+  installation "wizard" to set up the network. Choose SANA2 type for
+  device driver, then choose `DEVS:networks/cnet.device', unit 0.
+
+@{B}  Card_info Diagnostic Tool @{UB}
+
+  The 'card_info' program can be used to identify a PCMCIA card, and
+  will display a summary of its attributes. It also produces a binary
+  dump of the attribute and I/O memory, which can be analysed for more
+  detailed information. If you have an unknown card that doesn't seem
+  to work, run this program and send the 'card_info.bin' file to me -
+  after examining this I might be able to solve your problem.
+
+@{B}  Example Network Files @{UB}
+
+  Because many people seem to have trouble setting up an Ethernet network,
+  I have included a copy of my own network configuration and startup script
+  files, which you can use as a template for your own installation. Please
+  change the username etc. However, you should use the same domain that I 
+  have for your IP addresses ie. 192.168.0.x (where 'x' is between 1 and
+  254).(These files are by Bruce Abbott <bhabbott@inhb.co.nz>, nowadays quite
+  obsolete since both major Amiga TCP/IP stacks have installation "wizard")
+
+@{B}  Hardware Modification Needed for A1200 PCMCIA port @{UB}
+
+  Cnet.device v0.5 used a config file to compensate for the Card Reset
+  problem with A1200s. In V0.6 this has been abolished, and replaced by
+  a more reliable hardware @{"modification" LINK "A1200mod.txt/main"}. This may also help with cards
+  that worked with v0.4, but not with v0.5. If for some reason you cannot
+  have the hardware modification  done you can now remove and re-insert
+  the card to make sure that it is reset properly, even if the device has
+  already been opened (however this is not recommended).
+
+  NOTE: This hardware mod is not necessarily needed, you can use
+  <aminet:util/boot/CardReset.lha> or <aminet:util/boot/BK_CardReset.lha>
+  instead. Alternatively you can use CardPatch, which should improve
+  card.resource even more: <aminet:util/boot/CardPatch.lha>.
+
+@{B}  Surf Squirrel Problems @{UB}
+
+  The Surf Squirrel SCSI/Serial adapter is not a proper PCMCIA card, and
+  has no attribute memory. Unfortunately, its driver takes over the PCMCIA 
+  port and prevents other drivers from owning their cards. This will happen 
+  whenever squirrelscsi.device is opened, even if the Surf Squirrel card is 
+  never plugged in!
+
+@ENDNODE
+
+@NODE "preform" "Performance"
+
+@{B}  EX 1 @{UB}
+
+ "The Network consists of an A1200 030/40MHz conected via co-ax cable
+  to a 486DX-33 running Windoze 95. Software on the Amiga is AmiTCP3.0b
+  and ch_NFS, and the pecee is using MSTCP/IP and SOSNT. This gives me
+  access to the peecee drives on the Workbench. With this setup, file
+  transfer speeds reach about 200KBytes/Sec. FTP transfers between my
+  A1200 and an A600 with Viper630 (030/40MHz) have acheived 300KBytes/Sec."
+  - Bruce Abbott
+
+@{B}  EX 2 @{UB}
+
+ "The Network consists of an A1200 603e+/240MHz/060/50MHz connected via
+  coax cable to a P120 laptop. Software on the Amiga is AmigaOS 3.5 +
+  Genesis 1.0.6 and on the laptop Debian 2.2. The amiga has Apollo RE450CT
+  pcmcia card and the laptop has 3com EtherLink III pcmcia card. FTP
+  download from laptop have reached 786Kbytes/Sec. On overclocked 060
+  systems speeds of >819Kbytes/Sec have been reported."
+
+  <flame>
+  Note that Miami and MiamiDx are a lot slower than AmiTCP/IP based
+  (Genesis) systems! Nothing can be done to help here, complaints to
+  Mr Kruse of nordicglobal <kruse@nordicglobal.com>. And NO I will NOT
+  make MNI driver for Miami(Dx) because for some lame excuse MNI devkit
+  is kept private! (aargh)
+
+  My advice is: use the better protocol stack, Genesis.
+  </flame>
+
+@ENDNODE
+
+@NODE "limits" "Limitations."
+
+  A1200s require an internal @{"modification" LINK "A1200mod.txt/main"} to the CreditCardReset line
+  to ensure correct card initialisation. If you haven't done this mod,
+  you may need to wait until after powering up your A1200 before plugging
+  the card in. If the 'Link' LED stays on but you are using co-ax cable,
+  this indicates that the card is NOT working properly. Also, sometimes
+  the card can appear to be OK but still doesn't work correctly.
+
+  NOTE: This hardware mod is not necessarily needed, you can use
+  <aminet:util/boot/CardReset.lha> or <aminet:util/boot/BK_CardReset.lha>
+  instead. Alternatively you can use CardPatch, which should improve
+  card.resource even more: <aminet:util/boot/CardPatch.lha>.
+
+@ENDNODE
+
+@NODE "netax" "Netax1200 owners"
+
+  Netax1200 card somes with its own driver called `netax.device'. This
+  basically is old cnet.device, so Netax1200 users can use cnet.device
+  instead.
+
+@ENDNODE
+
+@NODE "source" "Source"
+
+@{B} Building: @{UB}
+
+  src directory contains the full source code for cnet.device. You need
+  standard make, phxass, phxlnk and os-includes to compile. Everything
+  needed excluding os-includes are available on aminet. os-includes are
+  available on devcd2.1 for example. After installing make, phxass and
+  phxlnk within standard path do the following to compile:
+
+  > cd src
+  > assign os-include: ADCD_2.1:NDK/NDK_3.5/Include/include_i/
+  > make
+
+  This results four cnet.device and four cnet16.device binaries to src
+  directory.
+
+@ENDNODE
+
+@NODE "legal" "Legal Mush"
+
+@{B} Original note by Bruce Abbott <bhabbott@inhb.co.nz>: @{UB}
+
+<quote>
+
+  To encourage further development in PC-CARD devices for the Amiga, I am
+  placing the source code for this project into the Public Domain. You
+  can freely use or abuse it as you wish. I have also included some other
+  authors' code for reference purposes, please respect their copyrights.
+
+  Please note that this driver is not a finished product, and is almost
+  certain to harbour a few bugs. Thus I will not be held responsible for
+  any loss or injury that you may incur while using it.
+
+  I cannot guarantee compatibility with your system. All I can say is it
+  works for me.
+
+</quote>
+
+  Special thanks go to Bruce Abbott for making cnet.device public domain.
+  This `legal mush' quote still applies, although I tried to remove as
+  many bugs as I could. cnet.device v1.2 - v1.8 is still public domain 
+  and full source code is included. Enjoy!
+
+  - Harry "Piru" Sintonen, 27th Oct 2002.
+  - Rolf Anders, 5th Jan 2007.
+@ENDNODE

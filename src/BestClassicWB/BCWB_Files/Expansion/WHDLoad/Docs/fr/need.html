@@ -1,0 +1,130 @@
+<HTML>
+<HEAD>
+<TITLE>Vous avez besoin de?!</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: need.html 1.12 2021/12/21 21:58:14 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Ce qu'il vous faut</h3>
+<h4>... pour ex&eacute;cuter les programmes install&eacute;s:</h4>
+<ul>
+<li>un CPU 68000 (un 68010+ est recommand&eacute; parce que certains installs ont besoin du VBR pour
+l'option 'quit by a key')
+<li>un kickstart 2.0 (version 37)
+<li>un minimum de 1 m&eacute;ga-octect de RAM (parfois plus, ceci d&eacute;pend du programme
+install&eacute;)
+</ul>
+<h5>Emulation Kickstart</h5>
+<p>Certains installs utilisent un certain <cite>kickemu</cite> pour disposer d'un
+environnement AmigaOS complet pour le programme installé. Pour ce
+<cite>kickemu</cite>, une image originale du kickstart est nécessaire. Cette
+image peut être récupérée à partir d'un Amiga avec des outils comme
+<cite>GrabKick</cite> ou équivalent qui se trouvent sur aminet. (soyez sûr d'avoir une <a href="bugs.html">
+configuration correcte de vos disques durs (MaxTransfer, Mask)</a> sinon l'image créée sera corrumpue). L'image dépend
+du programme installé. Vous trouverez quelle image doit être utilisée dans le fichier
+<i>ReadMe</i>. L'image des versions 1.2 and 1.3 peut être extraite uniquement
+à partir d'un A500. La version 3.1 doit être extraite d'un A500/A600/A2000, A1200 ou d'un A4000 qui doit être équipé de la ROM 3.1.
+Si l'image n'est pas trouvée par WHDLoad ou qu'il s'agit d'une mauvaise version ou une
+version modifiée, WHDLoad termine avec un message d'erreur approprié. De plus,
+un fichier de relocation (extension <tt>.RTB</tt>) correspondant à l'image
+kickstart doit être présent. Ce fichier se trouve sur aminet dans l'archive <a
+href="http://aminet.net/package/util/boot/skick346.lha">util/boot/skick346.lha</a>.
+Ces deux fichiers, l'image kickstart et le fichier de relocation, doivent
+être placés dans le répertoire <i>Devs:Kickstarts/</i> et doivent être nommés
+correctement.
+
+A partir de la version 17 de WHDLoad, les fichiers peuvent localisés dans le tiroir <i>WHDCOMMON:</i>.
+
+La table en dessous donne les noms des fichiers selon la version du kickstart:</p>
+A partir de la version 16.5 de WHDLoad, les images du kickstart du CD de l'Amiga Forever (Cloanto)
+peuvent être utilisées. Ces images doivent être renommées suivant le tableau ci-dessous.
+De même le fichier <i>rom.key</i> doit être copié dans <i>Devs:Kickstarts/</i> ou <i>WHDCOMMON:</i>.
+
+Le CD-ROM The Cloanto Plus Edition contient des ROMs qui ne sont plus encodées, le fichier <i>rom.key</i> n'est plus nécessaire.
+Pour plus d'informations, veuillez vous référer	<a href="http://amigaforever.com/kb/15-120">Amiga Forever</a>.
+
+<table border=1 cellpadding=3><tr>
+	<th rowspan=2>Version</th>
+	<th rowspan=2>Nom du fichier Kickstart</th>
+	<th rowspan=2>Nom du fichier de relocation</th>
+	<th colspan=4>Nom du fichier sur le CD Cloanto</th>
+</tr><tr>
+	<th>release 3.0 (1999)</th>
+	<th>release 6.1 (2005)</th>
+	<th>release 6.7 (2011)</th>
+	<th>release 7.0 (2014)</th>
+
+</tr><tr>
+	<td align=center>1.2</td>
+	<td>Devs:Kickstarts/kick33180.A500</td>
+	<td>Devs:Kickstarts/kick33180.A500.RTB</td>
+	<td></td>
+	<td></td>
+	<td align=center colspan=2>amiga-os-120.rom</td>
+</tr><tr>
+	<td align=center>1.3</td>
+	<td>Devs:Kickstarts/kick34005.A500</td>
+	<td>Devs:Kickstarts/kick34005.A500.RTB</td>
+	<td align=center>kick130..rom</td>
+	<td align=center colspan=3>amiga-os-130.rom</td>
+</tr><tr>
+	<td align=center rowspan=3>3.1</td>
+	<td>Devs:Kickstarts/kick40063.A600</td>
+	<td>Devs:Kickstarts/kick40063.A600.RTB</td>
+	<td></td>
+	<td></td>
+	<td align=center>amiga-os-310-a500.rom</td>
+	<td align=center>amiga-os-310-a600.rom</td>
+</tr><tr>
+	<td>Devs:Kickstarts/kick40068.A1200</td>
+	<td>Devs:Kickstarts/kick40068.A1200.RTB</td>
+	<td></td>
+	<td></td>
+	<td align=center colspan=2>amiga-os-310-a1200.rom</td>
+</tr><tr>
+	<td>Devs:Kickstarts/kick40068.A4000</td>
+	<td>Devs:Kickstarts/kick40068.A4000.RTB</td>
+	<td align=center>kick310.rom</td>
+	<td align=center colspan=2>amiga-os-310.rom</td>
+	<td align=center>amiga-os-310-a4000.rom</td>
+</tr></table>
+
+<h4>Packages optionels:</h4>
+<ul>
+<li>Kickstart 3.1 (version 40), corrige quelques problèmes dans les versions précédentes,
+contient aussi de nouvelles caractéristiques utilisées par WHDLoad telles que MemoryPools
+qui permet de meilleurs performances quand plusieurs fichiers sont utilisés par le programme
+installé.
+<li>pour utiliser des fichiers compressés par XPK, les librairies XPK doivent être installées,
+le package se trouve <a href="http://aminet.net/package/util/pack/xpk_User">aminet</a>,
+tous les fichiers peuvent être compressés en utilisant XPK, WHDLoad les décompressera pendant
+le chargement. La décompression XPK requière de la mémoire supplémentaire et doit être
+utilisée avec précaution sur un système possédant de la mémoire limitée. Les fichiers écrits
+par WHDLoad ne sont jamais compressés.
+<li>pour la sélection automatique de la langue dans certains installs, la librairie
+lowlevel est utilisée. Cette libraririe fait partie du Workbench 3.1 mais peut être
+installée à partir de versions antérieures comme extension. Si celle-ci est absente,
+la langue par défaut sera l'anglais.
+<li> si la librairie reqtools est installée, WHDLoad l'utilisera pour afficher les
+fenêtres de requêtes. Elle peut être configurée par exemple pour définir l'endroit sur
+l'écran où elle doit s'afficher. Peut se télécharger à cette adresse
+<a href="http://aminet.net/package/util/libs/ReqToolsUsr.lha">aminet</a>
+</ul>
+
+<br><h4>Pour &eacute;crire de nouveaux Slaves / programmes d'install :</h4>
+<ul>
+<li>un 68030 (ou plus) avec MMU est recommand&eacute; pour utiliser toutes les caract&eacute;ristiques
+de WHDLoad (une grosse b&eacute;cane est un choix judicieux pour d&eacute;velopper des programmes ;-))
+<li>des connaissances sur le langage machine, l'assembler, le hardware Amiga ...
+<li>un assembleur (capable d'optimiser)
+<li>d'autres utilitaires (hexedit, disasm, ...)
+<li>quelques MB de m&eacute;moires
+<li>pouvoir acc&eacute;der &agrave; des Amigas diff&eacute;rents pour des raisons de tests (68000 - 68060, OCS, AGA,
+carte graphique)
+<li>un d&eacute;bugger hardware ou software comme AR3, HRTMon, TK
+<li>un bouton NMI pour interrompre le programme ou pour entrer dans un d&eacute;bugger (moniteur)
+</ul>
+</BODY>
+</HTML>

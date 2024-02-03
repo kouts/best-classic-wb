@@ -1,0 +1,577 @@
+============================================================================
+                             VIRUSZ III HISTORY
+============================================================================
+
+ TODO	- Finally fix all problems when running on AmigaOS 4.x (currently
+	  filecheck sometimes crashes, couldn't locate the bug yet).
+	- Add useful commands to ARexx port.
+	- Add option to create logfile with full path information during
+	  filecheck (suggested by Micheal Evans).
+	- VirusZ grows and grows, maybe it should be splitted into several
+	  modules that only will be loaded if required. As VirusZ was and
+	  is designed as a background tool, it currently grabs too much
+	  memory for older Amigas equipped with only a few MB of RAM space.
+	- Add better support for disk images (ADF). Currently you can check
+	  bootblocks and sectors via filecheck or bootblock lab, but to
+	  repair them if necessary, images must be written to a real disk
+	  first!
+
+----------------------------------------------------------------------------
+
+ 1.04ß Changes/Additions since 1.03ß:
+	- Not a new author, just a new name: After marriage some years ago,
+	  my family name is no longer Hörmann, but Wittmann.
+	- Added full recognition of AmigaOS 3.1.4, 3.2, 4.0 and 4.1 and
+	  recognition of AROS to startup code and fixed self-test.
+	- Fixed several problems in (background) vector check:
+	  a. Handles the two 512 kB ROMs correctly when running on AROS.
+	  b. Handles the Kickstart modules area of AmigaOS 4.x correctly.
+	  c. Uses FindTrackedAddress() instead of SegTracker when running
+	     on AmigaOS 4.x for display and snapshots.
+	  d. No more accesses to zeropage of m68k processors on AmigaOS 4.x
+	     as there seems to be no way to do so without Grim Reaper.
+	  e. Added support for special m68k library functions emulator code
+	     of AROS and AmigaOS 4.x.
+	- Fixed problem in memory monitor: As there exist restricted memory
+	  areas under AmigaOS 4.x, you can only have a look at regions that
+	  are either registered in FindTrackedAddress() or located inside
+	  Kickstart modules.
+	- Some preferences of vector check and memory monitor are disabled
+	  when running on AmigaOS 4.x as they don't make sense then.
+	- Fixed bug in device scanner that lead to wrong results with not
+	  disk-based devices when running on AmigaOS 4.x.
+	- Added recognition of new AROS and AmigaOS system patches to the
+	  vector check (at least for my configurations, feel free to send
+	  snapshots of your non-standard vectors).
+	- Updated some stuff inside the internal GUI support code:
+	  a. Calculation of window border sizes happens in a way compatible
+	     with old OS versions and AROS / AmigaOS 4.x now.
+	  b. Fixed size calculation of listview gadgets for both AROS and
+	     AmigaOS 4.x as they differ a view pixels to older OS versions.
+	- Removed SegTracker 45.1 archive from distribution, get the latest
+	  release (currently 46.1 written by Thomas Richter) from Aminet
+	  instead.
+
+ 1.03ß Changes/Additions since 1.02 (only released as beta-version to some
+       testers in 2006):
+	- Added first recognition for AmigaOS4 and added some workarounds
+	  to the vector check to avoid Grim Reaper.
+	- Added snapshots sent by Jean-Marie Goat, Christian and Stellan.
+
+ 1.02  Changes/Additions since 1.01:
+	- Changed back to FREEWARE, that MAILWARE thing just ended up in too
+	  many emails :-) Thanks to all who gave me feedback and sorry if
+	  I didn't reply to everybody!
+	- Added dozens of snapshots sent by Fabian Siesmayer, Jonny Högsten,
+	  Stellan, Micheal Evans, Maurizio Callegarin, Michael Malychev,
+	  DMX and Michael Domoney. Thanks for all the testing, guys.
+	- Added really nice MorphOS icon created by Christian Rosentreter to
+	  the package.
+	- Added SegTracker 45.1 to the package. You should add it with the
+	  FULLPATH option to your startup-sequence right after SetPatch for
+	  best results in the vector check.
+	- Enhanced SegTracker support in the vector check. If a filename is
+	  too long to fit in one line because of path information, it will
+	  be split and displayed in two lines instead.
+	- Enhanced Snapshot function in the vector check. I noticed that
+	  sometimes patches of different vectors point to the same address
+	  (esp. Audio_0 - Audio_3 IntVecs). Whenever you tried to save such
+	  snapshots, the first ones would have been overwritten because of
+	  identical filenames. VirusZ now creates up to 10 different names
+	  for such cases.
+	- Improved support of suspicious process fields in the vector check.
+	  The tc_Switch, tc_Launch and pr_PktWait entries will be reported
+	  separately now if necessary and therefore can be monitored too.
+	  To clear all entries of one type, select the respective headline
+	  and then press the 'Clear' button.
+	- Spent some nights reviewing the sourcecode (over 25.000 lines!)
+	  and did lots of small optimizations, rearrangements and fixes
+	  mostly to the startup-code, vector check and memory monitor for
+	  a better and safer program execution.
+	- The 'Install' function in the bootblock lab can write a standard
+	  Kick 1.3 bootblock again.
+	- Enhanced the 'Line -' and 'Page -' functions in the memory monitor
+	  when displaying assembler instructions. Both functions will now
+	  additionally call FindStartPosition() from disassembler.library
+	  for the most sensible results.
+	- Fixed bug in the 'Address' function of the memory monitor that
+	  might have caused accesses to non-existent memory areas.
+	- Removed the 'Show...' and 'Technical Info' menu items and added
+	  that information to the new 'About' window.
+	- Did several changes/fixes to the internal GUI support code:
+	  a. All windows share one single IDCMP port now, VirusZ therefore
+	  will no longer run out of task signals if you try to open all its
+	  windows at one time.
+	  b. Window flags, IDCMP flags and several other essential stuff
+	  gets compiled during window creation automatically now and thus
+	  reduces the possibility of bugs caused by badly filled structures.
+	  c. Fixed bug in the window resizing code that lead to ugly results
+	  if you changed system fonts from smaller to bigger ones.
+	  d. No longer uses NOCAREREFRESH windows but, as stated in the RKM,
+	  calls GT_BeginRefresh()/GT_EndRefresh(). [It's actually funny that
+	  there obviously didn't appear any problems during years with the
+	  old method even though it is said not to work in the RKM.]
+
+ 1.01  Changes/Additions since 1.00:
+	- Fixed bug in Bootblock Lab which caused "Write" and "Install" to
+	  end up in a disk i/o error if "Ask Before Write Access" option was
+	  enabled. Thanks to Ronald Schakelaar for the bug report.
+	- Fixed password handling for encrypted archives: a correct password
+	  has already been remembered for all files before, but cancelling
+	  the password requester because you don't know the correct password
+	  would have caused new requesters for *all* files in the encrypted
+	  archive. Now VirusZ also remembers the cancelling and will simply
+	  report all following files as encrypted. Thanks to Thomas Tavoly
+	  for reporting this problem.
+	- Fixed bug that appeared after a sector check when checking disks
+	  that have the same name as their device (eg. disk labeled 'DF0'
+	  in device DF0:). Inhibit() is in fact a very simple DOS function
+	  that easily gets confused, so I added a little workaround for this
+	  problem. Thanks to Thomas Tavoly for the report and beta-testing.
+	- Added lots of snapshots sent by Michel 'DMX' Bagmeijer and
+	  Andreas Kürzinger. Thanks guys.
+	- Fixed bug in code calling disassembler.library: the library might
+	  have been opened several times but closed only once. Thanks to
+	  Michel 'DMX' Bagmeijer for the report.
+	- Fixed bug in preferences loader: the 'Display SegTracker Info If
+	  Available' options got switched off every time you (re)loaded the
+	  settings. Thanks again to Michel 'DMX' Bagmeijer for this report.
+	- Changed distribution from FREEWARE to MAILWARE as I need feedback
+	  for further development. Currently I have no idea at all how many
+	  active users are still out there...
+
+ 1.00  Changes/Additions since 0.9e:
+	- Improved 'Snapshot' function of the vectorcheck, it now saves the
+	  information supplied by SegTracker. So please install SegTracker
+	  before doing snapshots, it helps me a lot!
+	- Finally fixed VirusZ 100% for MorphOS/Pegasos systems:
+	  a) The vector check now handles function calls using EmulLibEntry
+	  correctly and calculates "ROM" locations and sizes in the most
+	  compatible way by scanning system romtags and afterwards calling
+	  NewGetSystemAttrsA().
+	  b) The memory monitor has been fixed for fake chipmem on Pegasos
+	  and supports MorphOS "ROM" areas too. There's just one problem
+	  left with pre-50.58 exec.library: size of A-Box modules cannot be
+	  calculated perfectly here and will simply be set to 0x700000. This
+	  means that you might be able to access non-existing memory areas
+	  at addresses near 0x10800000! This is on your own risk...
+	  c) The internal doslist scanner (for sector check/bootblock lab)
+	  works without MEMF_24BITDMA memory now which was never available
+	  on MorphOS systems. The code for 64-bit access (>4GB) has been
+	  bug fixed and enhanced to support TD_READ64/TD_WRITE64 too.
+	  d) Rewritten startup code to use EasyRequestArgs() in case of an
+	  error instead of DisplayAlert() which is not available in current
+	  MorphOS versions.
+	  Thanks to Harry Sintonen for all his help with MorphOS topics and
+	  for beta-testing! And thanks to Alexey Ivanov, Ilkka Lehtoranta
+	  and 'Vinny' for beta-testing too.
+	- Fixed problems in sector check concerning 4GB-border. Added some
+	  recalculation routines for strange values in de_BlocksPerTrack.
+	  Additionally de_MaxTransfer is supported now for older HDs.
+	- Removed the 'Use/Ignore External Xad-Slaves' selection from the
+	  file check prefs. This was obsolete as xadmaster.library always
+	  requires external clients to do a good job.
+	- Finally added support for disk archives and disk images to the
+	  file check. Please note that xadmaster.library v8+ is required!
+	  Now you can extract all types of archives that XAD supports, and
+	  if they contain disk images with valid files inside, these files
+	  will be checked too. Two new options therefore have been added to
+	  the file check prefs: "Extract Disk Archives" and "Check Files
+	  Inside Disk Images". Please read the docs for more information!
+	  Thanks to Dirk Stöcker for beta-testing and his helping hand
+	  concerning tricky XAD stuff.
+	- Added extra check for bootblock viruses to sector and file check
+	  (for files larger than 2048 bytes, usually diskimages).
+	- Added sector checking for files! You can select 3 different modes
+	  in the filecheck prefs, please read the docs carefully for further
+	  information...
+	- Added 'Scan Files For Bootblocks' to the file check prefs. With
+	  this option enabled, VirusZ scans for bootblock viruses inside
+	  files. Useful to detect unknown bb-virus installers.
+	- Changed/enhanced functionality of the 'Job Monitor':
+	  a) 'Pause'/'Continue' gadgets have been replaced by a single cycle
+	  gadget to stop/run the current job.
+	  b) 'Quit' gadget is always active now (requested by many users).
+	  c) All running/waiting jobs will be displayed in the report list
+	  now so you get a better overview. You can select any of them and
+	  kill them with the 'Kill Job' gadget. Useful if you accidentally
+	  have selected some wrong files/disks.
+	  d) Added 'Check Files...' gadget. It obviously does the same as
+	  the equally named menu item of VirusZ's main window, but you won't
+	  have to switch windows any more.
+	  e) Added 'One/All' cycle gadget between 'Disinfect' and 'Delete'
+	  as it determines the behaviour of both functions. If 'One' is
+	  selected, everything works like in previous versions. By selecting
+	  'All', the delete function will delete all malicious files that
+	  have been found so far. 'Disinfect' first determines the type of
+	  the selected item (infected file or sector?) and will then start
+	  disinfecting either all files or all sectors of the selected disk.
+	  Requested by 'Underground God', hope you are happy now :)
+	- Bumped version of VirusZ III to 1.00 !!! After 6(!) years of often
+	  little development and much more lack of time VirusZ III finally
+	  has reached full functionality...
+
+ 0.9e  Changes/Additions since 0.9d:
+	- Added new snapshots sent by Klaus-Peter Simon, Chris Elliott, DMX,
+	  Dario, Mikolaj Calusinski and Todd A. Oberly. Thanks guys!
+	- Fixed CacheClearU() calls in the new self-test added in 0.9d to
+	  CacheClearE() for better performance on JIT 68k emulated systems.
+	  Thanks to Harry Sintonen for the report.
+	- Added new switch to 'Misc Prefs' to dis/enable the usage of the
+	  disassembler.library for bootblock lab and memory monitor. This
+	  library always opens mmu.library too which seems to be annoying
+	  for some users. Idea by Mikolaj Calusinski, thanks.
+	- Fixed problem with OxyPatcher: It modified code inside VirusZ and
+	  thus caused alerts by its self-test. Thanks to DMX for the report.
+	- Did some compatibility fixes for Pegasos systems. VirusZ will work
+	  perfectly with a faked ROM now. Thanks again to Harry Sintonen for
+	  the report and for beta-testing.
+	- Fixed severe bug in the filecheck: hardlinks haven't been handled
+	  correctly and may have lead to crashes. Now any hardlinks will be
+	  fully tested (respectively the files/dirs they point at). Due to
+	  the inconsistent implementation of hardlinks to the filesystem,
+	  there nevertheless may appear some side-effects when you chose to
+	  delete/disinfect such files. Hardlinks then might be replaced by
+	  invalidated copies of the files they originally pointed at. This
+	  method at least avoids any virus execution and is the best I can
+	  offer. Thanks to Mikolaj Calusinski for the initial bug report,
+	  for beta-testing and further suggestions on this topic.
+	- Added great installer script written by Dave 'Targhan' Crawford.
+	  Thanks a lot for this contribution.
+
+----------------------------------------------------------------------------
+Merry Christmas 2002 and a Happy New Year 2003 to all users and supporters!
+Release 0.9d is my gift to all of you, that's why I finished it right on
+December 24th [and because I was too lazy the weeks before] ;-)
+
+ 0.9d  Changes/Additions since 0.9c:
+	- Fixed bug in the new snapshot function added in 0.9c, sorry!
+	- Added new snapshots sent by AmiS, Dario, Alexander Niven-Jenkins,
+	  Rudolph Riedel, Chris Elliott, T.B., Gunnar Andersson and Andreas
+	  Kürzinger. Thanks guys!
+	- Improved the code that checks if a given address is within valid
+	  memory ranges. Thanks to AmiS for beta-testing.
+	- Added additional self-test that permanently checks VirusZ's code
+	  for modifications.
+	- Finally added device-based sectorcheck! Please read the docs for
+	  further information.
+
+----------------------------------------------------------------------------
+Sorry, I have been a bit lazy during the last weeks, but summertime is not
+necessarily the best Amiga-time :-)
+
+ 0.9c  Changes/Additions since 0.9b:
+	- Added new snapshots sent by Harry Sintonen, Gunnar Andersson,
+	  Dieter Klisch, Armin Pigulla, Dirk Stöcker, Marko Raina, Maurizio
+	  and AmiS. Thanks guys!
+	- Implemented support for NOUNCRUNCHSIZE archives to file check. The
+	  lengths of the destination files will now be calculated before
+	  extracting.
+	- Implemented support for crypted archives to file check. VirusZ
+	  will ask for the password once and use it with the whole archive.
+	  Only if this one becomes wrong, a new one will be requested.
+	- Added 'Snapshot' function for tc_Switch, tc_Launch and pr_PktWait
+	  fields after AmiS reported some software that uses these fields.
+	  To AmiS: Please send me your snapshots now!
+
+ 0.9b  Changes/Additions since 0.9a:
+	- Fixed calculation code for ROM size and location. Now uses the
+	  official method stated in the Amiga Guru Book. Thanks to Michel
+	  Bagmeijer and Jan Erik Olausen for the bug report.
+	- Added new snapshots sent by Harry Sintonen, Mark Savage and
+	  Klaus-Peter Simon. Thanks guys.
+	- Added support for SegTracker to vector check. This makes it much
+	  easier to identify the program that causes a non-standard vector.
+	  Thanks to Dirk Stöcker for the idea.
+	- Finally added recognition for all vector changes caused by OS 3.9
+	  BoingBag 2. If you still find some unknown (maybe because you have
+	  a different cpu), please snapshot and send them.
+	- Fixed several bugs in the 'Remove' functions of vector check:
+	  (a) all of them didn't update the KickChkSum field :-(
+	  (b) an empty KickMemList (after removing all entries one by one)
+	      will be removed completely now;
+	  (c) RomTags will be unlinked from the KickTagList in a much more
+	      intelligent manner;
+	  Thanks to Mikolaj Calusinski for his suggestions on this topic.
+	- Added support for RemAPollo memory area to vector check and memory
+	  monitor. Once again thanks to Mikolaj Calusinski for informations
+	  about his program.
+	- Added SegTracker support to memory monitor. Idea by Dirk Stöcker.
+	- The memory monitor now gives you a warning if you want to display
+	  a memory area that is not in the system's list; then it switches
+	  to ExecBase pointer instead (as it did before).
+	- Fixed MuForce hit 'implemented' in v0.9a shutdown code. Thanks to
+	  Mikolaj Calusinski and Jan Erik Olausen for their reports.
+	- Re-added scanning inside archives to file check. Currently this
+	  function works in the same manner as it did until version 0.99,
+	  i.e. not all types of archives can be scanned. Full support of all
+	  xadmaster.library features will come with the next releases.
+
+ 0.9a  Changes/Additions since 0.99:
+	- Totally redesigned the file check. Now all selected files/dirs are
+	  always scanned without user interaction (exception: encoded files)
+	  and just the important results get listed. These can be reviewed
+	  at any time to finally decide what to do with malicious files.
+	  The new concept has the following advantages:
+	  (a) it's much faster (my SYS: partition gets scanned in 2:16 min,
+	      the old scanner needed 9:20 min; that's over 4 times faster!);
+	  (b) the Job Monitor (that's the name of the new check-window) is
+	      fully prepared for archive and sector checking, all this will
+	      happen in just one window (NOT IMPLEMENTED YET);
+	  (c) less information that's not interesting for the average user,
+	      just important things get reported now (if you want to analyse
+	      the files on your harddisk, just use a tool like CheckX!);
+	  (d) even disinfects damaged or encoded files as far as possible;
+	  (e) looks much better :-)
+	- Added a whole bunch of perfectly commented snapshots sent by
+	  Todd A. Oberly. Thanks a lot!
+	- Added more snapshots sent by Michel Bagmeijer and Ian Chapman.
+	  Again thanks!
+
+----------------------------------------------------------------------------
+SOME WORDS ABOUT RELEASE 0.99:
+This one is mostly a 'cosmetic' update that fixes some problems/minor bugs
+and prevents some vector trouble as a lot of snapshots have been added.
+At the moment I'm already working on a totally new concept for file/sector
+checking, but I cannot promise how long it will take to finish that stuff.
+That's why I decided to release this update right now.
+
+ 0.99  Changes/Additions since 0.98:
+	- Improved window calculation code to avoid rendering bugs when you
+	  have installed sysihack-like programs. Thanks to Harry Sintonen
+	  for the bug report and screenshot.
+	- Splitted the single 'About' request in a 'Technical Info' request
+	  and a new 'About' request and added some more information to them.
+	- Fixed bug: 72 bytes of memory disappeared during every program
+	  startup, this seems to be a problem with special CreateNewProc()
+	  tags. After two nights of debugging I still couldn't locate the
+	  bug exactly, so I did some workaround instead, now there are at
+	  least no more memory losses.
+	- Added the first vector snapshots sent by David Oakes, Ian Chapman,
+	  Fulvio Peruggi and Harry Sintonen. Thanks guys!
+	- Fixed minor rendering problem with VirusZ's main window. This one
+	  only appeared if you have modified the top_border size with tools
+	  like MCP. Thanks to Luca Longone for the report/screenshot and
+	  sorry for my angry email :-)
+	- Added full support for NSD-64-bit devices. Now the bootblocks of
+	  partitions located higher than the old 4GB-border will finally be
+	  accessed correctly.
+	- Improved disassembler output in the bootblock lab. The first three
+	  longwords now always get displayed as 'dc.l' lines and disassembly
+	  starts at offset $000c, the real entry point of a bootblock. This
+	  avoids strange interpretations of the bootblock's checksum and the
+	  two other fields.
+	- Added some more vector snapshots sent by Dariusz Krzempek. Thanks!
+
+----------------------------------------------------------------------------
+LAST MINUTE BUG REPORT:
+I  received  bug  reports saying that VirusZ crashes immediately at startup.
+These crashes only happen when both disassembler.library and mmu.library are
+installed  in your 'libs:' drawer, but mmu.library setup is not correct.  In
+those  cases, either set up your mmu.library environment correctly (read the
+manuals),  or delete/rename mmu.library, so that disassembler.library cannot
+find it at startup.
+
+Thanks to Harry Sintonen for finding this 'bug' and its solution.
+----------------------------------------------------------------------------
+
+ 0.98  Changes/Additions since 0.97:
+	- Fixed bug in vector check kickmem brain that caused all patches to
+	  be recognized as 'AmigaOS ROM Update'. Sorry for that!
+	- Designed a new display format for the vector check. This one looks
+	  better and is more informative than the old one.
+	- Added brain for kicktags to the vector check. This one currently
+	  only recognizes 'AmigaOS ROM Update' and 'ramdrive.device'.
+	- Added the 'Snapshot' function to the vector check (as I promised).
+	  Now you can snapshot every unknown patch that causes alerts on
+	  your Amiga and send me the results. This makes it possible for me
+	  to even add patches that I cannot install on my computer.
+	  Read the manual for detailed information!
+	- Added recognition for ppc.library v46.37 to the vector check.
+	  Thanks to Jean-Michel Chapron for the handmade snapshots.
+	- Added disassembler mode to Memory Monitor. This should help
+	  experienced users/programmers to analyse unknown vector patches.
+
+ 0.97  Changes/Additions since 0.96:
+	- Fixed bugs in window calculation code that caused the resizeable
+	  windows (Vector Check, File Check) to look ugly or to not open up
+	  at all. Thanks to Crown/Cryptoburners, DMX, Paracels/Placebo,
+	  Jan Andersen and Mad Roger for the bug reports...
+	- Moved size-gadget in resizeable windows from the right border to
+	  the bottom border (looks much nicer and takes less space on small
+	  screens) and re-fixed width of these windows.
+	- Re-added support for ALL disk-based devices to Bootblock Lab on
+	  special request from Mikolaj Calusinski. Are you happy now? :-)
+	- Added disassembler mode to the Bootblock Lab. This should help
+	  experienced users/programmers to analyse unknown bootblocks.
+	  Note: This feature requires 'disassembler.library' v40.x by
+	        Thomas Richter, you'll find it in Aminet...
+	- Made Bootblock Lab window resizeable as the disassembler output
+	  becomes quite big sometimes.
+	- Changed the file format for saving window positions. Sorry, but
+	  if you already had arranged your windows individually, you will
+	  have to position them all again and save the prefs afterwards.
+	- Started adding Sector Check (at least the device selector, the
+	  real check is not implemented yet, sorry for that :-(
+	- Added recognition for mmu.library patches to Vector Check and
+	  fixed some smaller problems.
+	- Finally wrote at least a short documentation for VirusZ III.
+
+ 0.96  Changes/Additions since 0.95ß:
+	- Once again written by Georg Hörmann, as Dirk Stöcker doesn't have
+	  any time. No longer beta version, because all features are working
+	  well, missing ones are no reason for a beta release.
+	- Fixed bug in vector check that appeared with xvs.library 33.37.
+	  No longer uses private stuff from inside the library.
+	- Fixed bug in vector check startup code invented by Dirk's updates.
+	  No longer uses uninitialized gadget pointers.
+	- Added 'Show...' function for 'Data Viruses' from xvs.library.
+	- Rearranged 'File Check Preferences' back to just one window after
+	  Dirk replaced the old archive stuff with XAD.
+	- Added missing 'ROM Update' memlist entries to the brain.
+	  But: There still exists one entry that cannot be added because of
+	  missing static data.
+	- Added recognition for MuForce and MuGuardianAngel patches.
+
+ 0.95ß Changes/Additions since 0.94ß:
+	- Now detects and hides the MemList entries of known patches
+	  (eg. ROM Update).
+	- Added some unknown patches.
+
+ 0.94ß Changes/Additions since 0.93aß:
+	- Now no longer made by Georg Hörmann, but made by Dirk Stöcker.
+	- Added lots of new patches running on my system.
+	- Removed unfinished old style archiver support.
+	- Added short report format (like in VirusZ II).
+	- Bug fixes.
+	- Added file archiver support using xadmaster.library.
+	  NOTE: Registered VirusZ users can get special conditions when
+	  registering xadmaster.library. Contact me.
+	- Fixed preferences storage.
+	- Added my PGP signature to all the important files.
+	- Fixed VirusZ II Docs.
+	- Removed VirusZ II history stuff (It is no longer developed!).
+	- Added resize feature to some windows.
+
+----------------------------------------------------------------------------
+This version still causes PatchWork hits in the startup-code while scanning
+for an already running VirusZ_III copy. This may be fixed in a later release
+and doesn't influence the performance of VirusZ.
+
+ 0.93aß Changes/Additions since 0.93ß:
+	- Argh! Fixed tiny little bug that made 0.93ß crash on all Amigas
+	  that don't have archiver prefs saved in 'ENV:VirusZ_III'. Thanks
+	  to Jan Andersen and Dirk Stöcker for the reports.
+	- Memory Monitor now uses a pointer to ExecBase as default address
+	  to prevent Enforcer hits when 'Chip Start Address = 0' option is
+	  activated. Manually forced read accesses to locations $0 to $ff
+	  still cause Enforcer hits, but that is intended. That's why you
+	  can switch off the above mentioned option :-) Thanks to Dirk
+	  Stöcker for the report and idea.
+	- Fixed unsafe calls to FindTask() in 'Fake SnoopDos' code. Fixed
+	  shutdown code for timer port. Thanks to Dirk Stöcker again for
+	  the reports and for sending PatchWork (written by Richard Körber),
+	  a very useful debug utility.
+	- Added recognition for patches caused by PoolMem and PatchWork.
+	  Thanks again to Dirk for sending that stuff.
+
+ 0.93ß  Changes/Additions since 0.92ß:
+	- Finally added a new file check that works asynchronously. Right
+	  now it doesn't support archives and doesn't create a report, but
+	  all other features of VZ II file check have been implemented.
+	- Certainly added preferences windows for file check. Some features
+	  are not implemented yet, just ignore those settings.
+
+----------------------------------------------------------------------------
+Oh, oh, it's September already, and nothing great happened to VirusZ III.
+This really is a shame, but I was on a holiday trip in August after my final
+exams...
+
+ 0.92ß  Changes/Additions since 0.91ß:
+	- Added some system patches to vector check that disturbed me on
+	  my machine;-)
+	- Changed VirusZ status to FREEWARE until I will have more time
+	  to develop new features or at least finish VirusZ III. Why should
+	  you pay money for an incomplete program?
+
+----------------------------------------------------------------------------
+From March to August '98 I'm once again just at home for the week-ends.
+This will definitely delay further development, but I'm going to try my
+best to finish the work I've started as soon as possible.
+
+ 0.91ß  Changes/Additions since 0.90ß:
+	- Added xvs.library version string to About request. Idea by
+	  Jan Andersen.
+	- Fixed Disk-Validator check (path was DFx::L/Disk-Validator),
+	  thanks to Dirk Stöcker for the report.
+
+----------------------------------------------------------------------------
+Please understand that I didn't have the time to write a documentation
+for VirusZ III until now, just try the features yourself, most things are
+quite similar to VirusZ II.
+Best thing would be to run VirusZ III permanently in the background and
+call VirusZ II if you want to check files/sectors. Disable all background
+checking in VirusZ II 1.42/1.43 then to avoid double testing.
+Sorry, but huge programs, like VirusZ became over the years, cannot be
+rewritten in just a few days.
+
+ 0.90ß  Changes/Additions since VirusZ II 1.42a:
+	- Argh, just after releasing the fixed version, I found another
+	  bug in the Vector Check code. But now it's fully fixed.
+	- Added option to Memory Monitor to skip the low memory region
+	  in Chip-Ram to prevent Enforcer hits.
+	- Fixed little bug in Memory Monitor, the scroll functions didn't
+	  roll over the end of a region properly.
+	- Changed whole signal/message handling to asynchronous style.
+	  The second (background) process is obsolete and has been removed.
+	  Even reqtools requesters are asynchronous now, everything runs
+	  at the same time and nothing blocks out VirusZ. Functionality is
+	  now just limited by the number of free task signals as each
+	  window needs at least one.
+	- Rewritten whole startup code, all initialization routines and
+	  module setups for proper support of all new features.
+	- Removed File Check and Sector Check. These must be rewritten
+	  first to be able to support async design.
+	- Totally rewritten Bootblock Lab. The brainfile is compatible
+	  to VirusZ II but is stored by default in 'S:' now.
+	- Totally new and safe device scanner: Only disk-based devices will
+	  be recognized. This should prevent complications with some odd
+	  harddisks, cd-roms etc.
+	- Added new preferences. The preferences format changed and is no
+	  longer compatible with VirusZ II as many things became obsolete.
+	- All settings are stored in ENV:VirusZ_III subdirectory now, as
+	  there will be created several files.
+	- Preferences are kind of interactive now, every change is used
+	  immediately. There's no more need for Use/Cancel buttons.
+	- VirusZ remembers all window positions now. After a restart all
+	  windows will appear at their old positions. This only works if
+	  centering is disabled (in Misc Prefs)!
+	- Added a few new patches to the vector check. Thanks to all the
+	  guys who sent them.
+	- Added new viruses to xvs.library: 'Death To Maxs' 1-4 trojans.
+	  Thanks to Jan Andersen for sending them.
+	- Re-added 'Hide Known Patches' option to Vector Check as this
+	  is really useful if you have lots of patches in your system.
+	- Added new feature to Vector Check: If VirusZ detects some new
+	  unknown vectors, the Vector Check will mark them '--> CHANGED
+	  SINCE LAST CHECK' when they are first reported. This comment
+	  will then change to '--> SUSPICIOUS' as usual after a refresh.
+	  This may help you at determining which program causes which
+	  changes. Idea by Ramiro Garcia and others.
+	- Removed detection for Sinmut bootvirus. This actually isn't a
+	  virus, but some intro bootblock.
+	- Added/improved ARexx scripts CheckFiles.vzrx and CheckDir.vzrx.
+	  CheckFiles supports multiple filenames as arguments and
+	  CheckDir reports which drawer has been checked now. Thanks to
+	  Ramiro Garcia for developping the improvements.
+
+This history entry is just a rough overview of what happened in the last
+few weeks. I sat in front of my machine almost every evening, my girlfriend
+is getting angry and other hobbies (even television) are canceled.
+There were several moments when another huge problem appeared that I didn't
+believe in myself any longer and thought about cancelling all the work, but
+until now, I nevertheless managed to solve all the problems (asynchronous
+layout is really tricky ;-)
+There is still a lot of work to come, as I'm planning new features for the
+File Check and other parts of VirusZ III, but I really hope that some day
+I can say: It's done!

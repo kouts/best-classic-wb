@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE>Monitor di sistema / Freezer</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: freezer.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Monitor di sistema / Freezer</h3>
+Ci sono molti software di freeze (congelamento) in giro. L'utilizzo di questi programmi può essere di grande aiuto durante
+lo sviluppo e il debug degli Slave e dei programmi installati. WHDLoad supporta direttamente HRTmon e ThrillKill. Altri
+programmi possono essere usati tramite l'opzione <a href="opt.html#NoTrapHandler">NoTrapHandler/S</a> (questo ha comunque
+qualche svantaggio). Se vuoi un supporto diretto per un'altro programma puoi contattarmi, e se può essere fatto, includerò
+il suo supporto. All'avvio WHDLoad controlla se uno dei monitor di sistema supportati è attivo. Se ne viene trovato uno,
+WHDLoad eseguirà delle azioni speciali. Se la MMU è usata da WHDLoad, quest'ultimo dichiarerà la memoria utilizzata dal
+monitor come valida e utilizzabile con la cache WriteThrough. Mentre il gioco/demo sarà in esecuzione reindirizzerà tutte le
+ eccezioni NMI al vettore NMI salvato dalla vector table del monitor. In aggiunta a questo, se il VBR viene spostato da
+WHDLoad (<a href="opt.html#NoVBRMove">NoVBRMove/S</a> non è settato e la cpu è almeno una 68010), confronterà la <a
+href="opt.html#FreezeKey">FreezeKey</a> con l'attuale valore rilevato dalla tastiera ad ogni interrupt. Se i tasti
+corrispondono allora WHDLoad eseguirà l'operazione richiesta, trasformerà lo stackframe in un NMI stackframe ed entrerà nel
+monitor tramite il suo handler NMI.
+<h4>HRTmon</h4>
+Il suo rilevamento in memoria dovrebbe essere relativamente sicuro, specialmente per le nuove versioni del monitor,
+visto che una nuova signature è stata aggiunta allo stesso.
+Fate attenzione se la MMU viene utilizzata da WHDLoad: non accedete alle aree fuori da BaseMem da HRTmon. Quest'ultimo andrà in
+crash (guru) perché non prevede il supporto per il risultante Access Fault Exception.
+<p>In HRTmonPrefs deve essere selezionato 'No VBR move', altrimenti non sarà possibile entrare nel monitor mentre WHDLoad
+è in esecuzione.
+<p>Al ritorno nell'applicazione da un HRTmon attivato in WHDLoad ci potranno essere dei problemi nella grafica. Questo
+succede perché HRTmon sovrascrive alcuni registri custom. Il problema può essere risolto comunicando a HRTmon il valore
+corretto per i registri, ad esempio <tt>'e $100 $5200'</tt> per avere uno schermo a 32 colori prima di tornare all'applicazione.
+<p>HRTmon incluso in WinUAE può essere rilevato solo se HRTmon è stato attivato precedentement almeno una volta (premendo
+il tasto PgUp). Alla prima attivazione il vettore NMI verrà settato e sarà poi utilizzato da WHDLoad per rilevare il monitor
+(che altrimenti non può essere localizzato).
+
+<p>Ci sono nuove release di HRTmon che aggiungono comandi speciali quando girano
+sotto WHDLoad. In questo modo è possibile caricare/salvare file e usare
+le funzioni <a href="prot.html">resload_Protect#?</a> direttamente da HRTmon.
+Queste nuove release sono scaricabili da
+<a href="http://www.whdload.de/whdload/Tools/">WHDLoad page</a>.
+
+<h4>ThrillKill</h4>
+Non c'è nessun segno distintivo utilizzabile per questo freezer, vengono quindi utilizzati alcuni confronti nel codice per
+rilevarlo. Per questo motivo la sua rilevazione non funzionerà con altre sue versioni.
+</BODY>
+</HTML>

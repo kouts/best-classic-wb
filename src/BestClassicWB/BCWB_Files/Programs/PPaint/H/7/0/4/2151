@@ -1,0 +1,478 @@
+@DATABASE 2151
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 6. The Animation Menu"
+@TOC PPaintCD:H/7/0/4/OO00/Main
+
+@{B}6.         The Animation Menu@{UB}
+
+An animation, as the name implies, is very much like a cinema film, or a
+cartoon made by photographing a series of drawings (called "frames").
+Personal Paint offers a unique and powerful set of animation features. It
+allows users to easily manipulate frames or groups of frames through its
+visual Storyboard. The program exploits the ANIM standard better than
+other programs. This leads to improved file compression and gives more
+space to creativity. For example, it is possible to use more than one
+palette for different groups of frames, or program the exact time for
+which an individual frame is to be displayed during playback. It is also
+possible to resize, cut or stretch an entire animation as if it was a
+simple picture. The animation which is being edited doesn't even need to
+fit in Chip RAM, as Personal Paint can store frames in Fast RAM. The
+program can also quickly play animation files of any size directly from
+disk.
+
+Personal Paint accepts and creates the following animation formats:
+ANIM-5, ANIM-7 (short and long-words), ANIM-8 (short and long-words) and
+hybrid files which may contain any combination of these frame formats. In
+general, ANIM-5 remains the most space-efficient and widely used format.
+
+Personal Paint includes the original Auto ANIM save format, which, for
+each animation frame, selects the best compression scheme (ANIM-5, 7,
+etc.) Compared to pure ANIM-5 files, hybrid files may be up to 5-10%
+shorter, and still remain fully compatible with the official ANIM
+specifications.
+
+ANIM-8 is an evolution of ANIM-5, just as ANIM-7 is, although ANIM-7 is
+generally considered to be superior. Compared to ANIM-5, both formats may
+achieve faster loading of animation files (and improved "Play File"
+performance).
+
+Animations created with Personal Paint can be displayed by other
+commercial products, as well as by famous, freely distributable animation
+players, like @{I}Viewtek@{UI} (which plays ANIM-7 starting from version 1.04) and
+@{I}RTAP@{UI} (Real Time Anim Player) - both supporting multiple palettes and
+frame-by-frame timing.
+
+Hundreds and hundreds of existing animation files could be made shorter by
+simply loading and saving them again with Personal Paint. This is because
+the program does some additional work (compared to other software) when it
+chooses how to compress bitplanes of frame data. The resulting files can
+still be read even by most of the very first ANIM-5 players.
+
+Optimization can go even further. Many programs insert "dummy" timing
+frames just to have an image appear for longer time on the screen. All
+groups of identical frames can be stripped into a single frame with a new
+timing value. Personal Paint has a function to do exactly this.
+
+For example, the original file containing the well-known "Amy Walks 2"
+animation, by Eric W. Schwartz, is 341 276 bytes long. Saved again by
+Personal Paint, in the same ANIM-5 format (without frame stripping) it is
+45 Kbytes shorter.
+
+And the famous "Doggie's Inferno" cartoon originally occupies 153 576
+bytes. This is for 317 frames. But, apart from the less than ideal
+compression, 248 of these frames are identical to other frames, and only
+serve as time-fillers. With Personal Paint, this is not necessary any
+more. By stripping these frames and saving the animation again, the file
+ends up being only 84 782 bytes: almost half the original length.
+
+If an animation has smooth "fade-in" or "fade-out" effects, there is no
+need to have huge global color palettes: each frame or group of frames may
+have its own individual palette. The Storyboard includes a function to
+apply smooth palette variations to consecutive frames.
+
+Personal Paint can load, manipulate and play animations using any
+palette-based screen mode. This includes support of all Amiga chip-sets
+and RTG graphic boards. When using non-Amiga video modes (e.g. a
+third-party display card), it is important to keep in mind that the
+selected screen mode must support a feature called @{I}double-buffering@{UI}. The
+software driver used with the RTG board should support double-buffering
+through Intuition library calls (this normally requires version 3.0 of the
+Amiga operating system). On all Amigas, double-buffering is a standard
+feature, supported by all versions of the operating system. Also, the
+frame size cannot exceed the maximum screen size (underscan, overscan and
+autoscroll are OK). If these conditions are not met, an animation can
+still be edited, but smooth playing cannot be guaranteed. The Play File
+function supports additional display modes (e.g. HAM and HAM8).
+
+While Personal Paint is in general compatible with screen "promoters"
+(utilities that intercept a request to open a given screen, and open
+another type of screen instead), it is not completely safe to promote from
+double-buffering to non-double-buffering modes, or from Amiga to RTG
+modes, or vice versa. In case of difficulties, the screen promoting
+software should be disabled.
+
+Which file format is best? The ANIM-5 file format is the most accepted and
+widespread of all Amiga animation formats. It also achieves a better
+compression rate. The ANIM-7 format compensates in part for the additional
+overhead of playing animations which have large amounts of data per frame
+(e.g. animations which take advantage of the additional numbers of colors
+of AGA screen modes) directly from file. Once loaded into the program,
+animations end up being the same regardless of the file format. However,
+if a 256-color animation has to be played from file, it can be much faster
+if it is stored in ANIM-7 format. While ANIM-7 is faster than ANIM-5 if
+played from file, it is not as space-efficient, nor as standard. Some
+animation programs cannot even load it. Two variants of ANIM-7 exist:
+ANIM-7S (short-word based) and ANIM-7L (long-word based). The latter
+format may be played even faster than ANIM-7S on some computers, but files
+are longer. ANIM-8 also has a Short and a Long variant.
+
+
+@{B}6.1        Load Animation@{UB}
+
+This function loads an animation from file. If the current environment
+already contains an animation in the same frame size as the one being
+loaded, a requester appears to select how new frames are to be loaded.
+
+The following options are available:
+
+@{I}Load New:@{UI} clears the current animation and loads the new one;
+
+@{I}Append:@{UI} adds the new frames to the end of the current animation;
+
+@{I}Insert Before:@{UI} inserts the new frames before the frame specified through
+the proportional gadget displayed in the same requester;
+
+@{I}Insert After:@{UI} just like Insert Before, but frames are inserted after the
+specified frame.
+
+@{I}Overwrite:@{UI} the new frames overwrite existing frames, starting from the
+specified frame; frames exceeding the length of the current animation are
+appended at the end.
+
+The frames are displayed as they are loaded. The <Esc> key can be pressed
+to stop loading frames (frames already loaded remain intact).
+
+
+@{B}6.2        Save Animation@{UB}
+
+After the usual file requester, a custom requester allows the user to
+select the file format (among the formats already described) and whether
+to save the entire animation, or only part of it.
+
+A standard Amiga animation should be saved from a screen mode supporting
+double-buffering, which is required for smooth playing of the animation.
+While Personal Paint will try to animate as smoothly as possible in any
+screen mode, some animation players do not even attempt to play an
+animation in non-double-buffered screen modes. The correct screen mode
+information is stored by Personal Paint together with the animation (as
+required by the ANIM standard).
+
+The "Full ANIM Optimization" flag is normally activated, and in most cases
+it shouldn't be necessary to change this setting. A few "primitive" pieces
+of animation software may not completely support certain compression
+modes, which have always been part of the ANIM standard. If this option is
+disabled, Personal Paint will not perform certain optimizations which are
+normally very important to achieve a good compression, but which cannot be
+processed properly by the incomplete software. This feature has only been
+added to guarantee full compatibility with all animation players (even the
+oldest), and should be of interest only to the more technical-oriented
+users. In practice, it is easier to come across a rare piece of animation
+software which does not support multiple palettes and frame-by-frame
+timing (which are not related to this option), than finding one which
+cannot handle compression properly (e.g. single descriptors for multiple
+plane-differences).
+
+
+@{B}6.3        Play File@{UB}
+
+Personal Paint can play even the largest animations directly from file,
+even on computers with a standard memory configuration. This is also
+useful to view an animation before loading it. Play File does not affect
+the contents of the current environment (image, animation, etc.)
+
+Some animations may impose too much overhead on a particular system to be
+played in real time (that is, smoothly). If the hardware or software
+cannot keep up with a particularly data-intensive animation, it may be
+wiser to store the animation in one of the ANIM-7 formats rather than
+using ANIM-5, as explained in the introduction to animation.
+
+If there is sufficient RAM, Play File temporarily uses virtual memory (if
+it is switched on) to store the animation in the RAM storage area. This
+allows the animation to be played faster, and prevents unnecessary
+wear-out of the peripheral storage device whenever the computer is used
+for repeating an animation over and over again.
+
+The short initial delay usually associated to loading an animation to RAM
+can be avoided by switching off the RAM Storage (section @{"9.3.1" LINK PPaintCD:H/7/0/4/0047/Main 130}) virtual
+memory setting. This may be especially useful when playing more than one
+animation from an ARexx script.
+
+Play File will continue playing the animation, until <Esc> is pressed or a
+mouse button is clicked.
+
+
+@{B}6.4        The Storyboard@{UB}
+
+The Storyboard is a powerful visual animation editing tool. The Storyboard
+requester displays all frames in a thumbnail format, from left to right,
+top to bottom, as they appear in the animation.
+
+If all the frames don't completely fit in the requester, the scroll bar
+can be used to move around. Both the requester and the frames can be
+resized. The requester has a resize gadget on the bottom-right corner,
+while the size of the reduced frames can be selected by pressing the right
+mouse button, and dragging the mouse to indicate the desired size. This
+information can be saved in the program settings files.
+
+The number under each frame indicates the sequential position of that
+frame within the animation. During all actions, a parallel process
+creates, displays, maintains and updates the reduced thumbnail-images. If
+the frames are very similar to each other, it may be appropriate to select
+a larger frame size.
+
+Three dots under a frame indicate frames having a palette differing from
+the current one. Double-clicking on a frame makes that frame (and its
+palette) the current one. In case of animations having multiple palettes,
+having a current frame with the same palette as the thumbnails improves
+the quality and speed at which the thumbnails are displayed.
+
+One or more frames can be "selected" by pressing the left mouse button and
+dragging the mouse over a number of frames. Selected frames are
+highlighted by a light border, and indicate the source or target of a
+storyboard operation. The current selection can be extended by holding
+down a <Shift> key and clicking on a frame. A cursor positioned between
+two frames indicates where frames would be inserted. The cursor is
+positioned with the mouse. A double-click on a frame makes that frame the
+current frame in the animation (that is, it is displayed in full-size in
+the background).
+
+The top of the requester contains a series of gadgets. Many gadgets have
+an equivalent in the Palette requester (section @{"8.1.3" LINK PPaintCD:H/7/0/4/0016/Main 78}). Others are
+special to the Storyboard.
+
+The first two gadgets are used to add or insert new frames. The number in
+the string gadget indicates how many frames have to be inserted. The
+insertion point is marked by the cursor. Insertion occurs whenever the Add
+gadget is selected.
+
+The following gadget is used to delete the selected range of frames.
+
+To the right of the Delete gadget is the Insert gadget. It acts on the
+currently selected frames, and waits until the cursor is repositioned to
+insert a copy of these frames at the new insertion point (outside the
+source range). The source frames remain intact. To @{I}move@{UI} a group of frames
+from one point to another, the Insert and Delete operations can be used in
+sequence.
+
+The following gadget is the Copy gadget, which "copies over" a range of
+frames. It takes the source range and waits for a target range to be
+marked with the mouse. Then it copies the source over the destination. If
+the source contains less frames than the destination, then the source
+frames are repeated, one after the other. Both the source and the
+destination can, of course, be a single frame.
+
+Copy Palette works exactly like Copy, but only copies the color palettes
+of the selected frames.
+
+Like in the Palette requester, there are two color spread gadgets (Create
+RGB and HSB Range, section @{"8.1.3.6" LINK PPaintCD:H/7/0/4/0016/Main 199}), which apply intermediate palettes to
+the frames between the first and last frames in the range.
+
+The Restore gadget restores the animation as it was when the Storyboard
+was displayed. This function (like the Cancel gadget in the Storyboard)
+requires virtual memory to be active (section @{"9.3.1" LINK PPaintCD:H/7/0/4/0047/Main 130}).
+
+Clicking on the Hide gadget temporarily hides the requester (as long as
+the mouse button is held down), in order to give a full view of the
+current frame.
+
+The Delay string gadget indicates the timing value associated to the
+selected frame (or to the first of a range of frames). This time value,
+expressed in ticks (1 tick = 1/60th of a second), indicates for how long a
+frame has to remain on screen before the next one is displayed. A new
+value can be applied by typing a value in the string gadget and pressing
+<Return>. The new value is applied to all frames in the Storyboard range.
+
+
+@{B}6.5        Free Animation@{UB}
+
+This command releases the current animation. The current environment
+switches from animation mode to single picture mode. This command is
+required before loading an image, unless the image should be loaded into
+the current animation frame.
+
+
+@{B}6.6        Animation Frames@{UB}
+
+@{B}6.6.1      Move to Frame@{UB}
+
+These menu subitems respectively allow the user to quickly jump to the
+previous or next frame, or to a frame specified by number. The keyboard
+shortcuts to these commands can be selected even while a painting tool is
+in use. For example, it is possible to keep using the same tool from one
+frame to the next (using the default <2> shortcut for Next Frame), without
+even releasing the mouse button.
+
+
+@{B}6.6.2      Add Frame@{UB}
+
+The Add Frame command adds a copy of the current frame immediately after
+it. The new frame becomes the current frame. Nice effects can be obtained,
+for example, by alternating "Add Frame" with image processing, resulting
+in progressive blurring or randomization, or other distortions.
+
+If there is no animation, the first issue of Add Frame transforms the
+current image into a single-frame animation. A normal image is not treated
+as a single-frame animation.
+
+
+@{B}6.6.3      Optimize Frames@{UB}
+
+The Optimize Frames command searches for duplicate frames, generally
+created with other animation programs in order to have an image appear
+longer on the screen (the introduction to animation has a more detailed
+explanation of this). The frames are merged into a single frame, having a
+time-value equal to the sum of the time values of the original frames. The
+resulting animation is visually identical to the original, except that
+when it is stored to file it can occupy considerably less space.
+
+
+@{B}6.7        Play Animation@{UB}
+
+By default, the current animation is played from beginning to end (in all
+modes: Continuous, Once and Ping Pong). The Range selection requester
+allows the user to select a range of frames to be played in the Play Once
+and Play Ping Pong modes.
+
+Play Continuous plays the animation from the first to the last frame.
+After the last frame, the animation is played again. This is repeated
+until a key or a mouse button are pressed. Play Once only plays the
+animation (or a range, if specified) once, while Play Ping Pong goes back
+and forth from the first frame to the last, and vice versa. In practice,
+during a "creative" session, the Range option is excellent for quickly
+checking the result of the most recent changes (using Play Once and Play
+Ping Pong), while Play Continuous can be used to see how everything fits
+together.
+
+During animation, the standard Amiga keyboard shortcuts can be used to
+depth-arrange the screen (<Left Amiga>+<N>/<M>) or to drag it up and down
+(<Left Amiga>+<Mouse Drag>, or whatever specified in the IControl
+Preferences).
+
+
+@{B}6.8        Animated Brushes@{UB}
+
+Animated brushes (also called "anim-brushes") are brushes that contain
+more than one frame. Each time an animated brush is pasted onto the image,
+it automatically advances to the following frame. The order in which the
+frames appear can be adjusted (section @{"6.8.3" LINK Main 376}). If the <Caps Lock> key is
+active when an anim-brush is pasted, all frames in the selected anim-brush
+range are pasted onto consecutive animation frames. The standard Amiga
+mouse-emulation keys can be used for most accurate positioning: <Amiga> +
+<Cursor> for positioning and <Amiga> + <Left/Right Alt> to emulate a mouse
+button.
+
+Anim-brushes may be copied or cut from an animation just like normal
+brushes. In animation mode, the Define Brush tool (section @{"3.1.6" LINK PPaintCD:H/7/0/4/0017/Main 1027}) has
+additional options for the selection of anim-brushes.
+
+Just like in full-screen animations, each frame may have its own,
+independent, color palette. All frames share the same size and number of
+planes. Many of the brush operators, such as Resize and Rotate, can also
+be applied to anim-brushes.
+
+Amiga anim-brushes use a standard file format (a variation of ANIM-5),
+which is different from those normally used by animations. Personal Paint
+follows this standard.
+
+
+@{B}6.8.1      Load Anim-Brush@{UB}
+
+This command loads an anim-brush as the current brush. The file must be a
+valid Amiga anim-brush format.
+
+
+@{B}6.8.2      Save Anim-Brush@{UB}
+
+This command saves the current anim-brush. The file format is a variation
+of ANIM-5 (ANIM-5-XOR, with an interleave value of 1 and a DPAN chunk).
+
+
+@{B}6.8.3      Anim-Brush Settings@{UB}
+
+Each time an anim-brush is pasted onto the image, a new frame appears.
+This requester allows the user to adjust the cycling options of the
+current anim-brush. It is possible, for example, to use only every second
+frame, or to "stretch" the sequence to match an exact number of frames.
+
+The first field indicates the total number of frames.
+
+The Range string gadgets may be used to set the first and the last frame
+of the range used for frame cycling.
+
+The Length value is normally equal to the number of frames in the selected
+range, but may adjusted to cover a predefined number of frames. If, for
+example, an anim-brush made of 20 frames has to be rendered in a sequence
+of only 10 animation frames, a Length value of 10 would cause every second
+anim-brush frame to be skipped. Conversely, a Length setting of 40 would
+use each frame twice.
+
+The Position and Frame settings indicate the position of the first frame
+to be used. If the Length value is the same as the number of frames in the
+range, then Position and Frame will also be equal. Otherwise, Position
+indicates the first (current) position in the cycling sequence, and Frame
+indicates the corresponding frame (the current frame after the requester
+is closed).
+
+For example, given a range of 20 frames from frame 4 to frame 23, and a
+Length value of 40, a Position value of 24 would correspond to Frame 15
+(24 is divided by 2 because each frame is used twice; the resulting value
+of 12 is offset by 3 frames so that the starting point is frame 4).
+
+The Direction setting may be set to Forward, Backward, Ping Pong or Pause.
+In Ping Pong mode the brush cycles back and forth, while in Pause mode no
+cycling occurs.
+
+
+@{B}6.8.4      Previous/Next Frame@{UB}
+
+These commands select the previous or following frame (using the
+progression rules specified in the anim-brush settings).
+
+
+@{B}6.8.5      Free Anim-Brush@{UB}
+
+This command frees the memory occupied by the current anim-brush, leaving
+only the current frame as a plain brush.
+
+
+@{B}6.9        Animation and the Other Program Functions@{UB}
+
+When the Clear tool (section @{"3.1.9" LINK PPaintCD:H/7/0/4/0017/Main 1121}) on the tool bar is selected with the
+right mouse button, the Clear Frames requester appears. This allows the
+user to clear (without removing) one or more frames.
+
+The Image and Screen Format requester (section @{"4.5" LINK PPaintCD:H/7/0/4/0049/Main 901}) can be used to modify
+the animation format. Animations can be stretched, cut, color-reduced
+etc., just like an image.
+
+When an animation is color-reduced, Personal Paint may assign different
+palettes to the color-reduced frames, even if the original animation only
+had a single palette. This is caused by the fact that different frames may
+use different quantities of some colors, which are therefore assigned
+different priorities by the color reduction algorithm (section @{"9.7" LINK PPaintCD:H/7/0/4/0047/Main 319}). This
+is the best technique to convert single frames, but seeing a common
+frame-background, or some objects common to more frames changing color
+from one frame to the other may be disturbing. To force a common palette
+(based on the palette of the current frame) to be used for the entire
+animation, one of the two <Shift> keys should be held down while the "New
+Animation Format" requester is closed (this requester is followed by the
+progress requester). This also speeds up color reduction (which is
+performed only once). As a feedback, the "Counting Pixels" progress
+requester appears.
+
+When an image is made smaller without stretching it, it is "cut" between
+the current top left corner of the screen and the new bottom right corner
+(provided that the new image format is identical to the new screen
+format). Animations can also be cut with an offset other than 0:0. First,
+the screen must be brought to the new size (without changing the image
+format). Once the screen exactly delimits the area of the frame to be
+preserved, the image format can be set to be identical to the screen.
+
+Load Image (section @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11}) normally loads the picture into the current
+animation frame. If animation is no longer desired, Free Animation must be
+selected before loading the picture.
+
+An entire animation can be copied to the other environment with the Copy
+Animation command (section @{"4.8.3" LINK PPaintCD:H/7/0/4/0049/Main 1113}).
+
+When the Palette requester or any other palette manipulation function
+(section @{"8.1" LINK PPaintCD:H/7/0/4/0016/Main 15}) are used to modify the color palette, only the palette of
+the current frame is changed. The Storyboard can be used to apply a common
+palette to a range of frames.
+
+@ENDNODE

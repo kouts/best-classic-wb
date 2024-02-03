@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE>WHDLoad and the MMU</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: mmu.html 1.7 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>WHDLoad and the Memory Management Unit (MMU)</h3>
+A MMU is contained in the following processors of the 68000 family: 68030,
+68040, 68060. There are also so called EC versions of these processors
+which have a broken, out of function MMU. For example, all standard A4000/030
+have only a 68EC030 CPU. On third party accelerator boards this varies,
+look in the appropriate documentation to learn about it. As far as
+known, all 68040/68060s built into an Amiga are full CPUs containing a
+working MMU. This is because Zorro III requires MMU mapping of IO
+space. The distinction between a full CPU and a EC version cannot be done by
+software. Therefore the user must do this by
+setting the <a href="#usercontrol">right options</a> for WHDLoad.
+<br>For the 68020 there is an external MMU called 68851, but this is
+currently not supported by WHDLoad.
+<h4>Features of a MMU and using in WHDLoad</h4>
+The main purpose of the MMU is to translate logical addresses to physical
+ones. This is required for virtual memory and separated address spaces.
+Another feature is to specify
+special properties like Supervisor Only, Write Protected and Caching mode for
+every physical address space, configured on a page base, where a page used in WHDLoad has
+a size of 4096 bytes. WHDLoad does not use logical to physical address
+translation. But it uses the MMU for <a href="#mem">memory protection</a>, <a
+href="cache.html">cache management</a> and some special features like <a
+href="snoop.html">Snooping</a> and <A
+HREF="../autodoc.html">resload_Protect#?</a>.
+<h4><a name="mem">Memory protection in WHDLoad</a></h4>
+On startup, WHDLoad scans the present memory list and will build a translation tree
+which includes all accessible memory. It marks the following address spaces as
+valid and accessible: $0...BaseMem (using the information from the Slave),
+$dff000...$dff200 (Custom registers), $bfd000...$bff000 (CIA registers) and
+the memory used by the Slave and WHDLoad. If a Freezer is found in memory, the
+memory used by the Freezer will also be marked as valid. All other memory is
+marked as invalid, and therefore every access to such an area (Read or Write)
+will create an Access Fault Exception which will end in an appropriate error
+requester created by WHDLoad.
+<h4><a name="usercontrol">User control of the MMU handling in WHDLoad</a></h4>
+There are 3 different modes how WHDLoad does affect an existing MMU.
+<ol>
+<li><b>ignore MMU</b>:<br>
+In this mode WHDLoad does not change any MMU related registers. This may be
+useful if you have running programs which are banging the MMU and you want that
+the functionalities of these programs to remain intact (for example a software
+freezer like TK).
+<br>
+Warning: Because WHDLoad does not control the MMU itself a lot of
+problems are possible. These problems may cause crashes, malfunctions or other
+unforseeable misbehaviors. Here a list of existing risks:
+<ul>
+<li>running Enforcer/CyberGuard or a similar tool will lock/crash the machine,
+because WHDLoad will create a lot of Hits each time it switches the OS off and
+on. These Hits are not bugs of WHDLoad but part of normal operation.
+<li>newer versions of the 68060.library (starting v41.1) will remap the memory
+$0-$1000 (the first page) to a Fast memory location using the MMU, in "ignore
+MMU" mode this address translation will remain intact, if the installed
+program tries to use this area for any DMA actions (e.g. a copperlist in this
+area) the results will be unforeseeable, because the CPU will read/write the
+Fast memory location while the DMAs the real Chip memory which contains
+random data.
+<li>if the running MMU stuff uses any memory (exception handler, translation
+tree, ...) inside the BaseMem of the installed program, it may crash, because
+the BaseMem will be overwritten during executing the installed program
+<li>in general each program which changes basic functions of the system (using
+the MMU) may conflict with WHDLoad ...
+</ul>
+<li><b>disable MMU</b>:<br>
+In this mode, which is possible only on 68030, the MMU will be switched off by
+WHDLoad, no MMU related features are available.
+<li><b>use MMU</b>:<br>
+In this mode WHDLoad takes full control over the MMU and realizes memory
+protection and cache management as explained above.
+</ol>
+On the 68030 the default mode is <i>disable MMU</i>. On the 68040/68060 default is <i>use MMU</i>. There are two options to control this behavior. <a href="opt.html#MMU">MMU/S</a> forces WHDLoad to <i>use</i> the <i>MMU</i> and is required on 68030 systems to get the MMU features. <a href="opt.html#NoMMU">NoMMU/S</a> disables the MMU usage by WHDLoad (<i>ignore MMU</i>).
+<center><p><cite>An Enforcer hit is an Enforcer hit, period.</cite> (Michael Sinz)</p></center>
+</BODY>
+</HTML>

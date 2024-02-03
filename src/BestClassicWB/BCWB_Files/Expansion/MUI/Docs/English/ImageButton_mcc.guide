@@ -1,0 +1,218 @@
+@database ImageButton_mcc.guide
+@smartwrap
+@$VER: ImageButton_mcc.guide 1.4 (17.8.98) © by Maik "bZ!" Schreiber
+
+@node "Main" "ImageButton.mcc 11.4"
+@{jcenter}@{par}
+@{b}@{u}ImageButton.mcc 11.4 - Copyright © 17-Aug-1998 by Maik "bZ!" Schreiber@{uu}@{ub}@{par}
+
+@{jleft}Instead of creating simple and rather boring text buttons, ImageButton.mcc
+allows the programmer to add every type of static graphics to the buttons.
+This way, your graphical user interface will be more user-friendly and the
+users will like to use it more often.@{par}
+
+You can set the image, the label and the label position of a button at any
+time. It is also possible to show/hide the image and/or the label at any
+time.@{par}
+
+See the supplied demonstration program for more details.@{par}
+
+
+@{jcenter}@{" License          " link "License.txt/Main"}@{par}
+
+@{" Requirements     " link "Requirements"}@{par}
+
+@{" History          " link "History" 9999}@{par}
+
+@{" Author           " link "Author"}@{par}
+@{" Acknowledgements " link "Acknowledgements"}@{par}
+
+
+Note: This document makes heavy use of OS 3.1 @{amigaguide} commands.@{par}
+
+@endnode
+
+@node "Requirements" "Requirements"
+@{par}
+  @{b}@{u}Requirements@{uu}@{ub}@{par}
+
+ImageButton.mcc requires at least version 3.0 of MUI (V11).@{par}
+It is recommended that you always use the latest version of MUI.@{par}
+
+@endnode
+
+@node "History" "History"
+@{par}
+  @{b}@{u}History@{uu}@{ub}@{par}
+
+11.0, 13-Apr-1997:@{par}
+@{lindent 4}  - first version of ImageButton.mcc@{lindent 0}@{par}
+
+11.1, 15-Apr-1997:@{par}
+@{lindent 4}  - the label can now be at all positions around the image: left, right,
+above or below@{lindent 0}@{par}
+@{lindent 4}  - Image specifications can now be used as an image, too@{lindent 0}@{par}
+@{lindent 4}  - reworked autodocs@{lindent 0}@{par}
+
+11.2, 14-Jul-1997:@{par}
+@{lindent 4}  - did some internal improvements and cleanup@{lindent 0}@{par}
+
+11.3, 17-Aug-1998:   @{i}(the lost update ;) @{ui}@{par}
+@{lindent 4}  - major speed-up improvement when a button needs to be visually updated
+(eg. when changing the image, label or label position)@{lindent 0}@{par}
+
+11.4, 18-Aug-1998:@{par}
+@{lindent 4}  - little internal code cleanup@{lindent 0}@{par}
+@{lindent 4}  - removed some rubbish things from ImageButton-Demo.c@{lindent 0}@{par}
+
+@endnode
+
+@node "Author" "Author"
+@{par}
+  @{b}@{u}Author@{uu}@{ub}@{par}
+
+@{lindent 11}@{b}SnailMail: @{ub}Maik Schreiber@{par}
+Thielenstraﬂe 9@{par}
+21109 Hamburg@{par}
+Germany@{lindent 0}@{par}
+
+@{code}@{b}EMail    : @{ub}bZ@iq-computing.de@{body}@{par}
+
+@{lindent 11}@{b}Phone    : @{ub}+49 (0)40 75 49 31 24 (7:30pm - 11:00pm MET/MEST)@{lindent 0}@{par}
+
+@{code}@{b}Web site : @{ub}www.IQ-Computing.de@{body}@{par}
+
+@{lindent 11}@{b}Account  : @{ub}Account: 66 09 440  (Maik Schreiber)@{par}
+BLZ    : 200 700 00 (Deutsche Bank)@{lindent 0}@{par}
+
+@{b}PGP key  : @{ub}@{par}
+
+@{code}Type Bits/KeyID    Date       User ID
+pub  2048/B71E1741 1996/06/17 Maik Schreiber <bZ@iq-computing.de>
+sig       34D74DC1             Peter Simons <simons@petium.rhein.de>
+sig       B71E1741             Maik Schreiber <bZ@iq-computing.de>
+                              Maik Schreiber <bZ@dame.de>
+sig       34D74DC1             Peter Simons <simons@petium.rhein.de>
+sig       B71E1741             Maik Schreiber <bZ@iq-computing.de>
+                              Maik Schreiber <blizzer@gmx.net>
+sig       34D74DC1             Peter Simons <simons@petium.rhein.de>
+sig       B71E1741             Maik Schreiber <bZ@iq-computing.de>
+                              Maik Schreiber <http://www.IQ-Computing.de>
+sig       34D74DC1             Peter Simons <simons@petium.rhein.de>
+sig       B71E1741             Maik Schreiber <bZ@iq-computing.de>
+                              Maik Schreiber <BLiZZeR@dame.de>
+sig       7DE5E039             Oliver Hauth <phomexa@vnet.e.ruhr.de>
+sig       34D74DC1             Peter Simons <simons@petium.rhein.de>
+sig       5C77B04D             Johnny Tevessen <j.tevessen@line.org>
+sig       84539E45             Oliver Hauth <phomexa@forall.dame.de>
+sig       B71E1741             Maik Schreiber <bZ@iq-computing.de>
+                              Maik Schreiber <http://home.pages.de/~bZ>
+sig       34D74DC1             Peter Simons <simons@petium.rhein.de>
+sig       5C77B04D             Johnny Tevessen <j.tevessen@line.org>
+sig       B71E1741             Maik Schreiber <bZ@iq-computing.de>
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: 2.6.3ia
+Comment: visited www.IQ-Computing.de yet?
+
+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
+=xbPj
+-----END PGP PUBLIC KEY BLOCK-----@{body}@{par}
+
+@endnode
+@node "Acknowledgements" "Acknowledgements"
+@{par}
+  @{b}@{u}Acknowledgements@{uu}@{ub}@{par}
+
+I would like to thank the following people:@{par}
+
+@{b}Matthias "Quape" Kaulartz@{ub}@{par}
+
+@{b}Oliver "Phomex A" Hauth@{ub}@{par}
+
+@{b}Kai "PowerStat" Hofmann@{ub}@{par}
+  @{lindent 2}for MCC-Install@{lindent 0}@{par}
+
+@{b}All who I did forget... :)@{ub}@{par}
+
+@endnode
+

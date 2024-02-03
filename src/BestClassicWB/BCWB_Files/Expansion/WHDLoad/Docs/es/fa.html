@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE>FindAccess * Encontrar Accesos</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: fa.html 1.3 2013/11/25 22:13:32 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>FindAccess * Encontrar Accesos a una ubicación de memoria</h3>
+Esta herramienta cargara el fichero especificado y buscara en el mismo los accesos
+a una dirección de memoria especificada. Encontrara todas las referencias absolutas
+y relativas de 8-bits, 16-bits y 32-bits. Ha sido escrito para analizar los ficheros
+de volcado de memoria. Es similar al comando Freezer (FA) pero no desensamblara el
+acceso, solo mostrara el mismo como un volcado en hexadecimal.
+<h4>Instalación</h4>
+FindAccess solo esta presente en el archivo <tt>DEV</tt>, no en el archivo
+<TT>USR</tt><br>cópielo al C: o una ubicación similar
+<h4>Uso</h4>
+Yo uso el siguiente alias (agregado a mi S:Shell-Startup) para buscar en el último
+volcado de memoria escrito por whdload:
+<p><tt>alias fa FindAccess C:.whdl_memory</tt></p>
+de tal forma que puedo abrir una consola (Shell) y escribir, por ejemplo:
+<p><tt>fa $15000</tt></p>
+y obtendré la salida:
+<p><tt>FindAccess 1.2 (17-Jan-99 14:45:18) by Bert Jahn
+<br>loading file <B>Workbench:CE/.whdl_memory</B>
+<br>scanning accesses to $15000 (86016)  file: $0-$80000
+<br>Relative  Word at $ 14240 -> 06C00000 07C00000 <B>0DC0</B> 00000CC0 000004C0
+</tt></p>
+<h4>Opciones</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,ADDRESS/A,ORG</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+el nombre del fichero en el cual buscar
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>ADDRESS/A</tt>&nbsp;&nbsp;
+</td><td>
+la dirección a buscar, pueden usarse expresiones simples como "$5000"
+= "20480" = " -$Ff +-33+ 19512+$4e8" (prefijo "$" para números en hexadecimal,
+operadores soportados "+" y "-", unario y binario)
+</td></tr>
+<tr><td valign=top>
+<tt>ORG</tt>
+</td><td>
+la dirección lógica de inicio del archivo, si no se especifica se usa $0, Ud. puede
+usar el mismo tipo de expresiones simples que con ADDRESS/A
+</td></tr>
+</table>
+</BODY>
+</HTML>

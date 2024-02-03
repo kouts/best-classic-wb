@@ -1,0 +1,2586 @@
+@database mui/docs/English/MUI.guide
+
+@Master t:prefs.texi
+
+@Width 72
+
+
+This is the AmigaGuide® file mui/docs/English/MUI.guide, produced by Makeinfo-1.55 from 
+the input file t:prefs.texi.
+
+
+@Node Main "mui/docs/English/MUI.guide"
+
+
+
+                       MUI - MagicUserInterface
+
+       A system to create and maintain graphical user interfaces
+
+                              Version 3.8
+
+                          User Documentation
+
+                (c) Copyright 1992-97 by Stefan Stuntz
+
+                             - ShareWare -
+
+
+Introduction...
+
+ @{" Concept              " Link "INTRO_CONCEPT"}                 What the hell is MUI?
+ @{" System requirements  " Link "INTRO_SYSREQ"}                 Which computers can MUI run on?
+ @{" Installation         " Link "INTRO_INSTALL"}                 How do I install MUI?
+
+Using MUI applications...
+
+ @{" Windows              " Link "USE_WINDOWS"}                 Size, position, iconifying.
+ @{" Keyboard             " Link "USE_KEYBOARD"}                 Keyboard usage.
+ @{" Cycle Gadgets        " Link "USE_CYCLE"}                 Cycle popup menus.
+ @{" Commodities          " Link "USE_COMMODITIES"}                 Commodities interface.
+ @{" ARexx                " Link "USE_AREXX"}                 Built-in ARexx port.
+
+The MUI preferences program...
+
+ @{" Overview             " Link "PREFS_INTRO"}                 Purpose of the prefs program.
+ @{" Main window          " Link "PREFS_MAIN"}                 Elements of the main window.
+ @{" Basics               " Link "PREFS_USAGE"}                 Some basic configuration concepts.
+ @{" Local Settings       " Link "PREFS_LOCAL"}                 Different settings for programs.
+ @{" Pages                " Link "PREFS_PAGE"}                 Detailed description of pages.
+
+The MUI public screen manager...
+
+ @{" Main window          " Link "PSI_MAINWINDOW"}                 Elements of the main window.
+ @{" Edit window          " Link "PSI_EDITWINDOW"}                 Elements of an edit window.
+
+Other topics...
+
+ @{" Registration         " Link "MISC_REGISTER"}                 How to become a registered user.
+ @{" Updates              " Link "MISC_UPDATES"}                 Where to get updates.
+ @{" Support              " Link "MISC_SUPPORT"}                 How to reach the author.
+ @{" Acknowledgments      " Link "MISC_ACKS"}                 The author wishes to thank...
+ @{" Discussion           " Link "MISC_QUESTIONS"}                 Questions and Answers. (Q&A)
+
+Distribution policies...
+
+ @{" Disclaimer           " Link "POL_DISCLAIMER"}                 Warranty? No warranty.
+ @{" License              " Link "POL_LICENSE"}                 License agreement.
+ @{" Installer            " Link "POL_INSTALLER"}                 About the installer program.
+
+
+@EndNode
+
+@Node "INTRO_CONCEPT" "MUI.guide/INTRO_CONCEPT"
+@Toc "Main"
+
+The concepts behind MUI
+=======================
+
+   MagicUserInterface (also known as MUI) is a complete system to create
+and maintain graphical user interfaces. The creating GUIs has been a
+big problem for a very long time. Mainly because the programmer got
+only a minuscule amount of support from the operating system. Beginning
+with Kickstart 2.0, the `gadtools library' was a step in the right
+direction, however, even using this library to generate complex and
+flexible interfaces remained difficult and still required a great deal
+of patience.
+
+   Today there are tools available that make the use of `gadtools
+library' much more simplified, but even these alternatives are not
+often satisfying.
+
+   The largest problem in existing tools for the creation of user
+interfaces is the inflexible output.  Most of the programs are still
+using built-in fonts and window sizes, thus making the use of high
+resolution graphics hardware adaptors nearly unbearable.  Its been said
+that Amiga users have had to live with such similar shortcomings all
+along.  Even the preference programs on the Workbench are still only
+using the default font, topaz/8!
+
+   MUI corrects all these disadvantages!  The central scheme behind MUI
+assumes that only the user (and not the programmer) of an application
+knows how the program he is using best fits his personal needs, and that
+of his computer system.  Because MUI applications don't contain any
+absolute values for sizes or positions, the programmer instead only
+defines objects and groups of objects.  Such objects are defined on run
+time by MUI according to the users settings.
+
+   Consequently, an MUI application gives the user *many* more important
+advantages:
+
+   - Font sensitivity
+
+     In MUI Its possible for the font to be set in every application.
+     No more times where the A2024 users had to suffer from the
+     programs that only used the tiny topaz/8 font. Even better, MUI
+     gives the user no restrictions on which fonts he may use,
+     especially proportional fonts!  The proportional fonts make a
+     program much more appealing and even reduces the space a program's
+     window uses.
+
+   - Changeable window sizes
+
+     All MUI windows have a sizing gadget which allows users to change
+     the window size until it suits their needs. The smaller a window
+     becomes, the closer control items within the window come together.
+     The larger the window, the more space that will be used for
+     displaying information (e.g. in list-views). The size and position
+     of every window can be saved, thus giving you your favorite
+     setting every time you start the program.
+
+   - Flexibility
+
+     Almost all elements can be changed by the user regarding their own
+     personal tastes. The user can define the thickness of borders, how
+     the scroll-bars look, mhich images have to be used, and how much
+     space should be inserted between the lines of a list-view.  MUI
+     gives the user a lot of options to change the look and feel of an
+     MUI based application.
+
+   - Controlling by keyboard
+
+     Most of the time it is expected that graphical user interfaces
+     (GUIs) and of course MUI applications as well, are controlled by
+     the mouse.  However, many users prefer the use of the keyboard for
+     faster execution of operations, and because it can be more
+     comfortable.  Because of this, all MUI objects (e.g. string
+     gadgets, radio buttons, or list-views) can be controlled by the
+     keyboard as well as by the mouse! You can even put away your mouse
+     completely if you wish!  Its no longer needed!
+
+   - System integration
+
+     MUI applications cooperate with the operating system in many ways.
+     Every program can be iconified and uniconified by pushing a gadget
+     or by using the Commodities exchange program.  Furthermore, every
+     MUI application has an ARexx-Port that allows you full remote
+     control (and more) over the user interface.
+
+   - Adjusting to its environment
+
+     It doesn't matter which screen or screen size your MUI applications
+     run on.  Workbench or public, 640x200 or 1280x1024 pixels, 4 or 256
+     colors, it doesn't matter!  Every application can be made to open
+     on any screen, and adapts itself to it's environment.
+
+   All of the MUI settings listed above (and more) can be changed by the
+user via the MUI preferences program.  This can be set for every
+program in one setting (global) or can be set for each and every single
+application.
+
+
+@EndNode
+
+@Node "INTRO_SYSREQ" "MUI.guide/INTRO_SYSREQ"
+@Toc "Main"
+
+System Requirements
+===================
+
+   MUI requires version 2.0 of the Amiga operating system or higher.
+
+   Kickstart 1.3 is *not* supported; this operating system has been
+considered to be obsolete.
+
+   The use of MUI on a harddisk is *highly* recommended, although floppy
+disk usage is still possible.  Due to the modular concept behind MUI
+the first application startup may last "a little" longer.
+
+   MUI does not require a special processor, but of course the faster
+CPUs make life easier. Many complex calculations are needed for the
+management and layout of the objects, so a "base" 68000 based machine
+could be a tad slow.
+
+   MUI applications can run on machines only equipped with 512K of free
+RAM, but could become obsolete quite soon. One Megabyte (1024K) RAM
+should be sufficient even for the most complex MUI applications.
+
+
+@EndNode
+
+@Node "INTRO_INSTALL" "MUI.guide/INTRO_INSTALL"
+@Toc "Main"
+
+Installation
+============
+
+   MUI is distributed together with the Installer program from
+Commodore.  Therefore making installation a breeze! Just double-click
+on an icon in the `Install' directcory and the installation procedure
+is on it's way.
+
+
+@EndNode
+
+@Node "USE_WINDOWS" "MUI.guide/USE_WINDOWS"
+@Toc "Main"
+
+Windows
+=======
+
+   As mentioned previously, nearly all MUI windows are resizeable.  This
+allows the user to determine if he wants his control items (i.e.
+buttons, list-views, a.s.o.) small and space saving, or bigger and easy
+to use. It would be very annoying to adjust the size and position every
+time an application appears, all MUI windows remember their size and
+positions and uses these values when the application appears again.
+This is true for the "normal" window position and size as well as for
+the values of the window in a "zoomed" state. (after hitting the zoom
+gadget)
+
+   After rebooting the data for the windows are usually lost, if you
+have not saved them by hitting the `Save' button in the preferences
+window. By doing so, all data regarding the windows are saved and are
+available even after a reset.
+
+   In addition to the depth and soom gadget there is a third button in
+the title-bar of every MUI window. This button is used to iconify the
+whole application. All windows (and screens if available) in the
+application are closed and a little appicon appears on the Workbench or
+default screen. Double-clicking on this appicon makes the program open
+its window(s) (and screen) again.
+
+
+@EndNode
+
+@Node "USE_KEYBOARD" "MUI.guide/USE_KEYBOARD"
+@Toc "Main"
+
+Keyboard Control
+================
+
+   All control items in an MUI window can be controlled completely by
+the keyboard. All the known keyboard shortcuts (marked by an uderscore
+character) are supported. However, this method is limited if used with
+list-views or cycle gadgets.
+
+   Because of this the `TAB' cycling (up until now only used for string
+gadgets) has been made available for MUI applications. You can activate
+every object (not only string gadgets) by hitting the `TAB' key. As
+soon as you activate an object it can then be controlled by the
+keyboard.
+
+   - Button gadgets
+
+     `Return' is the equivalent to clicking the gadget with the moust
+     button. Pressing and releasing a button is handled in a different
+     way. If you push a knob and then wish you cancel this action, you
+     may do so by additionally pushing `Shift' before releasing the
+     `Return' key.
+
+   - Checkmark gadgets
+
+     An active checkmark gadget can be controlled by `Space' or
+     `Return'.  The value of this gadget is toggled every time you
+     press the corresponding key.
+
+   - Slider gadgets
+
+     The value of the horizontal or vertical slider gadgets can be
+     changed by using the four cusor keys. Using qualifier keys
+     additionally allows you to change the increase/decrease amount of
+     the sliders.
+
+   - Cycle gadgets
+
+     An active cycle gadget can be switched by using the cursor keys.
+     The `Return' key pops up a popup menu (as long as you did not
+     disable this feature in the MUI preferences program).
+
+   - Radio-Buttons
+
+     Radio buttons are also controlled by the cursor keys.
+
+   - List-Views
+
+     In an activated list-view the cursor can be moved line by line
+     using the cursor keys and together with the corresponding
+     qualifier keys pagewise or even to the top or to the bottom. The
+     `Return' key simulates a double-click.
+
+     If multiselecting is allowed in a list-view, you can select the
+     different items by using the `Space' key.
+
+   - Windows
+
+     For applications opening several windows simultaneously you can
+     switch from one window to another by using the `Alt-Tab' key or the
+     `Shift-Alt-Tab' key respectively. If the window has a close gadget
+     , you can hit the `ESC' key to close the window.
+
+   All information refers to the default settings. With the preferences
+program, you can change all the keyboard combinations until the suit
+your needs.
+
+
+@EndNode
+
+@Node "USE_CYCLE" "MUI.guide/USE_CYCLE"
+@Toc "Main"
+
+Cycle gadgets
+=============
+
+   Besides the MUI cycle gadgets supporting their "normal" function
+(next entry by clicking on them, previous entry by holding `Shift'
+additionally), offers a menu feature.  This popup menu appears as soon
+as the text section of the cycle gadget is hit, then allows a quick and
+easy selection of one of the listed entries.
+
+   The behaviour of the popup menus can be influenced within the
+listview section of the MUI preferences program.
+
+
+@EndNode
+
+@Node "USE_COMMODITIES" "MUI.guide/USE_COMMODITIES"
+@Toc "Main"
+
+Commodities Interface
+=====================
+
+   Every MUI application ties itself in the system as a commodity.
+This is nice in that the user can control any MUI application via the
+`Commodities Exchange' program, i.e. MUI Applications can be iconified
+or canceled.
+
+
+@EndNode
+
+@Node "USE_AREXX" "MUI.guide/USE_AREXX"
+@Toc "Main"
+
+ARexx Interface
+===============
+
+   Every MUI application is able to receive commands via the built-in
+ARexx port. Here are some default commands which are understood by
+every program:
+
+   - QUIT
+
+     Ends the application.
+
+   - HIDE
+
+     Hides (iconifies) the application
+
+   - SHOW
+
+     Shows (pops up) an iconified application.
+
+   - INFO ITEM/A
+
+     According to the given parameter the result string is filled with
+     the following contents:
+
+        - "title"       Title of the application
+
+        - "author"      Author of the  application
+
+        - "copyright"   Copyright message
+
+        - "description" Short description
+
+        - "version"     Version string
+
+        - "base"        Name of the ARexx port
+
+        - "screen"      Name of the public screen
+
+   - HELP FILE/A
+
+     A list of all ARexx commands available for the application is
+     written into the given file. In addition to the default commands an
+     MUI application can (and of course should) support many application
+     specific commands. The help list will contain these commands as
+     well.
+
+   In case of an error, MUI returns the following values to the rexx
+script:
+
+   - -1
+
+     Wrong command definition in host program. Should never happen.
+
+   - -2
+
+     Out of memory.
+
+   - -3
+
+     Unknown ARexx command.
+
+   - -4
+
+     Syntax error.
+
+   Some example scripts can be found in the `Rexx' drawer on the main
+directory of the distribution.
+
+
+@EndNode
+
+@Node "PREFS_INTRO" "MUI.guide/PREFS_INTRO"
+@Toc "Main"
+
+Introduction
+============
+
+   With traditional applications, the user usually has no or only very
+limited possibilities to influence the look and feel of an user
+interface. With MUI, interfaces are a lot more flexible. The programmer
+only specifies very few things about the position of particular
+gadgets, what actually is displayed on screen depends on the users
+preferences setting.
+
+   To adjust these settings, MUI comes with a preferences program
+called `MUI'. After installation, this tool can be found in the
+system's preferences drawer.
+
+
+@EndNode
+
+@Node "PREFS_MAIN" "MUI.guide/PREFS_MAIN"
+@Toc "Main"
+
+Main Window
+===========
+
+   The main part of the window is made up of several pages that contain
+all the possible configuration items. You can turn these pages by using
+the listview at the left side.
+
+   At the lower part window border are the `Save', `Use' and `Cancel'
+buttons, already common in several of the system preference programs.
+Additionally you'll find a `Test' gadget which can be considered to be
+the most useful function in the preferences program.  It will be handy
+in the beginning to use the `Test' options to play around with the
+different settings until you have found the configuration that best
+fits your needs. Pushing the `Test' button makes all currently running
+applications adopt their parameters from the new values. Thus making it
+possible to change the settings of a running application and
+immediately notice the consequences of your actions.
+
+   The `Use'-Gadget saves the changes to the `ENV:' drawer and then
+ends the preferences program. Please note that the `ENV:' directory
+usually resides in the `RAM DISK:' and a reset discards all the
+settings made. If you want your settings to be permanent, please use
+the `Save'-Button. In addition to global and application specific
+settings, all window positions will be saved.
+
+   If you hit `Cancel', all changes will be discarded. Applications
+that have already adjusted themselves to the new values because you hit
+`Test' automatically return to their previous settings.
+
+
+@EndNode
+
+@Node "PREFS_USAGE" "MUI.guide/PREFS_USAGE"
+@Toc "Main"
+
+The Preferences Program
+=======================
+
+   A lot of options are adjustable through clickable fields with popup
+windows. Those fields exist for
+
+
+ @{" Frames        " Link "PREFS_USAGE_FRAMES"}                   
+ @{" Images        " Link "PREFS_USAGE_IMAGES"}                   
+ @{" Backgrounds   " Link "PREFS_USAGE_BACKGROUNDS"}                        
+ @{" Colors        " Link "PREFS_USAGE_COLORS"} 
+
+   Furthermore, you are able to copy one field into another by using
+Drag&Drop.  If you want to copy between different pages, use one of
+`D&D Clipboards' below the pages listview.
+
+   MUI uses context sensitive popup menus for the well-known `Reset to
+defaults', `Last saved', `Restore' and `Preset' menus. This means that,
+if you hit the right mouse button over a single gadget, your choice will
+only affect this single gadget. If you hit it while being somewhere
+within a page, your choice will affect all the gadgets on that page. If
+you hit it over the pages listview, all pages will be affected.
+
+   To improve popup menu control, you should install an utility like
+`MagicMenu'.
+
+
+@EndNode
+
+@Node "PREFS_USAGE_FRAMES" "MUI.guide/PREFS_USAGE_FRAMES"
+@Toc "PREFS_USAGE"
+
+Frames Popup Window
+-------------------
+
+   Select one of a few different frame types and their inner spacing
+here.  Note that you can also use Drag&Drop to copy to or from a Frames
+popup window.
+
+
+@EndNode
+
+@Node "PREFS_USAGE_IMAGES" "MUI.guide/PREFS_USAGE_IMAGES"
+@Toc "PREFS_USAGE"
+
+Images Popup Window
+-------------------
+
+   Select some kind of image.
+
+
+@EndNode
+
+@Node "PREFS_USAGE_BACKGROUNDS" "MUI.guide/PREFS_USAGE_BACKGROUNDS"
+@Toc "PREFS_USAGE"
+
+Hintergrund Popup-Fenster
+-------------------------
+
+   Select a background from some object. Note that you can only use
+external graphics files if you own OS 3.0.
+
+
+@EndNode
+
+@Node "PREFS_USAGE_COLORS" "MUI.guide/PREFS_USAGE_COLORS"
+@Toc "PREFS_USAGE"
+
+Color Popup Window.
+-------------------
+
+   Select a color in a few different ways.
+
+
+@EndNode
+
+@Node "PREFS_LOCAL" "MUI.guide/PREFS_LOCAL"
+@Toc "Main"
+
+Global and application specific settings
+========================================
+
+   Previous versions of MUI allowed to adjust application specific
+settings from the global preferences program. This is no longer the
+case, the preferences program is for global GUI settings only.
+
+   An applications local settings are now called directly from this
+application, either by a "Settings/MUI..." menu if the program is MUI 3
+aware, or with a special gadget in the applications window border. You
+must enable @{"this gadget" Link "PREFS_ITEMS_PrefsGadget"} before you can use it.
+
+
+@EndNode
+
+@Node "PREFS_PAGE" "MUI.guide/PREFS_PAGE"
+@Toc "Main"
+
+Preferences Pages
+=================
+
+
+ @{" PREFS_PAGE_SYSTEM " Link "PREFS_PAGE_SYSTEM"}                  
+ @{" PREFS_PAGE_WINDOW " Link "PREFS_PAGE_WINDOW"}                  
+ @{" PREFS_PAGE_BUTTON " Link "PREFS_PAGE_BUTTON"}                  
+ @{" PREFS_PAGE_STRING " Link "PREFS_PAGE_STRING"}                  
+ @{" PREFS_PAGE_GROUP " Link "PREFS_PAGE_GROUP"}                 
+ @{" PREFS_PAGE_SCROLLBAR " Link "PREFS_PAGE_SCROLLBAR"}                     
+ @{" PREFS_PAGE_SLIDER " Link "PREFS_PAGE_SLIDER"}                  
+ @{" PREFS_PAGE_LIST " Link "PREFS_PAGE_LIST"}                
+ @{" PREFS_PAGE_CYCLE " Link "PREFS_PAGE_CYCLE"}                 
+ @{" PREFS_PAGE_NAVIGATION " Link "PREFS_PAGE_NAVIGATION"}                      
+ @{" PREFS_PAGE_SPECIAL " Link "PREFS_PAGE_SPECIAL"} 
+
+
+@EndNode
+
+@Node "PREFS_PAGE_SYSTEM" "MUI.guide/PREFS_PAGE_SYSTEM"
+@Toc "PREFS_PAGE"
+
+System Page
+-----------
+
+   The system page affects MUI's interfaces to system functions.
+
+
+ @{" PREFS_ITEMS_PublicScreen " Link "PREFS_ITEMS_PublicScreen"}                         
+ @{" PREFS_ITEMS_IconifyIcon " Link "PREFS_ITEMS_IconifyIcon"}                        
+ @{" PREFS_ITEMS_IconifyMenu " Link "PREFS_ITEMS_IconifyMenu"}                        
+ @{" PREFS_ITEMS_StartIconified " Link "PREFS_ITEMS_StartIconified"}                           
+ @{" PREFS_ITEMS_UseRexx " Link "PREFS_ITEMS_UseRexx"}                    
+ @{" PREFS_ITEMS_Hotkey " Link "PREFS_ITEMS_Hotkey"}                   
+ @{" PREFS_ITEMS_FirstBubbleDelay " Link "PREFS_ITEMS_FirstBubbleDelay"}                             
+ @{" PREFS_ITEMS_NextBubbleDelay " Link "PREFS_ITEMS_NextBubbleDelay"}                            
+ @{" PREFS_ITEMS_PopScreen " Link "PREFS_ITEMS_PopScreen"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_PublicScreen" "MUI.guide/PREFS_ITEMS_PublicScreen"
+@Toc "PREFS_PAGE_SYSTEM"
+
+PREFS_ITEMS_PublicScreen
+........................
+
+   Whenever you start a MUI program, MUI tries to open its windows on
+this public screen. If it is not available, MUI checks if you have
+configured this screen with the @{"Public Screen Inspector" Link "PSI_MAINWINDOW"} and opens it
+automatically.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_IconifyIcon" "MUI.guide/PREFS_ITEMS_IconifyIcon"
+@Toc "PREFS_PAGE_SYSTEM"
+
+PREFS_ITEMS_IconifyIcon
+.......................
+
+   If the `Iconify-Gadget' checkmark is set, every window of the
+application gets an additional gadget in the upper window frame that
+makes the window iconify as soon as you hit it.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_IconifyMenu" "MUI.guide/PREFS_ITEMS_IconifyMenu"
+@Toc "PREFS_PAGE_SYSTEM"
+
+PREFS_ITEMS_IconifyMenu
+.......................
+
+   If the `Iconify-Menu' checkmark is set, MUI adds an entry to the
+Workbenchs tools menu for iconified applications.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_StartIconified" "MUI.guide/PREFS_ITEMS_StartIconified"
+@Toc "PREFS_PAGE_SYSTEM"
+
+PREFS_ITEMS_StartIconified
+..........................
+
+   `Start Iconified' determines, if the application will be iconified
+at start-up. This will make sense, for example, if you place some tools
+into the `WBStartup' drawer, to make them available via keystroke.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_UseRexx" "MUI.guide/PREFS_ITEMS_UseRexx"
+@Toc "PREFS_PAGE_SYSTEM"
+
+PREFS_ITEMS_UseRexx
+...................
+
+   Switch the ARexx Interface of an application on or off.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_Hotkey" "MUI.guide/PREFS_ITEMS_Hotkey"
+@Toc "PREFS_PAGE_SYSTEM"
+
+PREFS_ITEMS_Hotkey
+..................
+
+   The `Iconify-Hotkey' allows you to enter a key combination that
+iconifys the application (and pops it up again). The format is the same
+as the one described for the input events of the `commodities.library'.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FirstBubbleDelay" "MUI.guide/PREFS_ITEMS_FirstBubbleDelay"
+@Toc "PREFS_PAGE_SYSTEM"
+
+PREFS_ITEMS_FirstBubbleDelay
+............................
+
+   Delay until the first help bubble appears. Move all the way left to
+switch of bubbles completly.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_NextBubbleDelay" "MUI.guide/PREFS_ITEMS_NextBubbleDelay"
+@Toc "PREFS_PAGE_SYSTEM"
+
+PREFS_ITEMS_NextBubbleDelay
+...........................
+
+   Delay until the next help bubble appears.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_PopScreen" "MUI.guide/PREFS_ITEMS_PopScreen"
+@Toc "PREFS_PAGE_SYSTEM"
+
+PREFS_ITEMS_PopScreen
+.....................
+
+   Automatically pop this screen to front when MUI windows are opened.
+
+
+@EndNode
+
+@Node "PREFS_PAGE_WINDOW" "MUI.guide/PREFS_PAGE_WINDOW"
+@Toc "PREFS_PAGE"
+
+Window Page
+-----------
+
+   Window page holds a windows design, some control elements, and a few
+default settings like fonts.
+
+
+ @{" PREFS_ITEMS_SpacingWindowLeft " Link "PREFS_ITEMS_SpacingWindowLeft"}                              
+ @{" PREFS_ITEMS_SpacingWindowRight " Link "PREFS_ITEMS_SpacingWindowRight"}                               
+ @{" PREFS_ITEMS_SpacingWindowBottom " Link "PREFS_ITEMS_SpacingWindowBottom"}                                
+ @{" PREFS_ITEMS_SpacingWindowTop " Link "PREFS_ITEMS_SpacingWindowTop"}                             
+ @{" PREFS_ITEMS_ImagesWindowBack " Link "PREFS_ITEMS_ImagesWindowBack"}                             
+ @{" PREFS_ITEMS_ImagesRequesterBack " Link "PREFS_ITEMS_ImagesRequesterBack"}                                
+ @{" PREFS_ITEMS_NormalFont " Link "PREFS_ITEMS_NormalFont"}                       
+ @{" PREFS_ITEMS_TinyFont " Link "PREFS_ITEMS_TinyFont"}                     
+ @{" PREFS_ITEMS_BigFont " Link "PREFS_ITEMS_BigFont"}                    
+ @{" PREFS_ITEMS_FrameType " Link "PREFS_ITEMS_FrameType"}                      
+ @{" PREFS_ITEMS_OnExitWindows " Link "PREFS_ITEMS_OnExitWindows"}                          
+ @{" PREFS_ITEMS_RefreshType " Link "PREFS_ITEMS_RefreshType"}                        
+ @{" PREFS_ITEMS_RedrawType " Link "PREFS_ITEMS_RedrawType"}                       
+ @{" PREFS_ITEMS_IconifyGadget " Link "PREFS_ITEMS_IconifyGadget"}                          
+ @{" PREFS_ITEMS_JumpGadget " Link "PREFS_ITEMS_JumpGadget"}                       
+ @{" PREFS_ITEMS_SnapshotGadget " Link "PREFS_ITEMS_SnapshotGadget"}                           
+ @{" PREFS_ITEMS_PrefsGadget " Link "PREFS_ITEMS_PrefsGadget"}                        
+ @{" PREFS_ITEMS_PopupGadget " Link "PREFS_ITEMS_PopupGadget"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_SpacingWindowLeft" "MUI.guide/PREFS_ITEMS_SpacingWindowLeft"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_SpacingWindowLeft
+.............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_SpacingWindowRight" "MUI.guide/PREFS_ITEMS_SpacingWindowRight"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_SpacingWindowRight
+..............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_SpacingWindowBottom" "MUI.guide/PREFS_ITEMS_SpacingWindowBottom"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_SpacingWindowBottom
+...............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_SpacingWindowTop" "MUI.guide/PREFS_ITEMS_SpacingWindowTop"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_SpacingWindowTop
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesWindowBack" "MUI.guide/PREFS_ITEMS_ImagesWindowBack"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_ImagesWindowBack
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesRequesterBack" "MUI.guide/PREFS_ITEMS_ImagesRequesterBack"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_ImagesRequesterBack
+...............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_NormalFont" "MUI.guide/PREFS_ITEMS_NormalFont"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_NormalFont
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_TinyFont" "MUI.guide/PREFS_ITEMS_TinyFont"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_TinyFont
+....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_BigFont" "MUI.guide/PREFS_ITEMS_BigFont"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_BigFont
+...................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FrameType" "MUI.guide/PREFS_ITEMS_FrameType"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_FrameType
+.....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_OnExitWindows" "MUI.guide/PREFS_ITEMS_OnExitWindows"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_OnExitWindows
+.........................
+
+   MUI can remember window sizes and positions. This gadget controls
+what to do if an application exits. In addition to this gadget, you can
+also snapshot windows using the special @{"Snapshot" Link "PREFS_ITEMS_SnapshotGadget"} window border gadget.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_RefreshType" "MUI.guide/PREFS_ITEMS_RefreshType"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_RefreshType
+.......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_RedrawType" "MUI.guide/PREFS_ITEMS_RedrawType"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_RedrawType
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_IconifyGadget" "MUI.guide/PREFS_ITEMS_IconifyGadget"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_IconifyGadget
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_JumpGadget" "MUI.guide/PREFS_ITEMS_JumpGadget"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_JumpGadget
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_SnapshotGadget" "MUI.guide/PREFS_ITEMS_SnapshotGadget"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_SnapshotGadget
+..........................
+
+   Single click on this gadget in the window border snapshots the
+current position, double click unsnapshots.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_PrefsGadget" "MUI.guide/PREFS_ITEMS_PrefsGadget"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_PrefsGadget
+.......................
+
+   Enable this gadget to call an applications local preferences.
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_PopupGadget" "MUI.guide/PREFS_ITEMS_PopupGadget"
+@Toc "PREFS_PAGE_WINDOW"
+
+PREFS_ITEMS_PopupGadget
+.......................
+
+
+@EndNode
+
+@Node "PREFS_PAGE_BUTTON" "MUI.guide/PREFS_PAGE_BUTTON"
+@Toc "PREFS_PAGE"
+
+Button Page
+-----------
+
+   Control all kinds of buttons.
+
+
+ @{" PREFS_ITEMS_FramesButton " Link "PREFS_ITEMS_FramesButton"}                         
+ @{" PREFS_ITEMS_FramesImageButton " Link "PREFS_ITEMS_FramesImageButton"}                              
+ @{" PREFS_ITEMS_ImagesButtonBack " Link "PREFS_ITEMS_ImagesButtonBack"}                             
+ @{" PREFS_ITEMS_ImagesSelectedBack " Link "PREFS_ITEMS_ImagesSelectedBack"}                               
+ @{" PREFS_ITEMS_ButtonFont " Link "PREFS_ITEMS_ButtonFont"}                       
+ @{" PREFS_ITEMS_ImagesRadioButton " Link "PREFS_ITEMS_ImagesRadioButton"}                              
+ @{" PREFS_ITEMS_SpacingHRadio " Link "PREFS_ITEMS_SpacingHRadio"}                          
+ @{" PREFS_ITEMS_SpacingVRadio " Link "PREFS_ITEMS_SpacingVRadio"}                          
+ @{" PREFS_ITEMS_ImagesCheckMark " Link "PREFS_ITEMS_ImagesCheckMark"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesButton" "MUI.guide/PREFS_ITEMS_FramesButton"
+@Toc "PREFS_PAGE_BUTTON"
+
+PREFS_ITEMS_FramesButton
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesImageButton" "MUI.guide/PREFS_ITEMS_FramesImageButton"
+@Toc "PREFS_PAGE_BUTTON"
+
+PREFS_ITEMS_FramesImageButton
+.............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesButtonBack" "MUI.guide/PREFS_ITEMS_ImagesButtonBack"
+@Toc "PREFS_PAGE_BUTTON"
+
+PREFS_ITEMS_ImagesButtonBack
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesSelectedBack" "MUI.guide/PREFS_ITEMS_ImagesSelectedBack"
+@Toc "PREFS_PAGE_BUTTON"
+
+PREFS_ITEMS_ImagesSelectedBack
+..............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ButtonFont" "MUI.guide/PREFS_ITEMS_ButtonFont"
+@Toc "PREFS_PAGE_BUTTON"
+
+PREFS_ITEMS_ButtonFont
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesRadioButton" "MUI.guide/PREFS_ITEMS_ImagesRadioButton"
+@Toc "PREFS_PAGE_BUTTON"
+
+PREFS_ITEMS_ImagesRadioButton
+.............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_SpacingHRadio" "MUI.guide/PREFS_ITEMS_SpacingHRadio"
+@Toc "PREFS_PAGE_BUTTON"
+
+PREFS_ITEMS_SpacingHRadio
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_SpacingVRadio" "MUI.guide/PREFS_ITEMS_SpacingVRadio"
+@Toc "PREFS_PAGE_BUTTON"
+
+PREFS_ITEMS_SpacingVRadio
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesCheckMark" "MUI.guide/PREFS_ITEMS_ImagesCheckMark"
+@Toc "PREFS_PAGE_BUTTON"
+
+PREFS_ITEMS_ImagesCheckMark
+...........................
+
+
+@EndNode
+
+@Node "PREFS_PAGE_STRING" "MUI.guide/PREFS_PAGE_STRING"
+@Toc "PREFS_PAGE"
+
+String Page
+-----------
+
+   Control string gadgets.
+
+
+ @{" PREFS_ITEMS_FramesString " Link "PREFS_ITEMS_FramesString"}                         
+ @{" PREFS_ITEMS_StringBack " Link "PREFS_ITEMS_StringBack"}                       
+ @{" PREFS_ITEMS_StringColor " Link "PREFS_ITEMS_StringColor"}                        
+ @{" PREFS_ITEMS_StringActiveBack " Link "PREFS_ITEMS_StringActiveBack"}                             
+ @{" PREFS_ITEMS_StringActiveColor " Link "PREFS_ITEMS_StringActiveColor"}                              
+ @{" PREFS_ITEMS_ImagesPopUp " Link "PREFS_ITEMS_ImagesPopUp"}                        
+ @{" PREFS_ITEMS_ImagesPopFile " Link "PREFS_ITEMS_ImagesPopFile"}                          
+ @{" PREFS_ITEMS_ImagesPopDrawer " Link "PREFS_ITEMS_ImagesPopDrawer"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesString" "MUI.guide/PREFS_ITEMS_FramesString"
+@Toc "PREFS_PAGE_STRING"
+
+PREFS_ITEMS_FramesString
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_StringBack" "MUI.guide/PREFS_ITEMS_StringBack"
+@Toc "PREFS_PAGE_STRING"
+
+PREFS_ITEMS_StringBack
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_StringColor" "MUI.guide/PREFS_ITEMS_StringColor"
+@Toc "PREFS_PAGE_STRING"
+
+PREFS_ITEMS_StringColor
+.......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_StringActiveBack" "MUI.guide/PREFS_ITEMS_StringActiveBack"
+@Toc "PREFS_PAGE_STRING"
+
+PREFS_ITEMS_StringActiveBack
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_StringActiveColor" "MUI.guide/PREFS_ITEMS_StringActiveColor"
+@Toc "PREFS_PAGE_STRING"
+
+PREFS_ITEMS_StringActiveColor
+.............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesPopUp" "MUI.guide/PREFS_ITEMS_ImagesPopUp"
+@Toc "PREFS_PAGE_STRING"
+
+PREFS_ITEMS_ImagesPopUp
+.......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesPopFile" "MUI.guide/PREFS_ITEMS_ImagesPopFile"
+@Toc "PREFS_PAGE_STRING"
+
+PREFS_ITEMS_ImagesPopFile
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesPopDrawer" "MUI.guide/PREFS_ITEMS_ImagesPopDrawer"
+@Toc "PREFS_PAGE_STRING"
+
+PREFS_ITEMS_ImagesPopDrawer
+...........................
+
+
+@EndNode
+
+@Node "PREFS_PAGE_GROUP" "MUI.guide/PREFS_PAGE_GROUP"
+@Toc "PREFS_PAGE"
+
+Groups Page
+-----------
+
+   You can control a groups outfit here.
+
+
+ @{" PREFS_ITEMS_GroupTitlePos " Link "PREFS_ITEMS_GroupTitlePos"}                          
+ @{" PREFS_ITEMS_GroupTitleColor " Link "PREFS_ITEMS_GroupTitleColor"}                            
+ @{" PREFS_ITEMS_TitleFont " Link "PREFS_ITEMS_TitleFont"}                      
+ @{" PREFS_ITEMS_GroupSpacingHoriz " Link "PREFS_ITEMS_GroupSpacingHoriz"}                              
+ @{" PREFS_ITEMS_GroupSpacingVert " Link "PREFS_ITEMS_GroupSpacingVert"}                             
+ @{" PREFS_ITEMS_FramesGroup " Link "PREFS_ITEMS_FramesGroup"}                        
+ @{" PREFS_ITEMS_ImagesGroupBack " Link "PREFS_ITEMS_ImagesGroupBack"}                            
+ @{" PREFS_ITEMS_ImagesRegisterBack " Link "PREFS_ITEMS_ImagesRegisterBack"}                               
+ @{" PREFS_ITEMS_ImagesPageBack " Link "PREFS_ITEMS_ImagesPageBack"}                           
+ @{" PREFS_ITEMS_FramesVirtual " Link "PREFS_ITEMS_FramesVirtual"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_GroupTitlePos" "MUI.guide/PREFS_ITEMS_GroupTitlePos"
+@Toc "PREFS_PAGE_GROUP"
+
+PREFS_ITEMS_GroupTitlePos
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_GroupTitleColor" "MUI.guide/PREFS_ITEMS_GroupTitleColor"
+@Toc "PREFS_PAGE_GROUP"
+
+PREFS_ITEMS_GroupTitleColor
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_TitleFont" "MUI.guide/PREFS_ITEMS_TitleFont"
+@Toc "PREFS_PAGE_GROUP"
+
+PREFS_ITEMS_TitleFont
+.....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_GroupSpacingHoriz" "MUI.guide/PREFS_ITEMS_GroupSpacingHoriz"
+@Toc "PREFS_PAGE_GROUP"
+
+PREFS_ITEMS_GroupSpacingHoriz
+.............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_GroupSpacingVert" "MUI.guide/PREFS_ITEMS_GroupSpacingVert"
+@Toc "PREFS_PAGE_GROUP"
+
+PREFS_ITEMS_GroupSpacingVert
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesGroup" "MUI.guide/PREFS_ITEMS_FramesGroup"
+@Toc "PREFS_PAGE_GROUP"
+
+PREFS_ITEMS_FramesGroup
+.......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesGroupBack" "MUI.guide/PREFS_ITEMS_ImagesGroupBack"
+@Toc "PREFS_PAGE_GROUP"
+
+PREFS_ITEMS_ImagesGroupBack
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesRegisterBack" "MUI.guide/PREFS_ITEMS_ImagesRegisterBack"
+@Toc "PREFS_PAGE_GROUP"
+
+PREFS_ITEMS_ImagesRegisterBack
+..............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesPageBack" "MUI.guide/PREFS_ITEMS_ImagesPageBack"
+@Toc "PREFS_PAGE_GROUP"
+
+PREFS_ITEMS_ImagesPageBack
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesVirtual" "MUI.guide/PREFS_ITEMS_FramesVirtual"
+@Toc "PREFS_PAGE_GROUP"
+
+PREFS_ITEMS_FramesVirtual
+.........................
+
+
+@EndNode
+
+@Node "PREFS_PAGE_SCROLLBAR" "MUI.guide/PREFS_PAGE_SCROLLBAR"
+@Toc "PREFS_PAGE"
+
+Scrollbars Page
+---------------
+
+   Control scrollbars.
+
+
+ @{" PREFS_ITEMS_ImagesArrowUp " Link "PREFS_ITEMS_ImagesArrowUp"}                          
+ @{" PREFS_ITEMS_ImagesArrowDown " Link "PREFS_ITEMS_ImagesArrowDown"}                            
+ @{" PREFS_ITEMS_ImagesArrowLeft " Link "PREFS_ITEMS_ImagesArrowLeft"}                            
+ @{" PREFS_ITEMS_ImagesArrowRight " Link "PREFS_ITEMS_ImagesArrowRight"}                             
+ @{" PREFS_ITEMS_ScrollbarType " Link "PREFS_ITEMS_ScrollbarType"}                          
+ @{" PREFS_ITEMS_ImagesPropKnob " Link "PREFS_ITEMS_ImagesPropKnob"}                           
+ @{" PREFS_ITEMS_ImagesPropBack " Link "PREFS_ITEMS_ImagesPropBack"}                           
+ @{" PREFS_ITEMS_FramesProp " Link "PREFS_ITEMS_FramesProp"}                       
+ @{" PREFS_ITEMS_PropType " Link "PREFS_ITEMS_PropType"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesArrowUp" "MUI.guide/PREFS_ITEMS_ImagesArrowUp"
+@Toc "PREFS_PAGE_SCROLLBAR"
+
+PREFS_ITEMS_ImagesArrowUp
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesArrowDown" "MUI.guide/PREFS_ITEMS_ImagesArrowDown"
+@Toc "PREFS_PAGE_SCROLLBAR"
+
+PREFS_ITEMS_ImagesArrowDown
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesArrowLeft" "MUI.guide/PREFS_ITEMS_ImagesArrowLeft"
+@Toc "PREFS_PAGE_SCROLLBAR"
+
+PREFS_ITEMS_ImagesArrowLeft
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesArrowRight" "MUI.guide/PREFS_ITEMS_ImagesArrowRight"
+@Toc "PREFS_PAGE_SCROLLBAR"
+
+PREFS_ITEMS_ImagesArrowRight
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ScrollbarType" "MUI.guide/PREFS_ITEMS_ScrollbarType"
+@Toc "PREFS_PAGE_SCROLLBAR"
+
+PREFS_ITEMS_ScrollbarType
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesPropKnob" "MUI.guide/PREFS_ITEMS_ImagesPropKnob"
+@Toc "PREFS_PAGE_SCROLLBAR"
+
+PREFS_ITEMS_ImagesPropKnob
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesPropBack" "MUI.guide/PREFS_ITEMS_ImagesPropBack"
+@Toc "PREFS_PAGE_SCROLLBAR"
+
+PREFS_ITEMS_ImagesPropBack
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesProp" "MUI.guide/PREFS_ITEMS_FramesProp"
+@Toc "PREFS_PAGE_SCROLLBAR"
+
+PREFS_ITEMS_FramesProp
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_PropType" "MUI.guide/PREFS_ITEMS_PropType"
+@Toc "PREFS_PAGE_SCROLLBAR"
+
+PREFS_ITEMS_PropType
+....................
+
+
+@EndNode
+
+@Node "PREFS_PAGE_SLIDER" "MUI.guide/PREFS_PAGE_SLIDER"
+@Toc "PREFS_PAGE"
+
+Slider Page
+-----------
+
+   Sliders are used to adjust numeric values.
+
+
+ @{" PREFS_ITEMS_ImagesSliderBack " Link "PREFS_ITEMS_ImagesSliderBack"}                             
+ @{" PREFS_ITEMS_FramesSlider " Link "PREFS_ITEMS_FramesSlider"}                         
+ @{" PREFS_ITEMS_SliderFont " Link "PREFS_ITEMS_SliderFont"}                       
+ @{" PREFS_ITEMS_ImagesSliderKnob " Link "PREFS_ITEMS_ImagesSliderKnob"}                             
+ @{" PREFS_ITEMS_SliderKnobFrame " Link "PREFS_ITEMS_SliderKnobFrame"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesSliderBack" "MUI.guide/PREFS_ITEMS_ImagesSliderBack"
+@Toc "PREFS_PAGE_SLIDER"
+
+PREFS_ITEMS_ImagesSliderBack
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesSlider" "MUI.guide/PREFS_ITEMS_FramesSlider"
+@Toc "PREFS_PAGE_SLIDER"
+
+PREFS_ITEMS_FramesSlider
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_SliderFont" "MUI.guide/PREFS_ITEMS_SliderFont"
+@Toc "PREFS_PAGE_SLIDER"
+
+PREFS_ITEMS_SliderFont
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesSliderKnob" "MUI.guide/PREFS_ITEMS_ImagesSliderKnob"
+@Toc "PREFS_PAGE_SLIDER"
+
+PREFS_ITEMS_ImagesSliderKnob
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_SliderKnobFrame" "MUI.guide/PREFS_ITEMS_SliderKnobFrame"
+@Toc "PREFS_PAGE_SLIDER"
+
+PREFS_ITEMS_SliderKnobFrame
+...........................
+
+
+@EndNode
+
+@Node "PREFS_PAGE_LIST" "MUI.guide/PREFS_PAGE_LIST"
+@Toc "PREFS_PAGE"
+
+Listview Page
+-------------
+
+   Control listviews.
+
+
+ @{" PREFS_ITEMS_ListFont " Link "PREFS_ITEMS_ListFont"}                     
+ @{" PREFS_ITEMS_FixedFont " Link "PREFS_ITEMS_FixedFont"}                      
+ @{" PREFS_ITEMS_ListRefreshType " Link "PREFS_ITEMS_ListRefreshType"}                            
+ @{" PREFS_ITEMS_ListviewStretch " Link "PREFS_ITEMS_ListviewStretch"}                            
+ @{" PREFS_ITEMS_ListviewSmooth " Link "PREFS_ITEMS_ListviewSmooth"}                           
+ @{" PREFS_ITEMS_MultiSelType " Link "PREFS_ITEMS_MultiSelType"}                         
+ @{" PREFS_ITEMS_ListPixelized " Link "PREFS_ITEMS_ListPixelized"}                          
+ @{" PREFS_ITEMS_FramesReadList " Link "PREFS_ITEMS_FramesReadList"}                           
+ @{" PREFS_ITEMS_FramesInputList " Link "PREFS_ITEMS_FramesInputList"}                            
+ @{" PREFS_ITEMS_ImagesListBack " Link "PREFS_ITEMS_ImagesListBack"}                           
+ @{" PREFS_ITEMS_ImagesReadListBack " Link "PREFS_ITEMS_ImagesReadListBack"}                               
+ @{" PREFS_ITEMS_ImagesListCursor " Link "PREFS_ITEMS_ImagesListCursor"}                             
+ @{" PREFS_ITEMS_ImagesListSelect " Link "PREFS_ITEMS_ImagesListSelect"}                             
+ @{" PREFS_ITEMS_ImagesListSelCur " Link "PREFS_ITEMS_ImagesListSelCur"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ListFont" "MUI.guide/PREFS_ITEMS_ListFont"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_ListFont
+....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FixedFont" "MUI.guide/PREFS_ITEMS_FixedFont"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_FixedFont
+.....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ListRefreshType" "MUI.guide/PREFS_ITEMS_ListRefreshType"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_ListRefreshType
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ListviewStretch" "MUI.guide/PREFS_ITEMS_ListviewStretch"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_ListviewStretch
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ListviewSmooth" "MUI.guide/PREFS_ITEMS_ListviewSmooth"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_ListviewSmooth
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_MultiSelType" "MUI.guide/PREFS_ITEMS_MultiSelType"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_MultiSelType
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ListPixelized" "MUI.guide/PREFS_ITEMS_ListPixelized"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_ListPixelized
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesReadList" "MUI.guide/PREFS_ITEMS_FramesReadList"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_FramesReadList
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesInputList" "MUI.guide/PREFS_ITEMS_FramesInputList"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_FramesInputList
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesListBack" "MUI.guide/PREFS_ITEMS_ImagesListBack"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_ImagesListBack
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesReadListBack" "MUI.guide/PREFS_ITEMS_ImagesReadListBack"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_ImagesReadListBack
+..............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesListCursor" "MUI.guide/PREFS_ITEMS_ImagesListCursor"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_ImagesListCursor
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesListSelect" "MUI.guide/PREFS_ITEMS_ImagesListSelect"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_ImagesListSelect
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesListSelCur" "MUI.guide/PREFS_ITEMS_ImagesListSelCur"
+@Toc "PREFS_PAGE_LIST"
+
+PREFS_ITEMS_ImagesListSelCur
+............................
+
+
+@EndNode
+
+@Node "PREFS_PAGE_CYCLE" "MUI.guide/PREFS_PAGE_CYCLE"
+@Toc "PREFS_PAGE"
+
+Cycle Gadget Page
+-----------------
+
+   Control cycle gadget and their popup menus.
+
+
+ @{" PREFS_ITEMS_MinPop " Link "PREFS_ITEMS_MinPop"}                   
+ @{" PREFS_ITEMS_PopPosition " Link "PREFS_ITEMS_PopPosition"}                        
+ @{" PREFS_ITEMS_FramesPopUp " Link "PREFS_ITEMS_FramesPopUp"}                        
+ @{" PREFS_ITEMS_ImagesPopupBack " Link "PREFS_ITEMS_ImagesPopupBack"}                            
+ @{" PREFS_ITEMS_PopupRecessed " Link "PREFS_ITEMS_PopupRecessed"}                          
+ @{" PREFS_ITEMS_PopupSpeed " Link "PREFS_ITEMS_PopupSpeed"}                       
+ @{" PREFS_ITEMS_ImagesCycle " Link "PREFS_ITEMS_ImagesCycle"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_MinPop" "MUI.guide/PREFS_ITEMS_MinPop"
+@Toc "PREFS_PAGE_CYCLE"
+
+PREFS_ITEMS_MinPop
+..................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_PopPosition" "MUI.guide/PREFS_ITEMS_PopPosition"
+@Toc "PREFS_PAGE_CYCLE"
+
+PREFS_ITEMS_PopPosition
+.......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesPopUp" "MUI.guide/PREFS_ITEMS_FramesPopUp"
+@Toc "PREFS_PAGE_CYCLE"
+
+PREFS_ITEMS_FramesPopUp
+.......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesPopupBack" "MUI.guide/PREFS_ITEMS_ImagesPopupBack"
+@Toc "PREFS_PAGE_CYCLE"
+
+PREFS_ITEMS_ImagesPopupBack
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_PopupRecessed" "MUI.guide/PREFS_ITEMS_PopupRecessed"
+@Toc "PREFS_PAGE_CYCLE"
+
+PREFS_ITEMS_PopupRecessed
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_PopupSpeed" "MUI.guide/PREFS_ITEMS_PopupSpeed"
+@Toc "PREFS_PAGE_CYCLE"
+
+PREFS_ITEMS_PopupSpeed
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesCycle" "MUI.guide/PREFS_ITEMS_ImagesCycle"
+@Toc "PREFS_PAGE_CYCLE"
+
+PREFS_ITEMS_ImagesCycle
+.......................
+
+
+@EndNode
+
+@Node "PREFS_PAGE_NAVIGATION" "MUI.guide/PREFS_PAGE_NAVIGATION"
+@Toc "PREFS_PAGE"
+
+Navigation Page
+---------------
+
+   Adjust settings concerning keyboard control and drag&drop.
+
+
+ @{" PREFS_ITEMS_KeysPRESS " Link "PREFS_ITEMS_KeysPRESS"}                      
+ @{" PREFS_ITEMS_KeysTOGGLE " Link "PREFS_ITEMS_KeysTOGGLE"}                       
+ @{" PREFS_ITEMS_KeysUP " Link "PREFS_ITEMS_KeysUP"}                   
+ @{" PREFS_ITEMS_KeysDOWN " Link "PREFS_ITEMS_KeysDOWN"}                     
+ @{" PREFS_ITEMS_KeysPAGEUP " Link "PREFS_ITEMS_KeysPAGEUP"}                       
+ @{" PREFS_ITEMS_KeysPAGEDOWN " Link "PREFS_ITEMS_KeysPAGEDOWN"}                         
+ @{" PREFS_ITEMS_KeysTOP " Link "PREFS_ITEMS_KeysTOP"}                    
+ @{" PREFS_ITEMS_KeysBOTTOM " Link "PREFS_ITEMS_KeysBOTTOM"}                       
+ @{" PREFS_ITEMS_KeysLEFT " Link "PREFS_ITEMS_KeysLEFT"}                     
+ @{" PREFS_ITEMS_KeysRIGHT " Link "PREFS_ITEMS_KeysRIGHT"}                      
+ @{" PREFS_ITEMS_KeysWORDLEFT " Link "PREFS_ITEMS_KeysWORDLEFT"}                         
+ @{" PREFS_ITEMS_KeysWORDRIGHT " Link "PREFS_ITEMS_KeysWORDRIGHT"}                          
+ @{" PREFS_ITEMS_KeysLINESTART " Link "PREFS_ITEMS_KeysLINESTART"}                          
+ @{" PREFS_ITEMS_KeysLINEEND " Link "PREFS_ITEMS_KeysLINEEND"}                        
+ @{" PREFS_ITEMS_KeysGADGET_NEXT " Link "PREFS_ITEMS_KeysGADGET_NEXT"}                            
+ @{" PREFS_ITEMS_KeysGADGET_PREV " Link "PREFS_ITEMS_KeysGADGET_PREV"}                            
+ @{" PREFS_ITEMS_KeysGADGET_OFF " Link "PREFS_ITEMS_KeysGADGET_OFF"}                           
+ @{" PREFS_ITEMS_KeysWINDOW_CLOSE " Link "PREFS_ITEMS_KeysWINDOW_CLOSE"}                             
+ @{" PREFS_ITEMS_KeysWINDOW_NEXT " Link "PREFS_ITEMS_KeysWINDOW_NEXT"}                            
+ @{" PREFS_ITEMS_KeysWINDOW_PREV " Link "PREFS_ITEMS_KeysWINDOW_PREV"}                            
+ @{" PREFS_ITEMS_KeysHELP " Link "PREFS_ITEMS_KeysHELP"}                     
+ @{" PREFS_ITEMS_KeysPOPUP " Link "PREFS_ITEMS_KeysPOPUP"}                      
+ @{" PREFS_ITEMS_ActiveObjectPen " Link "PREFS_ITEMS_ActiveObjectPen"}                            
+ @{" PREFS_ITEMS_DragFrame " Link "PREFS_ITEMS_DragFrame"}                      
+ @{" PREFS_ITEMS_DragShineThrough " Link "PREFS_ITEMS_DragShineThrough"}                             
+ @{" PREFS_ITEMS_DragLMB " Link "PREFS_ITEMS_DragLMB"}                    
+ @{" PREFS_ITEMS_DragMMB " Link "PREFS_ITEMS_DragMMB"}                    
+ @{" PREFS_ITEMS_DragQualiLMB " Link "PREFS_ITEMS_DragQualiLMB"}                         
+ @{" PREFS_ITEMS_DragQualiMMB " Link "PREFS_ITEMS_DragQualiMMB"}                         
+ @{" PREFS_ITEMS_DragAuto " Link "PREFS_ITEMS_DragAuto"}                     
+ @{" PREFS_ITEMS_DragAutoPixel " Link "PREFS_ITEMS_DragAutoPixel"}                          
+ @{" PREFS_ITEMS_BalancingLook " Link "PREFS_ITEMS_BalancingLook"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysPRESS" "MUI.guide/PREFS_ITEMS_KeysPRESS"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysPRESS
+.....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysTOGGLE" "MUI.guide/PREFS_ITEMS_KeysTOGGLE"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysTOGGLE
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysUP" "MUI.guide/PREFS_ITEMS_KeysUP"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysUP
+..................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysDOWN" "MUI.guide/PREFS_ITEMS_KeysDOWN"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysDOWN
+....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysPAGEUP" "MUI.guide/PREFS_ITEMS_KeysPAGEUP"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysPAGEUP
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysPAGEDOWN" "MUI.guide/PREFS_ITEMS_KeysPAGEDOWN"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysPAGEDOWN
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysTOP" "MUI.guide/PREFS_ITEMS_KeysTOP"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysTOP
+...................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysBOTTOM" "MUI.guide/PREFS_ITEMS_KeysBOTTOM"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysBOTTOM
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysLEFT" "MUI.guide/PREFS_ITEMS_KeysLEFT"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysLEFT
+....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysRIGHT" "MUI.guide/PREFS_ITEMS_KeysRIGHT"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysRIGHT
+.....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysWORDLEFT" "MUI.guide/PREFS_ITEMS_KeysWORDLEFT"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysWORDLEFT
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysWORDRIGHT" "MUI.guide/PREFS_ITEMS_KeysWORDRIGHT"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysWORDRIGHT
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysLINESTART" "MUI.guide/PREFS_ITEMS_KeysLINESTART"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysLINESTART
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysLINEEND" "MUI.guide/PREFS_ITEMS_KeysLINEEND"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysLINEEND
+.......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysGADGET_NEXT" "MUI.guide/PREFS_ITEMS_KeysGADGET_NEXT"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysGADGET_NEXT
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysGADGET_PREV" "MUI.guide/PREFS_ITEMS_KeysGADGET_PREV"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysGADGET_PREV
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysGADGET_OFF" "MUI.guide/PREFS_ITEMS_KeysGADGET_OFF"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysGADGET_OFF
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysWINDOW_CLOSE" "MUI.guide/PREFS_ITEMS_KeysWINDOW_CLOSE"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysWINDOW_CLOSE
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysWINDOW_NEXT" "MUI.guide/PREFS_ITEMS_KeysWINDOW_NEXT"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysWINDOW_NEXT
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysWINDOW_PREV" "MUI.guide/PREFS_ITEMS_KeysWINDOW_PREV"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysWINDOW_PREV
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysHELP" "MUI.guide/PREFS_ITEMS_KeysHELP"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysHELP
+....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_KeysPOPUP" "MUI.guide/PREFS_ITEMS_KeysPOPUP"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_KeysPOPUP
+.....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ActiveObjectPen" "MUI.guide/PREFS_ITEMS_ActiveObjectPen"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_ActiveObjectPen
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_DragFrame" "MUI.guide/PREFS_ITEMS_DragFrame"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_DragFrame
+.....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_DragShineThrough" "MUI.guide/PREFS_ITEMS_DragShineThrough"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_DragShineThrough
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_DragLMB" "MUI.guide/PREFS_ITEMS_DragLMB"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_DragLMB
+...................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_DragMMB" "MUI.guide/PREFS_ITEMS_DragMMB"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_DragMMB
+...................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_DragQualiLMB" "MUI.guide/PREFS_ITEMS_DragQualiLMB"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_DragQualiLMB
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_DragQualiMMB" "MUI.guide/PREFS_ITEMS_DragQualiMMB"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_DragQualiMMB
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_DragAuto" "MUI.guide/PREFS_ITEMS_DragAuto"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_DragAuto
+....................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_DragAutoPixel" "MUI.guide/PREFS_ITEMS_DragAutoPixel"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_DragAutoPixel
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_BalancingLook" "MUI.guide/PREFS_ITEMS_BalancingLook"
+@Toc "PREFS_PAGE_NAVIGATION"
+
+PREFS_ITEMS_BalancingLook
+.........................
+
+
+@EndNode
+
+@Node "PREFS_PAGE_SPECIAL" "MUI.guide/PREFS_PAGE_SPECIAL"
+@Toc "PREFS_PAGE"
+
+Special Page
+------------
+
+   Some miscellaneous options.
+
+
+ @{" PREFS_ITEMS_ImagesDrawer " Link "PREFS_ITEMS_ImagesDrawer"}                         
+ @{" PREFS_ITEMS_ImagesHardDisk " Link "PREFS_ITEMS_ImagesHardDisk"}                           
+ @{" PREFS_ITEMS_ImagesDisk " Link "PREFS_ITEMS_ImagesDisk"}                       
+ @{" PREFS_ITEMS_ImagesChip " Link "PREFS_ITEMS_ImagesChip"}                       
+ @{" PREFS_ITEMS_ImagesVolume " Link "PREFS_ITEMS_ImagesVolume"}                         
+ @{" PREFS_ITEMS_ImagesNetwork " Link "PREFS_ITEMS_ImagesNetwork"}                          
+ @{" PREFS_ITEMS_ImagesAssign " Link "PREFS_ITEMS_ImagesAssign"}                         
+ @{" PREFS_ITEMS_ImagesTapePlay " Link "PREFS_ITEMS_ImagesTapePlay"}                           
+ @{" PREFS_ITEMS_ImagesTapePlayBack " Link "PREFS_ITEMS_ImagesTapePlayBack"}                               
+ @{" PREFS_ITEMS_ImagesTapePause " Link "PREFS_ITEMS_ImagesTapePause"}                            
+ @{" PREFS_ITEMS_ImagesTapeStop " Link "PREFS_ITEMS_ImagesTapeStop"}                           
+ @{" PREFS_ITEMS_ImagesTapeRecord " Link "PREFS_ITEMS_ImagesTapeRecord"}                             
+ @{" PREFS_ITEMS_ImagesTapeUp " Link "PREFS_ITEMS_ImagesTapeUp"}                         
+ @{" PREFS_ITEMS_ImagesTapeDown " Link "PREFS_ITEMS_ImagesTapeDown"}                           
+ @{" PREFS_ITEMS_FramesText " Link "PREFS_ITEMS_FramesText"}                       
+ @{" PREFS_ITEMS_ImagesTextBack " Link "PREFS_ITEMS_ImagesTextBack"}                           
+ @{" PREFS_ITEMS_FramesGauge " Link "PREFS_ITEMS_FramesGauge"} 
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesDrawer" "MUI.guide/PREFS_ITEMS_ImagesDrawer"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesDrawer
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesHardDisk" "MUI.guide/PREFS_ITEMS_ImagesHardDisk"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesHardDisk
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesDisk" "MUI.guide/PREFS_ITEMS_ImagesDisk"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesDisk
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesChip" "MUI.guide/PREFS_ITEMS_ImagesChip"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesChip
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesVolume" "MUI.guide/PREFS_ITEMS_ImagesVolume"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesVolume
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesNetwork" "MUI.guide/PREFS_ITEMS_ImagesNetwork"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesNetwork
+.........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesAssign" "MUI.guide/PREFS_ITEMS_ImagesAssign"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesAssign
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesTapePlay" "MUI.guide/PREFS_ITEMS_ImagesTapePlay"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesTapePlay
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesTapePlayBack" "MUI.guide/PREFS_ITEMS_ImagesTapePlayBack"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesTapePlayBack
+..............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesTapePause" "MUI.guide/PREFS_ITEMS_ImagesTapePause"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesTapePause
+...........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesTapeStop" "MUI.guide/PREFS_ITEMS_ImagesTapeStop"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesTapeStop
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesTapeRecord" "MUI.guide/PREFS_ITEMS_ImagesTapeRecord"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesTapeRecord
+............................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesTapeUp" "MUI.guide/PREFS_ITEMS_ImagesTapeUp"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesTapeUp
+........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesTapeDown" "MUI.guide/PREFS_ITEMS_ImagesTapeDown"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesTapeDown
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesText" "MUI.guide/PREFS_ITEMS_FramesText"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_FramesText
+......................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_ImagesTextBack" "MUI.guide/PREFS_ITEMS_ImagesTextBack"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_ImagesTextBack
+..........................
+
+
+@EndNode
+
+@Node "PREFS_ITEMS_FramesGauge" "MUI.guide/PREFS_ITEMS_FramesGauge"
+@Toc "PREFS_PAGE_SPECIAL"
+
+PREFS_ITEMS_FramesGauge
+.......................
+
+
+@EndNode
+
+@Node "PSI_MAINWINDOW" "MUI.guide/PSI_MAINWINDOW"
+@Toc "Main"
+
+Main Window
+===========
+
+   If an application is started, MUI looks for the configured public
+screen. When none is found, it checks the list of preconfigured screens
+from the builtin screen manager and if successfull, opens the screen
+with the specified properties.
+
+   After startup, PSI shows a list that contains the configured public
+screens. You can create/delete/copy/etc. in this list with the button
+row below.
+
+
+@EndNode
+
+@Node "PSI_EDITWINDOW" "MUI.guide/PSI_EDITWINDOW"
+@Toc "Main"
+
+Edit Window
+===========
+
+   The screen managers window is divided into four pages. On the
+`Attributes' page, you will find four string gadgets that allow
+configuration of a screens public name, his title, the default font and
+a background picture.  The background picture can be any picture file
+as long as a matching datatype is installed in your system. This
+feature is only available under Kickstart 3.0 and above.
+
+   Besides these essential values, the screen can have the following
+features:
+
+   - `Auto Scroll'
+
+     If the screen was set larger than the visible part was defined, it
+     will be scrolled automatically as soon as the mouse touches the
+     screen border.
+
+   - `Draggable'
+
+     If the screen doesn't have this attribute, it can't be dragged.
+
+   - `Exclusive'
+
+     The screen cannot share its display with other screens; it will be
+     displayed separately (Kick 3.x only).
+
+   - `Interleaved'
+
+     This attribute reduces - if set - the flicker, that appears
+     especially during the scrolling of lists on colorful screens (Kick
+     3.x only).
+
+   - `Open Behind'
+
+     The screen will be opened behind all other screens.
+
+   - `System Default'
+
+     The screen is declared to be the system default screen. All windows
+     that are opened on the system's default screen (e.g. shell
+     windows), are automatically routed here.
+
+   Size and resolution of the new screen are adjustable on the `Display
+Mode' page. It offers gadgets similar to the system screen mode
+preferences program and shouldn't need further explanation.
+
+   The `Color' page controls the system pens, it uses popup colorfields
+which work best with OS 3.x and a few available colors for sharing. If
+your workbench doesnt have enough colors available, you should consider
+putting PSI on a more colorful screen.
+
+   MUI doesnt use system pens directly for rendering but uses the pens
+from the `MUI Pens' page instead. Adjust them here.
+
+   You can use `PSI' either to create new public screens or to adjust
+the pens MUI should use when opening on existing public screen (i.e.
+the Workbench). For the latter case, use the checkmark gadget at the
+right top of the window. If you configure these foreign public screens,
+all options except the name and the MUI Pens page are disabled. The
+`Name' gadget accepts wildcards, you can e.g. use "#?" here and MUI
+will use these pen settings on any foreign public screen.
+
+
+@EndNode
+
+@Node "MISC_REGISTER" "MUI.guide/MISC_REGISTER"
+@Toc "Main"
+
+Registration
+============
+
+   "MagicUserInterface" is a rather complex product that has always
+consumed and will continue to consume a large amount of my time. It was
+a lot of work to finish, but I hope this work will be appreciated and
+that a lot of MUI based applications with nice and flexible user
+interfaces will be available soon.
+
+   For I cannot afford just working for fun, I decided to release MUI as
+shareware. The unregistered version is not able to save some of the
+configuration items of the preferences program. Of course these
+restrictions won't affect the operation of MUI applications, all
+important values (window positions, screens, system configs) are usable
+without registering. Other items will contain reasonable default values.
+Even with these default values, MUI applications will be more attractive
+and usable as most other programs.
+
+   If you plan to use the full set of MUI's possibilities (different
+fonts, frames, images, background pattern, ...) with all applications,
+or if you just feel that MUI is good and should be supported, you
+should register.
+
+   Registered users will be shipped a disk with the newest public
+release of MUI, along with a personalized, so-called "keyfile" that
+enables loading and saving of the complete configuration data.
+
+   MUI is an SASG (Standardized Amiga Shareware Group) product. To
+register, please start the program "Registration" in the main drawer of
+this distribution. All important topics about prices and payment
+methods are discussed there.
+
+   Thank you for supporting Shareware!
+
+
+@EndNode
+
+@Node "MISC_UPDATES" "MUI.guide/MISC_UPDATES"
+@Toc "Main"
+
+Updates
+=======
+
+   Whenever a new release of MUI gets released, I will post some
+information in the appropriate newsgroups of some electronic networks.
+The new archive will soon be available on many bulletin boards and on
+all `aminet' FTP servers. Major releases will also come with some PD
+disks, especially on Fred Fish's collection.
+
+   As mentioned above, registered users will neither need a new keyfile
+nor a special personalized program version. They can use all new
+features immediately.
+
+   Of course, every MUI update will be completely compatible to all
+previously released versions. All applications will continue to run and
+automatically benefit from possible enhancements in user interface
+design.
+
+
+@EndNode
+
+@Node "MISC_SUPPORT" "MUI.guide/MISC_SUPPORT"
+@Toc "Main"
+
+Support
+=======
+
+   If you have some questions, comments, suggestions or even flames,
+please feel free to contact me at one of the following addresses. If
+you send your letter via e-mail, there's a good chance for getting a
+quick reply.
+
+     Snailmail: Stefan Stuntz
+                Eduard-Spranger-Straße 7
+                80935 München
+                GERMANY
+     
+         Phone: +49-89-312-159-08
+     
+        e-mail: stuntz@informatik.tu-muenchen.de
+
+
+@EndNode
+
+@Node "MISC_ACKS" "MUI.guide/MISC_ACKS"
+@Toc "Main"
+
+Acknowledgements
+================
+
+   The author wishes to thank
+
+   - Stefan Becker
+
+     ... he seemed to have very few time but nevertheless gave some
+     valuable hints. Parts of his `ToolManager' source code were a
+     great help during MUI's development.
+
+   - Robert Blayzor ... reworked the english manual.
+
+   - Walter Dörwald ... painted some beautiful MagicWB stylish icons.
+
+     ... for additional beta-testing and for translating parts of this
+     documentation.
+
+   - Dirk Federlein
+
+     ... for additional beta-testing and for translating parts of this
+     documentation.
+
+   - Georg "gucky" Heßmann
+
+     ... for reporting some bugs and for his demo program `DVIprint'.
+
+   - Martin Horneffer and Albert Weinert
+
+     ... for creating the Oberon language interface.
+
+   - Martin "XEN" Huttenloher
+
+     ... has drawn many of the supplied images and also significantly
+     cooperated in other parts of the MUI-Design. Furthermore he
+     contributed the amazing image drawers, which are a small extract
+     of his `MagicWB 2.0' package. Friends of an impressive and plastic
+     Workbench should definitely take a closer look at `MagicWB'!
+
+   - Kai "KCommodity" Iske
+
+     ... wrote one of the several MUI calculators and reported lots of
+     bugs.
+
+   - Oliver "Mr.Coffee" Kilian
+
+     ... for testing MUI on good old (and slow) 68000.
+
+   - Klaus "kmel" Melchior
+
+     ... for the two sample tools `WbMan' and `MUI-Exchange' and for
+     endless lists of bug reports. He also painted the demo programs
+     icons and supplied some BOOPSI images.
+
+   - Wouter van Oortmerssen
+
+     ... for the Amige-E interface.
+
+   - Armin Sander
+
+     ... for giving me my first ideas about object oriented GUI design.
+     He told me a lot about classes and objects and made me start with
+     MUI.
+
+   - Matthias "tron" Scheler und Markus "corwin" Stipp
+
+     ... for writing the first real MUI application, a message editor
+     for the `Universal Mail System (UMS)'. Look out for `IntuiNews'!
+     Additionally, Matthias wrote the sample program `Font'.
+
+   - Andreas "goonie" Schildbach
+
+     ... significantly influenced the design and functionality of MUI
+     and is currently working on a MUI application, a phone and answer
+     machine for ISDN. He made me think of some other things during our
+     endless phone calls.
+
+   - Wolfgang Schildbach
+
+     ... for his text formatting code.
+
+   - Christian Scholz and Olaf Peters
+
+     ... for the Modula interface.
+
+   - Ibrahim "radi" Solmaz
+
+     ... who also prevented me from working with many phone calls but
+     nevertheless was a valuable help sometimes.
+
+   - Henri Veistera
+
+     ... for the assembler interface.
+
+   - Oliver Wagner
+
+     ... for writing some really cool MUI Internet applications.
+
+   - ATO - Amiga Translators Organization
+
+     ... and its members for translatig MUI to all those different
+     languages:
+
+        - Swedish translation by Kristoffer Larsson and Mattias
+          Gustafsson
+
+        - Greek translation by Pantelis Kopelias, Manos Konstantiniadis
+
+        - French translation by Georges Goncalves, Francis Labrie and
+          Jérôme Fleury
+
+        - Catalian translation by Llorenç Grau and Esteve Boix
+
+        - Danish translation by Niels Bache and Bjarke Vangsgaard
+
+        - Finnish translation by Jan Karjalainen and Mika Lundell
+
+        - Polish translation by Konrad Dubiel and Marcin Orlowski
+
+        - Czech translation by Pavel Bures and Radovan Drazny
+
+        - Italian translation by Vincenzo Gervasi and Mario Dell'Oca
+
+        - Netherlands translation by Frank Mosch and Jeroen Steenblik
+
+        - Portugal translation by Fernando Nunes and Alexandre Gabriel
+
+        - Spanish translation by Pedro Luis Mieza and Juan Antonio
+          Ramirez
+
+
+@EndNode
+
+@Node "MISC_QUESTIONS" "MUI.guide/MISC_QUESTIONS"
+@Toc "Main"
+
+Discussion
+==========
+
+   - "Why don't MUI's string gadgets support the clipboard?"
+
+     There is a utility called `NewEdit' that adds clipboard support to
+     all system string gadgets. Of course MUI string gadgets work with
+     this utility too. You can find this thing on aminet or on some PD
+     disks.
+
+
+@EndNode
+
+@Node "POL_DISCLAIMER" "MUI.guide/POL_DISCLAIMER"
+@Toc "Main"
+
+Disclaimer
+==========
+
+   THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
+HOLDER AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
+OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE
+PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE
+COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+
+   IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY REDISTRIBUTE THE
+PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY
+GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE
+USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS
+OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR
+THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
+PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGES.
+
+
+@EndNode
+
+@Node "POL_LICENSE" "MUI.guide/POL_LICENSE"
+@Toc "Main"
+
+Licence
+=======
+
+   - This license applies to the product called "MagicUserInterface"
+     (short "MUI"), a collection of programs for the Amiga computer,
+     published by Stefan Stuntz under the concepts of shareware, and
+     the accompanying documentation. The terms "Program" and "MUI"
+     below, refer to this product. The licensee is addressed as "you".
+
+   - You may copy and distribute verbatim copies of the program's
+     executable code and documentation as you receive it, in any
+     medium, provided that you conspicuously and appropriately publish
+     only the original, unmodified program, with all copyright notices
+     and disclaimers of warranty intact and including all the
+     accompanying documentation, example files and anything else that
+     came with the original.
+
+   - Except when otherwise stated in this documentation, you may not
+     copy and/or distribute this program without the accompanying
+     documentation and other additional files that came with the
+     original. You may not copy and/or distribute modified versions of
+     this program.
+
+   - You may not copy, modify, sublicense, distribute or transfer the
+     program except as expressly provided under this license. Any
+     attempt otherwise to copy, modify, sublicense, distribute or
+     transfer the program is void, and will automatically terminate
+     your rights to use the program under this license. However,
+     parties who have received copies, or rights to use copies, from
+     you under this license will not have their licenses terminated so
+     long as such parties remain in full compliance.
+
+   - By copying, distributing and/or using the program you indicate your
+     acceptance of this license to do so, and all its terms and
+     conditions.
+
+   - Each time you redistribute the program, the recipient automatically
+     receives a license from the original licensor to copy, distribute
+     and/or use the program subject to these terms and conditions. You
+     may not impose any further restrictions on the recipients'
+     exercise of the rights granted herein.
+
+   - You may not disassemble, decompile, re-source or otherwise reverse
+     engineer the program.
+
+   - You agree to cease distributing the program and data involved if
+     requested to do so by the author.
+
+
+@EndNode
+
+@Node "POL_INSTALLER" "MUI.guide/POL_INSTALLER"
+@Toc "Main"
+
+Installer
+=========
+
+   Along with MUI comes the `Installer' from Commodore:
+
+     Installer and Installer project icon
+     (c) Copyright 1991-93 Commodore-Amiga, Inc.  All Rights Reserved.
+     Reproduced and distributed under license from Commodore.
+     
+     INSTALLER SOFTWARE IS PROVIDED "AS-IS" AND SUBJECT TO CHANGE;
+     NO WARRANTIES ARE MADE. ALL USE IS AT YOUR OWN RISK. NO LIABILITY
+     OR RESPONSIBILITY IS ASSUMED.
+
+@EndNode
+

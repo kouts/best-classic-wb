@@ -1,0 +1,961 @@
+
+
+     
+
+
+                           PowerSnap 2.2a User Manual
+
+                                  Feb 10, 1994
+
+
+
+     PREFACE 
+
+        The programs   and   files   in   this   distribution   are  freely
+     distributable,  but  are also Copyright (c) Nico Francois. They may be
+     freely  distributed  as  long as no more than a nominal fee is charged
+     to cover time and copying costs.  
+        No commercial  usage  is  permitted without written permission from
+     the  author. Everything in this distribution must be kept together, in
+     original unmodified form.  
+        The above is generally known as freeware.  
+
+        If you  have  suggestions  or remarks about this program, or if you
+     find any bugs, please let me know.  
+
+        Contacting the author: 
+
+          Internet:   nico@augfl.be
+          FidoNet :   2:292/603.10
+          AmigaNet:   39:120/102.10
+
+          Snail-mail: Nico François
+                      Corbielaan 13
+                      B-3060 Bertem
+                      BELGIUM
+
+        If you  can  please use e-mail. That way you'll stand a much better
+     chance of getting a reply quickly.  
+
+        NOTE: PowerSnap  2.2a  requires  Kickstart  and  Workbench  2.0  or
+     higher to run! 
+
+
+     1. Introduction 
+     --------------- 
+
+        Snap, snap,  snap,  snap, eggs and snap :-)  Ahem...  (If you don't
+     get  this  don't  let  it bother you if you think I've gone completely
+     bananas :-) 
+
+        PowerSnap is  a  utility  that  allows you to use the mouse to mark
+     characters  anywhere on the screen and paste them somewhere else, like
+     in  the  CLI  or in a string gadget. PowerSnap will check what font is
+     used  in  the  window  you snap from and will look for the position of
+     the  characters  automatically.  It  recognizes  all  non proportional
+     fonts  of  up to 24 pixels wide and of any height so this should cover
+     most  fonts  used.  Snapping and pasting text is done using the mouse,
+
+
+                                     Page 1
+
+
+     
+
+
+     making PowerSnap fast and easy to use.  
+        To try  PowerSnap out, double-click its icon, move the mouse over a
+     character  on  the  screen,  press  the left Alt key and while keeping
+     this  pressed  press  the  left  mouse  button.  After  a  short delay
+     (depends  on  how  big  the  font  is) PowerSnap will either flash the
+     screen,  indicating  it  hasn't found a character at this position (it
+     is  possible  PowerSnap  didn't  look  for  the  correct font), or the
+     character  you  are pointing at will be selected. Move the mouse while
+     keeping  the  left  Alt  key  and the mouse button down to select more
+     characters.  Once  you  are  satisfied  with  what  you  have selected
+     release  the  left  Alt key. You can now insert the text you have just
+     snapped  by  pressing  either  left  Alt + V or left Alt + right mouse
+     button.  
+        Both the   left  Alt  and  the  V  keys  mentioned  in  this  short
+     explanation   are   user-definable  (see  below).  Also,  don't  start
+     snapping  on  a  space because PowerSnap will almost certainly get the
+     character  positions  wrong.  You CAN start snapping on a space if you
+     have already snapped in the window.  
+        New to  PowerSnap  2.1  is the ability to keep a history of snapped
+     strings.  You may select from this history to re-paste something.  
+        PowerSnap 2.2  adds many new features, among which a font-sensitive
+     localized GUI, crawling ants and a possibility to save the settings.  
+
+
+     2. Installation 
+     --------------- 
+
+        To install  PowerSnap  automatically use the installation script or
+     install  the  handler  manually by copying 'PowerSnap-handler' to your
+     L:  directory.   'PowerSnap-handler'  does not have to be in L: but it
+     is  best  if you put it there, PowerSnap will also find it if it is in
+     the current directory.  
+        If you  want  PowerSnap  to be part of your initial startup (so you
+     always  have  the comfort of snapping anything anywhere :-) you should
+     put  a simple line saying 'PowerSnap' in your 's:user-startup'. If you
+     wish  to  specify  options  include  these  on the same line, like for
+     example  'PowerSnap  SMARTSPACE  COLOR  2'.  To  disable the copyright
+     message redirect output to NIL: like in 'PowerSnap >NIL:'.  
+        The easiest  way  to  install  PowerSnap is to simply drag its icon
+     into  the  WbStartup  drawer  of  your  boot  disk/partition.  Specify
+     options  in  the  icon's  tooltypes (you will want to set the tooltype
+     'CX_POPUP=NO').  
+
+
+     3. Usage 
+     -------- 
+
+     3.1 From CLI or Shell 
+
+        Enter 'PowerSnap  ?' for a CLI usage template, 'PowerSnap ??' for a
+     more detailed usage report.  
+
+
+
+                                     Page 2
+
+
+     
+
+
+        Note: when  PowerSnap  is  run  for  the  first  time  (when  it is
+     installed) the settings will be read from its icon.  
+
+        Explanation of the options: 
+
+     CX_PRIORITY n  : Set priority of commodity (default: 0).  
+
+     CX_POPUP YES|NO: Set to NO to not open GUI window when PowerSnap is
+                      first installed (default: YES).  
+
+     CX_POPKEY desc : Standard description of hotkey to pop up GUI window
+                      (default: control lalt p).  
+
+     NOGUI          : Don't open GUI settings window.  
+
+     QUAL qual      : Set snap qualifier (default: lalt). This is the
+                      qualifier that must be down when you press the left
+                      mouse button to start snapping. This is also the
+                      qualifier for inserting the snapped text. There are
+                      two ways to insert snapped text: using the paste key
+                      or using the right mouse button.  
+
+     SLQUAL qual    : Set single line paste qualifier (default: lalt
+                      lshift). When this qualifier is down and you insert
+                      snapped text everything will be put on one single
+                      line.  All whitespace (spaces and newlines) between
+                      words will be changed to a single space. Very useful
+                      for inserting a lot of filenames from a directory
+                      for example.  
+
+     MULTIQUAL qual : Set multisnap qualifier (default: lalt lshift). When
+                      you start snapping with this qualifier the snapped
+                      text will be appended after what you snapped before.
+                      A newline will be placed in between the snapped
+                      texts, so they are all on their own line. Paste
+                      snapped text using the single line qualifier to get
+                      everything on one line. Note that the default single
+                      line qualifier and the multisnap qualifier are the
+                      same. You can still toggle multisnap on or off when
+                      you are already snapping. Just change the qualifier,
+                      so in the default setup let go or press down the
+                      shift key. There is a small delay of 1/8 sec before
+                      toggling the snap mode. This was done so it is less
+                      likely that you accidently snap in the wrong mode
+                      when you release all qualifiers to stop snapping.  
+
+     PASTEKEY c     : Set pastekey (default: V). This key is used to
+                      insert the snapped text. Insertion will follow when
+                      it is pressed with one of the three possible
+                      qualifiers down (QUAL, SLQUAL, PAQUAL).  
+
+     SNAPCHARS      : Start with character snap (default).  
+
+
+                                     Page 3
+
+
+     
+
+
+     SNAPFRAME      : Start with frame snap. PowerSnap has two snap modes:
+                      character and frame.  The easiest to explain is
+                      frame snap, you just draw a rectangle and everything
+                      inside it will be snapped. Character snap will
+                      interpret the screen as lines of text (like an
+                      editor) and will snap accordingly.  
+
+     [NO]JOIN       : Join mode on/off (default: JOIN). Tells PowerSnap if
+                      it's ok to join two lines to a single long line when
+                      the first line has a non blank character as its last
+                      character. This only works when you are using
+                      character, word or line snap.  
+
+     [NO]XEROX      : Xerox insert mode on/off (default: NOXEROX). When
+                      xerox mode is on snapped text will be inserted
+                      immediately when you stop snapping.  
+
+     COLOR 1-3      : Set color of select box (default: 1).  This sets the
+                      color of the complemented characters or ants.  Try
+                      all three and see what you like best.  
+
+     MULTICOLOR 1-3 : Set color of multisnap select box or multisnap ants
+                      (default: 2).  This sets the color of the
+                      complemented characters when doing a multisnap.  It
+                      is best to set this to a different color than the
+                      normal snap color.  This way you'll have an easy way
+                      to see when you are using multisnap.  
+
+     PAQUAL qual    : Set pre-/append qualifier (default: lalt control).
+                      When using this qualifier to insert snapped text a
+                      string will be prepended to each line and one will
+                      be appended.  
+
+     PREPEND str    : Set prepend string (default: "> "). Use this to set
+                      the string that will be prepended when you paste
+                      with the PAQUAL down. This string can be up to 16
+                      characters long. To enter a '"' in the string escape
+                      it with a '*'.  E.g. 'PowerSnap PREPEND " *" "'.  
+
+     APPEND str     : Set append string (default: ""). Use this to set the
+                      string that will be appended when you paste with the
+                      PAQUAL down. Can be up to 16 characters.  
+
+     [NO]SMARTSPACE : If you do a word snap PowerSnap will normally guess
+                      at the boundaries of the word by simply looking for
+                      empty chars. If you switch SMARTSPACE on however
+                      PowerSnap will really try to recognize the
+                      characters and stop at spaces as well as unknown
+                      characters. This way you will no longer snap part of
+                      the 'scenery' when doing a word snap. Only drawback
+                      is that it is a bit slower, so it is disabled by
+                      default. If you have a faster Amiga (like the A3000)
+
+
+                                     Page 4
+
+
+     
+
+
+                      it is strongly recommended to switch this option on.
+                      If you don't exactly understand what I mean try
+                      snapping the contents of a qualifier text gadget in
+                      PowerSnap's settings window with SMARTSPACE switched
+                      on and off.  
+
+     [NO]ALLFONTS   : If you switch ALLFONTS on PowerSnap will try all
+                      open fonts in memory when it is looking for
+                      characters. This will make the initial snap much
+                      slower (depending on how many fonts are open and how
+                      fast your Amiga is of course).  Once a specific font
+                      is recognized it is remembered and will be tried
+                      first next time you snap. So if you snap the same
+                      font several times you won't have the delay each
+                      time you snap. The default behaviour is to just
+                      consider the window's rastport font. Recognition of
+                      the window's rastport font is _not_ slower with
+                      ALLFONTS on. So with ALLFONTS off you won't
+                      recognize a non-rastport font, and with ALLFONTS on
+                      you will, but more slowly.  
+
+     HISTORY n      : Set number of lines in history buffer.  PowerSnap
+                      will remember the last n snaps.  Pressing Left Alt-H
+                      (or whatever you defined to be the history key) will
+                      bring up a window with a listview containing these
+                      last snaps.  Selecting an entry from the listview
+                      will copy the entry to the clipboard so you can
+                      paste it again.  The history window is keyboard
+                      controllable:  you may use the up and down arrow
+                      keys to select an entry.  Press Enter or Return to
+                      copy the selected entry to the clipboard, press Esc
+                      to cancel.  Default is 0, so no history.  
+
+     HISTORYKEY c   : Set the history key (default:  H).  Pressing this
+                      key together with the snap qualifier will pop up the
+                      history window.  The history window will appear on
+                      the active screen.  A safety has been built into
+                      PowerSnap to remove this window if the screen it is
+                      on closes.  
+
+     CHARDELAY n    : Set character paste delay in microseconds (default:
+                      1).  Some programs have problems if text is pasted
+                      to quickly.  Using CHARDELAY you can tell PowerSnap
+                      to add a delay between pasting characters.  The
+                      delay is specified in microseconds (1 sec = 1000).
+                      I doubt you will have to set this higher than 20.  
+
+     LINEDELAY n    : Set line paste delay in microseconds (default:  1).
+                      Same as CHARDELAY, but this delay will be added
+                      between pasting lines (after pasting a newline).  
+
+     [NO]ANTS       : Switch ants mode on or off (default: NOANTS).  When
+
+
+                                     Page 5
+
+
+     
+
+
+                      ants mode is on PowerSnap will draw a line of
+                      crawling ants around the marked text.  
+
+     PATTERN x      : 16 bit hexadecimal crawl pattern for the ants
+                      (default: EEEE).  Ignored if PowerSnap is not in
+                      ants mode.  
+
+     MULTIPATTERN x : 16 bit hexadecimal crawl pattern for the ants when
+                      multisnapping (default: F8F8).  Ignored if PowerSnap
+                      is not in ants mode.  
+
+     CLIPUNIT n     : Set clipboard unit (default: 0).  
+
+     RTG            : Force RTG friendly snapping.  
+
+
+        Following qualifiers are recognized: 
+
+        lshift       Left shift key
+        rshift       Right shift key
+        ctrl         Control key
+        control      Control key
+        lalt         Left alt key
+        ralt         Right alt key
+        lamiga       Left Amiga key
+        lcommand     Left Amiga key
+        ramiga       Right Amiga key
+        rcommand     Right Amiga key
+        midbutton    Middle mouse button (if you have one :-)
+
+        Or any   combination   of  these  (separate  the  qualifiers  by  a
+     non-alpha  character  like  a  '+', '-' or '|'), e.g. 'lalt+lshift' or
+     'lalt-lshift'.  
+
+        You may  run  PowerSnap  again once it has been installed to change
+     the settings. 'PowerSnap QUIT' will remove the handler from memory.  
+
+        Examples: 
+
+        o PowerSnap PREPEND "Type " APPEND " OPT N" 
+
+        When  you paste some text 'Type ' will be inserted before each line
+        and  '  OPT N' after. If you e.g. snap 'PowerSnap.c' and press left
+        Alt  Control  V  the  following will be inserted: 'Type PowerSnap.c
+        OPT N' 
+
+        o PowerSnap QUAL "lshift rshift control" 
+
+        This  sets  the  snap qualifier to both Shift keys plus the control
+        key.  This  is  a  rather silly example because unless your name is
+        Zaphod  Beeblebrox  or  you are very good at doing things with your
+        feet  it  is  quite impossible to snap anything with this qualifier
+
+
+                                     Page 6
+
+
+     
+
+
+        :^) 
+
+        o PowerSnap PASTEKEY i 
+
+        Sets  the  paste  key to 'I' instead of 'V'. So pressing left Alt I
+        will feed the text in the clipboard to the keyboard.  
+
+     NOTE: - You can toggle between character/frame snap once you have
+             started snapping. Just keep the left mouse pressed down while
+             you click the right one. Be careful, if you don't keep the
+             left button pressed you will insert the text you have
+             marked.  
+           - PowerSnap has the ability to do word oriented snapping. To
+             activate this double-click the left mouse button when you
+             start snapping. Note that word snapping forces character
+             snapping and frame snapping is no longer possible.  See
+             SMARTSPACE on how to improve word snapping.  Tripple-clicking
+             the left mouse button will put PowerSnap in line-snap mode,
+             this allows you to easily snap whole lines of text.  
+           - Press the left mouse button while PowerSnap is inserting to
+             abort.  
+
+
+     3.2 From Workbench 
+
+        PowerSnap recognizes   the   following   tooltypes  (see  CLI/Shell
+     options for a more complete explanation): 
+
+     CX_PRIORITY=n  : Priority of commodity (default is 0).  
+     CX_POPUP=YES|NO: Set to NO to not open GUI window when PowerSnap is
+                      first installed. Set this tooltype to NO if you drag
+                      PowerSnap into your WbStartup drawer for a quiet
+                      startup (default: YES).  
+     CX_POPKEY=desc : Standard description of hotkey to pop up GUI window
+                      (default: control lalt p).  
+     QUAL=qual      : Snap qualifier (default: lalt).  
+     SLQUAL=qual    : Single line qualifier (default: lalt lshift).  
+     MULTIQUAL=qual : multisnap qualifier (default: lalt lshift).  
+     PASTEKEY=c     : Pastekey (default: V).  
+     SNAPFRAME      : Start with frame snap.  
+     COLOR=1-3      : Color of select box (default: 1).  
+     MULTICOLOR=1-3 : Color of multisnap select box (default: 2).  
+     NOJOIN         : Join mode off.  
+     XEROX          : Xerox insert mode on.  
+     PAQUAL=qual    : Pre-/append qualifier (default: lalt control).  
+     PREPEND=str    : Prepend string (default: "> ").  
+     APPEND=str     : Append string (default: "").  Do *NOT* put quotes
+                      around the pre-/append string.  
+     SMARTSPACE     : Switch SMARTSPACE on for improved word snapping.  
+     ALLFONTS       : Switch ALLFONTS on to try all open fonts in memory.  
+     HISTORY=n      : Set number of lines in history buffer (default: 0).  
+     HISTORYKEY=c   : Set history key (default: H).  
+
+
+                                     Page 7
+
+
+     
+
+
+     CHARDELAY=n    : Set character paste delay in microseconds (default:
+                      1).  
+     LINEDELAY=n    : Set line paste delay in microseconds (default: 1).  
+     ANTS           : Switch ants mode on.  
+     PATTERN=x      : crawl pattern (default: EEEE).  
+     MULTIPATTERN=x : crawl pattern for multisnapping (default: F8F8).  
+     CLIPUNIT=n     : Set clipboard unit (default: 0).  
+     RTG            : Force RTG friendly snapping.  
+
+        Select PowerSnap's  icon  and choose 'Information' from the 'Icons'
+     menu.   You  can  now edit PowerSnap's tooltypes, check your Workbench
+     manual for more information.  
+
+        The provided  PowerSnap  icon  has  the following tooltypes already
+     set:  'SMARTSPACE'  and  'ALLFONTS'.   So edit the icon's tooltypes if
+     you  want  to  change  these.   All other tooltypes are also listed in
+     brackets.   The  brackets  are  used  to  'comment out' a tooltype, so
+     remove them if you want to use the tooltype.  
+
+        Running PowerSnap  twice  will bring up the settings window. Select
+     'Quit'  from this window's 'Project' menu to remove PowerSnap. You can
+     also   use   the   system's   Commodities  Exchange  program  to  kill
+     PowerSnap.  
+
+
+     4. Settings Window 
+     ------------------ 
+
+        When you  start PowerSnap you will be presented with a window where
+     you  can  change all of PowerSnap's settings. You may open this window
+     at  any  time by using PowerSnap's hotkey (control lalt p, or whatever
+     you  set  using  CX_POPKEY)  or  by  using  the  standard  Commodities
+     Exchange program.  
+
+        Everything in  this  window  should be fairly self-explanatory.  In
+     the  window's  'Project'  menu  you will find 'Hide' and 'Quit' items.
+     Selecting  'Hide'  is  the  same  as  using the window's close gadget,
+     selecting 'Quit' will remove PowerSnap from the system.  
+
+        Most changes  you  make  will  be effective immediately, so you can
+     try  them  out  at  once. The qualifiers will only be changed once you
+     close the small window used to set them.  
+
+        Select 'Save  Settings' from the 'Project' menu to save the current
+     settings to PowerSnap's icon.  
+
+        Note that  the  code  for  this  window is located in the PowerSnap
+     program,  not  in  PowerSnap-handler.  The  window  code  will only be
+     loaded  when  actually  needed,  so  PowerSnap  will  use a minimum of
+     memory when hidden.  
+
+
+
+
+                                     Page 8
+
+
+     
+
+
+     5. Features 
+     ----------- 
+
+       o Fully  supports  the clipboard.device. You can use snapped text in
+         all other programs that supports the clipboard.device.  
+
+       o Snaps all printable characters, from ' ' (32) to 'ÿ' (255).  
+
+       o Supports all keymaps.  
+
+       o Uses  a relatively small handler that is about 13K long. PowerSnap
+         uses  about  22K  of memory once it is installed (excluding memory
+         used by the clipboard.device and commodities.library).  
+
+       o Recognizes  all non-proportional fonts to up to 24 pixels wide and
+         of   any   height.   Also  recognizes  scaled  fonts  (bitmap  and
+         IntelliFonts).  
+
+       o Recognizes  plain,  underlined,  bold,  inverse,  bold underlined,
+         inverse  underlined,  inverse  bold  and  inverse  bold underlined
+         characters :-) 
+
+       o Works   with  fonts  with  kerning  data  (like  the  courier.font
+         supplied with Workbench 2.0).  
+
+       o Will  remember  character  positions  in up to 8 windows. Once you
+         have  snapped  in  a window the initial character position will be
+         found immediately and you may also start snapping on spaces.  
+
+       o Joins long lines.  
+
+       o Pre-/appends strings to pasted text.  
+
+       o Has  a  single-line  mode  to paste all snapped text onto a single
+         line. Whitespace and newlines will be changed to spaces.  
+
+       o Supports  a  middle mouse button if your mouse has one.  Using the
+         middle  button  as  qualifier  gives the possibility to snap/paste
+         without touching the keyboard! 
+
+       o Inputhandler   is   written   in   assembly  for  lowest  possible
+         overhead.  
+
+       New features for PowerSnap 2.0/2.1: 
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+       o Has  a  full  intuition/gadtools  interface to allow you to change
+         all  settings using the mouse. The window code is loaded from disk
+         when needed for minimum memory usage.  
+
+       o PowerSnap  is  a  standard commodity. Use the standard Commodities
+         Exchange  program  to  enable/disable  it, kill it or to show/hide
+         the settings window.  
+
+
+                                     Page 9
+
+
+     
+
+
+
+       o Multisnap  feature.  Allows  you  to  snap something and add it to
+         what  you  snapped  before. This append-snapping is very useful to
+         pick  up  several  words that you might want to join into one long
+         snap.  The snapped items are put in the clipboard, each on its own
+         line  (with  a linefeed between them). You can use the single-line
+         paste to paste them all onto one line.  
+
+       o Recognizes  text  in all colors: text in any color on a background
+         of any color will be recognized.  
+
+       o SMARTSPACE  feature  to make PowerSnap consider unknown stuff as a
+         space.   This  way  you  can  do  _much_  better  word snapping in
+         non-shell windows.  
+
+       o Can  be  told  to  try  and  recognize  text  in all open fonts in
+         memory.   PowerSnap  will  then  recognize  _all_ non-proportional
+         fonts  (up  to  24 pixels wide) also if the font is not set in the
+         window's rastport.  
+
+       o Keeps   an  optional  history  of  snapped  text.   PowerSnap  can
+         remember  up  to  99  strings  you snap.  Pressing the history key
+         will  cause  a  history  window  to  pop  up and will allow you to
+         select a string to be re-pasted.  
+
+       New features for PowerSnap 2.2: 
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+       o Has a completely font-sensitive and localized user interface.  
+
+       o Allows you to save the settings from the GUI.  
+
+       o Recognizes text lines with an extra pixel in between.  
+
+       o Allows  you  to  specify  the  clipboard  unit  to use.  Clipboard
+         loading  and  saving is now implemented using iffparse.library for
+         improved compatibility.  
+
+       o Optional  crawling  ants  to  mark  the  text being snapped!  Ants
+         pattern and color are user-definable.  
+
+
+                                                       As always, enjoy! 
+
+
+
+
+
+
+
+
+
+
+
+
+                                    Page 10
+
+
+     
+
+
+                                PROGRAM HISTORY
+
+     ********************************************************************** 
+     VERSION 1.0 
+
+     o First release.  
+
+     ********************************************************************** 
+     VERSION 1.1 
+
+     o Fixed  bug in reading from clipboard. Strange things could happen if
+       the  clipboard  did  not  contain  text.  Unknown clips are properly
+       ignored  now.   Incompatibility  with 'ConClip' (Workbench 2.0, V37)
+       resolved.   Default COLOR changed to 1.  Version string embedded for
+       Workbench 2.0 'Version' command.  
+     o To  put  the record straight: PowerSnap is not a modified version of
+       Snap  (by  Mikael  Karlsson).  It  is a completely different program
+       that  does  most  of the things Snap does. A lot of the features and
+       ideas  in  PowerSnap  were influenced by (read: stolen from :-) Snap
+       though.  I  just  thought  I'd  mention  this  because  some  German
+       magazine  almost  convicted  me  for plagiarism, oh boy :^D  I wrote
+       PowerSnap  because  I  was not happy with Snap taking up over 80K of
+       my precious memory (PowerSnap only uses about 12K).  
+     o The  Amiga  would  hang  if  you tried to snap something just when a
+       window  was  about  to  close.  Now all the Intuition functions that
+       open/close/modify  windows  are  patched  so  they  will  wait until
+       snapping   has   finished.  On  Kickstart  2.0,  the  new  Intuition
+       functions are also patched.  This should fix all deadlocks.  
+     o Tooltype 'QUIET' added for Workbench startup without window.  
+     o Tested with Enforcer and Mungwall debugging tools.  
+
+     ********************************************************************** 
+     VERSION 2.0 
+
+       ** ONLY RUNS ON KICKSTART 2.0 OR HIGHER! ** 
+
+     o PowerSnap  is  a  commodity  now,  so it can be disabled/enabled and
+       killed  using the Commodities Exchange program. Note the replacement
+       of  the  'PRIORITY' argument by 'CX_PRIORITY' to set the commodity's
+       priority rather than that of the input handler (default is 0).  
+     o Now  has  a  hotkey to pop up a GUI window to set the settings. This
+       window  allows you to easily change all of PowerSnap's settings with
+       the  mouse.   Note  that  the  QUIET  tooltype has been removed. Use
+       CX_POPUP=NO now.  
+     o Fixed bug: no longer crashes on fonts with LoChar smaller than 32.  
+     o PowerSnap's  character  recognition  has  been  improved. Before you
+       could  only  snap  black  or  blue text, now you may also snap white
+       text.  In  fact  PowerSnap  now  recognizes  text  in any color on a
+       background of any color. How could you ever manage without this :) 
+     o New  SMARTSPACE  and NOSMARTSPACE arguments. Allows you to switch on
+       much  better,  but slower, word-snap detection. Once you get used to
+       this  I  think you won't mind it's a bit slower. It is no problem on
+
+
+                                    Page 11
+
+
+     
+
+
+       faster Amigas of course, like the A3000.  
+     o New  multisnap  feature: allows you to add what you snap now to what
+       you  snapped before. That way you can e.g. snap several files from a
+       directory without having to snap them all at once.  
+     o PowerSnap  will  now  optionally  consider every font currently open
+       instead  of just the window's rastport font. ALLFONTS and NOALLFONTS
+       arguments.  
+     o Will  abort  the  snap  if you release the snap qualifier before the
+       recognition routine has finished.  
+     o Allows you to use lamiga, ramiga and ctrl to specify qualifiers.  
+
+     ********************************************************************** 
+     VERSION 2.0a 
+
+     o Error  reporting  improved,  if handler fails to initialize you will
+       be informed of the problem (instead of just flashing the display).  
+     o Fixed  bug:  if  handler  failed  to  initialize the settings window
+       would  appear  and  would  allow you to change settings that weren't
+       there :-) 
+     o Settings  window  changed to a simple refresh window.  Refreshing is
+       a  bit  slower,  but when the window is covered a lot of chip memory
+       is saved (especially on screens with a lot of colors/bitplanes).  
+     o The  handler  will  now  complain  if it can't find PowerSnap in the
+       command path.  
+
+     ********************************************************************** 
+     VERSION 2.1 
+
+     o PowerSnap  now  (optionally)  keeps  a  history  list of all snapped
+       text.   It is possible to pick a string from this history list to be
+       re-snapped.   Pressing  Left  Alt-H  (or another key you may choose)
+       will  bring  up  a  window on the currently active screen containing
+       the  snap  history.  This window will be automatically closed if the
+       screen it is on closes.  
+     o Somebody  reported  he  had  a  problem  when using QMouse (with the
+       sunmouse  feature)  and  PowerSnap together.  I have changed the way
+       PowerSnap  patches  the window functions of Intuition.  If a program
+       tries  to  use  an  Intuition  window  function snapping will now be
+       aborted.  This should fix all deadlock problems.  
+     o Using  the  middle  mouse button qualifier didn't work.  Fixed.  Now
+       you can finally snap and paste without using the keyboard.  
+     o On  Kickstart  3.0 the wait pointer in the settings window is set to
+       the standard Intuition wait pointer.  
+     o Two  new  switches:  CHARDELAY  and  LINEDELAY.  Allow you to set an
+       optional    delay    when   pasting   characters   and   lines   (in
+       milliseconds).   Default  delay is set to 1 microsecond (ok for most
+       programs).   MEmacs  (in  your  Workbench's  Tools  drawer  seems to
+       require a character delay of 5).  
+     o Recognition  of  underscore  character improved.  PowerSnap will try
+       to  be  smart about figuring out wether a character is an underscore
+       or an underlined space.  
+     o PowerSnap  will  check  the  version of PowerSnap-handler. This will
+
+
+                                    Page 12
+
+
+     
+
+
+       take  care  of  the  problem of an old handler still being installed
+       and causing weird things to happen.  
+     o Amazingly  stupid  bug  fixed  :)   Seems V37 of commodities library
+       doesn't  understand  the  'ctrl'  qualifier  (only 'control').  This
+       caused  the  default  popup  key  not  to work on Workbench 2.0.  On
+       Workbench  2.1  or  3.0 all worked perfectly.  Default popup key has
+       been changed to 'control lalt p'.  
+
+     ********************************************************************** 
+     VERSION 2.1a 
+
+     o New  feature: line snapping.  Tripple clicking the mouse button will
+       put  PowerSnap  in  line  snap mode.  This allows you to easily snap
+       whole  lines  of  text from a window.  Clicking again will bring you
+       back to character/frame snapping.  
+     o New  feature:  trailing  spaces  will be automatically stripped from
+       each  line  of  snapped  text.  Spaces will not be stripped from the
+       last line of text if you are in character snap mode.  
+     o Now   refuses   to   quit   when  some  other  program  has  patched
+       intuition.library.    Previous   versions   would   blindly  unpatch
+       intuition.library   causing  all  sorts  of  strange  and  wonderful
+       crashes :-) 
+     o PowerSnap  will  now  generate  both  key-down  _and_ key-up events.
+       Previously  only  a  key-down  event  was  sent to the input.device,
+       confusing some programs.  
+     o Bug  fix:  PASTEKEY  and HISTORYKEY arguments didn't work and caused
+       enforcer hits.  Fixed.  
+     o Bug  fix:  fixed  enforcer hit that occured when settings window was
+       popped up (using Commodities Exchange or popup key).  
+
+     ********************************************************************** 
+     VERSION 2.1b 
+
+     o Bug  fix:  inputevents  are now properly cleared before filling them
+       in  and  sending them to the input.device.  This should fix problems
+       with   corrupted   pastes   a   small   percentage   of   users  was
+       encountering.  
+     o Word  snapping  improved.   You  may  now  start  word snapping on a
+       space.   The space will be included in the snap.  Request from Roger
+       Nordin  (or  'a  major  problem' as he calls it).  I hope this makes
+       Roger happy :^) 
+     o Fixed  the  annoying  'DisplayBeep()  not  going  away  until I stop
+       snapping'  problem  :-)  Thanks to Roger Nordin for bugging me about
+       this.   This  bug(?)  has  been  in  PowerSnap  from  the day it was
+       released but I never bothered to fix it.  
+     o History  window  made  keyboard controllable.  Use the up/down arrow
+       keys  to  select  an entry.  Press Return or Enter to accept, Esc to
+       cancel.   Will  look  best  on  Kickstart  3.0  because the listview
+       gadget  uses  a highlight box to show which item is selected, on 2.0
+       a text gadget is used.  
+
+
+
+
+                                    Page 13
+
+
+     
+
+
+     o Changed  some code to use Kickstart 3.0 bitmap/rastport functions if
+       possible.  This should improve future compatibility.  
+
+     ********************************************************************** 
+     VERSION 2.2 
+
+     o PowerSnap  has  been  fully  localized  and has been made completely
+       font-sensitive.  
+     o New  'Save  Settings'  menu  item.   Allows  you to save the current
+       settings  to  PowerSnap's  icon.   These  setting  will be read when
+       PowerSnap  is installed, even when PowerSnap is started from the CLI
+       or Shell.  
+     o Made  PowerSnap  more  RTG friendly.  Snapping should now work under
+       the  Workbench  emulation  of  the  Piccolo and EGS Spectrum graphic
+       cards (not tested).  
+     o Some  programs  use  an  extra  pixel  of spacing between their text
+       lines.   PowerSnap will try to sniff this out and will try to adjust
+       itself  to  this.   Note  that  this  can never be perfect :(  Start
+       snapping  on  a  character that has another character directly below
+       it to help PowerSnap recognize such cases.  
+     o When  asked  to  quit  PowerSnap will now check the return code from
+       SetFunction()  when  removing  its  Intuition  patches,  rather than
+       directly  peeking  into  the  library's  jump  table.   Should  work
+       perfectly with SetMan now.  
+     o Improved  speed  of  text  pasting  by  switching  PowerSnap's  task
+       priority back to 0 when inserting.  Strange, but it works :-) 
+     o Bug  fix:  PowerSnap  could  go into an infinite loop when some high
+       ASCII chars were pasted (for example ª - 0xAA).  
+     o New command line switch and tooltype: CLIPUNIT.  
+     o Due  to very popular demand I added crawling ants to PowerSnap.  New
+       command line switches: ANTS, NOANTS, PATTERN and MULTIPATTERN.  
+     o PowerSnap  now  uses  iffparse.library  for the clipboard I/O.  This
+       should  improve  compatibility  with  other  software  that uses the
+       clipboard.  
+     o Keyboard   shortcuts  in  history  window  improved.   Now  supports
+       Control-Up/Down and Shift-Up/Down.  
+     o Bug  fix: PowerSnap would not recognize the last character of a font
+       (typically 'ÿ').  
+     o Removed  all  (but  one)  Intuition  patches  and  implemented a new
+       anti-deadlock  mechanism.   Snapping will be aborted when a deadlock
+       occurs  (for  example  a  program  opening  a  window  while you are
+       snapping).  
+
+     ********************************************************************** 
+     VERSION 2.2a 
+
+     o Fixed  problem  with  RTG detection code and added an RTG switch and
+       tooltype  to  force  RTG mode on.  If PowerSnap doesn't work on your
+       graphics card try using the RTG switch.  
+     o The  clipboard  is now opened when PowerSnap is installed and closed
+       when  it  is  removed  and  no longer on every clipboard read/write.
+       This avoids the overuse of CLIPS:.  
+
+
+                                    Page 14
+
+
+     
+
+
+     o The  handler  will no longer look for PowerSnap in the command path.
+       It will now simply execute PowerSnap from 'PROGDIR:'.  
+     o Bug  fix: there was a small amount of memory loss when PowerSnap was
+       quit.  Oops :) 
+     o Bug  fix:  error  reporting routine (from Workbench) would hang when
+       ReqTools was not installed.  
+     o Bug  fix:  on systems without locale.library the hex pattern gadgets
+       contained a capital X instead of the correct hex number.  
+     o Fixed  harmless  mungwall  hit  that  occured  when  'All Fonts' was
+       switched  on and PowerSnap couldn't find a character under the mouse
+       pointer (allocation of 0 bytes).  
+     o Swedish catalog included, translation by Roger Nordin.  
+     o French catalog included, translation by Benoit Mortier.  
+
+     ********************************************************************** 
+
+     PowerSnap 2.2a by Nico François (Yes, Nico is my first name :-) 
+
+     Thanks to Jorrit Tyberghein, Ives Aerts, Kenny Grant, Herman Stevens,
+     Philip Marivoet, Peter Stuer, Stefan Zeiger, Magnus Holmgren, Roger
+     Nordin, Marcus Sommarmyr, Geert Uytterhoeven, Rafael D'Halleweyn and
+     Paul Kolenbrander for testing and the many good suggestions.  
+
+     Copyright (c) 1991-1994 Nico François 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    Page 15
+
+
+     
+
+
+                               Table Of Contents
+
+                                 PowerSnap 2.2a
+
+     PREFACE.........................................................    1
+
+     1. Introduction.................................................    1
+
+     2. Installation.................................................    2
+
+     3. Usage........................................................    2
+        3.1 From CLI or Shell........................................    2
+        3.2 From Workbench...........................................    7
+
+     4. Settings Window..............................................    8
+
+     5. Features.....................................................    9
+
+     PROGRAM HISTORY.................................................   11
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+

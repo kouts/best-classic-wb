@@ -1,0 +1,1289 @@
+************************************************************************
+
+                        MUI - MagicUserInterface
+
+                (c) Copyright 1992-97 by Stefan Stuntz
+
+        This file describes all changes since version 1.0 of MUI
+
+************************************************************************
+
+
+
+------------------------------------------------------------------------
+Version 3.8 (12-Feb-97)                       (muimaster.library V19.35)
+------------------------------------------------------------------------
+
+* MINOR SASG UPDATE *
+
+Still not registered for MUI?
+Check out www.sasg.com for great discounts NOW!
+
+Changes for users:
+
+- When tab-cycling through objects of a virtual group, MUI tries to
+  ensure that the surrounding active object frame is always visible.
+
+- Added a little gimmick for registered users (OS 3.x required): Take a
+  digitized picture of yourself (approximately 80x100 pixels in size)
+  and copy it to "MUI:user.pic". MUI's preferences will then become a
+  little more personal :). Note that you can use any graphics format
+  (ilbm, gif, jpeg, etc) as long as you have a datatype to read it. In
+  other words: if you can view it with Multiview, MUI can display it
+  too. Take care that the picture is not too big, otherwise MUI might
+  fail to open the prefs window. Thanks again for supporting MUI and the
+  Amiga!
+
+- Included new catalogs:
+    Portuguese by Fernando Nunes and Alexandre Gabriel
+    Spanish by Pedro Luis Mieza and Juan Antonio Ramirez
+
+- Translations of PSI were still messed up. All catalog related problems
+  should finally be fixed now.
+
+- Fixed a few more bugs concerning the appearance and refresh of help
+  bubbles.
+
+- Fixed a possible deadlock that could occur when balancing objects were
+  used in certain combinations.
+
+- Balancing could accidently mess up the display of active object frames.
+
+- Implemented keyboard control for balance objects.
+
+Changes for programmers:
+
+- Reduced stack usage a little. Note well: this is no excuse for lazy
+  programmers! As mentioned in the MUI developer docs, the default stack
+  size of 4k is not enough for MUI programs! 8k is an acceptable
+  minimum. If you do not pay attention to this, your programs will
+  crash sooner or later!
+
+- MUIA_Gauge_InfoText is now also possible for vertical gauge objects.
+
+- Made MUIM_Window_Snapshot method public. See autodocs for details.
+
+- MUI would accidently refuse to automatically move a listviews display
+  to the active entry, even though the MUIA_List_AutoJump flag was set.
+
+
+
+------------------------------------------------------------------------
+Version 3.7tu1 (30-Jan-97)
+------------------------------------------------------------------------
+
+* MINOR SASG UPDATE *
+
+...just a few quick fixes...
+
+- Listtree classes could crash under certain circumstances. This bug
+  affected MUI's preferences as well as other applications, eg IBrowse.
+  They should run well again with this fix.
+
+- MUI would sometimes render a listview's contents outside of its box.
+
+- PSI understands the new language catalogs.
+
+- MUI's about window gives credit to the translators of the current
+  locale.
+
+
+
+------------------------------------------------------------------------
+Version 3.7 (24-Jan-97)                      (muimaster.library V18.174)
+------------------------------------------------------------------------
+
+* MINOR SASG UPDATE *
+
+ Still not registered for MUI yet? We set up something special to help
+ you support the Amigas future! Take your chance and play the unique
+ shareware lottery at http://www.sasg.com/
+ Order online and win some nice prices!
+
+Changes for users:
+
+- Included translations for many different languages. Many thanks to
+  the Amiga Translators Organisation and it's members for making this
+  possible:
+    Swedish      Kristoffer Larsson, Mattias Gustafsson
+    Greek        Pantelis Kopelias, Manos Konstantiniadis
+    French       Georges Goncalves, Francis Labrie, Jérôme Fleury
+    Catalian     Llorenç Grau, Esteve Boix
+    Danish       Niels Bache, Bjarke Vangsgaard
+    Finnish      Jan Karjalainen, Mika Lundell
+    Polish       Konrad Dubiel, Marcin Orlowski
+    Czech        Pavel Bures, Radovan Drazny
+    Italian      Vincenzo Gervasi, Mario Dell'Oca
+    Netherlands  Frank Mosch, Jeroen Steenblik
+
+- Fixed a few minor problems with the appearance of help bubbles.
+
+- Context menus were inaccessible in windows without other MUI objects.
+
+- Window popup menu entries for snapshot/unsnapshot no longer appear on
+  windows without this capability.
+
+- Increased stack size of mui preferences. The previous versions stack
+  was a little too small which sometimes caused MUI to crash.
+
+- Recompilation with SAS-C 6.57 fixes potential problems with
+  060 processors.
+
+- Improved middle mouse button scrolling in virtual groups. Holding 
+  shift enhances speed by 2, control by 4 and alt by 8.
+
+- Fixed enforcer hit in volumelist class.
+
+- The MUI window popup menu now works even if there are string gadgets
+  below.
+
+Changes for programmers:
+
+- Using an empty string (not a NULL pointer!) as title for
+  a popup menu will result in a titleless popup menu.
+
+- Fixed MUIA_Window_AltLeftEdge/TopEdge/Width/Height attributes.
+
+- Fixed misbehaviour when input/eventhandlers were added/removed
+  from inbetween other input/eventhandlers.
+
+- Fixed a problem when input & eventhandlers were modified from within
+  other input & eventhandlers.
+
+- Improved performance of MUIM_Group_Init/ExitChange in windows with
+  many objects.
+
+- If you call MUIM_Application_ShowHelp with a NULL filename, MUI will
+  use the contents of MUIA_Application_HelpFile instead.
+
+- If you call MUIM_Application_ShowHelp with (Object *)0xffffffff as
+  window reference object, MUI will use the first open child window of
+  an application as reference for a display screen automatically.
+
+- Implemented MUIM_Create/DeleteBubble methods (area class) to allow
+  programmer controlled bubble appearance. Useful e.g. for indicating
+  error conditions on data entry forms.
+
+
+
+------------------------------------------------------------------------
+Version 3.6 (20-Aug-96)                       (muimaster.library V17.63)
+------------------------------------------------------------------------
+
+* MINOR SASG UPDATE *
+
+NOTE: Still not registered yet?
+      Go to http://www.sasg.com/ and get your MUI within a few hours!
+
+Changes for users:
+
+- Fixed another bug with string gadget activation/deactivation which
+  might have caused possible crashes of web browsers.
+
+- Included a listview that shows versions of MUI custom classes in the
+  MUI about window.
+
+Changes for programmers:
+
+- Replaced the outdated custom class example Userdata.mcc by a more
+  uptodate custom class. This one also shows how to handle preferences
+  for custom classes.
+
+- Fixed a bug that resulted in waiting for wrong signals when an input
+  handler with timer was used.
+
+
+
+------------------------------------------------------------------------
+Version 3.5 (26-Jul-96)                      (muimaster.library V16.160)
+------------------------------------------------------------------------
+
+* MINOR SASG UPDATE *
+
+NOTES: More support and information is available from the official
+       MUI web site. Please visit us at http://www.sasg.com/
+
+       This version was not released to the public, it was only
+       distributed with the web browser IBrowse from Omnipresence.
+
+Changes for users:
+
+- Rewrote installer script. It will correctly update older MUI
+  distributions now instead of just renaming away the previous
+  directory. This allows additional classes and images to remain
+  installed after a MUI update.
+
+- Fixed background rendering bug on cybergfx hi/truecolor screens.
+
+- Fixed possible crash when disposing active string gadgets.
+
+- Fixed positioning of window border scrollers after uniconfiy.
+
+- Fixed version numbers of german catalog.
+
+- Included builtin menu rendering for popup menus. Popups will
+  always appear above the corresponding gadget now instead of
+  relying on external patches for correct positioning.
+
+- Fixed refresh of gadgets in virtual groups, i.e. browser
+  displays.
+
+- Fixed rendering problems when TABbing away from a selected gadget.
+
+- Controlling radio buttons is possible by clicking on the text
+  labels as well as on the actual buttons.
+
+- Fixed major bug that lead to confused gadget appearance when changing
+  prefs on iconified applications.
+
+- Removed a work-around for broken cybergfx picture.datatype. Note that
+  you will need at least picture.datatype 43.682 if you intend to
+  use background pattern on hi/truecolor cybergfx screens.
+
+- Enhanced display speed in virtual groups, MUI based web browsers
+  perform better.
+
+Changes for programmers:
+
+- Implemented new input event handling system for custom classes.
+  This new system replaces the old and inflexible calls to
+  MUI_Request/RejectIDCMP(). See autodocs of MUIM_Window_AddEventHandler
+  for details.
+
+- Improved remapping speed of bitmap class for images with more than
+  4 planes. However, better use datatypes (V43) to remap big images
+  instead of MUIs bitmap class.
+
+- MUIM_List_Clear no longer hides a lists title.
+
+- Setting MUIA_Draggable and MUIA_xxxWeight for group objects is no
+  longer forwarded to children.
+
+- Fixed enforcer hit when dragging listview items with custom imagery.
+
+- Fixed mungwall hit when string gadget were set to contents bigger
+  than their maximum length.
+
+- Implemented MUIM_KillNotifyObj. See autodocs for details.
+
+- Custom classes are also looked for and found in PRODGIR:mui/ now.
+
+- MUI automatically falls back to traditional scrollers when window
+  border scrollers were chosen but not available for some reasons,
+  e.g. because the proper Window class attributes were not specified
+  or the muiwinscroller.class is missing.
+
+- Support for NM_COMMANDSTRING menus in MUI_MakeObject(MUIO_MenuItem)
+  call. Also implemented MUIA_Menuitem_CommandString attributed for
+  Menuitem class. See autodocs for details.
+
+- Implemented MUIA_Scrollgroup_HorizBar and MUIA_Scrollgroup_VertBar
+  attributes to access the scrollbars of a scrollgroup.
+
+
+
+------------------------------------------------------------------------
+Version 3.4 (01-Mar-96)                      (muimaster.library V15.93 )
+------------------------------------------------------------------------
+
+* non-published internal release *
+
+
+
+------------------------------------------------------------------------
+Version 3.3 (22-Feb-96)                      (muimaster.library V14.106)
+------------------------------------------------------------------------
+
+* MINOR SASG UPDATE *
+
+Changes for users:
+
+- Help bubbles no longer block an application.
+
+- Fixed refresh bug of prop gadgets in virtual groups.
+
+- Fixed ARexx command INFO SCREEN.
+
+- MUI could crash after disposing an application when ARexx was used.
+
+- Fixed refresh of color wheels.
+
+- Fixed crash when using Coloradjust objects with Kick 2.x.
+
+- Fixed double redraw after window resize.
+
+Changes for programmers:
+
+- Implemented MUIM_Application_AboutMUI,refwindow method to show MUIs
+  about window. Please include an "About MUI..." menu item in all your
+  programs.
+
+- MUIA_String_Contents notification did not work on
+  AMIGA-X/C/V etc. string gadget clipboard hotkeys.
+
+- Implemented MUIV_Listview_ScrollerPos_None to create listviews
+  without am attached scrollbar. You can create a scrollbar object,
+  place it anywhere in your window and connect it to the list (not
+  listview!) through notification. See autodocs of
+  MUIA_Listview_ScrollerPos for details.
+
+- Fixed strange menu item return ID reports.
+
+- Menuclass would not allow to set MUIA_Menu_Title. Instead, it
+  accidently checked for MUIA_Menuitem_Title. Now, it recognizes
+  both tags.
+
+- Menu objects and Menuitem objects did not correctly update the
+  current menustrip when certain attributes (e.g. the title) were
+  changed.
+
+- Creating Application objects without MUIA_Application_Title/Base/...
+  lead to very strange behaviour. Now, the application simply names
+  itself "UNNAMED".
+
+- MUI_DisposeObject(NULL) would accidently crash the machine although
+  being documented as doing nothing.
+
+ NOTE: I strongly suggest to subscribe to the MUI mailing list. Only
+ here is the place to ask questions and make suggestions. Programming
+ serious MUI applications without support on this mailing list is nearly
+ impossible!
+
+ To subscribe, mail to mui-request@sunsite.informatik.rwth-aachen.de
+ with the single word "subscribe" (no quotes!) as subject (SUBJECT, not
+ message body!). You might want to send a HELP command to the server as
+ well. Thanks for your cooperation.
+
+
+
+------------------------------------------------------------------------
+Version 3.2 (31-Jan-96)                      (muimaster.library V13.686)
+------------------------------------------------------------------------
+
+* MINOR SASG UPDATE *
+
+Changes for users:
+
+- Rewrote some small critical parts in Assembler, MUI 3.2 should run
+  significantly faster than previous versions.
+
+- Enhanced listview scrolling speed.
+
+- Created custom root class which uses memory pools to allocate
+  objects. Reduces memory fragmentation and speeds up object
+  creation about 100%.
+
+- Optmizied scrolling in virtual groups.
+
+- Numeric buttons didn't draw their disabled state.
+
+- Implemented keyboard control for scrollgroups.
+
+- Implemented presets for Coloradjust objects. Presets are read
+  from mui:Presets/rgb.txt.
+
+- Fixed 16 bytes memory leak.
+
+- Fixed redrawing of prop gadgets.
+
+- Fixed prop gadgets in listviews with lots of entries.
+
+- Enhanced positioning of help bubble.
+
+- Help bubbles and Drag&Drop messed up the display if CyberGraphX was
+  installed and the used screen was an ECS/AGA display mode with
+  interleaved bitmaps. Note well: If your bubbles are broken on
+  CyberGraphX screenmodes, be sure to use the *latest* version of
+  CyberGraphX from aminet.
+
+- Rewrote PSI palette handling completely. Should be much easier to
+  use now. Included color presets as popup menus on the color page.
+
+- Heavily reduced memory usage of string objects, optimized overall
+  memory consumption.
+
+Changes for programmers:
+
+- Implemented MUIA_List_PuddleSize, MUIA_List_ThreshSize and
+  MUIA_List_MemPool to control the pool created by a list object.
+
+- Implemented scroll gadgets in window borders. See autodocs
+  of MUIA_Window_UseLeftBorderScroller, MUIA_Window_UseRightBorderScroller,
+  MUIA_Window_UseBottomBorderScroller and
+  MUIA_Prop_UseWinBorder, MUIA_Scrollgroup_UseWinBorder
+  for details.
+
+- Implemented MUIM_Pendisplay_SetXXX methods to adjust defaults
+  of a pendisplay object.
+
+- Implememted a timer in application class. See TIMER section
+  of MUIM_Application_AddInputHandler for details.
+
+- Implemented MUIA_Application_WindowList. Getting this attribute
+  returns a pointer to a struct List which contains an applications
+  child windows. Use intuition.library/NextObject() to parse.
+
+- Fixed get() of MUIA_Application_ForceQuit.
+
+- Fixed MUIA_Text_HiChar with bold & italic texts.
+
+- Fixed \033I[2,rrrrrrrr,gggggggg,bbbbbbbb] display bug which was
+  introduced in MUI 3.1.
+
+- Reimplemented MUIA_Slider_Quiet.
+
+- Implemented ESC P escape sequence to change pen for text strings.
+  Usage is like "This is \33P[17]color 17". Be sure to ObtainPen()
+  pens used like this.
+
+- Fixed bug when bubbles or popup menus were used on windows
+  which's root object was not a group class object. Note that since MUI
+  plays some special tricks here, it is generally better to have the
+  root object of a window be a simple group class anyway. If you dont
+  need such a group in your window, use
+  MUIA_Window_RootObject, VGroup, Child, MyObj, End
+  instead of
+  MUIA_Window_RootObject, MyObj
+
+- Fixed MUIM_Application_ShowHelp with V39 AmigaGuide library and
+  different help files.
+
+- Fixed a very bad bug introduced in 3.1 that made applications crash
+  when MUIA_ShowMe was used on objects who's parent was the windows
+  root object.
+
+- When an object is dropped somewhere outside a valid container,
+  the application object will receive a MUIM_DragDrop method. This
+  allows programs to take actions when MUI objects are e.g.
+  dropped on the Workbench.
+
+- Fixed coordinate parameters of MUIM_DragDrop.
+
+- Fixed OM_GET for MUIA_String_BufferPos and MUIA_String_DispPos.
+
+- MUI 3.1 would accidently reopen windows which were closed during
+  an applications iconified state.
+
+- Improved behaviour of MUIM_Application_Save/Load. You can override
+  the new methods MUIM_Export and MUIM_Import to export/import custom
+  data from your custom classes.
+
+- Implemented MUIA_FillArea to avoid flickering when drawing custom classes.
+
+
+
+------------------------------------------------------------------------
+Version 3.1 (21-Nov-95)                      (muimaster.library V12.268)
+------------------------------------------------------------------------
+
+* MAJOR SASG UPDATE *
+
+This is a major update. Please look at the information texts
+in the preferences program for information on how to update your
+registration.
+
+Note: Almost everything in MUI changed, so this time, the changes
+section does not describe everything in detail but is just like a
+short overview.
+
+Changes for users:
+
+- To find a compromise between flexibility and resource usage, MUI 3
+  uses a completely new memory management concept. A lot of extra
+  features which are not necessarily needed to run applications have
+  been moved into external libraries. Most of these libraries are not
+  even loaded if MUI runs with its default settings. With this new
+  memory management, users have the the ability to control MUIs memory
+  usage by using appropriate configurations.
+
+- MUI's speed has increased considerably compared with earlier versions.
+  This speedup depends on the machine MUI is running on: the slower the
+  Amiga, the more noticeable is the speed increase. Especially drawing
+  of GUI elements on ECS/AGA machines is a lot faster now due to a new
+  way of rendering. Even if a 7 MHz computer still can't be considered as
+  an optimum MUI platform, applications should perform a lot better now.
+
+- The slow and bulky preferences system was completely rewritten, the
+  new way of handling settings is a lot clearer and more straight
+  forward. An applications local configuration is no longer adjusted
+  from the global preferences editor. Instead, all MUI applications
+  offer a way to open their private MUI settings window. This makes MUI
+  look more like an integral part of a program. Furthermore, the
+  settings windows are better structurized and offer easier access to
+  all configuration option.
+
+- Public screen handling moved to an external program called "PSI"
+  (Public Screen Inspector). PSI fixes all known bugs of MUI 2.x
+  screens, is more easy to use and offers a few new features.
+  Furthermore, PSI can also be used independantly as screen manager for
+  non-MUI programs.
+
+- All accompanying MUI programs make extensive use of brandnew MUI 3
+  programming features like dynamic object creations, balancing groups,
+  popup menus, Drag&Drop or Help bubbles. All those things have been
+  available on other operating systems for a long time, its about time
+  to get them to the Amiga.
+
+Changes for programmers:
+
+- Added so called "input handlers" which allow custom classes to
+  directly react on signal bits. See MUIM_AddInputHandler for details.
+
+- You are encouraged to include a Settings/MUI... menu in your
+  application that does nothing but simply send a
+  MUIM_Application_OpenConfigWindow to your application object (see
+  psi.c).
+
+- Implemented context sensitive popup menus. See autodocs of
+  MUIA_ContextMenu for details.
+
+- Implemented custom layout groups. Positioning of children is
+  completely under programmers control. See new demo CustomLayout and
+  autodocs of MUIA_Group_LayoutHook for details.
+
+- Changed layout behaviour of virtual groups. This should makes them
+  much more useful, especially together with the new custom layout
+  hooks. Performance was also increased. See autodocs of Virtgroup class
+  and Scrollgroup class for details.
+
+- Implemented a Poppen class and new muimaster.library functions
+  MUI_ObtainPen() and MUI_ReleasePen(). Use this if your application
+  needs custom pens. See autodocs and demo Class2.c for details.
+
+- Improved notification on MUIA_Window_InputEvent. See autodocs for
+  details.
+
+- Fixed protection bits in dirlist objects MUIM_Dirlist_GetEntry.
+
+- Implemented help bubbles. See MUIA_ShortHelp for details.
+
+- Implemented MUIA_Parent attribute to ask an object about its parent
+  group.
+
+- Included full source code of the new screen manager for educational
+  purposes. This little tool shows how to write good MUI programs. It
+  demonstrates several kinds of sub classes (windows, groups, lists),
+  drag & drop handling, dynamic object creation & linking, multi
+  threading, localization, help bubbles and much more. The screen
+  manager acts as a kind of standard MUI application, you can find lots
+  of important techniques and guidelines of MUI programming here. Forget
+  about the other demos, if you want to learn something, take the screen
+  manager. I want all of you to have a close look at the source and
+  drop your old-fashioned way of "ReturnID"-programming immediately.
+  It's time to get real object-oriented NOW! Don't be afraid of sub
+  classes, there isn't anything easier to work with.
+
+- Implemented "disappearing" objects. Whenever a window is too small,
+  these objects are simply left out during layout calculations according
+  to their disappear level. This allows creation of complex and nice
+  GUIs while still remaining compatible with crappy 640x200 screens. See
+  autodocs of MUIA_HorizDisappear and MUIA_VertDisappear for details.
+
+- Implemented "balancing" groups. See the Balancing demo and the
+  autodocs of the new BalanceClass for details.
+
+- Implemented MUIM_Application_CheckRefresh method. You should call it
+  e.g. from IntuiMsgHooks of ASL-Requesters to ensure correct refreshing
+  of simple refresh type MUI windows. See autodocs and screen manager
+  source code for details.
+
+- Implemented possibility to add objects to groups dynamically. See
+  autodocs of MUIM_Group_InitChange & MUIM_Group_ExitChange and screen
+  manager source code for details.
+
+- Included simple brush2c program to help creating input for MUI's
+  Bitmap class. Source can be found in "MUI/Developer/C/Examples/",
+  usage examples are included in the screen manager's source code.
+
+- Included classes to display tree structures.
+
+- Introduced a new cycle chain system. All you have to do is to set
+  MUIA_CycleChain to 1 for every object that you want to have in your
+  chain, MUI does the rest automatically. The old
+  MUIM_Window_SetCycleChain will continue to work but is considered
+  obsolete.
+
+- Implemented possibility to have custom builtin images in listviews.
+  No more need for external image files and other rubbish in your
+  applications. See psi.c ScreenList class and autodocs of
+  MUIM_List_CreateImage for details.
+
+- Implemented full Drag&Drop facilities for all MUI objects. See
+  autodocs of MUIM_Drag#? in area class for details.
+
+- Added a few new good-looking classes like level displays and turning
+  knobs. See slidorama demo for details.
+
+- Rearranged class tree for slider-like classes that adjust numeric
+  values. See autodocs of numeric class and its subclasses for details.
+
+- Implemented MUIM_Application_NewInput to improve behaviour of input
+  loops. MUIM_Application_Input will continue to work but is considered
+  obsolete.
+
+- Implemented vertical bars in listviews with BAR/S switch for
+  MUIA_List_Format. See autodocs for details.
+
+
+
+------------------------------------------------------------------------
+Version 3.0 (10-Nov-95)                     (muimaster.library V11.3512)
+------------------------------------------------------------------------
+
+This was a special Computer 95 release and is not further documented.
+
+
+
+------------------------------------------------------------------------
+Version 2.3  (24-Dec-94)                      (muimaster.library V10.33)
+------------------------------------------------------------------------
+
+* MINOR SASG UPDATE *
+
+Sorry, this update is a little smaller than usual. The reason is
+simple, I was on a long holiday trip during the last months. :-)
+
+Changes for users:
+
+- Online help works again (but only synchronous) for 2.x systems.
+
+- Improved smooth scrolling for listviews with many entries.
+
+- Prefs program fits on an NTSC 640x200 screen with topaz/8.
+
+- Popup hotkey is filtered in string gadget input.
+
+Changes for programmers:
+
+- MUIA_String_MaxLen is gettable.
+
+- MUIA_ControlChar works for listview class.
+
+- Dirlist object returns correct file dates.
+
+- MUIA_Dirlist_Directory is get()able.
+
+- Implemented MUIA_Window_MouseObject & MUIA_Window_NeedsMouseObject
+  attributes for immediate online help. See autodocs & Settings demo
+  for details.
+
+- Added some support for the GCC compiler (include/inline/muimaster.h).
+
+- Implemented MUIA_Listview_ScrollerPos tag to specify the position of
+  the scrollbar in a listview.
+
+- Fixed some problems with string gadgets and attached lists.
+
+- Implemented MUIA_Application_UseRexx/UseCommodities attributes.
+  Set to FALSE to disable the builtin ARexx/Commodities handling.
+  Don't do this unless you have a very good reason!
+
+- Boopsi objects in virtual groups are handled like string gadgets,
+  they only appear when they're completely visible.
+
+- Implemented MUIV_Notify_Self, MUIV_Notify_Window and
+  MUIV_Notify_Application special values to simplify notification
+  mechanism. See autodocs of notify class (MUIM_Notify) for details.
+
+- Note: If you have questions or suggestions about MUI, please do
+  *not* ask me directly. Write to the MUI mailing list instead:
+  To subscribe, send mail to listserv@taloa.unice.fr with
+  an empty subject and a line containing the magic words
+  SUB mui Your Name
+
+
+
+------------------------------------------------------------------------
+Version 2.2  (08-Aug-94)                       (muimaster.library V9.80)
+------------------------------------------------------------------------
+
+* MINOR SASG UPDATE *
+
+Changes for users:
+
+- There were some misunderstandings about SASG update rules. Unless
+  otherwise stated, all MUI updates are MINOR SASG UPDATES, i.e.
+  you are not required to update your keyfile. Major updates (maybe
+  one at the end of this year) will be specifically announced and
+  the MUI prefs program will tell you about it.
+
+- When starting two or more MUI applications at the same time, there
+  was a chance that the keyfile was not recognized correctly.
+
+- Fixed some installation script problems.
+
+- Fixed a possible crash in the registration program.
+
+- MUI 2.1 was accidently documented to require OS 2.1, that's of
+  course a documentation bug. MUI continues to run with 2.0.
+
+- The serial number of a registered user is displayed in the prefs
+  programs about window.
+
+- Because the MUI 2.1 default settings for HalfShine and HalfShadow
+  pen caused some confusion, they are back to standard MagicWB
+  rules (color n-4 and n-3) again.
+
+- Fixed a bug in coloradjust class which caused wrong public screen
+  colors with V37.
+
+- AmigaGuide online help works asynchronous for all MUI applications.
+
+- Fixed some problems of listviews in virtual groups. Unfortunately,
+  some other problems are still there.
+
+- Fixed cycle gadget lockup problem.
+
+- Made window handling a bit more sensitive, MUI windows will now
+  look correctly even with non standard system gadget sizes.
+
+- Prefs program terminates when receving a CTRL-C signal.
+
+- Popup objects are controllable with a configurable hotkey.
+  See MUI-Prefs keyboard adjustment listview.
+
+Changes for programmers:
+
+- Autodocs for MUI_Redraw() didn't mention the important
+  fact that calling DoSuperMethod() is always the first
+  step in a custom classes MUIM_Draw method. Otherwise,
+  msg->flags is not set properly.
+
+- Result of MUI_Redraw() changed from APTR to VOID.
+
+- AppIcon notification works again.
+
+- Implemented one-dimension virtual groups, useful e.g. for
+  button rows. See autodocs of MUIA_Scrollgroup_FreeHoriz and
+  MUIA_Scrollgroup_FreeVert for details.
+
+- Getting MUIA_Disabled didn't work in previous releases.
+
+- MUIA_Slider_Min und MUIA_Slider_Max are settable.
+
+- Building subclasses of MUIC_Window is possible.
+
+- Notify on MUIA_List_Entries works.
+
+- Implemented MUIM_List_Move method to simplify moving entries
+  in a list. See autodocs for details.
+
+- Implemented MUIA_Boopsi_Smart tag for better handling of "smart"
+  Boopsi classes, i.e. the freely distributable "editor.gadget".
+
+- Implemented MUIM_NoNotifySet method for better handling of
+  bidirectional notifications (i.e. scrollbar - editorgadget).
+
+- Implemented MUIA_List_InsertPosition to query position of
+  last inserted entry.
+
+- Implemented MUIV_List_Remove_Selected for list class remove
+  method.
+
+- Menuitem objects export & import their CHECKED state with
+  MUIM_Application_Save and MUIM_Application_Load.
+
+- It's possible to include register groups in cycle chains.
+
+- Implemented MUIA_Popobject_WindowHook to allow adjusting
+  cycle chains, default objects, etc. for popup objects.
+
+- Programmers, please update "MUI.readme" in your distributions!
+
+
+
+------------------------------------------------------------------------
+Version 2.1  (03-Jul-94)                      (muimaster.library V8.697)
+------------------------------------------------------------------------
+
+* MINOR SASG UPDATE *
+
+I planned to have a lot more new things for V2.1. Unfortunately, time
+was missing. Next versions of MUI will probably be split into a basic
+muimaster.library and a muifancy.library. The fancy library will hold
+all the additional features, users with low memory or slow machines may
+decide to leave out this stuff. For more infos, see the "Future" file
+in the developer archive.
+
+Changes for users:
+
+- From version 2.1 on, MUI is distributed under the rules of the SASG,
+  the Standardized Amiga Shareware Group. See the accompanying program
+  "Registration" for details.
+
+- Screen preferences were not saved correctly sometimes.
+
+- When changing the application with the preferences program,
+  MUI offers the possibility to use/save changed settings.
+
+- Sliders can be configured to have their info text at the left side.
+
+- Listview multiselect mode was sometimes triggered accidently.
+
+- Enhanced popup menu configuration possibilities, including
+  custom background and frame settings and animated appearance.
+
+- Removed the startup and shutdown command config options.
+
+Changes for programmers:
+
+- Implemented MUIV_NotTriggerValue. See autodocs of MUIM_Notify for
+  details.
+
+- Fixed some autodoc syntax bugs, added version information for every
+  class and attribute.
+
+- Implemented MUIA_Application_ForceQuit. See autodocs for details.
+
+- Invisible or disabled objects don't trigger MUIA_AppMessage
+  notification anymore.
+
+- Fixed Dirlist class problems with short directory names.
+
+- When MUI fails to open a window, notifications on MUIA_Window_Open
+  are not triggered anymore.
+
+- Fixed a little memory eating bug.
+
+- Added a "often used object" collection to muimaster.library. You
+  should use this collection as frequently as possible instead of
+  building your own objects or using the supplied macros. See
+  autodocs of MUI_MakeObject() for details.
+
+- Simplified the creation of labels with underscore. This makes
+  localization much easier. See autodocs of MUI_MakeObject()
+  for details.
+
+- Added object oriented menus. See new demo program and autodocs of
+  menustrip, menu and menu item class for details.
+
+- Controlling a slider object with keyboard accidently triggered
+  notification twice.
+
+- Fixed problems when language specific special characters were
+  used as shortcut.
+
+- Included documentation on how to write external public
+  custom classes. See developer docs and new examples in
+  "MUI/Developer/C/Examples/Classes" for details.
+
+- Fixed a crash when the colorwheel.gadget was not available under V39.
+
+- Implemented new builtin classes MUIC_Poplist, MUIC_Bitmap and
+  MUIC_Bodychunk. Just a few bytes of code but very useful.
+
+- Rewrote some critical parts of MUI in assembler.
+
+- Fixed a problem when MUIA_ShowMe was used on groups.
+
+- Implemented MUIA_Window_FancyDrawing for highspeed programs.
+
+- Fixed some notification bugs for register objects.
+
+
+
+------------------------------------------------------------------------
+Version 2.0  (11-Feb-94)                      (muimaster.library V7.973)
+------------------------------------------------------------------------
+
+Changes for users:
+
+- Rearranged libraries. Classes which are needed by all applications or
+  which are very small are integrated in muimaster.library. Fancy and
+  rarely used classes come as external files. This speeds up starting
+  the first MUI application and simplifies installation procedure for
+  commercial applications.
+
+- Integration of classes increases performance significantly.
+
+- Rearranged the prefs program completely. Major changes include
+  "single application" mode, image multiselect, presets and localization.
+  I cannot list all the other news here in detail, but together they should
+  make adjusting preferences a lot easier.
+
+- Included beautiful new 8 color images, patterns and button designs from
+  Martin "MagicWB" Huttenloher. Give them a try!
+
+- Fixed several screenmode requester bugs.
+
+- Fixed problems with crazy going prop gadgets.
+
+- Changed "active object" display. No more ugly active background but
+  instead a nice extra frame will be displayed.
+
+- Getting the name of the used public screen is possible with
+  new ARexx command "info screen".
+
+- Documented ARexx command error result codes.
+
+
+Changes for programmers:
+
+- More detailed developer documentation including information about
+  writing custom classes and a MUI style guide. Read it!
+
+- Included new demos "ClassN" to show how to implement custom
+  classes.
+
+- Added the ability to specify a listview multiselect type directly.
+  See MUIA_Listview_MultiSelect attribute for details.
+
+- The MUIA_ShowMe attribute can be used to hide objects. Using this
+  attribute is even possible in open windows, hiding object will
+  then cause a new layout to take place. When necessary, the parent
+  window will be resized automatically. Included new demo program
+  "ShowHide".
+
+- Implemented popstring, popasl, popobject classes for asynchronous
+  popups. popasl class is the recommended way to include file/font/etc.
+  requesters. Included new demo program "Popup" to demonstrate the new
+  popup classes.
+
+- Added a register class. No, this is not for registrating your MUI,
+  its used to create flexible titled page groups. See the prefs
+  program and the pages demo for details.
+
+- Added the ability to specify a listview multiselect type directly.
+  See MUIA_Listview_MultiSelect attribute for details.
+
+- Implemented MUIM_List_InsertSingle method.
+
+- Multiline entries ("foo\nbar") in a cycle gadget were not handled
+  correctly.
+
+- Implemented MUIA_Rectangle_HBar and MUIA_Rectangle_VBar to create
+  nice single border lines.
+
+- Implemented MUIM_MultiSet method, MUIA_NoNotify attribute and
+  MUIM_KillNotify method for notify class.
+
+- Implemented MUIA_Gauge_InfoText attribute.
+
+- Implemented MUIA_Listview_ClickColumn, MUIA_Listview_DefClickColumn.
+
+- Fixed problem with MUIA_Application_Iconified notification.
+
+- Implemented MUIV_List_Select_All for MUIM_List_Select method.
+
+- Fixed some problems with sleeping windows and applications.
+
+- MUIA_List_First and MUIA_List_Visible are really get()able.
+
+- Fixed a problem with keyboard control for MUIA_Slider_Quiet sliders,
+  implemented MUIA_Slider_Reverse tag.
+
+- Tag value and documentation for MUIA_List_Title attribute was
+  missing.
+
+- Specifying images with "1:x" never worked, use "6:x" instead.
+  See MUIA_Image_Spec for details.
+
+- MUI_Request() gadgets may contain '_' characters to indicate keyboard
+  shortcuts.
+
+- Implemented MUIA_Application_RexxHook.
+
+- Implemented MUIA_String_EditHook.
+
+
+
+------------------------------------------------------------------------
+Version 1.4  (27-Oct-93)                      (muimaster.library V6.435)
+------------------------------------------------------------------------
+
+From V1.4 on, MUI is distributed in two separate archives:
+  muiXXusr.lha - libraries, classes, demos, user documentation.
+  muiXXdev.lha - programmer interfaces and programmer documentation.
+
+
+Changes for users:
+
+- Important Note:
+  Due to some enhancements in image processing, registered users will
+  have to readjust their image settings. Otherwise some images might
+  not be visible!
+
+- I accept every currency for registration now. Please read the
+  registration section of the manual for details.
+
+- Rearranged preferences program. Instead of many different windows,
+  page groups are used and should make things a lot easier.
+
+- Implemented palette gadget for public screens.
+
+- Added the possibility to use an RGB color as image (V39 and above).
+
+- Implemented background pattern for screens (V39 and above).
+
+- Background pictures allocate their colors correctly (V39 and above).
+
+- Gauge frame and radio button spacing didn't work.
+
+- Reduced flicker when resizing a window with a fancy background.
+
+- Added configuration switch for window redraw type. Possible settings
+  are fast/ugly and slow/nice. Defaults to fast/ugly, which isn't really
+  really ugly but maybe faster.
+
+- Added special screen type to address the frontmost public screen.
+
+- Speeded up first drawing of a window.
+
+- Fixed some simple refresh problems with page groups.
+
+- Iconify Gadget wasn't visible on a one plane display.
+
+- Improved text rendering speed about 20% (maybe even more if you have
+  some data cache).
+
+- Made cycle popups blazingly fast and more configurable (frame setting).
+
+- One gadget requesters can always be answered with the [Press] key.
+
+- Two gadget requesters can always be answered with 'y' for the left
+  and 'n' for the right gadget.
+
+- Requester buttons sometimes were layouted with no intermediate
+  spacing.
+
+- Scrolling a partially obscured listview in a simple refresh window
+  would create some pixel garbage.
+
+- Reasonably speeded up listview drawing, cursor handling and multi
+  selecting. Together with keyboard scrolling, display is even faster
+  if a listview's height is exactly a multiple of its line height.
+
+- Implemented configuration switch for full line listviews. These
+  listviews won't show incomplete lines are and are somewhat
+  faster. Default are full line listviews.
+
+- Fixed some public screen open and close problems.
+
+- Tab size in floattext class was handled wrong.
+
+- Eliminated first and last line flicker when scrolling listviews.
+
+- Rearranged and rewrote parts of the documentation.
+
+- Please read the manuals "Discussion" section before reporting
+  any problems!
+
+
+Changes for programmers:
+
+- Attention... very powerful feature... :-)
+  Implemented virtual (scrolling) groups. Included new program
+  "Virtual" for demonstration.
+
+- New color oriented classes: Colorfield, Coloradjust, Palette.
+
+- Fixed vertical slider problem.
+
+- Trying to create an object from a non existing class caused an
+  enforcer hit.
+
+- Enabling a group containing prop/string gadgets didn't really enable
+  the gadgets.
+
+- Implemented MUIM_WriteString and MUIM_WriteLong methods for easy
+  structure updating.
+
+- Implemented MUIA_ControlChar for slider objects.
+
+- MUIA_Group_ActivePage didn't trigger notification.
+
+- Fixed some minor text engine bugs.
+
+- During the execution of a MUIM_CallHook in a notify method,
+  other MUI tasks were locked.
+
+- Implemented MUIA_Version and MUIA_Revision attributes to allow
+  version checking for applications.
+
+- The number of the current entry is passed to a list display
+  hook as additional parameter.
+
+- Setting a boopsi gadgets attributes didn't cause a display update.
+
+- Setting MUIA_Background wouldn't always update the display.
+
+- Children of MUIA_Group_SameXXXX groups could accidently be enlarged
+  beyond their maximum size.
+
+- Implemented MUIA_Application_BrokerPri attribute.
+
+- Implemented MUIA_Application_BrokerPort attribute. This port can
+  e.g. be used to add additional HotKeys with the HotKey() amiga.lib
+  function.
+
+- Recognizing a press/release of a prop gadget is possible by
+  listening to the MUIA_Prop_Pressed attribute.
+
+- Adding and removing members of groups could accidently change
+  the groups orientation.
+
+- Implemented some new standard images concerning tape deck and network
+  issues.
+
+- MUIM_Application_Get/SetMenuCheck didn't work.
+
+- Some Modula and Oberon interface changes.
+
+- Implemented MUIA_Slider_Quiet tag to hide the number output.
+
+- Implemented MUIA_Dirlist_MultiSelDirs attribute.
+
+- Implemented MUIA_Window_PublicScreen tag to force opening windows
+  on certain public screens.
+
+- Implemented MUIM_List_NextSelected to help stepping through selected
+  entries of a list.
+
+- Implemented MUIA_List_Title attribute to support titles for
+  (multi columned) lists.
+
+- MUIA_List_Active wasn't reported during a MUIM_List_Clear.
+
+- MUIA_List_Active was reported twice during a MUIM_List_Remove.
+
+- MUIA_Boopsi_Object didn't trigger notification.
+
+- Implemented default sizes for all classes. New windows will
+  be opened using these default sizes instead of
+  MUIV_Window_Width/Height_MinMax(10).
+
+- Menu multi select didn't work.
+
+- Autodocs are alphabetically sorted now.
+
+
+
+------------------------------------------------------------------------
+Version 1.3  (29-Aug-93)                      (muimaster.library V5.141)
+------------------------------------------------------------------------
+
+- MUIA_String_Secret string gadgets crashed on an 68000.
+
+- Corrected assembler includes.
+
+- Fixed bug with MUIA_Window_ActiveObject.
+
+
+
+------------------------------------------------------------------------
+Version 1.2  (28-Aug-93)                      (muimaster.library V5.140)
+------------------------------------------------------------------------
+
+- Fixed enforcer hits in ARexx HELP command.
+
+- Setting MUIA_Background did not refresh the display.
+
+- Added validity check on key description strings in prefs program.
+
+- Initializing string or prop gadgets with MUIA_Disabled didn't really
+  disable the gadget.
+
+- Fixed some sync problems with MUIA_String_Integer.
+
+- Menu checkmarks would disappear when a window was closed and reopened.
+
+- Specifying a non existing font caused windows to disappear.
+
+- Included Manx, Assembler, Modula, Oberon and Amiga-E interfaces.
+
+- Implemented MUIA_Window_Screen attribute. This allows opening a
+  MUI window on an explicitly defined intuition screen.
+
+- Rewrote the image caching mechanism. This should fix some bugs
+  and system crashes with non existing external image files.
+
+- Fixed a bad bug that could trash the stack under certain
+  circumstances.
+
+- MUIA_Selected didn't work at object creation time.
+
+- Better MOUSEMOVE and INTUITICKS handling to improve performance.
+
+- Using simple refresh windows would sometimes freeze the system.
+
+- Attention... very powerful feature... :-)
+  Implemented two new attributes for group class:
+  MUIA_Group_PageMode   (TRUE/FALSE)      this group is a page group.
+  MUIA_Group_ActivePage (0...numchilds-1) this child shall be displayed.
+  Page groups always show exactly one of their childs. The number of
+  this child can be changed dynamically, even in an open window.
+  New demo "Pages" demonstrates the new page groups.
+
+- Included AppWindow support. See MUIA_Window_AppWindow,
+  MUIA_Application_DropObject and MUIA_AppMessage for details.
+  New demo "AppWindow" for demonstration.
+
+- Bumped version number of all libs to 5. You must not mix MUI
+  classes and libraries with different version numbers, this
+  will lead into problems. Revision numbers are uncritical.
+  Note: This does not affect applications. They will of course
+  work with all MUI releases, as long as all version numbers
+  are identical.
+
+- Included version number checking. MUI will refuse to open
+  classes when the class version doesn't match the master
+  library. Note: when I'm sure about internal class communication
+  (maybe in a few months...), this check will become obsolete.
+
+
+
+------------------------------------------------------------------------
+Version 1.1  (15-Aug-93)                       (muimaster.library V4.58)
+------------------------------------------------------------------------
+
+- Removed a remaining serial debug output.
+
+- Corrected installation script for 2.x systems.
+
+- Corrected HELP: assign of "StartMeFirst" script.
+
+- Corrected some autodocs and header file bugs.
+
+- Added system configuration switch to adjust window refresh
+  type, possibilities are simple refresh and smart refresh.
+
+- Made some changes to the Oberon interface.
+
+- String gadgets with an invisible font ate some bytes of memory.
+
+- Fixed some bugs with failing boopsi images.
+
+- Some minor changes to some of the demo programs.
+
+- Speeded object creation about 10%.
+
+- For boopsi image implementors: boopsi images now have the ability
+  to specify a desired minimum and maximum size. See "mui.h"
+  for details.
+
+- Implemented MUIA_Window_DefaultObject attribute. See autodocs
+  for details.
+
+- Added some new boopsi images.
+
+- Implemented MUIA_ControlChar for radio buttons. Pressing
+  the control char will activate the next (shift -> previous)
+  radio button element.
+
+- Implemented MUIA_ControlChar for string gadgets. Pressing
+  the control char will activate the gadget.
+
+- Added some more keyboard shortcuts to the prefs program.
+
+- Minimum width for MUIA_Window_SizeRight windows was calculated wrong.
+
+- Last characters of some text fields were not displayed with
+  certain fonts.
+
+
+
+------------------------------------------------------------------------
+Version 1.0  (08-Aug-93)                        (muimaster.library V4.4)
+------------------------------------------------------------------------
+
+- Initial Release.

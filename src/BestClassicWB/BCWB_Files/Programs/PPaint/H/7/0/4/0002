@@ -1,0 +1,1476 @@
+@DATABASE 0002
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 1. Introduction to the Amiga Environment"
+@TOC PPaintCD:H/7/0/4/OO00/Main
+
+@{B}1.         The Amiga Environment@{UB}
+
+The user of a new computer system or a new piece of software often
+encounters equally new words and concepts. This entire chapter is
+dedicated to explaining the basic concepts which will be dealt with in the
+following chapters. Also in this chapter, some valuable suggestions on how
+to get the best from the Amiga, and instructions on how to face some
+problems that may be encountered.
+
+Users already familiar with Amiga terminology and conventions may prefer
+to read only the last sections in this chapter (@{"1.12" LINK Main 1135} to @{"1.14" LINK Main 1323}: program
+configuration and installation) and the "PPaint.man" disk-file (or, on
+CD-ROM editions, the specific instructions for the CD-ROM edition).
+Chapter two ("Tutorial") contains some interesting and practical advice.
+
+
+@{B}1.1        Documentation@{UB}
+
+All information necessary to use the program is contained in this
+handbook. This guide was written using Personal Write, the word processor
+developed by Cloanto.
+
+The Amiga handbooks, the printer manuals and those for the other programs
+used in conjunction with Personal Paint provide additional information on
+how to interface the program with the external environment.
+
+On the floppy disk version, the file "PPaint.man" on the data disk of
+Personal Paint contains the most recent updates to the handbook, should
+there be any. The file can be loaded with a simple double-click of its
+Workbench icon, or with any word processor or text editor.
+
+CD-ROM editions of Personal Paint include additional information in the
+main section of the documentation.
+
+The Cloanto World Wide Web site (http://www.cloanto.com/amiga/) contains
+references and support material for all Cloanto Amiga products.
+
+
+@{B}1.2        System Configuration@{UB}
+
+Personal Paint works on any Amiga model with at least 2 Mbytes of memory
+(RAM). Many functions of Personal Paint are best exploited with more RAM,
+especially if there is at least 1 Mbyte of @{I}Chip@{UI} RAM (section @{"1.3.2" LINK Main 89}). On a
+system with only 512 kbytes of Chip RAM, Personal Paint may have to take
+measures to limit the amount of occupied memory (section @{"1.12" LINK Main 1135}). In
+particular, the audio may remain switched off (unless otherwise
+specified), the Workbench screen may be closed and the default image
+format may have fewer colors than usual. If there is enough free memory,
+Personal Paint tries to avoid requesting the insertion of the Workbench
+disk after the program has been loaded (e.g. to load the printer driver).
+
+On systems having little RAM, newer versions of the Amiga operating system
+(e.g. version 3) and certain custom software and hardware configurations
+(e.g. permanently resident utilities or multiple floppy disk drives)
+occupy more memory than the original system configuration, and may leave
+insufficient free memory to run Personal Paint. If this is the case, an
+attempt should be made to install Personal Paint to hard disk or floppy
+disk with the "decompress" option of the installation procedure enabled
+(section @{"1.13.1" LINK Main 1310}). The decompressed version of the software uses more disk
+space, but requires less RAM during loading. In general, 1 Mbyte systems
+benefit more by an inexpensive RAM expansion than by an upgrade to a newer
+and more memory consuming operating system.
+
+
+@{B}1.3        Memory@{UB}
+
+The Amiga computer, like most computers, has a main memory (RAM) and
+peripheral storage units. The following subsections explain the most
+important notions regarding memory measurement units, different types of
+memory and some concepts unique to the Amiga environment.
+
+
+@{B}1.3.1      Measurement Units@{UB}
+
+The smallest unit which is used to measure the quantity of memory is
+called @{I}bit@{UI}. A bit can be in one of two different states, just like the
+switch of an electric light. The two states are generally defined as 0 and
+1, @{I}off@{UI} and @{I}on@{UI}, @{I}false@{UI} and @{I}true@{UI} or @{I}cleared@{UI} and @{I}set@{UI}. This means that a bit
+can store information.
+
+One @{I}byte@{UI} is obtained by grouping 8 bits. There are 256 combinations of the
+two possible states of the bits in a byte. One byte can thus store 256 (2
+to the power of 8) different values, which are usually enough to identify
+all the letters, numbers and other signs used in a text. There are 1024 (2
+to the power 10) bytes in one @{I}kbyte@{UI}, while a @{I}Mbyte@{UI} contains a little more
+than one million bytes (1024 x 1024).
+
+
+@{B}1.3.2      Random Access Memory (RAM)@{UB}
+
+A computer's main memory is made of electronic circuits. A computer must
+be switched on and properly working to store data in its RAM. A short
+power failure, or a malfunctioning piece of software can cause the loss of
+the data stored in the RAM.
+
+A portion of the Amiga's RAM is called @{I}Chip RAM@{UI}. While the microprocessor
+can access all the available RAM, the Amiga custom chips can work only on
+Chip RAM. The custom chips support the microprocessor in handling
+graphics, sound and much more. Only Chip memory can be used to open a
+screen or a window (section @{"1.9.1" LINK Main 493}, "Screens and Windows"), or store an
+image which is to be displayed. For this reason, it is possible that even
+if there is a lot of free memory, a new screen cannot be opened because
+there is not enough free Chip memory, or the available Chip memory is
+fragmented (scattered in pieces too small to be used).
+
+The more advanced CPUs of the Motorola 68000 Family (beginning with the
+68020), have a faster than normal working mode, which employs a special @{I}
+Cache@{UI} RAM. Cache RAM is a very fast (and expensive) memory, where the
+contents of the most recently used locations in Fast RAM are copied (@{I}
+caching@{UI} Chip RAM is more complex, and slower). If a piece of code is
+executed repeatedly in a tight loop (without referencing any external
+code), it can be executed entirely from the Cache RAM. The most
+performance-critical routines of Personal Paint have been designed and
+tested in order to fully exploit various types of Cache RAM.
+
+Different versions of custom chips and circuitry are mounted in the Amiga
+computers. Early versions of the Amiga 500, 1000 and 2000 can work with a
+maximum of 512 kbytes of Chip RAM. Some of these machines can be upgraded
+by installing new custom chips. More recent models of the Amiga can use
+one or two Mbytes of memory as Chip RAM, or even more.
+
+Personal Paint stores images using @{I}bitmaps@{UI} (or @{I}bitplanes@{UI}), i.e.
+rectangular planes of bits.
+
+The number of contiguous bytes in Chip RAM required by a screen can be
+calculated as follows:
+
+Bytes = (Width × Height × Bitplanes) / 8
+
+The maximum number of colors which can be displayed at the same time
+equals 2 to the power of the number of bitplanes.
+
+In practice, the number of bytes per line is often rounded to the next
+multiple of 16, 32 or 64, for speed reasons and hardware limitations.
+
+For example, a 32-color, 320 by 200 screen requires about 40 kbytes of
+RAM. The more memory a screen requires, the higher the system DMA (Direct
+Memory Access) overhead. Screens having higher resolutions and more
+colors, in addition to having more data to process, have a higher impact
+on system DMA (Direct Memory Access), i.e. the Amiga custom chips spend
+more time accessing the RAM. The custom chips and the CPU (Central
+Processing Unit, microprocessor) cannot access Chip RAM at the same time,
+so the CPU must wait longer. This is why the RAM which is not accessed by
+the custom chips is also called @{I}Fast@{UI} RAM.
+
+The amount of Chip RAM required to store an image (or a brush) is
+calculated in the same way. Bitmaps are also used for the undo buffers and
+the stencil data (always only one bitplane).
+
+Sections @{"4.10.2" LINK PPaintCD:H/7/0/4/0049/Main 1176} ("Memory information") and @{"11.1" LINK PPaintCD:H/7/0/4/0046/Main 9} ("Memory Shortage") have
+more details on Personal Paint's use of memory, and how to reduce the
+amount of memory used, when this is needed.
+
+Depending on the operating system, blocks of Chip memory are allocated
+either for each bitplane individually, or for all bitplanes joined
+together. The latter solution allows for faster processing by the blitter
+(operating system version 3.0 and beyond), but requires even more
+contiguous Chip RAM. "Contiguous RAM" means that a block of contiguous
+free bytes must be available for the requested size. The indication on the
+Workbench title bar may be misleading, as it usually represents the @{U}sum@{UU} of
+all free (and possibly non-contiguous, i.e. fragmented) blocks. The Shell
+Avail command can be used for a more precise indication of occupied and
+available RAM.
+
+
+@{B}1.3.3      The AddMem Command@{UB}
+
+Some memory expansion boards are not automatically recognized by the
+Amiga. Some early Amiga 1000 RAM expansions fall into this group. When
+these cards were developed, there was no standard for auto-configuration.
+This section is dedicated to the owners of such cards.
+
+Very often, the use of the AddMem command is the only way to let the
+computer know there is some additional memory available. The AddMem
+instruction must be inserted at the beginning of the Startup-Sequence file
+of all Workbench disks, including the Personal Paint disk (if it is used
+as a boot disk). The AddMem file must be copied into the "c" directory of
+the Workbench disks. The command must be followed by two hexadecimal (i.e.
+numbers in base 16) numbers which tell the system where the additional
+memory starts and ends. For some 1 Mbyte cards the command may be "AddMem
+200000 2FFFFF".
+
+For other cards, employing different RAM linking software, the command may
+be something like a simple "cRAM". The documentation which is enclosed
+with the Amiga and with the memory expansion gives some more detailed
+information on this process.
+
+
+@{B}1.3.4      Peripheral Units@{UB}
+
+Disk drives are peripheral storage units. These devices are slower than
+RAM, but the data they contain is preserved after the computer is switched
+off.
+
+The Amiga computer is marketed with at least one disk drive. Standard
+Amiga drives read and write data on 3.5 inch disks. A 3.5" Amiga disk can
+contain a minimum of about 880 kbytes, which means that dozens of high
+resolution fonts can be stored on an empty disk. Newer Amigas employ disk
+drives with at least twice that capacity. There are, of course, other
+devices with different characteristics, like hard disks.
+
+A new disk, or a disk which contains unreadable data or data to be
+deleted, must be formatted prior to use. The Amiga documentation explains
+how to format a disk. The formatting process clears all the data
+previously contained on the disk. Section @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11} ("Load Image") explains how
+to read and write MS-DOS disks on the Amiga. Section @{"11.2" LINK PPaintCD:H/7/0/4/0046/Main 51} ("Problems with
+Disks") contains some additional suggestions regarding disks.
+
+
+@{B}1.3.5      Virtual Memory@{UB}
+
+The term "Virtual memory" is associated with the ability to address a
+storage space much larger than the RAM normally available on the computer.
+Personal Paint can use both Fast RAM and/or disk space to store image data
+which would normally occupy a more "precious" type of RAM (e.g. Chip RAM).
+Provided that enough Fast RAM and/or disk space are available, Personal
+Paint can temporarily move all unused items to a secondary storage
+location. The main items which may be moved are: images, animations,
+brushes, transparency and stencil planes, storyboard, environment and
+brush undo buffers. Personal Paint only moves an object to virtual memory
+if it is not "active", that is, the item must not be currently displayed
+or processed. Enough Chip memory must still be available for the current
+screen, the current image (or animation frame) and the current brush.
+Functions such as Color Merge may temporarily need to access more
+objects.
+
+The Memory Information requester (section @{"4.10.2" LINK PPaintCD:H/7/0/4/0049/Main 1176}) indicates the amount of
+virtual memory currently in use and allows the user to manually move data
+to virtual memory.
+
+The Settings menu gives access to the Memory Management requester (section
+@{"9.3" LINK PPaintCD:H/7/0/4/0047/Main 122}), which allows the user to switch RAM and/or disk based virtual
+memory on or off.
+
+
+@{B}1.4        File Names and Titles@{UB}
+
+A @{I}file@{UI} is a generic expression for everything which can be stored:
+programs, pictures, settings, text or other kinds of data.
+
+When a picture (or any other file) is saved for the first time it must be
+given a name, which is called the @{I}file name@{UI}. To load the picture again,
+the same name must be written or chosen in a list displayed in the file
+requester (section @{"3.4" LINK PPaintCD:H/7/0/4/0017/Main 1252}).
+
+AmigaDOS does not differentiate between upper and lower case letters. A
+file named "Important" can be loaded as "iMpOrTaNt".
+
+The Amiga computer uses some abbreviations to identify its peripherals.
+"RAM" is the name given to the device which stores its data into main
+memory. "DF0" is the Amiga standard built-in disk drive. "DF1" is the
+second disk drive. "DF2" and "DF3" are other drives which can be
+plugged-in. "RAD" and "VD0" are similar to "RAM", but usually preserve
+data after a system reset. "DH0", "HD0", "JH0"" are some of the names
+which can be given to hard disks or partitions of hard disks, while "CC0"
+and other names may be used for PCMCIA memory cards, "CD0" for CD-ROMs,
+"ND0" for network connections, "PC0" for MS-DOS disks etc. These
+abbreviations, which are also called @{I}device names@{UI}, cannot (or, sometimes,
+should not) be modified. Most devices have another name, called the @{I}volume
+name@{UI}, which can be freely set and modified. A disk, for example, can be
+accessed either through its device name (e.g. "DF0") or through its volume
+name (e.g. "Pictures").
+
+File, device and volume names cannot exceed 30 characters in length. It is
+better not to use more than 25 characters for a file name, since the Amiga
+operating system adds the five-character ".info" suffix to the file name
+to create a graphical Workbench icon.
+
+It is very useful to append standard @{I}suffixes@{UI} after file names. A suffix
+is usually separated from the file name it refers to by a '.' sign. A
+suffix helps the user to understand immediately what is contained in a
+file, by reading only the file name. There are many standard suffixes:
+"gif" for GIF-format picture files, "pcx" for those in the PCX format,
+"pic" as a generic suffix for picture files, "bsh" for brushes and "set"
+for Personal Paint settings files. Amiga suffixes are not limited to three
+characters in length. This is, however, a common habit (and limitation) in
+other PC environments.
+
+
+@{B}1.5        Drawers@{UB}
+
+The content of a disk can be logically grouped into parts. These parts are
+often called "directories" or "drawers" (which are different from "drives"
+and "drivers"). Personal Paint label directories with "(dir)" in the file
+requester (section @{"3.4" LINK PPaintCD:H/7/0/4/0017/Main 1252}). In this guide, as in the official Amiga
+documentation, "drawer" is more often used.
+
+A disk drawer is very similar to the more familiar drawer we know from the
+"real" world. It is a container, which can contain both files and other
+drawers.
+
+One can, for example, use one or more disks to store all the pictures used
+with Personal Paint. The disk can, for example, contain drawers named
+"Space", "Cars" and "SwimSuits". The "Space" drawer can again be divided
+into "Stars" and "Technology" to separate astronomical observations from
+spaceships, astronauts, etc. The drawers which do not contain other
+drawers will contain all the pictures of their category. It is possible to
+have different files having the same name, as long as they are stored in
+different drawers.
+
+The "path" of a file contains all the information necessary to address it
+(e.g. "DF0:Space/Technology/Shuttle.png"). The Amiga handbooks explain how
+to create a drawer, work with its content and interpret a path name.
+
+Some drawers, like "c", "libs", "l", "s" or "t" are reserved by the Amiga
+operating system, and usually do not have an associated icon (section
+@{"1.9.5" LINK Main 646}). The "Empty" drawer can be duplicated, moved (into other drawers
+too) and renamed to create new drawers. For this reason, it is better not
+to write anything into the "Empty" drawer. The "New Drawer" menu of the
+Workbench (version 2.0 and beyond) can also be used to create a new
+drawer.
+
+
+@{B}1.6        Backup Copies@{UB}
+
+Backup copies of disks should be made as often as possible, particularly
+if the disks contain important information. If a disk is pulled out of its
+drive while the computer is still writing onto it (the drive light is on),
+it is very likely that there will be a loss of data. The same will happen
+if the computer is switched off or there is a power black-out during a
+disk write. Section @{"11.2" LINK PPaintCD:H/7/0/4/0046/Main 51} ("Problems with Disks") describes other problems
+and possible solutions.
+
+The Amiga operating system displays an error message if it is impossible
+to read a disk's content properly. If this happens, using the backup copy
+of the damaged disk may be the only way to recover the lost data. If the
+disk is new, or if it contains unreadable data, or data which is to be
+deleted, it must be initialized (formatted) before it is (re)used. The
+Amiga documentation explains how to format (initialize) a disk or make a
+copy of it. It is not necessary to format a disk before using it as the
+target of a disk-copy operation.
+
+The use of non-system copying programs may cause some problems. The Amiga
+operating system cannot distinguish between two identical disks. Many
+programs used to make counterfeit copies of software produce such kinds of
+identical disks. The insertion or removal of two identical disks may cause
+a system error or deadlock. Two identical disks generated by non-system
+copiers should never be in the drives at the same time. The Amiga
+"DiskCopy" program inserts information like a serial number and time data
+into the copied disks to distinguish them from the source disk.
+
+It is important that the source disk be write-protected before a backup
+copy is made. This is the only way to make sure that the original disk is
+not mistaken for the backup disk. This could lead to the destruction of
+the data which has to be protected.
+
+Personal Paint can be copied with the standard Amiga copying programs. The
+conditions under which a copy can be made are contained in the agreement
+(Appendix F), which must be approved before the program can be used. It
+is not safe to experiment with the original disks of Personal Paint. A
+backup copy should be used instead. If any errors occur, the original
+disks can be used to make a new work disk. It is also preferable not to
+store any data (e.g. new pictures or other information) on the original
+Personal Paint disks, as these are nearly 100% full of programs, pictures
+and other data. The remaining disk space is necessary to store the
+program's configuration files.
+
+Some disk-copying programs change the name of the copy. For example, the
+copy of the "PPaint" disk could be named "Copy of PPaint". If this occurs,
+the "Copy of " (including the space after "of") prefix should be removed
+to restore the original name. This can be done with the Workbench Rename
+command.
+
+
+@{B}1.7        "Virus" Programs@{UB}
+
+Some programs which can interfere with normal system activity are
+described here. The activity of the so called "Virus" programs resembles
+their biological homonyms. The difference between "viruses", "worms" and
+other subspecies will not be discussed here, and they will all be
+described as "viruses". Several virus programs for the Amiga exist. Some
+virus programs load themselves from an "infected" Workbench disk. Other
+programs are activated from an apparently normal program, which certainly
+has obscure origins.
+
+Not all virus programs damage disk-resident data. Many programs remain
+hidden in main memory for most of the time. Some programs simply display a
+message containing the name of the "programmer" who wrote it, while others
+save a copy of the virus onto every inserted disk. One program suddenly
+darkens the display. Many viruses interfere with normal disk or printer
+activity. Some programs can mess up an entire hard disk, for example
+adding a few bytes at the end of every accessed file.
+
+Many rumors concerning viruses are not true. It is impossible for a virus
+program to modify the content of a write-protected disk. The registers of
+a standard Amiga battery backed-up clock cannot be used to store a virus
+program.
+
+Virus programs can remain in RAM for some seconds after the computer has
+been switched off. The Amiga should be left off for at least 30 seconds to
+make sure a RAM-resident virus is removed. A <Commodore>+<Amiga>+<Ctrl>
+system reset usually never removes the virus program, but in many cases
+activates it, so that it can copy itself on the next Workbench disk
+inserted. It is always better to keep Workbench and other read-only disks
+write-protected. A backup copy (if authorized) of every new program disk
+should be made. The computer should be switched off after a "borrowed"
+piece of software has been run.
+
+A virus program can become dangerous only if it is loaded. A "boot-block"
+virus is automatically loaded when the system boots up. The AmigaDOS
+"Install" command is usually sufficient to remove such a program from the
+disk. Both "Install" and some viruses can interfere with the copy
+protection scheme used by some commercial programs, which may then not
+work any more. Some viruses insert a call to themselves into the
+Startup-Sequence. (The AmigaDOS "Install" command mentioned here should
+not be confused with the install sequence of Personal Paint, described in
+section @{"1.13.1" LINK Main 1310}.)
+
+Some apparently normal programs, like a few AmigaDOS "dir"-like programs,
+activate a virus. Many illegally copied disks contain viruses. One
+infected disk in a clandestine reproduction center may be sufficient to
+activate a chain reaction.
+
+@{I}Link@{UI}-viruses insert or append themselves in normal program files, where
+they remain inactive until the other program is loaded. Many viruses
+replace Amiga system functions with some of their own, which may even
+appear to work normally for a long time, until some event triggers an
+unexpected type of action.
+
+Several commercially available programs detect and remove viruses, both on
+disk and in RAM. There are also quite safe and inexpensive "public
+domain", "freeware" and "shareware" programs, like "VirusZ",
+"VirusChecker", "VirusX", "AntiCicloVir", "LVD", "BootX" etc., which are
+regularly updated.
+
+Some RAM-resident "antivirus" programs are very similar to viruses. In
+fact they can even hide a virus. No program can determine if another
+program has "good" or "bad" intentions, especially if the "good" program
+reproduces itself like a virus. For this reason, a program which is not
+(officially) a virus may be detected and signalled as a virus.
+
+
+@{B}1.8        System Errors@{UB}
+
+The Amiga operating system, like most other complex programs, is not
+completely error-free. In some particular circumstances, as when there is
+very little free memory left, some unexpected things can happen. This can
+lead to a "Software Error" message (which on older versions of the
+operating system could end with a "Guru Meditation" alert).
+
+Some programs, or combinations of programs running at the same time, can
+also cause such errors. Each version of Personal Paint has to pass months
+of hard testing before it can be marketed. Nevertheless, it is sometimes
+possible for a system error or another program to lock Personal Paint.
+
+The first thing to do when a "Software Error" message appears is to store
+all the work which could be lost if the content of the RAM is deleted. It
+is very dangerous to press the "Cancel" button of the requester before the
+work has been saved.
+
+After the current work has been saved, all running programs should be
+terminated. Then all disks should be pulled out of their drives, and the
+computer must be switched off. This is to make sure that a virus program,
+if present, is removed from memory.
+
+Some Amiga programs do not have any screen depth arrangement gadgets. It
+may sometimes be necessary to display another screen when one of these
+programs has its own screen open. The Workbench screen always comes to the
+front when the <Commodore>+<N> keys are pressed. <Commodore>+<M> can be
+used starting with version 2.0 of the operating system to cycle through
+different screens. Otherwise, Personal Paint can be brought to the front
+by holding down <Shift> while a disk is ejected. Other Cloanto programs
+use the <Help> key for this purpose.
+
+Sometimes, when the system is short of memory, an "Alert" message is
+displayed in place of a requester. The color of the alert message is red
+for all versions of the operating system until 1.3. From version 2.0
+alerts are displayed in other colors (green, orange, etc.), while red is
+reserved for the more serious "Guru Meditation" (this funny name has also
+been changed in newer versions of the operating system) and other
+emergency messages. When Personal Paint cannot find enough memory to open
+a requester it displays a message. Other programs may be terminated, or
+windows may be closed, to try to free some memory. Alert messages can be
+removed by pressing any mouse button.
+
+
+@{B}1.9        The User Interface@{UB}
+
+The physical, sensorial and intellectual space between the computer and
+the user is called "user interface". The user interface can frighten or
+excite the first-time computer user. The user interface can frustrate or
+stimulate a computer operator.
+
+The Amiga user interface uses graphics, menus, requesters, gadgets, a
+keyboard and a mouse to make the approach to the machine as intuitive as
+possible. Personal Paint has been designed in order to surround the user
+who paints or performs image processing with an environment as simple and
+complete as possible. It was possible to refine the user interface thanks
+to the feedback of an unusually large test group and a multitude of
+interviews.
+
+
+@{B}1.9.1      Screens and Windows@{UB}
+
+The computer display contains one or more screens of the programs which
+are running. Each screen can contain several windows (which can overlap),
+requesters and gadgets. Each screen may have its own resolution and
+colors.
+
+Personal Paint adapts itself to the graphic environment when it opens its
+screens. The program accesses the system @{I}Display Database@{UI} to get a list of
+available screen modes, their sizes and maximum number of colors. On
+systems where the Display Database is unavailable (before version 2),
+other methods are employed.
+
+When the screen is first opened, a default resolution and number of colors
+is used. This can be modified manually, or by loading an image. The
+program's default initial settings can also be redefined, as explained in
+section @{"1.14" LINK Main 1323} and appendix @{"C" LINK PPaintCD:H/7/0/4/0044/Main 1}. The format of the displayed image does not
+need to be identical with the format of the screen in which it is
+displayed. An image larger than the screen can be scrolled (section @{"3.2" LINK PPaintCD:H/7/0/4/0017/Main 1199}).
+Sections @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11} and @{"4.5.2" LINK PPaintCD:H/7/0/4/0049/Main 997} have more on the different screen modes.
+
+Sometimes, when some models of the Amiga are switched on, the power supply
+frequency may not be recognized correctly, so that a 200 line NTSC
+Workbench screen is opened on a PAL system (which normally supports 256
+lines). This usually does not happen very frequently. It should be noted
+that PAL and NTSC modes are not necessarily linked to the power supply
+frequency. It is possible, for example, to refresh a NTSC screen 60 times
+every second with a power supply frequency of 50 Hz, if the display device
+can recognize the video frequencies correctly.
+
+A window can be as large as a screen, or much smaller. If it is smaller,
+it can be dragged around the screen with the mouse. Personal Paint has a
+main window as large as the screen, and other windows (requesters) used to
+set the different program parameters. The screen of Personal Paint can
+also be dragged with the mouse when the pointer is over the title bar.
+
+
+@{B}1.9.2      The Mouse and the Pointer@{UB}
+
+The mouse is a pointing device connected to the computer. A pointer can be
+moved on the screen by using the mouse. The pointer is a graphical symbol
+(by default an arrow) displayed on the screen. When the mouse is moved on
+the desk, the pointer moves in the same direction. The Amiga documentation
+explains how to modify the standard pointer image, its size (on Advanced
+Graphics Architecture systems) and the speed at which the pointer reacts
+to mouse movements.
+
+Personal Paint exploits the middle mouse button of three-button mice, if
+available. This function (mainly used to move the image) can be emulated
+by pressing <Alt> plus the left mouse button.
+
+Personal Paint uses different pointer images to inform the user about what
+can be done with the mouse at a particular position on the screen (e.g.
+select a tool, pick a color, fill, define a brush, etc.).
+
+
+@{B}1.9.3      Requesters@{UB}
+
+A @{I}requester@{UI} is a particular kind of window which can contain text, buttons
+(also "gadgets", or "tools") and sliders ("knobs", or "proportional
+gadgets") which can be set by means of the mouse to change system or
+program settings.
+
+
+@{B}1.9.4      Gadgets@{UB}
+
+A @{I}gadget@{UI} can be selected with the mouse. To select a gadget, the mouse
+pointer must be moved over the gadget and the left mouse button must be
+pressed.
+
+Personal Paint has one or more gadgets at the top right corner of its
+screen. The gadgets can be used to move the screen to the back or to the
+front of other screens. These are the default Amiga gadgets for screen
+depth arrangement, and may vary depending on the version of the Amiga
+operating system.
+
+Gadgets are also used in requesters and in association with the most used
+drawing and image processing tools. These are displayed on the left of the
+main window, and are explained in detail in Chapter @{"3" LINK PPaintCD:H/7/0/4/0017/Main 1}.
+
+Underlined characters indicate keyboard shortcuts to gadgets. Additional
+new features are described in section @{"1.14" LINK Main 1323} (External User Interface
+Files) and appendix @{"B" LINK PPaintCD:H/7/0/4/00Z2/Main 1} (Command Shortcuts).
+
+
+@{B}1.9.4.1    Action Gadgets, Check Boxes and Cycle Gadgets@{UB}
+
+@{I}Action gadgets@{UI} perform a specific operation when selected. They may be
+used to perform a graphical operation, or open a requester for selecting
+some parameters. The gadgets which are displayed on the Tool Bar (section
+@{"3.1" LINK PPaintCD:H/7/0/4/0017/Main 11}) may activate different options depending on the mouse button (left
+or right) which is used and the part of the gadget (upper or lower half)
+which is selected.
+
+@{I}Check boxes@{UI} toggle from being blank to containing a checkmark. They
+represent options which may either be turned on or off.
+
+@{I}Cycle gadgets@{UI} are used to choose an option from a series of several
+possibilities. A "cycle" symbol appears on the left of the gadget. The
+text which is displayed in the gadget indicates the currently selected
+option. Repeated selections of the gadget select the following options. If
+<Shift> is held down during the selections, the order in which the options
+appear is reversed.
+
+
+@{B}1.9.4.2    Sliders and Scroll Gadgets@{UB}
+
+@{I}Sliders@{UI} (proportional gadgets) are used to set a value from a given range
+(color intensity, sound volume, etc.) While the graphical knob of the
+gadget is selected, it can be moved with the mouse, increasing or reducing
+the associated value. Clicking in the box which contains the knob
+increases or decreases the value by a single unit. This may be especially
+useful if the resolution of the pointing device (mouse, trackball, etc.)
+is too "grainy" to pick the knob and move it by one unit at a time.
+
+@{I}Scroll gadgets@{UI} are sliders which are used to scroll up or down a view of a
+longer list of items. Two scroll-arrow gadgets are used to move in fine
+steps. Sections @{"3.1.8" LINK PPaintCD:H/7/0/4/0017/Main 1084} and @{"3.4" LINK PPaintCD:H/7/0/4/0017/Main 1252} explain in more detail the use of scroll
+gadgets to move around a magnified image, and scroll the list of files in
+the file requester.
+
+
+@{B}1.9.4.3    Text Gadgets@{UB}
+
+@{I}Text gadgets@{UI} (also "string" gadgets) are yet another kind of gadget. After
+a text gadget has been selected, the text which is contained in the gadget
+can be modified using the keyboard. The existing text should be deleted
+before the new text is entered. Text gadgets are used, for example, to
+manually type the name of a file. A text gadget is "activated" when the
+cursor is displayed in it. A text gadget can be activated by selecting it
+with the mouse.
+
+The Amiga operating system interprets some keyboard shortcuts to edit the
+text contained in text gadgets. <Amiga>+<X> can be used to clear all the
+text in the text gadget, while <Amiga>+<Q> restores the initial text. To
+enter these shortcuts, the <Amiga> key to the right of the <Space> bar has
+to be held down while the other key is pressed.
+
+There is a limit to the maximum number of characters that will fit in each
+text gadget. If more characters are typed than the text gadget can
+contain, the screen will flash to signal an overflow. If this happens, the
+content of the text gadget must be deleted (or at least made shorter) with
+the <BS> or <Del> keys before the new text can be typed from the keyboard.
+Some text gadgets only accept numerical characters. These are called @{I}
+numerical@{UI} (or "integer") gadgets. If a letter is typed in a numerical
+gadget, the screen will flash, and the character will not be accepted. The
+maximum number of characters which fit in such a gadget is generally
+designed so that unacceptable (too big) values cannot even be typed. This
+means that there is little margin for editing the text, and the screen
+will frequently flash to signal that it is necessary to delete the
+previous number before typing the new one.
+
+
+@{B}1.9.5      Icons@{UB}
+
+The Workbench program of the Amiga operating system uses another type of
+gadget: @{I}icons@{UI}. Icons can be associated to disks, drawers and files. An
+application may use custom-designed icons, which occupy a small amount of
+disk space in so-called ".info" files. Files or drawers without an
+explicitly associated icon may be displayed with default Workbench icons
+(version 2 and beyond of the operating system), or be accessed through the
+Shell interface.
+
+Personal Paint can associate different kinds of icons with the files that
+are saved (e.g. pictures, brushes or settings files). All icons have been
+designed for optimum performance on the Amiga filing systems. Almost 900
+Personal Paint file icons will fit on a standard 880 kbyte disk. Section
+@{"9.10" LINK PPaintCD:H/7/0/4/0047/Main 538} explains how Personal Paint can be programmed to save its default
+icons, if so desired.
+
+Both the images and other attributes (Default Tool, Tool Types) of the
+default icons used by Personal Paint can be modified by editing the icons
+stored in the PPaint_Icons drawers (there are drawers containing icons
+suitable for different Workbench colors).
+
+
+@{B}1.9.6      Menus@{UB}
+
+The Amiga menu system offers an easy way to explore a program and select
+from many different functions without having to remember difficult
+commands. In addition to gadgets, menus are the simplest and most complete
+method of selecting a command with Personal Paint.
+
+When the mouse pointer is over the title bar (or over the first line of
+the screen, if the title bar is not displayed), and the right mouse button
+(the menu button) is pressed, the menu bar is displayed.
+
+The menu bar contains a list of topics, called menus. When the mouse
+pointer is moved onto a topic of the menu bar (with the menu button still
+held down), a list of menu items appears below the menu name. An item can
+have a subitem list. The subitem list is displayed when the mouse pointer
+is moved over the menu item. To execute the program function associated
+with a menu item or subitem, the mouse menu button must be released when
+the mouse pointer is over the desired item. If a menu item has a
+command-key shortcut, the appropriate command-key sequence has the same
+effect as the menu selection. More than one item at a time can be selected
+by pressing the select mouse button (the left mouse button) when the mouse
+pointer is over the desired items, without releasing the menu button.
+
+When the menu button is pressed, the titles of the different menus are
+displayed in the title bar. The following are the chapters in which their
+content is discussed:
+
+   @{B}Chapter @{"4" LINK PPaintCD:H/7/0/4/0049/Main 1} - Personal Paint: The Project Menu
+   Chapter @{"5" LINK PPaintCD:H/7/0/4/0048/Main 1} - Personal Paint: The Brush Menu
+   Chapter @{"6" LINK PPaintCD:H/7/0/4/2151/Main 1} - Personal Paint: The Animation Menu
+   Chapter @{"7" LINK PPaintCD:H/7/0/4/0001/Main 1} - Personal Paint: The Text Menu
+   Chapter @{"8" LINK PPaintCD:H/7/0/4/0016/Main 1} - Personal Paint: The Color Menu
+   Chapter @{"9" LINK PPaintCD:H/7/0/4/0047/Main 1} - Personal Paint: The Settings Menu@{UB}
+
+When a menu item is selected with the right mouse button, a program
+function is executed (or a requester is displayed). If the menu button is
+released when the mouse pointer is not over a menu item, nothing happens.
+
+When a menu brings up a requester, its name is followed by three dots,
+whereas an arrow to the right of the menu item's name indicates that a
+list of subitems would appear if that item were highlighted.
+
+Some menu items, called "attribute items" (like "Brush Handle" and "Color
+Remapping") can have a checkmark to the left of the text. Menu attribute
+items remain "checkmarked" until they are deselected by selecting another
+item.
+
+If the program "knows" that it would not make sense to select a menu item,
+that particular item is disabled. Disabled menu items are displayed in a
+"ghosted" fashion. The text normally displayed in the menu item is
+overlaid with a faint pattern of dots. A disabled menu item cannot be
+selected with the mouse. The "Brush" and "Text" menus are among those
+containing items which can be automatically disabled by the program. For
+example, "Save Brush" is disabled when the brush mode is not active.
+
+It is often faster and more efficient to press one or two keys on the
+keyboard rather than move a hand from the keyboard to the mouse. A
+keyboard shortcut which can be used instead of the mouse selection appears
+on the right of the most used menu items. In Personal Paint for the Amiga
+computer these menu items are followed by a reference to a single key (and
+an optional qualifier, like <Amiga>, <Alt>, etc.) The same functions which
+can be recalled using menus can be selected by pressing the indicated key.
+It is important that the key is typed exactly as displayed on the right of
+the menu, since upper and lower case keys are interpreted differently and
+used for different functions.
+
+Little "qualifier"-key symbols may precede the keyboard shortcut,
+indicating that another key (<Shift>, <Alt>, <Ctrl>, <Amiga>) must be held
+down when the shortcut-key is pressed. The "Num" symbol indicates that the
+shortcut which follows must be typed from the separate numerical keyboard.
+Not all Amiga models have a numerical keyboard. This option does not apply
+to the upper four keys of the keypad (which cannot be distinguished from
+the other keys having the same symbols).
+
+A warning requester appears if the selected function could overwrite a
+stored file, or cause the irrecoverable loss of any kind of data which has
+not been saved.
+
+Appendix @{"B" LINK PPaintCD:H/7/0/4/00Z2/Main 1} lists the default keyboard shortcuts associated to menu
+items. The user interface files may be freely viewed and modified (i.e.
+new or different shortcuts can be set). Section @{"1.14" LINK Main 1323} explains how to
+apply such changes.
+
+A detailed explanation of all menus and the associated commands and
+requesters follows in Chapters @{"4" LINK PPaintCD:H/7/0/4/0049/Main 1} to @{"9" LINK PPaintCD:H/7/0/4/0047/Main 1}.
+
+
+@{B}1.10       The Keyboard@{UB}
+
+The Amiga keyboard has different types of keys. Graphical keys have an
+associated character. Other keys (<Shift>, <Alt>, <Ctrl>, <Commodore>,
+<Amiga>) work only if they are held down when another key is pressed.
+So-called "dead keys" are used to modify the output of the next-pressed
+key. Most dead keys are used to specify that a diacritical sign is to be
+placed on the next character typed. Other keys are associated to program
+or system functions (<Caps Lock>, cursor keys, <Tab>, <Return>, <BS>,
+<Del>, <Help>, <Esc> and function keys).
+
+
+@{B}1.10.1     The SetMap Command@{UB}
+
+The Amiga computers are manufactured with different keyboards, designed to
+match local languages. When using operating system versions prior to 2.1,
+an appropriate "SetMap" command must be put in the Startup-Sequence to
+tell the system which keyboard is connected to the computer. The Amiga
+documentation explains this process in more detail. Starting with version
+2.1, the Keyboard Type can be chosen from a list using the system's Input
+Preferences.
+
+If no SetMap command is executed on systems where it is required, the
+Amiga behaves as if a standard USA keyboard is connected. If a wrong
+SetMap argument (corresponding to a keyboard which is not the one
+connected to the computer) is given, the Amiga interprets and displays the
+characters of the selected keyboard, rather than those of the real
+keyboard.
+
+Some programs are not designed to work with non-USA keyboards. These
+programs directly translate key position codes into characters, using a
+program-internal conversion table. The SetMap command has no effect on the
+behavior of these programs.
+
+Some keyboards have the <Y> and <Z> keys reversed. The command "Nimm3 -y"
+can be written after the SetMap (but not "SetMap usa") command to swap the
+two keys. Nimm3 is a utility available from Cloanto.
+
+The correct SetMap command, if required by the operating system, must be
+inserted in the Startup-Sequence of every Workbench disk which is used.
+
+
+@{B}1.10.2     Graphical Keys@{UB}
+
+Graphical keys are the keys which can be used to display letters, numerals
+and other signs. Graphical keys are used in Personal Paint's Text Editor
+(Section @{"3.1.3.1" LINK PPaintCD:H/7/0/4/0017/Main 363} and Chapter @{"7" LINK PPaintCD:H/7/0/4/0001/Main 1}), to edit the content of text gadgets,
+and as command shortcuts. When a graphical key is pressed while a text
+gadget is activated, the associated character is written and the cursor is
+moved to the next character position.
+
+Graphical keys are automatically "repeated" if they are held down for a
+while. The initial repeat delay and the interval between repetitions can
+be set with the "Preferences" program (Input Preferences, in version 2 of
+the operating system), as described in the Amiga documentation.
+
+
+@{B}1.10.3     Accents@{UB}
+
+Some keyboards have one or more accent keys. Accent keys can be used
+during text editing or in string gadgets. Keys with accents (and other
+diacritical signs) must be pressed immediately before (not at the same
+time as) the key whose output has to be changed.
+
+If the grave accent key (<\\>) and the acute accent key (</>) are pressed
+in sequence, a circumflex accent is placed on the following character.
+
+Special combinations of keys can be used if the keyboard does not have
+accent keys to access diacritical signs directly. The keys <Alt> + <F>,
+<G>, <H>, <J>, <K> respectively put on the following character an acute
+accent, a grave accent, a circumflex accent, a tilde or a dieresis
+(umlaut). The <Alt> key must be pressed when one of the above letters is
+typed. The character on which the diacritical sign is to be put has to be
+typed separately, after the <Alt>+key combination.
+
+Some Amiga fonts may lack accented characters, i.e., in general, the
+characters whose code in the computer's character set is greater than 126.
+This does not affect the Personal Paint user interface (which employs its
+own font) but may be a limitation when using the text editor. Where these
+characters are required, if no other font is available, the existing font
+should be modified with a program like the Personal Fonts Maker.
+
+
+@{B}1.10.4     The <Shift> Keys@{UB}
+
+On most keyboards an outline of an upward-arrow is drawn on the <Shift>
+keys, while on other keyboards "Shift" is written on the keys. The two
+keys are on the extreme left and right of the row of keys just over the
+<Space> bar. There is no functional difference between the two <Shift>
+keys.
+
+When a graphical key is hit while <Shift> is pressed, an upper case
+letter, or the character drawn on the upper part of the keytop cover are
+sent to the computer.
+
+If <Shift> is held down while a cycle gadget is selected (section
+@{"1.9.4.1" LINK Main 578}), it is set to the previous of the available options, rather than
+to the following one. In any one of multiple text gadgets,
+<Shift>+<Return> moves the cursor to the previous gadget, rather than to
+the following one.
+
+When the <Shift> key is held down, the cursor keys move the image pixel by
+pixel (section @{"3.2" LINK PPaintCD:H/7/0/4/0017/Main 1199}), rather than in larger steps. In text editing mode
+(section @{"3.1.3.1" LINK PPaintCD:H/7/0/4/0017/Main 363}), shifted cursor keys are used to jump to the first or
+last character of the line (or line of the text).
+
+If <Shift> is held down when working with a painting tool, mouse movements
+are confined to the vertical or horizontal axis, depending on the
+direction in which the mouse is first moved after pressing the key.
+
+If <Shift> is pressed when a disk is ejected from its drive, Personal
+Paint pops up to the front of other screens. This is an emergency solution
+to be used if other programs do not allow their screens to be moved to the
+back. This may seem an idiosyncrasy of the software, but the "Disk
+Ejected" message is one of the very few which the Amiga operating system
+transmits to programs even when their window is not the active one.
+
+Section @{"9.10.3" LINK PPaintCD:H/7/0/4/0047/Main 582} describes how to use the <Shift> key to create Workbench
+icons in up to 256 colors. Section @{"6.9" LINK PPaintCD:H/7/0/4/2151/Main 424} explains how to use <Shift> to
+apply a single color palette when color-reducing an animation. If <Shift>
+is held down while an animation file is dragged and dropped over the
+Personal Paint application icon, the file will be only played, and not
+loaded.
+
+This key is a valid qualifier for keyboard shortcuts (section @{"1.14" LINK Main 1323}), but
+should only be used for keys which do not have a different graphical
+representation for the shifted key.
+
+
+@{B}1.10.5     The <Alt> Keys@{UB}
+
+The two <Alt> keys are just under the <Shift> keys. There is no functional
+difference between the two <Alt> keys, except in the <Ctrl>+<Left Alt>
+combination used for grabbing screens (section @{"4.4" LINK PPaintCD:H/7/0/4/0049/Main 870}).
+
+The alternate ("Alt") characters associated with the keys which are hit
+are sent to the computer while <Alt> is pressed. The alternate characters
+do not usually appear on the keyboard, but they are described in the
+handbooks and can be displayed with the "KeyShow" (or "KeyToy") program.
+Several accents, special and national characters can be accessed with the
+<Alt> key.
+
+Holding down <Alt> when pressing the left mouse button has the same effect
+as using the middle button of three-button mice.
+
+This key is a valid qualifier for keyboard shortcuts (section @{"1.14" LINK Main 1323}).
+
+
+@{B}1.10.6     The <Ctrl> Key@{UB}
+
+The <Ctrl> key is on the far left of the keyboard.
+
+Grab Screen (section @{"4.4" LINK PPaintCD:H/7/0/4/0049/Main 870}) responds to this key, when pressed at the same
+time as the left <Alt>. With the left mouse button, it is used to move the
+offset of some types of overscan screens (sections @{"3.2" LINK PPaintCD:H/7/0/4/0017/Main 1199} and @{"4.5.1" LINK PPaintCD:H/7/0/4/0049/Main 979}).
+
+This key is a valid qualifier for keyboard shortcuts (section @{"1.14" LINK Main 1323}).
+
+
+@{B}1.10.7     The <Commodore> (or <Left Amiga>) Key@{UB}
+
+The <Commodore> key is on the left of the <Space> bar. On some keyboards
+there is a full Amiga-like 'A', while on other keyboards there is a
+Commodore sign.
+
+The <Commodore> key is used to recall some functions of the Amiga
+operating system. <Commodore>+<N> brings the Workbench screen in front of
+all other screens. <Commodore>+<M> moves the screen into the background.
+In version 2.0 and beyond of the operating system, <Commodore>+<M> flips
+from one screen to the next, without any distinction for the Workbench
+screen.
+
+
+@{B}1.10.8     The <Right Amiga> Key@{UB}
+
+The <Amiga> key is on the right of the <Space> bar. An outline of the
+letter 'A' appears on the key.
+
+A graphical key can be pressed while the <Amiga> key is held down to
+execute a command in a text gadget (section @{"1.9.4.3" LINK Main 615}).
+
+This key is a valid qualifier for keyboard shortcuts (section @{"1.14" LINK Main 1323}), and
+is well-suited for shortcuts to be entered during a text editing session
+(where other qualifiers would cause a character to be typed, rather than
+be executed as a command).
+
+
+@{B}1.10.9     The <Caps Lock> Key@{UB}
+
+The <Caps Lock> key, located between the <Ctrl> and the letter keys is the
+only key with a small light.
+
+Whenever the key is pressed, the light changes state: from on to off, and
+vice versa. When the light is on, the keyboard behaves as if a <Shift> key
+is pressed. <Caps Lock>, unlike <Shift>, works only on letter-keys.
+However, it can be made to work on all keys, by using "Nimm3 -c" (section
+@{"1.10.1" LINK Main 768}).
+
+
+@{B}1.10.10    The Cursor Keys@{UB}
+
+The four cursor keys are on the left of the numeric keypad.
+
+The cursor keys can be used to scroll the image in the selected direction,
+or move the text cursor in editing mode. Section @{"1.10.4" LINK Main 839} describes the
+effect of the <Shift> key on these operations.
+
+When a cursor key is pressed briefly, the cursor (or the image) moves by
+one position in the indicated direction. If the key is held down, the
+cursor (or image) continues to move, pausing between each step. The delay
+between the repetitions can be set with the system Input Preferences.
+
+In string gadgets (as in text editing mode) the cursor cannot be moved
+more than one position beyond the end of the text. If the <Shift> key is
+held down while one of the two cursor keys is pressed, the cursor will
+jump to the farthest possible position in the specified direction.
+
+
+@{B}1.10.11    The <Tab> Key@{UB}
+
+The <Tab> (from "Tabulate" and "Tabulator") key is just over the <Ctrl>
+key. There are usually arrows on the key, but the earlier keyboards have
+"Tab" written on the keytop.
+
+In text editing mode, <Tab> brings the character under the cursor to the
+column whose number is the next multiple of eight.
+
+
+@{B}1.10.12    The <Return> Key@{UB}
+
+The <Return> (from "carriage return") key is on the right of the letter
+keys. Personal Paint interprets the <Enter> key on the numerical pad like
+the <Return> key, unless otherwise specified by a specific custom shortcut
+definition (section @{"1.14" LINK Main 1323}).
+
+When a requester contains only the OK gadget, the <Return> key can be
+pressed to remove the requester.
+
+If a requester has only two gadgets (Proceed and Cancel), pressing the
+<Return> key is equivalent to selecting Proceed. The <Esc> key can be used
+to choose Cancel.
+
+
+@{B}1.10.13    The <BS> Key@{UB}
+
+The <BS> (from "Back-Space") is just over the <Return> key. Some keyboards
+have a left-arrow on the keycap, while others have "BackSpace" printed on
+the key.
+
+In text editing mode (or when a text gadget is active), <BS> moves the
+cursor onto the preceding character, which is deleted.
+
+
+@{B}1.10.14    The <Del> Key@{UB}
+
+The <Del> (from "delete") key is on the right of the <BS> key.
+
+When <Del> is pressed in text editing mode, or while a text gadget is
+active, the character under the cursor is deleted. The cursor is not
+moved.
+
+During graphical operations, <Del> can be used to toggle between the
+hidden and the displayed status of the cross-shaped mouse pointer.
+
+
+@{B}1.10.15    The <Help> Key@{UB}
+
+The <Help> key is on the right of the letter keys.
+
+<Help> resets the default program colors. It also works in the requesters
+used for setting and adjusting colors.
+
+
+@{B}1.10.16    The <Esc> Key@{UB}
+
+The <Esc> (from "escape") key, at the top left of the keyboard, can be
+used to terminate the text editing session (section @{"3.1.3.1" LINK PPaintCD:H/7/0/4/0017/Main 363}) or leaving a
+requester containing only one or two gadgets.
+
+When a requester contains only the OK gadget, the <Esc> key can be pressed
+to remove the requester (exactly like <Return>).
+
+When a requester having only two gadgets (Proceed and Cancel) is
+displayed, pressing the <Esc> key is equivalent to selecting the Cancel
+gadget. The <Return> key can be used to choose Proceed.
+
+
+@{B}1.10.17    The Numerical Keypad@{UB}
+
+This part of the keyboard duplicates the keys which are most used in a
+numerical context. Not all Amiga computers have this keypad (which is
+located on the far right of the keyboard).
+
+As the number of functions to which a keyboard shortcut can be assigned
+increases, "free" keys become a precious resource. At a certain point, it
+becomes useful to differentiate between those keys which appear twice on
+the keyboard. As explained in sections @{"1.9.6" LINK Main 669} and @{"1.14" LINK Main 1323}, the keys on the
+numerical keyboard (except those belonging to the first row) can be given
+a special treatment.
+
+For example, the digits on the numerical keypad are very useful for
+quickly selecting one of the nine possible user-defined brushes (section
+@{"3.1.1" LINK PPaintCD:H/7/0/4/0017/Main 38}).
+
+
+@{B}1.10.18    The Function Keys@{UB}
+
+The ten function keys are aligned in the topmost row of the keyboard, over
+the letter keys. The keys are numbered from <F1> to <F10>.
+
+Personal Paint accepts the use of function keys as a shortcut to select
+certain program functions, as explained in section @{"1.14" LINK Main 1323} and Appendix
+@{"B" LINK PPaintCD:H/7/0/4/00Z2/Main 1}.
+
+If the <F1> key is held down while Personal Paint is starting, the @{I}memory
+save mode@{UI} (section @{"1.12" LINK Main 1135}) is activated.
+
+
+@{B}1.11       Environment Variables and Standard Drawers@{UB}
+
+Several program functions which access data on peripheral devices such as
+disks, have default paths where they read or write data unless specified
+otherwise by the user. The original disk on which the Personal Paint
+program and some data files are stored is named "PPaint". "PPaint" is
+therefore the volume name which appears at the beginning of the default
+paths (section @{"1.5" LINK Main 280}) used by Personal Paint. Personal Paint also uses
+standard drawer names, like "PPaint_Prefs" or "Pictures", to access
+different kinds of data.
+
+As described in section @{"1.13" LINK Main 1258} (automatic installation), Personal Paint and
+the other files can easily be installed or moved onto a volume other than
+the "PPaint" disk. If the material on the PPaint disk is moved all
+together, it is sufficient to execute a command like "Assign PPaint:
+NewPosition". If, for example, Personal Paint is installed inside a drawer
+called "PPaint", on the partition of a hard disk with the default "Work"
+name, the command will be
+
+   @{B}Assign PPaint: Work:PPaint@{UB}
+
+Section @{"1.5" LINK Main 280} ("Drawers") explains how to create a new drawer. The "Assign"
+command should be put in the User-Startup file or at the beginning of the
+Startup-Sequence file of the disk from which the system is booted (e.g.
+the hard disk). The "Assign PPaint: ..." command tells the Amiga operating
+system where to search for the data addressed through the "PPaint" name.
+The new location is called a @{I}logical device@{UI}, as opposed to @{I}physical
+devices@{UI} like disks. In this way, the data can be found even if it is no
+longer on the disk called "PPaint". The "Assign" command may fail if a
+volume (e.g. a disk) called "PPaint" is in use (e.g. currently inserted,
+or used as the boot disk) while the command is executed, as it is
+impossible to define a new path for a name currently in use. A physical
+device called "PPaint" always has priority over a logical device with the
+same name. This means that if "PPaint" has been defined with the "Assign"
+command, and a "PPaint" disk is currently in a drive, the disk will be
+accessed rather than the logical device.
+
+Section @{"10.1" LINK PPaintCD:H/7/0/4/0015/Main 9} explains how to use the AskAssign program to create drawers
+and assign logical names using the mouse, rather than the AmigaDOS
+"Assign" command. Sections @{"1.12" LINK Main 1135} and @{"1.13" LINK Main 1258} respectively describe
+configuration and installation of Personal Paint. Advanced configuration
+is described in section @{"1.14" LINK Main 1323}.
+
+The most simple manual way to copy PPaint and the data files and drawers
+to a new device is by using the mouse. All Personal Paint files and
+drawers have an associated Workbench icon. Moving the files to a new
+position is as easy as moving their icons. Experience teaches that it is
+convenient to dedicate a disk or a drawer to the Personal Paint files and
+drawers. This may, for example, be a "PPaint" drawer on a hard disk. If
+only part of a drawer is to be copied to a new location, a new drawer with
+the same name can be created (as described in section @{"1.5" LINK Main 280}) and the
+requested files from the source drawer can be copied separately.
+
+Before Personal Paint is first run after it has been installed on a new
+device, the "PPaint" logical device must be appropriately defined with the
+"Assign" command, as described at the beginning of this section. This can
+be done by typing the correct "Assign" command in the Shell, or re-booting
+the system from a device having a "Startup-Sequence" or "User-Startup"
+file containing the "Assign" command.
+
+
+@{B}1.12       Configuring and Loading Personal Paint@{UB}
+
+Personal Paint and several support programs and data files are stored on a
+3.5" disk or on CD-ROM. Pictures, color fonts and other files may be
+stored on additional disks. Colorful pictures, animations and stereograms
+occupy most of Personal Paint's second disk. This second disk may be, at
+random, any disk from a collection of disks which can be enclosed with the
+product as well as circulate separately.
+
+Before the program is configured or used, a backup copy of the disks
+should be made, to be used instead of the original disks. This operation
+is described in section @{"1.6" LINK Main 314}.
+
+The computer must be switched on and be operating properly in order to
+load Personal Paint. If the insertion of the Kickstart disk is requested
+(on the Amiga 1000), the Kickstart disk must be inserted in drive 0. Then,
+the system Workbench disk must be inserted to boot the Amiga. Personal
+Paint works with Kickstart version 1.2 and beyond. Version 1.3 (or higher)
+of the Workbench disk contains all other library files which the program
+needs to run. This does not imply that version 1.3 of the system ROM or
+the Kickstart disk are needed. The program works fine with a 1.2 ROM (or
+Kickstart disk) and a 1.3 Workbench disk.
+
+If the computer has sufficient RAM, Personal Paint can be loaded from the
+Workbench or Shell, as described in the Amiga documentation. When the
+Personal Paint program icon is selected, or the command "PPaint" is given
+in the Shell, the program is loaded. If the computer has less than 1 Mbyte
+of Chip RAM, the Workbench screen is closed automatically to save memory,
+and is reopened after exiting from Personal Paint (or manually, as
+explained in section @{"9.15" LINK PPaintCD:H/7/0/4/0047/Main 863}).
+
+Personal Paint is also loaded when an icon of a picture or data file saved
+by Personal Paint is selected (double-clicking the left mouse button when
+the pointer is over the icon). In this case, Personal Paint also loads the
+selected data (a picture, brush, animation etc.).
+
+The syntax to load Personal Paint from the Amiga Shell is the following
+(the square brackets indicate that an optional data file name can be
+written):
+
+   @{B}PPaint [data-file]@{UB}
+
+If a program is started from within a Shell window, the window can often
+be closed only after the program terminates. This can be avoided (i.e. the
+window can be closed during the execution of Personal Paint) if the
+program is started with the following command format:
+
+   @{B}Run >NIL: <NIL: PPaint >NIL: <NIL: [data-file]@{UB}
+
+If the program cannot start, it returns an error code. If Personal Paint
+is run from the Shell, one of the following error codes will be returned:
+
+   @{B}Code    Meaning@{UB}
+
+   21      "Intuition.library" cannot be opened.
+   22      "Icon.library" cannot be opened.
+   23      "DiskFont.library" cannot be opened.
+   24      "Graphic.library" cannot be opened.
+   25      "Layers.library" cannot be opened.
+   26      Screen cannot be opened.
+   27      Insufficient memory for initial allocation.
+   28      Main window cannot be opened.
+
+Appendix @{"A" LINK PPaintCD:H/7/0/4/0045/Main 1} contains a complete listing of program messages, explained in
+detail.
+
+There are some tricks to further reduce the consumption of memory, which
+are especially useful when less than 1 Mbyte of Chip RAM is available. The
+boot procedure should be interrupted as soon as possible by pressing <D>
+while the <Ctrl> key is held down. If the Workbench program has not been
+loaded (i.e. if no disk icon appears under the window after it is made
+smaller with the mouse) it has to be loaded by typing "LoadWB". Then the
+window must be closed by typing "EndCLI" (these commands can also be
+written entirely in lower case). The PPaint disk icon must be
+double-clicked to open the window containing the PPaint program icon. At
+this point, Personal Paint can be started by double-clicking the program
+icon. As soon as the mouse pointer turns back into its standard arrow
+image (from the busy mode image), the window containing the PPaint program
+icon should be closed by clicking the gadget on the upper left of the
+window. This requires a quick reaction, but saves additional memory.
+Personal Paint will automatically close the Workbench screen to save even
+more memory. All these measures ensure that Personal Paint can be used as
+normally as possible in low-memory conditions. Personal Paint will work
+even if it is loaded in a different way, but when memory is so precious it
+is always preferable to have as much of it as possible free for use by the
+program.
+
+When Personal Paint is loaded, it searches for the "Startup_1.set" and
+"Startup_2.set" files in the "PPaint:PPaint_Prefs" drawer to determine the
+initial settings of the two environments. If these files cannot be
+accessed or if they contain errors, internal default settings will be
+used. The lower-priority "Startup_A.set" file (which contains information
+on the user interface language), and different "UIColors" (user interface
+colors) files, are also checked.
+
+While "PPaint:PPaint_Prefs" is the default location for storing settings
+files, during startup Personal Paint also scans the "ENV:PPaint" drawer
+(if it exists). Any files stored in "ENV:PPaint" have a higher priority
+than those in "PPaint:PPaint_Prefs".
+
+Amiga environment variables are especially useful when it is not possible
+to write to the application storage medium, for example if Personal Paint
+is run from a CD-ROM. To make these changes persist after the computer is
+reset, they must be stored in "ENVARC:PPaint".
+
+Personal Paint fully supports Amiga Application Icons (@{I}drag and drop@{UI}).
+This means that whenever the program is loaded on a system running at
+least version 2.0 of the operating system, a small "PPaint" icon (AppIcon)
+appears on the Workbench (the text under the icon also indicates the name
+of Personal Paint's ARexx port). The program automatically loads any image
+and animation files dragged and dropped over the application icon. If
+<Shift> is held down while an animation is dropped over the icon, the
+animation is only played - not loaded. A simple double-click on the icon
+brings Personal Paint to the front of all screens.
+
+Since version 6 or Personal Paint, the program disk is no longer bootable.
+Wide diffusion of different, new versions of the Amiga operating system on
+different machines made it impractical to use Workbench 1.3 as a common
+denominator to boot on all systems. Optional additional disks may still be
+used to store picture and animation files. The install routine can copy
+these to the hard disk as required.
+
+
+@{B}1.13       Installing Personal Paint@{UB}
+
+This section explains how to integrate Personal Paint into the hardware
+and software environment in which the program is to be used. All
+information necessary to move Personal Paint to a device other than the
+disks on which the program is originally stored can also be found here. In
+particular, the subsection at the end of this section explains how to use
+the InstallPPaint program, which automatically copies all files which are
+necessary to work with Personal Paint to a destination selected by the
+user.
+
+If Personal Paint is copied to another storage unit (e.g. another disk),
+some support files must also be copied (if not already present) to the new
+media. Personal Paint cannot work without these files:
+
+   PPaint:PPaint
+   PPaint:PPaint_Prefs/UIGraphics.pic
+   PPaint:PPaint_Prefs/UIText.@{I}xxx@{UI}
+   PPaint:libs/personal_ilbm_io.library
+   PPaint:libs/personal_agnus_blit.library
+   PPaint:fonts/Personal.font, or FONTS:Personal.font
+   PPaint:fonts/Personal/8, or FONTS:Personal/8
+
+The following files are required only by certain functions (PPaint will
+load even if the files cannot be found):
+
+   PPaint:PPaint_Prefs/UIColors.@{I}num@{UI}
+   PPaint:PPaint_Prefs/Startup_@{I}x@{UI}.set
+   PPaint:libs/personal_@{I}libraryname@{UI}.library
+   PPaint:Rexx/@{I}Scriptname@{UI}.pprx
+   PPaint:PPaint_Icons/def_@{I}iconname@{UI}
+   PPaint:PPaint_PS
+   PPaint:PPView
+   CloantoAudio (root of disk), or DEVS:CloantoAudio
+
+If Personal Paint cannot load the optional files, the program will load
+and work correctly, but some functions (PostScript output, audio, writing
+of icon files, etc.) will not be activated until the necessary devices can
+be loaded.
+
+Section @{"1.11" LINK Main 1074} explains how to inform the system and Personal Paint (by
+using Assign) about the new position of PPaint if the program and the
+other drawers and files are copied to a new disk or drawer.
+
+Personal Paint and all the support material (pictures, fonts and data
+files) do not fit on a single 880 kbyte Amiga disk. For this reason, some
+drawers, appear both on the program disk (i.e. the disk on which Personal
+Paint is stored) and on the data disk(s). If Personal Paint is installed
+on a high capacity storage device, it may be useful to merge the contents
+of drawers having the same name on different disks into a single drawer.
+
+
+@{B}1.13.1     Automatic Installation: The InstallPPaint Program@{UB}
+
+The Amiga Installer program is used to install the software.
+Context-sensitive help is available on-line by pressing the <Help> key.
+
+By default, executable program modules are @{I}compressed@{UI} to save disk space.
+Compressed modules may take more time to load than the equivalent
+non-compressed code. In practice, the user may have to wait longer after
+double-clicking on the "PPaint" Workbench icon. If there is enough space
+on the hard disk, the decompression option of the installation procedure
+may be selected.
+
+
+@{B}1.14       External User Interface Files@{UB}
+
+When Personal Paint is loaded, it checks inside the "PPaint:PPaint_Prefs"
+directory for some files describing the default program user interface
+texts, colors and the configuration of the two environments.
+
+These files are: UIText.@{I}xxx@{UI}, UIColors.@{I}num@{UI} and Startup_@{I}x@{UI}.set. The suffix
+after "UIText" indicates the language to which the texts and shortcuts
+refer ("eng", "deu", "ita", "custom", etc.) The number after "UIColors"
+indicates the color palette resolution of the video modes to which those
+colors refer (4 = 4-bit VGA, 12 = original chip set, 24 = Advanced
+Graphics Architecture, etc.) Generally, 12-bit color palettes are fine for
+all (old and new) video modes, except for 64-color ECS and A2024 modes.
+
+The "UIColors" files contain an image to facilitate editing with Personal
+Paint. However, only the color map chunk of that IFF file is actually
+loaded and used at startup. For this purpose (and for saving disk space),
+the file may as well be generated with the "Save Palette" function
+(section @{"8.1.2" LINK PPaintCD:H/7/0/4/0016/Main 62}). Saving the file as a brush is ideal for not exceeding
+the original file length. The file must be saved in the IFF-ILBM format.
+
+Startup_1.set and Startup_2.set contain the settings for the two
+environments. Startup_A.set, generated by the automatic configuration
+procedure, contains information relative to the preferred language
+("UIText" to be loaded, etc.). The files are loaded in the following
+order: Startup_A, Startup_2 and Startup_1. If a non-environment-specific
+(but program-relative) parameter appears in more than one file, the last
+value which is read prevails.
+
+Section @{"1.9.5" LINK Main 646} explains how to modify the default Workbench icons
+generated by Personal Paint.
+
+The original disk of Personal Paint should not be used to experiment with
+new user interface definitions. The backup copy (section @{"1.6" LINK Main 314}) should be
+used instead. Since the disk containing Personal Paint is almost full, it
+may be necessary to delete some unused files (e.g. printer drivers which
+are not needed) to make room for additional user interface definition
+files. Novice users of the Amiga system should be particularly careful
+when selecting the files to be deleted or overwritten, and modifying the
+user interface of Personal Paint.
+
+The user interface texts are displayed in menus, gadgets, requesters and
+other messages. Most of these texts are stored in special files on the
+disk which contains Personal Paint. The default user interface text file
+is automatically loaded with Personal Paint, while all files can be
+selected and loaded at any time as explained in section @{"9.11" LINK PPaintCD:H/7/0/4/0047/Main 636}. Most
+interestingly, the files can be loaded, modified and saved again as plain
+text with any text editor or word processor (e.g. with the "Load Document"
+command of Personal Write). The keyboard shortcuts for the menu items are
+also stored in these files, and can be modified. If Personal Write is used
+to edit the text, the "TAB step" and "TABs in output file" File Format
+options must be set to 8 and Yes (or Auto), respectively.
+
+A few very important rules must be followed to create a new file with the
+user interface texts. The easiest way to create such a file is to use an
+existing file as a point of departure. The file must be stored as a plain
+ASCII text file, without control sequences. TAB characters separating the
+shortcuts from the menu text @{U}must@{UU} be preserved. Each line in the file must
+contain either one or more valid texts (separated with TABs), a comment,
+or no characters at all (blank line used as an optical separator). Leading
+space and TAB characters are skipped. Comments begin with a ';' (ASCII
+decimal code 59) sign and end at the end of the line. Each line (including
+the last one) must terminate with a LF character (ASCII code 10).
+
+An optional keyboard suffix may be written, enclosed between the "< >"
+(less than and greater than) signs and separated by one or more TABs,
+after each menu item text. The shortcut must be in the <Qualifier-Key>
+format. The qualifier field is optional. The qualifiers which are
+supported are: "Shift", "Alt", "Ctrl", "Amiga", and "Num" (numeric
+keypad). For example, "<Shift-Up>" would mean "this command should be
+executed by pressing the <Cursor Up> key while <Shift> is held down."
+
+The keyboard shortcuts at the end of the file are associated to functions
+which have no menu-equivalent.
+
+Double assignments of the same shortcut should be avoided, as only one
+menu item can be associated with a key combination. <Ctrl> and <Alt> have
+special meanings in in the Screen Grab function and in combination with
+the left mouse button. These local uses cannot be redefined.
+
+"Left", "Right", "Up" and "Down" are used to indicate the four cursor
+keys. Other textual representations include: "SP", "Tab", "BS", "Del",
+"Help", "Esc" and "F1" to "F10".
+
+When input by the user, lower case letters are treated differently than
+capitals in cycle gadgets, proportional gadgets and listviews. The former
+force the gadget to "go forward", while the latter make it "go back". In
+other gadget types, upper and lower case letters are treated as
+identical.
+
+<Shift> should not be used as a qualifier for keys which already have a
+system-defined shifted representation (e.g., <Shift-a> is wrong, while <A>
+is correct). For commands which must remain accessible in a text editing
+session, only function key shortcuts and shortcuts having an <Amiga> key
+qualifier should be used. Other keys would be interpreted as a character
+to be typed, rather than a command to be executed.
+
+The texts should be designed and tested in such a way that all menus and
+requesters can be displayed in a low resolution screen 320 pixels wide and
+200 lines tall. Message texts ("TMS" section of the file) which exceed the
+horizontal limit may be made "splittable" by inserting underscore
+characters ('_') where Personal Paint may bring the text to a new line, if
+necessary. Normally, these characters are automatically replaced with
+spaces.
+
+Due to the new Animation features, more menus have to share the same
+horizontal screen space. The underscore character can be used to indicate
+where a menu title text can be abbreviated (this may be necessary when
+using low-resolution screen modes). For example, the program could
+abbreviate "Anim_ation" to "Anim.", should this be necessary. Otherwise,
+the menu would be displayed normally ("Animation").
+
+The underscore character can be used in sections TXW (window texts) and
+TXG (gadget texts) of the user interface text files. The character
+following the underscore will be underlined and used as a keyboard
+shortcut, in accordance with the Amiga user interface specifications.
+Supported gadget types are: cycle gadgets, checkboxes, sliders, listviews
+(scrollboxes) and action gadget texts (e.g. "_OK").
+
+When loading a file with new user interface texts (section @{"9.11" LINK PPaintCD:H/7/0/4/0047/Main 636}),
+Personal Paint performs some simple length-checks and issues warning
+messages to indicate texts which are too long or should be made
+splittable. While this feature is useful for testing a file as it is being
+edited, the only guarantee that the file will actually work properly is to
+manually display all menus and requesters.
+
+If only minor changes are applied to a file (e.g. only a few redefined
+shortcuts), the original file name can be maintained, overwriting the
+previous version (if that version is also stored somewhere else). If
+however a completely new and original version is developed, it may be
+advisable to use the "custom" suffix.
+
+The user interface text files contain a version number, used to identify
+the release version of the text file. This number is read by Personal
+Paint, and should normally not be changed by the user.
+
+All user interface pictures (tools, gadget images, etc.) are stored in a
+separate and editable file named "UIGraphics.pic" (inside
+"PPaint_Prefs").
+
+The file may be stored in PNG format to reduce disk occupation. For faster
+program loading after hard disk installation, it can be loaded as a brush
+and saved again using the IFF-ILBM format.
+
+@ENDNODE

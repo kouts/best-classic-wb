@@ -1,0 +1,30 @@
+/* $VER: JAZPC 1.0 (12.01.02)
+ * 
+ * This file enables CrossDOS (PC FAT16) on a 2Gb Jaz drive.
+ * 
+ * You can use 1Gb and 2Gb Disks, no need for separate mountlists!
+ */
+
+  Surfaces = 1
+  BlocksPerTrack = 1
+  Lowcyl = 0
+  Highcyl = 2091049
+  BufMemType = 1
+  Blocksize = 512
+  Flags = 0x00000000
+  Maxtransfer = 0x7FFFFFFF
+  Mask = 0x00FFFFFE
+  Reserved = 4
+  Filesystem = L:CrossDOSFileSystem
+  Stacksize = 2000
+  Priority = 5
+  Bootpri = -20
+  Globvec = -1
+  Buffers = 250
+  Dostype = 0x4d534400
+
+/* The Device and Unit fields are controlled by tooltypes in the JAZPC icon.
+ *
+ * Device = scsi.device
+ * Unit = 5
+ */

@@ -1,0 +1,436 @@
+@DATABASE 0046
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 11. Risoluzione di problemi"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}11.        Risoluzione di problemi@{UB}
+
+Questo capitolo descrive alcuni dei più comuni problemi che possono
+insorgere durante l'utilizzo delle periferiche del calcolatore. Viene
+anche spiegato come risolvere questi problemi e cosa fare per prevenirli.
+
+
+@{B}11.1       Mancanza di memoria@{UB}
+
+La memoria del computer è una di quelle risorse che, a prescindere dalla
+quantità disponibile, si tende a sfruttare fino al limite estremo. Gli
+ostacoli più comuni che si possono incontrare usando Personal Paint sono
+generalmente legati all'insufficienza di RAM chip.
+
+Le sezioni @{"1.3.2" LINK PPaintCD:H/7/2/4/0002/Main 94} e @{"4.10.2" LINK PPaintCD:H/7/2/4/0049/Main 1443} contengono, rispettivamente, utili
+informazioni sulla memoria in generale e sulla funzione "Stato della
+memoria". Come spiegato in tali sezioni, le informazioni sulla memoria
+disponibile visualizzate nella barra dello schermo Workbench possono
+essere fuorvianti, in quanto somma di frammenti non contigui di memoria.
+
+Un'eventuale insufficienza di memoria può essere segnalata da un esplicito
+messaggio (ad esempio "Non c'è abbastanza memoria" o "Memoria chip
+insufficient e") o da sintomi di vario tipo: menu che non vengono
+visualizzati, finestre che non possono essere ridimensionate o spostate,
+lampeggii dello schermo indicanti il fallimento di una determinata
+operazione, ecc.
+
+Vi sono vari modi per rendere disponibile ulteriore memoria chip; è ad
+esempio possibile liberare l'area di memoria utilizzata dalla funzione
+"Annullare ultima modifica" (selezionando lo strumento "Annullare" con il
+pulsante destro del mouse - sezione @{"3.1.10" LINK PPaintCD:H/7/2/4/0017/Main 1334}), cancellare l'immagine due
+volte (con due click sullo strumento "Cancellare immagine" - sezione
+@{"3.1.9" LINK PPaintCD:H/7/2/4/0017/Main 1314}), scegliere un modo schermo che abbia una risoluzione e/o un numero
+di colori inferiore (sezioni @{"1.3.2" LINK PPaintCD:H/7/2/4/0002/Main 94} e @{"4.5" LINK PPaintCD:H/7/2/4/0049/Main 1127}), liberare l'ambiente attuale
+(sezione @{"4.8.6" LINK PPaintCD:H/7/2/4/0049/Main 1403}), liberare uno o più pennelli (sezione @{"5.7" LINK PPaintCD:H/7/2/4/0048/Main 158}), liberare la
+maschera colori (sezione @{"8.2.7" LINK PPaintCD:H/7/2/4/0016/Main 484}), disattivare l'audio (sezione @{"9.5" LINK PPaintCD:H/7/2/4/0047/Main 319}),
+chiudere lo schermo Workbench (sezione @{"9.15" LINK PPaintCD:H/7/2/4/0047/Main 973}), terminare altri programmi,
+ecc.
+
+Impartendo il comando "Avail FLUSH" in una finestra Shell o selezionando
+la voce "Flushlibs" nel menu Debug del Workbench (presente se il Workbench
+è stato attivato con il comando "LoadWB -DEBUG"), è possibile liberare
+tutte le risorse di sistema residenti in RAM e non più utilizzate. Così
+facendo, è possibile liberare una notevole quantità di memoria se nelle
+precedenti sessioni si è fatto uso di font di grosse dimensioni, o se
+alcune voluminose librerie usate da altri programmi non sono più
+necessarie. In condizioni di stretta necessità, tuttavia, il sistema
+operativo esegue automaticamente queste operazioni.
+
+In casi di emergenza (ad esempio se lo schermo principale non può essere
+aperto), Personal Paint può automaticamente e gradualmente liberare
+memoria effettuando una o più delle azioni elencate in precedenza.
+
+
+@{B}11.2       Problemi con i dischi@{UB}
+
+Il sistema operativo di Amiga può effettuare una ulteriore operazione di
+scrittura in seguito alla memorizzazione di un file. Per questo motivo non
+bisogna espellere un disco dal drive (né spegnere il calcolatore) per
+alcuni secondi dopo lo spegnimento della spia luminosa di attività del
+drive. Anche un eventuale disturbo elettrico può essere causa di problemi.
+Luci, monitor, stampanti e altre apparecchiature elettriche connesse alla
+stessa linea di alimentazione del calcolatore non dovrebbero mai essere
+accese o spente durante la memorizzazione di dati sul disco.
+
+Eventuali errori vengono dapprima segnalati dal sistema operativo, quindi
+dal programma che ha tentato di memorizzare i dati. Le più frequenti cause
+di errore sono: il disco è protetto dalla scrittura, il disco è pieno, il
+disco è danneggiato o non formattato (sezioni @{"1.3.4" LINK PPaintCD:H/7/2/4/0002/Main 211} e @{"1.6" LINK PPaintCD:H/7/2/4/0002/Main 355}). Diversamente
+dai dischi da 5.25 pollici, i dischi da 3.5 pollici risultano protetti
+dalla scrittura se è possibile "vedere" attraverso il foro di protezione.
+
+Quando il sistema operativo, durante la scrittura di un file, segnala con
+un apposito messaggio la presenza di un errore di lettura/scrittura, la
+prima cosa da fare è espellere il disco dal drive e proteggerlo dalla
+scrittura. Tentare di scrivere sul disco, in seguito a questo tipo di
+errori, può comportare la perdita di dati preziosi. Se il disco non viene
+protetto dalla scrittura, il sistema può tentare di scrivervi dati anche
+se l'utente non ha richiesto alcuna operazione di scrittura (soprattutto
+se il disco è danneggiato). Dopo avere reinserito il disco, tutti i
+messaggi di sistema vanno cancellati con il mouse (a meno che non sia
+apparso un messaggio "Software Error"). Il programma che stava scrivendo i
+dati visualizzerà il suo messaggio di errore. I dati che non è stato
+possibile scrivere, a causa dell'errore, vanno memorizzati su un altro
+disco. Vanno egualmente memorizzati tutti gli altri dati eventualmente
+presenti in RAM, che sarà così possibile recuperare nel caso la loro copia
+su disco abbia subito danni. Occorre, a questo punto, fare una copia del
+disco danneggiato (sezione @{"1.6" LINK PPaintCD:H/7/2/4/0002/Main 355}). Se il programma di copia del sistema non
+riesce a duplicare il disco, a causa dell'errore in esso presente, occorre
+tentare con altri copiatori.
+
+Un programma per il recupero di dischi danneggiati, come "DiskSalv", sarà
+probabilmente in grado di recuperare la maggior parte dei file, ad
+eccezione, forse, del file la cui memorizzazione ha causato l'errore. È
+possibile che diversi programmi di recupero dati producano risultati
+differenti. Il disco su cui si è verificato l'errore non dovrebbe più
+essere utilizzato, a meno che si abbia la certezza che l'errore non è
+legato a cause fisiche. Utilizzando lo stesso disco, infatti, possono
+verificarsi altri errori, soprattutto se il disco è a singola faccia o di
+scarsa qualità, o se la superficie magnetica è impolverata o presenta dei
+graffi. Questi ultimi sono solitamente visibili quando la superficie del
+disco riflette la luce di una sorgente luminosa. Tale superficie non deve
+mai essere toccata.
+
+Alcuni errori minori vengono automaticamente corretti da un processo del
+sistema operativo di Amiga chiamato "validazione" (@{I}validating@{UI}). Ad
+esempio, se per qualche motivo (interruzione dell'alimentazione elettrica,
+rimozione del disco, ecc.) un'operazione di scrittura è stata interrotta e
+il disco interessato non ha subito danni fisici, il sistema operativo è in
+grado di individuare automaticamente il problema ed effettuare la
+validazione del disco non appena questo viene inserito in un drive (o
+montato, se si tratta di un disco rigido). Il processo di validazione può
+richiedere da pochi secondi ad alcuni minuti, in base alla dimensione del
+volume. Se il disco è protetto da scrittura, il processo di validazione
+deve essere ripetuto ogni volta che il disco viene inserito (o montato).
+Se un programma tenta di accedere ad un disco in corso di validazione,
+viene visualizzato il messaggio di sistema "Disk not validated" ("Disco
+non validato"). Il quadro contenente tale messaggio è dotato dei due
+gadget standard "Retry" e "Cancel": non è tuttavia necessario selezionare
+alcuno dei due, poiché il quadro scompare automaticamente non appena il
+processo di validazione ha termine. È possibile leggere da un disco non
+validato, ma non sono possibili operazioni di scrittura sullo stesso,
+poiché le strutture di dati descriventi lo spazio libero del disco non
+sono aggiornate.
+
+Gli errori più gravi possono essere causati da dischi difettosi o
+fisicamente danneggiati. La causa principale di questi errori è la
+sporcizia. Macchie di caffè, di succo di arancia o granelli di sabbia
+all'interno del disco possono provocare la perdita di dati preziosi. Se il
+rivestimento magnetico del disco non è stato graffiato o corroso, i dati
+possono ancora essere recuperati. La maggior parte dei liquidi lascia
+intatto il @{I}cookie@{UI} (la lamina rivestita da una strato magnetico,
+all'interno del disco), ma va rimossa il più presto possibile. Per pulire
+il cookie, questo va estratto dal disco. È possibile, a tale scopo,
+utilizzare una lama smagnetizzata, procedendo con cura all'apertura del
+disco. La chiusura metallica (o plastica) del disco può essere rimossa
+manualmente. Il cookie può essere lavato con acqua corrente (possibilmente
+demineralizzata), asciugato con un panno morbido, pulito e quindi inserito
+in un nuovo contenitore (la chiusura scorrevole non è indispensabile). I
+dati vanno, infine, copiati su un disco nuovo e intatto. Non vi è garanzia
+che la procedura appena descritta permetta di recuperare il contenuto
+dell'intero disco. L'esecuzione delle operazioni appena descritte può
+provocare danni al disco e/o al drive utilizzato.
+
+
+@{B}11.3       Problemi con le stampanti@{UB}
+
+Di seguito vengono forniti alcuni suggerimenti per migliorare la qualità
+del materiale stampato. Questa sezione, inoltre, descrive possibili
+soluzioni ai problemi che possono verificarsi durante le operazioni di
+stampa.
+
+I parametri delle preferenze di sistema devono essere correttamente
+regolati e memorizzati nel disco di avvio. La più comune causa di errori è
+rappresentata da un'errata scelta del driver per stampante. Il driver per
+stampante selezionato nelle preferenze deve essere adatto alla stampante
+utilizzata.
+
+Se la porta parallela è utilizzata per collegare tra loro alcuni
+calcolatori (utilizzando un sistema di gestione di rete come "ParNet"),
+l'unità stampante va assegnata, con le preferenze di sistema, alla porta
+seriale o a un dispositivo comunque diverso da quello usato per la
+connessione in rete. Se l'unità stampante e la rete condividono lo stesso
+canale di comunicazione, il funzionamento del sistema può essere
+compromesso. Programmi come Personal Paint possono, all'avvio, accedere al
+dispositivo di stampa pur senza effettuare un'effettiva operazione
+grafica. Anche se tale procedura non invia alcun dato alla stampante, può
+ugualmente bloccare sia l'uso della la rete che quello della stampante.
+
+Selezionando il nome del driver per stampante nell'apposita sezione delle
+preferenze, Amiga potrà attivare tale driver e i programmi che utilizzano
+la stampante potranno gestire correttamente la stampa con gli opportuni
+codici di controllo. I requester per l'impostazione dei parametri di
+stampa di Personal Paint permettono di modificare molti parametri di
+sistema, ad eccezione del driver per stampante da utilizzare.
+
+I driver per stampante sono memorizzati nel cassetto "Printers", a sua
+volta contenuto nel cassetto "Devs" dei dischi Workbench ed Extras. Il
+sistema operativo di Amiga accede ai driver per stampanti attraverso il
+percorso "DEVS:Printers" o l'unità logica "PRINTERS". Un driver
+memorizzato solo sul disco Extras deve essere copiato sul disco Workbench
+di avvio prima di essere utilizzato. Il programma "InstallPrinter" del
+disco Workbench 1.3 permette di compiere con estrema semplicità
+l'operazione di trasferimento del driver. A partire dalla versione 2.1 del
+sistema operativo, i driver inutilizzati sono memorizzati nel cassetto
+"Storage/Printers"; da qui, all'occorrenza, possono essere spostati nel
+cassetto "Devs/Printers", anche con l'uso del mouse. Alcuni driver per le
+stampanti più diffuse sono memorizzati nel disco programma di Personal
+Paint. Se tale disco viene usato per l'avvio del sistema, è possibile
+copiarvi driver specifici o versioni più aggiornate di quelle fornite.
+
+Se non esiste il driver per un particolare modello di stampante, si può
+utilizzare il driver di una stampante simile o compatibile. Molte
+stampanti a impatto sono compatibili con gli standard Epson (ESC/P), Nec
+(Pinwriter) o IBM (Proprinter). Le stampanti laser sono generalmente in
+grado di operare con lo standard HP LaserJet e/o PostScript. Quando è
+disponibile più di un modo di emulazione, l'impostazione della stampante
+deve corrispondere al driver selezionato nelle preferenze di sistema. La
+scelta del driver più adatto dovrebbe essere basata su un'attenta lettura
+della documentazione di Amiga e della stampante. L'appendice @{"D" LINK PPaintCD:H/7/2/4/2163/Main 1} di questo
+manuale riporta un elenco dei driver consigliati per alcune delle
+stampanti più diffuse. Se la documentazione anzidetta non contiene le
+informazioni necessarie e i driver esistenti non funzionano, si consiglia
+di contattare il rivenditore o il costruttore della stampante. I driver
+delle versioni precedenti la 1.3 del sistema operativo e quelli delle
+versioni denominate Alpha, Beta, Gamma o Omega possono essere causa di
+seri problemi di funzionamento con la maggior parte dei programmi.
+
+Il programma Printer delle preferenze di sistema può essere attivato, da
+Workbench, con un doppio click del mouse. Se Personal Paint ha chiuso lo
+schermo Workbench, questo va riaperto regolando opportunamente il
+parametro Workbench del programma (sezione @{"9.15" LINK PPaintCD:H/7/2/4/0047/Main 973}). Se non si riesce, in
+tal modo, ad attivare il Workbench, occorre terminare l'esecuzione del
+programma (sezione @{"4.11" LINK PPaintCD:H/7/2/4/0049/Main 1552}), così da liberare la memoria occorrente
+all'apertura dello schermo.
+
+La stampa di una serie di caratteri in luogo di un'immagine, la stampa di
+lettere senza accenti o di altri caratteri al posto delle lettere
+accentate, o la comparsa di caratteri indesiderati nel testo stampato da
+un programma di trattamento testi, sono alcuni degli inconvenienti causati
+dall'errata selezione del driver per stampante. Ad esempio, una
+inappropriata combinazione stampante-driver può comportare la stampa di un
+carattere "P" o "K" (non facente parte del testo) all'inizio di ogni
+operazione di stampa. Il formato della pagina e i valori dei margini
+sinistro e destro vanno correttamente impostati nelle preferenze di stampa
+di sistema o nei parametri di stampa del programma Personal Paint. Come
+già spiegato, non è necessario usare le preferenze di sistema, se tali
+parametri vengono impostati in Personal Paint.
+
+Quando un'operazione di stampa viene interrotta (sezione @{"4.3" LINK PPaintCD:H/7/2/4/0049/Main 254}), alcune
+stampanti possono restare in attesa di ulteriori dati grafici: i codici di
+inizializzazione, i comandi per l'impostazione dei margini e i dati
+grafici di una stampa successiva potrebbero essere interpretati dalla
+stampante come dati binari appartenenti alla prima immagine. In questi
+casi, la seconda immagine potrebbe essere stampata in una posizione
+diversa da quella impostata, o con dimensioni errate, o il foglio potrebbe
+essere riempito da una serie di caratteri indecifrabili. Per evitare ciò,
+è sufficiente reinizializzare la stampante dal pannello di controllo (o
+spegnerla e riaccenderla, se tale caratteristica non è disponibile), dopo
+aver interrotto la stampa.
+
+A volte è necessario modificare alcune impostazioni di fabbrica sulla
+stampante stessa. Alcune stampanti hanno, a tale proposito, dei piccoli
+interruttori (@{I}dip-switch@{UI}) riuniti in gruppi, sul retro della periferica o
+al di sotto del coperchio. Altre stampanti permettono di modificare le
+impostazioni predefinite attraverso il pannello di controllo. Un parametro
+spesso impropriamente regolato è quello relativo alla funzione di
+avanzamento automatico di riga: la maggior parte dei driver per stampante
+richiede la disattivazione di questa funzione. L'errata regolazione di
+questo parametro può comportare la presenza di ampie fasce bianche
+orizzontali nelle stampe grafiche, o il raddoppio della spaziatura
+verticale del testo. Se gli accenti o i caratteri nazionali di una data
+lingua non vengono stampati, pur utilizzando il giusto driver, può essere
+necessario selezionare un diverso set caratteri (ad es. "Italic/Epson"
+anziché "Standard/IBM") o una diversa variante nazionale del set. Personal
+Paint stampa esclusivamente in modo grafico, tuttavia particolari
+imperfezioni nella stampa del testo possono essere un sintomo di un
+problema generale.
+
+Se è possibile scegliere tra trascinamento della carta a trazione (carta
+perforata) o a frizione, si tenga presente che il trascinamento a frizione
+è quasi sempre più preciso sulle brevi distanze (ad es. foglio singolo),
+soprattutto con le stampanti a basso costo. Il trascinamento a frizione di
+alcune stampanti può non essere in grado di trattenere stabilmente il
+foglio se la carta è troppo leggera o troppo spessa. Un avanzamento della
+carta discontinuo, asimmetrico e impreciso può essere dovuto alla scelta
+errata del tipo di carta.
+
+La presenza di sottili righe chiare orizzontali nelle stampe (grafica o
+testo) può essere ridotta scegliendo il trascinamento a frizione e/o
+avvicinando la testina di stampa alla carta. Se il nastro inchiostrato
+striscia sulla carta o sporca i margini del foglio, la testina è
+probabilmente troppo vicina alla superficie della carta e va allontanata.
+Le sottili fasce chiare prodotte da alcune stampanti possono essere
+eliminate selezionando, nel programma Preferences (o Prefs/Printer), la
+dimensione di foglio "Custom" e/o il tipo di carta "Single" (anziché
+"Fanfold"). L'alimentazione di alcune stampanti non è sufficiente a
+garantire una pressione omogenea di tutti gli aghi sul nastro
+inchiostrato. Alcuni driver permettono di utilizzare solo parte degli aghi
+di stampa (solitamente i primi 16 o 24), regolando i parametri di stampa
+nel modo sopra descritto. Tali driver fanno un uso improprio (ma
+sicuramente apprezzato) di alcuni parametri di sistema altrimenti
+inutilizzati, come "Paper type" (tipo di foglio). In alcuni casi, anche il
+parametro "Threshold" (Soglia B/N) viene usato per scopi differenti (come
+la regolazione del colore e la correzione della luminosità per le
+stampanti HP DeskJet).
+
+Anche se potrebbe sembrare strano, la stampa grafica è solitamente più
+veloce se effettuata in modo monodirezionale, anziché bidirezionale. I due
+modi possono essere selezionati manualmente, oppure tramite il controllo
+software di molte stampanti. La stampa in bianco e nero è la più veloce:
+le stampe a livelli di grigio e a colori, invece, vengono completate in
+tempi più lunghi.
+
+Per ridurre o eliminare eventuali gradini sulle righe oblique della stampa
+grafica, è possibile impostare opportunamente alcuni parametri di stampa
+(attivare "Smussare" o "Smoothing", ecc.). Ciò in genere rallenta la
+stampa.
+
+Alcune stampanti a colori permettono di utilizzare (o richiedono) nastro
+inchiostrato nero per stampare testo in nero e grafica in bianco e nero o
+a toni di grigio. Le spese per i nastri inchiostrati possono, così, essere
+concentrate sui nastri neri, solitamente più economici di quelli a
+colori.
+
+Se i colori di un'immagine stampata differiscono da quelli dell'originale,
+su video, può essere utile applicare le correzioni di tonalità,
+brillantezza e contrasto descritte nella sezione @{"8.1.4" LINK PPaintCD:H/7/2/4/0016/Main 262}.
+
+Una densità di stampa troppo alta (ad esempio da 300 a 360 dpi, piuttosto
+che da 50 a 150 dpi) può produrre stampe scure e macchiate (specialmente
+se si usa una stampante a getto d'inchiostro), oltre a strisce orizzontali
+indesiderate.
+
+Allo stesso modo, la stampa nel modo PostScript può essere troppo scura e
+avere poche sfumature di grigio se la densità (LPI) è troppo alta. La
+sezione @{"4.3.3.3" LINK PPaintCD:H/7/2/4/0049/Main 786} fornisce esaurienti informazioni su questo argomento. In
+caso di dubbi, è consigliabile usare i valori predefiniti della stampante
+(nel quadro "Parametri PostScript" di Personal Paint, impostare i valori
+DPI e LPI a 0, selezionare lo spot "Default" e regolare gli angoli degli
+inchiostri a un valore superiore a 360). Il fenomeno moiré, causa di trame
+indesiderate, è descritto nella sezione @{"4.3.3.11.2" LINK PPaintCD:H/7/2/4/0049/Main 1018}.
+
+Un altro problema frequente con le stampanti PostScript è legato alla
+connessione seriale tra il computer e la stampante. Utilizzando la porta
+seriale, alcuni fili del cavo di connessione vanno incrociati e altri
+associati in modo diverso rispetto alle connessioni "pin-to-pin"
+normalmente usate. Un efficiente collegamento, integrabile da diversi
+controlli del flusso dati (@{I}handshaking@{UI}), può essere garantito dalle
+seguenti connessioni: 1-1 (i piedini di input e di output con lo stesso
+numero sono direttamente connessi), 2x3 (il piedino due è connesso con il
+piedino tre dell'altro connettore e viceversa), 4x5, 7-7, 6+8x20 (i
+piedini sei e otto di entrambi i connettori sono uniti e collegati al
+piedino 20 del connettore opposto). Gli altri segnali non vengono usati.
+Per quanto riguarda le regolazioni software, è importante notare che tanto
+la stampante quanto il calcolatore devono operare con la stessa velocità
+di trasferimento (normalmente 9600 o 19200 baud), lo stesso numero di bit
+di dati (ad esempio 8), lo stesso tipo di parità (ad esempio Even), lo
+stesso numero di bit di stop (ad esempio 1) e lo stesso tipo di controllo
+di flusso (ad esempio XOn/XOff). Di norma queste impostazioni vengono
+effettuate nella sezione "Serial" delle preferenze di sistema e dal
+pannello di controllo della stampante.
+
+Per finire, un'importante nota di carattere tecnico riguardante i
+calcolatori Amiga 1000. La porta parallela di questi modelli richiede un
+cavo per stampante non-standard. L'utilizzo di un cavo per stampante di un
+diverso modello Amiga o di un cavo standard @{I}Centronics@{UI} può danneggiare le
+apparecchiature collegate.
+
+
+@{B}11.4       Problemi con i modi schermo e dispositivi video@{UB}
+
+I principali sintomi di molti inconvenienti descritti in questa sezione
+sono costituiti da uno schermo nero o illeggibile, uno sfarfallio o
+instabilità dell'immagine, strani rumori emessi dal monitor e
+impossibilità di scelta di determinati modi video o numeri di colori.
+
+Un'importante caratteristica del sistema operativo di Amiga, a partire
+dalla versione 2.0, è quella di poter definire l'insieme dei monitor
+utilizzabili dal sistema. Ad ogni monitor è associato un gruppo più o meno
+numeroso di modi video. Inoltre, differenti modelli di Amiga possono
+impiegare set di chip grafici e apparecchi monitor più o meno potenti e
+flessibili. Tutti i modi video gestiti dall'hardware e visualizzabili dal
+monitor posseduto possono essere attivati copiando le relative icone nel
+cassetto di sistema "Wbstartup" (versione 2.0) o "Devs/Monitors" (versione
+2.1 e 3.x). Se ciò non viene fatto, Personal Paint non è in grado di
+utilizzare questi modi. Può anche succedere di abilitare per errore un
+modo video non compatibile con il monitor collegato. Se, ad esempio, si è
+attivato il monitor "Multiscan" pur disponendo di un monitor capace di
+gestire i soli standard NTSC e PAL, la lettura di determinate immagini può
+rendere illegibile lo schermo. In questi casi, i file-monitor in eccesso
+devono essere riportati dal cassetto "Wbstartup" o "Devs/Monitors" al
+cassetto "MonitorStore" (Workbench 2.0) o "Storage/Monitors" (versione 2.1
+e successive).
+
+Alcune immagini create su calcolatori Amiga con architettura grafica
+avanzata possono non essere correttamente visualizzate su sistemi meno
+potenti, anche utilizzando un identico numero di colori. Questo
+inconveniente è legato alla elevata risoluzione cromatica che caratterizza
+i sistemi avanzati: ciascun colore della tavolozza può assumere un maggior
+numero di tonalità. Per costringere Personal Paint a gestire i colori
+(editazione, riduzione e adattamento) con una risoluzione cromatica
+"povera", è possibile selezionare l'emulazione dei chip "Original" o
+"Enhanced" nel menu di avvio dei sistemi avanzati: le immagini così create
+saranno correttamente visualizzabili da tutti i modelli Amiga.
+
+Se si utilizza una scheda video, il risultato di alcune operazioni
+grafiche potrebbe non essere correttamente visualizzato sullo schermo,
+oppure la selezione di alcuni modi video potrebbe causare errori di
+sistema. In questi casi è necessario attivare l'opzione "RTG" nel quadro
+"Formato immagine e schermo" (sezione @{"4.5.5" LINK PPaintCD:H/7/2/4/0049/Main 1290}).
+
+Alcune schede grafiche capaci di visualizzare schermi a 256 o più colori
+sono caratterizzate da una risoluzione cromatica inferiore a 24 bit
+(ciascun colore di schermo può essere scelto tra meno di 16 milioni di
+varianti). Poiché la maggior parte delle immagini a 256 colori, di
+pubblico dominio e non, dispone di tavolozze a 24 bit, tali schede possono
+non fornire la qualità cromatica necessaria a rendere particolari
+sfumature e transizioni di colore. Queste ultime, se necessario, possono
+essere opportunamente simulate dalla funzione di adattamento colori di
+Personal Paint (sezione @{"8.3" LINK PPaintCD:H/7/2/4/0016/Main 491}): questa va attivata subito dopo la lettura
+di un'immagine. La tecnica di adattamento colori Floyd-Steinberg (sezione
+@{"9.8" LINK PPaintCD:H/7/2/4/0047/Main 414}) è particolarmente indicata allo scopo.
+
+I modi video Double-Scan (doppia scansione) e altri modi ad alta ampiezza
+di banda (come quelli generati dai dispositivi Flicker Fixer e Display
+Enhancer) richiedono l'uso di un monitor adeguato (MultiSync/Multiscan,
+VGA, ecc.). In alcuni casi, il Flicker Fixer e il Display Enhancer vanno
+disabilitati quando si attivano alcuni modi video ad altissima ampiezza di
+banda. Molti monitor multiscansione, d'altro canto, possono non essere in
+grado di gestire correttamente i modi video originali di Amiga (come i
+normali modi PAL e NTSC), caratterizzati da una bassa ampiezza di banda.
+Quest'ultimo problema riguarda, per lo più, i sistemi Amiga con
+architettura grafica avanzata, capaci di modi video dalle caratteristiche
+diverse (le frequenze di scansione più basse non vengono corrette dai
+dispositivi Flicker Fixer o Display Enhancer). La Commodore fornisce
+particolari monitor multiscan, in grado di gestire numerosi modi video.
+Alcuni monitor non specifici devono essere ricalibrati da un tecnico
+qualificato per accettare segnali dalla bassa frequenza (di solito i
+problemi possono sorgere con le frequenze di scansione orizzontale
+inferiori a 30 kHz e con frequenze di scansione verticale inferiori a 55
+Hz).
+
+La sezione @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11} ("Leggere Immagine") fornisce ulteriori informazioni sui
+modi video.
+
+@ENDNODE

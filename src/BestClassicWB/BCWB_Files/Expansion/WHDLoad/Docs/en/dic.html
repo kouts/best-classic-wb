@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+<TITLE>DIC * Disk Image Creator</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: dic.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>DIC * Disk Image Creator</h3>
+<p>DIC is a tool to create an file image of a floppy disk. DIC reads the
+contents of the floppy disk via the appropriate device (e.g.
+"trackdisk.device" for DF0:) and writes the data to a plain file in the
+actual directory. The name of disk image file created will be "Disk.1",
+where "1" is the number of the disk read. The disk number is increased
+after each disk read. Using the <tt>Name</tt> option a different name for
+the image to create can be specified.</p>
+<p>DIC can also read other devices like RAD:, PC0: or DS0: and high density
+disks.</p>
+<p>If one track of the floppy disk cannot be read correctly and DIC has
+been started via an interactive terminal (e.g. CON:), it will ask to either
+skip the failed track or to try to read it again. On noninteractive
+terminals these tracks will be skipped by default.<br>For skipped tracks
+the appropriate area in the image will be filled with the pattern
+"<tt>TDIC</tt>". So it is possible to identify the read error later.</p>
+<p>DIC can also read disks partially by using the option <tt>SIZE/K/N</tt>.
+If used DIC will ommit the data after the specified size. This may be
+useful if the last tracks are unused.</p>
+<p>Tracks can be skipped using the option <tt>SKIPTRACK/K/N</tt>.
+This is very useful to create images of disks containing a disk based
+protection (e.g. RN-Copylocks on track 1).</p>
+<p>If the option <tt>PEDANTIC/S</tt> has been specified DIC will quit
+immedately if a track is unreadable.</p>
+<p>DIC can be interupted at any time by pressing Ctrl-C.</p>
+<h4>Installation</h4>
+copy it to C: or a similar place
+<h4>Usage</h4>
+<p>To use DIC interactively:
+<ul>
+<li>open a Shell
+<li>enter directory where the images should be stored
+<li>type "DIC" and press RETURN
+<li>now insert the disks and follow the instructions given by DIC
+<li>after the last disk has been read interrupt DIC by pressing Ctrl-C
+</ul>
+To use DIC in a installation script use the options
+<tt>FD=FIRSTDISK/K/N</tt>, <tt>LD=LASTDISK/K/N</tt> and
+<tt>PEDANTIC/S</tt>. For disks with physical copy protection use
+<tt>SKIPTRACK/K/N</tt>. If possible it's really nice to use <tt>SIZE/K</tt>
+to save diskspace all over the world ;-).
+<h4>Options</h4>
+<table>
+<tr><td colspan=2>
+<tt>DEVICE,NAME,SKIPTRACK/K,SIZE/K,FD=FIRSTDISK/K/N,LD=LASTDISK/K/N,PEDANTIC/S</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>DEVICE</tt>
+</td><td>
+the device from which DIC will read the disks
+<br>default "DF0:"
+<br>example "RAD:"
+</td></tr>
+<tr><td valign=top>
+<tt>NAME</tt>
+</td><td>
+name for the image to create, if specified DIC will not name the image "Disk.1" and
+so on, but uses the specified name. this option sets <tt>FIRSTDISK/K/N</tt> and
+<tt>LASTDISK/K/N</tt> to 1, which means that only one disk will be read
+</td></tr>
+<tr><td valign=top>
+<tt>SKIPTRACK/K/N</tt>
+</td><td>
+the tracks specified will not be read, the appropriate area in the disk
+image to create is filled with the pattern "<tt>TDIC</tt>", the following
+table shows some examples to illustrate the flexible possibilties to
+specify tracks
+  <table>
+  <tr><td>list</td><td>affected tracks</td></tr>
+  <tr><td>1-5</td><td>1,2,3,4,5</td></tr>
+  <tr><td>2,90</td><td>2,90</td></tr>
+  <tr><td>2*2</td><td>2,4,...,156,158</td></tr>
+  <tr><td>10-20*5</td><td>10,15,20</td></tr>
+  <tr><td>1-5,7,99-104*2</td><td>1,2,3,4,5,7,99,101,103</td></tr>
+  </table>
+</td></tr>
+<tr><td valign=top>
+<tt>SIZE/K</tt>
+</td><td>
+the size of the image to create, useful if there is an unused area at the end
+of the disk, if size is larger than the physical image size it is ignored
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>FD=FIRSTDISK/K/N</tt>&nbsp;&nbsp;
+</td><td>
+number of the first disk
+<br>default "FD=1"
+<br>example "FD=0"
+</td></tr>
+<tr><td valign=top>
+<tt>LD=LASTDISK/K/N</tt>
+</td><td>
+default "LD=999999"
+<br>example "LD=3"
+</td></tr>
+<tr><td valign=top>
+<tt>PEDANTIC/S</tt>
+</td><td>
+if specified DIC will immedately quit if a track cannot be read, should be
+used in install scripts
+</td></tr>
+</table>
+<h4>Return code</h4>
+The return code is set to 0 if all disks from <tt>FD</tt> up to <tt>LD</tt>
+are read successfully. Otherwise 10 is returned.
+</BODY>
+</HTML>

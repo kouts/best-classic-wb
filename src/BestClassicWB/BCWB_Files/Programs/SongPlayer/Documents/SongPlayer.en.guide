@@ -1,0 +1,995 @@
+@DATABASE "Default"
+@NODE "Main" "Table of contents"
+-------------------------------------------------------------------------------
+
+                 @{b}SongPlayer 1.62 (27-february-2004) FREEWARE@{ub}
+
+-------------------------------------------------------------------------------
+
+        @{" Introduction " LINK "Introduction"}
+        @{" Requirements " LINK "Requirement"}
+        @{" Installation " LINK "Installation"}
+        @{" Use " LINK "Use"}
+        @{" CLI Options " LINK "CLI_options"}
+        @{" AREXX " LINK "AREXX"}
+
+        @{" Utilities " LINK "Utilities"}
+        @{" History " LINK "History"}
+        @{" In the future " LINK "Future"}
+
+        @{" Distribution " LINK "Distribution"}
+        @{" Disclaimer " LINK "Disclaimer"}
+        @{" Thanks " LINK "Thanks"}
+        @{" About the author " LINK "Author"}
+@ENDNODE
+
+@NODE "Introduction" "Introduction to SongPlayer"
+
+SongPlayer is an audio file player of various @{" formats " LINK "Formats"} .
+
+It can play 8 or 16 bits samples, mono or stereo ones, compressed or not.
+
+It can be used as a shell utility thanks to its command parameters or with
+the Workbench with its graphical interface @{b}@{" MUI " LINK "Copyrights"}@{ub}.
+
+The 16 bit sounds are played in 14 bit with the calibration principle of Christian BUCHNER or
+in real 16 bit via a sound card with @{b}@{" AHI " LINK "Copyrights"}@{ub}.
+
+Others features:
+
+- Playlists
+- Karaoke mode to see lyrics
+- Pseudo-stereo effect for mono files
+- Scopes (CPU, Vu-meters, Level-meters, Spectrum analyzer)
+- Treble and bass adjustment
+- Audio data base
+- AREXX
+- Read of compressed XPK files
+
+@ENDNODE
+
+@NODE "Formats" "Supported audio formats"
+
+@{b}IFF@{ub} 8SVX PCM format and Fibonacci delta
+
+@{b}AIFF@{ub} 8 or 16 bits and @{" ADP4 " LINK "ADP4"} (ADPCM 4)
+
+@{b}WAVE@{ub} 8 or 16 bits
+
+@{b}AU@{ub} 8 or 16 bits and ULAW
+
+@{b}MPEG@{ub} Layer I, II and III. Norm 1, 2 and 2.5 (MPG, MP2 and MP3). This includes MP3 Pro.
+
+@{b}CDDA@{ub}
+
+@{b}OGG VORBIS@{ub}
+
+@ENDNODE
+
+@NODE "ADP4"
+
+I have implemented an ADPCM 4-bits (ADaptative Pulse Code Modulation) compression for the AIFF format.
+This format divide by 4 the size of the original 16-bit sample.
+The Compress/Expand processes are relatively simple and give very good results, that's why
+I decided to add this format.
+
+See @{" Utilities " LINK "Utilities"}
+
+@ENDNODE
+
+@NODE "Requirement" "Requirements"
+
+@{b}AmigaOS version@{ub}
+
+An @{" Amiga " LINK "Amiga"}
+
+A MC68EC020 or +
+
+Amiga Workbench 3.0 or +
+
+MUI V3.3 or + (not needed for a command line use)
+
+Only one version of SongPlayer is provided for 68EC020 to 68060.
+
+The mpega.library (aminet/util/lib) that correspond to your CPU.
+
+@{b}MorphOS version@{ub}
+
+An AmigaPPC or a Pegasos running MorphOS.
+
+Tools like MUI, AHI and mpega.library are already in the operating system. The vorbisfile.library
+is given in the archive.
+
+@{b}Amithlon@{ub}
+
+This version compiled for 680x0 processors works on the emulator Amithlon running at least the Workbench 3.0.
+It should work on AmigaOS 4 too. It doesn't access the hardware and supports the format Ogg Vorbis
+thanks to the vorbisfile_68kgate.library.
+
+@ENDNODE
+
+@NODE "Installation" "Installation of SongPlayer"
+
+Click on the installation icon (you should have the 'Installer' utility)
+
+That's all :)
+
+@{b}Attention : @{ub}The installer script is not up-to-date, so it could be easier to move the whole directory.
+A new installer will come with the version 1.64.
+
+@ENDNODE
+
+
+@NODE "USE" "Use"
+
+ The @{" main " LINK "mainw"} window
+
+ The @{" scopes " LINK "scopes"} window
+
+ The @{" karaoke " LINK "karaoke"} window
+
+ The @{" karaoke editor " LINK "karaoke editor"} window
+
+ The @{" audio data base " LINK "audiobasew"} window
+
+ The @{" options " LINK "optionsw" } window
+
+ The @{" menus " LINK "menus"}
+
+ The @{" keys " LINK "keys"}
+
+@ENDNODE
+
+@NODE "mainw" "Main window"
+
+Song List:
+
+   The song list contains the current files selected for playing.
+   This list can be filled or loaded with the eject button or
+   with the menu "Project/Open". You can choose audio files or
+   play lists. It is possible to add files to the current list
+   with the menu "Project/Append". To remove an entry in the list,
+   just select the line to remove and press DEL key or select the
+   menu "Porject/Close". The list can be cleared with the menu
+   "Project/Close all". The entries of the list can be moved to
+   change the list order. This list can besaved with the record button
+   or with the menu "Project/Save" or "Project/Save as".
+   The total play time and the number of songs of the list are
+   always displayed at the top of the list.
+
+File Info:
+
+   The file info text area show informations about the selected file.
+   It is composed of a maximum of 3 lines. When the play list is not
+   active, one more line shows the duration and the title of the current
+   file. These 3 lines are:
+
+   - Artist and album of file
+   - The file format
+   - The file comment
+
+Time Slider:
+
+   This slider allows to seek into the current file.
+
+Volume:
+
+   The volume button switches between Normal volume and Boost volume.
+   Normal volume gives a slider from 0 to 64 and Boost volume from 0
+   to 256 (256 = 400% boost).
+
+Balance:
+
+   The button reset the balance. The slider goes from -64 (full left)
+   to +64 (full right).
+
+Bass & Treble:
+
+   These features are available when the Bass & Treble adjust is enabled
+   in the Audio Options. The buttons reset the bass or the treble (set to
+   0dB). The sliders adjust the bass or treble from -20dB to +20dB.
+
+Buttons:
+
+   Most of the buttons can be hide (see the option window) in order to
+   simplify the control bar.
+
+@ENDNODE
+
+@NODE "scopes" "Scopes window"
+
+This window contains the various scopes selected in the Options/Scopes
+window. There are 4 types of scopes.
+
+Vu-meter: A hand indicator of the sound level.
+
+Level-meter: A bar graph indicator of the sound level.
+
+Spectrum analyzer: An 8 frequencies band level indicator.
+
+CPU usage: A gauge that indicates the CPU % used for audio decoding.
+
+@ENDNODE
+
+@NODE "karaoke" "Karaoke window"
+
+This window display the song text in a karaoke way.
+One or two lines can be displayed. In case of a 2 lines
+display, the bottom line is the coming text.
+
+@ENDNODE
+
+@NODE "karaoke editor" "Karaoke editor window"
+
+This window allows you to create or modify a karaoke file.
+Each line of the list correspond to one karaoke line.
+A line is composed of a time and a text line.
+The time format is MM:SS.T, i.e. minutes, seconds and 1/10th second.
+This time indicate when the text has to be displayed.
+
+
+@{b}EDITING@{ub}
+
+Copy:  Copy the current line to the clipboard
+Cut:   Copy the current line to the clipboard and remove it from the list
+Paste: Insert the clipboard line after the current line
+
+The string text just bellow the list allows you to modify the selected
+karaoke line (you must press Enter to validate the modification).
+
+Pick Time: When you click on this button, the current playing time is copied
+           to the editing line. This feature is very interesting:
+           You only have to enter all the song text without considering
+           the time. Then, select the first line, play the song and click on
+           this button each time the selected line must be displayed.
+
+@{b}FILES@{ub}
+
+Load:   Load an existing Karaoke file (.kok).
+Import: Import a text file to the editor.
+Save:   Save the editor content to a Karaoke file (.kok).
+
+Karaoke file format:
+
+Each line of this text file has the following format:
+
+MM:SS.T <Karaoke text>
+
+MM:SS.T is the time of display the karaoke text.
+The karaoke text is the rest of the line.
+
+Lines must be ordered by time.
+
+@ENDNODE
+
+@NODE "optionsw" "Options window"
+
+The options window allows you to customize SongPlayer.
+Theses options are saved in file "SongPlayer.cfg" of the
+SongPlayer program directory.
+
+There are 5 separate settings:
+
+The @{" Main " LINK "main prefs"} settings
+The @{" Audio " LINK "audio prefs"} settings
+The @{" Karaoke " LINK "karaoke prefs"} settings
+The @{" Scopes " LINK "scopes prefs"} settings
+The @{" MPEG Audio " LINK "mpeg prefs"} settings
+The @{" CDDA Audio " LINK "cdda prefs"} settings
+
+@ENDNODE
+
+@NODE "main prefs" "Main settings"
+
+@{b}File@{ub}
+
+   Auto play:
+      Start to play automatically after tha load of a new
+      play list.
+
+   Inter file delay:
+      Wait time between two successives play.
+
+   Initial drawer:
+      It's the starting drawer of the audio file selector.
+
+   Initial file:
+      It's the file to load automatically at SongPlayer start.
+
+   File pattern:
+      It's the pattern of the file selector used at the load time.
+
+   Playlist pattern:
+      It's the accept pattern of the playlists. Only playlist filenames
+      that correspond to this pattern will be examined.
+
+   Load in RAM:
+      Every audio file is loaded in RAM before playing.
+
+   Buffer size:
+      Size of memory buffer used for file access.
+
+   Use XPK:
+      Use XPK library for loading compressed files.
+
+@{b}Display@{ub}
+
+    File list             Show/hide the current play list
+    Playlist window       Open a window for the playlist
+    Artist & album        Show/hide artist and album of current file
+    File format           Show/hide the current file format
+    File comment          Show/hide the curent file comment
+    Volume & Balance      Show/hide the volume and balance
+    Bass & Treble         Show/hide the bass and treble
+    Time slider           Show/hide the time progress bar
+    Sizable window        Enable the window resizing
+    List pattern          Set up the display of the title column of the list
+                          This string can include the following special chars:
+                              %a artist   %A album
+                              %c comment  %d duration
+                              %f filepath %g genre
+                              %t title    %T type
+                              %y year
+
+
+@{b}Buttons@{ub}
+
+    Allows to choose the buttons to show in the control bar.
+
+    Intro duration: play duration of the intro mode
+
+
+@ENDNODE
+
+@NODE "audio prefs" "Audio settings"
+
+   Use AHI: Use the AHI system for the audio output.
+            You have to select an AHI audio mode with the selector
+            button a the end of the line.
+
+   Mixing Mode:
+
+      There are 3 mixing modes: Off, On and Auto.
+      Off:  No mixing, the audio output frequency is equal to the
+            audio file frequency.
+      On:   The mixing is always performed. The audio output frequency
+            is set to the value of the "Mixing frequency" Slider.
+      Auto: The mixing is only enabled when the audio file frequency is
+            lower than the "Limit frequency" Slider.
+
+      Note: If the requested audio frequency is to high for your
+            computer (depending of the video mode for built-in audio),
+            the mixing is automatically enabled and set to the maximum
+            frequency supported.
+
+   Bass & Treble Adjust:
+
+      This feature allows to adjust the bass and the treble in the Main Window.
+      @{b}WARNING@{ub} this function may use a lot of CPU time on slow machines.
+
+   Priority: It's the audio decoding process priority.
+
+   Buffer Size: This slider set the size of the audio buffer in memory.
+                It correspond to the amount of pre-decoded audio.
+
+
+@ENDNODE
+
+@NODE "karaoke prefs" "Karaoke settings"
+
+   Karaoke Window: Opens or closes the karaoke window.
+
+   Display:
+
+   The karaoke window can display 1 or 2 lines. When 2 lines mode is
+   selected, the bottom line show the coming text.
+
+   Advance Time:
+
+      This value allows to display the karaoke lines a little time
+      before it should appear normally. This value is subtracted
+      to the time of the karaoke line to get the corrected time of display.
+
+
+   Has priority:
+
+      The default karaoke path has priority against current directory.
+
+   Default path:
+
+      You can specify here the location of your karaoke files.
+      Normally, these files are in the same directory as the associated
+      audio file. But, sometimes, it is not always possible to do so
+      (like on a CD-ROM already burned). If the karaoke file can't be found,
+      then it is search with this default path.
+
+   Fonts:
+
+      You can choose your own fonts for each line of the karaoke window.
+
+@ENDNODE
+
+@NODE "scopes prefs" "Scopes settings"
+
+   Scopes window:
+
+      Opens or closes the scopes window.
+
+   @{b}Vu-Meters@{ub}
+
+   The vu-meters are indicators with a hand.
+   They show the current sound level.
+
+   None:   No vu-meter
+   Normal: Use a standard MUI indicator
+   Custom: Customized indicator
+           The following colors can then be modified:
+
+           - Back
+           - Scale
+           - Needle
+
+
+   @{b}Level-Meters@{ub}
+
+   The level-meters are line indicators.
+   They show the current sound level.
+
+   None:   No level-meter
+   Normal: Use a standard MUI gauge
+   Custom: Customized level-meter
+           The following colors can then be modified:
+
+           - Back
+           - Body
+           - Top
+
+   @{b}Spectrum-Meters@{ub}
+
+   The spectrum meters are bars indicators.
+   They show the current levels of 8 bands of frequency.
+
+   None:   No spectrum-meter
+   Normal: Use standard MUI gauges
+   Custom: Customized spectrum-meter
+           The following colors can then be modified:
+
+           - Back
+           - Body
+           - Top
+
+   Show CPU Usage:
+
+      When enabled, the current CPU usage used for audio file
+      decoding is displayed in a scale gauge.
+
+   Fixed levels:
+
+      When enabled, the scopes are volume independant.
+
+   Priority:
+
+      It's the indicators display process priority.
+
+   Refresh delay:
+
+      It's the refresh rate of the indicators in video frames.
+
+@ENDNODE
+
+@NODE "mpeg prefs" "MPEG Audio settings"
+
+These options allow to setup the decoding quality of MPEG Audio files.
+Because this audio decoding is very CPU intensive, on slow CPU (<68040), you
+will need to decrease the quality and/or the decoding frequency.
+You can have 2 different settings for Mono files and Stereo files because
+stereo files need almost 2 time more CPU than mono files.
+There are 2 separates options for MPEG I & II and MPEG III because MPEG III
+needs more CPU power than I or II. So you can have better settings for
+MPEG I & II than MPEG III.
+
+   Quality:
+
+      High:   Perform the full decoding process
+      Medium: Perform almost 1/2 of the decoding process
+      Low:    Perform almost 1/4 of the decoding process
+
+   Max Freq:
+
+      If the audio file frequency if greater than this value, the MPEG
+      decoder try to divide by 2, then by 4 the output audio frequency.
+      When the frequency is divided the decoder needs less CPU. So if you
+      have a slow CPU, set the Max Frequency to a low value.
+
+   Force to Mono:
+
+      In order to reduce the CPU usage when decoding stereo files, you
+      can force the decoder to use only 1 voice (left), so saving
+      almost 50% of CPU.
+
+@ENDNODE
+
+@NODE "cdda prefs" "CDDA Audio settings"
+
+This options allow to set up the cdrom method to make the audio extraction
+
+   Device:
+
+      Name of the SCSI device
+
+   Unit:
+
+      SCSI unit number of the cdrom
+
+   CD titles:
+
+      Drawer of the audio cd descriptions (ID's)
+
+   Méthod:
+
+      Audio extraction method
+
+   Auto change:
+
+      Auto update when the audio CD is changed.
+      If this option is not activated, you have to use the CD button
+      for loading an audio cd in the playlist.
+
+@ENDNODE
+
+@NODE "menus" "The menus"
+
+  PROJECT
+    Open...               Load audio files or playlists
+    Append...             Add audio files to the current list
+    Close                 Remove the current file of the list
+    Close all             Clear the list
+    ------------------
+    Edit                  Edit informations of the current file
+    ---------------
+    Save                  Save the current playlist
+    Save as...            Save the current playlist with a new name
+    ---------------
+    About...              Infos about the author and greetings
+    About MUI...          Infos about MUI
+    ---------------
+    Quit                  Quit SongPlayer
+
+  DISPLAY
+    File list             Show/hide the current play list
+    Artist & album        Show/hide artist and album of current file
+    File format           Show/hide the current file format
+    File comment          Show/hide the curent file comment
+    Volume & Balance      Show/hide the volume and balance
+    Bass & Treble         Show/hide the bass and treble
+    Time slider           Show/hide the time progress bar
+    Sizable window        Enable the window resizing
+    Playlist window       Show playlist in a window
+
+  WINDOWS
+    Scopes                Open/close the scopes window
+    Karaoke               Open/close the karaoke window
+    Karaoke editor        Open/close the karaoke editor window
+    Audio database        Open/close the audio database
+
+  SETTINGS
+    Options...            Open the settings window of SongPlayer
+    MUI...                Open the settings window of MUI
+
+@ENDNODE
+
+@NODE "keys" "The keys"
+
+   The following functions are mapped to the numeric pad:
+
+   .---.---.---.---.
+   | [ | ] | / | * |    [   Previous file   +   Pitch +
+   .---.---.---.---.    ]   Next file       -   Pitch -
+   | 7 | 8 | 9 | - |    /   Volume reset    *   Pitch reset
+   .---.---.---.---.    9   Volume -        4   Backward
+   | 4 | 5 | 6 | + |    6   Volume +        5   Forward
+   .---.---.---.---.    2   Balance left    0   Play / Pause
+   | 1 | 2 | 3 | E |    3   Balance right   1   Stop
+   .---.---.---| N |    ENT Balance reset   .   Load
+   | 0     | . | T |
+    ------- --- ---
+
+
+@ENDNODE
+
+
+@NODE "audiobasew" "Audio database"
+
+   The audio database allows you to class all your audio files.
+   It is build in an hierachical manner, 4 levels:
+
+      Genre
+         Artist
+            Album
+               Title
+
+   For each file you can associate a title, an album, an artist, a genre,
+   its duration and a comment.
+
+   At the input of this informations, SongPlayer use the informations in
+   the file to fill by advance several fields. So, for an MPEG file, if this
+   one had TAG ID's, they will be used to fill all the fields.
+
+   The window of this database allows you to navigate through the hierarchy
+   and to use drag & drop to the current play list. Four buttons are located
+   at the bottom of the window:
+
+   New:     Create a new element in the database
+   Edit:    Edit an element in the database
+   Delete:  Remove an element from the database
+   Save:    Save the database
+
+   The database is located in the file 'SongPlayer.aub'
+
+@ENDNODE
+
+@NODE "CLI_options" "CLI use"
+
+CLI Usage : SongPlayer Name/M,V=Verbosity/N,AHI=AHIMode/N,
+                       MIX=Mixing/N,BUFF=Buffer/N,EXP=Expand/N,
+                       VOL=Volume/N,BAL=Balance/N,B=Bass/N,T=Treble/N,
+                       Filter/N,
+                       GUI/S,ICONIFIED/S
+
+   Name: Names of audio files to play
+
+   Verbosity: 0 = no display, 1 = info about samples
+
+   AHI: AHI Mode ID in HEXADECIMAL
+
+   Mixing: Mixing frequency on audio output (0 = no mixing)
+
+   Buffer: 50..10000 = size of audio buffer in milliseconds
+
+   Expand: 0 = normal, 1 = pseudo stereo.
+
+   Volume : 0..256 (65 to 256 are boost values)
+
+   Balance: -64 (full left) to +64 (full right)
+
+   Bass: -20 to +20 dB
+
+   Treble: -20 to +20 dB
+
+   Filter: Enable audio filter (only Amiga build-in audio hardware) (note : this function has no effect with the MorphOS version)
+
+   GUI: Open the Graphical User Interface
+
+   ICONIFIED: Starts into icon mode
+
+@ENDNODE
+
+@NODE "AREXX" "AREXX commands"
+
+   The Arexx address is SONGPLAYER.x, x is the number of the SongPlayer
+   active copy. If SongPlayer is launched only one time, the adress is
+   also SONGPLAYER.1.
+
+   The Arexx commands available are:
+
+   ICONIFIY STATE/F   Iconify or not the application
+
+   OPEN FILES/M,      Load files into the playlist
+        NOPLAYLIST/S    Don't load playlists if specified
+
+   ADD  FILES/M,      Add files to the playlist
+        NOPLAYLIST/S    Don't load playlists if specified
+
+   CLOSE              Remove the current file from the playlist
+
+   CLEAR              Clear the playlist
+
+   PLAY               Start the audio playing
+
+   PAUSE STATE/F      Set the pause state
+
+   STOP               Stop the audio playing
+
+   NEXT               Select the next file in the playlist
+
+   PREV               Select the previous file in the playlist
+
+   SELECT INDEX/N     Select the given file number in the playlist
+
+   QUIT               Quit SongPlayer
+
+   RANDOM  STATE/F    Enable or disable the random mode
+
+   INTRO   STATE/F    Enable or disable the intro mode
+
+   EXPAND  STATE/F    Enable or disable the pseudo-stereo mode
+
+   FILTER  STATE/F    Enable or disable the audio filter
+
+   VOLUME  LEVEL/N    Adjust the volume
+
+   BALANCE LEVEL/N    Adjust the  balance
+
+   BASS    LEVEL/N    Adjust the bass
+
+   TREBLE  LEVEL/N    Adjust the treble
+
+   SEEK     SECS/N    Seek time
+
+   GET_TIME           Get the current time position of the playing file
+
+   GET_STATE          Get the state of the audio part { STOP | PLAY | PAUSE }
+
+   GET_SELECTED       Get the index of the selected file
+
+   GET_NAME =
+   GET_TITLE          Get the name of selected file
+
+   GET_DURATION       Get the duration of selected file
+
+   GET_GENRE          Get genre info of selected file
+
+   GET_ARTIST         Get artist info of selected file
+
+   GET_ALBUM          Get album info of selected file
+
+   GET_TYPE           Get type of selected file
+
+   GET_COMMENT        Get comment of selected file
+
+   GET_YEAR           Get year info of selected file
+
+   GET_FILEPATH       Get file path of selected file
+
+   GET_COUNT          Get number of files in the list
+
+   GET_TOTAL          Get the total duration of the list
+
+   GET_CDID           Get the ID of current audio CD
+
+   GET_CDLENGTH       Get the total duration of current audio CD
+
+   TIME_TYPE TYPE/N   Set the time format of the returned infos
+
+                      TYPE: 0 -> time in seconds (par défaut)
+                            1 -> MM:SS
+                            2 -> HH:MM:SS
+                            3 -> MM:SS or HH:MM:SS according to the duration
+
+   Note: STATE = { ON | OFF | TOGGLE | 0 | 1 | 2 }
+
+@ENDNODE
+
+@NODE "Distribution" "Distribution of SongPlayer"
+
+  This program is copyright (c) 1994-2004 by @{" Stéphane TAVENARD " LINK "Author"}.
+It may be distributed freely under the condition that no profit is
+gained from its distribution, nor from any other program distributed
+in the same package.
+
+  Permission is granted to distribute this package by Bulletin Board
+systems or network sites, under the condition that no fee is charged
+on downloading it.
+
+  All files that are part of this package have to be distributed
+together and none of them may be changed in any way other than
+archiving or crunching.  The only exception to this rule are the
+icons, including the tooltypes, which may be changed to accommodate
+them to the rest of the disk it is distributed on.
+
+  This program is now distributed as FREEWARE (since version 1.60).
+
+@ENDNODE
+
+@NODE "Utilities" "Utilities"
+
+@{b}AudioConvert@{ub}
+
+This utility allows you to convert a raw file (RAW) or AIFF in
+AIFF @{" ADPCM4 " LINK "ADP4"}. Other options allow to convert in mono a stereo file or to
+change the sampling frequency.
+
+Usage: AudioConvert [<options>] <input file> <output file>
+
+options:
+ -if <freq>    input frequency (for raw file)
+ -it <tracks>  input tracks (1 or 2, only for raw file)
+ -f <freq>     output frequency
+ -m            force mono output file
+ -t <type>     output type {RAW|AIFF|ADPCM}
+ -is           input swap little <-> big endian in 16-bit input file
+
+ To convert a 16-bit AIFF file in @{" ADPCM4 " LINK "ADP4"} AIFF, the command is:
+
+ AudioConvert -t ADPCM <input file> <output file>
+
+@ENDNODE
+
+@NODE "Future" "In the future..."
+
+- Support of other audio formats
+- More audio effects
+- Changes in the audio device management : AHI, Paula, ...
+- Improvement of the playlists
+- Learn how to write an installer and ... write one !
+
+@ENDNODE
+
+@NODE "History" "History of SongPlayer"
+
+V0.1     08-May-1994     Initial version, unique format: IFF 8SVX
+V0.2     10-Nov-1994     Added IFF Fibonnacci delta
+V0.3     29-Jul-1995     Added AIFF, AU, WAVE
+V0.5     05-Nov-1995     Added MPEG format
+V0.6     07-Jul-1996     use of MUI
+V0.63    09-Feb-1997     First Aminet release
+V1.0     28-Aug-1997     New design
+                         Playlists
+                         MPEG 1, 2 and 2.5  Layer III
+                         Scopes
+                         Karaoke
+                         AHI.
+V1.2     23-Mar-1998     Less bugs
+                         Localization
+                         More options !
+                         Use mpega.library for the audio decoding
+                         AppIcon & AppWindow
+                         Audio database
+                         Random play
+                         Intro mode
+                         Arexx
+                         XPK Support
+V1.3     15-Jun-1998     Fixed bug when filling fields in audio data base from TAG's ID
+                         Added Loop button
+                         Updated TAG's ID list
+                         Added "Load in Ram" option
+                         Level meters can be independant from volume (option)
+                         XPK use as option now
+                         Increased stacks of all processes
+                         Corrected some bugs in Audio process (mpega library for PPC can be used now)
+                         Added File buffer configuration
+                         Enhanced File loading (more speed)
+                         Karaoke default path can have priority against current directory as option
+                         The playlist can have its own window (option)
+                         Added NOPLAYLIST/S option in Arexx open & add commands to prevent loading playlists
+                         Fixed bug on playlist handling that caused GURU's
+                         Custom Fonts for Karaoke window
+V1.42B   12-Oct-1998     Corrected drawing bug of vu-meters
+                         Added info into playlists to speed up loading ...
+                         Fixed a GURU bug when stop & load new sound.
+                         Added Arexx: GET_NAME GET_DURATION (for selected file)
+                         Added year field into Audio Database
+                         Display of song info at the begining of the Karaoke window
+                         Use of ASyncIO library as an option (config)
+                         Better use of drag & drop (respect of insertion position)
+                         Allow SongPlayer to be started by project icon (playlist icon works now)
+                         Added path config for Audio Database
+                         CDDA Support (still beta and support only Sony mode, and bad interface)
+V1.43B   24-Oct-1998     Enhanced CDDA support (Auto mode and Sony, Toshiba, Philips, Nec, Yamaha and
+                                                MMC MultiMedia Commands compatibles)
+                         Compatible with Audio CD ID's files
+V1.45    16-Nov-1998     Aminet release
+V1.50    28-Dec-1998     Added TAG MPEG ID editor
+V1.51    07-Jan-1999     Fixed bug: intialisation of ASL requester when saving playlist with record button
+                         Documented functions of numeric keypad
+                         Added Arexx: GET_GENRE GET_ARTIST GET_ALBUM GET_TYPE GET_COMMENT GET_YEAR
+                                      GET_FILEPATH GET_COUNT GET_TOTAL GET_CDID GET_CDLENGTH
+                                      TIME_TYPE TYPE/N
+                         Fixed bug: Mutiselection in menus
+                         Added Hide/show of bass & treble part
+                         Added custom display in playlist
+V1.52    06-Feb-1999     Added toggle mode in Arexx
+                         Fixed bug: close pb for indicator window
+                         Fixed bug: Pause then slection of a file in the list
+                         Added of option karaoke screen
+V1.53    17-Feb-1999     Changed MPEG Tag edit shortcut into Amiga-T
+                         Fixed bug in Volume/Balance Bass/Treble display
+V1.60    23-Jul-2003     First MorphOS version ! Uses AHI only, no more hardware access
+                         Added Ogg Vorbis support, but only for the MorphOS version
+                         Improved About window (non-blocking now, and nicer)
+                         Removed assembly code
+                         Compilation with GCC too
+                         Fixed a bug with playlists started from the shell
+                         Changed MPEG Tag edit shortcut into Amiga-T
+                         Fixed bug in Volume/Balance Bass/Treble display
+V1.62    26-Feb-2004     Added Vorbis support through a system library for MorphOS
+                         Fixed mp3 that didn't want to play
+                         Fixed a bug in CDDA code -> no more crash with the ide.device (Thanks to Ralph Schmidt)
+                         Fixed the trashed image in the About window with AGA display
+                         Added the opportunity to change the intro duration (Options/Main/Buttons)
+                         Added CDDA title editor (compatible with OptyCDPlayer files)
+                         Added 32bit PNG icons (MorphOS only), thanks to  André 'Jobbo' Siegel
+                         Added better gfx buttons (MorphOS only), thanks to Treveur 'Nowee' Bretaudiere
+                         Fixed some bugs in the playlist management, more to do
+                         Fixed big CPU consumption with the 68k decoding
+
+@ENDNODE
+
+@NODE "Copyrights" "Copyrights"
+
+@{b}MUI@{ub} is copyright (c) Stefan STUNTZ
+    EMail: stuntz@sasg.com
+
+@{b}AHI@{ub} is copyright (c) Martin BLOM
+    EMail: lcs@lysator.liu.se
+    Web:   http://www.lysator.liu.se/~lcs
+
+@ENDNODE
+
+@NODE "Thanks" "Thanks"
+
+o Stefan STUNTZ for his fantastic graphical interface MUI !
+
+o Christian BUCHNER for his 14-bit audio calibration principle
+
+o Martin BLOM for his great AHI
+
+o Frank WILLE for his technical support on VBCC and for his patience
+
+o Treveur 'Nowee' BRETAUDIERE and Andre 'Jobbo' SIEGEL for their images and icons
+
+All catalog translators, testers and people who help us sending messages and suggestions !
+
+
+@{" Amiga " LINK "Amiga"}, the best computer ever made.
+
+@ENDNODE
+
+@NODE "Disclaimer" "Disclaimer"
+
+  This package is provided "as is" without warranty of any kind.
+The author assumes no responsibility or liability whatsoever
+for any damage or data loss caused by using this package.
+
+
+@ENDNODE
+
+@NODE "Author" "About me !"
+
+The original author of SongPlayer is Stéphane Tavenard (see below).
+After leaving the development, he kindly allowed us to get the sources
+and improve the player. The first improvments were a MorphOS version
+and the support of Ogg Vorbis.
+
+The support is now ensured by Mathias Parnaudeau and Nicolas Det.
+So, each comment or question has to be sent by email to :
+songplayer@free.fr
+
+A new website dedicated to SongPlayer has been created to officialize
+the come back of SongPlayer : http://amigadev.free.fr/songplayer/
+
+           / /
+          / /
+         / /
+   \\ \\  / /
+    \\ \\/ /
+     \\/\\/
+
+Stéphane TAVENARD (ANGERS/France)
+Email: stephane.tavenard@wanadoo.fr
+
+Stéphane TAVENARD
+La Bézanière
+49070 Saint Jean de Linières
+FRANCE
+
+@ENDNODE
+
+@NODE "Amiga" "My Friend"
+
+  ____________________________________________________
+ T ================================================= |T
+ | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|[
+ | __________________________________________________[|
+ |I __==___________  ___________     .  ,. _ .   __  T|
+ ||[_j  L_I_I_I_I_j  L_I_I_I_I_j    /|/V||(g/|   ==  l|
+ lI _______________________________  _____  _________I]
+  |[__I_I_I_I_I_I_I_I_I_I_I_I_I_I_] [__I__] [_I_I_I_]|
+  |[___I_I_I_I_I_I_I_I_I_I_I_I_L  I   ___   [_I_I_I_]|
+  |[__I_I_I_I_I_I_I_I_I_I_I_I_I_L_I __I_]_  [_I_I_T ||
+  |[___I_I_I_I_I_I_I_I_I_I_I_I____] [_I_I_] [___I_I_j|
+  | [__I__I_________________I__L_]                   |
+  |                                                  |
+  l__________________________________________________j
+
+@ENDNODE

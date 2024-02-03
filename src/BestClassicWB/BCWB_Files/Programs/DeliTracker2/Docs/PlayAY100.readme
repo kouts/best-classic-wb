@@ -1,0 +1,60 @@
+Short: PlayAY package (mostly useful with DeliTracker 2.14+)
+Type: mus/play
+Uploader: patrik@raxoft.cz (Patrik Rak)
+Author: patrik@raxoft.cz (Patrik Rak)
+Version: 1.0
+
+Note: Please read PlayAY016.readme first if you are new to PlayAY.
+
+What's new
+==========
+
+This is the new release of PlayAY package. It fully replaces all previous
+PlayAY releases.
+
+This release actually consists of three DeliPlayers:
+
+PlayAY          which can be used as a stand alone player as well
+DeliAY          DeliPlayer without the standalone code
+DeliAY_note     DeliPlayer using the DeliTracker's NotePlayer interface
+
+The standalone code was almost completely rewritten to fix some bugs.
+
+Support for stereo balance adjustment was added to the classic
+(i.e., non-noteplayer) variant.
+
+Finally, memory leak in ZXAYEMUL has been fixed (obviously one
+can't RemTask() a Process). As an unfortunate consequence of this fix
+the debug output handling has slightly changed - the output is delayed
+until the player is stopped. I doubt that many people care, though.
+
+This release is supposed to accompany the final DeliTracker release
+for Amiga. For recent DeliTracker news, check http://www.deliplayer.com.
+Furthermore, if you are into AY music, you definitely should not miss
+Project AY at http://www.void.jump.org/projectay. You can also
+occasionally visit http://www.raxoft.cz/zx/ - Milan Matousek and I
+usually put the recent AY tunes we have ripped there.
+
+Thanks
+======
+
+Thanks for this release must go to:
+
+Gaelan Griffin - for spotting the memory leak in ZXAYEMUL and other bugs
+                 and making me add the noteplayer and balance support.
+Peter Kunath   - for debugging the standalone version.
+
+Contact addresses
+=================
+
+Send all new AY Players, AY tunes, bug reports, questions or suggestions to
+the following addresses:
+
+patrik@raxoft.cz
+
+or (in worst case)
+
+Patrik Rak
+Modra 1979/6
+155 00 Praha 5
+Czech Republic

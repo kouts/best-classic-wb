@@ -1,0 +1,131 @@
+<HTML>
+<HEAD>
+<TITLE>Codigos de teclado RAWKEY</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: rawkey.html 1.5 2019/02/21 00:41:00 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Códigos de teclado RAWKEY</h3>
+Todas las teclas usadas por WHDLoad deben ser especificadas como códigos de teclado.
+<p>Para esto, aquí hay una tabla que muestra todos los códigos de teclado en notación hexadecimal:
+<br><img src="../pic/keyraw.gif" alt="Keys Raw">
+<p>con fines de comparación, este es el mapa de teclado US:
+<br><img src="../pic/keyus.gif" alt="Keys US">
+<p>el teclado francés:
+<br><img src="../pic/keyfr.gif" alt="Keys FR">
+<p>el teclado alemán:
+<br><img src="../pic/keyde.gif" alt="Keys DE">
+<p>y el teclado italiano:
+<br><img src="../pic/keyit.gif" alt="Keys IT">
+
+<h3>Los códigos de botón</h3>
+
+Comenzando con WHDLoad versión 16.8 también es posible salir de WHDLoad usando un
+botón del ratón, joystick o joypad. Para ello hay códigos de teclado especiales
+definidos en la tabla debajo. Estos códigos de teclado solo funcionan con la opción
+<a href="opt.html#QuitKey">QuitKey</a>, no con ninguna otra opción de teclado.
+
+<br>Para hacer que WHDLoad sea capaz de detectar cuando un botón es presionado no
+debe usarse la opción <a href="opt.html#NoVBRMove">NoVBRMove</a>, el CPU debe ser como
+mínimo un 68010 y el programa instalado debe tener la interrupción de blanqueo vertical
+activada.
+
+<br>Los códigos de teclado se listan en notación hexadecimal y decimal.
+
+<br>El uso de botones desde un joypad ($103..$10a/$113..$11a) como la <a
+href="opt.html#QuitKey">QuitKey</a> hará imposible que el programa instalado
+detecte/chequee/use el joypad. El programa instalado creerá que un joystick está
+conectado. Esto se debe a algunas limitaciones de hardware que implican que el
+joypad solo puede ser chequeado una vez por cada 1/50 de segundo. Por lo tanto
+no utilice esta opción para juegos que requieren utilizar un joypad.
+
+<br>La función <a href="opt.html#QuitKey">QuitKey</a> utilizada al presionar Reversa,
+Adelante y Jugar al mismo tiempo comenzó a estar soportada a partir de la version 18.4 de WHDLoad.
+
+<p><table border=1>
+<tr>
+	<th>código puerto 0<br>usualmente ratón</th>
+	<th>código puerto 1<br>usualmente joystick/pad</th>
+	<th>Ratón</th>
+	<th>Joystick</th>
+	<th>Joypad</th>
+	<th>Megadrive</th>
+	<th>Master System<br>TecnoPlus</th>
+</tr><tr>
+	<th>$100/256</th>
+	<th>$110/272</th>
+	<th>botón izquierdo</th>
+	<th>disparo</th>
+	<th>Rojo/Seleccionar</th>
+	<th>B</th>
+	<th>A</th>
+</tr><tr>
+	<th>$101/257</th>
+	<th>$111/273</th>
+	<th>botón derecho</th>
+	<th>segundo disparo</th>
+	<th>Azul/Detener</th>
+	<th>C</th>
+	<th>B</th>
+</tr><tr>
+	<th>$102/258</th>
+	<th>$112/274</th>
+	<th>botón central</th>
+</tr><tr>
+	<th>$103/259</th>
+	<th>$113/275</th>
+	<th></th>
+	<th></th>
+	<th>Jugar</th>
+</tr><tr>
+	<th>$104/260</th>
+	<th>$114/276</th>
+	<th></th>
+	<th></th>
+	<th>Reversa/Ala Izquierda</th>
+</tr><tr>
+	<th>$105/261</th>
+	<th>$115/277</th>
+	<th></th>
+	<th></th>
+	<th>Avance/Ala Derecha</th>
+</tr><tr>
+	<th>$106/262</th>
+	<th>$116/278</th>
+	<th></th>
+	<th></th>
+	<th>Verde/Buscar</th>
+</tr><tr>
+	<th>$107/263</th>
+	<th>$117/279</th>
+	<th></th>
+	<th></th>
+	<th>Amarillo/Bucle</th>
+</tr><tr>
+	<th>$108/264</th>
+	<th>$118/280</th>
+	<th></th>
+	<th></th>
+	<th>Rojo/Seleccionar</th>
+</tr><tr>
+	<th>$109/265</th>
+	<th>$119/281</th>
+	<th></th>
+	<th></th>
+	<th>Azul/Detener</th>
+</tr><tr>
+	<th>$10a/266</th>
+	<th>$11a/282</th>
+	<th></th>
+	<th></th>
+	<th>Jugar+Reversa+Adelante</th>
+</tr></table>
+
+<p>En las versiones 16.4 - 16.7 de WHDLoad era posible utilizar una QuitKey de $73
+para salir presionando el botón izquierdo del ratón. Esto ya no funciona en WHDLoad
+versión 16.8 y posterior. El nuevo código de teclado $100 debe ser utilizado con dicho fin.
+
+</BODY>
+</HTML>

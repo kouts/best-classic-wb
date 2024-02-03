@@ -1,0 +1,72 @@
+NAME
+	xfdLibInfo 1.06
+
+SYNOPSIS
+	xfdLibInfo
+
+DESCRIPTION
+	xfdLibInfo displays the name, ID, required xfdmaster version
+	and available functions of all slaves in xfdmaster.library.
+	It requires either Kickstart V37+ or the arp.library together
+	with older releases of the OS.
+
+	Meaning of the abbrevations:
+	ID - internal slave ID
+	MV - required master version
+	RB - RecogBuffer() function
+	DB - DecrunchBuffer() function
+	F1 - RecogSegment() or ScanData() function
+	F2 - DecrunchSegment() or VerifyData() function
+
+	If you can read "++" in a column, the function is available,
+	otherwise you'll see "--".
+
+	The XFDPFF_#? field gives information about the different
+	flags set in xfds_PackerFlags.
+
+EXAMPLE
+	Shell> xfdLibInfo
+
+	Contents of xfdmaster.library 37.1
+
+	 Name          |  ID  | MV | RB | DB | F1 | F2 | XFDPFF_#?
+	---------------+------+----+----+----+----+----+-----------
+	 PP 2.3 Normal | 8001 | 36 | ++ | ++ | ++ | ++ | RELOC!RELMODE
+	 [...]
+
+HISTORY
+	xfdLibInfo 1.06
+	- Added support for XFDPFF_RECOGLEN and XFDPFF_USERTARGET
+	  flags.
+
+	xfdLibInfo 1.05
+	- Removed NA display as data slaves can have a scan routine.
+	- Renamed RS/DS to F1/F2 as they have different meanings
+	  for different slave types.
+	- Added support for XFDPFF_EXTERN flag.
+
+	xfdLibInfo 1.04
+	- Added support for slave IDs.
+	- Added NA display for data files.
+
+	xfdLibInfo 1.03
+	- Added support for new XFDPFF_KEY16/32 flags.
+
+	xfdLibInfo 1.02
+	- Added XFDPFF_#? field to output.
+
+	xfdLibInfo 1.01
+	- Changed style of output.
+	- Added more information to output.
+
+	xfdLibInfo 1.00
+	- First public release.
+
+COPYRIGHT
+	xfdLibInfo is freely distributable for noncommercial use.
+
+AUTHOR
+	Georg Hörmann
+	Martinswinkelstraße 16c
+	82467 Garmisch-Partenkirchen
+	Germany

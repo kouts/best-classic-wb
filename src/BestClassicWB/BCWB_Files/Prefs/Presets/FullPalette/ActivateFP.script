@@ -1,0 +1,26 @@
+; This script will actually activate FullPalette
+
+; Voodoo magic to insert a line in the startup-sequence
+
+edit sys:s/startup-sequence OPT P70 with sys:Prefs/Presets/FullPalette/ActivateFP.edit
+
+; end of mystical mode ;)
+
+; Now lets massage files
+
+delete sys:prefs/FullPalette force
+rename sys:prefs/FPalette FullPalette
+delete sys:prefs/FullPalette.info force
+copy sys:prefs/presets/FullPalette/FullPalette.info sys:prefs
+
+; We inform ENVARC: so that we do not double install or do nonsense!
+
+copy sys:prefs/presets/Fullpalette/FullPalette envarc:BetterWB
+
+; Now lets inform that the deed is done
+
+echo ""
+echo "Activation finished!"
+echo ""
+ask "Now reboot your machine so that changes take effect."
+quit

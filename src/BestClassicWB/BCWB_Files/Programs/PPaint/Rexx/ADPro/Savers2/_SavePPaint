@@ -1,0 +1,69 @@
+/*
+** _SavePPaint
+**
+** $VER: _SavePPaint 1.0 (1995-09-16)
+**
+** This program can be run as an ADPro saver to transfer
+** the current ADPro buffer into Personal Paint's environment
+**
+** This script requires ADPro v. 2.5.0 (or higher)
+**
+** Copyright © 1995 Cloanto Italia srl - All Rights Reserved
+**
+*/
+
+PPPORT = 'PPAINT'
+ADPORT = 'ADPro'
+
+IF ~SHOW('P', PPPORT) THEN DO
+	IF EXISTS('PPaint:PPaint') THEN DO
+		ADDRESS COMMAND 'Run >NIL: PPaint:PPaint'
+		DO 30 WHILE ~SHOW('P',PPPORT)
+			 ADDRESS COMMAND 'Wait >NIL: 1 SEC'
+		END
+	END
+	ELSE DO
+		ADDRESS VALUE ADPORT
+		ADPRO_TO_FRONT
+		OKAY1 "Personal Paint could not be loaded."
+		EXIT 10
+	END
+END
+
+IF ~SHOW('P', PPPORT) THEN DO
+	ADDRESS VALUE ADPORT
+	OKAY1 'Personal Paint Rexx port could not be opened.'
+	EXIT 10
+END
+
+tmpfname = 'T:pprx_temp.'PRAGMA('ID')
+tmpdefs  = 'T:adpro_defs.'PRAGMA('ID')
+
+OPTIONS RESULTS
+ADDRESS VALUE ADPORT
+
+SAVE_DEFAULTS tmpdefs
+
+SAVER "PCX" tmpfname RAW	/* PCX is used to get a correct screen format */
+IF RC ~= 0 THEN DO
+	ADPRO_TO_FRONT
+	OKAY1 "ADPro failed to save the image."
+END
+ELSE DO
+	ADDRESS VALUE PPPORT
+	LoadImage '"'tmpfname'" FORCE QUIET'
+	IF RC ~= 0 THEN DO
+		ADDRESS VALUE ADPORT
+		ADPRO_TO_FRONT
+		OKAY1 "PPaint failed to load the image."
+	END
+	ADDRESS COMMAND 'Delete >NIL: 'tmpfname
+END
+
+ADDRESS VALUE ADPORT
+LOAD_DEFAULTS tmpdefs
+IF (RC ~= 0) THEN DO
+	ADPRO_TO_FRONT
+	OKAY1 "Error restoring settings."
+END
+ADDRESS COMMAND 'Delete >NIL: 'tmpdefs

@@ -1,0 +1,146 @@
+@DATABASE "targa.datatype.guide"
+@$VER: targa.datatype.guide 43.1 (2.3.97)
+@AUTHOR "Arthur Pijpers"
+
+@NODE Main "targa.datatype Documentation"
+@{B}Table of Contents@{UB}
+
+@{" Legal                                  " link Legal}
+@{" How to Install                         " link Installation}
+@{" What is a Targa file ?                 " link Targa }
+@{" Implementation Details (Release Notes) " link Implementation}
+@{" Revision history                       " link History}
+@{" Acknowledgements                       " link Acknowledgements}
+@{" Author                                 " link Author}
+@{" Bugs                                   " link Bugs}
+@{" Important note!                        " link Important}
+@ENDNODE
+
+@NODE Legal
+@{B}Legal@{UB}
+
+The targa datatype is freely distributable, but you may not charge for it,
+other than for reasonable media and distribution costs such as those charged
+by Fred Fish, the Aminet CD and other reputable PD libraries.
+
+The targa datatype can be distributed as part of a datatype collection, but
+then you have to supply both the 68000 and the 68020 version.
+
+If you really use this datatype, please send me some E-Mail. I'd like to know
+if people really use these things.
+@ENDNODE
+
+@NODE Installation
+@{B}How to Install@{UB}
+
+Simply double click on the targa.datatype.install icon and follow the
+onscreen instructions.
+@ENDNODE
+
+@NODE Targa
+@{B}What is a Targa file ?@{UB}
+
+A Targa file is a graphical file format. It is most of the time used to store
+24 bit pictures, but there are also formats for 1 to 8, 15, 16 and 32 bits.
+Targa files don't have special characters in the header to recognize it.
+Therefor a Targa file can only be recognized by the extension of the filename.
+This extension must be .tga or .TGA, or the file will not be recognized.
+
+See also @{"Important" link Important}
+
+TARGA and TGA are registered trademarks of Truevision, Inc.
+@ENDNODE
+
+@NODE Implementation
+@{B}Implementation Details (Release Notes)@{UB}
+
+This implementation will decode @{"Targa" link Targa} files in up to 256 colours.
+15,16,24 and 32 bit Targa images are converted to HAM8 on AGA systems. On systems
+with picture.datatype v43+, they are converted to 24 bit. For 32 bit images,
+the alpha channel data are skipped.
+@ENDNODE
+
+@NODE History
+@{B}Revision History@{UB}
+
+Version 43.1 released 2-3-1997
+
+ - Code optimized
+ - Removed specific check for cybergraphics.library
+ - Added check for DTST_FILE
+ - Recompiled with SAS/C V6.57
+ - Shortened the guide file
+ - Other E-mail address
+
+Version 43.0 released 18-2-1996
+
+ - Added CyberGraphX support
+ - Finally removed bug when used with Workbench 3.0
+
+Version 39.2 released 10-4-1995
+
+ - Fixed some bugs in the 15,16 bit support
+ - ModeID selection is safer now for HAM8 screens.
+
+Version 39.1 released 18-3-1995
+
+ - Added 15,16 bit support
+ - Added support for 8,15,16 and 32 bit colourmaps and for pictures
+   without a colourmap
+ - Added support for interleaved pictures
+ - Added support for right to left pictures
+ - Fixed small problem with 15,16,24 and 32 bit pictures, that also have a
+   colourmap
+ - Swapped some colours in the HAM palette, to give the pointer (almost) the
+   standard Workbench colours
+
+Version 39.0 released 22-1-1995
+ 
+ - First release
+@ENDNODE
+
+@NODE Acknowledgements
+@{B}Acknowledgements@{UB}
+
+Many thanks to John Hendrikx (Textdemo/FastView) for the Chunky2Planar and
+RGBtoHAM8 routines
+
+Thanks to Frank Mariak and Thomas Sontowski for developing CyberGraphX
+
+Thanks to Ralph Schmidt for developing the v43 picture.datatype with
+CyberGraphX support
+
+Thanks to the guys of SAS/C, who keep updating the C-compiler in their own
+time
+
+targa datatype was compiled using SAS/C V6.57
+
+TARGA and TGA are registered trademarks of Truevision, Inc.
+@ENDNODE
+
+@NODE Author
+@{B}Author@{UB}
+
+Arthur Pijpers
+E-mail: luyten@caiw.nl
+@ENDNODE
+
+@NODE Bugs
+@{B}Bugs@{UB}
+
+Previous versions (<43) of targa.datatype didn't always work correct with
+picture.datatype 39.14 from Workbench 3.0. When using a HAM8 screen,
+targa.datatype reserved 64 colours, but picture.datatype wanted 256 colours. 
+@ENDNODE
+
+@NODE Important
+@{B}Important Note!@{UB}
+
+If you have the qrt.datatype (v 39.1) installed on your system, then most Targa
+files will not be recognized by the picture.datatype. The description file
+for the qrt.datatype causes this problem. The only way to avoid this problem
+is to remove the qrt description from the DEVS:DataTypes directory.
+
+BTW. The qrt description causes problems for more datatypes, like the
+binary.datatype.
+@ENDNODE

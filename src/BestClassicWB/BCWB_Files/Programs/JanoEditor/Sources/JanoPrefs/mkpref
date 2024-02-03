@@ -1,0 +1,46 @@
+.key exename/a
+.bra {
+.ket }
+
+set CPU    "68000"
+set CFLAGS "Opt NoStackCheck IDir=/ Define JANOPREF CPU $CPU Define mc$CPU Define __SASC__"
+set EXE    "//JanoPrefs"
+set CATDIR "//Catalogs/"
+
+If "{exename}" eq "help"
+   echo "Usage: MkPref <file> : compile preference tool, with good arguments"
+   echo "* 'MakePref all' recompile whole project"
+   echo "* 'MakePref exe' make linkage of all objects"
+   echo "* 'MakePref cat' rebuild catalogs files"
+Else
+	If "{exename}" eq "all"
+		; Do not use generated objects
+		copy /Prefs.c PrefsIO.c QUIET
+		sc NoLink #?.c $CFLAGS
+		sc Link #?.o ProgramName $EXE
+	Else
+		If "{exename}" eq "exe"
+			; Use previous generated objects
+			sc Link #?.o ProgramName $EXE
+		Else
+			If "{exename}" eq "cat"
+				; Build strings header
+				CatComp Catalogs/JanoPrefs.cd CFILE Prefs_Strings.h NOARRAY NOBLOCK NOCODE
+
+				; Build translated catalog
+				; Why this fucking command is badly expanded ????
+				; CatComp Catalogs/JanoPrefs.cd Catalogs/français.ct CATALOG ${CATDIR}français/JanoPrefs.catalog
+				CatComp Catalogs/JanoPrefs.cd Catalogs/français.ct CATALOG //Catalogs/français/JanoPrefs.catalog
+				CatComp Catalogs/JanoPrefs.cd Catalogs/deutsch.ct  CATALOG //Catalogs/deutsch/JanoPrefs.catalog
+				CatComp Catalogs/JanoPrefs.cd Catalogs/español.ct  CATALOG //Catalogs/español/JanoPrefs.catalog
+				; CatComp Catalogs/JanoPrefs.cd Catalogs/russian.ct  CATALOG //Catalogs/russian/JanoPrefs.catalog
+			Else
+				If "{exename}" eq "prefs.c"
+					copy /prefs.c "" quiet
+				EndIf
+				; Source file in the same directory
+				sc $CFLAGS NoLink {exename}
+			EndIf
+		EndIf
+	EndIf
+EndIf

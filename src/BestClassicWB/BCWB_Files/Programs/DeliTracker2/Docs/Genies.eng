@@ -1,0 +1,547 @@
+
+
+                    $VER: Genies.eng V2.32 (20.03.2000)
+                   Copyright 2000 by Delirium Softdesign
+                      (Peter Kunath and Frank Riffel)
+
+
+
+  In this document file are all genies listed that are offically released
+  or supported by Delirium Softdesign. A description of the standard menus
+  of the GUI is omitted. Only genie specific GUI elements are described
+  herein.
+
+  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  WANTED: Developer docs for WaveTools/PeriSound, SoundStage and AD516. The
+  first person which sends us the programming docs for one of these cards
+  will get a free DeliTracker registration (and maybe a NotePlayer as well
+  if the documentation is detailed enough).
+  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+  1. NOTEPLAYER GENIES
+
+  Noteplayers that use MEMF_PUBLIC or MEMF_ANY require only a small chipmem
+  buffer for playing the samples. This enables you to load modules that are
+  even bigger than your actual chipmem. On the other hand this will cost
+  you some extra cpu cycles.
+
+  Name                          Description
+  ==========================    ===========================================
+
+  AudioDev-NotePlayer           --- Removed ---
+                                We removed this noteplayer because there
+                                are bugs in the audio.device which cause
+                                many problems. There are no workarounds
+                                for these bugs.
+
+  Paula-NotePlayer              Up to 4 Voices. Uses MEMF_CHIP to hold the
+                                samples. Uses the audio.device channel
+                                allocation but plays the 'notes' by writing
+                                directly to the current paula chip.
+                                GUI: Selection of the allocation precedence
+                                of the channels.
+                                Note: Some programs incorrectly using the
+                                audio.device will have problems. Term 3.4
+                                is one of them. You can avoid the problems
+                                if you select 127 as allocation precedence.
+                                But then one of the advantages of this
+                                Noteplayer is gone away.
+
+  4Voices-NotePlayer            Up to 4 Voices. Uses MEMF_ANY to hold the
+                                samples. Only a 1KB chipmem buffer is used.
+                                GUI: Each channel can be enabled/disabled.
+                                Note: On A3000 this NotePlayer eats about
+                                4% more cpu-cycles than Paula-NotePlayer.
+
+  8Voices-NotePlayer            Up to 8 Voices. Uses MEMF_ANY to hold the
+                                samples. Thanks to Jörg Schmidt. The mixing
+                                routine is © 1991 by Maxon Computer GmbH.
+                                GUI: Each channel can be enabled/disabled.
+
+  32Voices-NotePlayer           Up to 32 Voices. Uses MEMF_ANY to hold the
+                                samples. Uses DeliMix.
+                                GUI: Left and Right stereo channel can be
+                                enabled or disabled. The Mixfrequency can
+                                be set between 4 kHz and 60 kHz.
+
+  32Voices-NotePlayerPlus       Up to 32 Voices. Uses MEMF_ANY to hold the
+                                samples. Uses DeliMix.
+                                GUI: Left and Right stereo channel can be
+                                enabled or disabled. Additionally there is
+                                a volume boost slider. If Auto-Boost is
+                                enabled the boost is preset. This value
+                                depends on the requested number of channels.
+                                There are some trade off's with this
+                                NotePlayer: It requires quite a lot of
+                                CPU power. The Mixfrequency can be set
+                                between 4 kHz and 60 kHz.
+
+  14Bit-NotePlayer              Up to 32 Voices. Uses MEMF_ANY to hold the
+                                samples. Uses DeliMix. The mixing result
+                                will be output with 14Bit quality. Due to
+                                used output scheme the output level might
+                                be low. You can raise the level with the
+                                boost-slider, but we recommend to use the
+                                volume control of your amplifier instead.
+                                If existent this genies uses the CyberSound
+                                calibration-prefs for optimum quality.
+                                GUI: Left and Right stereo channel can be
+                                enabled or disabled. The new version has an
+                                additional volume boost slider. If Auto-Boost
+                                is enabled the boost is preset. This value
+                                depends on the requested number of channels.
+                                As usual the Mixfrequency can be set between
+                                4 kHz and 60 kHz.
+
+  AHI-NotePlayer                This NotePlayer is based on the AHI audio
+                                system from Martin Blom.
+                                For more information refer to:
+                                http://www.lysator.liu.se/~lcs/ahi.html
+
+  Headphone-NotePlayer          Up to 32 Voices. Uses MEMF_ANY to hold the
+                                samples. Uses DeliMix. This Noteplayer is
+                                intended for use with headphones.
+                                GUI: Left and Right stereo channel can be
+                                enabled or disabled. With a slider you can
+                                control the stereo factor: 0% = mono,
+                                100% = full stereo, 50% = each channel is
+                                mixed with 50% level on the opposite side.
+                                Additionally there is a volume boost slider.
+                                If Auto-Boost is enabled the boost is preset.
+                                This value depends on the requested number
+                                of channels. The Mixfrequency can be set
+                                between 4 kHz and 60 kHz.
+
+  ModSave-NotePlayer            Up to 16 Voices. Uses MEMF_ANY to hold the
+                                samples. Uses DeliMix. With this noteplayer
+                                you can transform your favorite modules
+                                into samples :-)
+                                GUI: Left and Right stereo channel can be
+                                enabled or disabled. The Mixfrequency can
+                                be set between 4 kHz and 60 kHz. If the
+                                'Save Sample' gadget is checked an IFF-8SVX
+                                sample will be written to the file you have
+                                specified in the 'Filename' gadget. If no
+                                filename is given, a file requester will pop
+                                up and ask you. With the 'Mode' Cyclegadget
+                                you can select whether a Mono or a Stereo
+                                sample should be created. In Mono mode up to
+                                eight channels are saved. In Stereo Mode, up
+                                to sixteen channels are saved.
+                                Additionally there is a volume boost slider.
+                                If Auto-Boost is enabled the boost is preset.
+                                This value depends on the requested number
+                                of channels. The Mixfrequency can be set
+                                between 4 kHz and 60 kHz.
+
+  Toccata-NotePlayer            Up to 32 Voices, supports Panning. Uses
+                                MEMF_ANY to hold the samples. This NotePlayer
+                                will use the Toccata soundboard to produce
+                                true 16bit sound.
+                                Note: DraCo users require at least V12 of the
+                                toccata.library.
+                                Available for registered users upon request.
+
+  MPro-NotePlayer               Up to 32 Voices, supports Panning. Uses
+                                MEMF_ANY to hold the samples. This NotePlayer
+                                will use the Maestro Professional card to
+                                produce true 16bit sound.
+                                Available for registered users upon request.
+
+
+  2.DECRUNCH GENIES
+
+  Name                          Description
+  ==========================    ===========================================
+
+  Decruncher                    This genie can decrunch 'imploded' files
+                                and LhA, GZip, Zip and Lzx archives. Only the
+                                first file from an archive will be decrunched.
+                                Files that match the exclude pattern will be
+                                skipped.
+
+
+  3.CONVERT GENIES
+
+  Name                          Description
+  ==========================    ===========================================
+
+  Deli-Wizard                   Copyright © 1994-95 by Nicolas FRANCK.
+                                Reconverts the most Protracker 'Packers'
+                                back to ProTracker. Currently, -51- formats
+                                are recognized and converted:
+
+                                      Noise/Protracker
+                                      Heatseeker Packer
+                                      Xann-Packer
+                                      Pha-Packer
+                                      NoisePacker_v1/2
+                                      NoisePacker_v3
+                                      Promizer_v1.0c
+                                      Promizer_v1.8a
+                                      Promizer_v2.0
+                                      Wanton-Packer
+                                      SKYT-Packer
+                                      ProPacker_v1.0
+                                      ProPacker_v2.1
+                                      ProPacker_v3.0
+                                      ProRunner_v1.0
+                                      Laxity-Tracker
+                                      UNIC-Tracker
+                                      KRIS-Tracker
+                                      ProRunner_v2.0
+                                      NoiseRunner
+                                      EUREKA-Packer
+                                      AC1D-Packer
+                                      Pygmy Projects
+                                      Digital Illusions
+                                      Channel Player v1
+                                      Channel Player v2
+                                      Channel Player v3
+                                      Promizer_v4.0
+                                      The Player v5.0a
+                                      StarTrekker Pack'
+                                      The Player v6.0a
+                                      GMC
+                                      Module Protector
+                                      Promizer v0.1
+                                      Soundtracker 2.6
+                                      FC-M Packer
+                                      IceTracker
+                                      Fuzzac Packer
+                                      Kefrens Sound Machine
+                                      The Player 40A/40B/41A
+                                      Tracker Packer 1/2/3
+                                      NoiseTracker Pak
+                                      Polka Packer
+                                      Power Music
+                                      Soundtracker Pro 3.0
+                                      Zen Packer
+                                      The Player v6.1a
+                                      Hornet Packer
+
+                                GUI: Enable/Disable conversion routines.
+                                Modules can be saved with the 'Save Module'
+                                button. This will bring up a file requester.
+
+                                Note: To become a registered user of both
+                                      Pro-Wizard-2 and Deli-Wizard, send
+
+                                          50 FF  /  15$ US  /  20 DM
+
+                                to:   Nicolas FRANCK
+                                      157, Rue de Strasbourg
+                                      77350 Le Mée sur Seine
+                                      France
+
+                                You can send bugreports and suggestions
+                                concerning Deli-Wizard or Pro-Wizard to
+                                this address as well.
+
+  Converter                     This genie converts 'exotic' modules into
+                                more common formats that can be played with
+                                DeliTracker. Currently these formats are
+                                recognized and converted:
+
+                                     In Stereo! => Synthesis 
+                                     GraveComposer => FastTracker
+                                     Octalyzer => FastTracker
+                                      (this format is not the
+                                       same as Oktalyzer!)
+                                     MED Song => MED Module
+                                     StarTrekker8 => TakeTracker
+                                     FutureComposer 1.3 => FutureComposer 1.4
+                                     SoundTracker => SoundTracker15
+                                     DigitalTracker 1.0 => TakeTracker
+
+                                GUI: Enable/Disable conversion routines.
+
+  ST-NT-PT-Song_Converter       The genie converts Sound/Noise/ProTracker
+                                Songs into modules. The song and all samples
+                                may be packed. The samples may be either
+                                located in the volume that the song tells
+                                (e.g. ST-01:) or in an equal named subdirectory
+                                (e.g. ST-01/). The path of this subdir can be
+                                set with the GUI. If a sample is not found
+                                the user is asked for a replacement.
+                                GUI: Sets the instrument search path.
+
+
+  4.OTHER GENIES
+
+  Name                          Description
+  ==========================    ===========================================
+
+  ModuleInfo                    This genie will show some information about
+                                the current module. At the moment the real
+                                module name, file size, number of patterns,
+                                estimated duration, sample names and length
+                                may be displayed
+                                GUI: 'Settings'-Menu: Duration will enable
+                                the calculation of the estimated playtime.
+
+  MonoScope                     This genie displays current waveform in a
+                                neat new way. This genie works with up to 8
+                                Voices. Each pixel represents a point in
+                                time. The x and y co-ordinates of it are
+                                correlated to the sample. In 'Single Mode'
+                                the x position is taken from the amplitude
+                                of the left channel. The y position is
+                                taken from the amplitude of the right
+                                channel. This is how the left channel
+                                correlates to the right. The x co-ordinate
+                                of an point in 'Double Mode' is taken from
+                                the amplitude of the signal. The y
+                                co-ordinate is taken from the amplitude
+                                a fixed short time interval later. This
+                                mode shows how the signal correlates to
+                                itself.
+                                GUI:    Settings
+                                        :
+                                        Nasty Blit
+                                                This is to fix some problems
+                                                with (EGS) GfX cards. These
+                                                arise from blit operations
+                                                done by the cpu. If enabled
+                                                Forbid()/Permit() is used to
+                                                to protect those operations.
+                                        ~~~~~~~~~~~~~~~
+                                        Single Mode A-I Select single mode
+                                        Double Mode A-O Select double mode
+
+  StereoScope                   This genie displays current waveform as
+                                stereo signal. If you would connect an
+                                oscilloscope at the audio jacks and select
+                                a frequency range of about 2 kHz you should
+                                see the same signals. This genie works with
+                                up to 8 Voices.
+                                GUI:    Settings
+                                        :
+                                        Nasty Blit
+                                                This is to fix some problems
+                                                with (EGS) GfX cards. These
+                                                arise from blit operations
+                                                done by the cpu. If enabled
+                                                Forbid()/Permit() is used to
+                                                to protect those operations.
+
+  QuadraScope                  This genie displays current waveform of up
+                                to 4 channels - not sizeable, moderate cpu
+                                load.
+                                GUI:    Settings
+                                        :
+                                        Nasty Blit
+                                                This is to fix some problems
+                                                with (EGS) GfX cards. These
+                                                arise from blit operations
+                                                done by the cpu. If enabled
+                                                Forbid()/Permit() is used to
+                                                to protect those operations.
+
+
+
+  QuadraScopePlus               Copyright 1994-95 by Florian Vorberger.
+                                This genie displays the waveforms of up to
+                                4 channels. QuadraScope+ updates 50 times a
+                                second. This means it needs quite a lot of
+                                CPU cycles. The CPU power increase is approx.
+                                linear to the windows size. If you experience
+                                a slow display you might need to shrink your
+                                window. If you use a 'Solid' display the
+                                required CPU power depends more on the window
+                                height.
+                                GUI:    Settings
+                                        :
+                                        Nasty Blit
+                                                This is to fix some problems
+                                                with (EGS) GfX cards. These
+                                                arise from blit operations
+                                                done by the cpu. If enabled
+                                                Forbid()/Permit() is used to
+                                                to protect those operations.
+                                        ~~~~~~~~~~
+                                        Half   A-A Displays the absolute
+                                                   level from zero to top.
+                                                   Treat samples unsigned.
+                                        Mirror A-M Same as half except the
+                                                   zero line is centered and
+                                                   the level is also drawn in
+                                                   the negative range.
+                                                Note: If 'Half' and 'Mirror'
+                                                   are off the sample is
+                                                   treated as signed. This
+                                                   is the default mode.
+                                        ~~~~~~~~~~
+                                        Dot    A-D Draw only sample values
+                                        Line   A-L Connect sample values
+                                                   with lines.
+                                        Solid  A-O Filled display
+
+                                QuadraScope+ written by Florian Vorberger.
+                                It may only be distributed along with the
+                                DeliTracker_II package! You are allowed to
+                                use QuadraScope+ only for NON-Commercial
+                                purposes. If you find any bugs, have any
+                                ideas for improving 'Quadrascope+' or want
+                                a special commercial-usage agreement please
+                                contact:
+                                 Florian.Vorberger@informatik.tu-muenchen.de
+                                 or Delirium Softdesign (we will forward any
+                                 wishes).
+
+  LightOrgan_Color              This genie displays the summed volume level
+                                (amplitude) of up to 8 channels. The sum of
+                                the left channels control the blue level
+                                and the right channels control the red
+                                level. This genie allocates one pen and
+                                therefore requires at least V39.
+                                Note: If you want to run this genie on
+                                your Workbench Screen you must choose
+                                a screen mode with at least 16 colors!
+
+  FFTAnalyzer                   This genie displays the frequency spectrum of
+                                up to 4 left and right channels. The display
+                                is divided into two columns (one for the left
+                                and one for the right channels). Each column
+                                consists of 64 equally spaced bars. A single
+                                bar represents a frequency range of 110Hz.
+                                The topmost bar represents the highest
+                                frequency range (ie. 7.5kHz). The displayed
+                                amplitude of a frequency range is proportional
+                                to the sound pressure level in dB(A). Refer
+                                to DIN IEC-651 for more information. The
+                                frequency spectrum is calculated using a highly
+                                optimized 504-Point-Fast-Fourier-Transform.
+                                Big thanks to Kim Øyhus for providing the new
+                                FFT routine!
+                                GUI:    Settings
+                                        :
+                                        Nasty Blit
+                                                This is to fix some problems
+                                                with (EGS) GfX cards. These
+                                                arise from blit operations
+                                                done by the cpu. If enabled
+                                                Forbid()/Permit() is used to
+                                                to protect those operations.
+
+  FFTScope                      This genie displays the change of the frequency
+                                spectrum over time. It supports up to four
+                                left and right channels. The lightness of the 
+                                pixels corresponds to the value of the frequency
+                                component (ie. lighter color indicates higher
+                                intensity). The frequency axis starts at the
+                                window bottom (low frequencies).
+                                GUI:    Settings
+                                        :
+                                        Nasty Blit
+                                                This is to fix some problems
+                                                with (EGS) GfX cards. These
+                                                arise from blit operations
+                                                done by the cpu. If enabled
+                                                Forbid()/Permit() is used to
+                                                to protect those operations.
+                                        ~~~~~~~~~~
+                                        Frequency Range
+                                                Allows you to select the
+                                                frequency range which will be
+                                                displayed (6 - 8 octaves).
+
+  DrWhoGenie                    This genie is based on the rotating tunnel
+                                effect from Sanity's demo 'ARTE'. Many thanks
+                                to Chaos/Sanity for his routines!
+                                This genie needs OS 3.0 and a screen with at
+                                least 16 free pens.
+                                GUI:    Settings
+                                        :
+                                        Nasty Blit
+                                                This is to fix some problems
+                                                with (EGS) GfX cards. These
+                                                arise from blit operations
+                                                done by the cpu. If enabled
+                                                Forbid()/Permit() is used to
+                                                to protect those operations.
+                                        ~~~~~~~~~~
+                                        Own C2P A-2 A highly optimized C2P
+                                                    conversion routine in
+                                                    conjunction with
+                                                    BltBitMapRastPort() is
+                                                    used to draw the picture.
+                                        Use WPA A-W Uses the V39 OS function
+                                                    WritePixelArray8() to
+                                                    draw the picture.
+                                        Use WCP A-C Uses the V40 OS function
+                                                    WriteChunkyPixels() to
+                                                    draw the picture.
+                                        Note: Please check which option is
+                                              the fastest on your system!
+                                        ~~~~~~~~~~
+                                        16 Colors A-1 Uses 16 colors for the
+                                                      tunnel.
+                                        64 Colors A-6 Uses 64 colors for the
+                                                      tunnel. If 64 colors are
+                                                      not available it tries
+                                                      to allocate fewer colors.
+                                                      But at least 16 colors
+                                                      must be available or
+                                                      the genie won't run.
+
+  LevelMeter                    This genie displays the sound pressure level
+                                of up to 16 different channel.
+                                The CPU-usage is moderate.
+                                GUI: Settings
+                                     :
+                                     ~~~~~~~~~~
+                                     Height
+                                        »Half Halves the window height.
+                                        »Full Switches to full height.
+
+                                     Width
+                                        »Variable The horizontal size is
+                                                     dynamically adjusted
+                                                     each time the number of
+                                                     active channels changes.
+                                        »4 Channels Displays a fixed number
+                                         .          of channels depending on
+                                         .          the selected menu item.
+                                        »16 Channels
+
+  NewYear-Genie                 Some New Year fun on your monitor.
+                                This genie needs at least Kick 3.0 (OS V39)
+                                and a screen with at least 16 free pens. A gfx
+                                card is not required, but recommended for
+                                optimum speed. A fast processor will also make
+                                the genie look much better.
+
+  Xmas-Genie                    White Christmas on your monitor, sparkling
+                                in your eye :-)
+                                Controls: Volume Slider: SNOW RATE
+                                          Balance Slider: WIND DIRECTION
+                                          Play/Pause: Heaven's SNOW SWITCH:-)
+                                          Eject: Melt Snow
+                                The genie will melt all snow if over 50% of
+                                the topmost line contains 'snow'.
+
+
+  5. DELIMIX
+
+  DeliMix is © 1994-2000 by Delirium Softdesign. DeliMix is real time sample
+  mixing technology. It is the base of many Noteplayers that have virtual
+  channels. With this mixing technology it is possible to mix samples with
+  different sample rates into one output sample. The output sample is
+  generated at a given mixfrequency (rate). Choosing a higher output rate
+  will yield better results at the expense of more cpu power. DeliMix takes
+  advance of an existing 020 or higher. An optimized routine will be used
+  in this case. This routine is about 20% faster. There is a critical point
+  at ~30 kHz mixing frequency. Selecting a higher mixing frequency will
+  make only sense if you run productivity. This is because in the current
+  amiga hardware, the audio DMA is coupled with the scan rate. The hardware
+  can output two samples per scanline. In standard video mode, this results
+  in a maximum output rate of ~30 kHz. Because in productivity the scanrate
+  doubles an output rate of ~60 kHz is possible. All NotePlayers will step
+  down the mixing rate if the cpu is not fast enough to provide the desired
+  mixing frequency! - This is to protect the system from hanging in the
+  interrupt (mixing loop).
+
+
+

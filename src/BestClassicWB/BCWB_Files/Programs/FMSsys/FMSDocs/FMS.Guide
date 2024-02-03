@@ -1,0 +1,296 @@
+@DATABASE "FMS"
+@WORDWRAP
+@NODE "Main" "Table of Contents"
+
+                           #####   ##   ##     ####
+                          ##       ### ###    ##  ##
+                          ##       #######    ##
+                          #####    ## # ##     ####
+                          ##       ##   ##        ##
+                          ##    ## ##   ## ## ##  ## ##
+                          ##    ## ##   ## ##  ####  ##
+
+                        FILE BASED TRACKDISK SIMULATOR
+
+
+                                   Contents:
+                                   ~~~~~~~~~
+                       @{" 1.  Archive contents.         " LINK "Archive Contents"}
+                       @{" 2.  Distribution.             " LINK "Distribution"}
+                       @{" 3.  What does it do and why ? " LINK "WhatWhy"}
+                       @{" 4.  Requirements.             " LINK "Requirements"}
+                       @{" 5.  Speed Issues.             " LINK "Speed"}
+                       @{" 6.  Installation.             " LINK "Installation"}
+                       @{" 7.  About the author.         " LINK "AboutMe"}
+                       @{" 8.  Contact Address.          " LINK "Contact"}
+                       @{" 9.  Thanks.                   " LINK "Thanx"}
+                       @{" 10. History.                  " LINK History.guide/Main}
+@ENDNODE
+
+@NODE "Archive Contents" "Archive Contents"
+
+1. Archive contents.
+~~~~~~~~~~~~~~~~~~~~
+The archive you recieved should contain the following files
+(Plus possibly some BBS adverts)
+
+          FMS/Devs/fmsdisk.device ............. This is the executable.
+          FMS/Devs/MountList .................. Device specification.
+          FMS/Docs/FMS.Guide .................. This Documention.
+          FMS/Docs/History.Guide .............. History of changes.
+
+And no other files.
+@ENDNODE
+
+@NODE "Distribution" "Distribution"
+
+2. Distribution.
+~~~~~~~~~~~~~~~~
+This is a --GIFTWARE-- program.
+
+I.e.   if you like/use it, then please send a gift of some sort to one of the
+authors.   Just  brighten  my  day,  by  sending  me  a -small- token of your
+gratitude,  and  by letting me know that someone thinks I should keep working
+on it.
+
+
+
+Permission is granted for ...
+
+1. you to spread this archive across all electronic storage mediums
+   (Non profit-making BBS's,InterNet e.t.c...)
+
+2. This program to be included in any PD CD collections
+   (I'd reeeally like a copy though ;^) what you say huh?
+   If not, I'd like a substancial gift -- A years supply of Pot Noodles
+   would be cool ;^) (Spicy Tomato Salsa please!! ;^)
+
+3. Jens Kreiensiek and Dirk Hebisch to include this archive within their
+   HFMounter distribution.
+
+4. Any magazines (With exception of Amiga User International) to put the
+   archive on their coverdisks/subscriber disks as long as..
+   a. I am contacted me first, so that you can ensure you have the
+      latest version!
+   b. I'm sent a copy of the issue featuring FMS. [Or HFMounter]
+
+However  distributed,  You must include -ALL- files (Program,Docs, and Icons)
+in  their  unmodified form, and no additional material may be included in the
+archived form.
+@ENDNODE
+
+@NODE "WhatWhy" "What `n' Why?"
+
+3. What does it do and why ?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A friend of mine recently got a CD-Rom drive, and had a few CD's on which the
+archives were stored using DMS or some other track-packer.  I found out about
+FMS  off  of  AmiNet.   FMS  allows  you to Un-DMS or whatever direct to your
+hard-disk by providing a FF0:  device, which acts like a virtual floppy disk.
+
+I  installed the device, and used it, which seemed great.  Some time later, I
+decided  to  do  some experiments with fmsdisk.device and find out if I could
+make  it  faster.   Well..   If  you  use DiskSpeed or some similiar program,
+you'll  see  that  I've  managed  to  decrease the CPU usage, whilst slightly
+increasing performance on most tests.  In addition to this, my device is also
+quite a bit smaller ;^)
+
+As well as unmashing CD archives, FMS is useful perhaps for..
+> People creating floppy based distributions, where they can quickly fill
+  up the FFx: with all required files, and then DISKCOPY FFx: DFx:
+
+> People writing / testing new FileSystems
+
+I  had  abandoned  development  of FMS after V3, but recently, I got asked to
+make  another  release, using the V5 source-code rewritten by Thomas Omilian.
+He made an even better job than I did with the V3 series.  I made a few final
+optimisations, and we now arrive at this version.
+
+From V5 onwards, FMS is a co-operation between Thomas and myself.
+@ENDNODE
+
+@NODE "Requirements" "Requirements"
+
+4. Requirements.
+~~~~~~~~~~~~~~~~
+The only real requirement is a hard-disk.  As it's pretty pointess simulating
+a floppy device on a floppy only system ;^) You'll need at least 900k free.
+No other special requirements are needed.
+@ENDNODE
+
+
+@NODE "Speed" "Speed"
+
+5. Speed issues.
+~~~~~~~~~~~~~~~~
+Using FMS will be usually about half as fast as what your hard-disk goes,
+but this is still faster than your floppy ;^) 
+Performance of the device depends on Individual systems, as there are so
+many factors that make a difference...
+
+ Hard-disk speed
+ ~~~~~~~~~~~~~~~
+  Note, that 3.5" hard-disks generally go a helluva lot faster than
+  their 2.5" counter-parts. My IBM 3.5" can achieve nearly 2mb p/s
+  on my system ;^) Not bad considering the Amiga's interface isn't EIDE!
+
+ Hard-disk interface
+ ~~~~~~~~~~~~~~~~~~~
+  If you use a fast Zorro3 hard-disk interface, you'll achieve a lot
+  greater xfer rates than what a 1200 can with either it's IDE port,
+  or a PCMCIA based SCSI driver.
+
+ Processor
+ ~~~~~~~~~
+  Yup, unbelievably enough a 68060 will do your hard-disk transfers
+  wonders ;^) Although some may say that after a 68030, your hard-disk
+  don't get any faster.. I haven't tested this.
+  At least, you'll use less CPU time during xfers ;^)
+
+ FastRam
+ ~~~~~~~
+  The moment you add 32bit fast-ram your computer goes faster. Simple.
+
+ DiskCaches
+ ~~~~~~~~~~
+  I strongly advise usage of some kind of disk-cache.
+  I used the commercial `HyperCache' and experienced the following
+  benchmarks.
+
+   File Create:           x2
+   File Open:             x4
+   Directory Scan:        x4
+   File Delete:           x2.5
+
+   Seek/Read:             x8
+
+   Reading and writing to files also increase considerably, sometimes
+   upto 8 times faster, but there is no way of measuring this accuratly.
+@ENDNODE
+
+
+@NODE "Installation" "Installation"
+6. INSTALLATION
+~~~~~~~~~~~~~~~
+
+    1. Copy the device for your processor to the DEVS: directory
+
+                  C:Copy fmsdisk.device devs:
+
+
+    2. Assign FMS: to a directory on your hard disk where you want the
+       900k virtual floppy file to be.
+
+    3. Append the Mountlist included onto the end of your current
+       DEVS:MountList using your favorite text-editor.
+
+    4. Mount the device using
+       C:Mount FF0:
+
+    5. The first time you use the device, you'll need to initialise it
+       this is done by simply formatting it. You only need to format it
+       the first time to create the file.
+    
+       SYS:System/Format drive FF0: name Empty NoIcons FFS
+
+To create additional virtual floppies, create extra mountlists, naming each
+one differently, ie, FF1: FF2: e.t.c... and use the same methods as above.
+
+You may also like to check out the program HFMounter by Jens Kreiensiek and
+Dirk Hebisch, which can be found on any Aminet mirror in the disk/misc
+directory. It's a BGUI based system for setting up FMS devices.
+@ENDNODE
+
+@NODE "AboutMe" "(Almost) All you need to know about me."
+
+7. About the Author.
+~~~~~~~~~~~~~~~~~~~~~
+I'm a single 23 year old male (born 6th Feb 1974)
+I work 9-5 as a data entry clerk, which is a really boring, but it helps pay
+for new hardware e.t.c. ;^)   {Offers of alterative jobs are welcome ;^}
+
+I've been developing software on the Amiga since 1990, although a lot of it
+was never released (Phew..) I was a commercial programmer for a while,
+but things turned sour, and I turned to Shareware programming.
+
+I really appreciate gifts of any description for my efforts.
+(SUBTLE HINT: More Bribes==More Code) ;-)
+
+I'm currently working on various programs, Including the Speedup program
+`StreamLineOS2', and the viruskiller `FastVirusKiller'.
+@ENDNODE
+
+@NODE "Contact" "How to get in touch with me."
+
+8. Contact Address.
+~~~~~~~~~~~~~~~~~~~~
+ SNAIL:
+        Dave Jones.
+        40,Heol Edward Lewis,
+           Gelligaer,
+           Hengoed,
+           Mid Glamorgan,
+           Cf82 8ej,
+           South Wales,
+           United Kingdom.
+
+        Include  postage  if you require a reply.  If you are just requesting
+        an  update, then I will hold onto your postage until the next release
+        is  ready.   If  you  are  not residing in the Uk, then just send two
+        extra disks as payment.
+
+ EMAIL:
+        djones@cardiffcybercafe.co.uk
+        thomas.omilian@Dortmund.netsurf.de
+
+ IRC:
+        server : whiterose.net (Official #Amiga IRC Server!)
+                 demon.irc.net (When whiterose.net is quiet ;-)
+        nick   : Termy
+        channel: #Amiga, #NIN
+        when   : most saturday afternoons GMT
+
+  WWW:
+        http://www-personal.usyd.edu.au/~amann/davezstuff/
+
+*Notes*
+If you need to contact me, and this address no longer works, use the whowhere
+web-site to find my current email address.
+Just look at  http://people.whowhere.com/pages/termy
+
+I  go  to  University  in  September  1997, which means I'll have a new email
+account, WhoWhere will point to the correct address, as will the web-page.
+
+The  web-page is managed by an australian friend of mine who provides me with
+some  free space.  When I go to University, there will be an extra page which
+may  offer  quicker  access  times  for  Europeans.   The mirror page will be
+updated a day or two later than the Local page.
+
+Please note, that I really don't have time to reply to EVERY email I receive,
+but  I  will  endeavour  to  do  so.   If you are just sending a `Hello' type
+greeting, then don't expect a reply, but if you have a question, I'll try and
+respond as soon as humanely possible.
+
+If  several  people  ask the same thing then, I'll write short replies in the
+docs of the next release or on the webpage rather than Email all of you.
+@ENDNODE
+
+@NODE "Thanx" "Thanks, you've been great..."
+
+9. Thanx/ Greetz e.t.c...
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Thomas Omilian
+  ~~~~~~~~~~~~~~
+  The great job he made with rewriting V5
+
+
+  Matt Dillon
+  ~~~~~~~~~~~
+  The original FMS programming.
+
+
+  Jens Kreiensiek and Dirk Hebisch
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Thanks for mailing me about HFMounter, keep up the good work ;^)
+@ENDNODE

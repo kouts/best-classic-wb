@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+<TITLE>Image To Disk</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: itd.html 1.5 2013/11/25 22:13:32 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>ITD * Image To Disk</h3>
+C'est un utilitaire pour copier un fichier image sur une disquette.
+<h4>Installation</h4>
+ITD se trouve seulement dans l'archive <tt>DEV</tt>, non dans l'archive <TT>USR</tt>.
+<br>Copiez-le dans le C: ou dans un emplacement similaire.
+<h4>Options</h4>
+<table>
+<tr><td colspan=2>
+<tt>File/A,Device,Format/S,BS=BlockSize/N,ASync/S,ForceOverwriteLargeDevice/S</tt>
+</td></tr><tr><td valign=top>
+<tt>File/A</tt>
+</td><td>
+nom du fichier qui contient l'image du disque &agrave; &eacute;crire sur le p&eacute;riph&eacute;rique
+</td></tr><tr><td valign=top>
+<tt>Device</tt>
+</td><td>
+le nom du device que ITD &eacute;crira l'image
+<br>defaut "DF0:"
+<br>exemple "RAD:"
+</td></tr><tr><td valign=top nowrap>
+<tt>Format/S</tt>&nbsp;&nbsp;
+</td><td>
+si activ&eacute;, le disque sera formatt&eacute; pendant l'&eacute;criture, pour la plupart
+des p&eacute;riph&eacute;riques cela ne fait aucune diff&eacute;rence.
+
+
+</td></tr><tr><td valign=top>
+<tt>BlockSize/N</tt>
+</td><td>
+représente le nombre de données lues et écrites durant chaque cycle, la taille par défaut d'une
+piste est: (BlocksPerTrack*SizeBlock)<br>
+sur des périphériques de taille plus importante, l'utilisattion d'un bloc de donnée plus large peut
+améliorer les performances. Mais attention, certains ne fonctionnent
+plus correctement si la taille des blocs est supérieure à 130,560 ($1fe00) ou même
+65,024 ($fe00)
+</td></tr><tr><td valign=top>
+<tt>ASync/S</tt>
+</td><td>
+Si l'option activée, ITD écrira les données de façon asynchrone vers le périphérique
+de destination. Ne l'utilisez pas si le fichier source et le périphérique de
+destination sont situés sur le même périphérique physique, car l'opération
+sera ralentie. Par contre, si au moins la source ou le périphérique de destination supporte
+les canaux DMA, les performances de la copie seront grandement améliorées. 
+</td></tr><tr><td valign=top>
+<tt>ForceOverwriteLargeDevice/S</tt>
+</td><td>
+Normalement, ITD ne lit pas des fichiers ou n'écrit pas sur des périphériques
+qui sont supérieurs à 2,000,000 octets. Avec cette option, les fichiers et
+périphériques peuvent avoir n'importe quel taille.
+</td></tr>
+</table>
+<h4>Code de retour</h4>
+0 si r&eacute;ussite, sinon 20.
+<h4>G&eacute;n&eacute;ralit&eacute;</h4>
+ITD peut &eacute;crire sur n'importe quel trackdisk device. Pour &eacute;viter certains
+probl&egrave;mes (par ex. alt&eacute;ration de donn&eacute;es sur votre disque dur), il ne peut
+inscrire sur des devices plus de 2,000,000 octets sauf avec l'option ForceOverwriteLargeDevice/S.
+Si l'opération dépasse la barrière des 4GB, il utilisera la commande TrackDisk64.<br>
+
+Il n'y aura pas d'opération de v&eacute;rification du disque.<br>
+Si l'image est plus petite que le périphérique, vous receverez un message d'attention. ITD ne
+touchera pas aux pistes restantes dans ce cas mais arrondira la taille au chiffre supérieur
+pour obtenir un bloc complet et effacera l'espace restant de la piste.
+
+Si l'image est plus grande, vous
+receverez aussi un message et ITD &eacute;crira seulement les donn&eacute;es qui peuvent &ecirc;tre
+inscrites sur le périphérique.
+</BODY>
+</HTML>

@@ -1,0 +1,251 @@
+<HTML>
+<HEAD>
+<TITLE>Snooping</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: snoop.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Snooping</h3>
+
+<h4>What it is</h4> Snooping is a feature of WHDLoad which performs validating
+and logging of accesses to the Custom and CIA registers. If <a
+href="opt.html#Snoop">Snoop</a> is activated all invalid accesses will create
+an Access Fault and the installed program will be terminated. WHDLoad will
+show a requester explaining the reason of the fault.
+
+<h4>Custom registers</h4>All read and write accesses to the custom registers
+are verified. Invalid accesses are:
+<ul>
+<li>accesses to nonexistent registers
+<li>read accesses to Write Only registers
+<li>write accesses to Read Only registers
+<li>accesses to Early Read registers
+<li>byte write accesses (except <tt>bltcon0l</tt> and <tt>aud*vol+1</tt>)
+</ul>
+Strobe registers can be read or written. The set of valid Custom registers
+varies between OCS (Old ChipSet - A500, A1000, old A2000), ECS (Enhanced ChipSet
+- A600, new A2000, A3000) and AGA (Advanced Graphics - A1200, A4000). This is
+useful especially to locate bugs in old programs caused by undefined accesses
+to new AGA registers.
+
+<p>Using the function <a
+href="../autodoc.html#resload_Control">resload_Control</a> and the tags <a
+href="../autodoc.html#WHDLTAG_CUST">WHDLTAG_CUST_DISABLE/READ/STROBE/WRITE</a>
+the internal configuration of WHDLoad which registers are readable/writable can
+be modified. With that illegal accesses can be ignored or legal accesses can be
+detected. This should only be used during the development process and not in
+public released Slaves.
+
+<h4>CIA registers</h4>With the CIA registers only write accesses are verified.
+That means that read accesses to non existent registers in the memory area of
+$bfd000...$bfefff won't get detected. For all write accesses the written value
+will be saved internally by WHDLoad. For some CIA registers there are special
+checks depending on the written value:
+
+<p><table border=1 summary="table of CIA registers">
+<tr>
+	<th>address</th>
+	<th>register</th>
+	<th>check</th>
+</tr><tr>
+	<td>$bfe001</td>
+	<td>ciaa.ciapra</td>
+	<td>setting the Overlay bit #0 is prohibited</td>
+</tr><tr>
+	<td>$bfe201</td>
+	<td>ciaa.ciaddra</td>
+	<td>bits #6-7 can have any value (used for joypad), lower bits must be
+	%000011</td>
+</tr><tr>
+	<td>$bfe801</td>
+	<td>ciaa.ciatodlow</td>
+	<td rowspan=3>read-modify-write accesses (e.g. bchg) are not allowed
+	if ALARM bit is set in ciaa.ciacrb (only checked on 68060)</td>
+</tr><tr>
+	<td>$bfe901</td>
+	<td>ciaa.ciatodmid</td>
+</tr><tr>
+	<td>$bfea01</td>
+	<td>ciaa.ciatodhi</td>
+</tr><tr>
+	<td>$bfed01</td>
+	<td>ciaa.ciaicr</td>
+	<td>read-modify-write accesses (e.g. bchg) are not allowed (only
+	checked on 68060)</td>
+</tr><tr>
+	<td>$bfd100</td>
+	<td>ciab.ciaprb</td>
+	<td>the bits for MOTOR #7, SELECT #3-6 and STEP #0 must not be
+	cleared, other bits can be changed; with that any accesses to the
+	floppy drives will be detected</td>
+</tr><tr>
+	<td>$bfd200</td>
+	<td>ciab.ciaddra</td>
+	<td>the value written must be %11000000</td>
+</tr><tr>
+	<td>$bfd300</td>
+	<td>ciab.ciaddrb</td>
+	<td>the value written must be %11111111</td>
+</tr><tr>
+	<td>$bfd800</td>
+	<td>ciab.ciatodlow</td>
+	<td rowspan=3>read-modify-write accesses (e.g. bchg) are not allowed
+	if ALARM bit is set in ciab.ciacrb (only checked on 68060)</td>
+</tr><tr>
+	<td>$bfd900</td>
+	<td>ciab.ciatodmid</td>
+</tr><tr>
+	<td>$bfda00</td>
+	<td>ciab.ciatodhi</td>
+</tr><tr>
+	<td>$bfdd00</td>
+	<td>ciab.ciaicr</td>
+	<td>read-modify-write accesses (e.g. bchg) are not allowed (only
+	checked on 68060)</td>
+</tr></table>
+
+<h4>How it works</h4>
+If Snoop is enabled, WHDLoad marks the addresses of the Custom and CIA registers as
+invalid/write-protected in the MMU translation tree. Because of this, each access to a Custom or CIA
+register will result in an Access Fault exception. The exception handler in
+WHDLoad handles this exception. First it checks if the access is valid. If the
+access is invalid the program will be terminated. If the access is valid and
+is a read operation it will be emulated and program execution
+continues. If it is a write operation WHDLoad additional saves the value written to
+a internal storage.
+<br>Because the overhead of the exception and the emulation sequence the
+program execution will slow down. How much it slows down depends on the CPU
+type, Chip Memory type (16/32-bit) and Stackpointer alignment if Chip
+Memory is 32-bit (LongWord aligned or not). It also differs for the access
+type (Byte/Word/LongWord, Read/Write). On the 68030 Writes are faster than
+Reads (because on reads the stackframe is 92 bytes on writes 32 bytes), on
+the 68060 Reads are faster because the emulation for Writes is more
+complex.
+
+<h4>Fast Snoop Mode</h4>
+The option <a href="opt.html#Snoop">Snoop/S</a> enables the fast snooping. Read accesses will not be
+checked. No special checks are performed. This mode may be useful to only
+get contents of the Custom registers, e.g. to save a picture using <a
+href="sp.html">SP</a>.
+
+<h4>Copper List Scanner</h4>
+Since version 13 of WHDLoad also copperlists itself will be checked. The
+scanner will be activated on writes to the <tt>coplc</tt> registers if the copper
+dma is enabled, or when the installed program enables the coppper dma by
+writing the <tt>dmacon</tt> register. The scanner follows the copperlists and
+validates all Move instructions by applying the restrictions caused by the
+Snoop option (OCS/ECS/AGA). Skip and Wait (except CEND) instructions will be ignored. When it
+finds invalid entries the installed program will be terminated. The scanner
+follows branches (<tt>copjmp</tt>), detects loops and checks upto 16 sublists. The
+Moves in copperlists will be saved in the internal Custom register storage
+which is dumped at WHDLoad exit. The scanner is not active in Fast Snoop
+Mode.
+
+<h4>Audio Pointer Check</h4>
+When option <a href="opt.html#ChkAudPt">ChkAudPt/S</a> is activated WHDLoad
+will check that the installed program does write only valid addresses to the
+Custom audio DMA pointers. Valid means that the pointer must be inside BaseMem
+and unequal 0. Checked are only long write operations. Word writes are
+unchecked. This check may be useful to locate problems in audio replay
+routines.
+
+<h4>Blitter Priority Check</h4>
+When option <a href="opt.html#ChkBltHog">ChkBltHog/S</a> is activated WHDLoad will check that the installed
+program does not enable the <tt>BltHog</tt> bit by a write to the <tt>dmacon</tt> register.
+The Blitter Priority can cause problems on some hardware configuration in
+conjunction with large blitter operations (all channels used).
+
+<h4>Blitter Size Check</h4>
+When option <a href="opt.html#ChkBltSize">ChkBltSize/S</a> is activated WHDLoad will check that blitter jobs
+do not access any memory outside the BaseMem area. On write accesses to
+<tt>bltsize</tt> or <tt>bltsizh</tt> it checks if the line mode is enabled
+in <tt>bltcon1</tt>. If the line mode is active it will cancel the size check.
+Otherwise WHDLoad will calculate the first and the last word to access for
+each activated DMA channel. If one address is outside the BaseMem area the
+program will be terminated with a requester. The calculation is designed to
+work with all modes (ascending/descending, positive/negative modulos, odd
+modulos/pointers).
+<br>Beware that the line drawing mode will not be verified and that all blitter
+registers can also be written by the copper if <tt>copcon</tt> is set.
+
+<h4>Blitter Wait Check</h4>
+When option <a href="opt.html#ChkBltWait">ChkBltWait/S</a> is activated WHDLoad will use a instruction trace
+to verify that the installed program does correctly wait for the blitter to
+finish before starting a new blitter job. It uses a internal variable which
+represents the working state of the blitter. The variable is set when a
+write access to the <tt>bltsize</tt> or <tt>bltsizh</tt> occurs and cleared
+when read access to the <tt>dmaconr</tt> register is performed. On each
+write to a blitter register the value of the internal variable is checked,
+if it states a running blitter job the installed program will be terminated
+and WHDLoad will report the PC of the last started blitter job together
+with the actual access.
+<br>There are two major bottlenecks of this feature. First blitter usage
+via the copper are not checked and second the use of blitter interrupts
+will cause the check routine to report errors without necessity.
+
+<h4>Color Burst Check</h4>
+When option <a href="opt.html#ChkColBst">ChkColBst/S</a> is activated WHDLoad
+checks that on each write to the <code>custom.bplcon0</code> register the
+<code>color</code> bit is set. Some hardware especially flickerfixer require
+that this bit is set to output a proper video signal. For best compatibility
+this bit should always be set. Checked are direct writes to
+<code>custom.bplcon0</code> and writes via copperlists. 
+
+<h4>Copper Control Check</h4>
+
+When option <a href="opt.html#ChkCopCon">ChkCopCon/S</a> is activated WHDLoad
+checks that on each write to the <code>custom.copcon</code> register the bit #1
+is not set. This bit enables the ability of the Copper to write to the Blitter
+registers. It may sometimes useful to detect if programs use the Copper to
+control DMA activities.
+
+<h4>Future</h4>
+It is planned to implement features like Freezing and Iconifing.
+For these, Snoop is a requirement. Therefore it is
+recommended for install authors to check their installs with Snoop to secure
+future compatibility.
+<h4>Requirements</h4>
+An MMU is required for the Snoop feature. Also WHDLoad must <a
+href="mmu.html#usercontrol">use</a> the MMU, therefore <a
+href="opt.html#MMU">MMU/S</a> must be enabled on 68030 machines.
+<h4>Limitations</h4>
+<ul>
+<li>68020 + 68851
+<ul>
+<li>this hardware is currently not supported
+</ul>
+<li>68030
+<ul>
+<li>read-modify-write accesses to CIA registers doesn't get detected
+</ul>
+<li>68040
+<ul>
+<li>read-modify-write accesses to CIA registers doesn't get detected
+<li><tt>movem</tt> memory read instructions may access invalid Custom registers
+without creating an Access Fault exception, this is possible because only the
+first access will be verified for matching a valid register
+<li>instructions must not access more than one snooped register at a time,
+that means that code like <tt>move.b ($dff006),($bfd800)</tt> cannot be
+handled, if such code occurs WHDLoad will show an Access Fault requester
+</ul>
+<li>68060
+<ul>
+<li><tt>movem</tt> instruction may access an invalid register without
+creating an Access Fault exception, this is possible because only the first
+access will be verified for matching a valid register
+<li><tt>move &lt;CIA/Custom register&gt;,sr</tt> will be executed incorrectly
+if it likes to change the supervisor portion of the status register, the
+supervisor portion will remain unchanged
+<li>any <tt>(ssp)+</tt> or <tt>-(ssp)</tt> in conjunction with a write
+access to a CIA or Custom register cannot be handled due stackframe
+problems, WHDLoad will detect such accesses and terminate with a
+appropriate requester
+<li>instructions must not access more than one snooped register at a time,
+that means that code like <tt>move.b ($dff006),($bfd800)</tt> cannot be
+handled, if such code occurs WHDLoad will show an Access Fault requester
+</ul>
+</ul>
+</BODY>
+</HTML>

@@ -1,0 +1,79 @@
+/* 
+ * FileX arexxscript
+ *
+ * FindVersion - Searches for the versionstring
+ */
+
+OPTIONS RESULTS
+
+REQUESTRESPONSE BUTTONS '"English|Deutsch"' PROMPT '"What''s your favourite language? / Deine Lieblingssprache?"'
+
+IF RC = 0 THEN DO
+	jawas = 'Ja was ist denn das?'
+	duhast = 'Du hast ein File mit dem Namen `'
+	eingeladen = ''' eingeladen'
+	liegin =  'und es liegt ja in'
+	sogar = 'und es ist ja sogar genau '
+	lang = ' Bytes lang!'
+	zufall = 'Welch ein Zufall!'
+	anfang = 'Am Anfang steht merkwürdigerweise folgende Zahlenfolge:'
+	keinvirus = 'Kein Virus! Da haben wir ja nocheinmal Glück gehabt!'
+	unreg = '"Immer noch die unregistrierte Version! Dir geht''s bestimmt schlecht!"'
+	reg = '"Sehr schön! Du hast Dich registrieren laßen, oder?"'
+	but = '"Yep| Keine Ahnung! |Nope"'
+	gibnamen = '"Gib Deinen Namen ein:"'
+	istlieb = ' ist lieb!'
+END
+ELSE DO
+	jawas = 'What''s this?'
+	duhast = 'You''ve loaded a file called `'
+	eingeladen = ''' !'
+	liegin =  'and it''s in'
+	sogar = 'AND! it''s exactly'
+	lang = ' bytes long!'
+	zufall = 'What a suprise!'
+	anfang = 'Right at the beginning i''ve found:'
+	keinvirus = 'No virus! Puhh!'
+	unreg = '"Oooh, this is a unregistred version! You _must_ feel bad!"'
+	reg = '"Very nice! This is a registred version, eh?"'
+	but = '"Yep| I dunno! |Nope"'
+	gibnamen = '"Enter your name:"'
+	istlieb = ' is my hero!'
+END
+
+
+GETATTR PROJECT STEM meinstem
+
+IF meinstem.filelen > 0 THEN DO
+	SAY jawas
+	SAY duhast || meinstem.file || eingeladen
+	IF meinstem.path ~= "" THEN
+		SAY liegin || '`'meinstem.path''' '
+
+	SAY sogar || meinstem.filelen || lang
+	SAY zufall
+
+	IF meinstem.filelen > 16 THEN DO
+		GETBYTES pos 0 number 16
+		SAY result
+		SAY keinvirus
+		END
+
+	SAY
+END
+
+GETATTR APPLICATION REGNUMBER VAR regnum
+
+IF regnum = 0 THEN
+	text = unreg
+ELSE
+	text = reg 
+
+REQUESTRESPONSE BUTTONS but PROMPT text
+
+REQUESTSTRING DEFAULT "Klaas" PROMPT gibnamen
+
+REQUESTNOTIFY '"' || result || istlieb || '"'
+
+ADDRESS COMMAND wait 3
+

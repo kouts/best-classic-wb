@@ -1,0 +1,1575 @@
+@DATABASE 0049
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 4. Il menu Progetto"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}4.         Il menu Progetto@{UB}
+
+Questo capitolo descrive le funzioni accessibili dal menu Progetto di
+Personal Paint. Questo menu contiene tutti i comandi utilizzati per
+leggere, scrivere e gestire immagini intere. Altri comandi di questo menu
+servono a definire formato e dimensioni dello schermo e dell'immagine, a
+conoscere la quantità di memoria disponibile e di memoria occupata, oppure
+a uscire dal programma.
+
+
+@{B}4.1        Leggere immagine@{UB}
+
+Questa funzione permette di leggere un'immagine da supporti di memoria,
+modificando, se necessario, il modo schermo.
+
+Per la scelta dell'immagine viene utilizzato il quadro di selezione file,
+descritto ampiamente nella sezione @{"3.4" LINK PPaintCD:H/7/2/4/0017/Main 1478}. I messaggi relativi agli errori
+di lettura delle immagini sono descritti in dettaglio nell'appendice @{"A" LINK PPaintCD:H/7/2/4/0045/Main 1}.
+La sezione @{"11.2" LINK PPaintCD:H/7/2/4/0046/Main 55} illustra, invece, i possibili problemi di utilizzo dei
+dischi e le loro soluzioni.
+
+Quando Personal Paint inizia a leggere il file, ne verifica il formato
+(IFF-ILBM, GIF, PCX, ecc.) e attiva l'appropriata procedura di
+conversione. Immagini di dimensioni diverse e differenti proporzioni video
+possono richiedere formati di schermo diversi da quello in uso. Per la
+visualizzazione di un'immagine di 640x480 punti, ad esempio, è più
+indicato il modo NTSC overscan interlacciato ad alta risoluzione che un
+normale schermo non interlacciato in bassa risoluzione. È anche possibile
+che il calcolatore utilizzato disponga di modi video più appropriati. I
+file IFF generati dai programmi Amiga contengono, solitamente,
+informazioni dettagliate sul modo video da usare per la visualizzazione
+delle immagini. I file IFF creati da altri sistemi o i file di altri
+formati non contengono tali informazioni. In questi casi Personal Paint
+seleziona automaticamente il modo video più opportuno, confrontando le
+dimensioni dell'immagine con i modi disponibili.
+
+Se Personal Paint riscontra differenze tra il modo video attuale (o il
+numero di colori) e il modo video da utilizzare, viene visualizzato il
+quadro di selezione del formato. I primi due gadget di questo requester
+sono associati, rispettivamente, al formato dell'immagine selezionata e al
+formato corrente, e ne riportano le caratteristiche. Il gadget più in alto
+è automaticamente evidenziato (scelta predefinita). Selezionando
+"Procedere", senza modificare lo stato dei gadget, l'operazione di lettura
+prosegue e l'ambiente attuale viene automaticamente adattato al nuovo modo
+video. Se invece si seleziona il secondo gadget, il formato dell'ambiente
+attuale (modo video, numero di colori, dimensioni immagine, ecc.) resta
+immodificato. In seguito a tale scelta, se le dimensioni dell'immagine
+selezionata sono maggiori di quelle dell'immagine attuale, la parte
+eccedente viene ignorata. È anche possibile impostare le dimensioni
+dell'immagine e il formato dello schermo (sezione @{"4.5" LINK Main 1127}) prima di leggere
+l'immagine e, quindi, ignorare il formato proposto: in questo modo si
+possono utilizzare innumerevoli combinazioni di formati schermo e
+dimensioni immagine. Se il formato dell'immagine selezionata non
+corrisponde a quello in uso, è anche possibile attivare l'opzione
+"Rimodellare": in tal caso l'immagine verrà ridimensionata e adattata al
+formato attuale (per ulteriori informazioni su questa funzione si rimanda
+alle sezioni @{"4.5" LINK Main 1127} e @{"9.13.3" LINK PPaintCD:H/7/2/4/0047/Main 833}). Per interrompere l'operazione di lettura
+(senza perdere l'immagine corrente) occorre selezionare il gadget
+"Annullare".
+
+A partire dalla versione 2.0, il sistema operativo di Amiga consente la
+selezione dei modi video da usare. La possibilità di selezionare e
+utilizzare un determinato modo video è determinata dalla presenza
+dell'icona Workbench ad esso associata nel cassetto di sistema "Wbstartup"
+(per la versione 2.0) o nel cassetto "Devs/Monitors" (per le versioni 2.1
+e 3.@{I}x@{UI}). L'assenza di una data icona nel cassetto specificato inibisce al
+sistema (e a Personal Paint) l'uso di quel modo video. I modi video non
+gestiti dall'hardware in uso non possono essere attivati. Non tutti i
+monitor, inoltre, sono in grado di visualizzare correttamente i modi video
+di cui il sistema è capace; per maggiori informazioni è necessario
+consultare la manualistica dell'apparecchio. La sezione @{"11.4" LINK PPaintCD:H/7/2/4/0046/Main 351} fornisce
+ulteriori informazioni relative ai modi schermo e ai dispositivi video.
+
+Quando viene letta un'immagine vengono letti anche i suoi colori, a
+prescindere dal formato di memorizzazione e dall'impostazione dell'opzione
+"Rimodellare". Se il numero di colori dello schermo utilizzato è inferiore
+al numero di colori dell'immagine, viene automaticamente applicata la
+procedura di riduzione colori (sezioni @{"8.7" LINK PPaintCD:H/7/2/4/0016/Main 575} e @{"9.7" LINK PPaintCD:H/7/2/4/0047/Main 363}). La riduzione dei
+colori è una potente funzione di Personal Paint, che permette, ad esempio,
+di leggere immagini di qualità fotografica e visualizzarle su qualsiasi
+calcolatore Amiga, usando anche solo 16 colori. Questo manuale dedica
+apposite sezioni ai diversi tipi di riduzione (@{"9.7" LINK PPaintCD:H/7/2/4/0047/Main 363}) e di adattamento
+colori (@{"9.8" LINK PPaintCD:H/7/2/4/0047/Main 414}) disponibili. La sezione @{"8.1.4" LINK PPaintCD:H/7/2/4/0016/Main 262} spiega come apportare
+modifiche globali alla tavolozza dei colori di un'immagine (variandone il
+contrasto, la luminosità, ecc.)
+
+Il programma legge e attiva automaticamente anche eventuali informazioni
+sulla mascheratura dei colori (sezione @{"8.2" LINK PPaintCD:H/7/2/4/0016/Main 345}), se presenti nel file
+immagine. Questa eventualità può presentarsi solo nella lettura di file
+IFF.
+
+Se il file è crittato e non è stato impostato alcun codice di crittazione
+(sezione @{"9.4" LINK PPaintCD:H/7/2/4/0047/Main 254}), in fase di lettura il programma può richiedere
+l'introduzione di una chiave di crittazione. L'operazione di lettura
+fallisce se il file non può essere decodificato usando la chiave fornita.
+
+Grazie ad alcune caratteristiche del sistema operativo di Amiga (versione
+2.1 e successive), ogni programma può operare con dischi in formato MS-DOS
+in maniera trasparente. Se sono correttamente installati i dispositivi
+software di gestione dei dischi DOS ("PC0", "PC1", ecc.), o se è attivo il
+software "CrossDOS" o un prodotto equivalente, Personal Paint è in grado
+di leggere e scrivere file di immagini condivisibili con gli ambienti PC e
+Macintosh (non tutti i sistemi Macintosh riconoscono il formato MS-DOS).
+Il dispositivo MS-DOS può, ad esempio, essere abilitato sul drive 0 con un
+doppio click sull'icona "PC0". È anche possibile attivare automaticamente
+i dispositivi MS-DOS all'avvio del calcolatore, spostando le relative
+icone da "Storage/DOSDrivers" a "Devs/DOSDrivers".
+
+Potenti algoritmi per la quantizzazione e riduzione dei colori permettono
+di leggere immagini a 24 bit e trasformarle in immagini a 256 colori. La
+qualità dei risultati è difficilmente distinguibile dagli originali
+visualizzati a 24 bit. La tecnica di riduzione colori applicata è sempre
+di tipo qualitativo (sezione @{"9.7" LINK PPaintCD:H/7/2/4/0047/Main 363}). Le nuove procedure a 24 bit tengono in
+considerazione l'opzione di rimappatura colori (sezione @{"9.8" LINK PPaintCD:H/7/2/4/0047/Main 414})
+selezionata.
+
+Il programma considera immagini a 24 bit quelle memorizzate in file IFF24,
+PCX24, HAM e HAM8. Personal Paint accede inoltre a eventuali moduli di
+lettura immagini DataType (versioni 3.0 e successive del sistema
+operativo).
+
+Personal Paint dispone di funzioni specifiche per la gestione di immagini
+HAM, HAM8 e 24 bit e per la trasformazione delle stesse in immagini
+indicizzate (fino a 256 colori). Durante il processo di conversione, il
+programma può visualizzare l'immagine originale HAM o 24 bit in un secondo
+schermo (HAM, HAM8, Picasso, CyberGraphX, ecc.). I due processi
+(conversione e visualizzazione) si avvalgono delle capacità multitasking
+di Amiga: una procedura continua a lavorare sull'immagine, mentre l'altra
+si occupa della visualizzazione dell'immagine.
+
+Quando si legge un'immagine a 24 bit il programma fa apparire un quadro
+indicante il formato dell'immagine. Il gadget in alto, inizialmente
+selezionato, fa in modo che il programma usi le dimensioni-schermo della
+nuova immagine. Selezionando l'opzione "Anteprima" di questo quadro, viene
+aperto un secondo schermo (in modalità HAM o 24 bit). Mentre è
+visualizzata l'immagine, Personal Paint esegue normalmente le operazioni
+di riduzione e rimappatura colori. Lo schermo principale contiene sempre
+il consueto quadro con lo stato di avanzamento della conversione.
+
+Lo schermo di anteprima e quello principale possono essere alternati
+premendo la barra spaziatrice o il pulsante destro del mouse. Agendo
+invece sul tasto <Esc> o sul pulsante sinistro del mouse in presenza dello
+schermo di anteprima, quest'ultimo viene chiuso.
+
+Impostazioni qualitativamente più esigenti (sezioni @{"9.7" LINK PPaintCD:H/7/2/4/0047/Main 363} e @{"9.8" LINK PPaintCD:H/7/2/4/0047/Main 414}) possono
+rallentare la conversione di immagini HAM e HAM8; è possibile raggiungere
+un miglior compromesso in termini di velocità selezionando formati a 16
+colori e la tecnica di adattamento colori a retinatura.
+
+Le impostazioni di elevata qualità (sezione @{"9.7" LINK PPaintCD:H/7/2/4/0047/Main 363} e @{"9.8" LINK PPaintCD:H/7/2/4/0047/Main 414}) possono portare a
+conversioni lente quando si opera su immagini HAM, HAM8 e 24 bit.
+Sostanzialmente più veloci sono invece le conversioni in 16 colori e con
+adattamento colori a "Retinatura".
+
+In modo animazione, se il formato dell'immagine è diverso dal formato del
+fotogramma, appare un quadro che permette di decidere se ridimensionare
+l'immagine o l'animazione. La funzione "leggere immagine" normalmente
+sostituisce l'immagine selezionata al fotogramma attuale. Se si desidera
+sostituire l'immagine all'intera animazione, occorre impartire il comando
+"liberare animazione" prima di leggere l'immagine.
+
+
+@{B}4.2        Scrivere immagine@{UB}
+
+Questa funzione memorizza l'immagine visualizzata. La scelta del nome e
+quella del formato di memorizzazione vengono effettuate con il quadro di
+selezione file (sezione @{"3.4" LINK PPaintCD:H/7/2/4/0017/Main 1478}).
+
+I quadri di selezione file utilizzati per memorizzare immagini e pennelli
+dispongono di un ulteriore gruppo di gadget (contrassegnati dalle sigle
+"ILBM", "GIF", "PCX", "CRYPT" e "C"): questi permettono di impostare il
+formato di memorizzazione da utilizzare nell'operazione. IFF-ILBM (da
+"Interchange File Format - InterLeaved BitMap") è il formato standard di
+Amiga. Il formato GIF offre, invece, una maggiore compressione dei dati (i
+file in questo formato occupano meno spazio su disco) ed è molto diffuso
+in ambito telematico (banche dati e @{I}BBS@{UI}, o bacheche elettroniche) e PC
+compatibili. Il formato PCX è usato da alcuni programmi di disegno per PC
+e dal software di gestione di alcuni dispositivi di scansione ottica
+(scanner). Il formato crittato è, invece, utile per proteggere immagini
+"confidenziali". Infine, il formato codice sorgente C consente ai
+programmatori Amiga di inserire dati grafici, opportunamente codificati,
+all'interno di programmi in linguaggio C.
+
+Se è attiva una mascheratura dei colori (sezione @{"8.2" LINK PPaintCD:H/7/2/4/0016/Main 345}, "Maschera"), la
+scrittura di un file IFF-ILBM riguarda sia i dati dell'immagine che le
+informazioni di mascheratura: queste verranno automaticamente riutilizzate
+al successivo caricamento dell'immagine.
+
+I formati GIF, ILBM e altri, possono impiegare tavolozze di colori a 24
+bit. Allo scopo di mantenere la più alta qualità cromatica ("@{I}true color@{UI}"),
+Personal Paint gestisce i colori usando sempre una codifica a 24 bit.
+Questa soluzione garantisce i migliori risultati nelle operazioni di
+elaborazione dell'immagine, diffusione d'errore (ad es. Floyd-Steinberg),
+riduzione colori e conversione di formato. I colori a 24 bit vengono
+trasformati negli equivalenti colori-Amiga (a 12 bit, negli Amiga con
+architettura originale: 4 bit per ogni componente rossa, verde e blu) solo
+quando vengono copiati nella tavolozza dell'ambiente grafico.
+
+Per convertire in un formato differente un'immagine con una tavolozza più
+ricca di quanto consenta il calcolatore utilizzato, l'immagine andrebbe
+letta come pennello e subito memorizzata nel nuovo formato. Normalmente,
+le tavolozze e i dati grafici dei pennelli non vengono in alcun modo
+alterati dalle operazioni di lettura.
+
+Il formato PCX viene gestito da Personal Paint secondo diversi
+sotto-formati, allo scopo di garantire una completa compatibilità con i
+numerosi sistemi PC esistenti. Le immagini a due colori vengono
+memorizzate come file monocromatici CGA. Nell'ambito di tale codifica,
+alcuni programmi possono assumere che i colori 0 e 1 siano impostati,
+rispettivamente, a nero e bianco. In questo caso può essere necessario
+modificare opportunamente i colori dell'immagine, adattare i nuovi colori
+(sezione @{"8.3" LINK PPaintCD:H/7/2/4/0016/Main 491}) e, quindi, memorizzare l'immagine. Le immagini con 4, 8 o
+16 colori sono invece memorizzate come file EGA/VGA a 16 colori
+(aggiungendo, se necessario, dei piani di bit vuoti). Le immagini con un
+numero di colori superiore a 16 sono memorizzate come file VGA a 256
+colori.
+
+Le immagini crittate subiscono un processo di codifica basato su chiave di
+accesso. Non è possibile leggere i file crittati se non viene specificato
+il corretto codice di crittazione. La sezione @{"9.4" LINK PPaintCD:H/7/2/4/0047/Main 254} fornisce ulteriori
+informazioni su questo tipo di operazione. Quando viene letto un file
+crittato e non è stato definito alcun codice di crittazione (o se la
+chiave è stata prima definita e poi cancellata), viene automaticamente
+visualizzato il requester "Cambio codice crittazione". Se, invece, è già
+stata impostata una chiave, questa viene usata per tentare la
+decrittazione del file. Il nome del file non viene crittato.
+
+Le informazioni che seguono sono principalmente rivolte ai programmatori.
+I file di codice sorgente C generati da Personal Paint sono essenzialmente
+costituiti da una struttura "Image", compatibile con la funzione
+DrawImage(), e dai dati della tavolozza colori, nei formati compatibili
+con le funzioni LoadRGB4() e LoadRGB32(). I piani di bit inutilizzati non
+vengono fisicamente inclusi nei dati grafici, i campi PlanePick e
+PlaneOnOff vengono invece opportunamente impostati per riflettere il loro
+stato. L'array di dati della struttura Image è di tipo "UWORD chip". La
+parola chiave "chip" viene usata da alcuni compilatori per garantire che,
+al momento dell'esecuzione, i dati si trovino nella memoria chip di Amiga.
+In alcuni casi potrebbe essere necessario eliminare questo codice, oppure
+modificarlo opportunamente (ad esempio in "__chip", secondo le regole
+dello standard ANSI).
+
+Qualsiasi problema riscontrato da Personal Paint o dal sistema operativo
+durante la memorizzazione dei file, viene segnalato con specifici
+messaggi. L'appendice @{"A" LINK PPaintCD:H/7/2/4/0045/Main 1} elenca tutti i messaggi del programma. La
+sezione @{"11.2" LINK PPaintCD:H/7/2/4/0046/Main 55} contiene importanti informazioni sulla gestione degli errori
+che si possono verificare durante le operazioni di scrittura su memoria di
+massa.
+
+Le sezioni @{"3.4" LINK PPaintCD:H/7/2/4/0017/Main 1478} e @{"9.10" LINK PPaintCD:H/7/2/4/0047/Main 607} forniscono ulteriori informazioni sui quadri di
+selezione file e sulla associazione di icone Workbench ai file creati da
+Personal Paint.
+
+
+@{B}4.3        Stampare immagine@{UB}
+
+Il requester principale inizialmente visualizzato da questa funzione
+permette di accedere ad altri tre quadri: in questi è possibile impostare
+i diversi parametri utilizzati delle procedure di stampa di Personal
+Paint. Il programma è in grado di comunicare con qualsiasi stampante, sia
+tramite i driver e le opzioni impostate nelle preferenze di sistema, sia
+attraverso il modulo PostScript. Ai due modi operativi corrispondono
+gruppi di opzioni separate. Anche il formato di stampa, variabile da
+immagine a immagine, può essere impostato attraverso uno dei quadri sopra
+citati. Oltre che nei modi "stampante di sistema" e PostScript, Personal
+Paint è in grado di stampare con tecniche a 24 bit, nonché in collegamento
+con il modulo Server del programma Studio. Gli utenti dei pacchetti
+software "Studio" e "CanonStudio" (versioni 2 e successive) possono quindi
+stampare direttamente da Personal Paint.
+
+Prima di stampare un'immagine (normalmente dopo l'installazione del
+sistema o di una nuova stampante) è necessario impostare, nelle preferenze
+di sistema, il @{I}driver@{UI} (un modulo del software di sistema in grado di
+pilotare una specifica stampante) appropriato alla periferica posseduta.
+L'appendice @{"D" LINK PPaintCD:H/7/2/4/2163/Main 1} contiene un elenco delle stampanti più diffuse e dei
+relativi driver di stampa. Le opzioni impostabili nelle preferenze
+"Printer" e "PrinterGfx" (stampante e stampante grafica) sono equivalenti
+a molti parametri omonimi di Personal Paint. Personal Paint condivide e
+scambia questi dati con le preferenze di sistema. Il modo PostScript di
+Personal Paint non necessita del driver PostScript di sistema (Workbench
+2.1 e successivi), poiché è in grado di operare correttamente con
+qualsiasi driver per stampante Amiga.
+
+Personal Paint utilizza le preferenze di stampa di sistema per regolare i
+valori di partenza dei propri parametri. Il programma è anche in grado di
+aggiornare eventuali impostazioni incompatibili con modifiche delle
+preferenze di sistema. Al di là di questo, qualsiasi modifica dei
+parametri di stampa non influisce sulle preferenze di sistema, ma rimane
+locale al processo Personal Paint. Ognuno dei due ambienti del programma
+dispone di proprie, differenti impostazioni di stampa.
+
+I tre gadget nella parte alta del requester principale attivano
+altrettanti requester: questi sono dedicati all'impostazione dei parametri
+relativi alla pagina ("Impostare pagina"), alla stampante di sistema
+("Impostare PRT") e al modo PostScript di Personal Paint ("Impostare PS").
+Il gadget "Modo" ha una funzione molto importante: esso permette di
+determinare se Personal Paint deve stampare usando l'attuale stampante di
+sistema ("PRT"), nel modo PostScript ("PS"), o invece, nel modo, "Studio",
+accodare l'operazione di stampa alla coda di stampa di Studio. In
+quest'ultimo caso i dati dell'immagine vengono memorizzati in un file
+temporaneo, successivamente letto da Studio. I file temporanei di Personal
+Paint vengono scritti nel percorso di memoria virtuale (sezione @{"9.3.1" LINK PPaintCD:H/7/2/4/0047/Main 150})
+con il maggior spazio disponibile.
+
+Il nome del server (porta messaggi) di stampa "Studio" di Personal Paint è
+"PPaint_Studio". Questo nome può essere richiesto nell'uso del software
+Studio (ad es. per memorizzare una configurazione).
+
+Il gadget numerico "Copie" permette di specificare il numero di copie da
+stampare.
+
+La correzione dei colori applicata nel modo PostScript è illustrata in
+dettaglio nella sezione @{"4.3.3.11.1" LINK Main 963}. Il requester descritto nella sezione
+@{"8.1.4" LINK PPaintCD:H/7/2/4/0016/Main 262} ("Calibrazione colori") può essere utile in tutti i tipi di stampa,
+permettendo di modificare il contrasto e la luminosità dell'immagine o di
+applicare altre correzioni.
+
+Oltre ai gadget "Stampare" (analogo al più usuale "Procedere") e
+"Annullare", il quadro principale di stampa è dotato del gadget "Uscire":
+questo permette di abbandonare il requester senza attivare la stampa,
+confermando le modifiche apportate ai parametri. Il gadget "Annullare",
+invece, rimuove il requester e annulla qualsiasi modifica. Un click sul
+gadget "Stampare" attiva il processo di stampa dell'immagine.
+
+Mentre la stampa è in atto, l'operazione può essere interrotta con un
+click sul gadget "Interrompere". L'effettiva interruzione della stampa può
+avvenire con un certo ritardo rispetto all'azione sul relativo gadget.
+Tale ritardo è determinato dal driver di sistema e dalla quantità di
+memoria della stampante, che, nel frattempo, può avere accumulato dei dati
+ricevuti ma ancora non stampati. Per sospendere immediatamente la stampa è
+necessario disattivare la periferica (che deve essere commutata in @{I}
+off-line@{UI}, o messa in pausa). Solitamente, questa operazione può essere
+effettuata direttamente dal pannello di controllo della stampante. Una
+volta disattivata, la stampante sospende ogni attività finché non viene
+nuovamente riattivata (commutata in @{I}on-line@{UI}). Quando la stampante viene
+riattivata, la stampa riprende dal punto in cui era stata interrotta: il
+passaggio dallo stato di on-line a quello di off-line, e viceversa, non
+cancella, infatti, il contenuto della memoria della stampante. Dopo
+l'interruzione della stampa, al contrario, può essere necessario eliminare
+i dati ancora presenti in tale memoria. Alcune stampanti prevedono, a tale
+scopo, un comando attivabile dal pannello di controllo, altre, invece,
+devono essere spente dopo esser state portate allo stato di off-line.
+
+Alcuni secondi dopo la disattivazione della stampante (o in seguito alla
+mancanza di carta), un requester di sistema segnala la particolare
+condizione della periferica. Se si intende sospendere definitivamente la
+stampa, è necessario selezionare il gadget di destra di tale requester.
+Per riprendere, invece, la stampa, occorre selezionare il gadget di
+sinistra, dopo aver eliminato la causa del messaggio.
+
+La sezione @{"11.3" LINK PPaintCD:H/7/2/4/0046/Main 146} e l'appendice @{"D" LINK PPaintCD:H/7/2/4/2163/Main 1} forniscono ulteriori informazioni
+sull'uso delle stampanti.
+
+
+@{B}4.3.1      Impaginazione@{UB}
+
+Selezionando il gadget "Impostare pagina", il programma visualizza il
+requester "Impaginazione": i controlli in questo presenti permettono di
+impostare il formato della pagina di stampa, nonché le dimensioni, la
+proporzione e la posizione dell'immagine nella pagina.
+
+
+@{B}4.3.1.1    Unità di misura@{UB}
+
+Il gadget ciclante "Unità di misura" permette di selezionare una tra le
+diverse unità utilizzate da Personal Paint per la rappresentazione di
+posizioni e dimensioni di stampa. Mentre "pollice" e "centimetro" si
+riferiscono a unità di misura standard, non esiste una definizione univoca
+per il termine "punto". Personal Paint usa il punto PostScript, che misura
+1/72 di un pollice, o 0.353 mm (mentre 1 punto Pica = 0.351 mm, 1 punto
+Didot = 0.376 mm e 1 decipunto = 1/720"). Un pollice equivale circa a 2.54
+cm, mentre 1 cm = 0.3937 pollici. Internamente Personal Paint calcola le
+distanze in micrometri, in modo da garantire la massima precisione.
+
+
+@{B}4.3.1.2    Formato e dimensioni della pagina@{UB}
+
+Il gadget ciclante "Formato foglio" serve a selezionare uno dei formati di
+carta predefiniti. Il formato "Altro" permette di impostare valori
+specifici nei campi "Dimensioni foglio". Quando si opera nel modo
+PostScript, Personal Paint è in grado di rilevare automaticamente l'esatta
+dimensione del foglio usato, ignorando le impostazioni del formato.
+
+
+@{B}4.3.1.3    Centratura automatica e regolazione manuale dei margini@{UB}
+
+Le due opzioni "Centrare X" e "Centrare Y" effettuano la centratura
+automatica dell'immagine sugli assi orizzontale e verticale della pagina.
+Quando queste opzioni sono abilitate, l'immagine viene stampata con
+margini simmetrici. Se, invece, la centratura è disabilitata, vengono
+applicati esattamente i valori del margine sinistro e del margine
+superiore impostati nei gadget "Sinistra" e "Alto".
+
+
+@{B}4.3.1.4    Le dimensioni dell'immagine@{UB}
+
+I gadget "Dimensioni" possono essere usati per impostare manualmente le
+dimensioni di stampa dell'immagine, espresse nell'unità di misura
+corrente, in punti stampante o in punti video. La modalità predefinita è
+"Automatico": Personal Paint prova a stampare l'immagine cercando di
+mantenere le dimensioni che l'immagine ha sullo schermo, riducendo la
+stessa solo se non può essere contenuta all'interno dei margini impostati;
+le proporzioni originali vengono comunque mantenute. Nel modo "% Foglio" è
+possibile specificare dimensioni di stampa relative al formato della
+pagina. Il modo "Unità" permette di definire le dimensioni usando l'unità
+di misura selezionata. I valori del modo "Punti" indicano dimensioni in
+unità elementari (@{I}dot@{UI}) della stampante. Il modo "Volte", infine, calcola
+il numero di punti stampante moltiplicando le dimensioni dell'immagine, in
+punti schermo (@{I}pixel@{UI}), per i valori indicati.
+
+Se una delle due dimensioni (o valori percentuali, o fattori di
+moltiplicazione) è impostata a zero, essa viene calcolata in riferimento
+all'altra dimensione, mantenendo la proporzione originale dell'immagine.
+Se entrambe le dimensioni sono uguali a zero, l'immagine viene stampata
+con la massima larghezza possibile (considerando il formato della pagina e
+dei margini) e con un'altezza che rispetti le corrette proporzioni.
+Specificando entrambe le dimensioni si corre il rischio di distorcere
+l'immagine, a meno che non sia noto l'esatto rapporto tra la risoluzione
+dello schermo e quella della stampante.
+
+
+@{B}4.3.1.5    Orientamento@{UB}
+
+Attivando l'opzione "Verticale", l'immagine viene stampata ruotata di 90
+gradi (cioè con il lato lungo del foglio per base).
+
+
+@{B}4.3.2      Stampante di sistema@{UB}
+
+Molte di queste opzioni sono identiche alle loro equivalenti nelle
+preferenze di Amiga. Per una corretta impostazione di questi parametri è
+necessario che, tramite le preferenze di sistema, si sia selezionato un
+appropriato driver di stampa. Le impostazioni effettuate in questo
+requester non influiscono sulla stampa nel modo PostScript di Personal
+Paint.
+
+
+@{B}4.3.2.1    Retinatura@{UB}
+
+Proprio come le immagini visualizzate su schermo sono formate da pixel, le
+immagini stampate sono costituite da piccoli punti (@{I}dot@{UI}). Il termine
+retinatura identifica l'espediente ottico consistente nella stampa di
+minuscoli punti (anche di diversi colori) talmente ravvicinati da apparire
+come tinta uniforme. Questa tecnica permette di produrre stampe che
+sembrano contenere più colori dei tre o quattro normalmente utilizzati
+dalle stampanti a colori (o del singolo colore nero delle stampanti
+convenzionali).
+
+Un punto che sullo schermo appare nero, in stampa è solitamente
+rappresentato da alcuni dot neri. Se, invece, il punto in questione è di
+colore porpora, la stampante deve usare punti gialli, magenta e ciano per
+simulare otticamente tale colore. I tono di grigio, invece, vengono
+riprodotti da retini di punti neri, più o meno grandi.
+
+Selezionando l'impostazione "Ordered" ("Ordinata"), i vari colori vengono
+composti con retinature di punti simmetrici e ordinati, simili al motivo
+creato dalle minuscole caselle di una enorme scacchiera. I punti possono
+variare di colore, ma sono sempre disposti con densità omogenea e vengono
+stampati in righe e colonne parallele. L'impostazione "Ordered" rimane
+quella predefinita e fornisce velocemente risultati ragionevolmente buoni
+(viene usata una matrice 16×16 - ulteriori informazioni tecniche nella
+sezione @{"3.1.4.2" LINK PPaintCD:H/7/2/4/0017/Main 705}).
+
+Con la retinatura "Halftone" (@{I}mezzatinta@{UI}), l'intensità dei colori viene
+riprodotta variando la dimensione e la densità dei punti. Questa tecnica
+(basata su una matrice 7x7 a punti riuniti) è simile a quella usata dai
+quotidiani e dalle riviste e produce i migliori risultati con stampanti ad
+alta densità (più di 150 punti per pollice). La retinatura "Halftone" è
+indicata per rappresentare immagini con colori saturi.
+
+Un pixel nero, ad esempio, può essere riprodotto con quattro punti neri,
+mentre un punto porpora può essere stampato usando due punti rossi e due
+blu di dimensioni variabili, posti in modo che appaiano, all'occhio umano,
+di colore porpora.
+
+Il metodo "Floyd-Steinberg" impiega un algoritmo più complesso basato
+sulla distribuzione di errore. Questa tecnica crea un motivo di punti che
+massimizza i dettagli dell'immagine, distribuendo le intensità di ogni
+pixel sui punti che lo rappresentano e sui punti adiacenti. Il metodo
+Floyd-Steinberg disabilita l'opzione "Smussare" (se impostata) e può
+provocare un incremento del tempo di stampa rispetto alle altre tecniche
+di retinatura.
+
+Per ottenere i migliori risultati nella stampa a 24 bit sono state
+integrate nuove procedure di retinatura basate sulle più recenti
+tecnologie software (sezione @{"4.3.2.4" LINK Main 527}).
+
+
+@{B}4.3.2.2    Scalatura@{UB}
+
+Il gadget ciclante "Scalatura" permette di controllare il processo di
+dimensionamento dell'immagine stampata. La modalità "Frazione" corrisponde
+all'applicazione effettiva delle dimensioni di stampa richieste (nei
+limiti del formato pagina specificato).
+
+La scalatura "Intera" garantisce, invece, che ogni punto sullo schermo sia
+rappresentato da un numero fisso di dot in stampa. Ad esempio, se
+l'immagine sullo schermo è di 320 x 200 pixel, la figura stampata potrà
+essere di 320, 640 o 960 dot di ampiezza e 200, 400 o 600 dot di altezza,
+e così di seguito. Questa soluzione può essere preferibile per stampare
+figure con linee verticali e orizzontali molto sottili (come una griglia),
+o contenenti elementi geometrici di piccole dimensioni.
+
+Le dimensioni finali di una stampa a scalatura intera vengono determinate
+dai parametri di dimensionamento dell'immagine (sezione @{"4.3.1.4" LINK Main 394}),
+adattati ai più vicini multipli, superiori o inferiori, della larghezza e
+dell'altezza dell'immagine.
+
+L'opzione "Verticale", che orienta la stampa nel modo @{I}landscape@{UI} (sezione
+@{"4.3.1.5" LINK Main 421}), può essere ignorata se si è optato per una scalatura intera:
+ciò può causare una leggera distorsione dell'immagine. La scalatura intera
+si rivela utile anche per la stampa di un'immagine composta
+prevalentemente da testi, in quanto si elimina un'eventuale distorsione
+dei font, possibile, invece, con la scalatura "Frazione". Con
+l'abilitazione della scalatura intera, le dimensioni dell'immagine
+stampata possono differire leggermente da quelle impostate.
+
+
+@{B}4.3.2.3    Aspetto immagine@{UB}
+
+Quando l'opzione "Immagine" è impostata a "Positiva", l'immagine viene
+stampata come appare sullo schermo. L'impostazione "Negativa" produce
+un'inversione dei colori dell'immagine: ciò che sullo schermo appare nero
+viene stampato come bianco e viceversa, come accade nel negativo di una
+immagine fotografica.
+
+
+@{B}4.3.2.4    Modo di stampa@{UB}
+
+Il gadget "Stampa" permette di stabilire il numero di colori o di livelli
+di grigio da stampare. Qualche impostazione può non essere correttamente
+gestita da alcune stampanti.
+
+Nel modo "B/N" i colori stampati vengono convertiti in bianco e nero, in
+base al valore impostato con il gadget "Soglia B/N". In tale modalità il
+parametro "Retinatura" viene ignorato.
+
+L'impostazione "Grigi 1" determina la conversione dei colori in differenti
+livelli di grigio; "Grigi 2", invece, riproduce un massimo di 4 diversi
+toni di grigio e può essere usato per stampare immagini disegnate sui
+monitor A2024.
+
+L'opzione "Colore" può essere usata solo se si dispone di una stampante a
+colori. In questo caso, i colori vengono stampati come appaiono sullo
+schermo.
+
+Personal Paint è in grado di effettuare stampe a 24 bit (16 milioni di
+colori), superando il noto limite di 4096 colori e 16 livelli di grigio
+dell'unità stampante di Amiga (il modo PostScript di Personal Paint opera
+comunque a 24 bit). Questi modi vengono attivati dalle impostazioni "Grigi
+8 bit" e "Colore 24 bit" del gadget ciclante "Stampa".
+
+La stampa a 24 bit si serve di apposite procedure di retinatura per
+comporre sfumature di colore combinando un ristretto numero di colori di
+stampa primari (sezione @{"4.3.2.1" LINK Main 437}). Alcune stampanti lavorano in "colori
+reali" e non necessitano di particolari retinature a monte. Per esempio,
+la stampante a colori Fargo Primera a sublimazione termica è fornita di un
+proprio driver Amiga a 24 bit. In questo caso anche con Personal Paint può
+essere usata la normale stampa di sistema, invece dell'opzione di stampa a
+24 bit con retinatura.
+
+Anche nei modi di stampa a 24 bit è necessario aver selezionato
+l'appropriato driver di stampa Amiga nelle preferenze di sistema (a meno
+che Personal Paint non stia operando nel modo di stampa PostScript).
+
+Per migliorare ulteriormente la qualità di stampa, è possibile modificare
+opportunamente i parametri presenti nel quadro "Correzione colori di
+stampa": questo viene visualizzato selezionando il gadget "Impostare..."
+(sezione @{"4.3.2.8" LINK Main 648}) nel quadro "Stampante di sistema".
+
+Le procedure di retinatura e correzione colori di Personal Paint sono
+state progettate per generare dati direttamente elaborabili dalla
+stampante. Esistono per Amiga alcuni programmi di utilità di stampa a "24
+bit" da usare in sostituzione ai driver di stampa di sistema. Questi
+programmi non ricevono realmente dati a 24 bit (almeno, non fino alla
+versione 3.2 del sistema operativo di Amiga) e non vanno utilizzati
+insieme a Personal Paint, a meno che tutte le loro opzioni di correzione
+colori siano state disabilitate. In caso contrario, diverse procedure di
+correzione e retinatura potrebbero interferire tra loro, con risultati di
+stampa scadenti.
+
+Alcuni calcolatori Amiga possono venire rallentati dall'attività di
+accesso diretto alla memoria necessaria a visualizzare schermi a 256
+colori. Tutti i programmi, compresa la stampa di Personal Paint, possono
+in questi casi trarre vantaggio se viene portato in primo piano lo schermo
+Workbench a 4 colori.
+
+Per ottenere risultati ottimali nei modi di stampa a 24 bit si consiglia
+di impostare la più alta densità consentita dal driver di stampa (sezione
+@{"4.3.2.6" LINK Main 620}). In particolare, utilizzando una stampante HP DeskJet con i
+driver acclusi a Personal Paint, il parametro "Retinatura" andrebbe
+impostato a "Floyd-Steinberg", il parametro "Soglia B/N" regolato a 1
+(questo disabilita lo schiarimento da parte del driver) e la "Densità" a 7
+(in tal modo si attiva anche il massimo livello di interlacciamento di
+stampa). Se da una parte queste impostazioni riducono la velocità di
+stampa, dall'altra permettono di elevare la qualità dei risultati.
+Utilizzando questi parametri non dovrebbe essere necessario modificare le
+tavole di correzione colore di Personal Paint. In generale la carta
+speciale per stampanti a getto d'inchiostro (o, in alternativa, quella per
+fotocopie a colori) fornisce i migliori risultati.
+
+
+@{B}4.3.2.5    Soglia Bianco/Nero@{UB}
+
+Il parametro "Soglia B/N" determina quali colori, in stampa, debbano
+essere trasformati in nero e quali in bianco. Questo parametro viene
+considerato esclusivamente nel modo di stampa "B/N". In questo caso, i
+colori più chiari dell'immagine tenderanno a essere stampati come bianco e
+i più scuri come nero. Il livello di @{I}soglia@{UI} che regola la conversione dei
+colori in bianco o nero equivale al valore impostato con il gadget
+proporzionale "Soglia B/N". Quando nel gadget "Immagine" è selezionata la
+modalità "Positiva" e il valore del parametro "Soglia B/N" è basso (circa
+2), solo i colori più scuri sullo schermo vengono stampati come nero. I
+restanti colori vengono convertiti in bianco (colore della carta: assenza
+di inchiostro). L'aumento del valore di "Soglia B/N" fa sì che un numero
+maggiore di colori venga stampato come nero. Se il parametro "Immagine"
+viene modificato in "Negativo", un valore basso di "Soglia B/N" fa sì che
+i colori più scuri sullo schermo siano stampati in bianco, e viceversa.
+
+
+@{B}4.3.2.6    Densità@{UB}
+
+Questo gadget permette di regolare la densità di stampa; i valori
+riportati sono espressi in punti per pollice, cioè il numero di punti
+stampante presenti nello spazio lineare di un pollice. Più è bassa la
+densità, più veloce è la stampa (su stampanti a densità multipla). Più
+alta è la densità, maggiore è il numero di punti costituenti la stampa e
+più dettagliata risulta l'immagine stampata.
+
+I valori selezionabili dipendono dal tipo di stampante in uso. Non tutte
+le stampanti permettono di stampare a densità differenti. L'appendice @{"D" LINK PPaintCD:H/7/2/4/2163/Main 1}
+fornisce ulteriori informazioni sulle stampanti e sui driver di stampa.
+
+
+@{B}4.3.2.7    Smussare@{UB}
+
+A volte, la stampa delle linee inclinate può presentare una seghettatura
+più o meno evidente. Quando viene impostata l'opzione "Smussare", le
+procedure di stampa tentano di livellare la scalettatura delle linee
+diagonali, in modo da ridurre la loro apparenza frastagliata. Questa
+opzione è utile per la stampa di immagini contenenti figure geometriche e
+testi. Quando è attiva l'opzione "Smussare", la stampa rallenta
+notevolmente.
+
+L'opzione "Smussare" viene automaticamente esclusa (anche se selezionata,
+non è operativa) quando è attiva la retinatura Floyd-Steinberg.
+
+
+@{B}4.3.2.8    Correzione dei colori@{UB}
+
+Quando sono attivate le opzioni di "Correzione dei colori", il sistema
+cerca di far corrispondere nel miglior modo possibile i colori
+visualizzati sullo schermo con quelli riprodotti in stampa. Selezionando i
+corrispondenti gadget, la correzione dei colori può essere applicata alle
+singole componenti cromatiche R (Rossa), V (Verde) e B (Blu), o a una
+combinazione delle stesse.
+
+La correzione dei colori provoca una riduzione del numero dei colori
+stampabili. Se non viene applicata alcuna correzione, una stampante a
+colori è in grado di riprodurre tutta la gamma cromatica visualizzata da
+Amiga; mentre, per ogni componente cromatica a cui si applica la
+correzione, nel caso di una tavolozza di 4096 colori (quella degli Amiga
+con il set di chip originali), si perdono 308 sfumature.
+
+Per apprezzare e valutare l'effetto della correzione dei colori, si può
+creare un'immagine contenente sfumature "piene" dei colori rosso, verde e
+blu. Tale immagine va dapprima stampata senza la correzione dei colori,
+quindi si procede con altre stampe, attivando di volta in volta la
+correzione dei colori su ogni componente cromatica (o combinazioni delle
+stesse). I colori della stampa con correzione di tutte le componenti, pur
+essendo costituita da un numero inferiore di sfumature, dovrebbe essere
+quella che meglio rappresenta i colori dell'immagine presente sullo
+schermo.
+
+Selezionando un modo di stampa a 24 bit e agendo sul gadget "Impostare..."
+si accede ai parametri di correzione gamma e rimozione del colore di
+fondo. La sezione @{"4.3.3.11" LINK Main 935} ("La separazione dei colori") contiene utili
+informazioni sugli inchiostri di stampa, mentre la sezione @{"4.3.3.11.1" LINK Main 963}
+("Correzione dei colori e rimozione del colore di fondo") descrive gli
+inconvenienti risolti dalla rimozione del colore di fondo, funzione
+operante in maniera pressoché identica nei modi di stampa a 24 bit e nel
+modo PostScript di Personal Paint.
+
+Personal Paint può correggere separatamente ognuna delle componenti
+cromatiche di stampa (ad es. ciano, magenta, giallo o nero). Il gadget
+ciclante "Componente" permette di selezionare la tavola di correzione su
+cui agire.
+
+Schiacciando il pulsante sinistro del mouse sul grafico, si inverte la
+rappresentazione dello stesso. Normalmente i valori associati a basse
+quantità di inchiostro si trovano nella parte in basso a sinistra del
+grafico. Questa è la notazione solitamente usata nel settore della stampa
+professionale.
+
+I gadget proporzionali "Brillantezza" e "Contrasto" agiscono in modo
+analogo a quelli descritti nella sezione @{"8.1.4" LINK PPaintCD:H/7/2/4/0016/Main 262} ("Calibrazione colori")
+del manuale.
+
+Imperfezioni come la sbavatura dei colori o la sovrapposizione dei punti
+("dot gain") possono far sì che una stampante risponda in modo non lineare
+alle informazioni ricevute dal calcolatore. La funzione di correzione
+gamma viene usata per correggere difetti di questo tipo. Valori gamma
+inferiori a 1 schiariscono l'immagine; valori superiori a 1 la rendono più
+scura. Un'appropriata curva di correzione gamma può nettamente migliorare
+la qualità di stampa, contenendo al minimo la perdita di informazioni.
+
+Le impostazioni predefinite del programma possono essere modificate per
+raggiungere una maggiore corrispondenza tra l'immagine visualizzata sullo
+schermo e quella stampata. Volendo ottimizzare i valori per una
+particolare immagine, può essere utile stampare piccole regioni "critiche"
+della stessa con la funzione di stampa del pennello.
+
+
+@{B}4.3.2.9    Avanzamento pagina@{UB}
+
+Attivando questa opzione, al termine della stampa di ogni immagine viene
+inviato alla stampante un codice di avanzamento pagina. Su alcune
+stampanti a pagina (ad esempio quelle che stampano un'intera pagina per
+volta, come le stampanti laser) questo comando forza la stampa immediata
+del contenuto della memoria e la conseguente espulsione del foglio. Su
+altre stampanti, tipicamente del tipo ad impatto con caricatore automatico
+dei fogli singoli, questo comando provoca l'espulsione del foglio attuale
+e l'inserimento di un nuovo foglio dal caricatore. Se vengono utilizzati
+fogli in modulo continuo, la carta viene fatta avanzare fino a posizionare
+la testina di stampa all'inizio della pagina successiva.
+
+Se l'opzione "Avanzamento pagina" è attivata e l'altezza del foglio
+(sezione @{"4.3.1.2" LINK Main 375}) è un multiplo di 1/6 o di 1/8 di pollice (le due unità
+di posizionamento verticale gestite dai dispositivi di stampa Amiga),
+Personal Paint tenta anche di programmare la lunghezza della carta della
+stampante. Ciò è molto utile per stampare copie multiple su modulo
+continuo non standard (come quello delle etichette).
+
+
+@{B}4.3.3      Parametri PostScript@{UB}
+
+Il requester "Parametri PostScript" contiene tutte le opzioni relative
+alla stampa PostScript. Questa particolare modalità operativa è
+utilizzabile con le stampanti compatibili con lo standard PostScript, con
+le unità di fotocomposizione e con altri sistemi di elaborazione delle
+immagini. Una stampante non compatibile con lo standard PostScript non è
+in grado di interpretare e stampare direttamente i dati in tale formato;
+in tal caso, tuttavia, è possibile utilizzare un emulatore software (ne
+esistono alcuni per Amiga) che elabori il programma PostScript, generando
+dati grafici direttamente stampabili.
+
+Personal Paint è in grado di sfruttare le estensioni PostScript e Color
+PostScript "Livello 2". Il programma, comunque, è compatibile anche con i
+sistemi di "Livello 1", grazie a specifiche funzioni di emulazione. Lo
+sviluppo e la verifica del codice PostScript a colori sono stati eseguiti
+con l'ausilio di una stampante NEC Colormate PS, gentilmente messa a
+disposizione da NEC Italia.
+
+
+@{B}4.3.3.1    Aspetto immagine@{UB}
+
+Due gadget ciclanti permettono di impostare i parametri "Immagine". Le
+modalità "Positiva" e "Negativa" del primo gadget sono analoghe alle
+omonime impostazioni per le stampanti di sistema, descritte nella sezione
+@{"4.3.2.3" LINK Main 518}. Il secondo gadget permette di impostare le modalità "Normale" e
+"Riflessa". Quest'ultima permette di stampare l'immagine come se apparisse
+@{I}riflessa@{UI} in uno specchio. Quest'opzione è utile per produrre cliché per le
+lastre di incisione con una comune stampante laser. In questi casi,
+infatti, al posto delle pellicole trasparenti vengono spesso usati fogli
+di carta più spessa e meno trasparente.
+
+
+@{B}4.3.3.2    DPI (punti per pollice)@{UB}
+
+Alcuni dispositivi permettono di programmare la risoluzione di stampa
+(numero di punti per pollice, o DPI). La risoluzione delle stampanti laser
+IBM serie 4029/4039 e HP LaserJet 4, ad esempio, può essere regolata a 300
+o 600 dpi (se la memoria di cui dispongono lo consente). Altre stampanti
+operano a 300/600 dpi, 400/800 dpi o anche con risoluzioni superiori. Le
+apparecchiature di fotocomposizione sono in grado di gestire risoluzioni
+superiori ai 1000 dpi (ad esempio 1016, 1200, 1270, 2400, 2540 o 3048
+dpi).
+
+Se il parametro DPI è impostato a zero, il processore PostScript usa la
+risoluzione predefinita della stampante. Tale accorgimento si rivela utile
+quando la risoluzione o il dispositivo di uscita finale sono sconosciuti.
+Se il parametro è uguale a zero e la dimensione dell'immagine (sezione
+@{"4.3.1.4" LINK Main 394}) è espressa in "Punti" o "Volte", il programma effettua i propri
+calcoli assumendo un valore predefinito di 300 dpi.
+
+
+@{B}4.3.3.3    LPI (linee per pollice)@{UB}
+
+Quando si stampano sfumature di colore con tecniche a mezzetinte (sezione
+@{"4.3.2.1" LINK Main 437} e @{"4.3.3.4" LINK Main 816}), l'impostazione del parametro LPI (linee per pollice)
+assume un ruolo importante, in quanto regola il numero di micropunti (@{I}
+cellule@{UI}) per pollice. Più è alto il numero di micropunti per pollice, più
+questi devono essere piccoli. I micropunti più piccoli possono
+rappresentare un maggior numero di dettagli, ma producono sfumature di
+colore approssimate e granulose. Con micropunti più grandi, invece, è
+possibile ottenere un maggior numero di retinature e creare transizioni
+cromatiche dall'aspetto più sfumato, sacrificando, però, alcuni dettagli
+dell'immagine. Maggiore è la risoluzione (DPI), più alto è il valore
+assegnabile al parametro LPI senza compromettere il numero di colori (o
+livelli di grigio) riproducibili.
+
+Ad esempio, con una risoluzione di 300 dpi (o quando per la stampa viene
+usata un tipo di carta relativamente ruvida), può essere appropriato un
+valore di 75 linee per pollice; questo valore che può salire a 100 con una
+risoluzione di 600 dpi, e a 150 con 1270 dpi. Anche a 1270 dpi, comunque,
+se si vogliono ottenere morbide sfumature di colore, potrebbe essere
+opportuno non usare un valore superiore a 85 lpi. Quando si prepara un
+lavoro da stampare, valori elevati possono superare i limiti di precisione
+ottenibili in stampa (ad esempio circa 200 lpi per sistemi di stampa
+offset su carta di alta qualità, per i quali 150 lpi è un limite più
+pratico). La sperimentazione delle diverse funzioni "spot" (sezione
+@{"4.3.3.4" LINK Main 816}) e di altri effetti particolari sarà più interessante con valori
+da 15 a 20 lpi. Al valore zero corrisponde l'uso del valore predefinito
+della stampante.
+
+
+@{B}4.3.3.4    La funzione spot@{UB}
+
+Le stampanti laser, i dispositivi offset e altre periferiche di
+riproduzione su carta hanno una limitazione comune: non possono stampare i
+grigi. Un determinato punto dell'immagine stampata è, infatti,
+caratterizzato dalla presenza (nero pieno) o dall'assenza (bianco
+assoluto) dell'inchiostro. L'illusione ottica del grigio (o di qualsiasi
+altro colore) è data dall'uso di retinature di punti opportunamente
+colorati. Più grandi e più vicini sono i punti, più l'area appare scura. I
+tipi di retinature utilizzate (come le mezzetinte) si basano su diverse
+strutture geometriche: punti rotondi, ellittici, allungati, a stella, ecc.
+Le varie categorie si diversificano anche per la loro diversa capacità di
+produrre transizioni lineari nelle sfumature di colore (o luminosità). I
+micropunti di forma ellittica, ad esempio, vengono spesso utilizzati per
+migliorare la qualità dei toni medi. Le prime stampanti PostScript
+utilizzavano semplici micropunti rotondi (corrispondenti all'impostazione
+"DotIn" di Personal Paint): ad una grande dimensione degli stessi
+corrispondevano i colori più scuri. La generazione di dispositivi più
+recente utilizza la stessa struttura rotonda per i grigi fino
+all'intensità intermedia (50%), e una retinatura diversa (con riempimento
+della cella dall'esterno verso l'interno) per i colori più scuri
+("DotOut").
+
+Il gadget "Spot" del requester "Parametri PostScript" permette di
+selezionare forme (retinature) differenti da assegnare alle celle. È più
+facile e divertente scoprire le numerose forme con un po' di
+sperimentazione piuttosto che affrontare una noiosa descrizione. Per
+apprezzare al meglio le differenze tra le varie impostazioni, il parametro
+LPI andrebbe impostato a un valore molto basso (ad esempio 15) e
+l'immagine da stampare dovrebbe contenere un'ampia varietà di colori o
+livelli di grigio.
+
+È anche possibile modificare l'angolo della retinatura (sezione
+@{"4.3.3.11.2" LINK Main 1018}) per ruotare l'allineamento e la forma delle celle. Differenze
+apprezzabili possono non essere evidenti usando spot rotondi, mentre
+importanti varianti possono essere ottenute con strutture più lineari.
+
+Forme differenti di micropunti possono portare a risultati diversi in
+stampe con separazione dei colori, proprio come le varie combinazioni di
+densità del retino (LPI) e angoli di rotazione sono determinanti per la
+riduzione del cosiddetto effetto @{I}moiré@{UI}.
+
+
+@{B}4.3.3.5    Il dispositivo di uscita@{UB}
+
+I dispositivi selezionabili come destinatari dei dati PostScript (gadget
+"Uscita") sono: "PRT", "SER", "PAR" e "Disco". PRT dirige i dati in
+questione al canale assegnato, nelle preferenze di sistema, alla stampante
+(ad esempio, un'uscita di una scheda multiseriale). SER e PAR indicano,
+rispettivamente, le porte seriale e parallela predefinite; queste due
+impostazioni, a livello funzionale, possono essere equivalenti a PRT, ma
+risultano più veloci in quanto si basano su un colloquio diretto con
+l'hardware ed evitano il passaggio intermedio del driver di stampa
+(comunque ignorato). L'impostazione "Disco" indica che il flusso dei dati
+viene diretto a un file. In questo caso, prima della stampa viene attivato
+il quadro di selezione file: da questo è possibile definire il percorso e
+il nome del file da creare. Memorizzando i dati PostScript su un disco
+formattato in modo MS-DOS (con CrossDOS, Dos-2-Dos o i driver "PC"
+disponibili dalla versione 2.1 del sistema operativo), gli stessi possono
+essere direttamente utilizzati da molte stampanti e utenti PC.
+
+
+@{B}4.3.3.6    EPS (Encapsulated PostScript)@{UB}
+
+Il formato Encapsulated PostScript (EPS) è uno standard creato per lo
+scambio di file PostScript tra diversi ambienti. Un'immagine memorizzata
+nel formato EPS, ad esempio, può essere usata in programmi di
+impaginazione su diversi calcolatori. Tale immagine potrà essere stampata
+esattamente (con lo stesso valore di LPI, ecc.) come in Personal Paint.
+Per ottenere la massima risoluzione offerta da alcuni dispostivi, è
+necessario impostare a zero il parametro DPI (valore predefinito del
+dispositivo) prima di creare un file EPS.
+
+
+@{B}4.3.3.7    Registri di allineamento e taglio@{UB}
+
+L'opzione "Registri" permette di generare degli speciali segni di
+riferimento (detti @{I}crocini@{UI}) costituiti da sottili linee e delimitanti i
+margini dell'immagine. Questi si rivelano utili per rifilare il foglio ai
+margini esatti della stampa. Se l'opzione "Registri" viene attivata
+assieme alla separazione dei colori, Personal Paint produce ulteriori
+segni di riferimento, utili per una precisa sovrapposizione delle
+pellicole di diverso colore.
+
+
+@{B}4.3.3.8    Alimentazione manuale della stampante@{UB}
+
+Selezionando quest'opzione, Personal Paint tenta di attivare
+l'alimentazione manuale della stampante; in caso contrario viene
+utilizzato il tipo di alimentazione predefinito.
+
+
+@{B}4.3.3.9    Compressione del codice PostScript@{UB}
+
+I file PostScript possono essere anche molto lunghi. Può facilmente
+capitare che un file non possa essere memorizzato su un singolo disco, o
+che impiegi vari minuti per essere trasferito, su connessione seriale,
+alla stampante. Se attivata, l'opzione "Compresso" di Personal Paint
+permette di ridurre la lunghezza del file a meno del 30% della dimensione
+originale. Il rapporto di compressione tende a migliorare con l'aumento
+del volume dei dati dell'immagine (ad es. con immagini ad alta risoluzione
+o con separazione dei colori). Se la velocità di trasmissione dei dati non
+costituisce il principale "collo di bottiglia", la compressione potrebbe
+rivelarsi controproducente, rallentando l'elaborazione dei dati da parte
+della stampante (specialmente se dotata di interprete PostScript di
+Livello 1).
+
+
+@{B}4.3.3.10   Modi di stampa PostScript@{UB}
+
+Il gadget ciclante "Stampa", nella parte bassa del requester "Parametri
+PostScript", permette di scegliere tra le seguenti tecniche di stampa
+PostScript: "Grigio" (per stampanti in bianco e nero), "Colore" (per
+stampanti a colore), "CMY" e "CMYK" (separazione di colori). Nelle
+modalità "Grigio" e "Colore" ogni immagine viene stampata su un singolo
+foglio di carta. Le impostazioni "CMY" e "CMYK" permettono di ottenere la
+stampa di ogni componente cromatica su una pagina diversa.
+
+
+@{B}4.3.3.11   La separazione dei colori (CMY/CMYK)@{UB}
+
+Le lettere usate nelle sigle "CMY" e "CMYK" derivano dai nomi dei colori
+Ciano, Magenta, Yellow (giallo) e blacK (nero - l'iniziale di tale colore
+non può essere usata perché confondibile la B del colore blu - cfr. sigla
+RGB). Molte stampanti mescolano pigmenti dei primi tre colori per simulare
+vaste gamme cromatiche. Questa tecnica è detta @{I}sintesi sottrattiva@{UI} e opera
+in maniera opposta al metodo @{I}additivo@{UI}, basato sui colori rosso, verde e
+blu (RGB). Il ciano, il magenta e il giallo sono, infatti, i colori
+reciproci del rosso, del verde e del blu: un pigmento di un determinato
+colore assorbe completamente la luce del suo colore complementare. Proprio
+come i televisori e i programmi di disegno su calcolatore creano colori
+con la tecnica RGB, le stampanti producono immagini colorate grazie al
+metodo CMY. Le pellicole ottenute con la separazione dei colori CMY e CMYK
+permettono di generare, per ossidazione, i cliché di stampa; questi, a
+loro volta, vengono utilizzati per trasferire su carta i colori primari.
+La stampa di ogni colore viene effettuata sopra la precedente, grazie ad
+un perfetto allineamento dei cliché. I gadget "C", "M", "Y" e "K",
+associati ai rispettivi colori di base, permettono di disabilitare, se
+necessario, la stampa di uno o più colori primari.
+
+La tecnica di stampa appena descritta può presentare due tipi di problemi:
+il primo è legato al fatto che i colori degli inchiostri "reali" non
+offrono risultati ideali quando vengono mescolati; il secondo è dato dalla
+difficoltà di ottenere una sovrapposizione perfetta dei colori, condizione
+indispensabile per la produzione di stampe di qualità.
+
+
+@{B}4.3.3.11.1 Correzione dei colori e rimozione del colore di fondo@{UB}
+
+In teoria, diverse combinazioni di ciano, magenta e giallo possono essere
+mescolate per produrre l'intero spettro cromatico. Gli inchiostri reali,
+tuttavia, contengono impurità che pregiudicano il principio di
+assorbimento ottico delle singole componenti cromatiche. Ad esempio,
+quando parti uguali di ciano, magenta e giallo vengono mescolate assieme,
+il risultato dovrebbe variare dal grigio chiaro al nero. Molto spesso,
+invece, si ottiene un colore brunito. Questa è una delle ragioni per cui
+il colore nero viene spesso usato come quarta componente. Un ulteriore
+vantaggio legato all'uso dell'inchiostro nero è dato dal fatto che il suo
+costo è inferiore a quello degli inchiostri colorati. Inoltre, l'uso di
+inchiostro nero per produrre tinte scure riduce notevolmente la quantità
+di inchiostri colorati altrimenti necessaria: va infatti ricordato che
+maggiore è la quantità di inchiostro utilizzata, più tempo occorre perché
+il foglio asciughi e sia pronto al successivo passaggio di stampa.
+
+L'inchiostro nero può essere usato in tutti i casi in cui dovrebbero
+essere usati tutti gli altri tre colori. Se, ad esempio, per la stampa di
+un'area con un determinato colore viene usato il 25% di ciano, il 30% di
+magenta e il 45% di giallo, la stessa area può essere stampata con il 25%
+di nero, niente ciano, il 5% di magenta e il 15% di giallo. Il parametro
+"UCR" indica la quantità di nero che può essere rimossa dalle componenti
+ciano, magenta e giallo, e sostituita come componente nera separata. Il
+valore 100% indica che la quantità di nero che si può rimuovere è pari al
+valore minore degli altri tre colori originali (come i valori
+massimo/minimo dell'esempio precedente). Nella pratica, la rimozione
+completa del nero è abbastanza insolita, in quanto minimi errori di
+sovrapposizione delle matrici potrebbero far comparire sottili bordi
+bianchi attorno alle aree completamente nere. Solitamente la rimozione del
+nero dagli altri colori non supera il 50%.
+
+Il parametro "GCR" (da "Gray Component Replacement", sostituzione della
+componente grigia) permette di aumentare o diminuire la quantità di
+inchiostro nero risultante dalla rimozione del colore di fondo. Il valore
+100% non modifica il risultato, 150% aggiunge il 50% di inchiostro nero,
+0% provoca la completa eliminazione del colore nero (equivale a
+disattivare il gadget "K" nella colonna "Inch.")
+
+L'inchiostro giallo normalmente utilizzato si avvicina molto al giallo
+puro ed è generalmente trattato come tale. L'inchiostro magenta, invece,
+risulta contenere una parte di giallo, mentre il ciano è inquinato da una
+certa quantità di magenta e di giallo. I parametri "UCRM" e "UCRY" operano
+in modo simile a "UCRK" e rimuovono, rispettivamente, il magenta dal ciano
+e il giallo dal magenta.
+
+Le corrette impostazioni per la rimozione del colore di fondo e per la
+sostituzione della componente grigia dipendono dalle caratteristiche del
+dispositivo di stampa e dai materiali che vengono utilizzati. Alcuni
+produttori di stampanti a colori configurano i loro dispositivi con i
+valori più appropriati. I parametri "GCR" e "UCR" di Personal Paint
+vengono ignorati nella stampa a colori e utilizzati esclusivamente per la
+stampa di separazione "CMY" e "CMYK".
+
+
+@{B}4.3.3.11.2 L'effetto moiré@{UB}
+
+I crocini di registro e di riferimento attorno all'immagine, utilizzati
+per la collimazione delle pellicole di colori differenti, non sono sempre
+sufficienti a garantire una perfetta sovrapposizione dei colori. In molti
+casi, il tallone di Achille del processo di stampa è proprio la precisione
+meccanica delle macchine e dei materiali coinvolti.
+
+L'effetto @{I}moiré@{UI} consiste in una fastidiosa trama "parassita" che può
+apparire quando si sovrappongono due o più gruppi di linee (o griglie).
+Durante le trasmissioni televisive è un fatto comune notare tale effetto
+quando i personaggi indossano abiti con motivi a linee sottili dai colori
+contrastanti: la geometria di questi motivi risulta distorta da
+particolari interferenze. Fatto analogo può accadere nella tipografia
+digitale, quando si effettua la scansione di un'immagine in mezzetinte
+(con retinatura). Nella stampa a colori, il fenomeno è normalmente dovuto
+all'interferenza tra i diversi retini a mezzatinta. Dal momento che è
+ragionevolmente impossibile ottenere una perfetta sovrapposizione dei
+retini (con uguale inclinazione), viene utilizzata una soluzione diversa:
+il retino di ogni componente cromatica viene ruotato rispetto agli altri,
+riducendo notevolmente il fenomeno moiré. Se la retinatura utilizzata è
+sufficientemente fine, è quasi impossibile notare l'effetto moiré a una
+certa distanza, come succede durante l'osservazione dei micropunti che
+formano le mezzetinte.
+
+Personal Paint permette di regolare l'angolo di ognuno dei quattro retini.
+Nella stampa in bianco nero (grigio) viene usato solo l'angolo del retino
+nero ("K"). Questo viene solitamente impostato a 45 gradi: tale angolo
+produce una tessitura poco evidente all'occhio umano. Il giallo è il
+colore più chiaro ed è anche quello che crea meno problemi, perciò il suo
+angolo viene normalmente impostato a 0 o a 90 gradi. Ciano e magenta
+vengono di norma ruotati di 30 gradi rispetto al nero (tale è lo
+spostamento massimo ammesso nella stampa a tre colori) e pertanto ruotati
+di soli 15 gradi rispetto al giallo. Poiché il colore ciano è
+relativamente scuro, a volte viene stampato a 45 gradi e il nero a 15
+gradi. Poiché la mezzatinta è solitamente composta da una griglia di
+quadrati, i quattro retini possono essere disposti in un intervallo di
+soli 90 gradi; pertanto, un'angolazione di 0 gradi è equivalente a una di
+90 gradi, una di 15 gradi a una di 105, ecc.
+
+Ci sono varie regole per ridurre gli effetti moiré nella separazione dei
+colori. Molte di queste sono troppo complesse per essere esposte in questa
+sede. Generalmente, i fattori che determinano la qualità del risultato,
+riducendo le interferenze moiré, sono un basso numero di linee di
+retinatura (LPI), un'alta risoluzione (DPI) e la scelta degli angoli più
+razionali. D'altro canto, è possibile constatare che le risoluzioni
+maggiori o i retini con maggior numero di linee producono motivi moiré più
+piccoli e perciò meno percettibili. Retini con uguale numero di linee per
+ognuna delle quattro componenti e angoli perfettamente distribuiti non
+sono necessariamente l'obiettivo finale. Spesso, infatti, si possono
+ottenere combinazioni migliori e meno sensibili all'effetto moiré usando
+densità diverse per i vari colori. È bene evitare differenze angolari
+inferiori a 15 gradi (o anche 20), in quanto potrebbero generare spesse
+griglie molto evidenti.
+
+Combinazioni ricorrenti di angoli per le componenti C, M, Y, K sono: 75,
+15, 0,45; 75, 15, 90, 45; 105, 75, 90, 45; 15, 75, 0, 45; 0, 30, 60, 15;
+30, 60, 0, 15. I risultati possono variare usando retini di differente
+densità (LPI). Con l'aumento della densità diminuisce il numero degli
+angoli disponibili e i problemi legati all'effetto moiré si fanno più
+pesanti. Generalmente, l'effetto moiré può passare inosservato in piccole
+aree dello stesso colore, mentre risulta evidente e fastidioso su estese
+aree colorate.
+
+Impostando un angolo superiore a 360 gradi, viene utilizzato l'angolo
+predefinito del dispositivo di stampa. I valori di rotazione e densità dei
+retini (soprattutto di una stampante a colori) andrebbero attentamente
+provati e valutati, prima di essere utilizzati come parametri
+predefiniti.
+
+
+@{B}4.4        Copiare schermo@{UB}
+
+Personal Paint è in grado di "catturare" e modificare il contenuto di
+schermi visualizzati da altri programmi, come se si trattasse di normali
+immagini pittoriche. La funzione "Copiare schermo" trasferisce l'immagine
+dello schermo selezionato nell'ambiente attuale. Lo schermo coinvolto
+nell'operazione non viene in alcun modo alterato.
+
+Il quadro per la selezione dello schermo, analogo al quadro di selezione
+file, visualizza i nomi di tutti gli schermi disponibili. Gli schermi
+aperti da alcune applicazioni non dispongono di un titolo. Per
+rappresentare tali schermi, Personal Paint ne riporta alcune
+caratteristiche, come le dimensioni e il numero di colori utilizzati. Per
+copiare l'immagine di uno schermo è sufficiente effettuare un doppio click
+su un nome della lista, o selezionare il nome e poi il gadget
+"Procedere".
+
+A volte è necessario copiare uno schermo mentre una particolare finestra è
+attiva, mentre un gadget è selezionato, oppure mentre è visualizzato un
+menu. Ovviamente non è possibile attivare queste funzioni e, allo stesso
+tempo, agire sul requester "Copiare schermo" di Personal Paint. In tali
+situazioni lo schermo può essere catturato con una speciale procedura
+alternativa messa a disposizione da Personal Paint: la pressione
+contemporanea dei tasti <Ctrl>+<Shift>+<Alt>, in qualsiasi momento, indica
+al programma di copiare il contenuto del primo schermo visibile. Un
+lampeggio dello schermo e un segnale acustico segnalano che l'operazione è
+stata eseguita. Questa tecnica, come la selezione normale, può essere
+utilizzata solo quando il requester "Copiare schermo" è visualizzato.
+
+In modo animazione è possibile copiare più schermi automaticamente. Dopo
+aver copiato uno schermo (sia con i tasti <Ctrl>+<Alt>, sia con il gadget
+"Procedere"), Personal Paint aggiunge un nuovo fotogramma, restando in
+modalità "copia schermo". È così possibile registrare un'animazione
+didattica, oppure catturare diversi quadri o menu di un programma da
+includere in un manuale, il tutto senza passare ripetutamente da un
+programma all'altro.
+
+
+@{B}4.5        Formato immagine e formato schermo@{UB}
+
+Personal Paint non pone limiti alle dimensioni dell'area di lavoro.
+Un'immagine, infatti, può essere grande quanto il più ampio blocco
+gestibile dalla circuiteria blitter. In modo analogo, il numero massimo
+dei colori contemporaneamente visualizzabili dipende dalla versione del
+set di chip montato nel calcolatore. I set di chip originali e l'Enhanced
+Chip Set (ECS) possono visualizzare un massimo di 64 colori indipendenti
+(modo "Extra Half Brite" - sezione @{"8.1.3.1" LINK PPaintCD:H/7/2/4/0016/Main 114}). Operando su Amiga con
+architettura grafica avanzata, Personal Paint può visualizzare fino a 256
+colori nella maggior parte dei modi video. Ognuno dei due ambienti di
+Personal Paint dispone di parametri di formato (modo video, dimensioni
+immagine, ecc.) indipendenti.
+
+Oltre ai chip grafici in dotazione al calcolatore, Personal Paint può
+sfruttare qualsiasi scheda grafica opportunamente integrata nel sistema
+(ad es. tramite Display Database). Anche in queste circostanze, Personal
+Paint non pone alcuna limitazione alle dimensioni e al numero di colori
+delle immagini, ma vale quanto sopra ricordato.
+
+Le dimensioni delle immagini editabili con Personal Paint non sono
+limitate dal formato dello schermo utilizzato: questo può anche contenere
+solo una parte dell'immagine. La sezione @{"3.2" LINK PPaintCD:H/7/2/4/0017/Main 1411} spiega come muovere e far
+scorrere le immagini più ampie dello schermo. Il modo di schermo vincola
+l'immagine solo per quanto riguarda il numero di piani di bit e quindi il
+numero massimo di colori. Un'immagine non può avere più colori di quelli
+visualizzabili. La sezione @{"4.1" LINK Main 11} descrive alcune delle opzioni disponibili
+per la lettura di immagini con un numero elevato di colori. Questa
+limitazione sparisce nell'ambito della gestione dei pennelli: un pennello
+a 256 colori, ad esempio, può essere letto anche dai modelli Amiga con
+chip grafici della prima generazione. In questo caso, i colori del
+pennello possono non essere visualizzati correttamente (sono coinvolti
+solo i primi piani di bit), ma il pennello può essere elaborato
+(ridimensionato, ruotato, ecc.), stampato e memorizzato correttamente.
+
+La selezione della voce "Formato immagine" del menu Progetto visualizza un
+quadro di selezione contenente i nomi di tutti i modi video presenti nel
+Display Database di Amiga. Qualsiasi modo video può essere selezionato con
+un click del pulsante sinistro del mouse sul nome che lo
+contraddistingue.
+
+Molti modi video sono disponibili anche in versione interlacciata. Nei
+sistemi con architettura grafica avanzata (e sistema operativo 3.0 o
+superiore) può anche esser disponibile una variante "Double-Scan" (doppia
+scansione).
+
+Selezionando un modo interlacciato si raddoppia il numero di linee video.
+Il modo interlacciato, tuttavia, può produrre uno sfarfallio (@{I}flickering@{UI})
+dello schermo, se non si dispone  di una scheda deinterlacciatrice o di
+una circuiteria video "Display Enhancer". Ciò è dovuto al fatto che i chip
+grafici originali di Amiga non sono in grado di visualizzare un numero
+elevato di linee in una normale scansione video. Il sistema è pertanto
+costretto a eseguire due successive scansioni (linee pari e linee dispari
+alternativamente) per visualizzare un quadro video completo.
+
+Uno schermo interlacciato, rispetto a uno non interlacciato, richiede
+approssimativamente una quantità di memoria doppia. La sezione @{"1.3.2" LINK PPaintCD:H/7/2/4/0002/Main 94}
+spiega come calcolare la quantità di RAM necessaria per aprire uno
+schermo. L'uso di schermi ad alta risoluzione, oltre a richiedere molta
+memoria, può rallentare considerevolmente il sistema.
+
+Il nuovo gadget "Blocco modo video", alla destra dell'indicatore del modo
+video selezionato, impedisce alla funzione di lettura dell'immagine di
+modificare il modo video o l'impostazione del parametro
+"Autotraslazione".
+
+Attivando questa opzione assieme all'autotraslazione dell'immagine è
+possibile visionare una serie di immagini di differenti dimensioni
+evitando possibili sfarfallamenti dovuti alla risincronizzazione dei
+monitor multiscansione.
+
+Se l'apertura di un nuovo schermo fallisce per mancanza di memoria,
+Personal Paint prova dapprima ad aprire lo schermo rimuovendo un eventuale
+overscan. Se questa operazione fallisce (o se non si era richiesto un
+formato overscan), il programma tenta di aprire un piccolo schermo a bassa
+risoluzione, non interlacciato (320x200 punti). Se anche quest'ultimo
+tentativo fallisce (ciò è molto raro ed è probabilmente sintomo di seri
+problemi di frammentazione della memoria), Personal Paint prova nuovamente
+dopo aver gradualmente liberato tutta la memoria possibile (chiudendo il
+Workbench, liberando la memoria usata dalla funzione "Annullare ultima
+operazione", cancellando dalla memoria i pennelli, ecc.).
+
+Le sezioni @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8} e @{"11.4" LINK PPaintCD:H/7/2/4/0046/Main 351} contengono informazioni e consigli sui problemi
+relativi alla scarsità di memoria, ai modi schermo e ai dispositivi
+video.
+
+
+@{B}4.5.1      Overscan@{UB}
+
+Molti modi video permettono di usare schermi in formato @{I}overscan@{UI}.
+Selezionando tali formati, la visualizzazione viene estesa a un'area,
+detta area overscan, che normalmente circonda il perimetro dello schermo.
+
+Esistono diversi livelli di overscan: "Testo", "Grafica" (standard),
+"Estremo" (l'area più ampia ufficialmente gestita da Intuition) e
+"Massimo" (il massimo formato gestibile dall'hardware); gli ultimi due
+formati sono anche detti "Massimo" e "Video" nella terminologia del
+sistema operativo 2.0.
+
+Le dimensioni esatte dei formati overscan possono essere definite con il
+programma "Overscan" delle preferenze di sistema (sistema operativo 2.0 e
+successivi). Non tutti i monitor sono in grado di visualizzare
+completamente i vari schermi overscan. Nei sistemi operativi Amiga
+precedenti la versione 2.0, il modo overscan non è una caratteristica
+standard di sistema e può causare anomalie.
+
+Quando la dimensione dello schermo supera la normale area overscan, può
+essere utile regolare accuratamente la posizione dello schermo. Questa
+operazione va effettuata premendo il tasto <Amiga sinistro> più il
+pulsante sinistro del mouse e muovendo il mouse.
+
+
+@{B}4.5.2      Dimensioni immagine e dimensioni schermo@{UB}
+
+Le dimensioni dello schermo variano in funzione del modo schermo e del
+formato overscan selezionato. È anche possibile impostare i valori
+desiderati direttamente nei gadget testo "Schermo". La possibilità di
+creare nuovi e particolari formati di schermo si traduce nella presenza di
+un ulteriore modo overscan, chiamato "Altro".
+
+Come già ricordato, la dimensione dell'immagine può essere impostata
+indipendentemente dall'ampiezza dello schermo. I due gadget con i simboli
+a freccia, alla destra dei gadget con le dimensioni dell'immagine e dello
+schermo, servono a copiare le dimensioni dello schermo in quelle
+dell'immagine e viceversa.
+
+Confermando una variazione del formato immagine, viene visualizzato un
+requester per decidere se mantenere le attuali dimensioni dell'immagine o
+passare al nuovo formato. In quest'ultimo caso è possibile selezionare
+l'opzione "Rimodellare" per ridurre o adattare l'immagine alle nuove
+dimensioni (in caso contrario, parte dell'immagine può esser persa). La
+riduzione dei colori, se necessaria, viene sempre eseguita.
+
+
+@{B}4.5.3      Numero di colori@{UB}
+
+Il gadget proporzionale "Colori" regola il numero dei colori dello schermo
+selezionato. L'impostazione minima corrisponde a due colori, quella
+massima dipende invece dal modo video e dal set di chip disponibile. Il
+set di chip originale e l'Enhanced Chip Set (ECS) possono visualizzare
+fino a 32 colori (64 in modo "HBrite") in schermi a bassa risoluzione
+(circa 320 punti di larghezza), 16 colori in alta risoluzione (circa 640
+punti di larghezza) e 4 nei modi "Produttività" (VGA) e "A2024". I
+calcolatori Amiga con architettura grafica avanzata sono in grado di
+operare nella maggior parte di questi modi video con un massimo di 256
+colori.
+
+
+@{B}4.5.4      Autotraslazione@{UB}
+
+L'opzione "Autotraslazione", disponibile a partire dalla versione 2.0 del
+sistema operativo, abilita lo scorrimento automatico dell'immagine se le
+dimensioni della stessa sono superiori a quelle dello schermo. Lo
+scorrimento viene effettuato quando il puntatore si trova ai bordi dello
+schermo. Alcune schede grafiche richiedono l'attivazione di questa opzione
+per aprire schermi di particolari dimensioni.
+
+Lo scorrimento automatico può non operare correttamente in congiunzione
+con alcuni formati overscan. Quando la barra del titolo (sezione @{"3.3" LINK PPaintCD:H/7/2/4/0017/Main 1456}) non
+è visibile, si può accedere ai menu tenendo premuto il tasto <Ctrl> e
+schiacciando il pulsante destro del mouse.
+
+
+@{B}4.5.5      Retargetable Graphics (RTG)@{UB}
+
+Alcune schede video conservano i dati grafici dei propri schermi in zone
+di memoria non accessibili alla circuiteria blitter di Amiga. Altre
+periferiche video, invece, utilizzano una speciale copia degli schermi
+convenzionali: questa copia viene aggiornata da apposito software di
+supporto che opera attraverso le funzioni grafiche di sistema. In questo
+caso, tuttavia, alcune manipolazioni del contenuto di uno schermo possono
+non essere correttamente gestite.
+
+Operando su calcolatori Amiga convenzionali, Personal Paint può adoperare
+direttamente la circuiteria blitter per rendere rapide ed efficienti
+diverse operazioni grafiche. L'attivazione dell'opzione "RTG" inibisce
+qualsiasi uso del blitter che possa sfuggire al controllo della scheda
+grafica o che possa entrare in conflitto con il suo schema di gestione
+della memoria. Impostando l'opzione "RTG" ad "Auto", Personal Paint
+individua automaticamente i modi video che necessitano di procedure RTG e
+opera di conseguenza. Sfortunatamente, a causa della mancanza di uno
+standard in questo ambito, questa impostazione può non operare
+correttamente con tutte le espansioni video. Quando si utilizza una nuova
+scheda grafica è consigliabile provare le diverse impostazioni RTG con
+tutti i modi video.
+
+
+@{B}4.6        Elaborare immagine@{UB}
+
+Questa funzione è analoga allo strumento "Elaborazione immagini" descritto
+nella sezione @{"3.1.4" LINK PPaintCD:H/7/2/4/0017/Main 633}; in questo caso, però, il filtro selezionato viene
+applicato all'intera immagine.
+
+Per limitare la parte da elaborare all'area visibile dello schermo è
+possibile attivare l'opzione "Confinare Grafica" (sezione @{"9.13.2" LINK PPaintCD:H/7/2/4/0047/Main 820}).
+
+Quando l'elaborazione dell'immagine è in corso, questa può essere
+interrotta premendo un qualsiasi tasto. Richiamando la funzione "Annullare
+ultima modifica", si ripristina l'immagine alle condizioni precedenti
+l'elaborazione.
+
+
+@{B}4.7        Capovolgere immagine@{UB}
+
+Queste funzioni sono simili alle equivalenti funzioni del menu Pennello
+(sezione @{"5.12.3" LINK PPaintCD:H/7/2/4/0048/Main 504}), ma operano sull'intera immagine (o sulla parte
+visualizzata, se è attiva l'opzione "Confinare grafica", sezione
+@{"9.13.2" LINK PPaintCD:H/7/2/4/0047/Main 820}).
+
+
+@{B}4.7.1      Capovolgere orizzontale@{UB}
+
+Il risultato della funzione "Capovolgere orizzontale" è una variante
+speculare dell'immagine iniziale.
+
+
+@{B}4.7.2      Capovolgere verticale@{UB}
+
+La funzione "Capovolgere verticale" ribalta sottosopra l'immagine
+corrente.
+
+
+@{B}4.8        Ambiente di lavoro@{UB}
+
+Personal Paint mette a disposizione due ambienti di lavoro indipendenti,
+che possono anche avere risoluzioni grafiche, numero di colori e formati
+differenti. Il simbolo "1:" o "2:", che precede il nome dell'immagine
+nella barra del titolo, indica il numero di ambiente selezionato.
+
+Durante l'inizializzazione, il programma assegna memoria grafica ad un
+solo ambiente. Il secondo ambiente viene creato solo nel caso vi si acceda
+(o si attivi una funzione che ne faccia uso).
+
+
+@{B}4.8.1      Cambiare ambiente@{UB}
+
+Questo comando permette di cambiare ambiente, passare cioè dall'ambiente
+attuale a quello alternativo (creandolo, se non già esistente).
+
+
+@{B}4.8.2      Copiare in alternativo@{UB}
+
+Questo comando copia il formato di schermo e di immagine, l'immagine
+stessa e le impostazioni correnti nel secondo ambiente. Il comando non
+provoca un cambio di ambiente. Nel caso l'ambiente alternativo contenga
+un'immagine non ancora memorizzata, il programma visualizza un messaggio
+di avvertimento, prima di cancellarla.
+
+
+@{B}4.8.3      Copiare animazione@{UB}
+
+Questo comando copia l'intera animazione nell'altro ambiente.
+
+
+@{B}4.8.4      Sovrapporre alternativo@{UB}
+
+Questo comando copia l'immagine dell'ambiente alternativo sull'immagine
+visualizzata, considerando trasparenti, nella prima immagine, i punti del
+colore di sfondo. In pratica, nell'ambiente attuale vengono copiati i soli
+pixel dell'immagine alternativa non caratterizzati dal colore di sfondo.
+
+Se i due ambienti possiedono tavolozze di colori e/o dimensioni diverse,
+l'immagine dell'ambiente alternativo viene sottoposta ad adattamento,
+riduzione dei colori e ridimensionamento, prima di esser copiata
+sull'immagine attuale.
+
+
+@{B}4.8.5      Alternativo in sfondo@{UB}
+
+Questo comando permette di utilizzare l'immagine dell'ambiente alternativo
+come sfondo dell'immagine attuale. L'operazione è analoga a quella svolta
+da "Sovrapporre alternativo", in questo caso, però, solo i punti del
+colore di sfondo dell'immagine attuale vengono modificati: su di essi
+vengono copiati i corrispondenti pixel dell'immagine alternativa.
+
+
+@{B}4.8.6      Liberare ambiente@{UB}
+
+Questo comando consente di liberare la memoria occupata dall'ambiente
+attuale. Il comando è attivabile solo se l'ambiente corrente non è l'unico
+disponibile (altrimenti il programma dovrebbe terminare). La sezione @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8}
+descrive altre operazioni finalizzate al recupero di memoria.
+
+
+@{B}4.9        Mostrare immagine@{UB}
+
+Questa funzione visualizza l'immagine attuale nella sua interezza,
+adattandola, se necessario, allo schermo e rimuovendo gli elementi
+estranei, come la barra del titolo e quella degli strumenti.
+
+Il normale modo di lavoro viene ristabilito alla pressione di un qualsiasi
+tasto della tastiera o con un click di uno dei pulsanti del mouse.
+
+
+@{B}4.10       Informazioni@{UB}
+
+@{B}4.10.1     Informazioni sul progetto@{UB}
+
+Questo quadro fornisce informazioni sull'immagine o sull'animazione
+attuale e permette di scrivere delle annotazioni da memorizzare insieme ai
+file.
+
+Il contenuto dei campi "Autore", "Copyright" e "Note" viene solitamente
+incorporato nel file nei formati IFF (ILBM, ANIM, ecc.) e GIF, e inserito
+come commento al file negli altri formati. Quando è presente il solo campo
+"Note", questo viene sempre memorizzato come commento al file. Se tutti i
+campi sono vuoti non viene memorizzata alcuna informazione aggiuntiva. In
+questo caso, un eventuale, preesistente, commento al file viene cancellato
+e nessun blocco di estensione (IFF, PNG o GIF) viene memorizzato.
+
+Il campo "Note" può essere utile per fornire indicazioni quali l'indirizzo
+dell'autore, informazioni su marchi registrati contenuti nell'immagine, o
+particolari tecniche impiegate nella creazione o l'elaborazione
+dell'immagine.
+
+
+@{B}4.10.2     Stato della memoria@{UB}
+
+Questa funzione visualizza un quadro contenente informazioni sulla
+quantità di memoria disponibile. Il gadget "Va bene" può essere
+selezionato per rimuovere il quadro.
+
+Il quadro contiene diversi dati. I valori indicati vengono calcolati @{U}
+prima@{UU} che il quadro sia visualizzato: in tal modo, la memoria
+temporaneamente occupata per la visualizzazione del quadro non viene
+sottratta e considerata come occupata. L'unità di misura per tutti i
+valori indicati è il byte. Le sezioni @{"1.3.2" LINK PPaintCD:H/7/2/4/0002/Main 94} ("La memoria RAM"), @{"4.8.6" LINK Main 1403}
+("Liberare ambiente") e l'appendice @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8} ("Mancanza di memoria")
+contengono ulteriori informazioni sull'argomento.
+
+La memoria utilizzata per le animazioni viene inclusa nei rispettivi campi
+"Ambiente". In modo animazione il programma utilizza alcune aree di
+memoria che si aggiungono alle altre indicate nel campo "Buffer".
+
+Tre gadget all'interno del quadro permettono di liberare memoria o
+spostare oggetti in memoria virtuale in situazioni di emergenza.
+
+Selezionando "Spostare", Personal Paint sposta tutti i dati inutilizzati
+(occupanti memoria chip, fast o virtuale) in memoria virtuale su disco.
+Questa operazione può essere utile per avviare altri programmi in
+condizioni di scarsità di memoria.
+
+La funzione "Spostare tutto" opera in modo più radicale e, per questo,
+andrebbe adoperata solo in situazioni critiche. Oltre a quanto detto
+prima, infatti, vengono liberate ulteriori aree di memoria (come quella
+utilizzata per la visualizzazione del pennello sull'immagine) e può essere
+chiuso lo schermo Workbench.
+
+"Liberare annullamento" libera tutti i livelli di annullamento. Questa
+funzione può anche essere attivata con la selezione abbreviata di <Ctrl-u>
+in modo disegno.
+
+
+@{B}4.10.2.1   Memoria di sistema@{UB}
+
+La parte superiore del requester contiene nove numeri, divisi in tre
+colonne di tre righe ciascuna. Le tre righe riportano le scritte: "Chip",
+"Fast" e "Totale". Le tre colonne sono: "Occupata", "Libera" e "Più
+ampia".
+
+"Chip" sta per "memoria di tipo chip", cioè la porzione della memoria di
+sistema accessibile ai chip @{I}custom@{UI} di Amiga. Questi chip sono usati, tra
+l'altro, per manipolare dati grafici, come il contenuto di schermi e
+finestre. Alcune operazioni, come l'apertura di un requester, possono
+fallire se non vi è abbastanza memoria chip. La sezione @{"11.1" LINK PPaintCD:H/7/2/4/0046/Main 8} spiega vari
+modi per liberare memoria chip.
+
+Tutta la restante RAM è detta memoria "fast" (cioè "veloce"). Questa
+memoria si trova al di fuori del campo di indirizzamento dei chip custom.
+L'attributo "veloce", utilizzato per indicare questa memoria, è
+giustificato dal fatto che i chip custom non possono accedere a questa
+RAM, per cui il microprocessore non deve restare in attesa, nel caso un
+chip custom stia operando con la stessa memoria (questo principio è detto
+@{I}contesa del bus@{UI}).
+
+La memoria di Amiga può essere o chip o fast, quindi la somma dei due tipi
+rappresenta la memoria totale. La riga "Totale" contiene la somma dei
+valori riportati nelle colonne "Chip" e "Fast".
+
+Per ogni riga (tipo di memoria) vi sono tre colonne: "Occupata", "Libera"
+e "Più ampia". Il primo numero nella riga indica quanta memoria, del
+particolare tipo associato alla riga, è occupata. Il secondo numero
+riporta la quantità di memoria ancora disponibile, utilizzabile dal
+sistema operativo o da altri programmi. Il terzo numero indica la
+dimensione del più ampio blocco di memoria disponibile.
+
+Il concetto di memoria @{I}più ampia@{UI} merita una più dettagliata spiegazione.
+La memoria libera è di solito frammentata in diversi segmenti non
+contigui. Ad esempio, 200 Kbyte di memoria libera possono essere
+costituiti da un blocco di 140 Kbyte, da un altro di 50 Kbyte e da altri
+piccoli blocchi per un totale di 10 Kbyte. Se un programma richiede al
+sistema un blocco di 200 Kbyte, tale richiesta non potrà essere
+soddisfatta. I 200 Kbyte disponibili non possono essere fusi in un singolo
+blocco, poiché altri programmi stanno utilizzando la memoria @{U}tra@{UU} i
+blocchi. È possibile che nuovi sistemi operativi per Amiga, oltre le
+versioni disponibili al momento della scrittura di questo manuale,
+potranno sfruttare le capacità di microprocessori più evoluti, rendendo
+possibile l'operazione appena descritta. Attualmente, la sola cosa che il
+sistema operativo può fare, in caso di scarsità di memoria, è liberare la
+memoria occupata dalle librerie, dalle periferiche e dalle risorse di
+sistema correntemente inutilizzate.
+
+In un sistema multitasking come l'Amiga è possibile che programmi diversi
+da Personal Paint richiedano e liberino memoria. Quindi i valori riportati
+nel quadro rappresentano solo una "foto istantanea" della situazione
+corrente.
+
+
+@{B}4.10.2.2   Memoria del programma@{UB}
+
+La parte inferiore del requester contiene informazioni riguardanti la
+memoria attualmente utilizzata dai due ambienti del programmi (memoria
+immagini), dagli eventuali nove pennelli personali (più un'area di memoria
+per la funzione "Ripristinare pennello") e da altre funzioni del programma
+("Annullare ultima modifica", maschera colori, motivi di linee e
+riempimenti).
+
+I valori indicati non includono la memoria occupata dal codice del
+programma o dai suoi schermi e finestre.
+
+Il campo "Totale" è la somma degli altri valori. Questo totale è già
+incluso nei dati riguardanti la memoria di sistema occupata, riportati
+nella parte alta del requester.
+
+
+@{B}4.11       Fine operazioni@{UB}
+
+Questo comando viene utilizzato per terminare il lavoro con Personal
+Paint. Un requester di avvertimento può essere visualizzato per segnalare
+l'eventuale presenza di dati non memorizzati. I gadget "Procedere" e
+"Annullare" del requester possono essere selezionati per confermare o
+annullare il comando. Confermando la scelta, il programma termina. Lo
+schermo viene chiuso e tutta la memoria e le risorse impiegate dal
+programma vengono liberate.
+
+È buona norma uscire sempre da tutti i programmi aperti (terminarli),
+prima di spegnere il calcolatore o invocare un @{I}reset@{UI} di sistema con i
+tasti <Commodore> + <Amiga> + <Ctrl>.
+
+@ENDNODE

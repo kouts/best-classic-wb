@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE>Fehler</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: bugs.html 1.13 2021/12/21 21:58:14 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>Unbekannte Fehler</h3>
+Beim Auftreten von noch nicht bekannten Fehlern oder anderweitigen Problemen
+diese bitte in dem bereitgestellten Fehlerverfolgungsssystem (BugTracker) unter
+<a href="http://mantis.whdload.de/search.php?project_id=4&hide_status_id=-2">
+http://mantis.whdload.de</a> melden.
+
+<h3>Bekannte Fehler</h3>
+<h4>Allgemeine Probleme</h4>
+<ul>
+<li>Es besteht ein generelles Problem mit zusätzlicher Hardware, welche
+zufällig oder regelmäßig Interrupts erzeugt. Ein Beispiel ist meine
+Netzwerkkarte. Wenn der TCP/IP Stack läuft, friert nahezu jedes Spiel nach
+einer relativ kurzen Zeit ein. Das liegt daran, dass die Karte PORTS Interrupts
+(dieselbe Art Interrupts die von der Tastatur erzeugt werden) generiert,
+die von dem installierten Programm nicht korrekt beantwortet werden können.
+Sobald der Interrupt mit einer RTE Instruktion beendet wird, erzeugt die Karte
+einen erneuten Interrupt. Um dieses Problem zu vermeiden, muss der TCP/IP Stack
+<a href="opt.html#ExecuteStartup">vor dem Starten</a> von WHDLoad gestoppt
+werden.<br>
+Ähnliches trifft auf USB-Stacks (bei Poseidon "AddUSBHardware REMOVE ALL"
+verwenden) und den Voodoo-Interrupt von Mediator Karten zu (hier Einstellung
+"VoodooInt = No" benutzen). Beginnend mit WHDLoad Version 16.8 sind keine
+speziellen Einstellungen für Mediator mehr notwendig, da im WHDLoad etwas
+eingebaut wurde, dass diese Interrupts während des Starts auschaltet und am Ende
+wieder einschaltet.
+
+<li>Wenn Fehler beim Lesen oder Schreiben von Daten auftreten, sollte geprüft
+werden, ob die eingerichteten Partitionen korrekt konfiguriert sind. WHDLoad
+liest große Datenmengen in einem Stück was ohne weiteres unsaubere
+Konfigurationen offenbaren kann, obwohl andere Programme scheinbar problemlos
+funktionieren. Es muss darauf geachtet werden, dass die Einstellungen
+MaxTransfer und Maske für alle Partitionen ordnungsgemäs vorgenommen wurden.
+Sichere Werte sind MaxTransfer = 0x7FEC und Maske = 0x7FFFFC. Dies trifft
+insbesondere auf Karten im PCMCIA-Einschub und auf IDE-CF-Adapter zu.<br>
+
+Eine weitere Ursache für Probleme können Speicheralloziierungen sein. Es gibt
+Konfigurationen die Probleme mit Reverse-Allokationen haben. In solchen Fällen
+besteht die Möglichkeit solche Allokationen seitens WHDLoad durch die
+Verwendung der Option <a href="opt.html#NoMemReverse/S">NoMemReverse</a> zu
+unterbinden.
+
+<li>Beim Verwenden der Picasso96 Software muss sichergestellt sein, dass die
+Option FakeNativeModes auf NO gesetzt ist (in den Tooltypes des Monitor
+Treibers). Ansonsten kommt es zu Grafikfehlern und Abstürzen.
+<li>Es gibt einige Hardwarekonfigurationen, die die MMU relevanten Funktionen
+von WHDLoad nicht unterstützen. Dies betrifft nur 68030 Systeme. Auf solchen
+Systemen darf die Option <a href="opt.html#MMU">MMU/S</a> nicht eingeschaltet
+werden, ansonsten friert das System beim Starten von WHDLoad ein.
+Gegenwärtig sind die folgenden Konfigurationen mit diesem Problem bekannt:
+Beschleunigerkarten "Apollo A630", "Apollo 1230", "Elbox 1230" und "Magnum MK2".
+</ul>
+<h4>Anmerkungen für Entwickler</h4>
+<ul>
+<li>Der Vorgang des Umschaltens zwischen dem Betriebssystem und dem
+installierten Programm ist nicht 100 % zuverlässig. Die Schwierigkeit
+besteht darin, dass einige Custom und CIA Register nicht lesbar sind und
+deshalb auch nicht durch WHDLoad gesichert werden können. WHDLoad selbst
+verändert diese Register nicht, aber wenn es vom installierten Programm
+zum Betriebssystem umschaltet (z.B. um eine Datei zu laden) passiert es,
+dass das Betriebssystem einige dieser Register modifiziert. Wenn das
+installierte Programm davon ausgeht, dass diese Register von niemand anderen
+verändert werden, kommt es zu Problemen. Es ist bekannt, dass das
+Betriebssystem zumindest die Custom Register cop2lc, bltafwm und bltalwm verändert,
+möglicherweise auch andere. Um dieses Problem zu lösen gibt es die Möglichkeit
+die veränderten Register während der Umschaltphase neu zu setzen. Mehr
+Informationen dazu sind im
+<A HREF="../autodoc.html#WHDLTAG_CBSWITCH_SET">WHDLTAG_CBSWITCH_SET</A> zu finden.
+</ul>
+</BODY>
+</HTML>

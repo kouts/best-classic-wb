@@ -1,0 +1,450 @@
+
+
+
+         GGGGGG    RRRRRR    AAAAAA   BBBBBBB   II  FFFFFFFF  FFFFFFFF
+        GG    GG  RR    RR  AA    AA  BB    BB  II  FF        FF      
+        GG        RR    RR  AA    AA  BB    BB  II  FF        FF      
+        GG        RR    RR  AA    AA  BB    BB  II  FF        FF      
+        GG        RRRRRRR   AAAAAAAA  BBBBBBB   II  FFFFFF    FFFFFF  
+        GG  GGG   RR RR     AA    AA  BB    BB  II  FF        FF      
+        GG    GG  RR  RR    AA    AA  BB    BB  II  FF        FF      
+        GG    GG  RR   RR   AA    AA  BB    BB  II  FF        FF      
+         GGGGGG   RR    RR  AA    AA  BBBBBBB   II  FF        FF      
+
+
+
+                                © June 1992 by
+                          Bernstein Zirkel Softworks
+                              c/o Hartmut Stein
+                                Koelner Str. 7
+                        W-5090 Leverkusen 3 - Opladen
+                                 West-Germany
+
+
+
+
+     1. A short introduction
+     -----------------------
+
+        GrabIFF  is  a  program  which allows you to grab IFF-pictures or
+     -brushes  from  any  screen,  window  or  mousepointer provided that
+     multitasking  is not turned off.  These IFF-files can then be loaded
+     and edited by almost any paint program.
+
+        You  can  either save the contents of a specific screen or window
+     or  just  a  portion  of a screen.  As an additional feature GrabIFF
+     gives  you  the  possibility  to  save mousepointers as IFF-brushes.
+     GrabIFF will only work on Amigas with at least OS 2.04 installed.
+
+
+     2. What it does
+     ---------------
+
+        When  GrabIFF  is  installed  you  can  activate it by a specific
+     combination  of  qualifier  keys (these are control, caps lock, alt,
+     shift  and  amiga).   By  default  you  just  press  the control key
+     together with the left amiga key - an easy to reach combination.  If
+     you  don't  like  this (or it collides with the hotkey of some other
+     program you use) you can choose any combination you like.
+
+        When  GrabIFF  detects  this  specified  qualifier combination it
+     draws  a  crosshair  on  the  active  screen.   Now  there  are five
+     different ways to continue:
+
+     a) Grab the whole screen
+        To  grab the whole screen just hit the 's' (s = screen) key while
+        still holding the qualifiers down.
+
+     b) Grab the active window
+        To grab the active window just hit the 'w' (w = window) key while
+        still holding the qualifiers down.
+
+     c) Grab the actual mouse pointer
+        To  grab  the actual mouse pointer just hit the 'p' (p = pointer)
+        key while still holding the qualifiers down.
+
+     d) Grab any portion of the screen
+        To  grab  a rectangular portion of the screen you should move the
+        mouse  to  any  one  of the four corners of the desired rectangle
+        while  still  holding  the  qualifier down.  Press the left mouse
+        button  and  hold  it  down.  The crosshair becomes a rubberband.
+        Now  drag the mouse (still hold the qualifiers and the left mouse
+        button  down)  to  the opposite edge of the rectangle and release
+        the mouse button.
+
+     e) Cancel the operation
+        To  cancel  the  operation  at  any point just release any of the
+        qualifier keys.
+
+        As  default  GrabIFF  saves the grabbed pictures to the RAM:-disk
+     with the names 'GrabIFF.001', 'GrabIFF.002' etc.
+
+        Grabbing  windows  is  a  bit  complicated  if  these windows are
+     overlapped  by  some  other windows.  If the window at the back is a
+     super  bitmap  or smart refresh window, the hidden regions are saved
+     by  the layers.library and can be accessed without problems.  If the
+     window  uses  the  simple  refresh method (like Shell windows or the
+     Workbench),  the  hidden  regions will be redrawn by the application
+     not  until  the  window  is  revealed.   That's why GrabIFF brings a
+     window  to  the  front before grabbing it.  This works well with all
+     windows  except  backdrop  windows  -  these  cannot be moved to the
+     front.   In this case you should first close all other windows which
+     hide the one you want to grab.
+
+
+     3. Installation
+     ---------------
+
+        GrabIFF  consists  of  two  parts:  the program 'GrabIFF' itself,
+     which  can  be  placed  anywhere,  and the handler 'GrabIFFHandler',
+     which must be placed in the 'L:'-directory.
+
+        Workbench-Users  should  click  the  'InstallHandler'-Icon, which
+     copies  the  Handler to the desired directory.  Then you should move
+     'GrabIFF'  to a suitable directory like 'Tools' or 'Utilities' where
+     you  can find it easily when you need it.  If you want GrabIFF to be
+     started automatically every time you start or reboot your amiga, you
+     should   place   it   into   the   'WBStartup'-directory   of   your
+     'WB_2.x'-disk.  To stop the program just start it again.
+
+        Shell-Users  can  use  the  InstallHandler-Skript  to copy the
+     Handler  to  the  'L:'-directory (or just the 'Copy'-command...).
+     Then  copy  'GrabIFF'  to  your 'C:'-directory.  To start GrabIFF
+     just type 'GrabIFF' on the command line.  You don't need 'Run' or
+     'RunBack',  since  it just installs the handler in the background
+     and then returns to the Shell.  To stop the program just start it
+     again.
+
+
+     4. Options
+     ----------
+
+        There are lots of options which control the behaviour of GrabIFF.
+     In the normal case you don't need any of those, so GrabIFF will work
+     completely as stated above.
+
+        The  options  are  valid  for  both  Workbench-  and Shell-users.
+     Workbench-users  can  enter the options as tooltypes (have a look at
+     your   Workbench-manual   for  more  information  about  tooltypes),
+     Shell-users  enter  the  options  as usual after the command's name.
+     Upper  and lower case are ignored.  When started from the Shell with
+     a  '?' as the only argument, you will get a help string in the usual
+     format  for  Shell  commands  (look  at  the  Shell  manual for more
+     information).
+
+     On
+        Install GrabIFF.
+
+     Off
+        Remove  GrabIFF.  If neither 'On' nor 'Off' are given, the actual
+        state  of  the  program  is inverted (that means:  if it was off,
+        switch it on, otherwise switch it off).
+
+     Quiet
+        Normally GrabIFF shows you a requester saying 'GrabIFF installed'
+        on startup.  This option diables the requester.
+
+     Usage
+        Show  a  requester  with  short  explanations  for  the different
+        options (better have a look at this file!).
+
+     AskName
+        Normally  GrabIFF  saves the grabbed files under the standardname
+        'RAM:GrabIFF'  with  extension  '.000', '.001', '.002' etc.  (see
+        'STANDARDNAME' option).  If you specify this flag, every time you
+        grab  a  file  the program will ask you for the name to save this
+        file under, using a standard ASL requester.
+
+     CheckOff
+        When  GrabIFF  saves  a  file,  it  normally  checks if this file
+        already  exists.   If  it  finds  a  file  with this name and you
+        specified  the  'ASKNAME'  option, it will ask you if you want to
+        overwrite  the old file.  If not, the operation will be canceled.
+        If  you didn't specify 'ASKNAME', GrabIFF will try again with the
+        next   extension.   That  means:   if  'RAM:GrabIFF.000'  already
+        exists,  it  will  try to save it as 'RAM:GrabIFF.001' and so on.
+        Use  the  'CHECKOFF'-option  to  turn  of the existence-check for
+        files.
+
+     CrosshairOff
+        This option will turn the crosshair off, which by default appears
+        when  pressing  the  qualifier  combination,  thus  disabling the
+        option  of  grabbing  any  rectangle  from a screen.  This can be
+        useful  when  you don't want GrabIFF to render anything into your
+        screen.  I offer this option because the crosshair leaves a trail
+        of  points when grabbing from the DPaint screen (all right, there
+        is  no  need  to grab something from the DPaint screen, since you
+        can  use  DPaint's  own  grab  facilities, but nevertheless - the
+        option).
+        The grabbing of complete screens, windows and mousepointers still
+        works as explained above.
+
+     PackOff
+        By  default  GrabIFF  trys  to  pack the ILBM files by use of the
+        standard  'cmpByteRun1'  encoding,  which  is understood by every
+        program dealing with ILBM files.  If you don't want your files to
+        be packed, specify this option.
+
+     FrontScreen
+        Normally  GrabIFF  works with Intuition's active screen - this is
+        the screen on which the currently active window is located.  This
+        behaviour  is  ok  for  almost  any  grabbing  purpose.  The only
+        problem  arises  when  trying  to  grab  something  from a screen
+        without  any  window.  You can't make this screen the active one,
+        since  you  can't  activate  a  window on it!  In such a case you
+        should use this option.  GrabIFF will now work with the frontmost
+        screen  instead of the active one.   Now bring your screen to the
+        front and grab it!
+
+     Icons
+        If  you  want to access a file from the Workbench, the file needs
+        an  icon  attached to it (or you should use 'Show all files' from
+        the  'Window'-menu).   Specify this option if you want GrabIFF to
+        save an icon for every grabbed file.
+
+     Verbose
+        When  this option is given, GrabIFF will show you a requester for
+        evry  saved  file, telling you the name it was saved to, its size
+        and its depth.
+
+     Error=None|Beep|Window
+        If  an error occurs while grabbing (not enough memory, file could
+        not  be opened etc.), GrabIFF opens a requester telling you about
+        the  nature  of  the  problem.   If  you  specify 'None' for this
+        option,  errors  will be ignored.  'Beep' will only force a short
+        beep  if any error is detected and 'Window' gives you the default
+        setting.
+
+     Standardname
+        If  you  don't  specify  the  'ASKNAME' option, the files will be
+        automatically   stored   with   a   standardname   (defaults   to
+        'RAM:GrabIFF')  and a numerical extension.  This option gives you
+        the  possibility  to  change  the  standardname  to  any path and
+        filename  you  like.   You  should  allways  specify  a  complete
+        pathname  including a device specification (like 'RAM:', 'WORK:',
+        'DF0:',  'GRAB:');  otherwise  the  files  will  be stored to the
+        directory which was the actual one when GrabIFF was started!
+
+     Qualifier=nnn
+        'nnn'   is   a  decimal  number  which  describes  the  qualifier
+        (qualifiers  are:  control, caps lock, shift, alt, amiga) used to
+        activate GrabIFF (defaults to the control key in combination with
+        the left amiga key).  The qualifiers have the following values:
+           Left Shift  1
+           Right Shift 2
+           Caps Lock   4
+           Control     8
+           Left Alt    16
+           Right Alt   32
+           Left Amiga  64
+           Right Amiga 128
+        If  you  want  a  combination  of  qualifiers  you simply add the
+        values.
+
+     WindowCode=nnn
+        'nnn'  is a decimal number which specifies the rawkey code of the
+        button  you  have  to press in combination with the qualifiers to
+        make  GrabIFF  save the actual window.  This defaults to 17 which
+        is  the  rawkey  code for 'w'.  If you don't know this codes, you
+        should use the commodity window (see below) to alter the hotkey.
+
+     ScreenCode=nnn
+        This  option  works  as the 'WINDOWCODE' option and sets the code
+        for grabbing of screens.
+
+     PointerCode=nnn
+        This  option  works  as the 'WINDOWCODE' option and sets the code
+        for grabbing of mouse pointers.
+
+     Cx_Priority=nnn
+        The  decimal  number  'nnn'  specifies  the priority of GrabIFF's
+        inputhandler.
+
+     Cx_PopUp=yes|no
+        Please  enter either 'yes' or 'no' for this option.  In the first
+        case  GrabIFF will automatically open its commodity window, where
+        you can adjust all the settings by the use of gadgets.
+
+
+     5. Some examples
+     ----------------
+
+     This  are some examples for how to start GrabIFF from the shell.  To
+     use  the  examples  from  the workbench just enter every option as a
+     single tool type in GrabIFF's info-window.
+
+     GrabIFF On CrosshairOff FrontScreen Standardname=GRAB:NewGrab/XXX
+        Start  GrabIFF  (or  give an error message if it's just running).
+        The  crosshair  is  disabled  and grabbing will take place in the
+        frontmost  (not in the active) screen.  The grabbed pictures will
+        be  saved as 'GRAB:NewGrab/XXX.000', 'GRAB:NewGrab/XXX.001', etc.
+        provided  that  there  is  a device named 'GRAB' which contains a
+        directory name 'NewGrab'.
+
+     GrabIFF Off
+        Stop GrabIFF (or give an error message if it wasn't running yet).
+
+     GrabIFF Qualifier=25 WindowCode=35 ScreenCode=53 PointerCode=21
+        Use  the  combination of the control key, left shift and left alt
+        to  activate  GrabIFF.   Screens  can  be  saves with the 'b' key
+        (Bildschirm),  windows using 'f' (Fenster) and mousepointer using
+        'z' (Zeiger).
+
+     GrabIFF On CX_PopUp=Yes Icons
+        Start  GrabIFF (if it wasn't running yet) and open up the control
+        window.   All  new  files  will be accessable by Workbench, since
+        GrabIFF now generates Icons.
+
+
+     6. Commodities
+     --------------
+
+        GrabIFF  can  be controlled via the Commodities Exchange tool you
+     find  on your Workbench disk.  It may be freely enabled, disabled or
+     killed.   When  you  use  the  'Show'-Button  (or the 'Cx_PopUp=yes'
+     option  an  startup)  GrabIFF  opens  a special window where you can
+     control all the programs features.
+
+        In  the  field labeled 'Grab-Codes' you can enter three different
+     rawkey  codes.   The  first  one  will  make GrabIFF save the actual
+     screen,  the second the actual window and the third the actual mouse
+     pointer.   If  you  know  the  rawkey  code  of  the desired key (an
+     overview  can  be  found  in  the Amiga Rom Kernel Reference Manual:
+     Devices),  you  can  enter  it  in the second row of string gadgets,
+     labeled 'Code'.  If you don't know the rawkey code (or if you are to
+     lazy  to  search for it) you can enter the desired key itself in the
+     first row of the string gadgets (labeled 'Key').  GrabIFF translates
+     this  key  into  the  equivalent  rawkey  code  (don't forget to hit
+     'Return' or 'Enter').
+
+        In  the field named 'Qualifier' you can choose the combination of
+     qualifiers which will activate GrabIFF.
+
+        The  third  field  gives  you  control over the other features of
+     GrabIFF.   The  gadgets will be explained from left to right and top
+     to bottom.
+
+        The  first  first gadget lets you specify, whether GrabIFF should
+     check  for the existence of a file before saving it or whether files
+     will be overwritten (see the 'CHECKOFF'-otpion).  In the next gadget
+     you can choose between saving files with a standardname or different
+     names  GrabIFF  will  prompt you for (see 'ASKNAME'-option).  In the
+     following  string-gadget  you can enter the standardname to use (see
+     'STANDARDNAME'-option).   In  the second row you can tell GrabIFF to
+     compress  the files, to save icons and to be verbose (see discussion
+     of  the  options  'PACKOFF', 'ICONS' and 'VERBOSE').  The gadgets of
+     the  last  row  let  you  decide  if  you want to use the crosshair,
+     whether  GrabIFF  should grab the active or the frontmost screen and
+     how  to  handle any error (see options 'CROSSHAIROFF', 'FRONTSCREEN'
+     and 'ERROR').
+
+        At  the bottom of the window you find three more gadgets:  'Hide'
+     closes  the  window,  keeping  GrabIFF still in memory, while 'Quit'
+     closes  the  window and removes the program.  The third button 'Save
+     to  Icon'  is  only  available  when  the  program  was started from
+     Workbench.   In  this  case  you  can  save  the  actual settings as
+     tooltypes  to  GrabIFF's  icon,  so  they will by active on the next
+     start of the program.  There's no service like this for Shell-users;
+     you  have  to  type  it  to  the  command  line by yourself (I think
+     Shell-users like typing, so this should be no problem for you...).
+
+
+     7. Caveats
+     ----------
+
+        Though  I  used  this  program  for  a  couple  of  weeks without
+     problems,  there  may be any number of lurking bugs in it.  So if it
+     low-level-formats  your  harddisk,  makes  your monitor explode into
+     lots  of  little  pieces,  gobbles  down  your dog or drinks all the
+     liquid  from  your neighbour's aquarium, making his goldfish gasping
+     for water - please don't blame it on me!
+
+        Following  this  comes some legal stuff which sounds very well to
+     me.   I took it from the readme file for Arq, which is a very, very,
+     very  good  and  useful  program.   Hi,  Martin,  if  you would have
+     mentioned  your adress in this file, I would have sent you something
+     for  your  work.   But,  maybe,  you will find GrabIFF a bit useful,
+     too...
+
+
+     8. Legal Stuff
+     --------------
+
+        The  author  will  not  be liable for any damage arising from the
+     failure  of this program to perform as described, or any destruction
+     of other programs or data residing on a system attempting to run the
+     program.   While the author knows of no damaging errors, the user of
+     this program uses it at his or her own risk.
+
+
+     9. Credits
+     ----------
+
+        Well,  you  may  have noticed that GrabIFF looks a bit (or even a
+     bit  more)  like Preben Nielsen's program PicSaver.  I used this one
+     for  a  short  time  and then wrote GrabIFF because there were a few
+     things  I  didn't  like  about  PicSaver.   The  first thing is this
+     annoying  window  always popping up and asking me for a filename.  I
+     hated  this!   The  second  thing was its unability to grab graphics
+     from  screens  without  windows,  which  I  needed  while developing
+     another  program.   The commercial program GrabbIt on the other hand
+     was  unable  to grab portions of a screen or just windows, but saved
+     its  files  with  a  standard name and a numerical extension and was
+     able  to  grab  graphics  from  raw  screens.   So  I decided to put
+     together  all  the  good things from these two programs, added a few
+     things and lots of options and there it is:  GrabIFF.
+
+        Ok,  I have to confess that GrabIFF is a bit bigger than PicSaver
+     (the  GrabIFFHandler  takes 14044 bytes, while the complete PicSaver
+     only  needs  4560  bytes  on  disk).  But half of this (exactly 7668
+     bytes  or  55%)  disk space is wasted by the extensive stuff for the
+     commodity  window.   If  don't  need  this  window and want to use a
+     smaller  version (6376 bytes of disk space) you can order it from me
+     (see below).
+
+        I'd  like  to  thank  Preben  Nielsen  for  the  ideas I found in
+     PicSaver  (thank  you,  Preben)  and  I'd  like to thank the unknown
+     author  of  GrabbIt  (though  I  won't  buy  it,  since I appreciate
+     GrabIFF!).
+
+
+     10. Other Stuff
+     ---------------
+
+        This  code  and documentation are freely distributable and may be
+     used,  copied,  modified, fed to your cat or whatever you like to do
+     with  it.  It would be nice not to remove this text when copying the
+     program,  so  other  people  will  also  be  able  to understand its
+     meaning.
+
+        If  you  have  any questions, have ideas for special improvements
+     (is there something else than screens, windows and mousepointers you
+     wish  to  grab?),  want to have a look at the sources of the program
+     (rather undocumented, I'm afraid), want to order the smaller version
+     of GrabIFF or if you just want to thank me for this wonderful little
+     tool,  you  should  send  me  some  money  (or  other  valuables), a
+     self-adressed  and  stamped  envelope  (if you want response) and an
+     empty disk (if you want the sources or the smaller version).
+
+        GrabIFF  was  programmed  using the Aztec C 5.2a compiler, but it
+     should be compilable with any of the Aztec compilers.
+
+
+     11. An Apology
+     --------------
+
+     I'm  afraid  I  have  to  apologize  for the sometimes extremly poor
+     quality  of  this  writing.  When I left school, my English was very
+     bad.   Since  then I improved it a little bit by reading, re-reading
+     and  re-re-reading  the  english  Rom Kernel Reference Manuals for a
+     long  time  and  also placing them under my pillow to absorb them by
+     osmosis  (this  joke © by Randell Jesup).  I also tried this with my
+     AmigaDOS  manuals,  but that gave me extremly horrible nightmares of
+     terrible  red monsters, at least ten foot tall, stalking me from the
+     back  while I was sitting at my computer trying to program something
+     useful  in  combination  with  the dos, with the four green flashing
+     letters  of  'BCPL' on their chests and trying to beat me with their
+     enormous  global  vectors.  I woke up crying and all my sheets soken
+     wet and I never tried this again...
+
+

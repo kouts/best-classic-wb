@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE>Pliki zrzutów</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: dump.html 1.6 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Pliki raportów i zrzutów WHDLoad</h3>
+W celu ułatwienia śledzenia błędów WHDLoad może tworzyć różne pliki zrzutów i raportów.
+<h4><a name="memory">Zrzuty pamięci</a></h4>
+Zrzutem pamięci jest zapisanie do pliku całkowitej zawartości pamięci
+używanej przez zainstalowany program. Wielkość pliku zrzutu zależy od
+zainstalowanego programu (odpowiada wartości <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a> w strukturze pliku
+.slave). Zrzut pamięci zostanie utworzony po naciśnięciu klawisza
+<a href="opt.html#DebugKey">DebugKey</a> lub, w przypadku wystąpienia błędu i
+naciśnięciu przycisku CoreDump. Nazwa pliku zrzutu pamięci to
+&quot;.whdl_memory&quot;. Domyślą ścieżką jest &quot;PROGDIR:&quot;, ale można
+to zmienić używając opcji <a href="opt.html#CoreDumpPath">CoreDumpPath</a>.
+Istniejący plik o takiej nazwie zawsze zostanie zastąpiony. Jeśli
+zainstalowany program używa dodatkowej rozszerzonej pamięci (<a
+href="../autodoc.html#ws_ExpMem">ws_ExpMem</a>), zostanie to zapisane pod
+nazwą &quot;.whdl_expmem&quot;.
+<h4><a name="register">Zrzuty rejestrów</a></h4>
+Zrzut rejestru zawiera całkowity status procesora (włączając w to MMU), CIA
+oraz rejestrów układów specjalizowanych. Niektóre rejestry CIA i układów
+specjalizowanych nie mogą zostać odczytane, dlatego też są umieszczane w pliku
+zrzutu, gdy jest włączony tryb <a href="opt.html#Snoop">Snoop</a>. Informacje
+są zapisywane w pliku ASCII z drobnymi wyszczególnieniami utworzonymi poprzez
+sekwencje Esc (przy użyciu znaku rozpoczynającego sekwencję kontrolną (<i>ang.
+CSI - Control Sequence Introducer</i>), dziesiętnie 155). Do wyświetlania
+zaleca się używanie programu obsługującego sekwencje Esc (np. More, MuchMore,
+MultiView, itp.). Nazwa pliku zrzutu rejestru to &quot;.whdl_register&quot;.
+Domyślą ścieżką jest &quot;PROGDIR:&quot;, ale można to zmienić używając opcji
+<a href="opt.html#CoreDumpPath">CoreDumpPath</a>. Jeśli istnieje plik o takiej
+nazwie, zrzut zosytanie do niego dołączony - w przeciwnym razie zostanie
+utworzony nowy plik.
+<h4><a name="complete">Plik kompletnego zrzutu</a></h4> Plik kompletego
+zrzutu jest plikiem w formacie IFF zawierającym informacje o wszystkich
+wcześniejszych plikach zrzutu. Plik ten jest przeznaczony do wykorzystania
+przez inne aplikacje. Struktura pliku jest opisana w dodatkowym pliku
+<tt>whddump.i</tt>. Obecnie wykorzystują go aplikacje WHDLoadGCI (graficzny
+interfejs kodera) oraz <a href="sp.html">SP</a> (zapisywanie obrazków).
+Nazwa tworzonego pliku kompletnego zrzutu to &quot;.whdl_dump&quot;. Domyślnym
+katalogiem zapisywania pliku zrzutu jest &quot;PROGDIR:&quot;, ale można to zmienić
+wykorzystując opcję <a href="opt.html#CoreDumpPath">CoreDumpPath</a>.
+Istniejący plik będzie zawsze nadpisywany.
+<h4><a name="FileLog">Raporty dostępu do plików</a></h4>
+Jeśli zostanie użyta opcja <a href="opt.html#FileLog">FileLog/S</a>, to
+każda próba dostępu do pliku będzie raportowana. Opcja ta może być użyteczna
+do analizy operacji dyskowych przeprowadzanych przez zainstalowany program w
+celu wyszukiwania błędów i dokonania optymalizacji. Następujące funkcje tworzą
+wpisy w pliku raportu:
+<ul>
+<li><a href="../autodoc.html#resload_DeleteFile">resload_DeleteFile</a>
+<li><a href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a>
+<li><a href="../autodoc.html#resload_Examine">resload_Examine</a>
+<li><a href="../autodoc.html#resload_ExNext">resload_ExNext</a>
+<li><a href="../autodoc.html#resload_GetFileSize">resload_GetFileSize</a>
+<li><a href="../autodoc.html#resload_GetFileSizeDec">resload_GetFileSizeDec</a>
+<li><a href="../autodoc.html#resload_ListFiles">resload_ListFiles</a>
+<li><a href="../autodoc.html#resload_LoadFile">resload_LoadFile</a>
+<li><a href="../autodoc.html#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>
+<li><a href="../autodoc.html#resload_LoadFileOffset">resload_LoadFileOffset</a>
+<li><a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a>
+<li><a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>
+</ul>
+Każde odwołanie do pliku przy użyciu jednej z powyższych funkcji tworzy jedną
+linię wpisu w pliku raportu. Każdy wpis zawiera wywołaną funkcję, sumę kontrolną
+crc odczytanych/zapisanych danych, parametry oraz wynik jej działania.
+WHDLoad przechowuje wszystkie wpisy w wewnętrznym buforze (<a href="opt.html#LogBuffer">LogBuffer/K/N</a>).
+Bufor jest opróżniany przy wyjściu, lub podczas tworzenia wpisu w przypadku jego
+przepełnienia. Informacje zostaną zapisane w pliku ASCII, nazwa pliku raportu to
+&quot;.whdl_log&quot; (przed wersją 18.0 używano nazwy pliku &quot;.whdl_filelog&quot;).
+Domyślą ścieżką zapisu jest &quot;PROGDIR:&quot;, ale
+można to zmienić używając opcji <a href="opt.html#CoreDumpPath">CoreDumpPath</a>. Jeśli
+plik o takiej nazwie już istnieje, plik zrzutu zostanie do niego dołączony, 
+w innym wypadku nowy plik zostanie utworzony.
+
+<h4><a name="CustLog">Własne wpisy w pliku raportu</a></h4>
+Od wersji 18.0 jest możliwe tworzenie dodatkowych własnych wpisów w pliku 
+&quot;.whdl_log&quot; przy wykorzytsaniu funkcji <a href="../autodoc.html#resload_Log">resload_Log</a>.
+Wpisy mogą być formatowane przy wykorzystaniu ciągów formatujących i parametrów takich jak w funkcji sprintf.
+Wpisy będą buforowane w buforze raportu (<a href="opt.html#LogBuffer">LogBuffer/K/N</a>)
+aby zapobiec przełączeniim do systemu operacyjnego. W przypadku dużej ilości wpisów własnych
+wielkość bufora pliku raportu powinna być odpowiednio zwiększona. Aby wpisy zostały zapisane
+opcja <a href="opt.html#FileLog">FileLog/S</a> musi być aktywna.
+</BODY>
+</HTML>

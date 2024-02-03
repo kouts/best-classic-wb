@@ -1,0 +1,895 @@
+@DATABASE 0047
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 9. The Settings Menu"
+@TOC PPaintCD:H/7/0/4/OO00/Main
+
+@{B}9.         The Settings Menu@{UB}
+
+All the functions described in this chapter deal with program and
+environment settings (parameters). The former are common to the entire
+program, while the latter may be different for each of the two images
+(section @{"4.8" LINK PPaintCD:H/7/0/4/0049/Main 1088}).
+
+
+@{B}9.1        Load Settings@{UB}
+
+Most settings of Personal Paint can be saved to a file. This includes
+settings defined in other program menus or requesters (printer options,
+screen and image size, etc.)
+
+The standard file requester, described in section @{"3.4" LINK PPaintCD:H/7/0/4/0017/Main 1252}, is used to select
+the file to be loaded. By default, the drawer where the program loads and
+saves parameter files is "PPaint_Prefs", in the "PPaint" volume.
+
+As described in sections @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323} and @{"4.8" LINK PPaintCD:H/7/0/4/0049/Main 1088}, Personal Paint has two
+environments. Each of the two has a full set of settings (mostly
+image-oriented) completely independent from the other environment. The
+program settings, however, are shared by the two environments. When a
+parameter file is loaded, it affects the @{U}program@{UU} settings used by both
+environments, but only the @{U}environment@{UU} settings of the current
+environment. If a single file contains some environment settings which are
+to be applied to both environments, that file must be loaded two times
+(once from each environment). The "Startup_1.set", "Startup_2.set" and
+"Startup_A.set" files in the "PPaint:PPaint_Prefs" drawer contain initial
+settings for the two environments. Personal Paint automatically tries to
+load these parameter files when the program is started. "Startup_A.set" is
+generally defined by the disk configuration procedure (section @{"1.12" LINK PPaintCD:H/7/0/4/0002/Main 1135}), and
+contains a few program settings.
+
+A parameter file may contain user interface settings, page and printer
+setup for a particular printer, screen mode information, or just a
+reference to a useful color palette (if one is found in a "Startup" file,
+that palette becomes the default palette).
+
+Personal Paint does not put a minimum or maximum limit to the number of
+parameters which can be set in a file. If the file being loaded contains
+only a few assignments, only the settings referenced in the file will be
+modified. No other program or environment settings are changed.
+
+It is often useful to extract and use only a few settings from a longer
+parameter file. If, for example, a file contains definitions for image
+colors, audio volume, page layout and image processing functions, but only
+the latter are to be loaded, the parameters must be "filtered". After the
+file has been selected with the file requester and loaded, a second
+requester allows the user to select or discard some or all settings.
+
+The requester contains a standard scrolling list, which displays all lines
+of the loaded file. A checkmark before each line indicates whether that
+line (and the parameters it contains) should be accepted or not. Wherever
+there is a checkmark, the corresponding program settings will be changed.
+Clicking on a line cyclically sets or removes the checkmark. The Include
+All and Exclude All gadgets can be used to quickly select or discard all
+parameters.
+
+Only the parameters associated with the checkmarked lines are read. All
+other parameters in the file are skipped. This makes it possible to
+selectively load only part of the parameters in a file, without affecting
+other settings.
+
+The file may include empty lines, or lines beginning with a comment
+introducer (semicolon, ';'). Checkmarked or not, these lines are always
+skipped by the program.
+
+If an error is found in the selected parameter file, or if the new
+settings cannot be applied (e.g. no Chip RAM for a selected screen
+format), all parameters are ignored and an error message is displayed.
+Syntax errors are unlikely if the parameter file was written by Personal
+Paint, but are possible if the file was typed or edited by hand. Appendix
+@{"A" LINK PPaintCD:H/7/0/4/0045/Main 1} explains the possible error messages.
+
+
+@{B}9.2        Save Settings@{UB}
+
+This function is the opposite of "Load Settings". The current environment
+settings and the program settings can be saved to a file to be loaded
+again when necessary.
+
+A requester which allows the user to select which parameters are to be
+saved is displayed. By default, all program and environment settings are
+included in the file. As explained in section @{"9.1" LINK Main 9}, the checkmarks to the
+left of each line of parameters may be set or removed by clicking on the
+line. Only the lines which have a checkmark are included in the file.
+
+As a rule, all parameters which are out of the scope of that particular
+settings file should be excluded. A file intended to contain some
+interesting image processing functions, for example, should not contain
+printer or audio feedback settings. This simplifies future applications of
+the files.
+
+When preparing one of the "Startup" files, it is sufficient to put program
+settings in only one of the files (generally in "Startup_1"). When
+Personal Paint is loaded, the startup settings files (if any exist) are
+read in the following order: "Startup_A", "Startup_2" and "Startup_1". In
+case of duplicate definitions of the same setting, the last definition
+which is read is the one that counts.
+
+The standard file requester (section @{"3.4" LINK PPaintCD:H/7/0/4/0017/Main 1252}) is used to specify where the
+file is to be saved, and with what name. As described in section @{"9.9.6" LINK Main 525}, a
+warning message can be displayed if a file with the same name would be
+overwritten by the new file.
+
+A settings file is a plain ASCII text file. When Personal Paint stores
+such a file, it uses only a minimum of comments, spaces and empty lines to
+make the file more readable (for the user). If a word processor or text
+editor is used to write a parameter file, and the same file is then loaded
+and saved again by Personal Paint, comments, additional spaces and new
+lines are stripped. Lower case letters in variable names are converted to
+capital letters.
+
+If a settings file is created or edited manually, some syntax rules should
+be followed. The file must begin with a "PPAINT SETTINGS" line. Optional
+comments may begin with a semicolon (';') and end at the end of the line.
+Combinations of both Horizontal Tab and Space characters (ASCII decimal
+codes 9 and 32) are allowed as separators. Existing settings files and
+appendix @{"C" LINK PPaintCD:H/7/0/4/0044/Main 1} are a useful reference.
+
+
+@{B}9.3        Memory Management@{UB}
+
+If memory was unlimited, this requester would probably not need to exist.
+In practice, RAM is a precious resource, and deciding how to make best use
+of it is frequently a matter of compromise. This requester allows the user
+to adapt Personal Paint to different requirements and configurations.
+
+
+@{B}9.3.1      Virtual Memory@{UB}
+
+The Virtual Memory settings allow the user to switch RAM and/or disk based
+virtual memory on or off. It is also possible to change the minimum amount
+of memory which Personal Paint will always leave free on each device. The
+default settings need normally not be changed. It is always a good
+practice not to allow virtual memory to completely fill a storage device.
+
+Two storage locations can be used for virtual memory. One is intended to
+be in RAM, and one on a hard disk. RAM is usually faster, but more
+"precious", while hard disk space offers a good space/time compromise.
+Even using a floppy disk, there would still be a clear advantage: any
+operation which activates virtual memory would certainly fail if a feature
+like virtual memory didn't exist. From this point of view, it is always
+good to have virtual memory.
+
+Personal Paint tries to use RAM first. Although the RAM storage path (and
+device, e.g. "RAM", "RAD" or "VD0") can be selected by the user, the
+program assumes and may require that Fast RAM be available. The exact
+behavior depends on the RAM device being used: "RAM" requires Fast RAM,
+"RAD" does not (since, unlike others, its size is not dynamic). If the RAM
+location does not provide enough space, disk storage is used.
+
+Virtual memory only becomes active when there is a "memory problem".
+Whenever this happens, a special "clean up" process occurs, in order to
+have only the most recently used items in Chip RAM, and store the
+less-used items in the RAM device and on disk. When an object stored in
+virtual memory needs to be displayed or processed, it is moved back
+automatically.
+
+Personal Paint stores virtual memory items into separate files, which are
+deleted when they are not used any more, or when the program terminates.
+These files can be recognized by the ".vmem" file name suffix. If the
+program is still running when the computer is shut-down, any remaining
+virtual memory files are deleted when the program is run again. Virtual
+memory files can be very small, but are more likely to range in the dozens
+or even hundreds of Kbytes (otherwise, a system with a minimum of free RAM
+would probably not have required the use of virtual memory in the first
+place).
+
+When handling virtual memory allocations, Personal Paint assumes that RAM
+is faster than the disk, also considering that it would still be better
+not to use virtual memory for an object subject to reuse (or at least, to
+keep it in RAM rather than on disk). The program therefore tries to
+optimize the combined use of all resources in order to provide faster
+access to the items which are used more frequently.
+
+Although virtual memory is most useful to free Chip RAM, it also handles
+objects normally stored in Fast RAM (like animation frames other than the
+current one). The Storyboard undo buffer is always placed in virtual
+memory. If the undo buffer cannot be created as required (e.g. if virtual
+memory is disabled, or if there is no space beyond a safe minimum) the
+Storyboard Cancel gadget is "ghosted".
+
+In general, hard disk space does not "breath" as dynamically as RAM.
+Unless the hard disk is always nearly full, and huge files still have to
+be written from time to time, it may even be wise to set a lower minimum
+for the hard disk than for the RAM. In a multitasking, RAM-dependent
+environment like the Amiga, leaving some free RAM may be more important
+than having free space on the hard disk.
+
+
+@{B}9.3.2      Undo History@{UB}
+
+The undo history buffer records all changes applied to the image and to
+the color palette. Even if Personal Paint is quite "intelligent" in
+deciding how to keep a record of different types of changes, this can
+consume a lot of memory. Also, there is normally no need to store actions
+which are very old.
+
+Two program parameters allow the user to set the maximum number of changes
+to be stored, and the maximum amount of memory which the undo history
+buffer may occupy. As the limits are exceeded, the oldest levels are
+freed.
+
+Regardless of these settings, Personal Paint will always try to store at
+least one level of undo/redo. If the limit is explicitly set to a maximum
+of only one level (use of similarly low values is in general not
+recommended), then Undo and Redo become synonymous and, as in other
+packages, can be accessed with the same Undo command.
+
+
+@{B}9.3.3      Emergency Closing of Workbench Screen@{UB}
+
+In certain extreme conditions of RAM shortage, Personal Paint may attempt
+to close the Workbench screen to free some RAM (Chip or Fast, depending on
+the memory requirement and the system display type). While this is
+normally acceptable, Personal Paint can be programmed not to automatically
+close the Workbench screen.
+
+Once closed, the Workbench screen can be reopened manually at any time
+(section @{"9.15" LINK Main 863}), and is reopened automatically when the program
+terminates.
+
+
+@{B}9.4        Encryption Key@{UB}
+
+The use of the encryption key in the context of loading and saving files
+is described in sections @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11} and @{"4.2" LINK PPaintCD:H/7/0/4/0049/Main 135}.
+
+This requester is used to set or modify the encryption key. The last key
+which was written remains stored (but unreadable) until a new key is
+written, or Personal Paint is terminated. The encryption key is cleared
+whenever the requester used to write a new key is displayed. The requester
+can be used both for writing a key, or for quickly clearing the last used
+key.
+
+Only two characters at a time are displayed in the string gadget of the
+requester. This prevents the "casual" observer from reading the entire key
+from the computer screen. Capitals and lower case letters are treated @{U}
+differently@{UU} (i.e. "Key" is not the same as "key"). The maximum length of
+the key is 49 characters.
+
+If the Proceed gadget is selected immediately after the requester is
+displayed, no encryption key will be present in the computer's memory. No
+Cancel gadget exists, so it is impossible to re-use the previously written
+key, unless it is written again.
+
+After the key has been written once, Personal Paint displays a second
+requester to write the same code again. In this way a mistyped key cannot
+be used by mistake to save an image, which then could not be loaded again
+using the correct key. An error message is displayed if the control key is
+different from the first key.
+
+It is important to note that the encryption key is not a simple access
+code, but is used to greatly modify the image data. It will be impossible
+to read the data with any program, unless the correct key is used. The
+proprietary Cloanto two-phase encryption algorithm (encryption is applied
+to compressed data) is a guarantee for data security.
+
+It is theoretically possible for an unauthorized person to load an
+encrypted file by "guessing" the right key, or trying all most likely keys
+until the right one is found. It is also likely that powerful computers
+will be used to try all possible keys (character combinations). This can
+take hundreds of years, but also much less. Some care should be taken in
+advance to avoid such a risk. The key must never be written down. The key
+should be long (at least 8 characters). Letters, numbers and other
+characters should be mixed in the key. Names and dates are often too
+obvious for an encryption key.
+
+Cloanto's Personal Write word processor, through its encryption functions,
+has won a reputation and is widely used for preserving private information
+and important secrets. Newer Amigas with almost photographic-quality
+256-color video modes, combined with lower-cost color scanners and
+Personal Paint's encryption facility can provide similar protection to
+images. Confidential Polaroid photographs, documents and other material
+may be destroyed or stored to a most secure place after the digital copy
+has been encrypted.
+
+
+@{B}9.5        Audio@{UB}
+
+The audio of Personal Paint consists of the sounds which are emitted when
+different functions are selected. The audio is stereophonic. This means
+that all sound signals are emitted in different ways on two audio
+channels.
+
+Two sliders can be used separately to set the volume of error and cue
+sounds. The cue signals are sounds emitted when a key is hit, or a gadget
+or menu item is selected. All other sounds are error (or warning)
+signals.
+
+A number to the left of each knob indicates the volume level. This can
+range from 0 to 64. By default, the volume of error sounds is higher than
+that used for other sounds.
+
+As explained in sections @{"1.11" LINK PPaintCD:H/7/0/4/0002/Main 1074} ("Loading Personal Paint") and @{"1.13" LINK PPaintCD:H/7/0/4/0002/Main 1258}
+("Installing Personal Paint"), the audio only works if the program can
+activate the CloantoAudio unit. If the Audio Feedback option is disabled,
+and no other program is using the audio module, CloantoAudio does not
+occupy any RAM.
+
+
+@{B}9.6        Coordinates@{UB}
+
+These options activate the display of mouse pointer coordinates on the
+title bar. The point of origin is always the top-left of the screen, and
+may be equal to 0:0, or 1:1, depending on which subitem is selected. In
+the first case coordinates start from zero, otherwise counting starts from
+one.
+
+A double arrow precedes @{U}absolute@{UU} coordinates (i.e. "normal" ones, from the
+top left of the screen), while @{U}relative@{UU} coordinates are introduced by a
+single-headed arrow, which also indicates the direction of the pointer
+from the origin (e.g. during the definition of a brush).
+
+Each environment may have its own coordinate settings.
+
+
+@{B}9.7        Color Reduction@{UB}
+
+Color reduction is the process of transforming an image into a second
+image having a palette with fewer colors. This involves deciding how to
+best represent the colored areas of the original image. Through dithering
+and error diffusion (section @{"9.8" LINK Main 366}) color remapping, it may be possible to
+use Personal Paint's default palette to emulate the original colors.
+However, considerably better results can be achieved by using a selection
+of the original color palette. The following subsections explain different
+options which are available.
+
+After the new colors have been chosen, the appearance of the color-reduced
+image may be further improved by an appropriate color remapping method
+(section @{"9.8" LINK Main 366}). Section @{"11.4" LINK PPaintCD:H/7/0/4/0046/Main 303} discusses some compatibility issues
+regarding palettes, color reduction and color remapping based on Advanced
+Graphics Architecture Amiga systems.
+
+
+@{B}9.7.1      Qualitative@{UB}
+
+When deciding which colors of the original palette should be used in the
+new image, the @{I}qualitative@{UI} color reduction method gives more priority to
+the colors for which there are not so many similar colors (and which would
+therefore be represented not so well using the other colors). It tries to
+preserve color variety and diversity, while limiting the loss of
+hue-information.
+
+This type of color reduction may produce several new colors which did not
+exist in the original palette, but which are the result of accurately
+"merging" more source colors into one destination color.
+
+This works particularly well on pictures having lots of colors, like some
+digitized photographs and computer graphics.
+
+
+@{B}9.7.2      Quantitative@{UB}
+
+The @{I}quantitative@{UI} (or @{I}popular@{UI}) color selection method gives priority to the
+colors which are most used. It does so by creating a new palette which
+contains only the most used colors of the original image. The new colors
+are a subset of the original colors.
+
+This works very well on pictures whose colors have a similar hue (section
+@{"8.1.3.2" LINK PPaintCD:H/7/0/4/0016/Main 124}), like gray-shaded images and images based on two-color spreads
+(e.g. many banknotes).
+
+
+@{B}9.8        Color Remapping@{UB}
+
+Color remapping is the process which has to be applied when rendering a
+colored area in a different environment (where the original color may not
+be available). The simplest method would be to pick the "closest" color in
+the new environment. Other techniques combine existing colors in different
+ways to simulate the original colors.
+
+Color remapping may automatically be applied by the program @{U}after@{UU} color
+reduction when an image is loaded or color-reduced. The palette which is
+generated by the color reduction algorithm is not influenced by the
+selected color remapping technique. This means that the same image,
+remapped in different ways, will always have the same color palette. This
+may be useful when different images with the same source palette (but
+possibly remapped in different ways) have to be pasted together on the
+same page.
+
+
+@{B}9.8.1      Simple@{UB}
+
+This is the most immediate (and fastest) color remapping method. Where no
+color exists in the new environment, the closest existing color is used.
+Existing pixels are simply remapped to a new color (if necessary). The
+arrangement of pixels is not changed, even if some pixels may be "lost"
+(as would be the case if two adjacent pixels originally having different
+colors were remapped to the same color).
+
+This method is excellent, for example, for quickly loading and viewing
+256-color images on systems which cannot display so many colors. From a
+qualitative point of view, simple color remapping could be adequate for
+remapping already "artificial" colors (e.g. in charts, histograms, etc.).
+
+
+@{B}9.8.2      Pattern Dithering@{UB}
+
+Pattern Dithering refers to the process of representing certain colors
+(e.g. orange) with a constant pattern of other colors (e.g. red and
+yellow). Section @{"4.3.2.1" LINK PPaintCD:H/7/0/4/0049/Main 354} has an interesting introduction to dithering
+applied to printing.
+
+This process is quite suitable for remapping images containing larger
+areas of the same color and simple transitions of gray or color. The human
+eye is very good at recognizing regular patterns of dots, so the image
+will look better from some distance.
+
+This option is almost as fast as no dithering at all, with a quality
+closer to that of Floyd-Steinberg dithering.
+
+In particular, if the palette has only eight colors, and these colors are
+equal or similar to red, green, blue, cyan, magenta, yellow, white and
+black, Personal Paint can use even more efficient routines, which better
+exploit the even distribution of these colors.
+
+Since regular dot-patterns are used, images processed with the Pattern
+Dithering option are compressed more efficiently when saved in the most
+popular file formats (compared to the more randomly distributed dots
+generated by the Floyd-Steinberg algorithm).
+
+
+@{B}9.8.3      Floyd-Steinberg@{UB}
+
+Floyd-Steinberg is a more sophisticated, higher quality method of
+dithering. It employs special error diffusion techniques to distribute
+pixels of different colors without creating noticeable patterns.
+
+Floyd-Steinberg can generally represent more colors and softer shades than
+the other color remapping methods. It may also be considerably slower than
+other techniques.
+
+To give an example of the capabilities of this method, it is interesting
+to note how a 256-color image (320 by 200 pixels) may look better in high
+resolution (640 by 400) with only 16 colors using Floyd-Steinberg, than it
+would look in 64 colors (320 by 200 format) with a different color
+remapping.
+
+
+@{B}9.8.4      Best Quality@{UB}
+
+This option activates a set of professional color remapping procedures.
+These are slower than the default ones, but were designed using very
+advanced algorithms, normally used only in the broadcast industry.
+
+When this option is off, additional speed gains can be noticed when there
+is more free memory available (up to 150 Kbytes may be used).
+
+
+@{B}9.9        File Requester@{UB}
+
+This group of settings allows the user to control some aspects of the file
+requester (section @{"3.4" LINK PPaintCD:H/7/0/4/0017/Main 1252}). Each parameter is associated with a menu subitem
+which can be selected and deselected with the mouse (section @{"1.9.6" LINK PPaintCD:H/7/0/4/0002/Main 669},
+"Menus"). The following subsections explain each parameter in detail.
+
+
+@{B}9.9.1      Expand Path@{UB}
+
+This parameter determines whether the program can modify the content of
+the "Path" string gadget of the file requester.
+
+If the option is enabled (as it is by default), Personal Paint transforms
+device names (e.g. "DF0") into volume names (e.g. "PPaint_2"). This
+facilitates the access of files stored on disks (or other media) which are
+moved from one drive to another. Also, logical names (like "PPaint") are
+expanded to the full paths (e.g. "Work:Graphics/PPaint") originally
+assigned to them. This makes it easier for the user to understand the
+position of each file. The file requester's directory lists can be stored
+more efficiently if this option is enabled (multiple occurrences of the
+same list are always recognized).
+
+If the option is disabled, the program never modifies the names which are
+written in the "Path" string gadget. This may be useful if logical names
+are used on purpose, for example if the "PPaint" logical name is used to
+access files in an installation-independent manner. This is necessary if
+the path name has to be stored in a settings file which could be loaded on
+a different computer. A full path, like "Work:Graphics/PPaint", may be
+valid on one system, but could lead to unexpected results on different
+computer configurations (where Personal Paint may be stored in different
+drawers). In such cases, logical names must be used. Sections @{"1.12" LINK PPaintCD:H/7/0/4/0002/Main 1135}
+("Environment Variables and Standard Drawers") and @{"10.1" LINK PPaintCD:H/7/0/4/0015/Main 9} ("AskAssign")
+explain how to work with logical names.
+
+
+@{B}9.9.2      Directories on Top@{UB}
+
+This option determines whether directory names should be placed at the top
+or at the bottom of the file requester scrolling lists. By default, file
+names appear at the top, and directory names at the bottom.
+
+
+@{B}9.9.3      Sort by Date@{UB}
+
+Files may be sorted by name (lexicographic order), or by the
+last-modification date. The system date and time must always be up-to-date
+for the latter option to work properly.
+
+
+@{B}9.9.4      Double-Click@{UB}
+
+When this option is selected, the names displayed in the list box of the
+file requester can be selected by double-clicking the left mouse button.
+The requester disappears as if the "Proceed" gadget had been selected. The
+speed at which the button must be pressed can be set through the Amiga
+Preferences, as described in the Amiga documentation.
+
+If the option is disabled, the names can still be selected with the mouse,
+but double-clicks are not interpreted in any special way.
+
+
+@{B}9.9.5      Confirm Overwriting@{UB}
+
+This parameter affects only the requesters used to define a name for a
+file to be @{U}written@{UU} by Personal Paint. If this parameter is set, a second
+requester is displayed if the file already exists and would be overwritten
+by the operation being executed.
+
+The warning requester contains two gadgets: Proceed and Cancel. If
+"Cancel" is selected, the function is aborted, and no file is written.
+
+
+@{B}9.9.6      System (ASL)@{UB}
+
+The File Requester menu allows the user to replace the standard Personal
+Paint file requester with an ASL (Amiga Standard Library) compatible file
+requester, such as the Magic File Requester. A second requester appears to
+select the image format when saving a picture, unless the file name suffix
+indicates a file format. Depending on the available I/O libraries,
+recognized suffixes could include: ".c", ".png", ".gif", ".iff", ".ilbm",
+".lbm" and ".pcx". For example: "Clown.png" would automatically be saved
+in PNG format, but in the case of file names such as "Flower.pic" or
+"Painting", a format selection requester would appear.
+
+
+@{B}9.10       Icons@{UB}
+
+When a file is written by Personal Paint, a Workbench icon (section
+@{"1.9.5" LINK PPaintCD:H/7/0/4/0002/Main 646}) can automatically be saved with it. An icon is a particular kind
+of gadget, displayed by the Workbench program, which makes a file
+immediately recognizable through a graphical image. Icons can be used to
+select, load, rename, copy or delete the associated file (or drawer, or
+volume) using the mouse.
+
+A small disadvantage of icons is that they contain graphical data, which
+requires some - though not a lot of - memory. Personal Paint's default
+image file icons occupy less than 488 bytes of memory. For the more
+technically interested users, this means that an icon occupies only one
+disk sector on any Amiga filing system (a sector in the original non-FFS
+Amiga filing system can store 488 bytes of data), plus one sector for the
+directory entry. More than 800 of these icons can fit on a standard 880
+kbyte disk.
+
+Personal Paint's icons store some additional data in the Default Tool and
+Tool Types fields. This tells the operating system where to find the
+program which created the file when its icon is double-clicked, and gives
+additional information (file format, image size, etc.) which can be edited
+by selecting the desired icon (one click of the mouse button) and choosing
+the Information (or Info, on some systems) Workbench menu item. The
+default information which is stored can be modified by editing the icons
+in the "PPaint_Icons" drawers.
+
+
+@{B}9.10.1     No@{UB}
+
+If the disk space is to be highly optimized, or if icons are never used,
+the No option can be selected to save files without an associated icon.
+
+
+@{B}9.10.2     Yes (Default)@{UB}
+
+The Default option enables writing of Personal Paint's default icons.
+Different icon images are used to distinguish between the files saved by
+the program (pictures, brushes, settings, etc.) These icons are stored in
+the "PPaint_Icons" drawer associated to the current Workbench colors (1.3
+or 2.0 colors), where they can be modified with a tool like IconEdit
+(which can be found on the Amiga Workbench disk).
+
+
+@{B}9.10.3     Yes (Picture)@{UB}
+
+The Picture option uses default icons except for picture and brush files,
+where the current image or brush is used to create the icon image. The
+image is resized, if this is necessary to make it fit into the standard
+icon width and Workbench display ratio. The current Workbench colors are
+used to apply a Floyd-Steinberg remapping.
+
+It should be kept in mind that users on different Amiga systems may have
+different Workbench color settings and display ratios (e.g. interlaced vs.
+non-interlaced), which may cause icons created on one system to appear
+differently on another system.
+
+On newer versions of the Amiga operating system, it is possible to specify
+the number of colors to be used for the Workbench screen. Personal Paint's
+Picture icons can fully exploit, giving impressive results, up to 256
+Workbench colors. There is a potential drawback, however. Only the first
+four and the last four colors of the Workbench palette are guaranteed by
+the system to remain constant. The other colors may be changed for
+particular operating system tasks (like displaying images or setting a new
+Workbench background pattern). Since this feature would not be completely
+supported in all possible conditions, Personal Paint uses more than eight
+Workbench colors only if the <Shift> key is held down while the icon is
+saved (i.e. just after the end of the Save Image progress indicator).
+
+
+@{B}9.10.4     Yes (NewIcons)@{UB}
+
+This option is similar to the previous (Picture) one, only that it is
+intended for a "NewIcons" Workbench environment. The NewIcons
+specification defines how programs can create icons using more colors than
+the standard Workbench icons. NewIcons icons can only be seen on the
+Workbench screen if the appropriate (freely distributable) software
+extensions are installed.
+
+By default, Personal Paint stores NewIcons icons using a standard 16-color
+palette. This creates Workbench images which are optimized for the
+NewIcons reference palette, and which are most efficient when the NewIcons
+system has to display several icons (no additional remapping, no palette
+conflicts). However, in conditions such as true color Workbench screens,
+it may be desirable to keep each icon as close as possible to the original
+image and its palette. Personal Paint uses up to 256 colors if the <Shift>
+key is held down while the icon is saved (i.e. just after the end of the
+Save Image progress indicator).
+
+
+@{B}9.10.5     Original@{UB}
+
+With this option, Workbench icons are never created. When Personal Paint
+overwrites a file that already has an icon, it does not change the
+existing image, but it does update the Tool Types fields. This is most
+useful when using Personal Paint for format conversions.
+
+
+@{B}9.11       Language@{UB}
+
+Most versions of Personal Paint come with user interface texts in
+different languages. The Language menu item has one subitem for each
+available language. With this option, it is possible to select the
+language used to display all menus, gadgets and program texts.
+
+The default language is normally set in the "Startup_A" file by the disk
+configuration procedure (section @{"1.12" LINK PPaintCD:H/7/0/4/0002/Main 1135}). Any custom settings in the
+"Startup_1" or "Startup_2" files would override the default language.
+
+Section @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323} has more on the user interface files which are loaded when a
+Language menu item is selected. The current language can be reselected, if
+the file has been changed since it was last used by Personal Paint. A
+warning message is displayed if any texts exceed some simple
+range-checking length limits.
+
+
+@{B}9.12       Screen@{UB}
+
+@{B}9.12.1     Tool Bar@{UB}
+
+As explained in section @{"3.1" LINK PPaintCD:H/7/0/4/0017/Main 11}, the tool bar can be removed from the screen
+to view a larger image area. All tools remain accessible through the
+keyboard shortcuts (Appendix @{"B" LINK PPaintCD:H/7/0/4/00Z2/Main 1}). Selecting the option again puts the
+tool bar back.
+
+
+@{B}9.12.2     Title Bar@{UB}
+
+The title bar can be removed and redisplayed in a way similar to the tool
+bar. Menus are accessible by clicking on the right mouse button when the
+pointer is moved over the topmost screen line.
+
+As explained in more detail in section @{"3.2" LINK PPaintCD:H/7/0/4/0017/Main 1199}, in some overscan video modes
+the mouse pointer image may not completely reach the region which would
+normally be covered by the title bar. Even if there apparently is no
+system pointer feedback, Personal Paint continues to process mouse actions
+correctly. Personal Paint's brush-shaped pointer remains visible at the
+correct location.
+
+
+@{B}9.12.3     Pull-Down Cycle Gadgets@{UB}
+
+Traditional Amiga cycle gadgets do not show all options at the same time.
+They only allow the user to "cycle" from one option to the other.
+Extensions such as "CycleToMenu" have been created to transform Amiga
+cycle gadgets into menus which "pop-up" or can be "pulled-down" when a
+cycle gadget is selected.
+
+Personal Paint often has to change the colors and drawing pens used to
+create gadgets while a requester is already displayed. This is not
+supported by standard Amiga cycle gadgets or by the CycleToMenu
+extensions. This menu option forces Personal Paint to render its cycle
+gadgets as if they were CycleToMenu gadgets, which appear like a menu
+under the gadget when the gadget is selected. The traditional cycling
+behavior is maintained if the gadget is selected on the left, on the small
+cycling symbol. Otherwise, if the gadget is selected over the text, a menu
+is displayed.
+
+
+@{B}9.12.4     Pop-Up Cycle Gadgets@{UB}
+
+Pop-up menus are similar to pull-down menus associated to cycle gadgets,
+only that the menu "pops up" centered over the current selection.
+
+
+@{B}9.13       Graphics@{UB}
+
+@{B}9.13.1     Snap to Grid@{UB}
+
+If the Grid Active option is selected, all positioning and sizing will
+snap to the intersection of the nearest two lines of a grid. The exact
+position of the (imaginary) grid and the distance between the lines can be
+modified by selecting the Snap to Grid tool with the right mouse button.
+This activates a requester where the values (expressed in pixels) can be
+set.
+
+The Offset values allow for fine positioning of the grid on each axis, and
+should range between 0 and Step-1. It is also possible to enter a
+pixel-position with origin 0:0. The coordinates are automatically
+"normalized" to the valid range and that point becomes one of the "snap
+points".
+
+Each of the two environments may have its own, different, grid settings.
+
+
+@{B}9.13.2     Clip Graphics@{UB}
+
+By default, all graphics operations may extend beyond the visible image
+limits. For example, flood-filling an entirely blue page with white color
+would allow the white to fill even those areas which are beyond the screen
+borders.
+
+If this option is set, the effects of all paint and image processing
+functions are limited to visible screen areas.
+
+
+@{B}9.13.3     Color Average Resize@{UB}
+
+All functions which reduce an image down to a smaller dimension are likely
+to cause a loss of data. The most used functions in this category include
+resizing of brushes and stretching of images to different formats.
+
+Since the size of the dots which make up the image is device-dependent and
+cannot be changed, the number of dots is reduced. Halving a brush, for
+example (section @{"5.11.4" LINK PPaintCD:H/7/0/4/0048/Main 391}), reduces the number of pixels to about one
+quarter of the dots in the original brush. Even for a human, it is not
+easy to decide which dots to "sacrifice".
+
+If this option is enabled, the pixels which are sacrificed are taken into
+account when creating the destination pixels. A group of two yellow and
+two red dots, for example, might be reduced to a single orange pixel. On
+borders between highly contrasting colors, this results in an effect also
+known as @{I}anti-aliasing@{UI}.
+
+Best results can be achieved when several colors whose hue (section
+@{"8.1.3.2" LINK PPaintCD:H/7/0/4/0016/Main 124}) is similar to that of the original image can be used in the
+destination image. For example, a black and white image (or text) can be
+reduced with excellent results if the destination color palette contains
+many different shades of gray.
+
+Color average resizing is more complex than plain resizing, and therefore
+increases demand for processing power or execution time.
+
+
+@{B}9.13.4     Smooth Move@{UB}
+
+Normally, mouse movement messages which cannot be processed in real time
+are discarded by the Amiga operating system. When this option is active,
+Personal Paint allows for messages to be accumulated, so that tools like
+Continuous/Dotted Freehand and Airbrush can process mouse moves without
+loss of information. This is especially useful in very high resolution
+screens.
+
+
+@{B}9.13.5     Square Pixels@{UB}
+
+This option forces Personal Paint to override the ratio information
+provided by the Amiga Display Database, and to perform all drawing
+functions as if the pixels were exactly square (1:1). This is especially
+useful when the current display mode uses "almost square" pixels, which
+can easily be compensated for by adjusting the monitor controls. When this
+option is active, circles, boxes and other shapes drawn by Personal Paint
+are built to an exact 1:1 ratio, even if the current Amiga display mode
+would indicate otherwise.
+
+
+@{B}9.13.6     15 kHz Video@{UB}
+
+This option should be disabled if the video device connected to the
+computer cannot properly display certain video frequencies below 31 kHz.
+
+The original Amiga computers can only output a 15 kHz video signal. This
+frequency is compatible with dedicated Amiga monitors and with television
+sets, but it falls under the range supported by the majority of computer
+monitors (such as VGA, SVGA and Mac). Newer Amiga systems (e.g. ECS and AA
+chip sets) and third-party display cards can use video modes with
+frequencies of 31 kHz and higher, which are compatible with industry
+standard monitors. These screen modes can be activated and added to the
+list of available modes by using the corresponding Monitor files (more in
+section @{"9.4" LINK Main 225}). Unfortunately, some 15 kHz modes cannot always be @{I}disabled@{UI}
+, as they are activated during the boot process by the ROM code of certain
+Amiga models. The 15 kHz option can be excluded to tell Personal Paint not
+to consider these modes.
+
+
+@{B}9.13.7     Amiga Blitter@{UB}
+
+By default, Personal Paint uses the "blitter" functionality of the Amiga
+Agnus chip to speed-up certain time-critical procedures. More recent
+Amigas, however, may have CPUs (e.g. 68060, PowerPC 603) which are faster
+than the blitter. It is even possible to build Amiga-compatible computers
+(such as the DraCo) which provide blitter functionality through a software
+interface, but in which the original Amiga blitter register-compatibility
+is missing.
+
+The procedures of Personal Paint which perform such crucial functions are
+stored in external libraries. The program ships with one library that uses
+the Amiga blitter, and one that uses the CPU. The first library only works
+on original Amiga computers or 100% compatible systems. The second library
+is designed to work on Amiga-compatible systems which provide no blitter
+functionality, or in which the CPU is faster than the blitter. By default,
+the first (Amiga blitter) library is used, but if this option is disabled,
+or if Personal Paint detects a system with no blitter (which is not always
+possible to detect), then this option should be disabled by the user.
+Sections @{"9.1" LINK Main 9} and @{"C.1" LINK PPaintCD:H/7/0/4/0044/Main 17} (BLITLIBS program setting) explain how to set this
+value before the program is started.
+
+
+@{B}9.14       Transparency@{UB}
+
+Changing the status of this option does not change the transparency of
+brushes which were already defined. The transparency plane of the current
+custom brush can be updated to the new mode by selecting the New
+Transparency option (section @{"5.9.5" LINK PPaintCD:H/7/0/4/0048/Main 251}). Other ways of setting transparent
+areas are described in sections @{"5.8.1" LINK PPaintCD:H/7/0/4/0048/Main 162}, @{"5.9.6" LINK PPaintCD:H/7/0/4/0048/Main 269} and @{"5.9.7" LINK PPaintCD:H/7/0/4/0048/Main 279}.
+
+Brushes which are loaded from a file always inherit their transparency
+from the associated transparency information (IFF-ILBM format). If the
+file does not contain any transparency data, the current transparency mode
+is applied.
+
+
+@{B}9.14.1     None@{UB}
+
+This option tells the program to ignore the current background color when
+a brush is defined. With this setting, brushes defined in Rectangular mode
+have no transparency (NO_TRANSP flag in IFF-ILBM files), while in Freehand
+mode the entire region outside the marked area is considered to be
+transparent.
+
+
+@{B}9.14.2     Color Transparency@{UB}
+
+When this option is set and a custom brush is defined, all
+background-colored areas are marked as transparent for future operations.
+
+
+@{B}9.14.3     Backfill Transparency@{UB}
+
+If the Backfill Transparency option is set, only those background-colored
+areas which surround the brush are set to be transparent. Parts of the
+brush which are surrounded by other colors do not become transparent. This
+works a bit like "lassoing" the image.
+
+
+@{B}9.15       Workbench@{UB}
+
+Personal Paint allows the user to manually close and reopen the Workbench
+screen (normally used by the Amiga operating system to display disk icons,
+Shell and Console windows and any windows opened by other programs).
+
+More than 40 kbytes of RAM are freed when a PAL-size Workbench screen of
+256 lines, 640 pixels wide, with four colors (two bit planes) is closed.
+Personal Paint automatically tries to close the Workbench screen if the
+computer has less than 1 Mbyte of Chip RAM.
+
+The Workbench screen is public, i.e. it may be used by other programs.
+This may be a problem when the Workbench program tries to close its
+screen, because it must be free of other windows before it can be closed.
+Windows used to display the contents of storage devices and drawers are
+closed directly by the Workbench. Other programs (including Amiga system
+software) which have an open window on the Workbench screen must generally
+be terminated before the screen can be closed.
+
+If the option is selected when the screen is closed, Personal Paint
+attempts to reopen the Workbench screen. If there is enough Chip RAM, the
+screen and its windows are reopened.
+
+@ENDNODE

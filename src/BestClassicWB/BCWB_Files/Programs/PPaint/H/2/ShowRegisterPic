@@ -1,0 +1,34 @@
+.Key LANGUAGE
+.bra {
+.ket }
+
+If EXISTS PPaintCD:PPaint
+  Assign >NIL: PPAINT: EXISTS
+  If WARN
+    Assign PPAINT: PPaintCD:
+  Else
+    Assign >NIL: PCDPPAINT: EXISTS
+    If WARN
+      Assign PCDPPAINT: PPAINT:
+    EndIf
+    If NOT EXISTS PPAINT:AnimBrushes
+      Assign PPAINT: PPaintCD:
+    EndIf
+  EndIf
+EndIf
+
+If "{LANGUAGE}" EQ "DEU"
+  Execute PPaintCD:H/2/ShowPic PPaintCD:Pictures/CloantoSW/Register_deu.pic
+Else
+  If "{LANGUAGE}" EQ "ITA"
+    Execute PPaintCD:H/2/ShowPic PPaintCD:Pictures/CloantoSW/Register_ita.pic
+  Else
+    Execute PPaintCD:H/2/ShowPic PPaintCD:Pictures/CloantoSW/Register_eng.pic
+  EndIf
+EndIf
+
+PPaintCD:H/2/RunIcon PPaintCD:H/2/Register.pprx
+
+; Cloanto ® CD-ROM Configuration Scripts
+; Copyright © 1995-1997 Cloanto Italia srl - All Rights Reserved
+; Cloanto is a registered trademark of Cloanto Italia srl

@@ -1,0 +1,1356 @@
+@DATABASE 0O0O
+@(C) "Copyright © 1995, 1996 Cloanto Italia srl"
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Cloanto - Personal Paint 7 - ColorType"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}Cloanto ColorType@{UB}
+
+Secondo le opinioni di utenti e professionisti di tutto il mondo,
+ColorType è il miglior programma per l'elaborazione di font bitmap per
+Amiga. ColorType è lo strumento ideale per creare e manipolare font fino a
+256 colori (nessuna limitazione di dimensioni, compatibile RTG).
+L'interfaccia Rexx di cui è dotato permette l'interazione con altri
+programmi: è estremamente semplice creare applicazioni esterne
+direttamente accessibili dalla barra degli strumenti. Tra le più
+interessanti: funzioni speciali di anti-alias (basate sull'uso di font
+vettoriali), gestione di font con scrittura da destra a sinistra,
+applicazioni di tramature ed elaborazioni grafiche (in combinazione con
+Personal Paint). Tutto questo fa di ColorType uno strumento prezioso per
+titolazioni e applicazioni video.
+
+
+@{B}1.         Primi passi@{UB}
+
+ColorType può essere attivato con un doppio click sulla sua icona
+Workbench. La configurazione minima richiesta consiste in un Amiga con 1
+Mbyte di RAM libera (idealmente in una configurazione con 1 o 2 Mbyte di
+RAM chip). Il sistema operativo di Amiga è in grado di gestire font a
+colori a partire dalla versione 2.
+
+È davvero semplice scoprire le funzioni di ColorType sperimentando con i
+vari menu e gadget. È comunque consigliabile fare una copia di sicurezza
+di dati e programmi, prima di sperimentare funzioni di scrittura.
+
+ColorType è il risultato della tecnologia di Personal Paint applicata ai
+font. Per questo, molti utenti di Personal Paint si troveranno a proprio
+agio nell'usare la barra degli strumenti e le funzioni principali di
+ColorType. Per ulteriori informazioni si rimanda alla documentazione di
+@{" Personal Paint " LINK PPaintCD:H/7/2/4/OO00/Main}. Il pacchetto Personal Fonts Maker (non disponibile in
+italiano dalla Cloanto, in quanto distribuito separatamente in Italia da
+CTO spa), con funzioni specifiche per i font in bianco e nero (come il
+trasferimento dei font alla stampante), contiene informazioni dettagliate
+sui font e sul loro uso.
+
+È possibile leggere e scrivere font Amiga con le funzioni "Leggere font
+Amiga" e "Scrivere font Amiga" del menu "Progetto". Il formato del font
+(dimensioni, numero di colori) può essere impostato nel quadro "Formato
+font", attivabile dal menu "Parametri". La tavolozza colori può essere
+modificata con il quadro "Definizione colori" (tasto <p>, o menu
+"Colore/Tavolozza/Definire").
+
+Quando il sistema dispone di meno di 100 Kbyte di memoria chip contigua,
+ColorType rimuove automaticamente i font inutilizzati dalla memoria
+(altrimenti il sistema operativo accumulerebbe dati per ogni font
+aperto).
+
+Il comando "Mostrare font" del menu "Progetto" attiva uno schermo con
+tutti i caratteri del font (esclusi i caratteri disattivati). Lo schermo,
+se necessario, può essere traslato verticalmente (per scorrerne il
+contenuto, spostare il mouse in alto o in basso nello schermo) e può
+essere chiuso premendo qualsiasi tasto (o pulsante del mouse).
+
+Molti gadget della barra strumenti attivano funzioni diverse se
+selezionati con il pulsante sinistro o quello destro (quest'ultimo spesso
+attiva un quadro parametri). Gli strumenti di disegno possono essere
+selezionati nella metà superiore o in quella inferiore per attivare
+effetti diversi (ad es. rettangoli pieni o vuoti).
+
+Alcuni gadget attivano specifiche funzioni per l'elaborazione dei font e
+non hanno equivalenti nei programmi di disegno. I cinque gadget in alto
+sono:
+
+- Font
+- Carattere
+- Ampiezza
+- Spaziatura
+- Crenatura
+
+Ognuno di essi può essere selezionato con il pulsante sinistro per
+incrementare il valore associato e con il pulsante destro per ridurlo.
+
+Con il gadget "Font" è possibile selezionare un ambiente font. ColorType
+dispone di due ambienti di lavoro indipendenti: si può così lavorare
+contemporaneamente su due font, oppure su un font e su un'immagine (ad es.
+per ritagliare caratteri da un'immagine digitalizzata).
+
+Il gadget "Carattere" permette di spostarsi avanti e indietro tra i
+caratteri del font. I caratteri possono anche essere selezionati con la
+tavola di selezione veloce (click sul simbolo "??"). I font Amiga possono
+contenere fino a 257 caratteri (da 0 a 256). Il carattere con il codice
+256 è il "carattere indefinito" e ha una funzione speciale nei font in
+formato Amiga.
+
+La dimensione orizzontale del carattere corrente può essere impostata con
+il gadget "Ampiezza". Questo valore (corrispondente alla dimensione della
+griglia) può essere opportunamente incrementato e ridotto. La dimensione
+minima è 1 (una colonna di punti), mentre la massima è data dal formato
+impostato nel quadro "Formato font". L'ampiezza non deve includere
+eventuali spazi vuoti a destra e a sinistra del carattere: a questo scopo
+è possibile usare opportune impostazioni dei parametri "Spaziatura" e
+"Crenatura". I caratteri inutilizzati possono essere disattivati con il
+gadget "On/Off".
+
+Il parametro "Spaziatura" definisce la dimensione orizzontale @{I}logica@{UI} del
+carattere, a partire dall'inizio della bitmap. Spesso, questo valore è
+leggermente più alto rispetto al parametro "Ampiezza". In fase di
+scrittura, la spaziatura di un carattere influenza la posizione dei
+caratteri successivi.
+
+Il parametro "Crenatura" (o "spostamento a sinistra") determina la
+posizione iniziale di stampa o visualizzazione del carattere. Il parametro
+regola lo spostamento rispetto all'attuale posizione di scrittura (fissata
+dal carattere precedente). Solitamente questo valore è 0. Sono ammessi
+valori negativi, di solito utilizzati per effetti calligrafici.
+
+I parametri "Spaziatura" e "Crenatura" non riguardano l'immagine (la
+bitmap) del carattere. Essi invece controllano la spaziatura orizzontale
+tra i caratteri in fase di visualizzazione o di stampa del testo.
+
+Il gadget "Rexx" (tra gli strumenti "Aerografo" e "Definire pennello") può
+essere selezionato con il pulsante destro del mouse per selezionare una
+procedura Rexx, e con il pulsante sinistro per rieseguire l'ultima
+procedura selezionata. Il pacchetto ColorType comprende numerose macro
+Rexx. La funzione "Info" del quadro "Selezione macro" visualizza le
+informazioni associate a ciascuna macro, descrivendone caratteristiche e
+possibili applicazioni. La sezione "Funzioni avanzate di ColorType"
+contiene informazioni più dettagliate sulle macro e sull'interfaccia
+Rexx.
+
+I due gadget al di sotto dello strumento "Definire pennello" attivano le
+funzioni "Memoria" e "Troncare". Il primo strumento, selezionato con il
+pulsante sinistro, copia il carattere attuale (informazioni di spaziatura
+incluse) in un'area di memorizzazione; una selezione con il pulsante
+destro, invece, richiama il carattere memorizzato. Il gadget "Troncare"
+restringe l'immagine del carattere, rimuovendo eventuali colonne vuote a
+destra e a sinistra. Questo strumento può essere selezionato con il
+pulsante destro per centrare il carattere, lasciandone invariata
+l'ampiezza. I restanti gadget spostano e capovolgono l'immagine del
+carattere.
+
+Le piccole frecce tra la barra degli strumenti e l'area di editazione sono
+associate a quattro punti di riferimento, particolarmente utili nella
+creazione ed editazione di nuovi font. Per spostare un punto è sufficiente
+tenere premuto il pulsante sinistro del mouse nella zona suddetta e
+premere un tasto funzione da <F1> e <F4>.
+
+Il piccolo riquadro a sinistra dello strumento "Colore griglia" indica se
+il font ha un colore di primo piano sostituibile. Alcuni programmi possono
+cambiare questo colore in modo da adattare l'aspetto del font a un
+particolare contesto grafico. Per definire questo colore basta fare click
+sul piccolo riquadro, quindi selezionare un colore nella tavolozza
+sottostante. Un click sul riquadro, seguito da un click al di fuori della
+tavolozza, disattiva questa funzione.
+
+I font Amiga vengono solitamente letti dal percorso di sistema "FONTS:".
+Il programma "AssignFonts", incluso nel pacchetto ColorType, permette di
+associare il nome logico "FONTS:" a nuovi percorsi, in maniera semplice e
+intuitiva. È possibile, ad esempio, cambiare l'impostazione iniziale da
+"SYS:Fonts" in "ColorType:Fonts", o viceversa. In ColorType questa
+operazione può anche essere effettuata nel quadro richiesta font. Altri
+programmi, invece, potrebbero richiedere l'uso di AssignFonts.
+
+
+@{B}1.1        Esempio 1: come creare un font a colori in pochi minuti@{UB}
+
+Il cassetto "Fonts" contiene il font a colori "TenMinutes", realizzabile
+in pochi minuti seguendo queste istruzioni.
+
+Selezionare il comando "Leggere font Amiga" nel menu "Progetto".
+Nell'elenco dei font di sistema, scegliere "CGTimes". Questo è un font
+vettoriale, che può essere liberamente ridimensionato. Digitare "55s" nel
+gadget stringa a destra del gadget con il nome del font. Con la lettera
+"s" si richiede al sistema di ridimensionare il font ad un'altezza di 55
+punti, piuttosto che utilizzare la dimensione più vicina (tra le bitmap
+predimensionate disponibili). Selezionare il gadget con la "A" in
+grassetto, per ottenere un font con questa caratteristica. Nel caso questo
+font non dovesse essere disponibile, scegliere un qualsiasi font in bianco
+e nero di dimensioni simili. Per questo esempio è consigliabile usare font
+in grassetto, così da evidenziare le sfumature che riempiranno i
+caratteri.
+
+Selezionare "Formato font" nel menu "Parametri". Impostare il numero di
+colori a 8. Ora il font ha 8 colori. Selezionare il menu
+"Colore/Tavolozza/Leggere" e scegliere la tavolozza "TenMinutes.col"
+fornita con ColorType.
+
+Può ora essere utile attivare la visualizzazione a "punti" (menu
+"Parametri/Griglia/Punti"), per evidenziare i punti dei caratteri
+nell'area di editazione.
+
+Nella barra degli strumenti, selezionare lo strumento "Riempimento" con il
+pulsante destro del mouse. Apparirà il quadro "Parametri area".
+Assicurarsi che il gadget ciclante "Riempimento" sia impostato su
+"Sfumatura". Fare click sul gadget con il cerchio, fino a fare apparire un
+cerchio con quattro frecce (sfumatura per forma). Selezionare il gadget a
+sinistra fino a quando conterrà quattro riquadri attraversati da una
+freccia (sfumatura manuale). Senza chiudere il quadro, selezionare con il
+pulsante sinistro il secondo colore nella tavolozza della barra strumenti
+(il riquadro giallo pallido, a destra del riquadro nero). Selezionare
+l'ultimo colore (marrone) con il pulsante destro. Fare click su
+"Procedere".
+
+Ora occorre riempire tutti i caratteri del font. Fare click (con il
+pulsante sinistro) su una qualsiasi parte del carattere. Attivando
+l'opzione "Parametri/Prova font" sarà possibile osservare l'effetto delle
+modifiche sulla scritta d'esempio.
+
+Abbiamo appena creato un font a colori!
+
+
+@{B}1.2        Esempio 2: come creare un font anti-alias@{UB}
+
+Questo esempio mostra come applicare un effetto anti-alias (addolcimento
+delle curve) ad un font in bianco e nero, usando livelli intermedi di
+grigio per simulare una risoluzione più alta. Questo effetto viene
+frequentemente utilizzato in applicazioni video e può essere utile per
+preservare la qualità di una scritta in un programma di disegno.
+
+Questo esempio fa uso dell'opzione "Media cromatica". Attivarla nel menu
+"Parametri/Modellare".
+
+In generale, per creare un font anti-alias è necessario leggere un font
+Amiga (possibilmente vettoriale), aggiungere alla tavolozza un numero di
+grigi (o colori) intermedi e, infine, ridurre la dimensione del font (menu
+"Parametri/Formato font"). Più colori si aggiungono, migliore è il
+risultato e maggiore è la riduzione di dimensione applicabile.
+
+In questo esempio viene usato un font di dimensioni doppie rispetto al
+font finale. Seguendo le indicazioni del precedente esempio, leggere
+"CGTimes 50", o un font di dimensioni analoghe. Questo font non deve
+essere necessariamente grassetto (come nell'esempio precedente).
+
+Nel quadro "Formato font" (menu "Parametri") portare il numero di colori a
+4.
+
+Attivare ora il quadro "Definizione colori" (tasto <p>, o menu
+"Colore/Tavolozza/Definire") e riordinare i quattro colori, così da avere
+il bianco in prima posizione e il nero nell'ultima. Gli altri due colori
+dovrebbero essere livelli intermedi di grigio. Se le impostazioni
+predefinite non sono state cambiate, questa tavolozza può essere creata
+scambiando il primo colore con il terzo e il secondo con il quarto. Per
+creare i grigi intermedi, fare click sul primo colore (bianco),
+selezionare uno dei gadget "Sfumatura" (con i simboli "I" e "II") e,
+infine, fare click sull'ultimo colore (nero).
+
+Ora i caratteri del font appaiono in grigio chiaro su fondo bianco, mentre
+dovrebbero essere neri su fondo bianco. Nella tavolozza sotto la barra
+degli strumenti, selezionare il riquadro nero con il pulsante sinistro,
+così da assegnarlo al colore di primo piano. Definire ora il colore di
+sfondo, selezionando il riquadro grigio chiaro con il pulsante destro. Nel
+menu "Colore", attivare la funzione "Sfondo -> Primo piano". Ora i
+caratteri del font dovrebbero essere neri su fondo bianco.
+
+Riattivare il quadro "Formato font". Dividere per due i valori contenuti
+nei gadget "Font". Ad esempio, se i valori sono 22 e 50, sostituiteli
+rispettivamente con 22 e 25. Selezionare "Procedere".
+
+Abbiamo appena creato un font anti-alias!
+
+
+@{B}2.         Funzioni avanzate di ColorType@{UB}
+
+@{B}2.1        Il quadro di selezione macro@{UB}
+
+Selezionando lo strumento "Macro" con il pulsante destro (o con il
+sinistro, quando non è stata ancora selezionata alcuna macro), appare il
+quadro "Selezione macro".
+
+Nella parte centrale del quadro vengono elencate le macro disponibili;
+queste sono associate alle procedure Rexx del cassetto "Rexx" di ColorType
+(o altrove, se così indicato nei parametri del programma). I nomi delle
+macro sono affiancati, a destra, dalle selezioni abbreviate da tastiera.
+
+Nella parte alta del quadro vi sono quattro gadget: "Nuova", "Editare",
+"Cancellare" e "Info". I primi due attivano il quadro "Editazione macro",
+rispettivamente, per definire una nuova macro e per editarne una
+esistente. "Cancellare" rimuove una macro dalla lista. "Info" visualizza
+le informazioni sulla macro selezionata, eventualmente presenti nel
+programma Rexx (in qualsiasi punto del programma, delimitate da "/**" e
+"*/"). La descrizione del comando Rexx "RequestNotify" di ColorType
+(opzione WORDWRAP) fornisce ulteriori informazioni sul formato di questi
+dati.
+
+Con i gadget "Eseguire", "Uscire" e "Annullare" in fondo al quadro è
+possibile, rispettivamente, eseguire la macro selezionata, chiudere il
+quadro confermando eventuali modifiche o annullare ogni modifica uscendo
+dal quadro.
+
+
+@{B}2.2        Il quadro di editazione macro@{UB}
+
+Le macro di ColorType sono composte da due tipi di informazioni: il
+programma Rexx e i dati specificati nel quadro "Editazione macro". Questi
+ultimi sono del tutto opzionali, anche se è utile associare al programma
+un nome esteso e una selezione abbreviata, nonché accedere a programmi che
+non si trovano nel cassetto "ColorType/Rexx".
+
+Col campo "Nome" si può assegnare alla macro un nome diverso dal nome del
+file. Se non si indica alcun nome, il quadro di selezione macro mostrerà
+il nome del file Rexx (senza suffisso). L'uso di diversi parametri (v.
+seguito) permette di definire macro con nomi e funzioni differenti, tutte
+associate ad un solo programma Rexx.
+
+Nel campo "Selezione" è possibile indicare una selezione abbreviata da
+associare alla macro. Il formato utilizzato è analogo a quello dei menu e
+delle altre selezione abbreviate (v. file "UIText.xxx").
+
+Il campo "File" indica il percorso completo e il nome del file Rexx.
+Normalmente, le macro di ColorType sono memorizzate nel cassetto
+"ColorType/Rexx". Questo campo permette di definire macro usando file
+memorizzati altrove, ad esempio in "PPaint/Rexx". Il gadget "Selezione" fa
+apparire un quadro richiesta file per selezionare il file Rexx.
+
+Il campo "Parametri" permette di specificare una stringa opzionale da
+passare, in fase di esecuzione, al programma Rexx. Questa stringa può
+contenere alcuni codici speciali preceduti dal simbolo "%":
+
+%p = Nome della porta Rexx
+
+%n = Nome della macro (come indicato nel campo "Nome")
+
+%b = Pulsante del mouse premuto (di solito in combinazione con %x e %y):
+     1 = sinistro, 3 = destro. Il pulsante centrale non viene usato,
+     poiché associato alla funzione "trascinare immagine" del programma.
+
+%x = coordinata X.
+
+%y = coordinata Y.
+
+%w = ampiezza (relativa a %x)
+
+%h = altezza (relativa a %y)
+
+Prima di eseguire una macro, ColorType verifica la presenza di uno o più
+codici %p, %x, %y, %w e %h, e, se presenti, attende che l'utente selezioni
+un punto o una zona rettangolare (quest'ultima solo in presenza di codici
+%w o %h). Quando la macro opera in modo rettangolare (se i parametri
+contengono i codici %w e %h), la procedura Rexx viene eseguita quando la
+definizione della zona viene completata (pulsante del mouse rilasciato).
+In caso contrario, la macro viene eseguita immediatamente. Se sono
+presenti solo i codici %p, %x o %y (e non %w o %h), la macro viene
+eseguita non appena il pulsante del mouse viene premuto (senza attendere
+il suo rilascio). La macro può così operare in base alla posizione e alle
+successive azioni dell'utente. In tal caso, non bisognerebbe usare il
+comando "LockGUI" prima di aver gestito ogni azione dell'utente.
+
+Quando il programma Rexx riceve la stringa di parametri, ColorType ha già
+sostituito gli eventuali codici "%" con i dati equivalenti. Proprio come
+avviene per i programmi Rexx attivati nelle finestre Shell di Amiga,
+ColorType passa i parametri in un'unica stringa (ARG(1)). È compito del
+programma Rexx analizzare e smistare i dati (PARSE ARG <template>). Le
+macro fornite con ColorType includono esempi di smistamento dei
+parametri.
+
+Nei file parametri, il codice MACRO consente di impostare i dati già visti
+nel quadro "Definizione macro", nel seguente ordine:
+
+   MACRO = @{I}"Nome", "Selezione", "File", "Parametri" @{UI}
+
+Ad esempio:
+
+   MACRO = "Antialias Font", "Ctrl-a",
+           "ColorType:Rexx/AntiAliasFont.ctrx", "%p"
+
+   MACRO = "Help - Rexx", "Ctrl-h",
+           "ColorType:Rexx/Help.ctrx", "%p Command GUI \\"%n\\""
+
+   MACRO = "Test", "", "ColorType:Rexx/Test.ctrx", "%x %y %p"
+
+
+@{B}2.3        L'interfaccia Rexx@{UB}
+
+ColorType è dotato di una potente interfaccia ARexx (Amiga Rexx) che
+consente al programma di essere controllato da macro o da altri programmi.
+Per ogni funzione di elaborazione font vi è un equivalente comando Rexx.
+In più, ColorType riconosce particolari comandi per gestire complesse
+interazioni con l'utente.
+
+Il nome della prima porta Rexx è "COLORTYPE". Ad eventuali altre porte
+vengono assegnati i nomi "COLORTYPE_2", "COLORTYPE_3", ecc.
+
+
+@{B}2.3.1      Contesti di Input/Output@{UB}
+
+ColorType comprende diversi comandi per accettare input e visualizzare
+output, usando lo schermo e l'interfaccia utente del programma. Ad ogni
+modo, anche in Rexx esistono comandi di input/output (PULL e SAY), il cui
+funzionamento si basa però sull'uso di terminali testo (come le finestre
+Shell di Amiga).
+
+Quando ColorType viene attivato da una finestra Shell, le operazioni di
+input/output del Rexx operano in questo contesto. È bene ricordare che in
+questo caso, svincolando l'esecuzione di ColorType con "Run" o comandi
+simili, si inibisce qualsiasi input da Shell.
+
+Quando il programma viene attivato da Workbench, all'ambiente Rexx viene
+assegnata una console predefinita. Se al programma Rexx è associata
+un'icona con un parametro (Tool Type) "CONSOLE=...", ColorType attiva il
+contesto di input/output specificato (può essere utile assegnare alla
+console l'attributo AUTO: questa si aprirà solo se necessario).
+
+In fase di sperimentazione dei programmi Rexx, può essere utile combinare
+l'esecuzione da Workbench con i comandi "TCO" e "TCC", rispettivamente per
+attivare e disattivare la finestra di diagnostica Rexx ("Global Tracing
+Console").
+
+
+@{B}2.3.2      Convenzioni sintattiche@{UB}
+
+L'uso di maiuscole e minuscole è equivalente nella digitazione dei comandi
+Rexx.
+
+I codici dei parametri possono essere opzionalmente seguiti dal simbolo
+"=", se l'assegnazione del parametro non si trova tra virgolette. Ad
+esempio,
+
+   FILE="Ram Disk:Test"
+
+è equivalente a
+
+   FILE "Ram Disk:Test"
+
+ma
+
+   "FILE=Ram Disk:Test"
+
+viene visto come un unico parametro (i codici all'interno delle virgolette
+non vengono riconosciuti come tali, se affiancati da altro testo).
+
+L'uso dei codici è opzionale, tranne quando l'ordine dei parametri viene
+cambiato, o quando il valore di uno o più parametri non è prevedibile,
+come in questo esempio:
+
+   LoadImage FILE "Preview" PREVIEW
+
+I codici servono anche a specificare solo alcuni parametri e accettare i
+valori predefiniti dei restanti:
+
+   RequestResponse PROMPT "Ecco un messaggio"
+
+Lo stesso comando, con i parametri assegnati per ordine di comparsa,
+sarebbe:
+
+   RequestResponse "Titolo" "Ecco un messaggio" "Procedere" "Annullare"
+
+
+@{B}2.3.3      Parametri e opzioni@{UB}
+
+Nella presente documentazione, il termine "parametro" identifica un valore
+(numerico o testo) passato a un comando Rexx, mentre una "opzione" è un
+codice (ad es. QUIET) che attiva una specifica modalità.
+
+Per convenzione, i parametri sono seguiti da una barra ("/") e da una
+lettera maiuscola che ne indica il tipo, e sono divisi da virgole. Questa
+particolare notazione viene usata nei cosiddetti "modelli dei comandi". Ad
+ogni modo, l'accoppiata barra/lettera e le virgole non sono elementi
+sintattici e non vanno usate nella digitazione dei comandi.
+
+   <parametro>/A   Il parametro deve sempre essere specificato.
+
+   <opzione>/S     L'opzione opera come un interruttore. Quando il codice
+                   è presente, l'opzione è attivata; quando è assente,
+                   l'opzione è disattivata.
+
+   <valore>/N      È richiesto un valore numerico (non una stringa).
+                   I valori esadecimali (in base 16) vanno preceduti
+                   da "$" o "0x".
+
+   <parametro>/M   Vengono accettati parametri multipli.
+
+   <stringa>/F     La stringa deve essere il parametro finale della
+                   riga di comando. L'intera parte finale del comando
+                   viene assegnata alla stringa. I doppi apici non
+                   sono necessari (anche se la stringa contiene spazi).
+
+
+@{B}2.3.4      Valori di ritorno@{UB}
+
+Le funzioni che forniscono un risultato lo assegnano alla variabile Rexx
+RESULT. È importante ricordare che i risultati testuali (ad esempio nomi
+di file e percorsi) sono sempre delimitati da virgolette (ad es.
+"ColorType:fonts").
+
+Eventuali errori di esecuzione dell'ultimo comando sono invece riportati
+dalla variabile Rexx RC.
+
+I programmi Rexx possono usare i comandi RETURN e EXIT per restituire una
+stringa in fase di uscita. ColorType visualizza automaticamente questi
+valori. Ad esempio:
+
+   RETURN 'Arrivederci'
+
+termina il programma Rexx e fa apparire un quadro con il seguente
+messaggio:
+
+   "Risultato della macro: Arrivederci"
+
+
+@{B}2.3.5      Codici di errore@{UB}
+
+In seguito all'esecuzione di un comando, la variabile Rexx RC può
+contenere uno dei seguenti codici numerici:
+
+   @{I}Codice     Significato @{UI}
+
+    0         Nessun errore o selezione positiva (OK/Procedere)
+    5         Operazione annullata dall'utente
+   30         Comando sconosciuto
+   31         Omissione di parametro/i richiesto/i
+   32         Troppi parametri
+   33         Opzioni incompatibili
+   34         Errore generico
+   35         Errore nella gestione del file
+   36         Il file non può essere aperto
+   37         Memoria insufficiente
+   38         Formato file sconosciuto (o decrittazione impossibile)
+   39         Il file non contiene i dati richiesti
+   40         Errore nei dati del file
+   41         Tipo di immagine non gestito
+   42         Decrittazione impossibile
+   43         Lettura parziale
+   44         L'unità stampante non può essere aperta
+   45         Errore nella gestione della stampante
+   46         Formato sconosciuto
+   47         Opzione di formato sconosciuta
+   48         Parametro sconosciuto
+   49         È richiesto un valore numerico
+   50         Valore illegale o fuori campo
+   51         Riservato per Personal Paint
+   52         Riservato per Personal Paint
+   53         È richiesto un pennello utente
+   54         Il carattere non esiste
+   55         Il font non esiste
+   56         Operazione impossibile su caratteri disattivati
+
+
+@{B}3.         Comandi Rexx@{UB}
+
+Questa sezione descrive i comandi Rexx riconosciuti da ColorType.
+Impartendo il comando "Help", viene fornito (nella variabile RESULT) un
+elenco sintetico dei comandi.
+
+Queste tre opzioni (formato secondo il modello "<opzione>/S") sono comuni
+a tutti i comandi Rexx:
+
+   FORCE       Questa opzione elimina tutti i quadri che chiedono
+               all'utente di fare una scelta. Vengono utilizzate
+               le scelte predefinite.
+
+   QUIET       Questa opzione elimina tutti i quadri con messaggi
+               di avvertimento o di errore.
+
+   NOPROGRESS  Questa opzione elimina tutti gli indicatori dello
+               stato di avanzamento.
+
+
+@{B}3.1        Center@{UB}
+
+Questo comando centra il carattere corrente (se vi sono colonne vuote alla
+sua destra e/o sinistra). La dimensione orizzontale del carattere non
+cambia.
+
+
+@{B}3.2        Chop@{UB}
+
+Vengono rimossi eventuali colonne vuote a destra e sinistra del
+carattere.
+
+
+@{B}3.3        Clear@{UB}
+
+Il carattere viene cancellato, usando il colore attuale di sfondo.
+
+
+@{B}3.4        Copy@{UB}
+
+Questo comando copia il carattere corrente (informazioni di spaziatura
+incluse) nell'area di memorizzazione. La stessa operazione viene
+effettuata selezionando lo strumento "Memoria" con il pulsante sinistro
+del mouse.
+
+
+@{B}3.5        DeleteFont PATH NAME SIZE/N STYLE@{UB}
+
+Questo comando cancella il font specificato dalla memoria e dal relativo
+supporto di memorizzazione.
+
+Se non si specificano i parametri NAME e SIZE, viene visualizzato un
+quadro richiesta font per effettuare una selezione. Omettendo il parametro
+PATH, viene usato il percorso "FONTS:" di sistema. Nel parametro NAME
+viene fatta distinzione tra maiuscole e minuscole ("Topaz" è diverso da
+"topaz"). Il suffisso ".font" è opzionale ("topaz.font" è equivalente a
+"topaz").
+
+
+@{B}3.6        DynamicView TEXT/A@{UB}
+
+Questo comando cambia il testo nella finestra "Prova font".
+
+
+@{B}3.7        FlipHoriz, FlipVert@{UB}
+
+Questi comandi sono equivalenti agli strumenti "Capovolgere
+orizzontalmente" e "Capovolgere verticalmente".
+
+
+@{B}3.8        FontExists PATH NAME/A SIZE/N/A STYLE EXACT/S@{UB}
+
+Questo comando verifica l'esistenza del font indicato. Il risultato viene
+assegnato alla variabile RC e può essere RC_OK o RC_NOFONT.
+
+Con l'opzione EXACT vengono considerati anche gli attributi del font.
+Normalmente, infatti, la verifica riguarda solo il nome del font e la sua
+dimensione.
+
+Ad esempio:
+
+   FontExists NAME 'topaz' SIZE 8 EXACT        restituisce RC_NOFONT,
+
+   FontExists NAME 'topaz' SIZE 8 STYLE 'of'   restituisce RC_OK, e
+
+   FontExists NAME 'topaz' SIZE 8              restituisce RC_OK.
+
+Per il parametro NAME vale quanto detto nella sezione "DeleteFont".
+
+
+@{B}3.9        Get SETTING/A@{UB}
+
+Questo comando restituisce (nella variabile RESULT) il valore del
+parametro specificato.
+
+Ad esempio:
+
+   Get DVIEW
+
+restituisce 1 se è visibile la finestra "Prova font", 0 altrimenti.
+
+
+@{B}3.10       GetActivation CNUM/N@{UB}
+
+Questo comando imposta la variabile RESULT a 0 o 1, in base allo stato di
+attivazione del carattere corrente, o del carattere specificato con il
+parametro CNUM.
+
+
+@{B}3.11       GetAttr ASCII/S@{UB}
+
+Questo comando restituisce gli attributi del font attuale. Ad esempio, il
+risultato (decimale) 16384 (0x4000 esadecimale) indica che il font è
+adatto per una scrittura da destra a sinistra.
+
+Seguono le definizioni dei diversi attributi dei font Amiga (ColorType usa
+solo quelli contrassegnati da un asterisco):
+
+   @{I}Attributo           Codice        Commento @{UI}
+
+   Corsivo             0x0001 *
+   Neretto             0x0002 *      Esclude Chiaro
+   Chiaro              0x0004        Esclude Neretto
+   Sottolineato        0x0008 *
+   Contornato          0x0010
+   Ombreggiato         0x0020
+   Apice               0x0040        Esclude Pedice
+   Pedice              0x0080        Esclude Apice
+   Espanso             0x0100 *      Esclude Compresso
+   Compresso           0x0200        Esclude Espanso
+   Negativo            0x0400
+   Con grazie          0x0800
+   Bozza               0x1000
+   Passo fisso         0x2000 *
+   Da destra           0x4000 *
+   Dall'alto           0x8000
+
+Specificando l'opzione ASCII, viene restituita una stringa nel formato
+"dimensione+attributi" (ad es. "8 of").
+
+
+@{B}3.12       GetChar@{UB}
+
+Questo comando restituisce il codice (0-256) del carattere corrente.
+
+
+@{B}3.13       GetEnv@{UB}
+
+Questo comando restituisce il numero (0 o 1) dell'ambiente attuale.
+
+
+@{B}3.14       GetKern CNUM/N@{UB}
+
+Questo comando restituisce il valore di crenatura del carattere corrente,
+o del carattere specificato con il parametro CNUM.
+
+
+@{B}3.15       GetPen BKG/S FRG/S GRID/S REMAP/S@{UB}
+
+Questo comando restituisce la posizione della palette associata a una
+delle seguenti penne:
+
+   BKG    Colore di fondo
+   FRG    Colore di primo piano
+   GRID   Colore della griglia
+   REMAP  Colore di primo piano sostituibile (-1 = nessuno)
+
+
+@{B}3.16       GetRefPoint REF1/S REF2/S REF3/S REF4/S@{UB}
+
+Questo comando restituisce la posizione del punto di riferimento
+indicato.
+
+
+@{B}3.17       GetSpace CNUM/N@{UB}
+
+Questo comando restituisce il valore di spaziatura del carattere corrente,
+o del carattere specificato con il parametro CNUM.
+
+
+@{B}3.18       GetXSize CNUM/N@{UB}
+
+Questo comando restituisce l'ampiezza del carattere corrente, o del
+carattere specificato con il parametro CNUM.
+
+
+@{B}3.19       GetZoom@{UB}
+
+Questo comando restituisce l'attuale livello di ingrandimento, equivalente
+alla dimensione, in pixel, dei punti del carattere nello schermo. Ad
+esempio, il livello 1 equivale a una visualizzazione in grandezza
+naturale, mentre 20 indica un alto livello di ingrandimento.
+
+
+@{B}3.20       Help KEY COMMAND/S IOFORMAT/S@{UB}
+
+Questo comando restituisce un elenco dei comandi Rexx (opzione COMMAND) o
+dei moduli di input/output e relativi parametri (opzione IOFORMAT).
+
+Specificando il parametro KEY, vengono fornite informazioni solo sul
+parametro richiesto.
+
+
+@{B}3.21       IsBlank@{UB}
+
+Questo comando restituisce 1 se il carattere corrente risulta vuoto
+(interamente del colore di fondo), o 0 altrimenti.
+
+
+@{B}3.22       ListFonts PATH@{UB}
+
+Questo comando restituisce l'elenco dei font presenti nel percorso
+indicato (o in "FONTS:", se si omette il parametro PATH).
+
+Ogni riga contiene informazioni su un font (nome, dimensioni e attributi).
+Ad esempio:
+
+
+   "topaz" 8 of
+   "topaz" 9 oetf
+   "topaz" 11 f
+   "Diamond" 12
+   "Diamond" 20
+   "Emerald" 17
+   "Emerald" 20
+   "Garnet" 16
+   "Garnet" 9
+   "Personal" 8
+
+
+@{B}3.23       LoadFont PATH NAME SIZE/N STYLE STRETCH/S NOSTRETCH/S@{UB}
+
+Questo comando legge il font specificato. In assenza del parametro NAME o
+SIZE, viene visualizzato il quadro richiesta font.
+
+Appropriate combinazioni di opzioni (tra cui FORCE) permettono di leggere
+un font eliminando un eventuale quadro di selezione formato.
+
+Con le opzioni "FORCE STRECTH", il font in lettura viene adattato al
+formato corrente.
+
+Con le opzioni "FORCE NOSTRECTH", invece, il font viene letto senza alcun
+adattamento, lasciando comunque invariato il formato attuale.
+
+Con la sola opzione FORCE, infine, viene usato il formato del font letto.
+
+Includendo l'attributo "s" (parametro STYLE) si ottiene un font delle
+esatte dimensioni richieste, eventualmente adattato a tale formato dal
+sistema operativo. In assenza di questo attributo, se la dimensione
+richiesta non è disponibile, viene letto il font che più si avvicina alle
+caratteristiche indicate.
+
+Ad esempio:
+
+   Load NAME 'topaz' SIZE 7          Legge Topaz 8
+
+   Load NAME 'topaz' SIZE 7 STYLE s  Ridimensiona Topaz 8 in Topaz 7
+
+
+@{B}3.24       LoadImage FILE FORMAT PREVIEW/S STRETCH/S NOSTRETCH/S
+                     OPTIONS/M/F@{UB}
+
+Questo comando legge un'immagine nel carattere attuale. Omettendo il
+parametro FILE, l'immagine può essere selezionata con il quadro richiesta
+file.
+
+L'opzione PREVIEW attiva lo schermo di anteprima (HAM o 24-bit, in base al
+sistema grafico).
+
+Le opzioni STRETCH e NOSTRETCH agiscono come spiegato per "LoadFont".
+
+Eventuali opzioni di formato (OPTIONS) vanno specificate in coda alla riga
+di comando.
+
+
+@{B}3.25       LoadPalette FILE@{UB}
+
+Questo comando legge una tavolozza colori dal file indicato. Omettendo il
+parametro FILE, ColorType visualizza un quadro richiesta file.
+
+
+@{B}3.26       LockGUI@{UB}
+
+In seguito all'esecuzione di questo comando, ColorType ignora ogni azione
+dell'utente, fatta eccezione per le operazioni all'interno dei quadri. Gli
+spostamenti del mouse e i comandi da tastiera non producono alcun effetto
+nella finestra principale del programma. L'utente può forzare l'uscita da
+questa modalità (durante l'esecuzione di una macro) premendo il tasto
+<Esc>.
+
+
+@{B}3.27       NewFont@{UB}
+
+È equivalente al comando "Nuovo font" del menu "Progetto".
+
+
+@{B}3.28       Paste@{UB}
+
+Questo comando richiama il carattere e le informazioni di spaziatura
+presenti nell'area di memorizzazione, sostituendoli al carattere corrente.
+La stessa operazione viene effettuata selezionando lo strumento "Memoria"
+con il pulsante destro del mouse.
+
+
+@{B}3.29       Request TITLE/A DESCR/A RESIZE/S KEEPCOL/S NOVSPACE/S@{UB}
+
+Questo è un comando molto potente e versatile, grazie al quale i programmi
+Rexx possono facilmente creare quadri complessi nello schermo di
+ColorType.
+
+Con il parametro TITLE si specifica il titolo del quadro.
+
+Il parametro DESCR descrive gli oggetti contenuti nel quadro.
+
+L'opzione RESIZE fa in modo che il quadro sia ridimensionabile
+orizzontalmente e verticalmente. Il ridimensionamento verticale viene
+attivato solo se il quadro contiene oggetti LIST.
+
+L'opzione KEEPCOL fa in modo che i colori di schermo non vengano cambiati.
+In condizioni normali, infatti, se i colori disponibili non garantiscono
+un contrasto sufficiente, ColorType provvede automaticamente a modificarli
+durante la visualizzazione del quadro.
+
+L'opzione NOVSPACE elimina l'inserimento automatico di linee vuote tra gli
+oggetti.
+
+
+@{I}Il parametro DESCR @{UI}
+
+Questo parametro consiste in una sequenza di una o più stringhe, ciascuna
+relativa a un oggetto del quadro. Le doppie virgolette ('"') sono
+necessarie per delimitare i testi solo se questi contengono spazi. I testi
+associati agli oggetti possono contenere il carattere di sottolineatura
+per specificare una selezione abbreviata da tastiera (ad es.
+"_Procedere"). Quando un testo è tra virgolette, può a sua volta contenere
+una virgoletta ('"') se preceduta da una barra rovesciata ("\\").
+Quest'ultimo carattere va invece indicato con una doppia barra rovesciata
+("\\\\").
+
+Negli esempi che seguono, le parentesi angolari vengono usate per
+rappresentare campi numerici. Le parentesi non fanno parte della
+definizione dell'oggetto.
+
+Segue un elenco degli oggetti utilizzabili nel parametro DESCR:
+
+
+@{I}Gadget stringa di testo @{UI}
+
+STRING = "Etichetta gadget", <Numero massimo di caratteri>,
+         "Testo iniziale"
+
+L'etichetta del gadget è il testo che appare a sinistra dello stesso e può
+contenere una sequenza abbreviata da tastiera.
+
+
+@{I}Gadget stringa numerico (valori interi) @{UI}
+
+INTSTR = "Etichetta gadget", <Valore minimo>, <Valore massimo>,
+         <Valore iniziale>
+
+Questo oggetto consiste in un gadget stringa numerico, con controllo
+automatico dei valori digitati. Il gadget accetta solo valori interi.
+
+
+@{I}Gadget stringa numerico (valori frazionali) @{UI}
+
+INT10000STR = "Etichetta gadget", <Valore minimo>, <Valore massimo>,
+              <Valore iniziale>
+
+Se INTSTR viene usato per i valori interi, INT10000STR permette di editare
+numeri con fino a 4 cifre decimali. Il valore iniziale e il risultato di
+INT10000STR sono espressi in interi, equivalenti al valore frazionale
+moltiplicato per 10000.
+
+
+@{I}Gadget ciclante @{UI}
+
+CYCLE = "Etichetta gadget", <Posizioni totali>, <Posizione iniziale>,
+        "Testo posizione 1", "Testo posizione 2" [...]
+
+I valori di posizione iniziano da 0.
+
+
+@{I}Gadget di controllo @{UI}
+
+CHECK = "Etichetta gadget", <Stato iniziale>
+
+Lo stato iniziale può essere 0 (non vistato) o 1 (vistato).
+
+
+@{I}Gadget proporzionale (valori interi) @{UI}
+
+SLIDE = "Etichetta gadget", <Valore minimo>, <Valore massimo>,
+        <Valore iniziale>
+
+Questo oggetto consiste in un normale gadget proporzionale, utile per
+indicare un valore all'interno di un campo specifico.
+
+
+@{I}Gadget proporzionale (numero di colori) @{UI}
+
+COLSLIDE = "Etichetta gadget", <Valore minimo>, <Valore massimo>,
+           <Valore iniziale>
+
+I valori mostrati da questo gadget proporzionale sono solo potenze di due:
+2, 4, 8, 16, 32, 64, 128 o 256. I valori minimo, massimo, iniziale e
+risultante sono espressi in piani di bit: 1, 2, 3, 4, 5, 6, 7 o 8.
+
+
+@{I}Lista scorribile @{UI}
+
+LIST = "Etichetta gadget", <Numero totale di testi>,
+       <Selezione iniziale>,
+       <Dimensione orizzontale>, <Dimensione verticale>,
+       "Testo 0", "Testo 1" [...]
+
+Questa è una comune lista scorribile, con un titolo opzionale ("Etichetta
+gadget"). La dimensione orizzontale è espressa in caratteri (per i font
+proporzionali viene considerata l'ampiezza della lettera 'M'). La
+dimensione verticale è invece espressa in righe (numero di testi
+contemporaneamente visibili).
+
+
+@{I}Testo @{UI}
+
+TEXT = "Testo"
+
+Questo non è un gadget, ma un semplice testo orizzontalmente centrato nel
+quadro.
+
+
+@{I}Linea di separazione @{UI}
+
+SEPARATOR
+
+Questo oggetto consiste in una linea orizzontale di separazione.
+
+
+@{I}Linee vuote @{UI}
+
+VSPACE = <Numero di linee>
+
+Questo oggetto inserisce un insieme di linee vuote. Il numero di linee
+viene scalato in base al parametro di programma THICKY (spostamento di
+bit: linee=<<THICKY), e cioè alla densità verticale di schermo.
+
+
+@{I}Gadget di azione (in fondo al quadro) @{UI}
+
+ACTION = "Testo nel gadget"
+
+Questi gadget appaiono in fondo al quadro. Se non si specifica alcun
+oggetto ACTION, il quadro conterrà i gadget "Procedere" e "Annullare".
+
+I seguenti codici sono associati ai testi standard dell'interfaccia utente
+(vengono usate le stringhe della lingua attiva):
+
+   ACTION = PROCEED   equivale a un gadget "Procedere",
+
+   ACTION = CANCEL    equivale a un gadget "Cancellare", e
+
+   ACTION = OK        equivale a un gadget "Va bene".
+
+
+@{I}Esempi di oggetti @{UI}
+
+STRING = "Digitare _testo:", 256, "Testo"
+
+INTSTR = "Digitare _numero:", -10, 10, 5
+
+INT10000STR = "Digitare _numero:", -100000, 100000, 5000
+
+CYCLE = "Ciclare:", 2, 0, First, Second
+
+CHECK = "Vistare:", 0
+
+SLIDE = "Valore:", -10, 10, 5
+
+COLSLIDE = "Colori:", 1, 8, 4
+
+LIST = "", 3, 0, 30, 10, "Primo", "Secondo", "Terzo"
+
+TEXT = "Questo è un testo"
+
+SEPARATOR
+
+VSPACE = 2
+
+ACTION = "Azione"
+
+ACTION = PROCEED
+
+ACTION = CANCEL
+
+ACTION = OK
+
+
+@{I}Esempi di comandi @{UI}
+
+Request '"Elaborazione" "LIST = _Effetti:, 2, 0, 20, 3, Rise, Emboss"'
+
+Request KEEPCOL RESIZE '"Quadro di prova" ' ||,
+'"STRING = ""Digitare testo:"", 256, ""Testo"" ' ||,
+'LIST = , 4, 0, 20, 3, Primo, Secondo, Terzo, Quarto ' ||,
+'LIST = , 4, 0, 20, 3, Primo, Secondo, Terzo, Quarto ' ||,
+'LIST = , 4, 0, 20, 3, Primo, Secondo, Terzo, Quarto ' ||,
+'TEXT = Testo"'
+
+Nota: Questo esempio fa uso dell'operatore di concatenazione stringhe "||"
+e del codice di continuazione riga (virgola). Quando una riga termina con
+una virgola, questa viene ignorata e la riga viene fusa con la successiva,
+formando un'unica entità sintattica. I caratteri "" (doppie virgolette
+ripetute due volte) permettono di includere una doppia virgoletta in una
+stringa delimitata da tali codici. Per ulteriori informazioni si rimanda
+ai manuali di Amiga e al Manuale ARexx contenuto nel CD-ROM Personal
+Suite.
+
+
+@{I}Valori di ritorno in RESULT @{UI}
+
+La variabile RESULT indica la posizione (a partire da 1) del gadget di
+azione selezionato. Ad esempio:
+
+   Request '"Quadro di prova" "TEXT = ""Fare una scelta"" ' ||,
+           'ACTION = A ACTION = B ACTION = C ACTION = D ACTION = E "'
+
+   IF RC = 0 THEN SAY RESULT    /* 1 = "A", 2 = "B", 3 = "C", ... */
+
+Le variabili RESULT.# (dove # è la posizione dell'oggetto all'interno del
+quadro) contengono i valori di ritorno dei diversi oggetti. I testi
+semplici e gli oggetti di separazione non occupano alcuna posizione.
+
+Ad esempio:
+
+   Request '"Quadro di prova" ' ||,
+   '"STRING = ""Digitare testo:"", 256, ""Testo"" ' ||,
+   'INTSTR = ""Digitare numero:"", -10, 10, 5 "'
+
+   IF RC = 0 THEN
+      SAY ' Testo digitato:' RESULT.1
+      SAY 'Numero digitato:' RESULT.2
+   END
+
+
+@{I}Valori di ritorno in RC @{UI}
+
+La variabile RC è uguale a RC_CANCEL (5) se è stato selezionato un gadget
+"ACTION=CANCEL", o RC_OK (0) altrimenti. Altri valori segnalano
+particolari condizioni di errore, ad esempio un'insufficienza di memoria.
+
+
+@{B}3.30       RequestFile TITLE/A PATH FILE PROC CANC SAVEMODE/S FORMATS/S@{UB}
+
+Questo comando visualizza un quadro richiesta file e ne riporta la
+selezione.
+
+I parametri PATH e FILE permettono di impostare i valori iniziali di
+percorso e file.
+
+I testi PROC e CANC vanno a sostituire quelli predefiniti dei gadget
+"Procedere" e "Annullare".
+
+Con l'opzione SAVEMODE viene visualizzato un quadro per la memorizzazione
+(anziché lettura) di file; a questo può seguire un quadro di avviso
+sovrascrittura.
+
+L'opzione FORMATS integra il quadro con una lista di formati file.
+
+Ecco alcuni esempi di possibili risultati (memorizzati in RESULT):
+
+   "Work:Immagini/Luna.png"
+
+   "Ram Disk:T/prova" FORMAT "ILBM" OPTIONS "COMPR=1" "SCRFMT=1"
+
+
+@{B}3.31       RequestFont TITLE/A PATH NAME SIZE/N STYLE PROC CANC
+                       SAVEMODE/S@{UB}
+
+Questo comando visualizza un quadro richiesta font e ne riporta la
+selezione.
+
+I parametri iniziali vengono impostati con i parametri PATH, NAME, SIZE e
+STYLE (come PATH e FILE del quadro richiesta file).
+
+Le opzioni PROC, CANC e SAVEMODE sono analoghe alle omonime opzioni del
+quadro richiesta file.
+
+Ecco alcuni esempi di possibili risultati (memorizzati in RESULT):
+
+   "Workbench:fonts" "topaz" 8 of
+
+   "ColorType:fonts" "MyTimes" 50
+
+
+@{B}3.32       RequestNotify TITLE PROMPT/A OK SCROLL/S WORDWRAP/S
+                         WRAPCHECK/S@{UB}
+
+Questo comando mostra un semplice quadro messaggi con un gadget "Va
+bene".
+
+I parametri TITLE e PROMPT permettono, rispettivamente, di specificare il
+titolo (opzionale) del quadro e il testo al suo interno.
+
+Specificando l'opzione SCROLL, il testo appare all'interno di una finestra
+scorribile e ridimensionabile. Questa possibilità si rivela
+particolarmente utile per visualizzare testi di una certa lunghezza.
+Normalmente, per il testo del quadro viene usato un font a passo fisso
+(come "Topaz"), non viene effettuata alcuna formattazione ed è possibile
+usare due gadget di scorrimento orizzontale e verticale.
+
+L'opzione WORDWRAP, usata in congiunzione con SCROLL, attiva la
+formattazione automatica del testo. Questa funzione si occupa di
+distribuire il testo all'interno del quadro, spezzando le righe di testo e
+convertendo gruppi di spazi e codici LF (avanzamenti di riga) in singoli
+spazi. I paragrafi vanno separati con due codici LF successivi. Per
+impedire la riformattazione di tavole, è possibile usare uno o più codici
+NBSP (spazio non scindibile, codice decimale 160, <Alt+Spazio> da
+tastiera) all'inizio delle righe da preservare.
+
+Anche l'opzione WRAPCHECK opera assieme a SCROLL e permette di attivare e
+disattivare la formattazione del testo. Il quadro conterrà un gadget di
+controllo dedicato a questo scopo. Il tipo di formattazione iniziale è
+determinato dalla combinazione delle opzioni WRAPCHECK e WORDWRAP.
+
+
+@{B}3.33       RequestPath TITLE/A PATH PROC CANC@{UB}
+
+Questo comando visualizza un quadro richiesta percorsi e ne riporta la
+selezione. Il quadro in questione è simile al quadro richiesta file, ma è
+privo del campo "File".
+
+Ecco alcuni esempi di possibili risultati (memorizzati in RESULT):
+
+   "Work:FancyFonts"
+
+   "Ram Disk:test dir/subdir"
+
+
+@{B}3.34       RequestResponse TITLE PROMPT/A PROC CANC@{UB}
+
+Questo comando visualizza un quadro messaggi dotato dei gadget "Procedere"
+e "Annullare". In base alla selezione fatta, la variabile RC conterrà
+RC_OK o RC_CANCEL. Con i parametri PROC e CANC è possibile sostituire i
+testi dei suddetti gadget.
+
+
+@{B}3.35       SaveDView FILE/A FORMAT OPTIONS/M/F@{UB}
+
+Questo comando memorizza in un file il contenuto della finestra "Prova
+font". Sono disponibili parametri per la selezione del formato analoghi a
+quelli del comando "SaveImage".
+
+
+@{B}3.36       SaveFont PATH NAME@{UB}
+
+Questo comando memorizza il font attuale. Omettendo il parametro PATH, il
+font viene memorizzato nel percorso "FONTS:". Omettendo il parametro NAME,
+viene visualizzato un quadro richiesta file.
+
+
+@{B}3.37       SaveFontImage FILE/A FORMAT OPTIONS/M/F@{UB}
+
+Questo comando crea un'immagine equivalente allo schermo della funzione
+"Mostare font" e la memorizza nel file indicato. Sono disponibili
+parametri per la selezione del formato analoghi a quelli del comando
+"SaveImage".
+
+
+@{B}3.38       SaveImage FILE FORMAT OPTIONS/M/F@{UB}
+
+Questo comando memorizza l'immagine del carattere corrente nel file e col
+formato specificati. Omettendo il parametro FILE, viene visualizzato un
+quadro richiesta file.
+
+I parametri FORMAT e OPTIONS permettono di selezionare uno specifico
+formato di memorizzazione e di regolarne i parametri. Omettendo il formato
+di memorizzazione, viene usato il formato originario (in lettura)
+dell'immagine oppure il formato ILBM (se l'immagine non è stata letta, ma
+creata @{I}ex novo@{UI}).
+
+
+@{B}3.39       SavePalette FILE@{UB}
+
+Questo comando memorizza la tavolozza colori in un file IFF.
+
+
+@{B}3.40       ScreenToBack@{UB}
+
+Questo comando porta lo schermo del programma dietro ogni altro schermo.
+
+
+@{B}3.41       ScreenToFront@{UB}
+
+Questo comando porta lo schermo del programma in primo piano.
+
+
+@{B}3.42       Set STRETCH/S PARAMS/M/F@{UB}
+
+Con questo comando è possibile impostare uno o più parametri del
+programma. L'esecuzione del comando è equivalente alla lettura di un file
+parametri.
+
+Le opzioni "FORCE STRETCH" permettono di ridimensionare il font,
+adattandolo a un nuovo formato (eliminando i quadri di conferma).
+
+Sia ColorType che ARexx usano le virgolette come delimitatori. Per questo
+motivo è necessario usare due livelli di virgolette (singole e doppie). Ad
+esempio:
+
+   Set 'FORCE "XMAX=20" "YMAX=40" "COLORS=8"'
+   Set 'FORCE STRETCH "XMAX=60" "YMAX=60"'
+
+
+@{B}3.43       SetActivation STATUS/N/A@{UB}
+
+Questo comando modifica lo stato di attivazione del carattere attuale.
+
+
+@{B}3.44       SetAttr ATTR/N/A SET/S CLEAR/S CHANGE/S@{UB}
+
+Questo comando modifica uno o più attributi del font. Se non si specifica
+alcuna opzione, il nuovo valore ATTR viene assegnato al parametro
+attributi.
+
+Le opzioni SET, CLEAR e CHANGE permettono di modificare selettivamente i
+bit attivi nel parametro ATTR, lasciando inalterati gli altri. Con
+l'opzione SET, gli attributi vengono aggiunti (OR su bit) a quelli
+attuali. Con CLEAR gli attributi vengono cancellati (AND su NOT ATTR).
+L'opzione CHANGE, infine, modifica lo stato degli attributi (XOR su bit).
+
+
+@{B}3.45       SetChar CHAR/N PREV/S NEXT/S PREVON/S NEXTON/S FIRSTON/S
+                   LASTON/S@{UB}
+
+Questo comando seleziona uno specifico carattere. Il campo valori del
+parametro CHAR è 0-256 (256 corrisponde al carattere indefinito). Vi sono
+altri criteri di selezione:
+
+   PREV      Carattere precedente
+   NEXT      Carattere successivo
+   PREVON    Precedente carattere attivato
+   NEXTON    Successivo carattere attivato
+   FIRSTON   Primo carattere attivato
+   LASTON    Ultimo carattere attivato
+
+
+@{B}3.46       SetEnv ENV/N/A@{UB}
+
+Questo comando seleziona uno dei due ambienti di lavoro (0 o 1).
+
+
+@{B}3.47       SetKern KERN/N/A@{UB}
+
+Questo comando imposta il valore di crenatura del carattere corrente.
+
+
+@{B}3.48       SetPen BKG/N FRG/N GRID/N REMAP/N@{UB}
+
+Questo comando assegna un colore a una o più penne.
+
+   BKG    Colore di fondo
+   FRG    Colore di primo piano
+   GRID   Colore della griglia
+   REMAP  Colore di primo piano sostituibile (-1 = nessuno)
+
+
+@{B}3.49       SetRefPoint REF1/N REF2/N REF3/N REF4/N@{UB}
+
+Questo comando regola la posizione di uno o più punti di riferimento. Il
+terzo punto di riferimento è associato alla linea di base dei caratteri.
+
+
+@{B}3.50       SetSpace SPACE/N/A@{UB}
+
+Questo comando imposta il valore di spaziatura del carattere corrente.
+
+
+@{B}3.51       SetXSize XSIZE/N/A@{UB}
+
+Questo comando regola l'ampiezza del carattere corrente.
+
+
+@{B}3.52       SetZoom DOTHEIGHT/N BEST/S@{UB}
+
+Questo comando imposta il livello di ingrandimento, e cioè il numero di
+pixel usati (in verticale) per visualizzare i punti dei carattere nello
+schermo. Il valore 20, ad esempio, fa in modo che ogni punto del carattere
+sia alto 20 pixel (ciò equivale a un alto livello di ingrandimento). Al
+valore 1 corrisponde una visualizzazione a grandezza naturale (nessun
+ingrandimento). Quest'ultima impostazione migliora le prestazioni del
+programma in alcuni sistemi; può ad esempio essere attivata per
+velocizzare l'esecuzione di macro che selezionano in successione tutti i
+caratteri del font.
+
+Con l'opzione BEST viene scelto il livello di ingrandimento ottimale per
+rendere visibile l'intero carattere attuale.
+
+
+@{B}3.53       ShiftDown, ShiftLeft, ShiftRight, ShiftUp@{UB}
+
+Questi comandi corrispondono ai quattro gadget di spostamento nella barra
+strumenti. L'immagine del carattere viene spostata di un pixel nella
+direzione indicata.
+
+
+@{B}3.54       UnlockGUI@{UB}
+
+Con questo comando si annulla l'effetto del comando "LockGUI",
+ripristinando il normale funzionamento del programma.
+
+
+@{B}3.55       Version PROGRAM/S REXX/S@{UB}
+
+Questo comando fornisce la versione del programma o la versione
+dell'interfaccia Rexx. Se non si specifica alcuna opzione, viene fornita
+la versione del programma.
+
+@ENDNODE

@@ -1,0 +1,1694 @@
+\input texinfo  @c -*-texinfo-*-
+@setfilename SuperDuper.guide
+@settitle @code{SuperDuper}'s Manual
+@setchapternewpage off
+
+@iftex
+@afourpaper
+@end iftex
+
+@titlepage
+@title SuperDuper
+@subtitle An Amiga Disk Copier
+@subtitle Version 3.13
+@subtitle Copyright @copyright{} 1991-1994 Sebastiano Vigna
+@author by Sebastiano Vigna
+@end titlepage
+
+@defindex ga
+
+@ifinfo
+
+@node Top
+@top
+
+This document describes @code{SuperDuper} 3.13, a freeware high-speed disk
+copier and formatter for the Amiga. Typical timings are less than 100s for a
+disk-to-disk verified copy, or 38s for a four disks non-verified format.
+
+@noindent Copyright © 1991-1994 Sebastiano Vigna
+
+@menu
+* Introduction::
+* Windows::
+* Gadgets::
+* Reference::
+* ARexx::
+* Performance::
+* Acknowledgments::
+* Disclaimer and Author Info::
+* Concept Index::
+* Gadget Index::
+* Program Index::
+@end menu
+
+@end ifinfo
+
+@node Introduction
+@chapter Introduction
+@cindex Introduction
+@cindex Timings
+
+@code{SuperDuper} is a disk copier/formatter that tries to be to disk
+handling what @code{Mostra} is to IFF displaying: a fast, compact,
+system-friendly tool which combines speed, features, and some bells and
+whistles to make your life easier.
+
+By @dfn{fast} I mean exactly what you're hoping---blazingly fast. A disk is
+usually copied and verified in less than 100s. Without verify, the time
+drops to 69s. You can buffer a disk in @sc{ram} in less than 36s, and then making
+a verified copy takes 67s, while a non-verified copy takes less than 36s.
+Adding another destination drive increases verified copy times by 34s, but
+hardly changes non-verified copy times (the Amiga can write more than one
+drive at a time; I just need a few tenths of a second in order to measure
+the drive speed and step the heads). Thus, if you really trust your drives
+and your media you can make four copies in 38s. These timings can vary with
+the system configuration, the multitasking overhead, the disposition of the
+blocks on the surface of the disk, the state of the @code{Date} option (which
+requires a separate write on the root block track for each disk), the @sc{dma}
+access of the custom chips and the display features enabled.
+
+@menu
+* Changes::
+* Main Features::
+* First Steps::
+@end menu
+
+
+@node Changes
+@section Changes
+@cindex Changes
+@cindex Xpk
+
+@code{SuperDuper} 3.x is in many ways a completely new program. This is why
+I @emph{strongly suggest} to all previous users to @emph{entirely reread} the
+documentation.
+
+Now the program works only under release 2.04 and beyond of the operating
+system. Minor maintenance releases of @code{SuperDuper} 2.0x will probably be
+distributed for the users who do not still have Release 2, but you should
+assume that no programming effort from my part will be ever spent for writing
+something working under 1.3. Moreover, some features of 3.0 are used if present
+(for instance, scalable checkmarks and radio buttons gadgets).
+
+The main new features are high density drive support, @sc{xpk} compression
+support (for more details, @pxref{The Buffering System}), a complete
+graphical display of the copy process status, and much more flexible
+buffering.
+
+
+@node Main Features
+@section Main Features
+@cindex Features
+
+@itemize @bullet
+@item
+@code{SuperDuper} copies, formats and checks from/to any combination of Amiga
+drive(s).
+
+@item
+@code{SuperDuper} can buffer a disk in @sc{ram}, allowing for any number of
+duplications while reading the source disk only once. The combination of
+destination drives can be changed at each pass. If you have a hard disk, you
+can create on it an IFF image file that will act as a buffer. This file can be
+saved and reused many times. Also, all kinds of virtual disks are supported for
+buffering (VD0:, RAD:, FMS:@dots{}).
+
+@item
+@code{SuperDuper} checksums the @sc{ram} buffer. If some badly written program is
+trashing your memory, you are alerted. Thus, buffered copies are as safe as
+direct copies.
+
+@item
+@code{SuperDuper} also checks its internal @sc{dma} buffers at each write.
+
+@item
+@code{SuperDuper} can use any @sc{xpk} library in order to compresss the information
+it stores in @sc{ram}. You can choose your preferred compression algorithm,
+depending on the speed of your machine and on the available memory. With
+most compressors, write times are (almost) unaffected.
+
+@item
+@code{SuperDuper} will automatically retry tracks which produce a verify error.
+The number of retries is programmable. A complete graphical rendition of the
+status of retries and errors is given in the Info Window, and on request
+detailed error information printing is available.
+
+@item
+@code{SuperDuper} is highly system-friendly---the use of @sc{cpu} time is
+negligible, so you can multitask efficiently.
+
+@item
+@code{SuperDuper} has the option of incrementing the creation date of the copy
+so AmigaDOS doesn't get confused. If, however, the option is switched on and
+the disk is not an AmigaDOS disk, @code{SuperDuper} won't increment the date.
+
+@item
+@code{SuperDuper} is faster than diskcopy---actually it pushes the drives to
+their limits. At the time of this writing, @code{SuperDuper} is the fastest
+Amiga copier both from a ``pure'' (physical time) and from a ``per-copy'' (real
+time for each copy when a big number of copies of the same disk is produced)
+point of view.
+
+@item
+@code{SuperDuper} alerts the user with sound (and optionally voice) about the
+operations in progress---so you can really be doing something else!
+
+@item
+@code{SuperDuper} can format both OFS, FFS and DCFS disks.
+
+@item
+@code{SuperDuper} displays a list of the last disks copied. If you do a lot of
+copying, you'll find this feature more than a little useful.
+
+@item
+@code{SuperDuper} can manage the Amiga drives without help from the
+trackdisk.device. Through the supplied utility @code{SDBootInstall}, you can
+create a boot disk which will keep the system away from your drives, giving you
+back more than 30K per unit. This is very useful when doing intensive buffered
+copying on a 1M machine.
+
+@item
+@code{SuperDuper} can automatically start any copy or format operation by
+monitoring the disks' extraction and insertion.
+
+@item
+@code{SuperDuper}'s window can be opened on any public screen.
+
+@item
+The start/end cylinder of a copy is programmable.
+
+@item
+Unique numbered names can be automatically generated while formatting.
+
+@item
+@code{SuperDuper} has a time indicator.
+
+@item
+@code{SuperDuper} has a beautiful name. @t{8^)}
+
+@item
+If this is not enough, an ARexx interface allows any kind of customization.
+In particular, a startup ARexx script lets you set up a custom
+configuration. Since @code{SuperDuper} can turn off its graphical user
+interface via a command line switch, it is possible to use @code{SuperDuper}
+as a @sc{cli} command by writing a suitable ARexx macro. A switch allows you to
+shut down ARexx in order to gain memory. ARexx macros can be launched via
+the ASL file requester.
+
+@end itemize
+
+
+@node First Steps
+@section First Steps
+@cindex First steps
+@cindex Keyboard usage
+@cindex Copying
+
+To use @code{SuperDuper}, you simply double-click on its icon. You will
+see a window appearing on the screen: it's the main window, which contains
+the main controls of the program.
+
+Just under the window title you can see the @dfn{progress bar}, which gives you an
+approximate indication of how much of the copy process has been carried out.
+Under the progress bar, you can see the @dfn{action gadgets} (@pxref{The
+Action Gadgets}), which let you control @code{SuperDuper}'s activities. On
+the right side, there are the source/destination and copy mode selectors.
+
+To make your first copy, if you have two (or more) drives simply select in the
+first column of gadgets of the @code{Src/Dest} box the gadget for the drive
+which contains the source floppy, and in the second column the gadget(s) for
+the drive(s) containing the destination(s) (for the time being do not choose
+the same drive both as source and as destination). Then hit the @code{Copy}
+gadget. After a while, the display will flash, a beep will be generated, and
+the copy will be finished. As each cylinder is copied, the progress bar is
+updated.
+
+If you have only one drive, select it both as source and as destination. Then
+select the @code{Buffer} radio button in the @code{Mode} box. Now put in the
+source disk and hit the @code{Read} gadget: the buffer will be filled with the
+contents of the disk. If the progress bar reaches its maximum length, then the
+whole disk has been buffered. Pull out the source disk, put in the destination,
+and hit the @code{Write} gadget. The buffer will be written to the disk. If only a
+part of the source disk was buffered, put it in again, buffer it again (note
+that now the progress bar starts where it stopped before) and write it again.
+This process must be repeated until the whole disk has been copied. It is safer
+to set the write protect tab on the source disk, in order to avoid the
+unpleasing side-effects of source/destination mismatches.
+
+@code{SuperDuper} supports both double and high density floppies. Of course,
+you have to use the same kind of floppy in all drives, or a requester
+complaining about a type mismatch will be issued. You can change the density
+of the floppy each time you do a copy, but you have to be careful to not
+confuse the operating system: @xref{SuperDuper and Your System}.
+
+
+@node Windows
+@chapter Windows
+
+@code{SuperDuper} 3.13 features several windows. This was made necessary by the
+growth of information to display, which is now divided among a main window and
+two additional windows. The left/right arrow keys allow to bring to front
+cyclically all the opened windows, while @key{F1} toggles the zoom state of the
+currently activated window.
+
+@menu
+* The Main Window::
+* The Info Window::
+* The Options Window::
+@end menu
+
+@node The Main Window
+@section The Main Window
+
+When @code{SuperDuper} is started, it usually opens a window (unless you
+specify the @samp{NoGUI} tooltype; @pxref{The CLI and WB Options}). This
+window contains the progress bar, and the main control gadgets. @xref{The Action Gadgets}.
+
+The progress bar gives you a rough estimate of the part of the copy process
+that has been carried out. Also, it tells you when an error occur: in this
+case, the bar is updated in a lighter (dithered) color. For more precise
+informations on the error, see @ref{The Info Window}.
+
+The zoom gadget can be used to reduce the main window to the point that only the
+main action gadgets and the progress bar are visible. This is most useful if
+you want to free some space on your screen, yet to be able to govern the copy
+process.
+
+The main window is opened at startup unless you specify the @samp{NoGUI}
+option, either @i{via} the @sc{cli} or @i{via} tool types. In this case, no
+window is opened. Note that it is not possible to close the main window @i{via}
+ARexx and have the info or options window opened.
+
+
+@node The Info Window
+@section The Info Window
+@gaindex Info
+@gaindex Status
+@gaindex Elapsed
+@gaindex Copy #
+
+The Info window contains only informations---there is nothing you can set. All
+the information about the copy process is gathered here. In order to open it,
+you have to click on the @code{Info} gadget of the Main window.
+
+On the left, the @code{Status} gadget tells you what @code{SuperDuper} is
+currently doing. Its normal display is @samp{Idle}, and it changes to reflect
+the operation currently in progress.
+
+The @code{Elapsed} gadget tells you how much time has passed from the start of
+the current operation. @code{SuperDuper} uses the system EClock, which is very
+precise and has a very low overhead.
+
+The @samp{Copy #} gadget tells you how many error-free copies of the current
+buffer have been done (for this to happen, you have to select a buffer, as
+explained in @pxref{The Buffering System}).
+
+Just below there is a standard listview: it contains a list of the drives
+copied, checked or buffered, the topmost being the latest.
+
+On the right, you can see the four disk status displays. For each cylinder
+read or written, a square is displayed in the respective drive status display.
+If a retry occurs, a triangle contained in the square is painted in a lighter,
+dithered color. If the retry are unsuccessful, the triangle is set in the
+background (lightest) color. Of the two triangles contained in each square,
+the leftmost represents the upper side of the floppy, while the rightmost
+represents the lower side.
+
+The info window can be opened and closed at your will. The @key{Esc} key or
+the close gadget will make it disappear, but you can open it again @i{via}
+the respective gadget, or @i{via} the @samp{Window} ARexx command. @xref{ARexx}.
+
+
+@node The Options Window
+@section The Options Window
+
+The options window contains a series of gadgets which allow to control the
+kind of operations performed by @code{SuperDuper}, for instance, if
+buffering should use compression. @xref{The Option Gadgets}.
+
+The options window can be opened and closed at your will. The @key{Esc} key
+or the close gadget will make it disappear, but you can open it again
+@emph{via} the respective gadget, or @i{via} the @samp{Window} ARexx command.
+@xref{ARexx}.
+
+
+@node Gadgets
+@chapter Gadgets
+
+@code{SuperDuper} is completely controlled @i{via} gadgets---there are no menus.
+Every gadget can be activated @i{via} the mouse or the keyboard (using the
+letter which appears underlined in the gadget name). The copy mode gadget in
+the main window cycles when the @kbd{M} key is pressed. The destination
+drive gadgets can be controled by pressing @key{SHIFT} together with the
+underlined number. You can use @kbd{Q} or @key{Esc} to exit, instead of
+hitting the close gadget. Note however that @key{Esc} will simply close the
+currently activated window, and possibly exit @code{SuperDuper} if the
+latter is the main window, while @kbd{Q} will always exit. Some of the
+string gadgets have underlined letters which activate them. Moreover, you
+can use @kbd{@key{TAB}} and @kbd{@key{SHIFT}-@key{TAB}} to pass from a
+string gadget to another one.
+
+@menu
+* The Action Gadgets::
+* The Disk Gadgets::
+* The Copy Mode Gadget::
+* The Option Gadgets::
+@end menu
+
+
+@node The Action Gadgets
+@section The Action Gadgets
+@gaindex Read
+@gaindex Write
+@gaindex Stop
+@gaindex Check
+@gaindex Copy
+@gaindex Format
+@gaindex Options
+@gaindex Info
+@gaindex ARexx
+@gaindex WB
+@gaindex NoWB
+@gaindex Iconify
+@gaindex SaveCon
+
+These gadgets control the actions that can be performed by @code{SuperDuper}.
+
+@table @code
+@item Stop
+stops any operation. If pressed while the multi-pass real-time compression
+buffer is selected and no operation is in progress, it will empty the buffer
+and reset the pass count, thus allowing you to buffer another source even if
+the previous one wasn't finished (@pxref{The Buffering System}). If you
+@code{Stop} immediately after starting a copy operation and nothing has been
+drawn in the progress bar, nothing has been written to the destinations.
+
+@item Copy
+can be used only in @samp{Disk2Disk} mode; it initiates a disk-to-disk copy operation.
+The source is copied to the destination(s).
+
+@item Read
+can be used only when a buffer is selected; it fills the buffer by
+reading from the source drive.
+
+@item Write
+can be used only when a buffer is selected; the content of the
+buffer is written on the destination(s).
+
+@item Check
+is basically a @code{Read} without buffering. The source disk is scanned
+for errors. No buffer is needed to use it. Note that @code{SuperDuper} will detect
+trackdisk.device related errors, but it won't find DOS checksum errors (for
+this purpose, for instance, you can use @code{DiskSalv}).
+
+@item Format
+formats the destinations(s).
+
+@item Options
+opens the options window, or brings it to the front if it has been already
+opened.
+
+@item Info
+opens the info window, or brings it to the front if it has been already opened.
+
+@item ARexx
+opens a file requester, allowing you to choose an ARexx macro to execute.
+
+@item NoWB
+@itemx WB
+closes the Workbench, flushes the memory and opens a very small screen with
+only two colors. Moreover, the window is of @code{SIMPLE_REFRESH} type rather
+than @code{SMART_REFRESH}. This way, the maximum amount of memory for your
+system is at your disposal. If the Workbench can't be closed for some reason, a
+warning is issued (usually some application has a window opened on the
+Workbench screen). When you want to get back, hit the gadget again (this time
+it will be named @code{WB}). This feature is very powerful if coupled with
+@code{SDBootInstall} and with the @sc{cli} option @samp{NoARexx}. @xref{SDBootInstall},
+and see @ref{The CLI and WB Options}.
+
+@noindent
+@strong{Warning}: If you grab the disk.resource (by selecting a source and/or a
+destination) just after a disk was inserted, it's likely the Workbench will
+be locked, waiting for you to unlock the drive in order to load the icon of
+the disk. If in this moment you hit @code{NoWB}, you will lock the entire
+system, since @code{SuperDuper} will be waiting for the Workbench to close, while
+the Workbench will be waiting for you to release the disk.
+
+@item SaveCon
+saves the current configuration to an ARexx file named
+@file{PROGDIR:Startup.supdup} (@file{PROGDIR:} is the directory the executable
+program lives in). The file is a standard ARexx macro which can be further
+edited if necessary. Whenever @code{SuperDuper} will starts, it will try
+to execute this file. Note that in order to prevent the main window from
+being first opened and then moved to the preferred position, which is
+visually ugly, it is a good thing to use the @samp{NoGUI} option. The
+configuration file contains commands that will open the desired windows
+even if @samp{NoGUI} is specified. @xref{The CLI and WB Options}.
+
+@item Iconify
+closes all windows and creates an icon on the Workbench, using the program
+icon. As soon as the icon is double-clicked, the windows are reopened again.
+Iconification does not interfere with copying or ARexx script execution.
+
+@end table
+
+
+@node The Disk Gadgets
+@section The Disk Gadgets
+
+These gadget allows you to specify the source and the destination(s) of any
+copy/check/format operation. You should take care of selecting a meaningful set
+of drives when starting an operation. For instance, you cannot copy if there is
+a drive which is selected both as source and as destination, but you can read,
+write, check and format.
+
+@node The Copy Mode Gadget
+@section The Copy Mode Gadget
+
+The copy mode gadget defines the copying method that will be used by
+@code{SuperDuper}. There are four possibilities:
+
+@table @code
+
+@item Disk2Disk
+@code{SuperDuper} will copy the sources onto the destination(s) whenever
+the @code{Copy} gadget is hit.
+
+@item Buffer
+@code{SuperDuper} will read and write alternatively a disk. At each read, part
+or all of the source disk is copied into @sc{ram}, possibly compressing it. At each
+write, that part of the disk is written down to the destination(s). @xref{The
+Buffering System}.
+
+@item HD Buffer
+works like @samp{Buffer}, but a file is used instead of the @sc{ram}. @xref{The
+Buffering System}.
+
+@item VD Buffer
+works like @samp{Buffer}, but a physical device is used instead of the @sc{ram}.
+@xref{The Buffering System}.
+
+@end table
+
+@node The Option Gadgets
+@section The Option Gadgets
+@gaindex Verify
+@gaindex Date
+@gaindex Comp
+@gaindex PrintErrors
+@gaindex Incname
+@gaindex FFS
+@gaindex Intl
+@gaindex DirCache
+@gaindex Talk
+@gaindex Auto
+@gaindex Name
+@gaindex Unit
+@gaindex Label
+@gaindex Filename
+@gaindex Retry
+@gaindex Start Cylinder
+@gaindex End Cylinder
+@gaindex Xpk lib
+@cindex Voice
+
+Several gadgets control various options.
+
+@table @code
+
+@item Verify
+turns verify on and off (you can also format without verifying).
+However, turning off verify is not recommended.
+
+@item Date
+toggles on or off the change of the date of an AmigaDOS disk. This change is
+necessary so AmigaDOS can distinguish otherwise identical disks; if two
+truly identical disks are inserted in the drives, AmigaDOS gets confused and
+crashes. However, if for some reason you want a ``physical'' copy, you would
+turn off this option. @code{Date} will be ignored for a non-AmigaDOS disk.
+
+@item Comp
+enables the use of compression when in @samp{Buffer} or @samp{HD Buffer} mode.
+It works in conjunction with the @code{Xpk lib} gadget. @xref{The Buffering
+System}.
+
+@item PrintErrors
+opens/closes @code{SuperDuper}'s detailed error report window.
+
+@item IncName
+makes easy to format a bunch of disks with different, unique
+names. If this gadget is selected while formatting, @code{SuperDuper} will scan the
+@code{Label} string gadget searching for a numeric pattern (i.e., one or more
+digits) and will increment the pattern value for each disk formatted. In
+case more than one pattern is present, the last one is used. For instance,
+if you format four disks with label @samp{Foobar.000}, the disks will be named
+@samp{Foobar.001}, @samp{Foobar.002},@dots{} and at the end of the copy the label gadget will
+contain @samp{Foobar.004}, thus being ready for the next formatting. The more
+digits, the more unique names. Since you can start from any number, and
+after 99@dots{}9 the numeration wraps around, if you need to start with
+00@dots{}0 you can put in something like @samp{Foobar.999}: The first disk will
+be labeled with @samp{Foobar.000}
+
+@item FFS
+enables the formatting of FFS disks; for copying it is ignored.
+
+@item Intl
+enables the formatting of disks with the new international mode; for copying it
+is ignored. Note that the directory cache file system exists only in the
+international version.
+
+@item DirCache
+enables the formatting of directory cache disks; for copying it is ignored.
+This gadget supersedes @code{FFS} in case both are selected.
+
+@item Talk
+activates @code{SuperDuper}'s ability to give its status by voice.
+Currently only English is supported. Note you need @file{translator.library}
+and @file{narrator.device} for this to work, and they are not distributed
+any longer with the operating system.
+
+@item Auto
+activates automatic operation starting. @code{SuperDuper} will monitor disk
+insertion and ejection. When all sources and/or destination(s) have been
+ejected and re-inserted, a suitable operation is started.
+
+If the copy mode is @code{Disk2Disk}, and source and destination(s) are both
+selected, a copy is started, but if only destination(s) are selected, a format
+is started instead.
+
+If the copy mode is a buffering mode, a source has been selected, and a
+write-protected disk is inserted in the source drive, a read operation is
+started. Otherwise, the buffer is written on the destination(s). This allows
+you to easily copy a series of disks without ever giving a command, just by
+write-protecting all of your source disks (which is anyway a good idea while
+using this option). Notice that if you are going to copy several times the same
+source disk, and you are afraid that some of the destinations could be
+write-protected, you can inhibit the automatic buffer reading mechanism by
+simply deselecting the source drive.
+
+@noindent
+@strong{Warning}: especially on one-drive-only systems, @code{Auto} can be
+extremely dangerous. You'd better write-protect your source disks.
+
+@item Name
+@itemx Unit
+select the name and the unit number of the Exec device that
+@code{SuperDuper} will use as a virtual disk when in @samp{VD Buffer} mode.
+Note that this is @emph{not} the name of a @sc{dos} device, such as
+@samp{RAD:}. You have to use the Exec name (in this case,
+@samp{ramdrive.device}).
+
+@item Label
+lets you choose a name for the disks formatted by @code{SuperDuper}. The
+name can be automatically incremented using the @code{Incname} gadget.
+
+@item Filename
+selects the name of the file @code{SuperDuper} will use as a buffer when in
+@code{HD Buffer} mode.
+
+@item Xpk lib
+selects the name of the @sc{xpk} library @code{SuperDuper} will use when
+compressing a buffer. The name is formed by four letters, denoting the
+library, and an optional dot followed by a number in the range 0--100,
+denoting the required efficiency (for instance, @samp{HUFF.50} requires
+Huffman coding with a standard efficiency). Note that not all libraries
+actually look at the number after the dot.
+
+@item Retry
+selects the number of read/verify retries on each track.
+
+@item Start Cylinder
+@itemx End Cylinder
+select the start and the end cylinders, respectively, for any
+operation.
+
+@end table
+
+@node Reference
+@chapter Reference
+
+This chapter goes into some details about the copy and the buffering process
+of @code{SuperDuper}. It is expected that most users will be able to use
+efficiently most of the features without reading this part, but it is a
+suggested reading if you want to fully exploit the available features.
+
+@menu
+* The Copy Process::
+* The Buffering System::
+* The Buffer File::
+* The Startup File::
+* Special Requesters::
+* The CLI and WB Options::
+@end menu
+
+@node The Copy Process
+@section The Copy Process
+@cindex @samp{<UNKNOWN>}
+@cindex @samp{<NDOS>}
+@cindex @samp{<BAD NAME>}
+@cindex Errors
+@cindex Retries
+
+@gaindex Retry
+@gaindex Start Cylinder
+@gaindex End Cylinder
+
+When @code{SuperDuper} starts an operation which involves reading a disk, i.e.,
+@code{Read}, @code{Check} and @code{Copy}, it scrolls up the name list and marks the
+current drive as @samp{<UNKNOWN>}. This happens because it can't know if the disk
+is a DOS disk before reading track 0. After less than a second, the track
+will be read, and the name will be changed to @samp{<NDOS>} if the disk is not a
+DOS disk. Otherwise, as soon as the track 80 is read (the progress bar is in
+the middle) the name of the disk will be displayed. However, if for any
+reason the name is incorrect (wrong format, read error, etc.) @code{SuperDuper}
+will name the disk @samp{<BAD NAME>}. In this case, it is very likely that the
+root block is a little bit scrambled, so it's probably a good idea to turn
+off the @code{Date} option gadget. Beware: if you are using a multi-pass buffer,
+the name of the disk could be unavailable at the first pass.
+
+If @code{SuperDuper} finds an error on read (or verify), it will retry
+reading (writing and verifying) the track, warning you by painting a half of
+the square representing the current cylinder in the info window in a
+lighter, dithered color. @xref{The Info Window}. If after a number of
+retries specified in the gadget @code{Retry} the error remains,
+@code{SuperDuper} will set the half square to the background color and
+continue. A little lighter, dithered rectangle in the progress bar will
+point out approximately where the error occured. It will be positioned
+horizontally proportionally to the track number.
+
+Note that while retrying @code{SuperDuper} can't be stopped: don't set the
+@code{Retry} gadget to 99 unless you really know that's what you want to do.
+If you want to get a very detailed error report, you can activate the
+@code{PrintErrors} switch. A console window will appear (or the original
+console will be used if @code{SuperDuper} was started from the @sc{cli}),
+and every wrong read, write or retry will generate a message explaining what
+doesn't work. Usually you will get bad checksums, but if a track is really
+scrambled @code{SuperDuper} could be unable to get the first sector after a
+gap, in which case nothing at all is recovered.
+
+The squares in the info window are drawn in a different color if you're
+doing a read, a format or a copy operation---so you can be sure you read
+the new chunk in the buffer, and so you can avoid formatting your floppies
+when you think you're copying something to them. The @code{Status} gadget
+will be set to the operation currently executed. Note also that the progress
+bar and the elapsed time indicator are not updated if something locks the
+screen (like using menus). The update is delayed until the screen is
+unlocked (thus @code{SuperDuper} won't get stuck as will almost all programs
+which do any rendering to their windows).
+
+If you specify start/end cylinders different from 0/79 in the @code{Start Cylinder} and
+@code{End Cylinder} gadgets, only the part of the disk specified will be copied. The
+main use of this option is for retrying some lazy disk (usually on the last
+tracks) if you're not satisfied with the number of retries issued by
+@code{SuperDuper}. Please refer to the section on the buffering system for some
+subtle interactions between the @sc{ram}/HD/VDisk buffer and the start/end
+cylinder selectors.
+
+While doing buffered copies, at each successful copy (that is, without
+errors) the @code{Copy #} indicator will be incremented. Thus you can know
+precisely how many disks you copied. Moreover, the counter will be
+incremented only if the operation ended on the last track of the disk and
+started from the first track of the buffer. This allows you to manually
+retry spare tracks by changing the @code{Start Cylinder}/@code{End Cylinder}
+gadgets without getting spurious increments, and if a multi-pass copy is in
+progress only the last pass will actually increment the counter.
+
+
+@node The Buffering System
+@section The Buffering System
+@cindex Buffering
+@cindex RAD:
+@cindex FMS:
+@cindex VD0:
+@cindex Buffer file
+
+The buffering system of @code{SuperDuper} 3.x has been completely rewritten
+compared to previous versions. Now it is much more orthogonal and powerful.
+Moreover, it relies on the @sc{xpk} compression standard, which allows to use a
+plethora of different compression methods, just by choosing the suitable
+library.
+
+Buffering is useful when you have to do a lot of copies: you read a disk only
+once, and then you can make as many copies as you want without rereading it. It
+also has other uses: if you have to create distribution disks (for instance for
+a commercial package) you can create them using high speed virtual floppies,
+such as Commodore's @code{RAD:} or Matt Dillon/Jim Cooper's @code{FMS:} disk.
+@code{SuperDuper} can then read from those virtual disks and make many copies
+on floppies at high speed.
+
+
+Since data integrity is a primary issue, @code{SuperDuper} checksums the
+buffers. The possibility of writing a munged track is very low. Strict
+control is also kept on the validity of the buffer---you can't write random
+data on your disks inadvertantly.
+
+In order to do a buffered copy, you have to choose the suitable copy mode
+using the copy mode gadget in the main window. While @code{Disk2Disk} tells
+@code{SuperDuper} to do a disk-to-disk copy, the other three options offer
+three different buffering techniques.
+
+@table @code
+
+@item Buffer
+@code{SuperDuper} will use the @sc{ram} for buffering a disk. The memory is
+allocated while the disk is read and, in case it is not enough for buffering a
+whole disk, many passes can be necessary. Beware of the fact that many programs
+tend to crash under low-memory conditions, so if you have 1MB or less you
+should close everything you can before trying to do a @sc{ram}-buffered copy.
+You should possibly use @code{NoWB} (@pxref{The Action Gadgets}).
+
+If you foresee that a disk won't fit into the available @sc{ram}, you can
+activate compression using the @samp{Comp} gadget (@pxref{The Option
+Gadgets}). @code{SuperDuper} uses the @sc{xpk} standard, which means that
+you must have the @sc{xpk} system completely installed in order to use
+compression. There is a wide choice of compression algorithms available, and
+you can try out until you find the one with the best compression/speed ratio
+for your purposes. The compression algorithm can be selected by typing its
+name into the @code{Xpk lib} gadget of the options window. The name is
+specified by four upper case letters, optionally followed by a dot and a
+number between 0 and 100, included, which specifies the required degree of
+efficiency. @xref{The Option Gadgets}.
+
+Beware of the fact that while doing compression @code{SuperDuper} always
+fully uses the @sc{cpu}. Even moving the mouse can slow down the operation in
+progress. Anyway, if you have all of your memory allocated for the buffer,
+it is definitely not a good idea to do anything besides waiting for the copy
+to finish.
+
+A little side-effect of the allocation of all of the available @sc{ram} is that
+some requester could be turned into an alert, or could even disappear
+without waiting for the user to acknowledge it.
+
+@item HD Buffer
+@code{SuperDuper} will create a file that will be used as a buffer, exactly
+like @code{Buffer} does with @sc{ram}. The file name can be changed using
+the @code{Filename} gadget (@pxref{The Option Gadgets}). Of course you
+should use it only if you have a hard disk. The file is an IFF file,
+documented in @ref{The Buffer File}. The @code{Read} operation will be a
+little slower, but if you have a good hard disk you should be able to make
+copies as fast as with a @sc{ram} buffer.
+
+Note that you can give the name of an already existing file. In this case,
+the file will be considered a ready-to-use buffer file, and you will be able
+to @code{Write} immediately. This allows to use @code{SuperDuper} as a disk
+compression system.
+
+@item VD Buffer
+This is probably @code{SuperDuper}'s most esoteric feature. By typing a
+device name in the string gadget named @code{Name}, you can select any
+device (@code{SuperDuper} needs the Exec device name, e.g.,
+@samp{ramdrive.device} for the RAD: AmigaDOS device). The unit number is
+taken from the gadget with the label @code{Unit}. The device you specified
+will be used as a buffer for your disks. @code{SuperDuper} expects the
+device to behave like the trackdisk.device, namely it must be able to write
+data at specific offsets. The main devices you can use, with their
+respective names, are:
+
+@table @asis
+@item RAD:
+the recoverable @sc{ram} drive. Configure it in your mountlist as a
+floppy, and you can use it as a buffer (Exec name: @samp{ramdrive.device}).
+
+@item FMS:
+Matt Dillon/Jim Cooper's virtual floppy-on-hard disk (Exec name:
+@samp{fmsdisk.device}).
+
+@item VD0:, etc.
+other recoverable, sector-oriented @sc{ram} drives.
+@end table
+
+@end table
+
+A @sc{ram} buffer is considered non-valid as soon as allocated, because it
+will contain random info. To make it valid, you must read in a floppy.
+File buffers and virtual device buffers are instead always assumed to be
+valid, because they could be externally fed. This mechanism allows you to
+prepare, for instance, a distribution disk at high speed in RAD: or in your
+hard disk using FMS:, and then to copy it to floppies directly.
+
+In the same vein, @code{SuperDuper} will act slightly differently when determining
+if a buffer contains a DOS disk (if not, the incrementing of the date is
+inhibited even if selected). At read time, the information is recorded, but
+if at write time the pass starts from track 0, @code{SuperDuper} will re-fetch the
+DOS mark from the buffer and check it again. This way if for instance you
+externally feed a ramdrive.device with a diskcopy command @code{SuperDuper} will be
+aware of it and will increment the date if requested to do so.
+
+Some care must be taken in order to obtain what you really want when mixing
+the buffering features and the selection of the start/end cylinder.
+@code{SuperDuper} implements a reasonable mean of flexibility and reliability for
+these kinds of operations.
+
+When in @code{HD Buffer} or in @code{VD Buffer} mode, the read/write
+operations start and end exactly where you specify with the start/end
+cylinder gadgets. Since @code{SuperDuper} has no control over what you do to
+the virtual disk while it's not accessing it, it has to assume you made it
+right. Note that this also means that it is not a good idea to change the
+start/end cylinder @emph{after} you buffered a disk. A disk buffer keeps no
+information about the position of the tracks it contains. Thus, if you
+change the start cylinder @code{SuperDuper} will start to write the disk
+buffer at that cylinder, even if the first cylinder of the disk buffer was
+recorded elsewhere (as a side effect, this allows you to move easily tracks
+from one part of a disk to another).
+
+When using a @sc{ram} buffer, @code{SuperDuper} can clearly make some
+assumptions on its validity. In particular, just after allocation or a
+stopped @code{Read} it assumes the buffer is not valid. Moreover, it
+knows exactly were each cylinder was taken from, so that you can rewrite
+parts of a disk just by changing the start/end cylinders (this is also
+true of the virtual disk buffer, but only if it is used in one pass).
+
+If you have a valid @sc{ram} buffer and you change the start/end cylinders,
+there are two cases: either the buffer range and the start/end range do not
+intersect, in which case an error message is issued if you try to write the
+buffer, or there is a non-empty intersection, in which case the intersection
+will be written, i.e., the starting track will be the greatest of the start of
+the buffer and the start cylinder, while the ending track will be the least of
+the end of the buffer and the end cylinder. Example: if you read something with
+@code{Start Cylinder}=20, @code{End Cylinder}=30, then you set @code{Start
+Cylinder}=10, @code{End Cylinder}=25 and hit @code{Go}, the range 20@minus{}25
+will be written.
+
+If all this scares you, don't fear: the buffer/range interaction will simply
+work just as you intuitively expect. I hope at least @t{8^)}.
+
+@node The CLI and WB Options
+@section The CLI and WB Options
+@cindex CLI options
+@cindex Public screen
+@cindex NoGUI
+@cindex NoStartup
+@cindex Low memory
+@cindex Startup file
+@pindex Startup.supdup
+
+@code{SuperDuper} accepts some arguments, both from the @sc{cli} and from
+the Workbench tool types, in order to select a number of special features.
+
+When you start @code{SuperDuper} from the @sc{cli}, you have the chance to
+specify an option. The possible options are printed in the standard Amiga
+template format if you type @samp{SD ?}. In this case, the following line
+
+@example
+PubScreen/K,NoGUI/S,NoARexx/S,NoStartup/S
+@end example
+
+@noindent will be displayed. Its meaning is that @code{NoGUI},
+@code{NoARexx} and @code{NoStartup} are switches that you can activate, while
+@code{PubScreen} must be followed by the name of an existing public screen. For
+instance, the command line @samp{SD NoGUI} will invoke @code{SuperDuper} in its
+no-@sc{gui} mode. The two flags @code{NoGUI} and @code{NoARexx} are mutually
+exclusive---if both are specified, @code{SuperDuper} will exit.
+
+@table @code
+@item PubScreen
+tells @code{SuperDuper} to open its windows on the specified public screen.
+If this argument is not specified, the windows are opened on the default
+public screen.
+
+@item NoGUI
+tells @code{SuperDuper} to not open the main window on startup; you can then
+control it through the ARexx interface. This makes possible to write an
+ARexx macro allowing you to use @code{SuperDuper} from the shell much as the
+diskcopy command. Note that this option is also useful if you have a startup
+file (@pxref{The Startup File}) and you want to avoid the visually
+unpleasant effect of the main window first appearing and then being moved.
+
+@item NoARexx
+This switch shuts down the ARexx port. @code{SuperDuper} won't open neither
+the ARexx port nor rexxsyslib.library. This mode is provided for user with
+1M or less who want to have as much free memory as possible (moreover,
+@pxref{SDBootInstall}).
+
+@item NoStartup
+tells @code{SuperDuper} to skip the startup file (@pxref{The Startup File}).
+This switch is very useful when controlling @code{SuperDuper} through an ARexx
+script, because it allows to start the program in a standard configuration, and
+without any window opened. Note that @code{NoARexx} implies @code{NoStartup},
+for obvious reasons.
+
+@end table
+
+These options are also available from the Workbench tool types. Just put
+in @code{SuperDuper}'s icon the obvious tool types. For instance,
+@samp{PubScreen=TURBOTEXT} will force @code{SuperDuper} to open the main
+window on @code{TurboText}'s screen, while @samp{NoGUI} will force the no-GUI
+mode.
+
+@node The Startup File
+@section The Startup File
+@cindex Startup file
+
+At startup time, @code{SuperDuper} checks if ARexx is available, and in this
+case it tries to start an ARexx macro named @file{Startup.supdup}. This file
+should contain your usual settings: it is a normal ARexx macro, just like
+any other one started by the @code{ARexx} gadget or by the @code{rx} command.
+However, a couple of conventions were implemented in order to get a better
+behaviour on systems without ARexx. In particular, the absence of the ARexx
+server or the ARexx error message @samp{Program not found} will @emph{not}
+be displayed if caused by the startup file. Notice that the last message can
+also be caused by the first line of @file{Startup.supdup} not being a
+comment (every ARexx macro must start with a comment).
+
+The startup file can be automagically generated from the current setup by
+using the @samp{SaveCon} gadget (@pxref{The Action Gadgets}). Note that if
+you want to avoid the visually unpleasant effect of the main window first
+appearing and then being moved by the command in @file{Startup.supdup}, you
+can start @code{SuperDuper} with the @samp{NoGUI} option.
+
+Several tricks are possible by directly editing the startup file: for
+instance, you can change the order in which the windows are opened, thus
+deciding which will be the frontmost; or you can start @code{SuperDuper} in
+iconified state; you can also set both the normal and the zoomed window
+position.
+
+If you do not want to run the startup file, for instance because you would like
+to control @code{SuperDuper} through ARexx, you can use the @code{NoStartup}
+switch. @xref{The CLI and WB Options}.
+
+@node Special Requesters
+@section Special Requesters
+@cindex Requesters
+@gaindex Talk
+
+When @code{SuperDuper} needs to inform the user about something, usually a
+requester with a message appears (if the @code{Talk} option is on the message
+is also read out loud). While most of the requesters are self-explanatory,
+some of them need a more detailed description.
+
+@samp{Can't get disk.resource}
+
+The disk.resource is the Exec way of controlling the access to the low-level
+disk hardware. @code{SuperDuper} can't access the resource, probably because
+someone is already using it. If you suspect a particular program, close it
+and try again to select a disk gadget.
+
+@samp{Please free disk.resource}
+
+(See also previous requester). If the disk.resource can't be grabbed, Exec
+won't give back the message passed by @code{SuperDuper} until the resource
+is free. Thus, until that moment @code{SuperDuper} can't exit.
+
+@samp{Checksum error: buffer munged.}
+
+Someone wrote over @code{SuperDuper}'s @sc{ram} buffer. The buffer is no
+longer valid, and the current copy is probably munged, too. You should
+probably reboot, because if something writes on someone else's memory it's
+likely it will do it again.
+
+@samp{A track buffer has been munged.}
+
+Someone wrote on one of @code{SuperDuper}'s track buffers. The same comments
+of the previous requester apply.
+
+@samp{ARexx server not active}
+
+In order to use ARexx macros, the ARexx server has to be activated. Type
+@code{RexxMast} at a @sc{cli} prompt (if it's not in your path, you should
+locate it easily).
+
+@samp{Error while recalibrating unit x.}
+
+@code{SuperDuper} found an error while recalibrating a drive head. The head
+was moved to track 0, but the drive signal @code{DSKTRACK0} wasn't
+activated. This means that either your drive has lazy signals, in which case
+there's nothing to worry about, or that some head step wasn't actually
+performed (possibly because of power supply reasons) in which case the last
+copy could be bad, even if @code{Verify} is on. Better @code{Check} it. Try
+also to increase the step and calibrate delays of the drive with
+@code{SetTDDelay}. If nothing else works, the @code{RecalibrateCheck} ARexx
+command can selectively turn off this requester (@pxref{Selection Commands}).
+
+@samp{Better write-protect your sources.}
+
+This message is issued every time you select the @code{Auto} gadget on a
+machine with a single drive (@pxref{The Option Gadgets}).
+
+@samp{Can't mix floppy types.}
+
+If your Amiga is equipped with a high density drive, you should take
+care of never mixing two floppies of different kind (880K or 1760K), for
+otherwise @code{SuperDuper} will be unable to perform the copy.
+
+@samp{Compression not enabled.}
+
+You are trying to write a buffer file which has been created using
+compression, but compression is not currently enabled.
+
+
+@node The Buffer File
+@section The Buffer File
+@cindex Buffer file
+@cindex IFF
+
+When in @samp{HDBuffer} mode, @code{SuperDuper} reads and writes an IFF file.
+Its format is documented here.
+
+Informally speaking, the file is an @sc{sddd} or an @sc{sdhd} @sc{form}, depending
+on the density (double or high, respectively) of the disk stored. The allowed chunks
+are (beside the standard @sc{anno}, @sc{auth},@dots{} chunks, which are never written,
+but tolerated while reading) the @sc{body} and @sc{xpkf} chunks. They contain,
+respectively, an uncompressed or a compressed track. In the first case, the
+chunk is always 11K long, for a @sc{sddd} @sc{form}, or 22K long, for a
+@sc{sdhd} @sc{form}. In the second case, the chunk (header included) can be passed
+``as it is'' to the @sc{xpk} unpacking functions in order to get the real data, as
+it is composed exactly by the output of the @sc{xpk} packing functions (which happens
+to be an IFF @sc{form}). The same restrictions of a @sc{body} chunk apply to
+the unpacked data of an @sc{xpkf} chunk.
+
+The file contains no information about the position of the tracks. @code{SuperDuper}
+takes the first @sc{body} or @sc{xpkf} chunk of the file and starts to write it
+onto the first cylinder.
+
+The regular grammar for the @sc{sddd} and @sc{sdhd} @sc{form}s follows:
+
+@example
+SDDD ::= "FORM" #@{ "SDDD" [ANNO] [AUTH] [FVER]
+                          [NAME] [(c)] (BODY | XPKF)* @}
+
+SDHD ::= "FORM" #@{ "SDHD" [ANNO] [AUTH] [FVER]
+                          [NAME] [(c)] (BODY | XPKF)* @}
+
+BODY ::= "BODY" #@{ UBYTE* @}
+
+XPKF ::= "XPKF" #@{ UBYTE* @}
+@end example
+
+
+
+@node ARexx
+@chapter ARexx
+@cindex ARexx
+
+ARexx is the system macro language of the Amiga. It was originally developed
+by Bill Hawes (to whom every Amiga owner owes much more than he probably
+realizes) and was then included in the Release 2 of the operating system.
+
+ARexx is a beautiful interpreted language, with unique features such as
+syntax/semantics collapsing (for instance, you can ask the value of a
+variable given its name as a string) and, overall, the ability to interface
+itself with external applications. A single ARexx script can control several
+different programs and make them interact.
+
+The ARexx interface consists of a port, which is used for communications,
+and a set of commands that ARexx can issue to the application. For
+@code{SuperDuper}, the port name is @samp{SUPERDUPER}, and the command set
+is described below. ARexx scripts written for @code{SuperDuper} should have
+extension @file{supdup}, like @file{foobar.supdup}. This is in order to
+distinguish ARexx scripts written for different applications.
+
+ARexx provides at little or no implementation cost a powerful macro language
+which substantially increases the performance and the versatility of an
+application. Maybe some feature you would like to have is not in @code{SuperDuper}
+at this time, but it's very likely you'll be able to put it in @i{via} a
+suitable ARexx script.
+
+@menu
+* General Issues::
+* Selection Commands::
+* Miscellaneous Commands::
+* Return Codes::
+* ARexx Examples::
+@end menu
+
+@node General Issues
+@section General Issues
+
+Besides being able to execute commands issued by an ARexx macro,
+@code{SuperDuper} is also able to start an ARexx macro. This is indeed the
+purpose of the @code{ARexx} gadget (the last one in the last row). The
+gadget is activated only if the @file{rexxsyslib.library} is somewhere in
+your LIBS: directory. You can start any number of macros at the same time
+(beware of wild interactions though).
+
+@code{SuperDuper} commands generally correspond to gadgets, and are
+similarly named: for instance, the command @code{Check} will check the
+source drive, while @code{VDUnit 4} will set the virtual disk buffer unit
+number to 4. Commands are case insensitive. A complete list, specifying
+each command and its template in AmigaDOS style, follows:
+
+@example
+Stop                    ,
+Copy                    ,
+Read                    ,
+Write                   ,
+Check                   ,
+Format                  ,
+NoWB                    On/S,Off/S
+Iconify                 On/S,Off/S
+SaveConf                ,
+Verify                  On/S,Off/S
+Date                    On/S,Off/S
+Comp                    On/S,Off/S
+PrintErrors             On/S,Off/S
+Incname                 On/S,Off/S
+FFS                     On/S,Off/S
+Intl                    On/S,Off/S
+DirCache                On/S,Off/S
+Talk                    On/S,Off/S
+Auto                    On/S,Off/S
+Label                   /A
+Filename                /A
+XpkLib                  /A
+VDName                  /A
+VDUnit                  /N/A
+Retry                   /N/A
+SCyl                    /N/A
+ECyl                    /N/A
+Mode                    Disk2Disk/S,Buffer/S,
+                        HDBuffer/S,VDBuffer/S
+Quit                    ,
+Requesters              On/S,Off/S
+RecalibrateCheck        On/S,Off/S
+SmartRefresh            On/S,Off/S
+Dest                    /M/N,On/S,Off/S
+Source                  /N,Off/S
+Help                    Command
+NOP                     ,
+RX                      Command/F
+Window                  Names/M/A,Open/S,Close/S,Activate/S,
+                        Min/S,Max/S,Front/S,Back/S,
+                        LeftEdge/K/N,TopEdge/K/N
+@end example
+
+The same table is printed if you send to @code{SuperDuper} the @code{Help}
+command with no arguments. If you do not know anything about templates, you
+may want to look at the @cite{Using the System Software} manual.
+
+ARexx needs a console by which it communicates with the user. If you started
+@code{SuperDuper} from the @sc{cli}, the your original @sc{cli} will be used.
+Otherwise, a console window will be opened. It's always open, but it's an
+@code{Auto} console window, so you can close it if you wish: it will be
+reopened as soon as something is printed into it.
+
+Most commands have absolutely trivial meaning, and will not be discussed in
+detail.
+
+@node Selection Commands
+@section Selection Commands
+@cindex Refresh mode
+@cindex Recalibration requester
+
+@table @code
+@item Source
+selects the drive specified by the numeric argument as source; if @samp{Off}
+is specified instead, turns off the source gadget.
+
+@item Dest
+selects destinations using a list of drive numbers. If neither @samp{On} nor
+@samp{Off} are specified, exactly the drives in the list are selected (the
+remaining ones are deselected); if @samp{On} is specified, the drives in the
+list are selected (and the other ones are left in their current state); if
+@samp{Off} is specified, the drives in the list are deselected (and the
+other ones are left in their current state).
+
+If you specify no drive in the list, the currently selected drives are assumed
+as default. Thus, @samp{Dest Off} turns off all destinations.
+
+@item Requesters
+turns on or off the system requesters. Note that you will not receive any
+explicit error message for missing libraries, @i{et cetera}.
+
+@item RecalibrateCheck
+turns on or off the recalibration error requester. Many users complained that
+this requester was appearing often, but the copies were successful. While I
+know that the only reason for this requester is a drive out of specs, I agreed
+to patch the situation by allowing to disable selectively the requester. See
+also @ref{Special Requesters}.
+
+@item SmartRefresh
+selects the refresh mode of @code{SuperDuper}'s windows. Usually, the windows
+are in @code{SMART_REFRESH}. This method uses more memory, but it is usually
+faster: you can get @code{SIMPLE_REFRESH} windows by putting a
+@samp{SmartRefresh Off} line in your @file{Startup.supdup} file, and calling
+@code{SuperDuper} with the @code{NoGUI} option (every window opened after the
+command has been executed will be in the selected refresh mode). This line is
+automatically inserted when you generate the startup file using the
+@code{SaveCon} gadget, so that you can directly edit it. @xref{The Startup
+File}.
+
+@end table
+
+@node Miscellaneous Commands
+@section Miscellaneous Commands
+
+@table @code
+
+@item Help
+returns in the @code{result} variable the template of the given command. If
+no command is specified, prints out a table with all commands and their
+templates.
+
+@item NOP
+does nothing.
+
+@item RX
+executes an ARexx script or a one-line ARexx command (if its argument is
+enclosed in quotes).
+
+@item Window
+sets several parameters of @code{SuperDuper}'s windows. The parameters are
+applied to all the window listed (the possible window names are @samp{Main},
+@samp{Info} and @samp{Options}). The syntax is self-explanatory. Note that
+closing the main window from ARexx will @emph{not} quit @code{SuperDuper}.
+Note also that the command is effective even if the specified window is
+closed. This allows to set up all the position parameters of a window before
+opening it in the startup file. @xref{The Startup File}.
+
+@end table
+
+
+
+@node Return Codes
+@section Return Codes
+@findex rc
+@cindex Return codes
+
+Commands issued by ARexx to an application should return useful values in
+order to tell what really happened. Generally, a command which fails returns
+an error level, while a successful command returns an error level of zero
+and, upon request of the caller @i{via} the @code{OPTIONS RESULTS} command, a
+result string which can be parsed in order to get useful information.
+
+@code{SuperDuper} returns an error code of 10 if the syntax of the command
+was wrong. This will cause ARexx to complain with an error message. An error
+code of 1 is returned if the syntax was right but the command couldn't be
+executed, but there is no real failure (for instance, if you send @code{Go}
+while a copy is already in progress or if you try to select a ghosted
+gadget). An error of 30 is returned in extreme cases, for instance when you
+hit the close gadget and there are still some commands pending. No strings
+are ever returned, since we have only a few cases to differentiate. Return
+codes with special meanings are returned by the following commands:
+
+@table @code
+@item Source
+@itemx Dest
+@table @asis
+@item 2
+The selected drive is not connected.
+
+@item 5
+The disk.resource is not available.
+@end table
+
+@item Write
+@itemx Read
+@itemx Check
+@table @asis
+@item 2
+This pass is not the last one.
+
+@item 3
+Something is wrong with the chosen source,
+destination and buffer options. For instance, you're
+trying to copy from df0: to df0: without a buffer.
+
+@item 4
+The buffer is not valid.
+
+@item 5
+A unit is empty.
+
+@item 6
+A unit is write-protected, or there is a floppy format mismatch.
+
+@item 7
+The start/end cylinders chosen are meaningless. This
+can happen if the numbers are out of range, or (for a
+@sc{ram}-buffered @code{Write}) if there is no intersection with the
+current buffer.
+
+@item 8
+There were errors.
+
+@item 9
+There were errors. Moreover, this pass is not the
+last one.
+
+@item 20
+Someone munged the @sc{ram} buffer or the track buffer.
+@end table
+
+@item Talk
+@table @asis
+@item 5
+The voice system cannot be activated.
+@end table
+
+@item NoWB
+@table @asis
+@item 20
+The current window has been closed, but it was
+impossible to open the new one. The program exits
+in this case.
+@end table
+@end table
+
+@node ARexx Examples
+@section What Can I Do with ARexx?
+@pindex CheckAll.supdup
+@pindex DoubleCopy.supdup
+
+Basically you can expand @code{SuperDuper}'s capabilities and/or make it interact
+with other programs. A couple of examples of the first case could be a
+@file{CheckAll.supdup} macro which checks all drives in sequence. The ``native''
+@code{SuperDuper} can only check one drive at a time, but if you have two or more
+drives you can check many drives using a macro like
+
+@example
+/* CheckAll */
+do i = 0 to 3
+   source i
+   if rc==0 then check
+end
+@end example
+
+After checking you should of course look at the return codes in the
+@code{rc} variable and decide upon appropriate actions.
+
+Suppose now you have four drives and you want to make a copy of two
+different floppies. You can put the sources in drives 0 and 2, the
+destinations in drives 1 and 3, and then
+
+@example
+/* DoubleCopy */
+mode disk2disk
+source 0
+dest 1
+copy
+source 2
+dest 3
+copy
+@end example
+
+This will produce the two copies in a completely unattended way.
+
+
+
+@node Performance
+@chapter Performance
+@cindex Performance
+
+@code{SuperDuper} has been written for performance. In the following sections
+we will review deeply the relations between @code{SuperDuper} and the operating
+system, and how they affect you.
+
+@menu
+* SuperDuper and Your System::
+* SuperDuper and You::
+* SDBootInstall::
+* Copy Protection::
+@end menu
+
+
+@node SuperDuper and Your System
+@section @code{SuperDuper} and Your System
+@cindex Drive inhibition
+@cindex CPU usage
+@pindex ToggleClick
+@cindex DMA contention
+@cindex High density floppies
+
+@code{SuperDuper} has been written keeping in mind that a good program doesn't have
+to eliminate everything from the system in order to work. The Amiga has a
+very efficient multitasking kernel which allows for resource arbitration.
+
+When @code{SuperDuper} is started, it won't allocate anything from your system. As
+soon as a source/destination gadget is clicked, it will inhibit all of the
+drives (so don't select a gadget while reading or writing to floppies) and
+then will grab the disk.resource. Until the resource is released, @emph{no one
+else} can access the Amiga drives. This is necessary in order to avoid
+unpredictable collisions with the system or other programs. Inhibiting the
+drives is not enough, since some other file system (like @code{CrossDOS}) could
+access them.
+
+If you need to temporarily access your drives, you must simply deselect all
+@code{SuperDuper} source/destination gadgets: the disk system will be
+restarted (it will be re-grabbed on a gadget selection of course).
+
+You have however to be a little bit careful if you change the density type
+of a drive while @code{SuperDuper} is active (for instance, if you first
+copy a double density and then a high density disk). In this case, when the
+drives are given back to the operating system, the device drivers will get
+completely confused, and they will still believe they are accessing a double
+density disk. If you change the density type, you should eject all the
+floppies before quitting @code{SuperDuper}.
+
+The @sc{cpu} use of @code{SuperDuper} is almost unnoticeable. You can do anything else,
+and you shouldn't notice any slowdown. In particular, if no
+source/destination is selected @code{SuperDuper} is completely asleep.
+
+This however is not true if you use compression. In this case, not only will
+the system be slowed down (a priority 0 task will almost always be active),
+but @emph{any} operation (including moving the mouse pointer) will slow down
+@code{SuperDuper}.
+
+If you use the utility @code{ToggleClick} distributed with @code{SuperDuper}
+(or any other utility which legally kills drive clicks under Release 2)
+@code{SuperDuper} won't click empty drives (drive clicking is necessary for
+monitoring disk insertion; using @code{ToggleClick} is good but you must be sure
+your drives won't try to move past track 0 if asked to do so).
+
+You should avoid running @code{SuperDuper} while a 16 color hi-res screen (or a
+4-color ECS productivity mode screen) is displayed on an old or enhanced
+chip set. The video @sc{dma} access will interfere with the disk/@sc{cpu}/Blitter
+access to the point that copy times will rise to incredible values---reading
+and compressing a disk in the buffer can take more than 100s.
+
+
+
+@node SuperDuper and You
+@section @code{SuperDuper} and You
+@cindex You
+@pindex DiskCopy
+@cindex Timing bits
+
+``Well,'' you could say, ``@code{SuperDuper} is a great copier---but how can
+I trust it for making my copies? This guy diddles with hardware---maybe I
+should use the system @code{DiskCopy} command.''
+
+This is not a good idea. First of all, @code{SuperDuper} is
+@emph{incredibly} picky about verifying. You will get more verify error
+messages than with the standard copy commands (for techies:
+@code{SuperDuper} verifies also the @sc{mfm} timing bits, not only the data bits;
+this means a 200% efficiency improvement in catching verify errors and
+bad media in general).
+
+Moreover, the 2.0 trackdisk.device has unpleasant side-effects on frequently
+read/written tracks. These side-effects are cleared when you do a copy of
+the disk with @code{SuperDuper} (for techies: trackdisk.device doesn't check
+for @sc{mfm} bits being read in correctly, and doesn't re-@sc{mfm} the track
+before writing it; it just re-@sc{mfm}s the changed sector. If a @sc{mfm}
+timing bit is read wrong, it will stay wrong forever, possibly causing read
+errors; but @code{SuperDuper} re-@sc{mfm}s every track it copies, thus
+restoring every @sc{mfm} timing bit to its correct value).
+
+Finally, if you don't like coffee-breaks during your copies, you'd better
+use the fastest copier available---namely @code{SuperDuper}. Note that if
+you have four drives and you use top-quality disks, so you can skip verify,
+the buffer system allows you to get a per-copy time of 9 1/2 seconds, which
+is definitely not bad.
+
+
+@node SDBootInstall
+@section @code{SDBootInstall}
+@pindex SDBootInstall
+
+When your system boots up (at power on or after a reset), the operating
+system searches for available drives, and creates some trackdisk.device
+tasks accordingly. These tasks take a lot of memory for their buffers
+(>30K), but @code{SuperDuper} doesn't use them at all, because it has its internal
+routines.
+
+If you have to do intensive copy work, and you have 1MB of memory or less,
+you could find it useful to boot up your system in a special configuration
+that will shut down almost all trackdisk.device tasks, thus freeing a lot of
+memory.
+
+To accomplish this, do as follows:
+
+@enumerate
+@item
+Make a copy of your usual Workbench disk (from now on we work on the copy).
+
+@item
+Delete some programs to make room---@code{preferences}, @code{diskcopy}
+and @code{format} are good candidates. Moreover, delete the file
+@file{Disk.info}.
+
+@item
+Copy @code{SuperDuper} to the disk root directory (by dragging its icon on the
+disk icon or using the @sc{cli}).
+
+@item
+Edit the startup-sequence of the disk (it's in the @file{s} directory). Delete
+it entirely, and substitute it with
+
+@example
+SetPatch >NIL:
+Run >NIL: <NIL: SD NoARexx
+EndCLI >NIL:
+@end example
+
+@item
+Now put the disk in df0:, and run the utility @code{SDBootInstall}. A special
+bootblock will be installed on the floppy. When booting from it, the
+operating system (and you) will be able to access only drive 0---the other
+ones will be for @code{SuperDuper}'s use only. To get back to normality, a reboot
+is necessary. You will gain 30/40K per drive using this method (for techies:
+it is perfectly legal---the bootblock simply AllocUnit()s the drives with
+ID>0).
+@end enumerate
+
+
+@node Copy Protection
+@section A Word on Copy Protection
+@cindex Copy protection
+@cindex Error reproduction
+
+@code{SuperDuper} won't copy protected disks (or if it will it's just a
+coincidence). I do not believe in copy protection. Scrambled tracks will
+produce random data on the destination. If the read error goes beyond a
+simple checksum error don't expect anything meaningful to be written on the
+destination disks.
+
+However, @code{SuperDuper} will faithfully reproduce data block checksum
+errors (@samp{Disk foobar has a read/write error}) or DOS checksum errors
+(@samp{Key 880 checksum error}) on the source disk in disk-to-disk copies
+(header checksum errors are fixed when renumbering the sectors). Thus, if
+you got the typical @samp{Key <n> checksum error} you can make a copy of the
+disk before fixing it. @code{SuperDuper} won't do any surgery: use a good
+tool (such as Dave Haynie's @code{DiskSalv}) for this purpose. On the other
+hand, during buffered copies data block checksums will be silently fixed by
+recalculating the right checksum.
+
+
+@node Acknowledgments
+@chapter Acknowledgments
+@cindex Acknowledgments
+@cindex Reisig Dirk
+@cindex Babcock Dan
+@pindex TurboBackup
+@cindex Rokicki Tom
+@pindex Amiga@TeX{}
+@cindex Jesup Randell
+@cindex Kalnasy Kent
+@cindex Barrans Dan
+@cindex Atkin Dennis
+@cindex Battilana Michele
+@cindex Calzolari Vittorio
+@cindex Cooper Jim
+@cindex Erdely Doug
+@cindex Fair Charlie
+@cindex Gardner Blaine
+@cindex Jenks Robert
+@cindex Jones John
+@cindex Kesterson Robert
+@cindex King Paul
+@cindex Menzer Randy
+@cindex Munson Linda
+@cindex Repetto Davide
+@cindex Ruocco Sergio
+@cindex Santagostino Carlo
+@cindex Spisser Reinhard
+@cindex Todd Jeff
+@cindex Todeschini Carlo
+@cindex Velez Michael Scott
+@cindex Zandonadi Marco
+
+The first person I must thank a thousand times is Dirk Reisig. It was by
+means of his suggestions that I sped up @code{SuperDuper} to the current, amazing
+level. I wrote him a letter which he answered gently with a long explanation
+of the optimizations performed by @code{PCopy}. The first time I read the letter it
+seemed greek to me, but little by little I learned all the mysteries of @sc{mfm}
+encoding and disk direct hardware driving. Moreover, I learned from the
+source code of @code{TrackSalve} the usage of the blitter for @sc{mfm} encoding and many
+other subtle things. In other words, without the help of Dirk you would have
+never seen anything after @code{DFC5} (for version 2.0, a new optimization was
+introduced; it was suggested by Dan Babcock).
+
+The second guy behind the birth of @code{SuperDuper} is Tom Rokicki. He pushed me
+to write a substitute for @code{TurboBackup}, and overall suggested the main
+thing---that on the Amiga it is possible to write many disks at the same
+time. Without this trick, you could never do four non-verified copies in
+38s. Tom also tested all pre-whatever-greek-letter versions, always giving
+useful comments@dots{} and risking the life of his drives @t{8^)}. Moreover, I had
+time to work on @code{SuperDuper} because the Amiga@TeX{} system is so incredibly
+efficient I got a lot of spare time while writing math papers@dots{}
+
+Last but not least, Randell Jesup at Commodore drove me through the
+labyrinth of non-specified-specs, hardware quirks, strange behaviors, and
+system esoteric features. Without his help @code{SuperDuper} could probably
+work@dots{} but I wouldn't trust it for @emph{my} copies @t{8^)}.
+
+The name @code{SuperDuper} popped up during a rather intensive BIX discussion. Many
+other names were proposed, but in the end I chose this one---it has
+symmetry, correctly defines the product and has a simple shortening (SD).
+Thus, a thousand thanks to Kent Kalnasy and Dan Barrans for suggesting this
+name.
+
+Many features were not my ideas. Most of the design of the new @sc{gui} is due
+to Carlo Todeschini. Moreover, an incredible number of BIX users came up with
+excellent suggestions, many of which were actually implemented. Thanks to them
+you have support for buffering on any device (I never use RAD: nor FMS:, so I
+didn't think it could be useful). Nicola Salmoria tracked some of the most
+hidden bugs, and suggested several relevant new features.
+
+But, as always, the biggest @emph{thanks} goes to the beta-testers of
+@code{SuperDuper}: Dennis Atkin, Michele Battilana, Vittorio Calzolari, Jim
+Cooper, Doug Erdely, Charlie Fair, Blaine Gardner, Robert Jenks, John Jones,
+Kent Kalnasy, Robert Kesterson, Paul King, Randy Menzer, Linda Munson,
+Davide Repetto, Tom Rokicki, Sergio Ruocco, Carlo Santagostino, Reinhard
+Spisser, Jeff Todd, Carlo Todeschini, Michael Scott Velez and Marco
+Zandonadi. Beta-testing a copier is different from anything else---if it
+doesn't work you won't get a marginally corrupted picture on your display:
+rather, the Fish Disks it took an hour to copy could be unusable. A special
+kind of patience is needed under these conditions @t{8^)}.
+
+
+
+@node Disclaimer and Author Info
+@chapter Disclaimer and Author Info
+@cindex Disclaimer
+@cindex Distribution
+@cindex Address
+@cindex e_mail
+
+@code{SuperDuper} is Copyright @copyright{} 1991-1994 Sebastiano Vigna
+and it's freely distributable as long as all of its files are included in
+their original form without additions, deletions, or modifications of any
+kind, and only a nominal fee is charged for its distribution. This software
+is provided @strong{AS IS} without warranty of any kind, either expressed or
+implied. By using @code{SuperDuper}, you agree to accept the entire risk as
+to the quality and performance of the program; don't come to me if you
+destroy your entire Fish Disk library with it! Of course, it was tested
+rather extensively before it was released@dots{}
+
+Comments, complaints, desiderata are welcome.
+
+@example
+    Sebastiano Vigna
+    Via California 22
+    I-20144 Milano MI
+
+    BIX: svigna@@bix.com
+    INTERNET: vigna@@dsi.unimi.it
+    UUCP: seba@@sebamiga.adsp.sub.org
+@end example
+
+@node Concept Index
+@unnumbered Concept Index
+@printindex cp
+
+@node Gadget Index
+@unnumbered Gadget Index
+@printindex ga
+
+@node Program Index
+@unnumbered Program Index
+@printindex pg
+
+@page
+@contents
+@bye

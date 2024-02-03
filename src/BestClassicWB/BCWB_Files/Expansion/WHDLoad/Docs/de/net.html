@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE>Netzwerkfunktionen</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: net.html 1.1 2015/04/19 21:04:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>Übersicht Netzwerkfunktionen</h3>
+
+WHDLoad ist in der Lage mittels eines Netzwerkzugriffs zu prüfen ob eine neuere
+Version von WHDLoad oder des verwendeten Slaves existiert. Alle
+Netzwerkoperationen benutzen dabei das HTTP-Protokoll. Mit der globalen
+Konfigurationsoption <a href="opt.html#Proxy">Proxy/S</a> kann der gesamte
+Netzwerkverkehr über einen Proxyserver geleitet werden. Wenn der Proxy eine
+Authentifizierung erfordert kann ein entsprechender Benutzername und das
+Passwort mit der Option <a href="opt.html#Proxy">Proxy/S</a> eingestellt
+werden. WHDLoad unterstützt dabei nur den Typ Basic Authentication.
+
+<br>Wenn keine Netzwerkzugriff durch WHDLoad gewünscht wird, kann dieser
+vollständig durch die globale Konfigurationseinstellung <a
+href="opt.html#NoNetwork">NoNetwork/S</a> deaktiviert werden.
+
+<h3>Aktualitätsprüfung von WHDLoad und Slave</h3>
+
+Mittels einer Anfrage an die WHDLoad-Webseite wird geprüft, ob eine neuere
+Version von WHDLoad oder des installierten Programmes (Slave) veröffentlicht
+wurde.
+
+<br>Die Prüfung erfolgt nur, wenn das <a
+href="opt.html#SplashDelay">Informationsfenster</a> beim Starten geöffnet wird.
+Da nur in diesem die Ergebnisse der Prüfungen angezeigt werden.
+
+<p>Für die Aktualitätsprüfung von WHDLoad wird dessen Versionsnummer gesendet.
+Wenn eine neuere Version existiert wird im Informationsfenster die neueste
+Version und das Datum wann diese veröffentlicht wurde angezeigt. Zusätzlich
+wird dem Fenster eine Schaltfläche 'Update WHDLoad' hinzugefügt. Wenn die
+Bibliothek <a
+href="http://sourceforge.net/projects/openurllib/">openurl.library</a>
+installiert ist, wird mit dem Betätigen der Schaltfläche der eingestellte
+Webbrowser mit der WHDLoad-Heimatseite geöffnet. Falls die Bibliothek
+openurl.library nicht vorhanden ist öffnet sich ein Requesterfenster welches
+die URL der WHDLoad-Heimatseite anzeigt. Wenn die Option <a
+href="opt.html#Expert">Expert/S</a> aktiviert ist infomiert die
+WHDLoad-Aktualitätsprüfung auch über neue Beta-Versionen von WHDLoad.
+
+<p>Für die Aktualitätsprüfung des installierten Programmes berechnet WHDLoad
+einen SHA-256 Digest des verwendeten Slaves und sendet diesen zur WHDLoad
+Webseite. Dort ist eine Datenbank aller veröffentlichten Slaves hinterlegt.
+Wenn eine neuere Version der Install / des Slaves existiert zeigt das
+Informationsfenster das Datum wann die neuste Version veröffentlicht wurde.
+Zusätzlich wird dem Fenster eine Schaltfläche 'Update Slave' hinzugefügt. Wenn
+die Bibliothek <a
+href="http://sourceforge.net/projects/openurllib/">openurl.library</a>
+installiert ist, wird mit dem Betätigen der Schaltfläche der eingestellte
+Webbrowser mit der Seite der entsprechenden Install geöffnet. Falls die
+Bibliothek openurl.library nicht vorhanden ist öffnet sich ein Requesterfenster
+welches die URL der entsprechenden Installseite anzeigt.
+
+<p>Wenn eine neuere WHDLoad oder Install Version existiert wird dem
+Informationsfenster außerdem eine zusätzliche 'Start'-Schaltfläche hinzugefügt
+und das Fenster schließt sich nicht automatisch um die Aufmerksamkeit auf die
+bestehende Aktualisierungsmöglichkeit zu lenken. Das Fenster kann wie
+gewöhnlich mit der Maus, Leertaste, Returntaste oder Escape-Taste geschlossen
+werden.
+
+<p>Wenn die Bibliothek <a
+href="http://sourceforge.net/projects/openurllib/">openurl.library</a>
+verwendet wird und eine 'Update' Schaltfläche wird betätigt, führt WHDLoad
+automatisch das Kommando <a href="opt.html#ExecuteCleanup">ExecuteCleanup/K</a>
+aus um einen für gewöhnlich mittels <a
+href="opt.html#ExecuteStartup">ExecuteStartup/K</a> ausgeschalteten IP-Stack
+wieder zu aktivieren. Dies kann fehlschlagen, wenn nicht genug freier Speicher
+dafür vorhanden ist, wie auch das Starten des Webbrowsers fehlschlagen kann, da
+eventuell viel Speicher durch die <a
+href="opt.html#Preload">Preload/S</a>-Operation belegt ist. In Umgebungen mit
+wenig freiem Speicher mag daher die Benutzung der 'Update'-Schaltfläche nicht
+möglich sein.
+
+</BODY>
+</HTML>

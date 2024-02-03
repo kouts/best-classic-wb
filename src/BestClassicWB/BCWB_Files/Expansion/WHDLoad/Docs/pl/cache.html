@@ -1,0 +1,193 @@
+<HTML>
+<HEAD>
+<TITLE>Obsługa buforów procesorów</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: cache.html 1.9 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Przegląd buforów procesorów</h3>
+
+<h4>Uwaga od tłumacza! &quot;Bufor&quot; jest tutaj odpowiednikiem angielskiego słowa
+&quot;Cache&quot;!</h4>
+
+Aby przyspieszyć prędkość działania, niektóre procesory z rodziny 68k są zdolne do
+buforowania dostępu do pamięci.
+<br>Odwołania do buforów wykonywane są zawsze przy użyciu adresów logicznych, włączając w to
+kod funkcji dostępu. Oznacza to, iż dostęp w Trybie Użytkownika i w Trybie
+Nadzorcy tworzy inne wpisy w buforach (więcej informacji na ten temat
+znajdziesz w dokumentacjach firmy Motorola).
+<p>Poniżej znajduje się przegląd możliwości buforowania procesorów z rodziny 68k:
+<ul><li>68000
+brak
+<li>68010<ul>
+<li>Instruction Prefetch
+<br>dwa słowa prefetch, jedno słowo dekodujące rejestr
+<li>Tryb Pętli
+<br>uruchamiany jest, gdy za instrukcją składającą się z jednego słowa występuje instrkcja
+DBcc zapętlająca do poprzedniej instrukcji, nie są pobierame kolejne instrukcje aż do zakończenia pętli
+</ul><li>68020<ul>
+<li>Instruction Prefetch
+<br>jedno długie słowo
+<li>Instruction Cache
+<br>16 linii po 16 bajtów = 256 bajtów
+<br>może zostać włączony lub zamrożony przez CACR
+</ul><li>68030<ul>
+<li>Instruction Prefetch
+<br>jedno długie słowo
+<li>Instruction Cache
+<br>16 linii po 16 bajtów = 256 bajtów
+<br>może zostać włączony lub zamrożony przez CACR
+<li>Data Cache
+<br>16 linii po 16 bajtów = 256 bajtów
+<br>może zostać włączony lub zamrożony przez CACR
+<br>zawsze WriteThrough
+<br>wybierany tryb Write Allocation aby wymusić nieważność wpisów innych użytkowników/nadzorców
+<br>Tryb Burst wymusza orczytywanie całych linii bufora za jednym razem o ile tylko sprzęt to obsługuje
+</ul><li>68040<ul>
+<li>Instruction Prefetch
+<br>jedno długie słowo
+<li>Instruction Cache
+<br>256 linii po 16 bajtów = 4096 bajtów
+<br>może zostać włączony przez CACR
+<li>Data Cache
+<br>256 linii po 16 bajtów = 4096 bajtów
+<br>może zostać włączony przez CACR
+<br>wybierane tryby CopyBack/WriteThrough przez MMU
+</ul><li>68060<ul>
+<li>Instruction Prefetch
+<br>jedno długie słowo
+<li>Instruction Cache
+<br>512 linii po 16 bajtów = 8192 bajtów
+<br>może zostać włączony, zamrożony i zmniejszony o połowę przez CACR
+<li>Branch Cache
+<br>może zostać włączony przez CACR
+<br>nie wpływają na niego ustawienia MMU!
+<li>Superscalar Dispatch
+<br>może zostać włączony przez CACR
+<li>Data Cache
+<br>512 linii po 16 bajtów = 8192 bajtów
+<br>może zostać włączony, zamrożony i zmniejszony o połowę przez CACR
+<br>wybierane tryby CopyBack/WriteThrough przez MMU
+<li>Push Buffer
+<br>może zostać wyłączony przez PCR
+<li>Store Buffer
+<br>może zostać włączony przez CACR
+<br>Strony pamięci nie mogą być szeregowane &quot;bezbuforowo&quot; (dokładnie)
+</ul></ul>
+<h4><a name="cache">Zarządzanie buforami w WHDLoad</a></h4>
+Najważniejszą rzeczą jest zrozumienie, że bufory procesorów 68030-68060
+są kontrolowane przez Rejestr Kontroli Buforów (Cache Control Register (CACR))
+<b>i</b> MMU
+<br>W CACR bufory zostają globalnie włączone lub wyłączone. Używając
+pojedynczych stron MMU (4 kilobajty z WHDLoad) zostanie zaznaczone jak mają być
+buforowane.
+<br>Na 68030 strona pamięci może być buforowalna lub nie. Na
+68040/68060 może być buforowalna w trybach WriteThrough, buforowalnym
+CopyBack, niebuforowalnym
+(niedokładnym) lub niebuforowalnym szeregowym (dokładnym).
+<p>Jeżeli MMU nie jest wykorzystywane przez WHDLoad, bufory kontrolowane są tylko przez CACR.
+<h4>Domyślne ustawienia buforów</h4>
+Domyślnie obszary WHDLoad, .slave i ExpMem oznaczone są jako buforowalne
+poprzez CopyBack. Obszar BaseMem oznaczony jest jako niebuforowalny, a
+Data i Instruction Cache są włączone w CACR. Program umieszczony w obszarze
+BaseMem uruchamia się bez buforów, lecz WHDLoad i pliki .slave wykorzystują
+bufory w celu zwiększenia efektywności. Jeśli MMU nie jest używane przez
+WHDLoad ustawienie to skutkuje wyłączeniem obu typów buforowania, ponieważ
+bez układu MMU różne ustawienia dla różnych obszarów pamięci nie jest możliwe,
+dlatego jeśli jakiś obszar pamięci zostanie ustwaiony jako &quot;NonCacheable&quot;
+wszystkie bufory muszą zostać wyłączone.
+
+<h4>Kontrola buforów z poziomu Programisty</h4>
+Występują dwie funkcje resload kontrolujące bufory: <A
+HREF="../autodoc.html#resload_SetCACR">resload_SetCACR</a> i <A
+HREF="../autodoc.html#resload_SetCPU">resload_SetCPU</a>. Resload_SetCACR to starsza
+procedura i może być w pełni zastąpiona przez <a href="../autodoc.html#resload_SetCPU">resload_SetCPU</a> (WHDLoad wewnętrznie
+mapuje argumenty <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> i wywołuje <a href="../autodoc.html#resload_SetCPU">resload_SetCPU</a>).
+Zalecane jest korzystanie z <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> dla wszystkich tych, którzy nie
+wiedzą wszystkiego o buforach i ich zachowaniu się w systemie Amigi.
+Wykorzystując <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> Instruction i Data Cache mogą zostać osobno
+włączone lub włączone. <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> wpływa tylko na buforowalność obszaru BaseMem.
+<h4>Kontrola buforów z poziomu Użytkownika</h4>
+Jeżeli programista wykonał wszystko prawidłowo, użytkownik nie musi nic
+zmieniać odnośnie ustawień buforów, gdyż zostało to dokonane przez plik .slave.
+<br>Niemniej jednak, mogą wystąpić dwie sytuacje, gdy konieczna jest ręczna zmiana ustawień buforów.
+Pierwsza z nich, aby spowolnić program (na przykład, może się to objawiać
+błędami w grafice) oraz druga, aby przyspieszyć program.
+<p>Aby tego dokonać, można wykorzystać opcję <a
+href="opt.html#NoCache">NoCache</a>. Wyłącza ona wszystkie bufory
+i zaznacza całą pamięć jako niebuforowalną szeregową (dokładną). Jeżeli
+komputer posiada 32-bitową pamięć Chip, nadal wszystko będzie szybsze niż
+na oryginalnej A500.
+<p>Aby przyspieszyć zainstalowany program, niektóre opcję mogą zostać uaktywnione,
+aby włączyć bufory. Powodują one nadpisanie ustawień dokonanych przez plik .slave.
+Na 68020 opcja
+<a href="opt.html#Cache">Cache</a> może zostać ustawiona. Na 68030 opcja <a
+href="opt.html#DCache">DCache</a> może zostać użyta (zawiera ona już w sobie opcję
+Cache). Na 68060 istnieje więcej opcji <a href="opt.html#BranchCache">BranchCache</a>,
+<a href="opt.html#StoreBuffer">StoreBuffer</a> i
+<a href="opt.html#SuperScalar">SuperScalar</a>. Opcja <a
+href="opt.html#ChipNoCache">ChipNoCache/S</a> może wpłynąć na poprawę efektywności na
+68040 i 68060.
+<a name="chipmem"></a><h4>Buforowalność pamięci Chip</h4>
+Buforowalność może zostać ustawiona nie tylko przez sam procesor (CACR) i
+ustawienia MMU, ale również przez zewnętrzne urządzenia. Na szynie adresowej
+procesor sygnalizuje próbę zbuforowania obszaru. Urządzenia zewnętrzne
+mogą sygnalizować procesorowi (jeżeli adres został nałożony na adres szyny
+podczas próby dostępu do pamięci), że dany obszar nie może zostać zbuforowany.
+<br>Mechanizm, podczas którego urządzenie zewnętrzne sygnalizuje procesorowi,
+że pamięć nie może zostać zbuforowana, wykorzystywany jest (ZTCW) na wszystkich
+Amigach i we wszystkich kartach procesorowych od 68030 wzwyż (z racji, że
+posiadają Data Cache). Wpływ ma to na całą pamięć Chip oraz przestrzeń IO
+(Cia/Custom/RTC), która nie może zostać zbuforowana przez Data Cache.
+Istotne jest, aby unikać niezgodności buforów, z powodu, dla przykładu, aktywności
+DMA.
+<br>Reakcja procesora na sprzęt, który odmawia zbuforowania obszaru jest różna
+na różnych procesorach. Na 68030 nie wpływa na efektywność pracy - dane nie
+zostaną zbuforowane. Na 68040 odczyt obszaru zostanie wykonany na pełnej prędkości, lecz
+zapis obszaru (CopyBack) zostanie usunięty i uruchomiony ponownie bez
+buforowalności, co spowoduje około pięciokrotne (w zależności od procesora i innych
+urządzeń) spowolnienie dostępu (w porównaniu do niezbuforowanego dostępu).
+Na 68060 odczyt i zapis zostanie usunięty i uruchomiony ponownie. Odczyt
+będzie około 3 razy wolniejszy, a zapis do około 5 razy.
+<br>
+Wspomniane rzeczy odnoszą się do dostępu do danych. Dostęp do instrukcji
+zazwyczaj pozostaje bez zmian i jest buforowalny wewnątrz pamięci Chip.
+Istnieją pewne urządzenia (prawdopodobnie uszkodzone), które nie zezwalają
+instrukcjom na bycie buforowanymi w pamięci Chip. Na takich urządzeniach
+opcja <a
+href="opt.html#ChipNoCache">ChipNoCache/S</a> powinna zostać użyta, aby
+uniknąć największych spowolnień.
+<br>Można sprawdzić to zachowanie poprzez uruchomienie <i>Speed.Slave</i>
+znajdującego się katalogu <tt>src/memory-speed</tt> w archiwum dla developerów.
+<h4>Burst Mode</h4> Tryb Burst w 68030 nakazjue procesorowi zawsze odczytywać całą linię
+bufora (16 znaków), jeśli występują braki w buforze zamiast tylko jednego żądanego słowa.
+Tryb Burst musi być obsługiwany przez sprzęt, jeśli nie jest, nie jest możliwe odczytanie
+zawartości bufora bez poświęcenia na to dodatkowego czasu. Tryb Burst może być włączony
+oddzielnie zarówno dla bufora instrukcji jak i danych. Ponieważ dostęp w trybie Burst
+zabiera więcej czasu niż pojednyczy dostęp, tryb Burst daje tylko przyspieszenie działania
+jeśli większość wpisów z linii bufora zostanie także wykorzystana przezd opróżnieniem
+linii bufora. Dla bufora instrukcji tryb Burst zazwyczaj poprawia wydajność. Dla bufora danych
+często tylko w scenariuszach, gdzie występują następujące po sobie odczyty pamięci.
+WHDLoad włącza tryb Burst instrukcji razem z buforowaniem instrukcji zaczynając od wersji 18.0.
+Tryb Burst dla bufora danych nie będzie włączany przez WHDLoad.
+<h4>Write Allocation</h4>
+Write Allocation kontroluje bufory na procesorze 68030 w sytuacji, gdy występuje
+utrata buforów podczas operacji zapisu. Write Allocation musi zostać włączony,
+gdy fragmenty zainstalowanego programu uruchomione są w trybie Użytkownika.
+Jeżeli zainstalowany program uruchomiony jest w trybie Supervisor Mode Write Allocation,
+Write Allocation może zostać wyłączony, co może wpłynąć na minimalną poprawę
+efektywności.
+<h4>Branch Cache</h4>
+<p>Branch Cache (bufor gałęziowy) dostępny jest tylko na 68060. Jest to
+rodzaj Instruction Cache dla tzw. instrukcji gałęziowych. W odróżnieniu
+od Instruction Cache ustawienia MMU nie mają wpływu na Branch Cache!
+Oznacza to, że nawet jeżeli odpowiednia strona pamięci zaznaczona jest jako
+niebuforowalna, instrukcje gałęziowe będą buforowane (jeżeli tylko Branch Cache
+jest włączony).</p>
+<hr>W celu uzyskania dalszych informacji przeczytaj Motorola Microprocessors User Manuals.
+Jeżeli masz jakieś uwagi dotyczące tego tematu <A
+HREF="mailto:wepl@whdload.de">skontaktuj się ze mną</A>.
+</BODY>
+</HTML>

@@ -1,0 +1,438 @@
+
+	PLAYSID V3.0		(C)1990-94 Per Håkan Sundell & Ron Birk
+
+	Release date: 1 Aug 1994
+
+NOTE:
+
+	From version 2.1 of PlaySID kickstart 2.04 (v37) or above is
+	required! This is because it makes heavy use of Release 2 System
+	routines.
+
+	This is SHAREWARE, not Public Domain. That means that if you like
+	this program and want further updates, you can be a registered owner
+	by sending us $15. It also means that you can copy this program only
+	if all files (including this) are included and nothing is changed.
+	You are not allowed to replicate any portion of the program, both
+	code or data. Note also that we take no responsibilities for the use
+	of this program considering any damage to or failure of your hardware
+	, software etc.
+
+	You have the permission to put this unmodified and full archive on
+	any BBS, FTP site, CD Rom, Magazine, Disk etc. In other words, the
+	archive	may be freely distributed as long as no more than a nominal
+	fee is charged to cover time and copying costs.
+
+	If you just like the program, PLEASE let us know so by sending us a
+	postcard or similiar to the addresses below.
+
+
+NEW FEATURES:
+
+	V3.0 (1994)
+
+	* Uses PLAYSID.LIBRARY (please read separate docs)
+	* Support of XPK Data Compression
+	* Realtime waveform and envelope display (uses low priority task)
+        * Shows C64 pictures (Koala, Blazing Paddles, Doodle, Adv Art Studio etc.)
+        * TV System detection and selection
+        * Channel on/off selection
+	* PlaySID is now a commodity
+	* Uses a config file for settings
+	* Multifile selection (music and pictures)
+	* Ability to show and hide PlaySID windows
+	* Second PlaySID instance redirect modules to the running one
+	* PlaySID font removed
+	* More arexx commands
+	* Many major bugs corrected
+
+
+PRODUCT INFO:
+
+	This is a utility which uses the playsid.library to emulate the SID
+	and 6510 chip. The SID chip is the component in the C64 computer that
+	handles sound. The 6510 chip is the CPU of the C64, that means the
+	component that actually executes all programs. Because the Amiga
+	does not have these chips and others, you can't run C64 programs
+	directly on Amiga.
+
+	Now this utility lets you play all those C64 programs that produce
+	sound. As you probably know, the C64 has three sound channels (the
+	amiga has four). But this utility also allows use of the fourth
+	channel. This channel is the product of some special programming on
+	the C64, it isn't really a channel.
+
+	The purpose of this product is to make the best conversion of C64
+	sound on Amiga ever possible. If you think some sound isn't correctly
+	converted please let us know.
+
+	This utility is designed to work with true multitasking, under any
+	system version and any amiga model. It can be run from both Workbench
+	and CLI/Shell. It should work with any other program that don't use
+	sound or timing. If this isn't the fact please let us know.
+
+	Some time ago we released a similar product called "The 100 most
+	remembered C64 game-tunes". This product is the version 3.0 of that
+	program. The tunes on that demonstration disk are now also available
+	to this version. And up to date there are more than 400 tunes
+	available. We and others are also working with more.
+
+
+PLAYSID LIBRARY
+
+	The playsid.library is a standard amiga library	where all the C64
+	music emulation is done. You can now add support for PlaySID modules
+	in your own programs!! REMEMBER that you still need to supply the
+	whole PlaySID archive with your program and CAN NOT only extract the
+	library. Read the library documentation for more information.
+
+
+PROGRAM INSTALLATION:
+
+	From v3.0 and on PlaySID uses a library called "playsid.library".
+	This file should be in your LIBS: directory.
+
+	To use this utility from Workbench you could assign SID: to a 
+	directory containing PlaySID. Then all you have to do is to double
+	click on the icon of the tune you want to play. You could also just
+	select the icon of the tune, then press the shift key and hold it
+	down while double clicking on the PlaySID icon.
+
+	If you want to run this utility from CLI/Shell, just put the
+	directory containing PlaySID in your path (e.g. c: ) and then write:
+	PlaySID [<tune directory>/<tune name>]
+
+
+STARTUP PARAMETERS
+
+	WORKBENCH:
+
+	From Workbech PlaySID uses startup parameters in in its icon
+	tooltypes.
+
+		CX_POPUP = <Yes|No>
+
+	Use "Yes" if you want the PlaySID windows showable at the startup. A
+	"No" means all windows will be hidden instead. Default is "Yes".
+
+		CX_POPKEY = <key>
+
+	The key combination is used as a HotKey for the PlaySID main window.
+	Default	key is "Ctrl Shift P".
+
+		CX_PRORITY = <pri>
+
+	This sets the priority of the commodity engine in PlaySID. Default
+	value is zero. IF you do not know what this parameter is used for,
+	please leave it then.
+
+	SHELL/CLI:
+
+	From Shell or CLI you can supply extra parameters after the PlaySID
+	command.
+
+		CX_POPUP, CX_POPKEY and CX_PRIORITY
+
+	Same as above tooltypes parameters.
+
+		FILES = <list>
+
+	A list of the files to play. The first one is loaded at startup. As
+	default	no file is loaded and played.
+	
+
+PROGRAM USAGE:
+
+	It works almost like an ordinary cassette player, with the symbols
+	for play, forward, rewind, pause and stop. While PlaySID is active
+	you can just drag a tune icon and drop it on the PlaySID window. To
+	most commands there are keyboard shortcuts.
+
+	l - Play
+	a - Pause
+	s - Stop
+	t - Next Tune
+	T - Previous Tune
+	o - Open
+	p - Previus module
+	n - Next module
+
+	The menu have more options like about, open, quit, filter, rewind
+	and display. The filter option turns on and off the amiga sound 
+	filter. Please try it.
+
+
+REWIND BUTTON:
+
+	If the rewind option is turned on, the rewind gadget will be enabled
+	first when you press the play gadget. The rewind routines are very
+	complex and need a lot of memory. Thats the reason of the option. It
+	takes approximately 30k every minute of playing.
+
+
+REAL-TIME DISPLAY:
+
+	From version 3.0 of PlaySID and on, a special window with real-time
+	information about envelopes and waveforms is included. To enable the
+	window, use the display option in the menu.
+
+
+SHOW C64 PICTURES:
+
+	This option opens a screen with a C64 Picture. The first 2 bytes is
+	the loading address and is ignored by PlaySID. Then follows a 8000
+	bytes bitmap and a 1000 bytes	charmap. For multicolor	pictures
+	there is also a 1000 bytes colormap and 1 byte holding the background
+	color. The order and base addresses is depending on the file format.
+
+	PlaySID have support for the following formats:
+
+	HIRES		Art Studio
+			Image System
+			Doodle
+
+	MULTICOLOR	Koala
+			Advanced Art Studio
+			Vidcom 64
+			Image System
+			Blazing Paddles
+
+
+XPK AND POWERPACKER SUPPORT:
+
+	Version 2.2 of PlaySID and above support powerpacked files. V3.0 and
+	above also support the XPK Compression libraries. If PlaySID finds
+	XPK or Powerpacker installed all file loading is done with it. To
+	save space you can now crunch all your files, e.g. songs and 
+	pictures.
+
+
+ONE-FILE FORMAT:
+
+	Many users requested a new "one file" format of PlaySID data files.
+	The file SIDConv on the disk will convert a regular data/icon file
+	to the new one-file format or the opposite. Of course these new
+	files can be crunched as well.
+
+	SIDConv iconfile newfile	- To convert a data/icon file to the
+					  "one file" format.
+
+	SIDConv	one-filefile newfile ICON
+					- To convert a file in "one file"
+					  format to the regular data/icon
+					  file.
+
+
+AREXX PORT:
+
+	PlaySID have an Arexx Port named 'PLAYSID'. This mean that you now
+	have full controll of PlaySID through your arexx scripts. Supplied
+	with this release are two examples of what you can do with arexx:
+
+	Jukebox - This will take given file as input and play each
+		  module the amount of time given.
+
+		  Try: RX Jukebox JukeDemo
+
+	Preview - This will play each tune in given module for 10 sec.
+		  Like the preview found in CD Players.
+
+		  Try: RX Preview Songs/RunTheGauntlet
+
+	Arexx commands supported:
+
+	SID_PLAY()	  - Start current tune
+	SID_STOP()	  - Stop current tune
+	SID_PAUSE()	  - Toggles the pause state of the current playing
+	                    tune
+	SID_QUIT()	  - Quit PlaySID
+	SID_LOAD(module)  - Load <module> into PlaySID
+	SID_SETTUNE(tune) - Set <tune> to current one
+	SID_NUMTUNES()	  - return number of tunes
+	SID_SHOW()	  - Show PlaySID windows
+	SID_HIDE()	  - Hide PlaySID windows
+
+
+TOOL TYPE INFO:
+
+	Syntax of the Tooltypes of <tune>.info:
+
+	   SIDSONG = <Yes|No>
+	
+	If "yes", the module is recognized as a Compute! SID .mus-file.
+	Default is "No".
+
+	   ADDRESS = <loadaddress>,<initaddress>,<playaddress> ;in hex
+
+	loadaddress should be the C64 adress where the file should be loaded.
+	If 0 is specified, the first two bytes of the file will instead be
+	used as loadaddress.
+	
+	initaddress should point to a subroutine which initializes the tunenr
+	in accumulator (starting with $00). If 0 is specified, then the
+	initaddress will be the first C64 address loaded.
+
+	playaddress should point to a subroutine which plays a note of the
+	song. This will be called as often as described in the speed
+	parameter. If 0 is specified, then the playaddress will be the
+	address of the interrupt initialized by the subroutine at the
+	initaddress. This address will be the contents of $0314/0315 or
+	$FFFE/FFFF depending on what value $0001 contains.
+
+	   SONGS = <nr of songs>,[<start song nr>] ;in dec
+
+	The number of tunes the module have and the startup tune to play.
+	Default values are 1 tune and the first tune as startup tune.
+
+	   SPEED = <speeddata> ;in hex
+
+	speeddata contains info about playspeed. For each tune a bit is
+	reserved, bit 0 for tune nr 1 and so on. A 0 bit means vertical	sync
+	(50Hz PAL or 60Hz NTSC) and a 1 bit means 60 Hz or the 	time set in
+	$DC04/05. Default value is 0 for all bits.
+
+	   NAME = <name of the module> ;in ascii
+
+	   AUTHOR = <name of the author> ;in ascii
+
+	   COPYRIGHT = <name of the copyright owner> ;in ascii
+
+	Default values are "?" for the above three tooltypes.
+
+
+TECHNICAL INFO:
+
+	PlaySID is written with GnuEmacs 18.58 and compiled with SAS/C 6.50
+	and Devpac 3.02 assembler. The user interface was designed with
+	Toolmaker. It uses about 50kB of chip memory and 160kB of other
+	memory. If playing samples or rewind option is on, more memory will
+	be used. Also add the length of the tune to the amount of other
+	memory.
+
+
+FUTURE FEATURES:
+
+	This is a list of features that still isn't included into the current
+	version. They will probably be included in future versions.
+
+	* Save C64 pictures as IFF files.
+	* Show Compute! SID ".mus" file information.
+	* Utilities to create icon files and convert to/from different
+	  playsid fileformats.
+	* Features YOU would like to be added (PLEASE WRITE AND TELL US).
+
+
+REGISTRATION:
+
+	If you want to support our work, you have the option to become a
+	registered owner of this utility and receive further upgrades WHEN
+	THEY ARE READY. Send $15 USD (US DOLLAR) or equal amount in SEK
+	(Swedish Krona) or DM (German Mark). Send it to either address below
+	with your name, address, e-mail, phone etc. If you later change
+	address, PLEASE let us know.
+
+		Håkan Sundell			Ron Birk
+		Dr. Lindhs Gata 3,II		Krögarvägen 11
+		413 25 Göteborg			145 52 Norsborg
+		SWEDEN				SWEDEN
+
+        Those of you who already are registered users and have got one or
+        more upgrade version, and want further upgrades can send either a
+        fully post-paid return letter (swedish stamps!) with a disk or $5
+        USD for our expenses. You can do this right now so that you will
+        get the upgrade the same moment it is ready.
+
+
+CONTACT ADRESSES:
+
+	You will reach us through usual mail, phone or Internet mail. Regular
+	mail is very slow so Internet mail is the best way to reach us and is
+	usually answered the very same day!
+
+	If you want to call us about suggestions, bug report or complains
+	about PlaySID you may call:
+
+	+46 (0)31 419 418  (Håkan) about 6502 and SID Emulation
+	+46 (0)8 531 88626 (Ron)   about Library, User Interface and Features
+
+	If you have access to Internet you will reach us at the following
+	e-mail addresses:
+
+	md1phs@mdstud.chalmers.se (Håkan)
+	rbk@ios.se (Ron)
+
+
+THANKS:
+
+	We want to thank the following people for helping us with the
+	development of PlaySID:
+
+	Robert Eichelsheim   - For supporting us with extremely many ripped
+			       tunes and for information about the authors
+			       and copyrights. For beta testings and good
+			       suggestions about improvements.
+
+	Bent Nielsen	     - For supporting good ideas and algorithms
+			       about synthesized waveforms.
+
+	Alexander Andelkovic - For lending us your C64, 1541 and many
+			       games to rip songs from.
+
+	Peter Kunath         - For good suggestions and beta testing.
+
+	Stefan Boberg        - For early beta tests and good suggestions.
+
+	??? (Florida?)	     - For giving us the Compute! SID player.
+
+	Teijo Kinnunen       - For making MED! It inspired us to make
+			       PlaySID multitask.
+
+	Olaf Barthel         - For making Term! Without it we would still
+			       use snail mail during development, as we
+			       live 460 km from each other.
+
+	Registered Users     - Thanks for supporting our work. You are
+			       the reason for our work.
+
+	Commodore-Amiga      - For making all this possible!
+
+
+LAST WORDS:
+
+	We hope that you will find this program useful and that
+	it will bring back the old C64 athmosphere to you too...
+
+
+OLD FEATURE LIST:
+
+	V2.2 (1993)
+
+	* Powerpacker support
+	* New onefile support
+
+	V2.1 (1992)
+
+	* Gadtools controlled workbench window
+	* Appwindow
+	* Arexx port
+	* Keyboard shortcuts
+	* Rewind Button
+	* Open Button
+	* Pause Button
+	* Jukebox (arexx)
+	* Preview (arexx)
+	* Faster emulation of 6502
+	* Faster and enhanced emulation of waveforms
+	* Faster emulation of ringmodulation/synchronize
+	* Emulation of undocumented 6502 instructions
+	* Enhanced tooltype format
+
+	V2.0 (1991)
+
+	* Load icon files
+	* Multitasking and system friendliness
+	* Uses a workbench screen
+
+	V1.0 - V1.3 (1990)
+
+	* Old releases...

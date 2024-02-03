@@ -1,0 +1,185 @@
+<HTML>
+<HEAD>
+<TITLE>Programmierung von WHDLoad</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: howto.html 1.6 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Schematischer Ablaufplan</h3>
+<p>Die folgende Tabelle zeigt den Ablauf wie ein unter WHDLoad installiertes Programm ausgeführt wird. Es soll helfen zu verstehen wie WHDLoad arbeitet und wie WHDLoad, der Slave und das installierte Programm interagieren.</p>
+<table cellpadding=3>
+  <tr>
+    <td valign=top>der Nutzer</td>
+    <td>
+      <ul>
+        <li>startet das Demo oder Spiel, indem der das entsprechende Icon doppelklickt oder WHDLoad von der Kommandozeile aufruft
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>das Betriebssystem</td>
+    <td valign=top>
+      <ul>
+        <li>lädt WHDLoad und startet es
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>WHDLoad</td>
+    <td>
+      <ul>
+        <li>prüft die Hardware und Softwareumgebung
+        <li>lädt und prüft den Slave
+        <li>belegt benötigten Speicher für das installierte Programm
+        <li>wenn <a href="opt.html#Preload">Preload/S</a> aktiv ist werden Diskettenabbilder und Dateien in den Speicher geladen (soweit freier Speicher vorhanden ist)
+        <li>schaltet das Betriebssystem ab (Ausschalten des Multitaskings und der Interrupts, zurückschalten der Grafikhardware auf OCS, initialisieren aller Hardware mit definierten Werten)
+        <li>springt in den Slave
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>der Slave</td>
+    <td>
+      <ul>
+        <li>lädt das Hauptprogramm des installierten Programmes mittels einer WHDLoad Funktion (z.B. <a href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a> oder <a href="../autodoc.html#resload_LoadFile">resload_LoadFile</a>)
+        <li>modifiziert das Hauptprogramm in der Art und Weise, dass dieses seine Daten über den Slave (WHDLoad) lädt, behebt Kompatibilitätsprobleme, ermöglicht das Beenden des Programmes
+        <li>startet das Hauptprogramm
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>das installierte Programmm</td>
+    <td>
+      <ul>
+        <li>folgt dem normalen Ablauf
+        <li>wenn Daten von Diskette geladen werden sollen, ruft es den Slave (weil der Slave es vorher in dieser Art und Weise modifiziert hat), der Slave ruft WHDLoad, WHDLoad aktiviert kurzzeitig das Betriebssystem um die Daten von der Festplatte zu laden (nur wenn <a href="opt.html#Preload">Preload</a> nicht aktiv war), dann Rückkehr zum installierten Programm, welches wie gewohnt fortgesetzt wird
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>der Nutzer</td>
+    <td>
+      <ul>
+        <li>Beendet das Programm indem er den <a href="opt.html#QuitKey">QuitKey</a> betätigt
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>der Slave</td>
+    <td>
+      <ul>
+        <li>kehrt zu WHDLoad mittels <a href="../autodoc.html#resload_Abort">resload_Abort</a> zurück
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>WHDLoad</td>
+    <td>
+      <ul>
+        <li>aktiviert wieder das Betriebssystem (restauriert Hardware Register, Grafik und Speicher)
+        <li>gibt belegte Ressourcen frei
+        <li>kehrt zum Betriebssystem zurück
+      </ul>
+    </td>
+  </tr>
+</table>
+<h3>Wie man einen einfachen Ein-Disk Trackloader installiert</h3>
+
+Dies ist eine sehr kleine und kurze Schritt für Schritt Beschreibung für eine
+Installation eine NDOS Spiels/Demos mit WHDLoad. Die Beschreibung geht von
+einem ideal einfachen Fall aus. In der Praxis wird dieser womöglich nie oder
+nur sehr selten auftreten. Für spezielle Fälle und Probleme bitte die
+nachfolgenden Kapitel lesen.
+
+<ol>
+  <li>Vorarbeiten
+    <ul>
+      <li>Lege ein Verzeichnis an, in welchem alle Dateien abgelegt werden sollen.
+      <li>Erzeuge ein Diskettenabbild mittels <A HREF="dic.html">DIC</A>.
+      <li>Lege eine <a href="opt.html#optwb">#?.info</a> Datei mit "WHDLoad" als &lt;Default Tool&gt; und einem Tooltype "SLAVE=#?" welches den Name des Slaves enthält an (oder kopiere einfach ein Icon von einer anderen Install und passe den "SLAVE=#?" Tooltype an).
+    </ul>
+  <li>Der Slave<br>
+    Um den Slave zu schreiben benötigen wir die folgenden Informationen:
+    <ol>
+      <li>Wo auf der Diskette befindet sich das Hauptprogramm?
+      <li>Wo im Hauptprogramm befindet sich die Diskladeroutine?
+    </ol>
+    Um diese Informationen zu erhalten analysieren wir zuerst den Bootblock. Meistens wird von hier aus das Hauptprogramm mit exec.DoIO() geladen. Manchmal befindet sich auch ein eigener Trackloader im Bootblock. Wir schreiben nun einen Slave welcher den Bootblock nachstellt und das Hauptprogramm vom Diskettenabbild lädt. Nun extrahieren wir das Hauptprogramm aus dem Diskettenabbild oder einem <a href="dump.html#memory">Memory Dump</a>. Jetzt müssen wir den Trackloader im Hauptprogramm finden. Ein schneller Weg ist es nach dem Wert <tt>$AAAAAAAA</tt> (benutzt bei der MFM Dekodierung) mit einem Hex-Editor zu suchen. Danach schneidet man den Bereich (+/- <tt>$1000</tt> Bytes) heraus (oder man macht das mit dem gesamten Hauptprogramm), disassembliert ihn und sucht den Anfang der Trackloader-Routine. Man muss noch herausfinden was für Parameter der Routine übergeben werden. Danach können wir den Slave so programmieren, dass er das Hauptprogramm so modifiziert, das
+s Aufrufe des Trackloaders auf den Slave umgeleitet werden. Der Slave passt dann die Parameter an und ruft die WHDLoad Funktion <a href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a>.
+  <li>Im idealen Fall ist die Install jetzt fertig.
+  
+  <br>Die einzige Sache die noch zu erledigen ist, wäre ein schönes Icon
+  herzustellen. Am besten geht das, wenn man mit der <a
+  href="snoop.html">Snoop</a> Option von WHDLoad und dem Programm <a
+  href="sp.html">SP</a> oder mit einem Freezer oder einem UAE Bilder extrahiert
+  und daraus ein Icon erstellt. Die 16 farbige <a
+  href="http://aminet.net/package/pix/mwb/RomIcons10.lha">RomIcon</a> Palette
+  wird dabei empfohlen.
+
+</ol>
+<h3>Mögliche Probleme und Sonderfälle</h3>
+<h4>Vom Standard abweichende Trackloader</h4>
+Einige Demos und Spiele nutzen ihr eigenes spezielles Diskformat. Das bedeutet, dass <a href="dic.html">DIC</a> nicht in der Lage ist von solchen Disketten Abbilder herzustellen. Zur Erzeugung von Abbildern solcher Fremdformate wird das Programm <a href="rawdic.html">RawDIC</a> empfohlen. Für weitere Informationen bitte die Dokumentation zu RawDIC konsultieren.
+<h4>Verwendung mehrerer Disketten</h4>
+Wenn das zu installierende Programm mehr als eine Diskette verwendet, muss der Slave dafür sorgen, dass die Zugriffe auf das jeweilige richtige Diskettenabbild erfolgt. Manchmal ist dies nicht einfach. Einige Spiele unterstützen mehr als ein Diskettenlaufwerk, in solchen Fällen kann eventuell die Laufwerksnummer benutzt werden um davon die Nummer des Diskettenabbildes abzuleiten. Die meisten Programme nutzen eine Identifikation auf jeder Diskette um diese voneinander zu unterscheiden. Hier kann zum Beispiel eine Variable, welche die aktuelle Disknummer enthält verwendet werden. Bei jedem Zugriff auf die Diskidentifikation (erkennbar an den Parametern des Trackloaders) wird die Variable erhöht und beim Erreichen der letzten gültigen Disknummer wieder auf den Anfangswert zurückgesetzt. Dadurch würde das installierte Programm bei jedem Zugriff auf die Diskidentifikation auf eine andere Diskette zugreifen bis die gewünschte Diskette virtuell ei
+ngelegt ist. Wenn das installierte Programm beim Diskettenwechsel eine Nutzerinteraktion erfordert, sollte diese durch eine Modifikation des Slaves entfernt werden.
+<h4>Speichern einer Bestentabelle</h4>
+Hier gibt es nicht viel zu sagen. Mit der Funktion <a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a> ist der entsprechende Speicherbereich abzuspeichern. Wenn gewünscht, kann dieser noch etwas kodiert werden, damit nicht jedermann darin ohne weiteres editieren kann. Es wird ausdrücklich davon abgeraten direkt in Diskettenabbilder (unter Verwendung von <a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>) zu Speichern, weil bei einem Fehler (z.B. Absturz) die Abbilder beschädigt werden können.
+<h4>Spielstände</h4>
+Das Handling von Spielständen ist analog dem einer Bestenliste.
+<h4>Zugriffe auf das Betriebssystem</h4>
+Während der Slave und das installierte Programm ausgeführt werden, existiert weder ein Betriebssystem noch kann darauf zugegriffen werden, noch macht es Sinn darauf zuzugreifen! Deshalb müssen alle potentiellen Zugriffe durch das installierte Programm deaktiviert werden. Wenn es nur wenige davon gibt und diese ohnehin keinen Sinn in der WHDLoad-Umgebung machen (wie z.B. exec.Disable() oder exec.SuperState()) sollten diese ge'NOP't (<tt>$4e71</tt>) werden. Wenn die Zugriffe eine wesentliche Funktion haben (z.B. exec.DoIO()) müssen sie vom Slave durch entsprechende Aufrufe ersetzt werden. Wenn es eine Menge gibt, ist es sinnvoll eine einfache exec.library in einem unbenutzten Speicherbereich zu erzeugen (<tt>$4</tt> damit initialisieren). Als Beispiel hierfür ist der Quelltext des Oscar.Slave im <tt>DEV</tt> Archiv enthalten, welcher exec.AllocMem() emuliert. Um Zugriffe des installierten Programmes auf das Betriebssystem zu erkennen wird die ExecBase (<tt>$4</t
+t>) von WHDLoad mit dem Wert <tt>$f0000001</tt> initialisiert. Dadurch erzeugt jedes Programm beim Versuch diese zu benutzen eine "Address Error" Exception.<br>
+Wenn das installierte Programm eine intensive Benutzung des Betriebssystems erfordert, ist es angebracht eines der sogenannten KickEmu-Pakete zu verwenden, welche im <tt>DEV</tt> Archiv zu finden sind. Es gibt ein Paket für Kick 1.3 ('src/sources/whdload/kick13.s') und eines für Kick 3.1 ('src/sources/whdload/kick31.s'). Diese Pakete erfordern ein originales Kickstart-Image und erzeugen damit eine komplette Betriebssystemumgebung innerhalb der WHDLoad-Umgebung. Für weitere Informationen bitte die entsprechende Dokumentation konsultieren.
+<h3>Häufige Kompatibilitätsprobleme</h3>
+<h4>Eingeschränkter Adressbereich auf 68000/68010/68ec020</h4>
+Diese Prozessoren haben einen eingeschränkten Adressbereich von 16 MB (<tt>$000000...$ffffff</tt>) da sie nur 24 Adressleitungen besitzen. Daher werden alle Zugriffe auf größere Adressen automatisch auf die unteren 16 MB ausgeführt, indem die höchsten 8 Bit ignoriert werden. Einige Programme nutzen diese Bits um Daten darin zu speichern oder vergessen diese zu löschen bzw. korrekt zu initialisieren. Auf einem Prozessor mit vollem 4 GB Adressraum wie 68020/680ec30/68030/68040/68060 funktioniert dies nicht, da dann die vollen 32 Bit für den Zugriff verwendet werden.<br>
+Um solche Probleme zu lösen, müssen die Zugriffe modifiziert werden und auf die richtige Speicheradresse umgeleitet werden.<br>
+Manchmal sind die Ursachen für solche Fehler auch nicht initialisierte Zeiger. Dann reicht es teilweise den Speicherbereich <tt>$400</tt> - <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a> bei Programmstart vom Slave zu löschen.
+<h4>Unterschiedliche Stackframes auf verschiedenen Prozessoren</h4>
+
+Die Stackframes die von den Prozessoren bei Interrupts und Exceptions erzeugt
+werden unterscheiden sich innerhalb der 68k-Familie. Auf dem 68000'er ist ein
+Stackframe 6 Byte groß, außer bei Bus- und Address-Error. Das Stackframe
+enthält das gesicherte SR bei (a7) und den gesicherten PC bei (2,a7). Auf allen
+anderen Prozessoren (68010+) ist das kleinste Stackframe 8 Byte groß und
+enthält zusätzlich die Vektornummer als Wort bei (6,a7). Dieses Four-Word
+Stackframeformat <tt>$0</tt> wird erzeugt für "Trap #xx" und Interrupts auf
+68010 - 68060. Die Stackframes anderer Exceptions unterscheiden sich von
+Prozessor zu Prozessor. Die RTE Instruktion arbeitet unterschiedlich auf 68000
+und 68010+. Auf einem 68000er restauriert sie SR und PC indem sie es vom Stack
+holt und setzt die Programmausführung fort. Auf 68010+ wird zusätzlich das
+Stackframe in Abhängigkeit vom Stackframeformat freigegeben.<br>
+
+Einige Programme legen einfach eine Adresse (PC) und ein SR auf dem Stack ab
+und führen dann eine RTE Instruktion aus. Das funktioniert nur auf einem
+68000'er. Auf 68010+ hat es unvorhersehbare Folgen.<br>
+
+Wenn das installierte Programm dies tut, muss es korrigiert werden. Manchmal
+reicht es aus, die RTE Instruktion durch eine RTR Instruktion zu ersetzen.
+
+<h4>MOVEM.x RL,-(An) auf 68000/010 und 68020-68060</h4>
+
+Hier gibt es einen Unterschied, wenn das Register welches im PreDecrement Mode
+(RL) verwendet wird auch in der Registerliste enthalten ist. Beim 68020 - 68060
+wird das Register bereits vollständig dekrementiert gespeichert. Auf 68000 -
+68010 wird das Register nicht dekrementiert gespeichert.<br>
+
+Da dieses Konstrukt nicht sehr sinnvoll ist, sind gegenwärtig keine
+diesbezüglichen Problemfälle bekannt.
+
+<h3>Allgemeine Richtinien für das Schreiben von Installs</h3>
+<ul>
+<li>Modifiziere niemals CPU-Register wie VBR oder CACR die nur in höheren Prozessoren vorhanden sind. Das VBR ist aus Sicht des Slave-Programmierers immer 0, auch wenn es von WHDLoad verschoben wurde, da die Autovektoren (und Traps wenn das Flag <a href="../autodoc.html#WHDL_EmulTrap">WHDL_EmulTrap</a> gesetzt ist) emuliert werden. Die Bits im CACR sind bei jedem Prozessor unterschiedlich belegt. Daher gibt es nur einen richtigen Weg die <a href="cache.html">Caches</a> zu setzen, mittels <a href="../autodoc.html">resload_SetCACR/SetCPU</a> und den Bitdefinitionen in 'exec/execbase.i' und 'whdload.i'. Auch alles im installierten Programm was solche Register verändert muss entfernt werden, ansonsten ist eine korrekte Arbeitsweise von WHDLoad nicht gewährleistet!
+<li>Verändere nie Diskettenabbilder. Das hat den Vorteil, dass man die Abbilder einfach wieder auf Diskette zurückschreiben kann und sie dann wieder von Diskette ausführen kann (unter der Annahme, dass das Programm ohne die verschiedenen Kompatibilitätskorrekturen funktioniert, mutmaßlich kein sehr häufiger Fall).
+<li>Benutze niemals Code/Daten aus dem Original-Programm im Slave (Urheberrecht).
+<li>Aktiviere Caches nur wenn du dir sicher bist, dass es mit allen Prozessoren funktioniert.
+<li>Benutze so wenig wie möglich Speicher für <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a>. Einige Leute haben Residente Strukturen am Ende des ChipMem-Speichers, da hilft es nur <tt>$1f0000</tt> anstelle von <tt>$200000</tt> zu benutzen um WHDLoad zu ermöglichen absolut belegten Speicher zu verwenden.
+</ul>
+<h3>Tipps & Tricks</h3>
+<h4>Was ist besser, Diskettenabbilder oder Dateien?</h4>
+Manchmal hat man die Wahl entweder Diskettenabbilder oder Dateien zu verwenden. Beides hat seine Vor- und Nachteile. Die Verwendung von Diskettenabbildern ist für gewöhnlich der einfachere und schnellere Weg den Slave zu schreiben. Aber Dateien können von WHDLoad besser zwischengespeichert werden (wenn wenig freier Speicher vorhanden ist und/oder dieser stark fragmentiert ist). Der belegte Plattenplatz ist bei Dateien auch geringer als bei Diskettenabbildern. Diese sollten vor allem verwendet werden, wenn bei der Verwendung von Dateien sehr viele Dateien entstehen würden (mehr als 30).
+</BODY>
+</HTML>

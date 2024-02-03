@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE>InstallBB * Installare i Bootblock</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: ibb.html 1.3 2004/11/16 17:38:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>InstallBB * Installare i Bootblock</h3>
+InstallBB legge o scrive il Bootblock da o verso un disco. I Bootblock vengono trattati come eseguibili.
+In scrittura viene preservato il tipo di filesystem leggendo prima il bootblock, e poi collegando il DosType
+(<tt>DOS0</tt>,
+<tt>DOS1</tt> ...) a quello scritto sul disco. Il checksum del bootblock viene calcolato automaticamente.
+<h4>Installazione</h4>
+InstallBB è contenuto solo nell'archivio <tt>DEV</tt>, non in quello <TT>USR</tt>
+<br>copialo in C: o in un luogo simile
+<h4>Opzioni</h4>
+<table>
+<tr><td colspan=2>
+<tt>PROGRAM/A,UNIT/K/N,WRITE/S</tt>
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>PROGRAM/A</tt>&nbsp;&nbsp;
+</td><td>
+il nome del file dal quale verrà letto o in cui verrà scritto il bootblock; deve essere specificato
+</td></tr>
+<tr><td valign=top>
+<tt>UNIT/K/N</tt>
+</td><td>
+il numero dell'unita trackdisk (numero del drive floppy)
+<br>di default è 0 (DF0:)
+</td></tr>
+<tr><td valign=top>
+<tt>WRITE/S</tt>
+</td><td>
+switch (selettore), se non specificato il bootblock sarà letto dal floppy e scritto in un file, se specificato il
+bootblock selezionato verrà scritto nel floppy
+</td></tr>
+</table>
+</BODY>
+</HTML>

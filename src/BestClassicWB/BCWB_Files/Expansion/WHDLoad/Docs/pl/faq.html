@@ -1,0 +1,138 @@
+<HTML>
+<HEAD>
+<TITLE>Najczęściej zadawane pytania (FAQ)</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: faq.html 1.7 2015/12/23 22:35:27 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Najczęściej zadawane pytania (FAQ)</h3>
+<table>
+<tr><td valign=top><i>
+Pytanie:
+</i></td><td><b>
+No dobrze. Zdobyłem instaler, ale występują kłopoty podczas instalacji lub
+przy uruchomieniu. Jestem pewien, że wszystko wykonałem poprawnie. Co teraz?
+</b></td></tr><tr><td valign=top><i>
+Odpowiedź:
+</i></td><td>
+Takie złe działanie może być wywołane przez wiele czynników:
+<ul>
+<li>pominięte/złe parametry
+<br> Niektóre poprawki nie zadziałają poprawnie
+(lub w ogóle) jeśli nie poustawiasz odpowiednich dla Twojego systemu
+parametrów. Proszę przeczytać dokumentację w celu poznania dostępnych
+parametrów. Przykładowe parametry, które mogą pomóc w rozwiązaniu problemu to
+NoCache, NoVBRMove, NoAutoVec, PAL/NTSC, NoMMU.
+<li>plik .readme rozprowadzany z pakietem instalacyjnym
+<br> Często opisuje on wiele specyficznych problemów, klawiszy lub parametrów,
+które powinny być ustawione.
+<li>zła wersja WHDLoad
+<br> Większość pakietów instalacyjnych wymaga ostatniej dostępnej wersji WHDLoad
+i nie uruchomi się ze starszymi wersjami. Złotą zasadą jest instalowanie
+ostatniej dostępnej wersji.
+<li>Twoja maszyna nie jest kompatybilna
+<br> Szczególnie karty z procesorami 68040/060 lub niektóre inne karty
+turbo bądź inny sprzęt mogą sprawiać kłopoty. Spróbuj wyłączyć wszystkie dodatkowe
+urządzenia i uruchomić zainstalowany program ponownie.
+<li>nieobsługiwana wersja
+<br> Wiele komercyjnych tytułów było sprzedawanych w więcej niż jednej wersji
+(wersja w pudełku/ekonomiczna/okładkowa, wersja PAL/NTSC, ...). Oczywiście
+instaler zadziała tylko z wersją, dla której został napisany. Jeśli posiadasz
+inną wersję tej samej gry, instaler nie zadziała. W takim przypadku jedynym
+sposobem na użycie instalera jest skontaktowanie się z jego autorem i
+zapytanie go, czy doda obsługę Twojej wersji gry. W większości przypadków
+autor pomoże Ci i doda obsługę także Twojej wersji w ciągu kilku dni.
+<li>stara wersja instalera
+<br> Gdy tylko jakiś błąd zostanie odkryty i usunięty, nowa wersja instalera
+pojawi się na stronie WHDLoad. Zawsze pobieraj najnowszą wersję instalera.
+Pamiętaj, iż nie zawsze najnowszą wersją jest ta dostępna na Aminecie.
+Niektóre łatki nie są umieszczane na Aminecie w ogóle lub umieszczane są
+tam z kilkutygodniowym opóźnieniem!
+<li>znalazłeś błąd
+<br> Pomimo, że wszystkie poprawki są testowane przed ich wydaniem, zawsze
+istnieje możliwość przeoczenia jakiegoś błędu. Jeśli uważasz, że znalazłeś
+błąd, prześlij do autora poprawki dokładny raport opisujący Twój problem. Do
+tego celu użyj formularza zgłaszania błędów. Spróbuj opisać swój problem
+najdokładniej jak to jest możliwe. Jeżeli nie będziemy informowani o błędach,
+nie będziemy mogli ich usuwać.
+<BR>Informacja: JEDYNYM odpowiednim miejscem do zgłaszania problemów/błędów
+jest raport o błędach, a nie comp.sys.amiga.games czy jakiekolwiek inne forum,
+gdyż nie wszyscy programiści czytają je.
+</ul>
+</td></tr>
+<tr><td valign=top><i>
+Pytanie:
+</i></td><td><b>
+Mam grę, ale nie znalazłem instalera do niej.
+</b></td></tr><tr><td valign=top><i>
+Odpowiedź:
+</i></td><td>
+Stwórz listę swoich życzeń. Możesz także dołączyć gry, które już masz
+zainstalowane na dysku twardym (poprzez skopiowanie plików na dysk i/lub przez
+instaler dołączony do gry), które powodują jakieś problemy (nawet w
+przypadku prostego problemu z degradacją systemu, czy brakiem wyjścia z gry).
+Pamiętaj, iż jedna osoba jest w stanie opracować około 25 gier w ciągu roku.
+Oznacz, które gry należą do Twoich ulubionych (np. ! i +), oraz które niezbyt
+Ci się podobają (-), oraz sam sprawdź, które z tych gier mają już pakiety
+instalacyjne.
+</td></tr>
+<tr><td valign=top><i>
+Pytanie:
+</i></td><td><b>
+Czy można użyć WHDLoad do zainstalowania gry (lub programu demonstracyjnego),
+który używa systemu operacyjnego?
+</b></td></tr><tr><td valign=top><i>
+Odpowiedź:
+</i></td><td>
+Ogólnie nie jest możliwe, aby gra (lub program demonstracyjny) uruchomiona wewnątrz
+WHDLoad miała dostęp do elementów systemu operacyjnego na zewnątrz, z którego
+WHDLoad została uruchomiona. Ty, jako twórca odpowiedniego pliku .slave musisz
+poprawić wszystkie odwołania do systemu operacyjnego. Albo je wyłączysz, albo
+odpowiednio zaemulujesz. Do emulacji istnieją pakiety nazwane KickEmu. Są one
+dostępne dla różnych wersji kickstartu (np. 'Sources/whdload/kick13.s').
+Wykorzystując obraz prawdziwego kickstartu, tworzą pełne środowisko systemowe
+wewnątrz pamięci WHDLoad. Więcej informacji na ten temat znajdziesz w pliku
+.ReadMe dotyczącym tego problemu: 'Sources/whdload/kick.readme'.
+</td></tr>
+<tr><td valign=top><i>
+Pytanie:
+</i></td><td><b>
+Jeśli WHDLoad używa MMU (opcja <a href="opt.html#NoMMU">NoMMU/S</a> nie jest
+ustawiona i na procesorze 68030 opcja <a href="opt.html#MMU">MMU/S</a> jest
+ustawiona) występują krótkie zaburzenia w grafice i/lub w muzyce (np. Beast2).
+Czy to jest błąd?
+</b></td></tr><tr><td valign=top><i>
+Odpowiedź:
+</i></td><td>
+Występuje to w trakcie wczytywania danych. Powodem jest fakt, iż WHDLoad w
+przypadku używania MMU musi na krótki czas wyłączyć przerwania w trakcie
+wczytywania danych. Nie można zmienić tego zachowania.
+</td></tr>
+<tr><td valign=top><i>
+Pytanie:
+</i></td><td><b>
+Kiedy próbuję użyć parametru NTSC, WHDLoad pokazuje Guru.
+</b></td></tr><tr><td valign=top><i>
+Odpowiedź:
+</i></td><td>
+Jest to błąd w MCP 1.30 w obsłudze Menadżera ekranów, powodujący zawieszenie
+się WHDLoad przy wywołaniu funkcji OpenScreenTags. Aby temu zapobiec wyłącz
+Menadżer ekranów w MCP.
+</td></tr>
+<tr><td valign=top><i>
+Pytanie:
+</i></td><td><b>
+Kiedy uruchamiam gry, działają one szybciej niż powinny (muzyka brzmi dziwnie)
+i dolna część ekranu gdzieś znika. Próbowałem parametrów PAL i NTSC, ale to
+nic nie pomogło.
+</b></td></tr><tr><td valign=top><i>
+Odpowiedź:
+</i></td><td>
+Jeśli używasz sterownika do kart Voodoo, wyłącz w ikonce sterownika parametr
+&quot;FakeNativeModes&quot;.
+</td></tr>
+</table>
+</BODY>
+</HTML>

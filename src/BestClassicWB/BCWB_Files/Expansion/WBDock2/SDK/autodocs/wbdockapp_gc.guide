@@ -1,0 +1,132 @@
+@DATABASE "Default"
+@NODE "main" "wbdockapp_gc"
+@TOC "autodocs.guide/main"
+
+@{B}TABLE OF CONTENTS@{UB}
+
+@{"wbdockapp_gc/--background--" LINK "--background--"}
+@{"wbdockapp_gc/--datasheet--" LINK "--datasheet--"}
+@ENDNODE
+
+@NODE "--background--" "wbdockapp_gc/--background--"
+@TOC "main"
+
+@{B}wbdockapp_gc/--background--                       wbdockapp_gc/--background--@{UB}
+
+@{B}    BACKGROUND@{UB}
+
+
+@{B}    SEE ALSO@{UB}
+      @{"gadgets/wbdockapp.h" LINK "/include/gadgets/wbdockapp.h/MAIN"}
+@ENDNODE
+
+@NODE "--datasheet--" "wbdockapp_gc/--datasheet--"
+@TOC "main"
+
+@{B}wbdockapp_gc/--datasheet--                         wbdockapp_gc/--datasheet--@{UB}
+
+@{B}    NAME@{UB}
+        wbdockapp_gc -- custom dock app for wbdock2
+
+@{B}    SUPERCLASS@{UB}
+        frbuttonclass
+
+@{B}    REQUIRES@{UB}
+
+
+@{B}    DESCRIPTION@{UB}
+        This document describes which tags and methods should be implemented
+        for a dock app to work properly with wbdock2. Everything here is
+        optional if you forward unknown methods and tags to the super class.
+
+@{B}     METHODS@{UB}
+        OM_NEW -- Create an object to be displayed in the wbdock dock bar.
+
+        OM_SET -- Set various attributes. See below.
+
+        OM_GET -- Retrieve attributes. See below.
+
+        OM_UPDATE -- Same as OM_SET
+
+        OM_NOTIFY -- Not used.
+
+        OM_DISPOSE -- Free the dock object. This does not mean that you
+                      are done. It also happens if the dock bar is
+                      closed and re-opened for a prefs change.
+
+        GM_RENDER -- Render the dock object. Forward this to the super class
+                     to render the background and frame. After that you can
+                     draw your specific contents.
+
+        GM_HITTEST -- Checks if the dock was hit by the mouse pointer.
+                      It is used by wbdock for various purposes, not
+                      only for mouse clicks.
+
+        GM_GOACTIVE -- The object was clicked by the mouse.
+
+        GM_HANDLEINPUT -- Processes input while the mouse button is pressed.
+
+        GM_GOINACTIVE -- The mouse button was released.
+
+        GM_LAYOUT -- May be used to calculate positions.
+                     Note: when called from wbdock, the GadgetInfo is faked.
+                     Only the gi_Screen pointer is valid.
+
+        WBDOCK_TICK -- This method is called 50 times per second. You can use
+                       it to animate your icon or to handle input from a
+                       window you opened or something similar.
+                       Make sure to be quick.
+
+        WBDOCK_DROPICON -- An icon has been dropped on your dock object.
+
+
+
+@{B}     ATTRIBUTES@{UB}
+
+        WBDOCK_MinWidth (ULONG)
+            Query the minimum width of your object before the window is
+            opened.
+
+            Applicability is (OM_GET)
+
+        WBDOCK_MinHeight (ULONG)
+            Query the minimum height of your object before the window is
+            opened.
+
+            Applicability is (OM_GET)
+
+        WBDOCK_Screen (struct Screen *)
+            Set the screen on which the dock will open. Use this to allocate
+            screen-related resources (pens, datatypes) before the window
+            opens. Be prepared to receive a NULL pointer in which case you
+            should free all resources you previously allocated.
+
+            Applicability is (OM_NEW, OM_SET)
+
+        WBDOCK_HitBox (struct IBox)
+            Query the box where your object can be hit. This box is used to
+            define the AppWindow drop zone for Workbench. That is the zone
+            where an icon can be dropped on your object.
+            Note: unlike other attributes here the opg_Storage pointer does
+            not point to a 4-byte ULONG but to the 8-byte struct IBox.
+            WBDock pre-fills the box with your LeftEdge / TopEdge / Width
+            and Height, so normally you do not need to support this tag. The
+            AmiDock style uses this to exclude the textual label from the
+            drop box.
+
+            Applicability is (OM_GET)
+
+        WBDOCK_HelpText (CONST_STRPTR)
+            When the mouse pointer hovers over the dock bar, wbdock might show
+            some hint text. If this happens, your object is queried for the
+            text to display. The pointer is pre-filled with the file name of
+            your class.
+            Note: if you change the pointer, you must supply a valid string
+            pointer. Do not return NULL or an invalid pointer!
+
+            Applicability is (OM_GET)
+
+
+@{B}    SEE ALSO@{UB}
+      @{"gadgets/wbdockapp.h" LINK "/include/gadgets/wbdockapp.h/MAIN"}
+@ENDNODE

@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE>Moniteurs syst&egrave;me</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: freezer.html 1.7 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Moniteurs syst&egrave;me / Freezer</h3>
+Il existe bon nombre de moniteurs syst&egrave;me logiciels. L'utilisation de tels outils
+s'av&egrave;re tr&egrave;s utile pendant le d&eacute;veloppement et le debug des slaves et du programme
+install&eacute;. WHDLoad est directement interfac&eacute; avec HRTMon et ThrillKill.
+Si vous voulez une interface directe pour un autre moniteur, vous pouvez me contacter, j'essayerai de le supporter.
+Au d&eacute;marrage de WHDLoad, celui-ci v&eacute;rifie si l'un des moniteurs connus est actif. S'il en trouve un,
+WHDLoad effectue des op&eacute;rations sp&eacute;ciales. Si le MMU est utilis&eacute; par WHDLoad, celui-ci d&eacute;clare
+la m&eacute;moire utilis&eacute;e par le moniteur comme WriteThrough cachable. Pendant que le jeu ou la d&eacute;mo
+tourne, WHDLoad redirige toutes les NMI (exceptions non masquables) vers le vecteur NMI r&eacute;cup&eacute;r&eacute;
+de la table des vecteurs du moniteur. De plus, si le VBR est relog&eacute; par WHDLoad (<a href="opt.html#NoVBRMove">NoVBRMove/S</a>
+n'est pas positionn&eacute; et le processeur est au moins un 68010) il compare la <a
+href="opt.html#FreezeKey">"FreezeKey"</a> avec la valeur actuelle du clavier &agrave; chaque interruption. Si la valeur correspond,
+WHDLoad traite le clavier, transforme la structure de la pile en stackframe NMI et appelle le moniteur par son handler NMI.
+
+<h4>HRTMon</h4>
+La d&eacute;tection en m&eacute;moire devrait être s&ucirc;re spécialement avec les nouvelles versions du
+moniteur car une signature est intégrée dans celui-ci.
+
+Attention, si le MMU est utilis&eacute; par WHDLoad: ne pas acc&eacute;der &agrave; des zones en dehors des zones m&eacute;moires
+valides (m&eacute;moire de base, extension, slave, ...). Cela plante car HRTMon ne g&egrave;re pas les exceptions de violation d'acc&egrave;s.
+
+
+<p>Dans le programme de préférence HRTmonPrefs, vous devez activer l'option 'No VBR move'. Sinon vous ne pourrez
+ pas entrer dans le monitor lors de l'exécution de WHDLoad.
+<p>Après avoir été dans HRTMon, le programme sous WHDLoad peut afficher un écran graphique incorrect. Ceci
+peut arriver car HRTMon écrit quelques informations dans les registres DMA. Vous pouvez contourner ceci en
+disant à HRTMon d'écrire la valeur adéquate, par exemple utilisez <tt>'e $100 $5200'</tt> pour afficher un écran de 32
+couleurs avant de retourner dans le programme installé.
+
+<p>La version d'HRTMon (built) dans WinUAE ne peut seulement être détectée que si HRTMon a été au mois une fois activé avec la touche (PgUp).
+Dès la 1ère activation, le vecteur NMI sera mis et WHDLoad pourra localiser le moniteur.
+
+<p>Il existe des versions plus r&eacute;centes de HRTMon qui incluent des nouvelles commandes fonctionnant sous WHDLoad.
+Vous pouvez charger/sauver des fichiers et utilisez les fonctions <a href="prot.html">resload_Protect#?</a> avec HRTMon.
+Ces versions sont t&eacute;l&eacute;chargeables à partir la page web: <a href="http://www.whdload.de/whdload/Tools/">WHDLoad page</a>.
+
+<h4>ThrillKill</h4>
+Il n'y a pas de signature utilisable dans le moniteur, aussi, des comparaisons de code sont utilis&eacute;es. Du coup, la d&eacute;tection ne
+fonctionnera pas avec d'autres versions.
+</BODY>
+</HTML>

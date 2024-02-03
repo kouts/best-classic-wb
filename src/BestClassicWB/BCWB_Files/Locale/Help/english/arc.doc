@@ -1,0 +1,574 @@
+                                  ARC
+
+                         File Archive Utility
+
+
+(C) COPYRIGHT 1985 by System Enhancement Associates; ALL RIGHTS RESERVED
+
+
+This file describes the ARC file utility, version 4.3, which was 
+created by System Enhancement Associates on 22 August 1985.  
+
+ARC is the copyrighted property of System Enhancement Associates.  You 
+are granted a limited license to use ARC, and to copy it and 
+distribute it, provided that the following conditions are met: 
+
+1)  No fee may be charged for such copying and distribution.  
+
+2)  ARC may ONLY be distributed in its original, unmodified state.  
+
+
+Any voluntary contributions for the use of this program will be 
+appreciated, and should be sent to:
+
+                     System Enhancement Associates
+                             21 New Street
+                           Wayne, NJ   07470
+
+If you are using ARC in a commercial environment, then the 
+contribution is not voluntary.
+
+
+A word about user supported software:
+
+The user supported software concept (usually referred to as 
+"freeware") is an attempt to provide software at low cost.  The cost 
+of offering a new product by conventional channels is staggering, and 
+hence dissuades many independant authors and small companies from 
+developing and promoting their ideas.  User supported software is an 
+attempt to develop a new marketing channel, where products can be 
+introduced at low cost.  
+
+If user supported software works, then everyone will benefit.  The 
+user will benefit by receiving quality products at low cost, and by 
+being able to "test drive" software thoroughly before purchasing it.  
+The author benefits by being able to enter the commercial software 
+arena without first needing large sources of venture capital.
+
+But it can only work with your support.  We're not just talking about 
+ARC here, but about all user supported software.  If you find that you 
+are still using a program after a couple of weeks, then pretty 
+obviously it is worth something to you, and you should send in a 
+contribution.
+
+
+
+And now, back to ARC:
+
+ARC is used to create and maintain file archives.  An archive is a 
+group of files collected together into one file in such a way that the 
+individual files may be recovered intact.  
+
+ARC is different from other archive and library utilities in that it 
+automatically compresses the files being archived, so that the 
+resulting archive takes up a minimum amount of space.  
+
+When ARC is used to add a file to an archive it analyzes the file to 
+determine which of four storage methods will result in the greatest 
+savings.  These four methods are: 
+
+1)  No compression; the file is stored intact.  
+
+2)  Repeated-character compression; repeated sequences of the same 
+    byte value are collapsed into a three-byte code sequence.  
+
+3)  Huffman squeezing; the file is compressed into variable length bit 
+    strings, similar to the method used by the SQ programs.  
+
+4)  Lempel-Zev compression;  the file is stored as a series of twelve 
+    bit codes which represent character strings, and which are created 
+    "on the fly".  
+
+Note that since one of the four methods involves no compression at 
+all, the resulting archive entry will never be larger than the 
+original file.  
+
+
+
+                               USING ARC
+                               =========
+
+ARC is invoked with a command of the following format:
+
+    ARC <x> <arcname> [<template> . . .]
+
+Where:
+
+    <x> is an ARC command letter (see below), in either upper or lower 
+    case.  
+
+    <arcname> is the name of the archive to act on, with or without an 
+    extension.  If no extension is supplied, then ".ARC" is assumed.  
+    The archive name may include path and drive specifiers.
+
+    <template> is one or more file name templates.  The "wildcard" 
+    characters "*" and "?" may be used.  A file name template may only 
+    include a path or drive specifier if you are adding a file to an 
+    archive.  
+
+If ARC is invoked with no arguments (by typing "ARC", and pressing 
+"enter"), then a brief command summary is displayed.
+
+
+                             ARC COMMANDS
+                             ============
+
+Following is a brief summary of the available ARC commands:
+
+    a,u = add files to archive
+    m   = move files to archive
+    d   = delete files from archive
+    x,e = extract files from archive
+    r   = run files from archive
+    p   = copy files from archive to stdout
+    l   = list files in archive
+    v   = verbose listing of files in archive
+    t   = test archive integrity
+    c   = convert entry to new packing method
+    b   = retain backup copy of archive
+    w   = suppress warning messages
+    n   = suppress notes and comments
+
+These commands are explained in more detail below.
+
+
+
+ADDING FILES
+------------
+
+Files are added to an archive using the "A" (Add), "U" (Update), or 
+"M" (Move) commands.  Add and Update are identical.  Move differs in 
+that the source file is deleted once it has been added to the archive.
+
+For example, if you wish to add a file named "TEST.DAT" to an archive 
+named "MY.ARC", you would use a command of the form:
+
+    ARC a my test.dat
+
+or:
+
+    ARC u my.arc test.dat
+
+If you wanted to move all files in your current directory into an 
+archive named "SUM.ARC", you could use a command of the form:
+
+    ARC m sum *.*
+
+If you wanted to add all files with a ".C" extension, and all files 
+named "STUFF" to an archive named "JUNK.ARC", you could type:
+
+    ARC a junk *.c stuff.*
+
+Archive entries are always maintained in alphabetic order.  Archive 
+entries may not have duplicate names.  If you add a file to an archive 
+that already contains a file by that name, then the existing entry in 
+the archive is replaced.  Also, the archive itself and its backup will 
+not be added.  
+
+You may also add a file which is in a directory other than your 
+current directory.  For example, it is perfectly legal to type:
+
+    ARC a junk c:\dustbin\stuff
+
+The A, U, and M commands are the ONLY commands which allow you to give 
+a drive or path.  Also, you cannot add two files with the same name.  
+In other words, if you have a file named "C:\DUSTBIN\STUFF.TXT" and 
+another file named "C:\BUCKET\STUFF.TXT", then typing:
+
+    arc a junk c:\dustbin\*.* c:\bucket\*.*
+
+will not work.
+
+
+
+DELETING FILES
+--------------
+
+Archive entries are deleted with the "D" (Delete) command.  For 
+example, if you had an archive named "JUNK.ARC", and you wished to 
+delete all entries in it with a filename extension of ".C", you could 
+type: 
+
+    ARC d junk *.c
+
+
+
+EXTRACTING FILES
+----------------
+
+Archive entries are extracted with the "E" (Extract) and "X" (eXtract) 
+commands.  For example, if you had an archive named "JUNK.ARC", and 
+you wanted all files in it with an extension of ".TXT" or ".DOC" to be 
+recreated on your disk, you could type:
+
+    ARC x junk *.txt *.doc
+
+If you wanted to extract all of the files in an archive named 
+"JUNK.ARC", you could simply type:
+
+    ARC x junk
+
+Whatever method of file compression was used in storing the files is 
+reversed, and uncompressed copies are created in the current 
+directory.
+
+
+
+RUNNING FILES
+-------------
+
+Archive entries may be run without being extracted by use of the "R" 
+(Run) command.  For example, if you had an archive named "JUNK.ARC" 
+which contained a file named "LEMON.COM", which you wished to run, you 
+could type:
+
+    ARC r junk lemon.com
+
+You can run any file from an archive which has an extension of ".COM", 
+".EXE", or ".BAT".  You cannot run interpretive BASIC programs from an 
+archive, nor can you give arguments to a program you are running from 
+an archive.
+
+In practice, the file to be run is extracted, run, and then deleted.  
+All in all, this is a fairly useless command.
+
+
+
+PRINTING FILES
+--------------
+
+Archive entries may be examined with the "P" (Print) command.  This 
+works the same as the Extract command, except that the files are not 
+created on disk.  Instead, the contents of the files are written to 
+standard output.  For example, if you wanted to see the contents of 
+every ".TXT" file in an archive named "JUNK.ARC", but didn't want them 
+saved on disk, you could type:
+
+    ARC p junk *.txt
+
+If you wanted them to be printed on your printer instead of on your 
+screen, you could type:
+
+    ARC p junk *.txt >prn
+
+
+
+LISTING ARCHIVE ENTRIES
+-----------------------
+
+You can obtain a list of the contents of an archive by using the "L" 
+(List) command or the "V" (Verbose list) command.  For example, to see 
+what is in an archive named "JUNK.ARC", you could type: 
+
+    ARC l junk
+
+If you are only interested in files with an extension of ".DOC", then 
+you could type:
+
+    ARC l junk *.doc
+
+
+ARC prints a short listing of an archive's contents like this:
+
+    Name          Length    Date
+    ============  ========  =========
+    ALPHA.TXT         6784  16 May 85
+    BRAVO.TXT         2432  16 May 85
+    COCO.TXT           256  16 May 85
+
+
+"Name" is simply the name of the file.
+
+"Length" is the unpacked file length.  In other words, it is the 
+number of bytes of disk space which the file would take up if it were 
+extracted.
+
+"Date" is the date on which the file had last been modified, as of the 
+time when it was added to the archive.
+
+
+ARC prints a verbose listing of an archive's contents like this:
+
+    Name          Length    Stowage    SF   Size now  Date       Time    CRC
+    ============  ========  ========  ====  ========  =========  ======  ====
+    ALPHA.TXT         6784  Squeezed   35%      4413  16 May 85  11:53a  8708
+    BRAVO.TXT         2432  Squeezed   41%      1438  16 May 85  11:53a  5BD6
+    COCO.TXT           256   Packed     5%       244  16 May 85  11:53a  3AFB
+
+
+"Name", "Length", and "Date" are the same as for a short listing.
+
+"Stowage" is the compression method used.  The following compression 
+methods are currently employed:
+
+       --          No compression.
+     Packed        Runs of repeated byte values are collapsed.
+    Squeezed       Huffman squeeze technique employed.
+    Crunched       Lempel-Zev compression technique employed.
+
+"SF" is the stowage factor.  In other words, it is the percentage of 
+the file length which was saved by compression.
+
+"Size now" is the number of bytes the file is occupying while in the 
+archive.
+
+"Time" is the time of last modification, and is associated with the 
+date of last modification.
+
+"CRC" is the CRC check value which has been stored with the file.  
+Another CRC value will be calculated when the file is extracted or 
+tested to ensure data integrity.  There is no especially good reason 
+for displaying this value.
+
+
+
+BACKUP RETENTION
+----------------
+
+When ARC adds or deletes archive entries it renames the original 
+archive to give it an extension of ".BAK", and then creates a new 
+archive with the desired changes.  If you wish to retain this original 
+copy of the archive for backup purposes, then add the "B" (Backup) 
+command to your other commands.
+
+For example, if you wanted to delete all entries with an extension of 
+".DOC" from an archive named "JUNK.ARC", but you wanted to keep a copy 
+around that still has them, then you could type:
+
+    ARC bd junk *.doc
+
+or:
+
+    ARC db junk *.doc
+
+
+
+MESSAGE SUPPRESION
+------------------
+
+ARC prints two types of messages, warnings and comments.
+
+Warnings are messages about suspected error conditions, such as when a 
+file to be extracted already exists, or when an extracted file fails 
+the CRC error check.  Warnings may be suppressed by use of the "W" 
+(Warn) command.  You should use this command sparingly.  In fact, you 
+should probably not use this command at all.
+
+Comments (or notes) are informative messages, such as naming each file 
+as it is added to the archive.  Comments and notes may be suppressed 
+by use of the "N" (Note) command.
+
+For example, suppose you extracted all files with an extension of 
+".BAS" from an archive named "JUNK.ARC"  Then, after making some 
+changes which you decide not to keep, you decide that you want to 
+extract them all again, but you don't want to be asked to confirm 
+every one.  In this case, you could type:
+
+    ARC xw junk *.bas
+
+Or, if you are going to add a hundred files with an extension of 
+".MSG" to an archive named "TRASH.ARC", and you don't want ARC to list 
+them as it adds them, you could type:
+
+    ARC an trash *.msg
+
+Or, if you want to extract the entire contents of an archive named 
+"JUNK.ARC", and you don't want to hear anything, then type:
+
+    ARC xnw junk
+
+
+
+TESTING AN ARCHIVE
+------------------
+
+The integrity of an archive may be tested by use of the "T" (Test) 
+command.  This checks to make sure that all of the file headers are 
+properly placed, and that all of the files are in good shape.
+
+This can be very useful for critical archives, where data integrity 
+must be assured.  When an archive is tested, all of the entries in the 
+archive are unpacked (without saving them anywhere) so that a CRC 
+check value may be calculated and compared with the recorded CRC 
+value.
+
+For example, if you just received an archive named "JUNK.ARC" over a 
+phone line, and you want to make sure that you received it properly, 
+you could type:
+
+    ARC t junk
+
+It defeats the purpose of the T command to combine it with N or W.
+
+
+
+CONVERTING AN ARCHIVE
+---------------------
+
+The "C" (Convert) command is used to convert an archive entry to take 
+advantage of newer compression techniques.  For example, if you had an 
+archive named "JUNK.ARC", and you wanted to make sure that all files 
+with an extension of ".DOC" were encoded using the very latest 
+methods, you could type:
+
+    ARC c junk *.doc
+
+Or if you wanted to convert every file in the archive, you could type:
+
+    ARC c junk
+
+
+
+                             SPECIAL NOTES
+                             =============
+
+Whenever ARC encounters a fatal error condition it leaves the original 
+archive on disk, renamed to have an extension of ".BAK" (backup).  
+
+The function used to calculate the CRC check value in previous 
+versions has been found to be in error.  It has been replaced in 
+version 3.0 with a proper function.  ARC will still read archives 
+created with earlier versions of ARC, but it will report a warning 
+that the CRC value is in error.  All archives created prior to version 
+3.0 should be unpacked and repacked with the latest version of ARC.  
+
+Transmitting a file with XMODEM protocol rounds the size up to the 
+next multiple of 128 bytes, adding garbage to the end of the file.  
+This used to confuse ARC, causing it to think that the end of the 
+archive was invalidly formatted.  This has been corrected in version 
+3.03.  Older archives may still be read, but ARC may report them to be 
+improperly formatted.  All files can be extracted, and no data is 
+lost.  In addition, ARC will automatically correct the problem when it 
+is encountered.  
+
+
+
+                         CHANGES IN VERSION 4
+                         ====================
+
+ARC is adding another data compression technique in this version.  We 
+have been looking for some technique that could improve on Huffman 
+squeezing in at least a few cases.  So far, Lempel-Zev compression 
+seems to be fulfilling our fondest hopes, often acheiving compression 
+rates as much as 20% better than squeezing, and sometimes even better.  
+Huffman squeezing depends on some bytes being more "popular" 
+than others, taking the file as a whole.  Lempel-Zev compression is 
+instead looking for long strings of bytes which are repeated at 
+various points (such as an end of line followed by spaces for 
+indentation).  Lempel-Zev compression is therefor looking for 
+repetition at a more "macro" level, often acheiving impressive packing 
+rates.
+
+Alas, nothing ever comes free.  This gain in storage efficiency comes 
+at the price of processor time.  ARC version 4.0 will usually take 
+about twice as long to add a file to an archive as version 3.1 did.  
+We intend to work on improving this in the future, but it will always 
+be slower since it must now work much harder to determine the best 
+packing method.
+
+Fortunatly, file extraction is only slightly slower, to the point 
+where it will probably go unnoticed.
+
+In the typical case a file is added to an archive once and then 
+extracted many times, so the increased time for an update should more 
+than pay for itself in increased disk space and reduced file 
+transmission time.
+
+As usual, ARC version 4.0 is completely upward compatible.  That is, 
+it can deal properly with any archive created by any earlier version 
+of ARC.  It is NOT reverse compatible.  Archives created by ARC 4.0 
+will generally not be usable by earlier versions of ARC.  
+
+
+
+                        CHANGES IN VERSION 4.1
+                        ======================
+
+Version 4.1 does not contain any major changes from version 4.0.  
+Lempel-Zev coding has been improved somewhat by performing non-repeat 
+compression on the data before it is coded (as was already done with 
+Huffman squeezing).  This has the two fold advantage of (a) reducing 
+to some extent the amount of data to be encoded, and (b) increasing 
+the time it takes for the string table to fill up.  Performance gains 
+are small, but noticable.
+
+The primary changes are in internal organization.  ARC is now much 
+"cleaner" inside.  In addition to the esthetic benefits to the author, 
+this should make life easier for the hackers out there.  There is also 
+a slight, but not noticable, improvement in overall speed when doing 
+an update.
+
+Version 4.1 is still fully upward compatible.  But regretfully, it is 
+again not downward compatible.  Version 4.1 can handle any existing 
+archive, but creates archives which older versions (including 4.0) 
+cannot unpack.
+
+
+
+                        CHANGES IN VERSION 4.3
+                        ======================
+
+Version 4.3 adds the much-demanded feature of using pathnames when 
+adding files to an archive.  For obscure technical reasons, files 
+being extracted still go in the current directory on the current 
+drive.  Pathnames are also not supported for any of the other 
+commands, because it would make no sense.
+
+Version 4.3 is also using a slightly different approach when adding a 
+file to an archive.  The end result is twofold:
+
+1) Slightly more disk space is required on the drive containing the 
+   archive.  This should only be noticeable to those creating very 
+   large archives on a floppy based system.  
+
+2) A 30% reduction in packing time has been achieved in most cases.  
+   This should be noticeable to everyone.  
+
+As always, version 4.3 is still fully upwards compatible, and is 
+backwards compatible as far as version 4.1.
+
+
+
+                      PROGRAM HISTORY AND CREDITS
+                      ===========================
+
+In its short life thus far, ARC has astounded us with its popularity.  
+We first wrote it in March of 1985 because we wanted an archive 
+utility that used a distributive directory approach, since this has 
+certain advantages over the more popular central directory approach.  
+We added automatic squeezing in version 2 at the prompting of a 
+friend.  In version 2.1 we added the code to test for the best 
+compression method.  Now (in August of 1985) we find that our humble 
+little program has spread across the country, and seems to have become 
+a new institution.  
+
+We are thankful for the support and appreciation we have received.  We 
+hope that you find this program of use.
+
+
+If we have acheived greatness, it is because we have stood upon the 
+shoulders of giants.  Nothing is created as a thing unto itself, and 
+ARC is no exception.  Therefore, we would like to give credit to the 
+following people, without whose efforts ARC could not exist:
+
+
+Brian W. Kernighan and P. J. Plauger, whose book "Software Tools" 
+provided many of the ideas behind the distributive directory approach 
+used by ARC.
+
+Dick Greenlaw, who wrote the public domain SQ and USQ programs, in 
+which the Huffman squeezing algorithm was first developed.
+
+Robert J. Beilstein, who adapted SQ and USQ to Computer Innovations 
+C86 (the language we use), thus providing us with important parts of 
+our squeezing logic.
+
+Kent Williams, who graciously allowed us to use his LZWCOM and LZWUNC 
+programs as a basis for our Lempel-Zev compression logic.
+
+David Schwaderer, whose article in the April 1985 issue of PC Tech 
+Journal provided us with the logic for calculating the CRC 16 bit 
+polynomial.
+
+
+And many, many others whom we could not identify.

@@ -1,0 +1,1294 @@
+
+
+                 $VER: DeliTracker.eng V2.32 (20.03.2000)
+                   Copyright 2000 by Delirium Softdesign
+                      (Peter Kunath and Frank Riffel)
+
+
+
+                1.OVERVIEW
+
+                2.LICENSING AND DISTRIBUTION
+
+                3.ORDERFORM
+
+                4.GETTING STARTED
+                  4.1 System requirements
+                  4.2 First steps
+                  4.3 Tooltype Settings and Shell Environment
+
+                5.BASICS
+                  5.1 Players
+                  5.2 Genies
+                  5.3 Packed modules
+                  5.4 Module lists
+
+                6.HOW TO CONTROL DELITRACKER
+                  6.1 The main window
+                  6.2 The option window
+                  6.3 The player window
+                  6.4 The genie window
+                  6.5 The program window
+                  6.6 Shortcuts
+                  6.7 Commodities
+                  6.8 Arexx
+
+                7.NOTES
+
+                8.ACKNOWLEDGEMENTS
+
+
+1.OVERVIEW
+
+  Welcome to DeliTracker 2.32. For those who don't know: DeliTracker is a
+  highly flexible sound player which supports many sound formats. The replay
+  routines for the common formats ProTracker, NoiseTracker, SoundTracker 15
+  and 31 instrument version and StarTrekker without AM sounds, are built-in.
+  Additional players can be loaded from disk. DeliTracker is NOT a Sampler,
+  Digitizer, MIDI sequencer nor a song editor. It is only meant to play
+  music modules in a very comfortable way. Here are some good reasons for
+  using DeliTracker:
+
+        ° System friendly and multitasks happily
+        ° Highly expandable due to modular concept
+        ° Allocates the sound channels
+        ° Supports xpkmaster.library for decrunching
+        ° Correct play speed in PAL/NTSC (uses timer.device)
+        ° Works well with serial.device
+        ° Module lists
+        ° ARexx
+        ° PubScreen support
+        ° Hotkey (Commodity)
+        ° Appwindow, modules can be played by simply dropping the module
+          icon (or even a whole directory) into the main window
+        ° Written in 100% Assembler
+
+
+2.LICENSING AND DISTRIBUTION
+
+       DeliTracker (c) 1991 - 2000 by Peter Kunath and Frank Riffel.
+
+  DeliTracker 2.32, the DeliTracker tool icon, their related documentation,
+  utilities, and examples (hereinafter "Files") and in particular player
+  and genie interface are (c) Copyright 1991-2000 by Peter Kunath and Frank
+  Riffel. All Rights Reserved. This package is Freeware. There's no need
+  to register anymore. Thanks to all registered users for their support!
+
+  This is the final DeliTracker Version for the Amiga, there won't be any
+  updates. The development is now continued on the PC. The official Homepage
+  of the Windows version is www.deliplayer.com.
+
+  DeliTracker may be distributed on public-domain, shareware disks, and
+  electronic networks such as the Internet as longs as the followings
+  conditions are fulfilled:
+
+    1. All Files must be kept together. You can find a list of all
+       Files in 'Distribution'.
+
+    2. None of the distributed files may be modified in any way. The only
+       exception is archiving (e.g. with LhA), but the original files
+       must be 100% restorable.
+
+    3. For any use in commercial products the permission of the authors
+       is required. Incorporating any part of the DeliTracker distribution
+       in other programs or projects is not permitted.
+
+  DeliTracker has been developed and tested thoroughly. Never-the-less, the
+  Authors cannot be held responsible for any damages that are caused by
+  DeliTracker. The Files and their related documentation, utilities, and
+  examples are provided "AS-IS" and subject to change without notice; no
+  warranties of any kind, either expressed or implied, including, but not
+  limited to, the implied warranties of merchantability and fitness for a
+  particular purpose. No liability or responsibility is assumed. Use at
+  your own risk.
+
+  Installer and Installer project icon (c) Copyright 1991-93
+  Commodore-Amiga, Inc. All Rights Reserved. Reproduced and
+  distributed under license from Commodore.
+
+3.ORDERFORM
+
+  This DeliTracker version is Freeware. You can use it for free as long
+  and as often as you want. There's no need to register.
+
+
+4.GETTING STARTED
+
+  4.1 System requirements
+
+  DeliTracker II requires at least Workbench and Kickstart 2.0 (aka V37).
+  We recommend the usage of Workbench 2.1 (or 3.x), because the ASL
+  File requester of V38 and above is much faster and supports multiselect.
+  If you want to use packed modules, the 'xpkmaster.library' and the
+  corresponding sublibraries must be installed. Make sure that you use V2
+  of XPK! V1 is NOT sufficient. DeliTracker requires at least 150KB of
+  memory. Additional memory is needed for every loaded genie, player, the
+  current modulelist and the decrunched module. Of course, your System
+  should be equipped with a Monitor that has speakers, or even better,
+  connected to a HiFi system.
+
+  4.2 First Steps
+
+  If you already use an older version of DeliTracker, please delete all the
+  files in the old distribution and your configuration files. Now run the
+  supplied installer script by simply double clicking on the appropriate
+  installation icon. The installation script will install DeliTracker on
+  your harddisk into a drawer named DeliTracker. After the installation
+  we strongly suggest that you move seldom used players and genies to the
+  storage dirs (e.g. from DeliPlayers/ to DeliPlayers/PlayerStore/). If you
+  don't do this you will waste memory! If you need a particular player or
+  genie you can still load it by yourself. If you start DeliTracker the
+  first time besides the control window a few other windows will be opened.
+  On 68000 systems this can take some seconds. These windows belong to
+  particular players or genies. To avoid that DeliTracker opens all these
+  windows every time you start you must configure them. It is not hard to
+  do this. Activate a window. Now select the desired options. You will find
+  several options in the 'Settings' menu. If you wish that the window
+  should not be opened every time you start DeliTracker turn 'Popup' off.
+  Some windows additionally contain gadgets for several options. For those
+  functions and options refer to 'Genies.doc' or 'Players.doc'. Now save
+  these settings using the 'Save Prefs' from the 'Project' menu. You may
+  close the window now and continue with another.
+
+  Note: There is an ENV: variable called DELICONFIG. It contains the path
+  to the configuration directory. This variable is important if DeliTracker
+  was installed on a CD-ROM. You can set this variable to a directory on
+  your harddisk (e.g SYS:DeliConfig). This enables you to use your favorite
+  settings rather than the predefined on the CD.
+
+  4.3 Tooltype Settings and Shell Environment
+
+  For Shell usage you must separate all keywords and arguments by spaces.
+  Strings which contain spaces must be quoted. For Workbench usage (i.e.
+  tooltypes) separate the arguments from the keywords with '='. To set the
+  tooltypes use the 'Information' item of the Workbench. Invalid Tooltypes
+  are ignored. DeliTracker can be used as a 'Default Tool'. For this you
+  have to enter the path where DeliTracker is located at the 'Default Tool'
+  line of the module. This assumes that the module has a project icon.
+
+  Shell Example: 'DeliTracker config "DELI Config" volume 32 filter no'
+
+  Starts DeliTracker with 'DELI Config' as configuration file, turns the
+  lowpass filter off (not on A1000's) and sets the volume to 32.
+
+  These options are used as KEYWORDS in Tooltypes and as CLI templates.
+  The keywords are not case sensitive!
+
+  Option                  Default value and description
+  --------------------    -----------------------------
+
+  config <file>           "DeliConfig/DeliTracker.config"
+                          Loads the specified file as a configuration file.
+
+  cx_priority <pri>       0 (default priority)
+                          Sets the commodities priority. Valid values
+                          are -128 to 127.
+
+  cx_popup <yes|no>       yes (window opened)
+                          Defines if the control window should be opened
+                          at startup. If it is set to 'no', no window will
+                          be opened. The main window may be opened later via
+                          hotkey, Commodities Exchange or with an ARexx
+                          command.
+
+  cx_popkey <string>      "" (no hotkey), see also Hot Key
+
+  closequits <yes|no>     no (CloseWindow will hide the GUI)
+                          This option describes the behaviour when you push
+                          the close gadget of the main window. If turned on
+                          DeliTracker will quit if the window is closed.
+                          This is also known as the 'Nessy' option :-)
+
+  zoomed <yes|no>         no (MainWindow will be opened with normal size)
+                          Determines whether the MainWindow will be opened
+                          in zoomed state (small size) or not.
+
+  module <file>           No file, empty module list.
+                          Uses <file> as startup module. Note: You can use
+                          Modulelists as well.
+
+  playerpath <path>       "DeliPlayers"
+                          Sets the search path for external players.
+
+  geniepath <path>       "DeliGenies"
+                          Sets the search path for external genies.
+
+  pubscreen <Screen>      "", default PubScreen (usually Workbench).
+                          Let you specify the name of the public screen
+                          where DeliTracker, all Player and Genie windows
+                          should pop up. If the given screen is not
+                          available (e.g. does not exist), DeliTracker
+                          opens its windows on the default public screen.
+                          Note: Screen names are case sensitive in V37!
+
+  mainwinxy<XPos>/<YPos>  0/1
+                          Attempts to open the main window at the given
+                          position.
+
+  prefwinxy<XPos>/<YPos>  0/1
+                          Attempts to open the option window at the given
+                          position.
+
+  playwinxy<XPos>/<YPos>  0/1
+                          Attempts to open the player window at the given
+                          position.
+
+  geniewinxy<XPos>/<YPos> 0/1
+                          Attempts to open the genie window at the given
+                          position.
+
+  progwinxy<XPos>/<YPos>  0/1
+                          Attempts to open the program window at the given
+                          position.
+
+  requester <X/Y/W/H>     "" (requester internal default setting)
+                          Specifies the file requester coordinates.
+
+  volume <volume>         64 (maximal volume)
+                          Sets the volume to <volume>. Where volume can
+                          range from 0 to 64.
+
+  balance <balance>       0
+                          Sets the balance to <balance>. Where balance can
+                          range from -64 (left channels only) to 64 (right
+                          channels only).
+
+  quick <yes|no>          yes (module is played immediately after loading)
+                          Defines if a loaded module should begin to play
+                          immediately after loading or if the module is
+                          in a paused state. This option is meant for
+                          synchronization purposes in ARexx scripts.
+
+  filter <yes|no>         no (filter off)
+                          Switches the internal lowpass filter on or off.
+                          An advantage of having the filter off is that
+                          frequencies over 7kHz are not cut off. This has
+                          the effect that most modules will sound much
+                          better.
+                          Note: On A1000 this switch has no effect.
+
+  appicon <yes|no>        yes (display appicon)
+                          If turned on an appicon is left when MainWindow
+                          is closed else no appicon appears.
+
+  lowchip <yes|no>        no (use chipmem for modules)
+                          If turned on DeliTracker tries to use fastmem
+                          for the module.
+
+  swapplay <yes|no>       no (don't use low memory handler)
+                          If turned on DeliTracker will attempt to flush
+                          unused players. DeliTracker will re-load the
+                          players when needed. This function works only
+                          with V39 and above.
+
+  songend <yes|no>        no (ignore songend signals)
+                          Lets you specify whether songend events should
+                          be ignored or not. Some players support a
+                          notification of the song end. If this option is
+                          set, DeliTracker will pause the module and load
+                          the next module. If only one module is in the
+                          soundlist then it is paused after the song has
+                          played once.
+
+  append <yes|no>         no (replace modulelist with new selection)
+                          Lets you specify whether the soundlist should be
+                          inserted at the current position or replaced by
+                          the new selection.
+
+  randmod <yes|no>        no (play modules in sequential order)
+                          Lets you specify whether a Next/Prev-Song event
+                          should take a randomly picked or the following
+                          (preceding) list entry for loading. Once a
+                          module has been played it won't be reselected
+                          until other selected modules have been played.
+                          This behaviour is also known as 'Shuffleplay'.
+                          This option only works if there are more than 2
+                          entries in the modulelist.
+
+  activate <yes|no>       yes (activate window at startup)
+                          If turned off all windows are opened in inactive
+                          state. May be useful for shell users. Hi Zop :-)
+
+  timeout <secs>          0 (no timeout)
+                          Lets you specify the amount of time (in secs)
+                          after that DeliTracker will cause a Next-Song
+                          event. A value of 0 disables timeout. If songend
+                          is enabled DeliTracker will react on the first
+                          event that occurs.
+
+  fadeout <secs>          0 (don't fade)
+                          Lets you specify the time for fading out. A
+                          value of zero disables the smooth transition
+                          between two modules. This feature is only
+                          available for players that support volume
+                          changing.
+
+  randsong <yes|no>       no (first subsong)
+                          Lets you specify whether the first or a random
+                          subsong should be chosen when a new module is
+                          played.
+
+  playstart <yes|no>      yes (startmodule is played at startup)
+                          Defines weather the startup-module should be
+                          played when DeliTracker is started.
+
+
+5.BASICS
+
+  5.1 Players
+
+  The player concept is one of the strong points in DeliTracker. After
+  loading a player DeliTracker will recognize and play modules of this
+  type. It has the advantage that you may only load the players that you
+  need (= efficient memory usage). Of course you may unload any player at
+  any time. Another advantage is that you only need to know how to use
+  DeliTracker rather than every single player. Multimedia applications in
+  conjunction with ARexx greatly benefit from this (e.g. You may play any
+  Module in an AmigaVision(TM) presentation). Another major advantage is
+  that the player interface is very flexible so everyone may easily enhance
+  update or adapt players. For details on programming read the include file
+  and 'Developer.doc'. DeliTracker has the common players built in. These
+  are: SoundTracker15, SoundTracker31, StarTrekker without AM sounds,
+  NoiseTracker and ProTracker. There is another player called 'CustomPlay'.
+  This is a special player that was created to play special modules that
+  contain their own replay code. These 'modules' may not be crunched,
+  because they are loaded via LoadSeg() to allow relocation. In V2 we have
+  added support for player processes (i.e. Now it should be fairly easy to
+  create players that load samples directly from disk). Another improvement
+  is the introduction of the "Noteplayer Interface". This is nothing else
+  than virtualizing all sound hardware accesses. The player does not write
+  to the hardware at all instead it fills out a structure with the needed
+  information. DeliTracker passes this structure to a Noteplayer Genie that
+  handles the sound processing. Other genies may evaluate this data, too.
+  The number of external players that may be loaded is only limited by the
+  amount of free memory. When DeliTracker is started all players in the
+  'DeliPlayers' directory or the specified playerpath e.g. tooltypes or in
+  the configfile are loaded. The external players are listed and described
+  in the 'Players.doc'.
+
+  5.2 Genies
+
+  Genies are a new concept in Release 2.0. Basically they are little
+  "programs" which extend or enhance DeliTracker's functionality. In many
+  respects genies are similar to commodities. They can react on user
+  actions and DeliTracker's internal program states. They can have their
+  own GUI that can be shown or hidden. Genies usually run as separate
+  processes. This enables them to do asynchronous event processing. You
+  can quit a genie either with the remove genie function (found in the
+  genie window) or by sending a CTRL-C to the genie process itself. The
+  GUI of a genie usually offers menus with the following menu items:
+
+        Project
+                About      A ?  Short info about the genie.
+                ==============
+                Save Prefs A S  Save the current settings as default
+                ==============
+                Hide       A H  Hide the GUI
+                ==============
+                Quit       A Q  Remove the Genie
+
+        Settings
+                Activate   A A  Activates the window if the GUI is opened
+                Popup      A P  Opens the GUI when the Genie was loaded
+                ==============
+                Other settings  Other genie specific settings, see the
+                ··············  particular genie documentation.
+
+  There are different types of genies:
+
+  NotePlayer Genies
+    This type of genie has the task of hiding the actually used audio
+    hardware. You can think of a NotePlayer genie like a virtual audio
+    device. A major reason for virtualizing the hardware accesses, is
+    that later NotePlayers could make use of high quality sound cards
+    (or a new chipset) which may support more than four channels. With
+    the help of the CPU (or later a DSP) a Noteplayer genie can emulate
+    more than four channels. As a side effect of the currently used mixing
+    technology for the native amiga sound hardware, we can reduce the
+    chipmem usage to 1KB of sample buffer memory. For future compatibility,
+    the NotePlayer mechanism is prepared to handle 16 Bit samples, as well
+    as for several sample encoding schemes (signed/unsigned/ulaw). Players
+    that support this interface will greatly benefit from this. Here are
+    some of the advantages:
+
+                ° Independence of the used audio hardware
+                ° Independence of the number of hardware channels
+                ° Audio data can be shared with other genies as well
+                  (Stereoscope, Quadrascope, FFT Analyzer ....)
+                ° Resource handling is done by the Noteplayer genie
+                  This includes memory/channel allocation and hardware
+                  initialization.
+                ° Volume and Balance control is also done by the genie
+
+    When a player requires a Noteplayer, DeliTracker will try to use the
+    "cheapest" noteplayer it can get. The choice is based on following
+    criteria: CPU usage, used memory type and the number of channels.
+    They are evaluated in that order.
+
+  Decrunch Genies
+    Decrunch genies can decrunch files that are loaded by DeliTracker.
+    Note: You will run into trouble if you want to load multipart modules
+    from one archive. Think of a LhA'ed TFMX module!
+
+  Convert Genies
+    Convert one module format into another. The user has the advantage that
+    only few optimized and bug-free players are needed to play a variety of
+    "packed"/"optimized"/"encrypted" module formats. In most cases you would
+    need much more code for a player than for a converter.
+
+  Other Genies
+    These Genies have no defined task. They can control or monitor many
+    things. Many users have suggested that we should supply "graphical
+    equalizers" and other things that make the screen alive. Or just
+    wanted more information about the current module. With this type of
+    genie it is possible to extend DeliTracker, so that more info can be
+    displayed. And indeed in most cases they display optional information.
+    This can be simple things like sample names, number of patterns, or
+    the file size. With the aid of a fast CPU they can also display more
+    complex things like the current waveforms or the frequency distribution
+    (think of an FFT Analyzer). Genies that display such complex things
+    will usually run at process priority of -5 so they will only get the
+    cpu when no other important task needs the cpu.
+
+  Only the Paula-NotePlayer Genie is internal. This is a Noteplayer for up
+  to 4 voices that uses the audio.device channel allocation and direct
+  writing to the hardware for output. The user can select the allocation
+  precedence. All other genies are loaded at startup from '/DeliGenies'.
+  For the external genies refer to 'Genies.doc'.
+
+  5.3 Packed modules
+
+  If xpkmaster.library V2 or higher is installed DeliTracker will use the
+  library for decrunching. Optionally, you may load Decrunch Genies for use
+  of other packers. Certain players do not support module packing! This is
+  due to the fact that those players load the module by themselves rather
+  than using the internal LoadFile() function. If the player-info field
+  for a particular player shows 'Packable....NO' you are not allowed to
+  crunch modules for this player.
+
+  NOTE: Don't pack custom modules because they are loaded and RELOCATED via
+  LoadSeg()! The only way to get around this is to use the XFH filehandler
+  or patch LoadSeg() with xLoadSeg to be able to load XPK compressed files.
+
+  5.4 Modulelists
+
+  DeliTracker has an internal Modulelist, that can be manipulated with the
+  program window. Add modules, arrange each entry as you want and save the
+  whole as a modulelist. Later you can retrieve your favorite selection.
+
+  Modulelists are organized as ascii files. The first line must contain
+  'MODLIST' as an identifier. Each further line can contain the filename
+  of a module, a module directory or the path of another modulelist.
+
+  DeliTracker treats Modulelists nearly like modules. The difference is
+  that when DeliTracker wants to 'play' a Modulelist, the modulelist it is
+  treated as a new selection of modules. The 'Random Mod' and the 'Append'
+  flags are evaluated. WARNING: In one very special case this leads to a
+  deadlock situation. This happens when the first entry in the Modulelist
+  is the list itself and 'Random Mod' is off. At that point DeliTracker
+  will not stop to replace the modulelist by itself again and again.
+  Don't create such lists!
+
+
+6.HOW TO CONTROL DELITRACKER
+
+  6.1 The main window
+
+  The main window is the central part of the DeliTracker. All module
+  specific things may be controlled with this panel. DeliTracker's
+  main window consists of four groups. Each group can be folded away,
+  so that you can choose which parts of the window are visible. If the
+  window is active the titlebar shows the actual list number, the number
+  of modules in the list, the used player and the filename of the module.
+  The following is a overview of how the full window looks. Note: If a
+  gadget is drawn ghosted, then this option is not accessible for this
+  player. There could be two reasons for this: First, the soundsystem
+  does not have this feature at all (e.g. SoundTracker has no SubSongs),
+  and second, the player is not perfectly adapted (which is more likely).
+
+  +----------+--------------------------------------+------------+
+  | Module:  | ////////////MODULE NAME///////////// |  [ Time ]  |\
+  +----------+--------------------------------------|------------| Info
+  | Format:  | ///////////MODULE FORMAT//////////// |  00:00:00  |/
+  +----------+--------------------------------------+------------+\
+  | Comment: | [ ====================== 13 =================== ] | Comment
+  +---+---+--++-+------------------------------------------+-+---+/
+  |   |   |   | |                                     [12] | |   |\
+  |[O]|[P]|[G]+-+------------------------------------------+-+[R]| Control
+  |   |   |   | |                      [11]                | |   |/
+  +---+---+-+-+-++-----+-----+-----+----+-----+-----+-----++-+---+
+  |[+]|     |    |     |     |     |    |     |     |     | +--\ |\
+  +---+  |< |  < |  << |  |> |  >> |  > |  >| |  [] |  ^  | |  | | Tapedeck
+  |[-]|     |    |     |     |     |    |     |     |  -  | +--+ |/
+  +---+-----+----+-----+-----+-----+----+-----+-----+-----+------+
+        [1]   [2]  [3]   [4]   [5]   [6]  [7]   [8]   [9]   [10]
+
+    Tapedeck group
+
+     [+] Faster: plays song a little faster
+
+     [-] Slower: plays song a little slower
+
+     [1] Prev Song: play the previous song. This gadget is only enabled if
+         more than one file was selected. If 'Random Mod' is selected this
+         button picks a random module. See also 'Random Mod'.
+
+     [2] Prev SubSong: Jumps to the previous sub-song (if available).
+
+     [3] Prev Pattern: Jumps to the previous pattern. If the current
+         pattern is the first, the counter is set to the last pattern.
+
+     [4] Play/Pause: Plays a paused sound or pauses a playing sound.
+
+     [5] Forward: Jumps to the next pattern in the module. If the current
+         pattern is the last, the counter wraps around to the first.
+
+     [6] Next SubSong: Plays the next subsong of a module. This function
+         allows you to select other melodies in the module. Not every
+         soundsystem provides you this feature. One of the most common
+         soundsystems that provide multi-modules are TFMX and MED.
+
+     [7] Next Song: This button loads the next module form the selected
+         modulelist. If the last module of the list is playing and you
+         press this button the first module of the list will be played
+         (cyclic list). If 'Random Mod' is selected this button has the
+         same function as the Prev Song button.
+
+     [8] Stop Song: This button resets the pattern counter and the speed to
+         the initial default value.
+
+     [9] Eject Module: stops the actual module and removes it from memory.
+
+    [10] Load Song: Opens the file requester and lets you select one or
+         more modules for playing. If you select an empty directory
+         DeliTracker will scan the whole dir and add all files matching
+         the module pattern (see option window). The first selected
+         module is loaded and played. If enough memory is available,
+         DeliTracker will use double buffering. This means that the
+         current song continues playing until the next song is loaded.
+
+    Control group
+
+     [O] opens or closes the Option window
+
+     [P] opens or closes the Player window
+
+     [G] opens or closes the Genies window
+
+     [R] opens or closes the Module Program window
+
+    [11] Balance Control: Let you change the Balance.
+
+    [12] Volume Control: Let you change the Volume.
+
+    Comment group
+
+    [13] Comment: Here you can read/enter an optional comment. If you hit
+         'Return' the comment is saved.
+
+    Info group
+
+         This group contains some information about the current module.
+         Namely the module name, the format name and the amount of time
+         the module has been played. Note: If the player supports internal
+         module names, the real module name is displayed rather than just the
+         filename. There may be a difference between the format name and the
+         player name: If a module has been converted with a converter genie
+         the format name is the source format (e.g. NoisePacker 2.0) and not
+         the destination format (ProTracker).
+
+    [Time] Resets the time counter to 00:00:00.
+
+    Menus
+
+    The non menu shortcuts are only shown if running under V39 or above.
+
+        Project
+                Open        <A> O   ...Open the file requester.
+                =================
+                Play/Pause      0   ...Play or pause a module.
+                Stop Playing    1   ...Stop the actual module.
+                =================
+                Next Module     ]   ...Load the next module in the
+                                       Soundlist. See also 'Random Mod'.
+                Prev Module     [   ...Load previous module.
+                Eject Module    .   ...Stop playing and remove the
+                                       actual module from memory.
+                =================
+                About...    <A> ?   ...Open about requester.
+                =================
+                Hide        <A> H   ...Close all windows.
+                =================
+                Quit        <A> Q   ...Leave the program.
+
+           Control
+                Faster            + ...Increase playspeed.
+                Slower            - ...Decrease playspeed.
+                Reset Speed       * ...Reset playspeed.
+                ===================
+                Forward           5 ...Jump one Pattern forward.
+                Backward          4 ...Jump one Pattern backward.
+                ===================
+                Next Subsong      8 ...Play next Subsong.
+                Prev Subsong      7 ...Play previous Subsong.
+                ===================
+                Volume Up         6 ...Increase Volume.
+                Volume Down       9 ...Decrease Volume.
+                Reset Volume      / ...Reset Volume to max.
+                ===================
+                Left Balance      2 ...More left balance.
+                Right Balance     3 ...More right balance.
+                Reset Balance Enter ...Reset Balance to balanced.
+
+        Settings
+                Info          <A> I ...Turn info group on/off.
+                Comment       <A> C ...Turn comment on/off.
+                Control       <A> N ...Turn control group on/off.
+                Tapedeck      <A> T ...Turn tapedeck group on/off.
+                ===================
+                Options...    <A> S ...Open option window.
+                Players...    <A> P ...Open player window.
+                Program...    <A> R ...Open module list window.
+                Genies...     <A> G ...Open genies window.
+                ===================
+                Load Settings...    ...Load saved settings.
+                Save Settings       ...Save default settings.
+                Save Settings As... ...Save settings to selected file.
+
+    Appwindow
+
+    To make the module selection even more comfortable, icons from modules
+    and module drawers may be dropped on the control window. The modules
+    will be handled as if they were selected with the file requester. If
+    a drawer is dropped, all files will be scanned. All files that match
+    the module pattern will be added to the module list. Sub-directories are
+    not scanned. To use this feature the control window of DeliTracker must
+    be opened on the workbench screen.
+
+  6.2 The option window
+
+  The option window is for setting all global options. To open the option
+  window you may either select the 'Options...' menu or the '?'-Gadget of
+  the main window.
+
+    Startup Mod default ""
+                This module is loaded when DeliTracker is started. If it
+                is a module list DeliTracker will automatically load the
+                first module which is specified in the module list. You
+                can either enter the module by typing the path into the
+                string gadget, or using the file requester gadget behind.
+
+    Player Dir  default "DeliPlayers"
+                This is the path where DeliTracker searches for players.
+
+    Genie Dir   default "DeliGenies"
+                This is the path where DeliTracker searches for genies.
+
+    Pubscreen   default is "", (default PubScreen, usually Workbench)
+                Let you specify the name of the public screen where
+                DeliTracker should pop up. If the given screen is not
+                available (e.g. does not exist), DeliTracker opens its
+                windows on the default public screen.
+                Note: Under V37 screen names are case sensitive!
+
+    Hot Key     default is "" (no hotkey)
+                This defines the hotkey which is used to open or close the
+                windows. If the DeliTracker windows are closed via the
+                hotkey, all other Player and Genie windows are closed as
+                well - the same applies to Hide Interface. To disable the
+                hotkey, use the INACTIVE option of the Commodities Exchange
+                Program.
+
+    Pattern     default "~(#?.info|info.#?|smpl.#?|#?.NT(%|.(pp|im|xpk)))"
+                Defines the pattern of the module requester. This pattern
+                is also used when scanning directories. It enables the user
+                to hide unused (nonmodule files, like #?.info) files.
+
+    Songend     default is OFF (ignore songend signals)
+                Lets you specify whether songend events should be honored
+                or not. Some players support a notification of the songend.
+                If this option is set, DeliTracker will pause the module
+                and load the next module in the list. If only one module
+                is in the soundlist, then it is paused after the song has
+                played once.
+
+    Timeout     default is 0 (no timeout)
+                Lets you specify the amount of time in secs, after which,
+                DeliTracker will cause a Next-Song event. A value of 0
+                disables module timeout.
+
+    Quickstart  default is ON (module is played immediately after loading)
+                Defines if a loaded module should begin to play immediately
+                after loading or if the module is in a paused state. You
+                can use this option for synchronization purposes in ARexx
+                scripts.
+
+    Fadeout     default is 0 (don't fade)
+                Lets you specify how many seconds the fadeout of a song will
+                take. Fading is performed after every eject event. If you
+                select zero no smooth transition will be done. This feature
+                is only available for players that support volume changing.
+
+    Random Mod  default is OFF (sequential order)
+                Lets you specify whether a Next/Prev-Song event should
+                choose a random pick, or the following (preceding) list
+                entry for loading. Once a module has been played it won't
+                be reselected until other selected modules have been
+                played. This behaviour is also known as 'Shuffleplay'.
+                This option only works if there are more than 2 entries
+                in the modlist.
+
+    Random Song default is OFF (first subsong)
+                Lets you specify whether the first or random subsong should
+                be chosen when a new module with subsongs is played.
+
+    Filter      default is OFF (filter off)
+                Switches the internal lowpass filter 'on' or 'off'. If the
+                switch is 'off' it has the advantage that frequencies over
+                7kHz are not cut off. This has the effect that most modules
+                will sound much better. Note: The A1000 filter cannot be
+                switched off!
+
+    Append      default is OFF (replace modulelist with new selection)
+                Lets you specify whether the soundlist should be inserted
+                at the current position or replaced by the current file
+                selection.
+
+    Appicon     default is OFF
+                If the Appicon feature is selected and the main window is
+                closed, an appicon will be created. All files that are
+                dropped into the appicon will be handled as if they were
+                selected with the file requester. If a drawer is dropped,
+                all files will be scanned and added to the module list.
+                Only files which are not matching the pattern will be
+                skipped. Subdirectories are not scanned. A double click
+                on the appicon will open the windows again.
+
+    Activate    default is ON (activate windows)
+                If turned off, all windows are opened in inactive state at
+                startup. May be useful for shell users.
+
+    Play at Start default is ON (startmodule is played at startup)
+                Defines whether the startup-module should be played when
+                DeliTracker is started.
+
+    Prefix      default is 4
+                Specifies the maximum size of the prefix in chars. If a
+                prefix is encountered DeliTracker won't show it the module
+                list. DeliTracker recognizes a prefix by the first dot in
+                the filename. Example: Prefix is set to 3, the filename
+                'dw.sentinel' will be stripped down to 'sentinel' whereas
+                'mdat.TurricanI' won't be changed. This setting influences
+                the module list sorting.
+
+    Swap Players default is OFF
+                If turned on DeliTracker will attempt to flush
+                unused players on low memory situations. DeliTracker will
+                re-load the players when needed. This function works only
+                with V39 and above.
+
+    Low Chipmem default is OFF
+                If turned on DeliTracker tries to use a Noteplayer that
+                can play from fastmemory else the default Noteplayer
+                choosing algorithm is used. This does not mean that every
+                module is now loaded into fastmemory. Only modules of
+                those players which support the noteplayer interface will
+                be located in fast memory.
+
+    Load        Load a saved configuration and set all values to those of
+                a previously saved configuration.
+
+    Save        Save all actual settings to a configuration file. The
+                configuration file contains all above settings plus the
+                file requester and window coordinates. The default config
+                file is saved to the configuration directory. It is named
+                "DeliTracker.prefs". If you select another path/filename
+                the prefs file is saved to this path.
+
+    OK          Close the options window.
+
+  6.3 The player window
+
+    The player window contains all controls for the deliplayers. On the
+    right side is a listview which shows all players that are currently
+    loaded. When the player window is opened the currently active player
+    is selected. Under V39 the active player is always highlighted. A 'D'
+    in front of the player name marks all players that are disabled. A
+    disabled player stays in memory, but DeliTracker doesn't call its
+    checkcode. A double click on an entry will toggle the player on/off.
+    If you select one entry, all information about this player is shown
+    on the left hand. Old players will have a version number less then
+    1.00 (ie. 0.03).
+
+        Config          Configure selected player
+        Show            Open the player's GUI
+        Hide            Close the player's GUI
+        Add             Load (an)other player(s)
+        Remove          Unload selected player
+        Clear           Unload all external players
+        Ok              Close player window
+
+    If a player with the same name is already loaded, the player with the
+    lower version number will be expunged. Internal players may be removed
+    too, but their memory is of course not freed. To add a whole directory
+    of players, just select the dir and make sure that the filename-string
+    in the file requester is empty. Now DeliTracker scans the directory and
+    loads every player. For selecting the default player path see
+    Options-Window.
+
+  6.4 The genie window
+
+    The genies window contains all controls for deligenies. It is very
+    similar to the player window. When this window is opened the currently
+    used NotePlayer is selected. With V39, the active NotePlayer Genie will
+    be highlighted.
+    As in the player window, a double click on an entry will enable/disable
+    it. Another double click on a NotePlayer Genie will force this NotePlayer.
+    This means DeliTracker will use this genie for playing whenever possible.
+    An 'F' in front of the genie name marks this NotePlayer as forced. Only
+    one NotePlayer can be forced at a time.
+
+        Config          Configure selected player
+        Show            Open genie GUI
+        Hide            Close genie GUI
+        Add             Load (an)other genies(s)
+        Remove          Unload selected genie
+        Clear           Unload all external genies
+        Ok              Close genie window
+
+    If a genie with the same name is already loaded, the genie with the
+    lower version number will be expunged. Internal genies may be removed
+    as well, but of course the memory is not freed. Adding a whole dir of
+    genies works the same as above. Just select the dir and DeliTracker
+    will load all genies. For selecting the default genie path, see
+    Options-Window.
+
+  6.5 The program window
+
+    The listview shows all modules that are in the current modulelist. If
+    the filename of the module has a prefix (max. four chars + '.') then
+    DeliTracker won't show the prefix. Under V39 the current module is
+    highlighted. Depending on the selected mode, a click on an listview
+    entry will have a different effect.
+
+        Play            Plays the selected Module.
+        Move            The selected module is removed from the list and
+                        moved into an internal buffer. When another entry
+                        is selected the cut entry is inserted below that
+                        entry. Just try it. It is very easy to move the
+                        modules around.
+        Delete          Removes the selected entry form the modulelist.
+        New             Removes the complete Modulelist.
+        Insert          Open Requester for inserting modules.
+        Current         Jumps to current module, it is centered.
+        Load            Load a saved Modulelist.
+        Save            Saves the current Modulelist starting with the
+                        active module. All entries are saved!
+        Sort            Sorts the Modulelist.
+        Ok              Closes the program window.
+
+    Note: Modulelists are treated like modules, the difference is that
+    when "played" they replace/extend the current modulelist and try to
+    load the first module of the modulelist (if 'Random Mod' is off). This
+    is potentially dangerous, when the first entry in a modulelist is the
+    modulelist itself. So don't create such lists!
+
+  6.6 Shortcuts
+
+  Nearly all functions of DeliTracker can be reached via keyboard short
+  cuts. Any underlined chars in a gadget text indicates the shortcut for
+  that gadget. The shortcuts are only active for the particular window the
+  gadget belongs to. All shortcuts will only work if the corresponding
+  action is possible. All the shortcuts can be entered in upper or lower
+  case. All string gadgets can be left with the 'esc' key. For ease of use
+  every DeliTracker window additionally has the following shortcuts:
+
+  F1  open/activate main window
+  F2  open/activate option open window
+  F3  open/activate player window
+  F4  open/activate genie window
+  F5  open/activate program window
+
+  Because the main window makes heavy use of buttons with images
+  rather than text buttons, we couldn't use the underscoring method
+  for indicating the shortcut. Some of the main window shortcuts are
+  menu shortcuts (RAmiga+Menukey) while the others are simple keys.
+  To make them easy to remember we decided to order them in hierarchy
+  on the numeric keypad. Of course the shortcuts can be used even if
+  the corresponding function group is folded away.
+
+    Simple key shortcuts, see also main window menu section.
+
+    +----------+----------+----------+----------+
+    |PrevMod   ·NextMod   |ResetVol  |ResetSpeed|
+    |[         ·]         |/         |*         |
+    +----------+----------+··········+··········+
+    |PrevSub   ·NextSub   |VolDown   |Slower    |
+    |7         ·8         |9         |-         |
+    +----------+----------+··········+··········+
+    |PrevPat   ·NextPat   |VolUp     |Faster    |
+    |4         ·5         |6         |+         |
+    +----------+----------+----------+----------+
+    |Stop      |LBal      ·RBal      ·ResetBal  |
+    |1         |2         ·3         ·Enter     |
+    +----------+----------+----------+          |
+    |Play/Pause           |Eject     |          |
+    |0                    |.         |          |
+    +----------+----------+----------+----------+
+
+  In addition you may specify a global hot key for the opening and closing
+  of the main window. This hotkey works even if no DeliTracker window is
+  not active. See also cx_popkey and hot key option below.
+
+  6.7 Commodities
+
+  DeliTracker is a Commodity, therefore some typical things may be
+  controlled from within the Commodities Exchange Program. First select
+  'DeliTracker' in the 'Available Commodities' box. The cycle gadget shows
+  you if the hotkey for opening/closing the main window is enabled or not.
+  Click once to change this. 'Show Interface' will open and activate the
+  main window. 'Hide Interface' will close all DeliTracker windows. Finally
+  a click on the 'Remove' button will quit DeliTracker. As usual for
+  commodities, a CLICK ON THE CLOSE GADGET ONLY CLOSES THE WINDOW, but
+  doesn't quit the program. Additionally the following signals can be
+  sent to DeliTracker:
+
+        CTRL-C  Quit DeliTracker
+        CTRL-D  Disable Commodity Broker
+        CTRL-E  Enable Commodity Broker
+        CTRL-F  DeIconify Windows
+
+  6.8 ARexx
+
+  Nearly all functions of DeliTracker can be controlled with ARexx.
+  This is very nice if you are using other ARexx aware software like
+  AmigaVision(TM). DeliTracker is addressed as a function host with
+  the name "DELITRACKER". DeliTracker provides the following commands:
+
+  quit                  Leave DeliTracker and shut down all genies/players.
+
+  filter <yes|no>       yes: Switch filter on.
+                        no:  Switch filter off.
+
+  quick <yes|no>        yes: Turn quick on.
+                        no:  Turn quick off.
+
+  appicon <yes|no>      yes: Display appicon.
+                        no:  No appicon.
+
+  swapplay <yes|no>     yes: Turn low-memory handler on.
+                        no:  Turn low-memory handler off.
+
+  randmod <yes|no>      yes: Turn Randomplay on.
+                        no:  Turn Randomplay off.
+
+  songend <yes|no>      yes: Recognize songend signals.
+                        no:  Ignore songend events.
+
+  append <yes|no>       yes: Activate append mode.
+                        no:  Deactivate append mode.
+
+  activate <yes|no>     yes: Activate windows at startup.
+                        no:  All windows are opened inactive.
+
+  timeout <SECS>        Set timeout to given number of seconds (SECS)
+                        If SECS = 0 the timeout function is disabled.
+
+  fadeout <SECS>        Set fadeout time in seconds. Zero deactivates
+                        fading. Valid range is 0 to 5
+
+  randsong <yes|no>     yes: Start with randomly picked subsong.
+                        no:  Start with first subsong.
+
+  playstart <yes|no>    yes: Startmodule is played at startup.
+                        no:  Don't play a module at startup.
+
+  volume <VOL>          Set volume to <VOL> (Range VOL: 0 to 64).
+
+  balance <BAL>         Set balance to <BAL>, 0 is default, -64 left only,
+                        64 right only (Range BAL: -64 to 64).
+
+  forward               Play next pattern.
+
+  backward              Play previous pattern.
+
+  nextsong              Play next song (module).
+
+  prevsong              Play previous song (module).
+
+  nextsubsong           Play next subsong.
+
+  prevsubsong           Play previous subsong.
+
+  faster                Increase playspeed.
+
+  slower                Decrease playspeed.
+
+  loadconfig [FILE]     Load configfile [FILE] if [FILE] was specified,
+                        else pop file requester up.
+
+  saveconfig [FILE]     Save configfile [FILE] if [FILE] was specified,
+                        else pop file requester up.
+
+  savelist [FILE]       Save module list to [FILE] if [FILE] was specified,
+                        else pop file requester up.
+
+  loadplayer [PLAYER]   Load the [PLAYER] if specified, else open
+                        loadplayer requester.
+
+  deleteplayer <NAME>   Remove player with name <NAME> from memory.
+                        Note: all modules of this player won't be
+                        recognized any longer.
+
+  configplayer <NAME>   Call the configuration routine of the
+                        player <NAME>.
+
+  loadgenie [GENIE]     Load the [GENIE] if specified, else open
+                        loadgenie requester.
+
+  deletegenie <NAME>    Remove genie with name <NAME> from memory.
+
+  configgenie <NAME>    Call the configuration routine of the
+                        genie <NAME>.
+
+  playpause             Play/Pause song.
+
+  stop                  Stop song.
+
+  playmod [MODULE]      Play [MODULE] if [MODULE] was specified else pop
+                        requester up.
+
+  eject                 Remove active module from memory.
+
+  makelist <MODULE>     Inserts [MODULE] at the current position into the
+                        module list.
+
+  clearlist [NUMBER]    Clear the modulelist entry [NUMBER] or clear the
+                        whole list if [NUMBER] is omitted.
+
+  playlist <NUMBER>     Play the module with the list position <NUMBER>.
+
+  pubscreen <SCREEN>    Closes all DeliTracker windows and tries to reopen
+                        all windows on the pubscreen <SCREEN>.
+
+  showgui [NAME]        Opens the GUI of the specified player/genie or
+                        all DeliTracker windows.
+
+  hidegui [NAME]        Closes the GUI of the specified player/genie or
+                        all DeliTracker windows.
+
+  status <group> <dependent>  Returns the actual status. This function is
+                        divided into four different groups: global
+                        settings (g), player specific settings (p), module
+                        dependent settings (m) and genie settings (j).
+                        Additional arguments are specified after the group.
+
+  <group> =     g :     Global
+
+        <dependent>  = <cmd>
+
+               <cmd>            description             return value
+
+                pdr             playerdir               string
+                pub             preferred pubscreen     string
+                gdr             geniedir                string
+                lst             path of programfile     string
+                pnu             number of players       number
+                gnu             number of genies        number
+                vol             current volume          number
+                bal             current balance         number
+                tim             timeout in seconds      number
+                fad             fadeout                 number
+                ver             DeliTracker version     number
+                led             filter                  <yes|no>
+                qst             quickstart              <yes|no>
+                rmo             random module           <yes|no>
+                rso             random subsong          <yes|no>
+                app             append                  <yes|no>
+                swp             swap players            <yes|no>
+                act             activate window         <yes|no>
+                end             songend                 <yes|no>
+                ico             appicon                 <yes|no>
+                pst             play at start           <yes|no>
+                gui             windows open            <yes|no>
+                ply             paused or playing       <yes|no>
+
+  <group> =     m :     Module
+
+        <dependent>  =  <cmd>
+
+               <cmd>            description             return value
+
+                dir             moduledir               string
+                fil             filename                string
+                fmt             formatname              string
+                nam             real module name        string
+                pna             name of current player  string
+                gna             name of used NP genie   string
+                max             selected modules        number
+                num             actual position in list number
+
+  <group> =     p :     Player
+
+        <dependent>  =  <playername> <cmd>
+
+               <cmd>            description             return value
+
+                nam             name                    string
+                cre             creator                 string
+                des             description             string
+                ver             player version          number
+                sho             show                    <yes|no>
+                hid             hide                    <yes|no>
+                ena             enabled                 <yes|no>
+                vol             volume                  <yes|no>
+                bal             balance                 <yes|no>
+                jmp             patternjump             <yes|no>
+                spd             playspeed               <yes|no>
+                sub             subsong                 <yes|no>
+                cfg             config                  <yes|no>
+                pck             packable                <yes|no>
+                int             internal interrupt      <yes|no>
+                npl             uses noteplayer         <yes|no>
+                end             songend detection       <yes|no>
+                prc             running as process      <yes|no>
+                swp             swapable                <yes|no>
+
+  <group> =     j :     Genie
+
+        <dependent>  =  <geniename> <cmd>
+
+               <cmd>            description             return value
+
+                nam             genie name              string
+                cre             creator                 string
+                des             description             string
+                ver             version                 number
+                cfg             config                  <yes|no>
+                sho             show                    <yes|no>
+                hid             hide                    <yes|no>
+                ena             enabled                 <yes|no>
+                dcr             decrunch type           <yes|no>
+                cnv             convert type            <yes|no>
+                npl             noteplayer type         <yes|no>
+                prc             running as own process  <yes|no>
+
+  Square brackets [...] mark arguments that may be omitted. Arguments in
+  angle brackets <...> must be supplied.
+
+  For almost any command example scripts are available. All commands
+  may be entered in lower and upper case.
+
+  Note: We changed the string handling, quotes are not needed any longer.
+
+
+7.NOTES
+
+  The playspeed of a player is the same on PAL/NTSC machines as long as
+  they don't generate their own interrupt (i.e use the built-in interrupt
+  generating mechanism).
+
+  For Modem users: All players that use the DeliTracker internal timer
+  Interrupt should now work well with serial transfers. Players which
+  generate their own timer interrupt may probably not. This is due to
+  the fact that instead of executing the actual playroutine in the timer
+  interrupt itself, we cause a SoftInt (so that the real routine executes
+  in a lower interrupt priority than the RBF interrupt).
+
+
+8.ACKNOWLEDGEMENTS
+
+Our special thanks go to the following people:
+
+  Our betatesters Stefan, Börnie and Manfred for their
+  bugreports and ideas.
+
+  Armin Sander (Oktalyzer) and Carsten Schlote (Sonic Arranger)
+  for creating DeliPlayers for their soundsystems.
+
+  Jörg W. Schmidt for the source code of PlayFTM.
+
+  Tomas Partl for his player.
+
+  Patrik Rak for creating the Spectrum-AY player.
+
+  Emmanuel Marty and Michael Lavaire for the StoneTracker player.
+
+  Tomasz Piasta for DIGI Booster.
+
+  Andreas Scholl for the MarkII source code.
+
+  Thomas Kolbe and Zuheir Urwani for the Soundfactory package and
+  the replay source.
+
+  Markus Illenseer, Christian Rattei and especially K-H. Ruckmich
+  for the correction and enhancement of the german docs.
+
+  Acechan (and Logixs) for the french translation of the docs.
+
+  U4ia and Christian von Roques for a quick scan of the english doc
+  files in Version II.
+
+  Kevin Dackiw for the enhancement of the NoisePacker players and
+  the correction of the english doc files of V1.3x.
+
+  DoIO for modules, demos and diskmag advertisement.
+
+  Thomas Winischofer for MusicMaker.
+
+  Ekhall for sending some replay stuff.
+
+  Markus "maw" Weichselbaum for the PT betas and the hints
+  about the programming of the audio hardware.
+
+  Stephan Schaem for the WindowFX sourcecode.
+
+  Petter E. Stokke for the C-startupcode.
+
+  Chris Marz for some modules.
+
+  Kieron 'O Connor for bug reports and modules.
+
+  Dense for the X-Comm betas.
+
+  Olaf "Warp" Kalgraf for sending some programs.
+
+  Jamal Hannah for supplying us with many PC module format documentations.
+
+  All on IRC #amiga & #amigager (Internet Relay Chat)
+  Hi ALFred, Flintlund, laire, Janne, MASH, mnemo, stefanb, ZZA :-)
+
+  Florian Vorberger for many nice modules, players and genies.
+
+  Pink/Abyss for reporting odd behaviour of noteplayers.
+
+  U. Dominik Müller for XPK.
+
+  Eric Kennedy for TstApp.rexx.
+
+  Nicolas Franck for Deli-Wizard.
+
+  Chaos/Sanity and McDeal/Sanity for the 'DrWho' source.
+
+  Jarno Paananen (Guru/Sahara Surfers) for the ScreamTracker3 and
+  FastTrackerII player source.
+
+  Bastian Spiegel (Twice/Lego) for the AON replay source.
+
+  Jon Pickard for the NotePlayer adaption of the TFMX player.
+
+  Kim Øyhus for his turbo-fast FFT routine.
+
+  Andi da Silva for tons of new DeliPlayers.
+
+  Mark "Marley" Leitiger for the Whittaker source.
+
+  Christian Buchner for the CyberSound calibration-software.
+
+  Chris Hodges for improving several players and the 14Bit-NotePlayer.
+
+  Don Adan & Mr.Larmer (Wanted Team) for new players.
+
+  and all others, who have send replays, modules or registrations.
+
+

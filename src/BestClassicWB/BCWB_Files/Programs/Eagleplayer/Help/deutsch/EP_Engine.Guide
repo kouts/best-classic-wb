@@ -1,0 +1,2523 @@
+@database Engines_Deutsch.Guide
+@$VER: Eagleplayer Engines_Deutsch.Guide V2.02 (01-Jul-1998)
+@index index
+
+@node "Main" "Keine Dokumentation verfügbar"
+
+Für diese Engine ist keine Dokumentation verfügbar.
+
+@endnode
+
+@node "Die Engines" "Die Engines"
+
+
+
+                    Die Engine - Anleitung
+                              zum
+                          Eagleplayer
+
+
+
+
+
+
+  @{b}@{u}Inhaltsverzeichnis:@{ub}@{uu}
+
+     @{b}Engines allgemein@{ub}
+	@{"Einleitung       " link "Introduction"} @{i}Engines ? Was ist das ? @{ui}
+	@{"Steuerung        " link "Control"} @{i}@{b}Wie nutze ich die Engines ? @{ui}@{ub}
+	@{"Übersicht        " link "InfoPage"} @{i}@{b}Was gibt es denn so alles ? @{ub}@{ui}
+	@{"Programmierung   " ALink "EP_Programmierung.Guide/Die Engines"} @{i}Kann ich selbst sowas schreiben ? @{ui}
+	@{"Programmfehler   " link "Bugs"} @{i}Irgendwelche bekannten Schwächen ? @{ui}
+	@{"Entfernte Engines" link "Removed"} @{i}Welche sind nicht mehr dabei ? @{ui}
+	@{"Grafikkarten     " link "GFXBoards"} @{i}Wie bekomme ich die Scopes schneller ? @{ui}
+
+     @{b}Amplifier@{ub}
+	@{"Einleitung       " link "AIntroduction"} @{i}Was sind die Amplifier und wozu brauche ich die ? @{ui}
+	@{"Steuerung        " link "Amplifiermanager"} @{i}@{b}Wie benutze ich die Amplifier ? @{ui}@{ub}
+
+@endnode
+
+@Node "AIntroduction" "Einleitung zu den Amplifiern"
+
+  @{u}Einleitung zu den Amplifiern@{uu}
+ 
+ 
+ Das zugrunde gelegte Prinzip für die Amplifier gibt es auf dem Amiga seit dem
+ Multiplayer von Brian Ford (1992) unter dem Namen "Noteplayer". Es bedeutet, 
+ daß die jeweiligen Abspieler für die verschiedenen Musikformate ihre Ausgabe-
+ daten nicht mehr direkt auf die Hardware schreiben, sondern statt dessen an 
+ andere Unterprogramme weitergeben, die dies dann erledigen. Der Vorteil dabei
+ liegt darin, daß es nunmehr kein Problem ist, die Musikausgabe auf andere 
+ Kanäle umzuleiten wie z.B. auf die Festplatte oder auf eine Soundkarte. Die
+ ursprüngliche Idee von Brian Ford war die Portabilität der Abspielroutinen
+ auf andere Rechner (Atari ST, Macintosh). Das Prinzip wurde später von Peter
+ Kunath und Frank Riffel für den Delitracker aufgegriffen. Der Eagleplayer 
+ besitzt nun seit der Version 2.0 auch solch ein Noteplayerinterface, nur heißt
+ es bei uns anders. Das Ganze basiert im Grunde auf unserem Protracker Fastram-
+ player des Eagleplayer 1.54, aufbauend auf einer Emulation des Paulachips, 
+ der im Amiga für die Soundausgabe sorgt. Effekte wie z.B. die beim 
+ FasttrackerII üblichen @{i}Ping Pong Loops @{ui}werden selbstredend unterstützt.
+ Auch für zukünftige Erweiterungen (16 Bit Samples, Panning) ist das System 
+ bereits vorbereitet.
+
+ Was bringt das nun für den Anwender ? Es ist zum Beispiel möglich, Musikstücke
+ ins Fastmem zu laden, wodurch das bei Amigas ohne Grafikkarten doch oft sehr
+ eng bemessene Chipram geschont wird. Desweiteren kommt dazu, daß wir selbst
+ ein paar Modules besitzen, die einfach nicht ins Chipram passen würden, da
+ deren Länge einfach die magischen 2 MegaByte übersteigt.
+ Außerdem können die Musikstücke nun mit verschiedenen Effekten unterlegt 
+ werden, so zum Beispiel mit "Digital Delayed Surround" oder mehreren 
+ verschiedenen Echos.
+ Als ersten Schritt zur Unterstützung von Soundboards liegt der
+ Eagleplayer-release ein Amplifier zur Unterstützung der toccata.library
+ bei, durch den die "Toccata", "Melody" und "Prelude" - Karten als
+ Output-Device in echter 16 Bit Qualität verwendet werden können.
+ 
+
+@endnode
+
+@Node "GFXBoards" "Tips zu Grafikkarten"
+
+  @{u}Tips zu Grafikkarten@{uu}
+
+ Im Folgenden möchten wir einige Hinweise geben, wie Sie die Geschwindigkeit der
+ @{"Scopes" link "Quadrascope"}, @{"Analyzer" link "FFT-Analyzer"} usw. des Eagleplayers (und auch anderer Programme) bei 
+ der Verwendung von Grafikkarten im Amiga möglicherweise um einen erheblichen
+ Faktor steigern können, genauso wie die Klangqualität bei Verwendung des
+ @{"8 Bit" link "8 Bit Amplifier"} - und des @{"14 Bit" link "14 Bit Amplifier"} Amplifiers. Es wird dabei sowohl auf das weitver-
+ breitete CyberGFX®-System Bezug genommen, als auch das neue Picasso96.
+
+
+ @{u}Grafikgeschwindigkeit bei Verwendung von CGFX@{uu}
+
+ 1. Öffnen Sie Screens, die im CGFX 8-Bit Modus arbeiten, immer mit der Farbtiefe 8
+    (256 Farben), bei 128 oder weniger Farben kann es wesentliche Einbrüche in
+    der Geschwindigkeit der Bildschirmdarstellung geben. Dies ist mir (Buggs) übrigens
+    gestern gerade aufgefallen, als ich den FFT-Analyzer in maximaler Größe testen
+    wollte, auf einem 64 Farben CyberGFX Screen. Mag sein, daß es sich dabei nur
+    um einen Bug in einer der Intuition-Emulatiosroutinen handelt, aber ich dachte,
+    ich sollte darauf hinweisen.
+ 2. vermeiden Sie Grafikdaten im Chipram, das Chipmem ist je nach Prozessortyp 
+    und Rechner bis zum Faktor 10 langsamer als das Fastram, was sich deutlich in
+    der Darstellungsgeschwindigkeit niederschlägt.
+
+    CGFX-Optionen: NOCHIPSCREEN anschalten
+                   PLANES2FAST  anschalten
+
+ 3. nutzen Sie die Möglichkeiten zur Beschleunigung der Grafik, so z.B. bietet die
+    Cybervision nicht umsonst einen Chip zur Umrechnung der Amiga-Planardaten ins
+    VGA-Chunkypixel-Format.
+    
+    CGFX-Optionen: CPUP2C       ausschalten
+
+ Beispiele: (Cli oder Shell öffnen und diese Zeilen eingeben)
+  setenv cybergraphics/NOCHIPSCREEN 1
+  setenv cybergraphics/PLANES2FAST 1
+  setenv cybergraphics/CPUP2C 0
+  copy env:cybergraphics/NOCHIPSCREEN envarc:cybergraphics/
+  copy env:cybergraphics/PLANES2FAST envarc:cybergraphics/
+  copy env:cybergraphics/CPUP2C envarc:cybergraphics/
+
+
+ @{u}Grafikgeschwindigkeit unter Picasso96@{uu}
+
+ Im Moment (V1.25) legt Picasso96 alle von den Scopes selbstallozierten Bitmaps
+ ins Chip Memory, so daß die Scopes extrem ausgebremst werden, in etwa auf
+ die hälfte bis ein drittel der Geschwindigkeit, verglichen mit einem wie, oben
+ beschrieben, eingerichteten CybergraphX System.
+ Die einzige Lösung, die mir dazu einfällt, ist, die Scopes so zu patchen, daß
+ diese lediglich Fastmem erhalten. Wenn Sie MCP (Master Control Program von
+ Aliendesign, verfügbar auf dem Aminet oder http://www.cs.tu-berlin.de/~zerocom)
+ verwenden, sollten Sie zu diesem Zweck die "Mempatch" Funktion einschalten.
+ 
+ Starten Sie MCPPrefs, setzen Sie den Mempatch Modus auf "include" und fügen Sie
+ Einträge zu den Scopes auf die folgende Art und Weise ein:
+ (vergessen Sie bitte nicht, das Zeichen nach dem "." im Tasknamen durch das 
+  Standard-AmigaDOS Muster "#?" zu ersetzen)
+
+  EPatternscroll.#?        --> Fast only
+  E_FFTSpectrumAnalyzer.#? --> Fast only
+  EQuadrascopeII.#?        --> Fast only
+  ESpace-Scope+.#?         --> Fast only
+  EStereoscopeColor.#?     --> Fast only
+
+ @{b}WARNUNG ! Kommen Sie nicht auf die Idee, alle zum Eagleplayer gehörenden 
+ Programmteile ins Fastmem zu legen, besonders die Amplifier und den Eagleplayer
+ selbst. Diese benötigen UNBEDINGT Chipmem zum Abspielen der Daten über die
+ eingebaute Soundhardware. Diese Tips sind lediglich relevant für die
+ reinen Anzeige-Engines@{ub}
+
+ Anmerkung:  dieselben Patches könnten auch bei Verwendung von CGFX nützlich 
+             sein, wenn Sie die PLANESTOFAST Option nicht eingeschaltet haben.
+ Anmerkung2: Bitte beachten Sie, daß die Scopes nach dem Patchen @{b}nicht@{ub} mehr
+             auf ESC/AGA Bildschirmen arbeiten können, nur noch auf Grafikkarten-
+             Bildschirmen !
+
+ @{u}Klangqualität@{uu}
+ 
+ Die Amplifier des Eagleplayer sind in der Lage, die Musikstücke mit weit mehr
+ als 28 kHz auszugeben, sobald ein Bildschirm im Vordergrund ist, der in einem
+ Doublescan Modus läuft (Multiscan, DBLPal, Euro72...) und damit den Amiga in
+ die Lage versetzt, die Samples mit einer höheren Ausgaberate  abzuspielen.(die
+ Musikausgabe des Amiga-Soundchips ist leider direkt an die Zeilenfrequenz der
+ Grafikchips gekoppelt)
+ Was passiert nun aber beim Betrieb von Grafikkarten ? Beim Umschalten von einem
+ Amiga-Screen auf einen Grafikkartenbildschirm wird die Ausgabe des Amiga-Signals
+ durch die Grafikkartensoftware ausgeschaltet und dafür der CGFX Bildschirm 
+ aktiviert. Was ist nun der Vorteil daran ? Der liegt ganz einfach darin, daß
+ Cybergraphics zwar die Bildschirmausgabe des Amigas zugunsten der Grafikkarte
+ und der Zugriffsgeschwindigkeit auf das Chipram abschaltet, aber dabei nicht
+ den Anzeigemodus - und was uns daran am meisten interessiert - die 
+ Zeilenfrequenz rücksetzt. Wenn also beim Start des Amigas einmal z.B. ein 
+ DBLPal oder Multiscan - Bildschirm geöffnet und danach wieder geschlossen wurde,
+ so bleibt die von den Amigachips erzeugte Bildschirmfrequenz bestehen. Wer also
+ einen Anzeiger für "Bootbilder" in der startup-sequence startet (Bootscreen,
+ PicBoot, SysPic) und diesem einen Monitortreiber wie z.B. DBLPal fest zuweist,
+ hat somit schon gewonnen.
+ Eine weitere Möglichkeit sind die auf dem Aminet zu findenden Tools wie "Prod"
+ (gfx/board/Prod.lha) oder "HiScan" (mus/misc/HiScan1_0.lha), die einen Bildschirm
+ in Multiscan-Auflösung öffnen und sofort wieder schließen, so daß derselbe 
+ Effekt, wie oben beschrieben, erreicht wird.
+
+ CGFX-Optionen: KEEPAMIGAVIDEO einschalten
+
+ Picasso96 bietet von Haus aus die Möglichkeit, bei Verwendung von Grafikkarten-
+ bildschirmen die Amiga-Hardware in einen für Soundausgabe mit einer Abspielrate
+ >28 kHz tauglichen Modus zu versetzen. Die dabei mögliche Ausgaberate liegt
+ bei c.a. 52000 Hz (bei höheren Ausgaberaten kann es zu Dropouts kommen).
+ Beachten Sie bitte, daß beim Umschalten auf PAL oder NTSC Bildschirmen die
+ Beschränkung auf 28 kHz trotzdem bestehen bleibt, obwohl die PicassoIV 
+ durch den eigenen Flickerfixer höhere Scanraten erzeugen kann. Diese
+ Änderungen am Videosignal haben KEINEN Einfluß auf die Arbeitsweise
+ der Amiga-Customchips.
+ Es kann sein, daß Sie Ihre Picasso96 Treiber auf den aktuellen Stand bringen
+ müssen, um in den Genuß der 52 kHz Ausgaberate zu kommen, da die
+ PicassoIV selbst teilweise noch mit alten Versionen der Software
+ ausgeliefert wird.
+
+
+ @{u}Probleme:@{uu}
+ 
+ Leider weist CybergraphX noch so einige Fehler auf. Gelegentlich werden beim
+ Öffnen von Screens bzw. beim Umschalten zwischen Screens die ECS bzw. AGA 
+ Monitortreiber zerstört, dabei sämtliche Register der Audiohardware 
+ überschrieben usw. Manchmal kommt es bei gleichzeitigem Diskettenzugriff sogar
+ zum totalen Lockup des Systems. Ich habe versucht, diese Probleme möglichst
+ zu Umgehen, aber trotz allem kann es nicht ausgeschlossen werden, daß es
+ während des Abspielens dazu kommt, daß plötzlich die Soundausgabe mit mehr
+ als 28 kHz nicht mehr möglich ist. Man sollte sich immer vor Augen führen, daß
+ CybergraphX aufgrund fehlender Betriebssystemunterstützung einen Hack 
+ darstellt, der eben nicht 100%ig kompatibel ist, trotz der enormen bereits
+ bestehenden Leistungsfähigkeit. Um auf Nummer sicher zu gehen, ist es
+ daher manchmal doch ratsam, eine Abspielrate von 28 kHz nicht zu 
+ überschreiten, wenn diese Fehler von CGFX bei Ihnen häufiger zum Tragen kommen.
+ Dies gilt sowohl für CybergraphX 2.x, als auch Version 3.x (zumindestens
+ bis zur R66 - Release)
+
+@endnode
+
+@Node "Introduction" "Einleitung zu den Engines"
+
+
+  @{u}Einleitung zu den Engines@{uu}
+
+
+ Die Engines stellen eine Neuerung auf dem Markt überhaupt dar¹. Sie sind
+ extern zu ladende, eigenständige Programme, die asynchron (d.h. als eigene
+ Tasks) arbeiten. Ursprünglich als reine Analyzerprogramme für grafischen
+ Effekte und Spielereien vorgesehen, kamen jetzt noch Möglichkeiten hinzu,
+ durch die der Eagleplayer nicht nur der steuernde, sondern nunmehr der 
+ gesteuerte Teil sein kann. Das heißt mit anderen Worten, daß die Engines 
+ Zugriff auf alle wichtigen Daten des Eagleplayers haben und Kommandos an 
+ diesen senden können. Dies eröffnet ganz neue Welten. So ist es kein Problem,
+ eine andere Oberfläche für den Eagleplayer zu schaffen, z.B. mit eigenem 
+ Screen im CD-Player-Look. Dazu wäre es nur notwendig, die Oberfläche
+ mit Eingabehandling zu schreiben und Eingaben an den Eagleplayer weiterzu-
+ reichen, genauso leicht kann man mal fix die @{"Oberfläche" link "BifatGui"} wechseln, statt dessen
+ beispielsweise den Intiutracker "Nostalgielook" verwenden (ist schon in
+ Planung). Der Eagleplayer verwaltet zur Zeit 32 Engines, die beliebig
+ ein- und ausgeschaltet werden können. Auch abspeicherbare Voreinstellungen der
+ Engines mit Fensterposition, Arbeitsmodus (z.B. beim @{"FFT-Analyzer" link "FFT-Analyzer"}) und Infor-
+ mation, ob das Fenster offen oder geschlossen ist, sind nutzbar. 
+ Eagleplayer merkt sich ab Version 2.0 die Einstellungen der Engines automatisch,
+ auch wenn diese aus dem Speicher entfernt werden, somit kann man einfach die
+ Engines laden, positionieren auf dem Bildschirm, wieder entfernen, danach die
+ Einstellungen des EP speichern und bei Gelegenheit, wenn eine Engine einmal
+ wieder gewünscht wird, sind sämtliche Einstellungen sofort wieder da. Ein
+ weiterer Vorteil seit EP V2.0 ist, daß beim Start nur die aktiven Engines
+ geladen werden und die nicht benötigten nicht ungenutzt im Speicher liegen
+ oder per Hand aus dem Verzeichnis gelöscht werden müssen, was den Bedienkomfort
+ doch erheblich steigert.
+ Wer`s braucht, kann Engines auch mehr als einmal starten. Dazu kann man a) 
+ entweder die gewünschte Engine unter einem anderen Namen ins Verzeichnis 
+ 'Engines' kopieren oder b) über die Menüfunktion "Add Engine" zusätzlich
+ einbinden.
+
+ Ein Informations- und Verwaltungsprogramm gibt es seit der Version 2.0 des
+ Eagleplayers (@{"Manager" link "Manager"}).
+
+ Bitte beachten Sie: Die Engines mit eigener grafischer Ausgabe wie z.B. die
+ @{"Scopes" link "Quadrascope"} werden teilweise über die Bildschirmfrequenz gesteuert und brauchen
+ somit bei 50 Hz Bildschirmfrequenz logischerweise 25% Rechenzeit weniger 
+ als bei 78Hz Super72 ! Alle aufgeführten Werte in Bezug auf die Geschwindig-
+ keit beziehen sich auf Messungen im 50 Hz DBLPal-Modus.
+ Bei einigen, besonders rechenzeitaufwendigen Engines gibt es eine
+ "Slow Mode" Funktion, bei der die Anzeigerate halbiert wird und somit auch
+ deutlich weniger Rechenzeit beansprucht wird.
+
+
+ ¹ Heutzutage bieten auch viele andere Musikabspielprogramme ein ähnliches
+   Konzept an (Delitracker, APlayer), aber der Eagleplayer 1.0 war damals wirklich
+   der erste.
+
+@EndNode
+
+@Node "Control" "Steuerung der Engines"
+
+  @{u}Steuerung der Engines@{uu}
+
+
+ Die Engines können durch das Anwählen des entsprechenden Menüpunktes im
+ Eagleplayermenü 'Engines' ein & ausgeschaltet werden. Ist der Haken ge-
+ setzt, heißt dies, daß die jeweilige Engine sich im aktiven Zustand be-
+ findet. Wird bei einem der Engines direkt das Close-Gadget (oder der Hide-
+ Menüpunkt) angewählt (deaktivieren), so schließt die Engine das Fenster
+ und wird je nach Einstellung (@{"Eject Engines" alink "EP_Main.guide/Eject Engines"}) entfernt oder bleibt betriebs-
+ bereit im Speicher. Auf selbem Wege ist die entsprechende Engine wieder 
+ in den Betriebszustand versetzbar.
+ Wird im PD-Menü der Engine selbst der Menupunkt "Quit" ausgewählt, wird
+ die Engine auf jeden Fall aus dem Speicher entfernt.
+ Der Eagleplayer merkt sich automatisch die letzten Einstellungen vor dem
+ Beenden der Engines, so daß diese bei Reaktivierung sofort wieder zur
+ Verfügung stehen.¹ Werden also nach Beendigung einer Engine die Einstellungen
+ des Eagleplayers gespeichert, so berücksichtigt EP auch die Settings
+ entfernter Engines, was den Vorteil hat, daß der Eagleplayer nach einem
+ Neustart auf diese gemachten Einstellungen zurückgreifen kann.
+
+ Bei einigen Engines (z.B. Extractor, 8 Bit Amplifier) gibt es zum Eintrag
+ im 'Engines'-Menü die Untermenüpunkte 'Show' und 'Activate'.
+ Dies hat folgende Bewandnis: Diese Engines können ihre Funktion auch ohne
+ geöffnetes Fenster durchführen (was bei den Scopes doch recht schwierig
+ wäre :-), so daß man hier die Wahl hat, einerseits die Engine zu aktivieren
+ ('Activate'), somit deren Funktionen nutzen zu können und andererseits das
+ Fenster öffnen zu können ('Show'), um auch schnell einmal die Einstellungen
+ ändern zu können. Diese Engines werden bei nicht angewählter 'Show'-Funktion
+ nicht aus dem Speicher entfernt, sondern erst, wenn 'Activate' ausgeschaltet
+ wird. Dies gilt im Gegensatz zu den Scopes auch für den Fall, daß das 
+ Einstellungsfenster geschlossen wird. 
+
+ Jede Engine hat zu den hier geschilderten grundsätzlichen Bedienungshinweisen
+ seine Eigenheiten, die in vollem Umfang @{"hier" link "InfoPage"} beschrieben werden.
+
+ Eine weitere Möglichkeit der Steuerung in weit komfortablerer Manier bietet 
+ der @{"Manager" link "Manager"}.
+@EndNode
+
+
+@node "Removed" "Entfernte Engines"
+
+
+   @{u}Entfernte Engines@{uu}
+
+ Folgende Engines wurden im Laufe der Zeit vom Eagleplayerpaket entfernt.
+ Sollten Sie eine dieser Engines in ihrem Engineverzeichnis haben,
+ löschen Sie diese bitte. Diese Engines sind meist fehlerhaft, alt,
+ nicht komplett an den aktuellen EP-Standard angepaßt und können meist
+ vom Eagleplayer aufgrund von Änderungen in der Programmstruktur auch
+ nicht mehr geladen werden.
+
+  * @{"Analyzer" link "Analyzer"}
+  * @{"Analyzer2" link "Analyzer2"}
+  * @{"Hifi System V1" link "Hifi System V1"}
+  * @{"M.E.L.G.U" link "M.E.L.G.U"}
+  * @{"Noiseeagle" link "Noiseeagle"}
+  * @{"Stereoscope/Monoscope" link "Quadrascope"}
+  * @{"Levelmeter" link "Levelmeter"}
+  * @{"Voicemeter" link "Voicemeter"}
+
+@endnode
+
+@node "Bugs" "Fehler in den Engines"
+
+  @{u}Fehler in den Engines@{uu}
+
+ -- noch keine Einträge --
+
+@endnode
+
+@node "InfoPage" "Informationen zu den einzelnen Engines"
+
+
+  @{u}Informationen zu den einzelnen Engines@{uu}
+
+
+
+ In dieser Liste finden sie die Engines, die dem Eagleplayerpaket zur Zeit beiliegen.
+
+
+
+	@{"14 Bit Amplifier" link "14 Bit Amplifier"}
+	@{"8 Bit Amplifier" link "8 Bit Amplifier"}
+	@{"Amplifiermanager" link "Amplifiermanager"}
+	@{"BifatGui" link "BifatGui"}
+	@{"DirListViewer" link "DirListViewer"}
+	@{"Eagleexotic" link "Eagleexotic"}
+	@{"Eagleplayer1x-Gui" link "Eagleplayer1x-Gui"}
+	@{"Eagleripper" link "Eagleripper"}
+	@{"EMPYGui" link "EMPYGui"}
+	@{"Extractor" link "Extractor"}
+	@{"FFT-Analyzer" link "FFT-Analyzer"}
+	@{"Formatloader" link "Formatloader"}
+	@{"Levelmeter" link "Levelmeter"}
+	@{"Levelgraph" link "Levelgraph"}
+	@{"Manager" link "Manager"}
+	@{"Messagewindow" link "Messagewindow"}
+	@{"Moduleinfo" link "Moduleinfo"}
+	@{"Noiseconverter" link "Noiseconverter"}
+	@{"Patternscroll" link "Patternscroll"}
+	@{"Patternscroll++" link "Patternscroll++"}
+	@{"Playerloader" link "Playerloader"}
+	@{"Pysion" link "Pysion"}
+	@{"Quadrascope" link "Quadrascope"}
+	@{"Publicscreenselector" link "Publicscreenselector"}
+	@{"Samplesaver" link "Samplesaver"}
+	@{"Spacescope+" link "Spacescope+"}
+	@{"Stereoscope" link "Stereoscope"}
+	@{"Time" link "Time"}
+
+
+@endnode
+
+@node "8 Bit Amplifier" "8 Bit Amplifier"
+
+  @{u}8 Bit Amplifier@{uu}
+
+ Der 8 Bit Amplifier ist in der Lage, bis zu 32 Stimmen über eine sogenannte
+ Mixroutine zusammenzuaddieren und dann über die Audiohardware eines jeden
+ Standard-Amigas auszugeben. Dabei werden die alle zu mixenden Stimmen auf
+ 2 zusammengerechnet, so daß die verbleibenden beiden Stimmen des Amigas für
+ Spezialeffekte genutzt werden können. Diese umfassen die Möglichkeit, das
+ Ausgangssignal in 64 Stufen auf Mono herunterzuregeln (dasselbe, was der 
+ Headphone-Noteplayer des Delitracker bzw. der "Surround" Modus von PS3M machen)
+ und - was wesentlich besser klingt - die Zumischung des um einige ms zeit-
+ verzögerten, um 180° phasenverschobenen ursprünglichen Ausgabesignals, kurz
+ Surround genannt. Die Zeitverschiebung des Signals bringt im Gegensatz zu 
+ den bisherigen Surround-Implementationen (PS3M und Nachnutzer wie Aplayer,
+ Hippoplayer) eine erhebliche Klangverbesserung durch Erhöhung der Stereo-
+ Basisbreite und eine scheinbare Erweiterung des Raumes anstelle des
+ virtuellen "Zusammenrückens" von linkem und rechtem Audiokanal bei den
+ herkömmlichen Methoden. Als Bonus wurde eine Art @{i}Pseudo-Stereo @{ui}integriert,
+ was für eine Klangaufwertung bei Mono Samples oder den immer öfter zu 
+ findenden durchgesampleten Dancefloor Modulen sorgt.
+
+ Das Grundgerüst der Mixroutinen basiert auf den Routinen aus PS3M von
+ Jarno Paananen. Allerdings arbeiten die Mixroutinen jetzt nach einem
+ etwas anderen Prinzip in Echtzeit (PS3M mixt je nach Einstellung bis zu 
+ mehreren Sekunden im Voraus oder Hinterher, je nach Betrachtungsweise)
+ und wurden um einiges beschleunigt, so daß die Mixroutinen jetzt teilweise
+ mehr als doppelt so schnell arbeiten und meiner Meinung nach zum jetzigen
+ Zeitpunkt kaum schnelleres für den Amiga existiert. Außerdem wurden die
+ Möglichkeiten geschaffen, alle relevanten Parameter wie Mixrate, Laut-
+ stärkeanhebung usw. während des Abspielens in Echtzeit ändern zu können.
+ Auch Ping Pong Loops, wie sie bei den PC-Musikformaten und OctaMED 7
+ (OMED Soundstudio) möglich sind, werden unterstützt. 
+
+ @{u}Bedienung@{uu}
+
+ Das Konfigurationsfenster umfaßt eine Liste für die angebotenen Modi
+ (geordnet nach Anzahl der ausgegebenen Stimmen), einige Regler und
+ eine Anzeige, welche Anzahl von Stimmen gerade konfiguriert wird.
+
+ @{i}Liste: @{ui}
+   Ein einmaliger Mausklick auf die gewünschte Anzahl der Stimmen
+   sorgt dafür, daß deren bisherige Einstellungen an die Regler
+   zur Neueinstellung durch den Anwender übernommen werden.
+
+   Durch einen Doppelklick wird die entsprechende Anzahl der Stimmen
+   (De)aktiviert und somit für die nächsten geladenen Musikdateien
+   zur Nutzung gesperrt oder freigegeben. Deaktivierte Modi werden
+   durch "@{b}( )@{ub}" dargestellt.
+
+   Sollte gerade ein Modul über diesen Amplifier abgespielt werden,
+   so wird der genutzte Modus farblich in der Liste hervorgehoben.
+   (ab Kickstart 3.0)
+
+   Bedeutung der Ziffern:
+    xx ch:   - für wieviele Ausgabestimmen des Moduls diese 
+               Einstellungen stehen
+    xxxxx    - 5-stelliger Wert für die Mixrate (siehe unten)
+    xx.x     - Faktor der Lautstärkeanhebung
+    xx       - Wert für den Zusatzeffekt, Werte >0 bedeuten
+               Surround, Werte <0 eine monaurale Zumischung
+               des rechten auf den linken Kanal und umgekehrt
+    xx       - 2-stelliger Wert für die zeitliche Verzögerung
+               des Surround-Signals (hat keine Bedeutung bei
+               Mono- oder Stereoausgabe)
+
+ @{i}Voices: @{ui}
+  Hier wird entweder eine Ziffer angezeigt, die auf die aktuell zu
+  bearbeitende Anzahl der Stimmen hinweist, oder ein "G" für Global,
+  was bedeutet, daß alle von nun an gemachten Einstellungen an den
+  Reglern für alle Anzahlen der Stimmen gelten.
+
+ @{i}Volume Boost: @{ui}
+  Mit diesem Regler stellen Sie die Lautstärkeanhebung des Ausgabesignals
+  ein. Dies kann besonders bei vielen Stimmen notwendig werden, wenn der
+  Output spürbar leiser wird.
+
+  @{b}Warnung !@{ub} Dieser Regler ist nicht als Ersatz für die Lautstärke-
+  regler Ihrer Anlage gedacht. Übertreiben Sie es mit dem Boost nicht zu sehr,
+  wenn Sie nicht Übersteuerungen und damit verbundene Kratzgeräusche in Kauf
+  nehmen wollen. Empfohlene Werte: 1.2 bei 4 Stimmen, etwa 4.5 bei 16 Stimmen
+  und für den Rest linear gerechnet dazwischen.
+  
+ @{i}Mixing Frequency: @{ui}
+  Ich habe ja nun eine Weile über die "Mixrate" gesprochen, aber was ist das 
+  nun ? Das Prinzip des Mixens geht einen besonderen Weg. Die auszugebenden
+  Samples aller Stimmen werden ja, wie schon erwähnt zusammenaddiert und danach
+  zusammen abgespielt. Damit das aber klappen kann, müssen alle mit der selben
+  Abspielfrequenz vorliegen. Die Hauptarbeit der Mixroutine liegt nun darin,
+  die Samples entsprechend umzurechnen, sowohl in der Frequenz, als auch in
+  Sachen Lautstärke. Die Mixfrequenz ist nun genau der Frequenzwert, mit denen
+  die Summe der Samples nun ausgegeben wird. Je höher sie ist, desto besser
+  klingt es auch. Der Haken dabei ist nur, daß auch der Rechenaufwand linear
+  ansteigt. Besonders bei Verwendung von Surround wird ein schneller 68030
+  dringend empfohlen, wenn man nebenbei noch anderweitig mit dem Amiga arbeiten
+  will.
+  Ein weiteres Problem ist die maximale Ausgabefrequenz: die maximale Mixrate
+  ist beim Amiga direkt an die Zeilenfrequenz gekoppelt. Das heißt, daß man
+  bei Verwendung von Bildschirmmodi wie DblPAL oder Multiscan wesentlich
+  höhere Werte erzielen kann, als in Pal, Ntsc oder Euro36.
+  Beispiele für die max. Ausgaberate, die Werte können bei Ihnen abweichen, da
+  meine Treiber etwas gepatched sind:
+   - DoubleNTSC      31.61 kHz        52500
+   - DoublePAL       31.61 kHz        52500
+   - Euro72          30.79 kHz        51000
+   - Multiscan       29.52 kHz        48000
+   - Super72         26.85 kHz        46000
+   - PAL,NTSC,Euro36 15.80 kHz        28000
+  Im Allgemeinen kann man sagen, daß die Mixrate genau dann zu hoch eingestellt
+  ist, wenn @{i}a) @{ui}keine Rechenzeit mehr frei ist :-) oder @{i}b) @{ui}die Ausgabe plötzlich
+  unmotiviert zu knacken beginnt oder @{i}c) @{ui}einfach grausam klingt und 
+  scheinbar zu langsam abgespielt wird. Bei Verwendung von Grafikkarten
+  siehe @{"hier" link "GFXBoards"}.
+  Die maximal über den Regler einstellbare Frequenz liegt bei 58000, im 
+  Eingabefeld rechts daneben lassen sich Werte von 4000 bis 65500 eingeben,
+  wobei die 65000 nur bei entsprechend hardcoremäßig und nur für diesen
+  Zweck hingepatchten Monitortreibern relevant ist.
+
+ @{i}Mono <----- Stereo ------> Surround: @{ui}
+  Dieser Regler stellt den Abspielmodus ein, in Mittelstellung wird das Signal
+   ganz normal in Stereo ausgegeben.
+  Eine Bewegung nach links sorgt für ein allmähliches Zumischen des linken
+   auf den rechten Ausgabekanal und umgekehrt, die ganz linke Stellung des
+   Reglers bedeutet schlicht und ergreifend: MONO
+  Eine Bewegung nach rechts mischt das Surroundsignal wie schon oben beschrieben
+   allmählich dazu.
+  Der besondere Vorteil des Surround-Modus ist, daß man sich endlich auch
+  Protrackermodule unter Kopfhörern anhören kann, ohne dabei nach ein paar
+  Minuten einen Koller zu bekommen, beide Ohren werden annähernd gleichmäßig
+  mit Schalldruck belastet, ohne daß man dabei die Ortbarkeit des Signals
+  vermissen muß, man hört immer noch genau heraus, ob ein bestimmtes Instrument
+  nun links oder rechts angeschlagen wird.
+
+ @{i}Surround delay: @{ui}
+  Mit diesem Regler stellen Sie die Verzögerung des Surroundsignals ein,
+  befindet er sich ganz links, so bedeutet das minimale Verzögerung - oder
+  anders das, was PS3M im Surround-Modus macht - befindet sich der Regler
+  rechts, so wird die maximale Verzögerung des Signals eingestellt.
+  
+
+ @{u}Menüoptionen:@{uu}
+
+  @{i}Mono Modules Mode @{ui}- der schon oben erwähnte Pseudo-Stereo Modus, wirkt
+                      am besten bei maximalen Werten für Surroundlevel (64)
+                      und -delay (23)
+                      Lausch-Tip: "ADPCM.CosmicBaby_the_universal_mind"
+
+  @{i}Global @{ui}           - nach Aktivierung des Hakens gelten alle von da an 
+                      gemachten Einstellungen für alle Anzahlen von Stimmen
+  @{i}Reset to Defaults @{ui}- auf Standardeinstellungen zurückschalten
+  @{i}Save Settings @{ui}    - speichert die in der Liste gemachten Einstellungen ab
+                      (nicht die Position und den Zustand des Fensters, dies
+                       geschieht, wie für alle anderen Engines auch, über den
+                       Eagleplayer selbst)
+                      @{b}Anmerkung@{ub}: Beim Speichern der globalen Einstellungen des 
+                      Eagleplayers werden auch die Settings der Amplifier
+                      mit abgespeichert
+
+
+@endnode
+
+@node "14 Bit Amplifier" "14 Bit Amplifier"
+
+ @{u}14 Bit Amplifier@{uu}
+
+ Der 14 Bit Amplifier ist in der Lage, bis zu 32 Stimmen über eine sogenannte
+  Mixroutine zusammenzuaddieren und dann über die Audiohardware eines jeden
+  Standard-Amigas in 14 Bit auszugeben. Dies wird möglich durch einen Trick,
+  bei dem 2 Ausgabekanäle des Amigas mit maximaler Lautstärke und 2 mit 
+  minimaler Lautstärke abgespielt werden und dabei die um 6 Bit höhere
+  Auflösung durch den 2. Kanal mit niedriger Lautstärke erreicht wird.
+  (6 Bit = 64 Lautstärkestufen) Der Programmteil zur Vortabellierung der
+  Berechnung von 14 Bit Samples entstammt dem Cybersound System von Christian
+  Buchner. Der 14 Bit Amplifier ist aus diesem Grund auch in der Lage, die
+  Kalibriereinstellungen, die Cybersound bietet, zu laden und zu nutzen.
+ Als Extra bietet der 14 Bit Amplifier die Zumischung von bis zu 3 Echos
+  mit variabler Verzögerung und Intensität zwecks Raumklangsimulationen.
+
+ Das Grundgerüst der Mixroutinen basiert auf den Routinen aus PS3M von
+  Jarno Paananen. Allerdings arbeiten die Mixroutinen jetzt nach einem
+  etwas anderen Prinzip in Echtzeit (PS3M mixt je nach Einstellung bis zu 
+  mehreren Sekunden im Voraus oder Hinterher, je nach Betrachtungsweise)
+  und wurden um einiges beschleunigt, so daß die Mixroutinen jetzt teilweise
+  mehr als doppelt so schnell arbeiten und meiner Meinung nach zum jetzigen
+  Zeitpunkt kaum schnelleres für den Amiga existiert. Außerdem wurden die
+  Möglichkeiten geschaffen, alle relevanten Parameter wie Mixrate, Laut-
+  stärkeanhebung usw. während des Abspielens in Echtzeit ändern zu können.
+  Auch Ping Pong Loops, wie sie bei den PC-Musikformaten und OctaMED 7
+  (OMED Soundstudio) möglich sind, werden unterstützt. 
+
+ Für den 14 Bit Amplifier gelten im Grunde die selben Bedienungshinweise wie
+  für den 8 Bit Amplifier, siehe auch @{"dort" link "8 Bit Amplifier"} für eine Beschreibung der Grund-
+  einstellungen und der Bedienung.
+
+ @{u}Bedienung der Echo-Effekte@{uu}
+
+  Im Voraus einige grundsätzliche Bemerkungen zu den Echos. Bitte stellen Sie
+  bei Verwendung mehrerer Echos die Intensität nicht zu hoch ein, beachten Sie
+  bitte ein Maximum von etwa 75% der Summe. Sollte der Amplifier beim Abspielen
+  anfangen, sich "aufzuschaukeln", schalten Sie bitte kurzzeitig eines der
+  Echos aus und verringern die Intensiätät @{i}(=die Lautstärke des zugemischten
+  Effektes)@{ui}, bevor Sie das Echo wieder einschalten.
+
+  @{i}Echo1 (.) @{ui}     Auswahl zwischen den 3 zumischbaren Echos
+  @{i}Echo2 ( ) @{ui}
+  @{i}Echo3 ( ) @{ui}
+
+  @{i}Active [ ] @{ui}     Wenn hier der Haken gesetzt ist, bedeutet dies, daß dieses
+                 der 3 Echos aktiviert wurde und beim Abspielen zugemischt
+                 wird.
+
+  @{i}Intensity @{ui}     Dieser Regler stellt die Lautstärke des aktuellen Echo Effektes
+                 ein, es sind Werte von 3.125% bis zu 50% des ursprünglichen
+                 Tonsignals möglich. Bitte verwenden Sie immer maximal 1 Echo mit
+                 50% Lautstärke (siehe oben)
+
+  @{i}<->   [ ] @{ui}     Dieser Schalter bewirkt im aktiven Zustand, daß das Echo
+                 auf der jeweils anderen Seite zugemischt wird, also über Kreuz,
+                 daher der englische Name "cross echo". Hiermit können Sie recht
+                 ähnliche Effekte zu denen des 8 Bit Amplifiers erreichen, wenn
+                 das Delay sehr klein gewählt wird.
+
+  @{i}Delay @{ui}         Der Delay-Regler stellt die Verzögerung des Signals ein, also
+                 wie lange gewartet wird, bis ein angespielter Ton wieder 
+                 "zurückkommt".
+
+ @{b}Warnung!: Der Hinweis, den Volume Boost nicht zu übertreiben, ist besonders
+ beim 14 Bit Amplifier ernst gemeint. Aufgrund der Arbeitsweise des Amplifiers
+ kann es zu sehr unschönen Krachgeräuschen bei zu großen Lautstärkeanbungen
+ kommen. Die Ausgabelautstärke ist in 14 Bit nun einmal von Natur aus geringer
+ als in 8 Bit.@{ub}
+
+@endnode
+
+@node "Amplifiermanager" "Amplifiermanager"
+
+  @{u}Amplifiermanager@{uu}
+
+ Der Amplifiermanager ist eine der mit Eagleplayer V2.0 eingeführten neuen 
+ @{"Engines" link "Introduction"}. Er stellt die Kommandozentrale für die Steuerung der @{"Amplifier" link "AIntroduction"}
+ und dient dem Anwender zur Festlegung, unter welchen Bedingungen welcher
+ Amplifier verwendet wird.
+
+ Zum Verständnis des Prinzips möchte ich kurz die Arbeitsweise des 
+ Amplifiersystems des Eagleplayers darlegen.
+  Wenn der Eagleplayer eine Musikdatei lädt, wird zuerst ein passender Abspieler
+  gesucht und danach, falls erforderlich, ein Amplifier, der den Anforderungen
+  des Abspielers genügt, so z.B. macht es keinen Sinn, ein 32 stimmiges S3M Module
+  vom Chipram aus abzuspielen, da die Amiga-Hardware von Haus aus bekanntlich nur
+  4 Stimmen in 8 Bit abspielen kann. Dabei wird die Liste der verfügbaren 
+  Amplifier, wie sie im Amplifiermanager im linken Listenfenster angezeigt wird,
+  von oben bis unten durchsucht und der erste gefundene Amplifier, der die 
+  benötigten Features bietet, wird dann auch verwendet. So kann man als Anwender
+  recht schnell abschätzen, wann welcher Amplifier zum Einsatz kommt.
+
+ Der Amplifiermanager bietet nun eine Reihe von Funktionen, um dem Anwender die
+ Möglichkeit zu eröffnen, selbst festzulegen, wann welcher Amplifier benutzt 
+ wird, so daß es z.B. möglich ist, alle Musikstücke mit 4 Stimmen mit dem 
+ FastramAmplifier, alle bis 8 Stimmen mit dem 8 Bit Amplifier abzuspielen und
+ alle anderen mit dem 14 Bit Amplifier.
+
+ Falls ein Modul gerade über einen der Amplifier abgespielt wird, so wird dieser
+ farblich in der Liste hervorgehoben. (meist weiß gegenüber dem schwarz Text der
+ anderen Namen) 
+
+ Das @{u}(De)Aktivieren von Amplifiern@{uu} geschieht per Doppelklick auf den
+ Namen des gewünschten Amplifiers. Inaktive Amplifier werden durch "@{b}( )@{ub}"
+ hervorgehoben und beim Laden der nächsten Musikdatei nicht mehr berücksichtigt.
+
+ Um die Position eines Amplifiers in der Liste zu ändern, muß man diesen mit 
+ einem einfachen Mausklick auf dessen Namen anwählen. Danach stehen die 
+ Möglichkeiten offen, diesen mit den "@{b}Up@{ub}" - und "@{b}Down@{ub}"- Schaltern in der
+ Liste entsprechend eine Position höher oder tiefer zu bewegen. Weiterhin
+ kann man 2 Amplifier mittels des "@{b}Exchg.@{ub}"-Schalters gegeneinander
+ austauschen. Der "@{b}Sort@{ub}"-Schalter sortiert die Amplifier einfach
+ nach den Namen.
+
+ Der @{"8 Bit Amplifier" link "8 Bit Amplifier"} und auch der @{"14 Bit Amplifier" link "14 Bit Amplifier"} besitzen die Möglichkeit,
+ einzelne Anzahlen der Stimmen aus der Anzahl der unterstützten Stimmen
+ ein- bzw. auszuschalten. Dies geschieht auch dort per Doppelklick auf die
+ entsprechenden Einträge in der jeweils dort angezeigten Liste.
+
+ weitere Funktionen:
+
+ @{b}Info@{ub} - hier wird ein kurzer Informationstext zum aktuell angewählten Amplifier
+        angezeigt
+ @{b}Show@{ub} - das Konfigurationsfenster zum aktuellen Amplifier anzeigen, analog zum
+        Menüeintrag "Show" des Engines-Menüs¹
+ @{b}Hide@{ub} - das Konfigurationsfenster zum aktuellen Amplifier schließen, analog zum
+        Menüeintrag "Show" des Engines-Menüs¹
+ @{b}Add@{ub}  - einen weiteren Amplifier (oder eine andere Engine) zur Liste des 
+        Eagleplayers hinzufügen
+ @{b}Del@{ub}  - angewählten Amplifier beenden und aus dem Speicher entfernen¹
+
+  @{i}¹ gilt nicht für ChipRam Amplifier und FastRam Amplifier @{ui}
+
+ Um die so gemachten Einstellungen der Amplifierprioritäten abzuspeichern,
+ brauchen Sie einfach nur die globale Konfiguration des Eagleplayers speichern.
+ ("Save Config")
+
+ @{b}Anmerkung: Bei Verwendung aller Amplifier außer dem Chipram Amplifier wird
+                dringendst dazu geraten, die "LoadFast" Option des Eagleplayers
+                zu aktivieren, da der Rechenzeitaufwand der Amplifier aufgrund
+                der extrem geringen Geschwindigkeit des Chiprams sonst so 
+                ansteigt, daß selbst ein 68060 seine Aufgabe mitunter nicht mehr
+                schafft. Und wozu kann man beim Amiga sein Fastmem aufrüsten ?@{ub}
+
+
+ @{u}Kurze Bemerkungen zum ChipRam Amplifier und zum FastRam Amplifier:@{uu}
+
+ Diese beiden Amplifier sind bereits im Eagleplayer Hauptprogramm intern 
+ vorhanden und stehen auf jeden Fall nach dem Start des Eagleplayers zur
+ Verfügung, sofern sie nicht vom Anwender deaktiviert wurden.
+ 
+ Der ChipRam Amplifier macht nichts weiter, als die Musikstücke, wie früher
+ ohne Amplifiersystem gehabt, aus dem Chipram heraus abzuspielen. Dies
+ bringt den Vorteil, der absoluten Kompatibilität zum Verhalten der Abspiel-
+ routinen sowohl in Bezug auf Klang, als auch Rechenzeitaufwand.
+
+ Der FastRam Amplifier spielt 4-stimmige Amiga-Modules aus dem Fastram ab,
+ indem er den gerade gespielten Teil der aktuellen Samples ins Chipram
+ kopiert und die Audio-Hardware des Amigas dies dann zu Ohren bringt.
+
+@endnode
+
+
+
+@node "Analyzer" "Analyzer"
+
+  @{u}Analyzer@{uu}
+
+
+	Quasi Spectrum Analyzer, der nach dem üblichen "faked" Prinzip arbeitet und
+	nach der Samplerate beim Abspielen agiert. (genauso wie beim Pro-
+	tracker etc.) Auch wenn es einige Leute nicht glauben wollen, der
+	Analyzer besitzt wirklich 21 Modi, wobei zu sagen ist, daß einige
+	sich nur in Kleinigkeiten unterscheiden. Wen Scroller und/oder Bild
+	stören, kann dies über das Pulldownmenü abschalten, in der
+	Konfiguration wird das ganze berücksichtigt, sowie der aktuelle
+	Modus mit abgespeichert.
+
+	-wurde mit der V2.0 entfernt, da der FFT-Analyzer wesentlich besser ist...
+
+@endnode
+
+@node "Analyzer2" "Analyzer2"
+
+  @{u}Analyzer2@{uu}
+
+
+	Kleine, unter 1.3 nutzbare Version des Analyzers, wurde nie ganz
+	fertiggestellt und war auch reichlich fehlerbehaftet.
+@endnode
+
+@node "BifatGui" "BifatGui"
+
+  @{u}BifatGui@{uu}
+
+
+	Das BifatGUI ist eine der mit dem Eagleplayer 2.0 eingeführten
+	externen Benutzeroberflächen. Das Design stammt von Timm Müller
+	(Captain Bifat) - daher auch der Name.
+	
+	Ein herausragendes Merkmal ist die Möglichkeit, das Fenster beliebig
+	in der Größe zu skalieren. Dies geschieht über einen unsichbaren
+	"Sizing"-Button in der rechten unteren Ecke. Möglich wurde dieses
+	Feature durch Implementierung eigener Boopsi-Klassen - ein Dank an
+	die seligen Programmierer von Commodore :-).
+
+	Weiterhin ist läßt sich die Oberfläche ab Kickstart 3.0 mit einem
+	Bild zu hinterlegen. Das Bild wird dabei über Datatypes geladen.
+
+	Die @{"Schriftart" alink "EP_Main.guide/Scrollfont"} für den Scroller läßt sich über das Layout-Untermenü
+	frei einstellen. Auch nichtproportionale Schriften werden unterstützt.
+	Die maximale Größe der Schrift hängt von der aktuellen Größe des
+	Fensters und somit der Höhe des für den Scroller verfügbaren Bereiches
+	ab.
+
+	Wahlweise lassen sich die 3 Buttons in der Titelzeile über
+	das "BifatGUI-Prefs" Untermenü des Enginesmenüs ein-und ausschalten.
+	Deren Bedeutung:
+	Filter Gadget             - schaltet den Zustand des 7 kHz Hardwarefilters
+	                            des Amigas um, je nach aktuellem Stand 
+	                            ein oder aus
+	PubScreeen Jump Gadget    - bei Aktivierung kann man den Eagleplayer mit allen
+	                            seinen Fenstern auf den nächsten öffentlichen 
+	                            Bildschirm wechseln. Sollte nur einer vorhanden
+	                            sein (z.B. die Workbench als einziger offener
+	                            Bildschirm), werden alle Fenster nur einmal
+	                            geschlossen und danach wieder geöffnet
+	Iconify Gadget            - ikonifiziert den Eagleplayer
+	Background Picture        - Hintergrundbild an/aus
+	select Background Picture - öffnet ein Dateiauswahlfenster für das zu ladende
+	                            Hintergrundbild
+
+@endnode
+
+@node "DirListViewer" "DirListViewer"
+
+  @{u}DirListViewer@{uu}
+
+
+	Der Dirlistviewer zeigt das gescannte Directory bzw. die geladene
+	Liste oder den Inhalt eines Archives an.
+	Durch Doppelklick auf einen Eintrag wird das selektierte Modul geladen
+
+	Falls z.B. über Arexx ein neues Modul geladen wird, sucht der Dir-
+	listviewer diesen Eintrag und springt mit dem Anzeigebalken auf diesen.
+
+
+	@{i}Tastaturunterstützung im Dirlistviewer@{ui}
+
+	8 & Cursor Hoch             = Ein Eintrag höher
+	2 & Cursor Runter           = Ein Eintrag tiefer
+	9 & Shift + Cursor Hoch     = Eine Seite höher
+	3 & Shift + Cursor Runter   = Eine Seite tiefer
+	7 & Ctrl + Cursor Hoch      = An den Anfang der Liste
+	1 & Ctrl + Cursor Runter    = Ans Ende der Liste
+	Cursor Links                = Vorheriges Pattern oder Parent
+	Cursor Rechts               = Nächstes Pattern oder ins nächste Dir
+	<Enter>                     = angewähltes Modul laden
+	Esc                         = @{"Hide" link "Hide"} Window
+	@{b}@{i}A @{ui}@{ub}+ Q                          = @{"Quit" link "Quit"}
+	@{b}@{i}A @{ui}@{ub}+ H                          = @{"Hide" link "Hide"}
+	@{b}@{i}A @{ui}@{ub}+ A                          = @{"About" link "About"}
+
+@endnode
+
+
+@node "Eagleexotic" "Eagleexotic"
+
+  @{u}Eagleexotic@{uu}
+
+
+	Der Eagleexotic ist eine Engine zum Durchrippen (Durchsuchen) von
+	Dateien nach Modulen mittels des ExoticRippers. Wird beim Laden des 
+	Moduls kein Abspieler gefunden, tritt der Eagleexotic in Aktion. 
+	Er durchsucht die Datei	mit Hilfe des Exoticrippers nach Soundmodulen.
+	Findet er eins, wird der entsprechende Player geladen und das Modul
+	abgespielt. So kann	man sich z.B. wunderbar die Module aus Demos 
+	anhören, ohne die Musiken extra aus den Demos zu rippen. Die Demos 
+	können sich natürlich auch in @{i}Archiven@{ui} befinden, aus denen
+	sie mit Hilfe des @{"Extractors" link "Extractor"} dearchiviert
+	werden.
+
+	Derzeit wird nur das erste gefundene Modul abgespielt.
+	Der Eagleexotic bietet Localeunterstützung.
+	
+	Als Alternative zum Eagleexotic bietet sich auch der
+	@{"Eagleripper" link "Eagleripper"} an.
+
+
+	Ein Submenu zur Steuerung des Rippers über den Eagleplayer ist
+	folgendermaßen gegliedert:
+
+		Aktiv
+		@{"Wähle ExoticPfad" link "Eagleexotic_1"}
+		~~~~~~~~~~~~~~~~
+		@{"Konfiguration speichern" link "Eagleexotic_2"}
+
+
+	@{b}Wichtig!@{ub} Es muß zum Betrieb des Eagleexotic unbedingt der @{"Playerloader" link "Playerloader"}
+	aktiv sein.
+
+
+	@{i}PS.     Der Pfad des @{b}Exoticrippers2.31+@{ub} muß richtig eingestellt werden.
+		(Zum Beispiel im @{"Manager" link Manager})
+        PS2.    Der Rippvorgang läßt sich Drücken der Controltaste abbrechen.
+	PS3.	Zum vernünfigen Durchrippen von Demos empfielt sich, die
+		Funktion @{"XFDDecrunch" alink "EP_Main.guide/XFDDecrunch"} einzuschalten. Aber beachten Sie bitte,
+		daß diese sehr viel Speicher benötigt und auch dank vieler
+		falsch angepaßter Sub-Bibliotheken fehleranfällig ist.
+	PS4.	Der Exoticripper findet sich auf dem Aminet unter
+		mus/misc/ExoticRip31.lha
+	@{ui}
+@endnode
+
+
+@node "Eagleexotic_1" "Wähle Eagleexoticpfad"
+
+ @{u}Wähle Exoticpfad@{uu}
+
+	Über diese Funktion kann der Pfad des Exoticrippers von Turbo und
+	Marley of Infect in einem Filerequester eingestellt werden.
+
+@endnode
+
+@node "Eagleexotic_2" "Konfiguration speichern"
+
+ @{u}Konfiguration speichern@{uu}
+
+
+	Über diese Funktion kann der Pfad des Exoticrippers von Turbo und
+	Marley of Infect, der zum Finden von Modulen benutzt werden in eine
+	Konfigurationsdatei gespeichert werden, die im aktuellen "Config"
+	Verzeichnis des Eagleplayer unter dem Namen "Eagleexotic.config"
+	abgelegt wird.
+	
+@endnode
+
+@node "Eagleplayer1x-Gui" "Eagleplayer1x-Gui"
+
+  @{u}Eagleplayer1x-Gui@{uu}
+
+
+	Das gute alte Benutzerfenster, für die Leute die sich zu sehr daran
+	gewöhnt haben, daß sie es nicht mehr missen mögen.
+
+	Der Scroller wurde aus dem BifatGUI übernommen und gegenüber dem 
+	Eagleplayer 1.54 können jetzt alle Fonts bis 9 Punkten Höhe verwendet
+	werden.
+
+@endnode
+
+@node "Eagleripper" "Eagleripper"
+
+  @{u}Eagleripper@{uu}
+
+
+	Der Eagleripper ist eine Engine zum Durchrippen (Durchsuchen) von
+	Dateien nach Modulen. Wird beim Laden des Moduls kein Abspieler ge-
+	funden, tritt der Eagleripper in Aktion. Er durchsucht die Datei
+	mit Hilfe der externen, beliebig erweiterbaren Plugins nach 
+	Soundmodulen. Findet er eins, wird der entsprechende Player 
+	geladen und das Modul abgespielt. So kann man sich wunderbar 
+	die Module aus Demos/Spielen usw. anhören, ohne die Musiken 
+	extra vorher aus den entsprechenden Programmen zu rippen. 
+	Die Files können sich natürlich auch @{"gepackt" alink "EP_Main.guide/XFDDecrunch"} sein oder 
+	in @{i}Archiven@{ui} befinden, aus denen sie mit Hilfe des
+	@{"Extractors" link "Extractor"} dearchiviert werden oder beides.
+
+	Je nach Einstellung bietet der Eagleripper die Möglichkeit,
+	nicht nur nach dem ersten Modul zu suchen, sondern die
+	Datei abzuspeichern und nach weiteren Musikdateien zu
+	scannnen.
+
+	Ein Submenu zur Steuerung des Rippers über den Eagleplayer ist
+	folgendermaßen gegliedert:
+
+		@{"Aktiv" link "Control"}
+		~~~~~~~~~~~~~~~~
+		@{"Modus 1" link "Eagleripper_2"}
+		@{"Modus 2" link "Eagleripper_3"}
+		~~~~~~~~~~~~~~~~
+		@{"Sicherheitsmodus" link "Eagleripper_6"}
+
+
+	@{b}Wichtige Anmerkungen:@{ub}
+	
+	- Es muß zum Betrieb des Eaglerippers unbedingt der @{"Playerloader" link "Playerloader"} aktiv
+	  sein, weiterhin wird dringend empfohlen, den @{"Noiseconverter" link "Noiseconverter"} zu
+	  aktivieren.
+	- Zum vernünfigen Durchrippen von Demos empfielt sich, die Funktion 
+	  @{"XFDDecrunch" alink "EP_Main.guide/XFDDecrunch"} einzuschalten. Aber beachten 
+	  Sie bitte, daß diese sehr viel Speicher benötigt und auch dank vieler
+	  falsch angepaßter Sub-Bibliotheken fehleranfällig ist.
+	- Es ist immer eine gute Wahl, den @{i}Sicherheitsmodus einzuschalten, @{ui}
+	  um Problemen bei eventuell falsch erkannten Modulen aus dem Weg zu gehen
+
+@endnode
+
+@node "Eagleripper_2" "Modus 1"
+
+	@{u}Modus 1@{uu}
+	
+	Der Eagleripper arbeitet beim Suchen in 2 Durchläufen, der erste davon,
+	Modus 1 (engl: Pass 1), ist der @{b}Schnellsuchmodus@{ub} für bestimmte
+	Kennungen der zu suchenden Musikformate. Die meisten der momentan
+	vom Eagleripper angebotenen Formate werden in diesem Suchdurchlauf
+	abgetestet, nur einige wenige im @{"Tiefenscan" link "Eagleripper_3"}.
+	
+@endnode
+
+@node "Eagleripper_3" "Modus 2"
+
+	@{u}Modus 2@{uu}
+	
+	Der Eagleripper arbeitet beim Suchen in 2 Durchläufen, der zweite davon,
+	Modus 2 (engl: Pass 2), ist der @{b}Tiefenscan@{ub}, der durchaus wesentlich
+	länger dauern kann, dafür aber eine gründlichere Suche durchführt.
+
+@endnode
+
+@node "Eagleripper_6" "Sicherheitsmodus"
+
+	@{u}Sicherheitsmodus@{uu}
+	
+	Wenn diese Option eingeschaltet wird, fragt der Eagleripper bei
+	jedem gefundenen Modul mittels eines Requesters ab, ob
+	
+	(Play)     das gefundene vermeintliche Modul gespielt werden soll
+	(Continue) die Suche nach weiteren Modulen fortgeführt werden soll
+	(Save)     das gefundene Musikstück abgespeichert werden soll
+	           (nur in registrierter Version des Eagleplayers)
+	(Cancel)   der Rippvorgang abzubrechen ist
+
+@endnode
+
+@node "EMPYGui" "EMPYGui"
+
+  @{u}EMPYGui@{uu}
+
+	Das EMPYGui ist eine der auswählbaren Benutzeroberflächen des
+	Eagleplayers. Es basiert auf den originalen Grafiken von Thomas
+	Klingler, die im kommerziellen Programm "EMPY", geschrieben von
+	Alexander Kneer, verwandt wurden.
+
+	Es wird zum Betrieb mindestens OS3.0 und ein 68020 mit FPU
+	vorausgesetzt. Weiterhin braucht EMPYGui für bestes Aussehen
+	mindestens 16 freie Farben, ergo einen 32 farbigen Bildschirm.
+
+	EMPYGui läßt sich auf vielfältige Weise im Aussehen verändern,
+	es existieren mehrere Schalter, die zu einem Komplettumbau
+	der Oberfläche führen, auch die Farbpalette kann man aus 2
+	Optionen wählen.
+	
+    Tips:
+	- Die Lautstärkeregelung erfolgt wie im wahren Leben durch anklicken
+	  und herumdrehen des Knopfes.
+	- Auch im Fernbedienungsmodus existiert eine Möglichkeit der Lautstärke-
+	  veränderung. Einfach unten mit der Maus auf den grünen Bereich
+	  klicken und fertig.
+	- Falls Ihnen die Bedeutung einzelner Schalter nicht klar sein
+	  sollte, vergessen Sie bitte nicht, daß auch EMPYGui die
+	  Online-Hilfe unterstützt.
+
+	@{b}Besonderen Dank an dieser Stelle nochmals an Alexander Kneer
+	für die Grafiken und wertvolle Tips und Hinweise@{ub}
+@endnode
+
+@node "Extractor" "Extractor"
+
+  @{u}Extractor@{uu}
+
+ 
+	Der Extractor ist eine Engine zum Verwalten von Archiven wie LHA oder
+	LZX. Das komplette Archiv wird dabei wie ein Unterverzeichnis behandelt,
+	das bedeutet, falls ein Archiv angewählt wird, wird das Archive wie
+	ein Verzeichnis gescannt und in den Modulespuffer übernommen. Alle
+	dann angewählten Einträge werden wie 'normale Files' behandelt und
+	entpackt.
+	Der Eagleplayer ist in der Lage ein 'Archive.EPDIR' zu speichern,
+	um den Zeitaufwand des Durchsuchens der Archive bei einer wiederholten
+	Anwahl ersparen zu können. Diese Funktion geht leider nur in der
+	@{"registrierte Version" ALink "EP_Registration.Guide/Main"} (ist sehr zu empfehlen).
+
+	Der Extractor bietet Localeunterstützung.
+
+	Unterstützt werden im Moment die Archive von HA, LHA, LZX, RAR, Shrink, 
+	Zip und ZOO. ARJ wird zwar auch unterstützt, aber mangels eines brauchbaren
+	Entpackers (Unarj 1.0 ist unzureichend) ist der ARJ-Entpacker derzeit 
+	deaktiviert worden.
+
+	Der Pfad des entsprechenden Archivers kann in einem Stringgadget ange-
+	geben werden. Die Optionen, die erforderlich sind, um eine Datei korrekt
+	zu entpacken, können ebenfalls konfiguriert werden. Da die Reihenfolge
+	der Optionen vom Archivprogramm abweicht, kann sie variiert werden.
+
+	%1 entspricht dem Pfad des Archivs
+	%2 entspricht dem Pfad der zu entpackenden Datei in dem Archiv
+	%3 entspricht dem Zielpfad (Def: T:)
+
+
+
+	@{i}Beispiel LHA:@{ui}
+
+	Optionen im Extractorwindow:	Lha -N e "%1" "%2" "%3"
+
+	Archivname:			MODS:Modules.lha
+	Dateiname:			Mod.Condom_Corruption
+	Temp:				T:
+
+	Dies ergibt beim Entpacken folgende Kommandozeile:
+	Lha -N e "MODS:Modules.LHA" "Mod.Condom_Corruption" "T:"
+
+
+
+	@{i}Beispiel Shrink:@{ui}
+
+	Optionen im Extractorwindow:	Shrink x "%1" "%3" "%2"
+
+	Archivname:			MODS:Modules.shr
+	Dateiname:			Mod.Condom_Corruption
+	Temp:				T:
+
+	Dies ergibt beim Entpacken folgende Kommandozeile:
+	Shrink x "MODS:Modules.LHA" "T:" "Mod.Condom_Corruption"
+
+
+	
+
+	@{b}Achtung:@{ub} Der Extractor erkennt die Archive nur, wenn sie mit den
+	originalen Extensionen (.LHA|.LZX) am Ende des Filenamens versehen sind.
+
+
+
+@endnode
+
+@node "FFT-Analyzer" "FFT-Analyzer"
+
+  @{u}FFT-Analyzer@{uu}
+
+
+	Der FFT-Analyzer ist ein Programm, welches wie viele HIFI-Anlagen
+	das komplette Spektrum des Frequenzganges des Audiosignals anzeigt.
+	Im Gegensatz zu den Mogeleien von Programmen wie APlayer, Hippoplayer2.xx
+	oder Eagleplayer 1.xx wird eine hochoptimierte Fast Fourier 
+	Transformation zur Berechnung der Einzelfrequenzen verwendet. Dies 
+	kostet allerdings ein hohes Quantum an Rechenaufwand. Aus diesem
+	Grunde wurden die Routinen besonders @{b}für schnelle Rechner (040 & 060)
+	optimiert@{ub} mit dem Erfolg, daß das Programm auf dem 68060 unter selben
+	Bedingungen (selber Anzeigemodus, HighRes, full Speed) etwa 
+	50% schneller läuft, als der Analyzer des Delitracker - und dort
+	schrieben die Leute schon, ich zitiere: "turbo-fast FFT".
+
+	Der FFT-Analyzer bietet eagleplayertypisch um die 25 Anzeigemodi,
+	auf 5 Schalter verteilt, inclusive farbiger Anzeigevarianten und
+	als Bonbon auch direkte @{b}CyberGFXunterstützung@{ub} mit mehrfarbiger
+	Anzeige des Spektrums. Die CyberGFX-Modi finden sich auf dem 5. Schalter.
+	Da bei unseren eigenen Grafikkarten (Cybervision) die planaren Modi
+	wesentlich schneller agieren als die Chunky-Pixel Modi, wurden die planaren
+	Darstellungsarten beibehalten und nur die 3 Multicolormodi eingefügt.
+	So können Sie je nach Geschmack zwischen besserem Aussehen und höherer
+	Geschwindigkeit entscheiden.
+
+	Das dargestellte Spektrum reicht von 0 bis 8, 16 oder 24 kHz, je nach
+	Einstellung mit 128 oder 256 Unterteilungen, also einer maximalen
+	Auflösung von 31.25 Hz (bei Hires-Modus und 8 kHz Maximum). Der 
+	Ausschlag der einzelnen Balken erfolgt, wie in der Elektrotechnik 
+	üblich, logarithmisch, genauer gesagt über den dekadischen Logarithmus
+	(10*lg[x/xmax] entsprechend dem Bode-Diagramm, wobei die X- oder 
+	Frequenzachse allerdings linear verbleibt).Desweiteren werden die 
+	Ausgaben der höheren Frequenzen nochmals in der Amplitude um die 
+	statistischen Fehler bei der Umrechnung der Samples korrigiert, 
+	siehe auch unten.
+
+	Die Anzeige der Frequenzleiste läßt sich genau wie die Buttons ein-und
+	ausschalten.
+
+	Bedeutung der Menü-Optionen:
+
+	Gadgets          - Schalterleiste ein/aus, alternativ zu den Schaltern kann
+	                   man auch durch die Tasten '1'-'5' zwischen den Modi
+	                   durchschalten
+	Frequency Table  - Frequenzleiste ein/aus
+
+	full Speed       - der Analyzer läuft mit voller Geschwindigkeit und versucht,
+	                   volle 50 Bilder pro Sekunde (bei Anzeigemodi wie NTSC oder
+	                   Euro72 entsprechend 60 oder 72) darzustellen.
+
+	half Speed       
+	1/3  Speed       - Um die benutzte Rechenzeit zu reduzieren, können Sie hier
+	                   einstellen, ob statt 50 nur 25 oder 16 mal pro Sekunde
+	                   die Neudarstellung erfolgt.
+
+	High Resolution  - bei aktiviertem Häkchen wird eine 512 Punkt FFT statt
+	                   der 256 Punkt FFT verwendet, so daß die Auflösung der
+	                   Einzelfrequenzen wie oben erwähnt 31.25 Hz statt 62.5 Hz
+	                   beträgt.
+
+
+	Es wird zum Betrieb mindestens ein 68020 Prozessor und Kick 3.0 vorausgesetzt.
+	(empfohlen: 68040 oder besser 68060)
+
+@{u}Technisches@{uu}
+
+Das Programm verwendet als Kern einen im Grunde "üblichen" Butterfly-Algorithmus
+(Cooley-Tukey), wie z.B. in [1] beschrieben. Durch die Implementation mittels
+Integer-Arithmetik, der Reduzierung des tabellarischen Aufwandes auf eine einzige
+kombinierte Sinus-Cosinus Tabelle mit eingerechneter Bitspiegelung, der multi-
+plikationsfreien Sonderbehandlung der ersten beiden FFT-Durchläufe (von 8 bzw. 9),
+der gleichzeitigen Transformation der Samples für linken und rechten Kanal usw.
+konnte die Routine dermaßen beschleunigt werden, daß das Programm wesentlich
+schneller agiert, als die derzeitigen anderen FFT-Analyzer, die mir auf dem Amiga
+bekannt sind und auch schneller als z.B. der CubicPlayer auf einem Pentium60-PC
+verglichen mit einem MC68060-Amiga.
+Sicher werden Versierte jetzt sagen, daß die Hartley-Transformation doch eigentlich
+noch schneller ist. Allerdings sollte man bedenken, daß die Standardpublikationen
+schon ein paar Jahre auf dem Buckel haben und zu den Zeiten, als die Algorithmen
+entwickelt wurden, die Prozessoren zumeist noch nicht einmal Befehle für die
+Multiplikation besaßen, geschweige denn Multiplikationsoperationen schnell durch-
+führen zu können. Dies führte dazu, daß man notwendige Multiplikationen möglichst durch
+komplizierte Additionstheoreme, Reihenteilungen usw. zu ersetzen suchte. Nur
+konnte damals keiner ahnen, daß es einmal dazu kommen würde, daß die CPU`s
+schneller multiplizieren würden, als die Durchführung von Speicheroperationen 
+(eventuell noch mit nachfolgender Verknüpfung von Werten über Sinus/Cosinus-
+Theoreme). Man sollte bedenken, daß eine Multiplikation auf dem 68060 nur noch
+c.a. 2½ mal soviele Taktzyklen braucht wie eine simple Addition und die CPU bei 
+Multiplikationen etwa 10 mal so schnell arbeitet wie ein 68030 mit 50 MHz.
+Der in [2] beschriebene Algorithmus für die Hartley-Transformation
+hat nur dann Vorteile, wenn auch wirklich nur EINE Reihe von Eingangswerten
+behandelt werden soll. Dabei ist nicht zu vergessen, daß die Implementation
+wesentlich aufwendiger wird und die Hartley-Transformation auch nur bei reellen
+Daten anwendbar ist (mehrdimensionale FHT gibts auch, bringt aber wenig in Sachen
+Aufwand-Nutzen), während man die Arbeitsweise der FFT mit komplexen Werten so
+ausnutzen kann, daß der eine Eingabestrom als Realwerte und der 2. Eingabedaten-
+strom als Imaginärwerte verwendet werden. siehe [1]
+Außerdem konnte durch die Implementation eines Split-Radix-Algorithmus
+gegenüber dem Standard-Basis 2-Verfahren in etwa die Hälfte der notwendigen
+komplexen Multiplikationen eingespart werden. (Ersatz von 6 reellwertigen
+Multiplikationen durch 4 Additionsoperationen)
+
+Arbeitsweise des FFT-Analyzers:
+
+       Mixen der Eingangsdaten für die Audiokanäle auf 2 zusammen (mit 16 kHz)
+                                |
+                                |
+         FastFourier-Transformation beider Folgen gleichzeitig
+                                |
+                                |
+         Sortierung der Ausgangsdaten (Butterfly!), Trennen der Folgen
+                                |
+                                |
+         Skalierung in Anzahl und Amplitude der Werte, bezogen auf die
+         Darstellung im aktuellen Anzeigemodus im Fenster und statistische
+         Amplitudenkorrektur der höheren Frequenzen wegen der durch das
+         Abtasttheorem (nach Shannon) gegebenen Probleme im Grenzbereich
+         (16 kHz Mixrate=max. 8 kHz Frequenz, aber nur unter Optimal-
+         bedingungen, d.h. Schwingung und Abtastung in Phase)
+                                |
+                                |
+         Einzeichnen in private Bitmap und Kopieren über Betriebs-
+         systemfunktionen ins Fenster
+
+Die am meisten zeitkritischen Teile des Prozesses sind einerseits die FFT Routine
+und auch in erheblichem Maße die Grafikdarstellung. In 800*600*256 Farben sind das 
+z.B. 480 kBytes an Grafikdaten, die zur Darstellung zu bearbeiten (löschen,
+einzeichnen, ins Fenster kopieren) sind. Bei 50 Bildern pro Sekunde kämen so
+24 MB zusammen, eine Menge, die sich schon über den Zorro-III Bus nicht mehr
+schaufeln lassen könnte, geschweige denn ins Chipram. Aus diesem Grund habe ich
+auch die Größe des Fensters auf 1024*768 limitiert. Wer große Fenster mag, sollte
+als stolzer Besitzer einer Cybervision somit auf die 2-farbigen Modi zurückgreifen,
+die mit einer Bitplane arbeiten und eben nur 1/8 des Datenaufwandes zum Transport
+auf die Grafikkarte - den beim Amiga leider bestehenden `Flaschenhals' benötigen.
+
+Sollten noch irgendwelche Fragen bestehen, stehe ich gern zur Verfügung, am
+liebsten per E-Mail.
+
+@{i}[1] E. Oran Brigham, FFT - schnelle Fourier-Transformation, Oldenbourg 1995 
+[2] Ronald H. Bracewell, Schnelle Hartley-Transformation, Oldenbourg 1990 @{ui}
+
+@endnode
+
+@node "Formatloader" "Formatloader"
+
+  @{u}Formatloader@{uu}
+
+	Der Formatloader dient zum Laden vor allem von Samples, die
+	keine Kennung aufweisen und demzufolge nicht durch Check-
+	routinen erkannt werden können. Dies muss in diesem Fall
+	der User übernehmen. Typisch sind vor allem RAW-Samples, wie
+	sie im Protracker verwendet werden. Diese Instrumente sind
+	im Grunde reine Speicherabzüge und können nicht erkannt werden,
+	da jedes Bytes in diesen Dateien jeden möglichen Zustand annehmen
+	kann.
+	Zusätzlich kann der User die Abspielrate über einen Slider
+	einstellen, der auch mittels der Cursortasten gesteuert werden
+	kann. Die Rate wird dann in der unteren Anzeige abgezeigt.
+
+	@{b}ACHTUNG!!!@{ub} Bei unsachgemäßer Behandlung und droht höchste Absturz-
+		    gefahr!!!!
+
+
+
+  @{u}Für Programmierer@{uu}
+
+
+	Der Formatloader kann sehr einfach erweitert werden (Siehe
+	Beispielsourcecode). Zur Zeit sind lediglich Zuweisungen in
+	den externen Loadern maßgebend. Wichtig ist nur, daß es einen
+	Player für die Formate geben muß. Dies ist im Allgemeinen
+	ein normaler Eagleplayerabspieler, der zusätzlich die Tags
+	EP_Check7 (als DTP_Check1 Ersatz) und EP_Check8 (als DTP_Check2
+	Ersatz) beinhalten muß, sonst wird das Modul nicht erkannt. Der
+	Sinn dieser Checkroutine ist nicht der Check an sich sondern das
+	Vorbereiten von z.B. Loadvariablen für ExtLoad und die Kompati-
+	bilität zum Üblichen Playerkonzept. Dieser Player wird im externen
+	Loader nach seinem Namen definiert und später im EP gesucht.
+	Einer der Tags (EP_Check7 oder EP_Check8) muss existieren, damit
+	gewährleistet ist, daß der Abspieler solch ein Formatloading auch
+	durchführen kann.
+	Für die Samples (PCM, RAW) gibt es den Tag EP_SetPlayFrequence,
+	mit dem die Frequenz im Abspieler gesetzt wird.
+
+
+	@{i}Folgende Formate werden zur Zeit unterstützt:@{ui}
+
+	BFB Master		Ein Loader für die BFBMaster.Library
+	Protracker		(für Module, bei denen die Kennung fehlt oder
+				falsch gesetzt ist)
+	RAW 8Bit Mono		über AIFF
+	RAW 16Bit Mono		über AIFF
+	RAW 16Bit Stereo	über AIFF
+
+
+
+	@{i}Tastaturunterstützung im Formatloader@{ui}
+
+	8 & Cursor Hoch             = Ein Eintrag höher
+	2 & Cursor Runter           = Ein Eintrag tiefer
+	9 & Shift + Cursor Hoch		= Eine Seite höher
+	3 & Shift + Cursor Runter   = Eine Seite tiefer
+	7 & Ctrl + Cursor Hoch      = An den Anfang der Liste
+	1 & Ctrl + Cursor Runter    = Ans Ende der Liste
+	Cursor Links                = Slider 10 Hz nach links
+	Cursor Rechts               = Slider 10 Hz nach rechts
+	Shift + Cursor Links        = Slider 500 Hz nach links
+	Shift + Cursor Rechts       = Slider 500 Hz nach Rechts
+	Ctrl + Cursor Links         = Slider auf 4000 Hz
+	Ctrl + Cursor Rechts        = Slider auf 58000 Hz
+	<Enter>                     = angewähltes Modul laden
+	Esc                         = @{"Hide" link "Hide"} Window
+	@{b}@{i}A @{ui}@{ub}+ Q                          = @{"Quit" link "Quit"}
+	@{b}@{i}A @{ui}@{ub}+ H                          = @{"Hide" link "Hide"}
+	@{b}@{i}A @{ui}@{ub}+ A                          = @{"About" link "About"}
+
+
+	@{i}Weitere Links zum Formatloader@{ui}
+
+	@{"Formatliste" link "Formatloader_Formatlist"}
+	@{"Slider" link "Formatloader_Slider"}
+
+@endnode
+
+@node "Formatloader_Formatlist"
+
+  @{u}Formatliste@{uu}
+
+	Hier können Sie die verfügbaren Loader anwählen. Dann öffnet sich
+	ein Filerequester und Sie haben die Möglichkeit Ihre Sounddatei
+	anzuwählen, die, falls es möglich ist, geladen wird.
+
+
+
+	@{i}Weitere Links zum Formatloader@{ui}
+
+	@{"Formatloader" link "Formatloader"}
+	@{"Slider" link "Formatloader_Slider"}
+
+@endnode
+
+@node "Formatloader_Slider"
+
+  @{u}Formatloader Slider@{uu}
+
+	Hier können Sie die Abspielrate für Samples einzustellen.
+
+
+	@{i}Tastaturunterstützung für den Slider@{ui}
+
+	Cursor Links                = Slider 10 Hz nach links
+	Cursor Rechts               = Slider 10 Hz nach rechts
+	Shift + Cursor Links        = Slider 500 Hz nach links
+	Shift + Cursor Rechts		= Slider 500 Hz nach Rechts
+	Ctrl + Cursor Links         = Slider auf 4000 Hz
+	Ctrl + Cursor Rechts        = Slider auf 58000 Hz
+
+
+
+	@{i}Weitere Links zum Formatloader@{ui}
+
+	@{"Formatloader" link "Formatloader"}
+	@{"Formatliste" link "Formatloader_Formatlist"}
+
+@endnode
+
+@node "Hifi System V1" "Hifi System V1"
+
+  @{u}Hifi System V1@{uu}
+
+
+	Mir gefiel irgendwie mal ein Bild eines HiFi-Turms von Platin, das
+	ich nach Rücksprache mit dem Creator an meine Vorstellungen anpaßte
+	und nun als erste vollwertige neue Eagleplayeroberfläche präsentiere.
+	Aufgrund dessen, daß unsere Grafiker Protest anmeldeten, stellte
+	ich die Arbeiten ein und bringe dieses Programm als Beigabe zur
+	unregistrierten Version heraus.
+	Es dient einmal zur direkten Steuerung des Eagleplayers (ich glaube
+	kaum, daß die Funktionen lang und breit erklärt werden müssen) und
+	in zweiter Hinsicht sind die Analyzer integriert worden, in einer
+	etwas farbigeren Form.
+	Außerdem ist das Levelmeter (die horizontale, LED-förmige Aus-
+	steuerungsanzeige) samplegesteuert, daß heißt, daß die Anzeige
+	sich wirklich analog zur tatsächlichen Lautstärke verhält, da
+	die Werte aus den Samples selbst berechnet werden.
+
+	- Wird bei Gelegenheit durch eine besser aussehende, die Features
+	  von Kick 3.0 ausnutzende Oberfläche ersetzt
+
+@endnode
+
+@node "Levelmeter" "Levelmeter"
+
+  @{u}Levelmeter@{uu}
+
+ 
+    Aussteuerungsanzeige für das Musiksignal, die sich ihre Werte aus
+    den Samples holt und somit die wirklich am Audio-Ausgang vorhandene
+    Lautstärke anzeigt.
+
+	Für "Levelmeter" sollte für bestmögliches Aussehen ein Screen
+	mit mindestens 2 freien Pens (z.B. 16 Farben Workbench) bereit-
+	stehen, dies wird aber nicht zum Betrieb vorausgesetzt. Außerdem zeigt
+	das Programm die aktuelle Spielzeit mit an. Der Look wurde übrigens
+	der Anzeige eines Sony-Kassettendecks nachempfunden.
+	Levelmeter verlangt mindestens Kickstart 3.0.
+
+	Bei Levelmeter handelt es sich um das ehemalige "Levelmeter AGA",
+	das ursprüngliche, lediglich auf den 4 Standardfarben basierende,
+	Levelmeter wurde in Version 2.0 des EP entfernt.
+
+@endnode
+
+@node "Levelgraph" "Levelgraph"
+
+  @{u}Levelgraph@{uu}
+
+ 
+        Aussteuerungsanzeige für das Musiksignal, die sich ihre Werte aus
+        den Samples holt und somit die wirklich am Audio-Ausgang vorhandene
+        Lautstärke anzeigt.
+        Die Grafiken für die Ausschlagsanzeige stammen von Volker Kessler
+        (Ramon/Defect) und Jörg Krempien (M.U.D.U/Defect).
+        Das alte Levelgraph2 wurde in dieses Programm mit integriert und die
+        Grafik kann über das zugehörige Pulldown-Menü umgeschaltet werden.
+        In einer der nächsten Eagleplayerversionen wird auf jeden Fall auch
+        noch eine Multicolorvariante der Grafik angeboten, die allerdings
+        OS 3.0 voraussetzen wird. 
+
+@endnode
+
+
+@node "Manager" "Manager"
+
+  @{u}Manager@{uu}
+
+
+	Der Manager ist ein Ersatz für das Playerwindow des Eagleplayers V1.x.
+	Mit der Version 2.0 des EP wurde dieses Window aus Kompatibilitäts-
+	gründen und wegen des Designs entfernt und in Form des Managers 
+	ausgelagert, neu programmiert und erweitert.
+
+	Der Manager zeigt alle Fähigkeiten der Player und Engines an. Über
+	ihn können die jeweiligen Einstellungen der Player/Engines vor-
+	genommen werden. Der Manager ist fontsensitiv und kann beliebig in
+	der Größe des Windows verändert werden. Der Manager bietet
+	Localeunterstützung.
+
+
+	Folgende Gadgets können im Managerwindow betätigt werden:
+
+	@{"Modus" link "Manager_Mode"}                  @{i}Das Cyclegadget@{ui}
+	@{"Anzeigefelder" link "Manager_Listviews"}          @{i}Die 3 Listviews@{ui}
+	@{"Hinzufügen" link "Manager_Add"}
+	@{"Löschen" link "Manager_Delete"}
+	@{"Alle löschen" link "Manager_DeleteAll"}
+	@{"Konfiguration" link "Manager_Config"}
+	@{"Lade" link "Manager_LoadConfig"}
+	@{"Speichere" link "Manager_SaveConfig"}
+
+    @{i}Der Manager zeigt zwar alle verfügbaren Abspieler und Engines in den 
+    entsprechenden Listen an, allerdings bedeutet das nicht zwingend, daß
+    sich diese auch bereits im Speicher befinden, Einträge, die durch
+    @{b}(...){ub} hervorgehoben sind, bedeuten in den meisten Fällen, daß
+    sich das zu dem Eintrag gehörende Plugin noch nicht im Speicher befindet. 
+	Die Aktivierung/Deaktivierung und somit das Laden/Entfernen der Zusatz-
+	module kann durch simplen Doppelklick auf den @{"entsprechenden Eintrag" link "Manager_Listviews"}
+	erfolgen. Bei Engines, die wie in der @{"Einführung" link "Introduction"} beschrieben, auch
+	im Hintergrund arbeiten können, erscheint bei der Aktivierung der
+	@{"Konfiguration" link "Manager_Config"}-Schalter anwählbar. 
+	@{ui}
+@endnode
+
+Funktionen: (auf englischen Katalog bezogen)
+
+@node "Manager_Mode" "Manager / Mode"
+
+ @{u}Mode@{uu}
+
+	Umschaltung zwischen Anzeige der Abspieler und der Engines.
+@endnode
+
+@node "Manager_Listviews" "Manager / Anzeigefelder"
+
+ @{u}Anzeigefelder@{uu}
+
+	In den Anzeigefeldern (auch Listviews genannt) werden die zur
+	Verfügung stehenden Player/Engines angezeigt. Weiterhin gibt es
+	Listviews für spezifische Eigenschaften der Player/Engines und
+	ein Informationsfeld, welches unter anderem Auskunft über spezielle
+	Eigenarten des Moduls bzw. des Players/Engines gibt.
+
+	Inaktive Player/Engines werden durch "(...)" dargestellt, die
+	Aktivierung bzw. Deaktivierung erfolgt per Doppelklick auf den
+	entsprechenden oder per <SPACE> bzw. <ENTER>.
+@endnode
+
+
+@node "Manager_Add" "Manager / Hinzufügen"
+
+ @{u}Hinzufügen@{uu}
+
+	Dem Eagleplayer wird ein Player/Engine (nach Einstellung des
+	Cyclegadget im linken oberen Bereich des Managerwindows) hin-
+	zugefügt. Dazu öffnet sich ein Filerequester.
+
+
+
+        @{i} Anmerkung: Alle verfügbaren Engines und Player werden bereits
+                    im Listview angezeigt, so daß für diese der "Hinzufügen"
+                    Button eigentlich nicht benötigt wird.
+        @{ui}
+@endnode
+
+
+@node "Manager_Delete" "Manager / Löschen"
+
+ @{u}Löschen@{uu}
+
+ 	Der angewählte Eintrag und damit der damit verbundene Player
+ 	oder die Engine wird entfernt und aus dem Speicher gelöscht
+
+
+        @{i}Anmerkung1: Die internen Player des Eagleplayer können nicht
+                    gelöscht werden.
+        Anmerkung2: Die Engines werden bei aktivierter @{"Eject Engines" alink "EP_Main.guide/Eject Engines"}
+                    Option automatisch aus dem Speicher entfernt,
+                    schon wenn sie z.B. wie hier im Manager per
+                    Doppelklick deaktiviert werden. @{ui}
+@endnode	
+
+
+@node "Manager_DeleteAll" "Manager / Alle löschen"
+
+ @{u}Alle löschen@{uu}
+
+ 	Je nach Einstellung des Cyglegadgets im linken, oberen Bereich des
+ 	Managerwindows werden alle Player oder Engines entfernt und aus
+ 	dem Speicher gelöscht.
+
+     @{i}Anmerkungen: - Die internen Player des Eagleplayer können nicht
+                    gelöscht werden.
+                  - Bitte seien Sie vorsichtig mit dem löschen aller aktiven
+                    Engines, denken Sie daran, daß sie mit diesem Kommando
+                    ALLE Engines, also auch Benutzeroberflächen, Amplifier
+                    UND den Manager rauswerfen.
+     @{ui}
+
+@endnode	
+@node "Manager_Config" "Manager / Konfiguration"
+
+ @{u}Konfiguration@{uu}
+
+	Aufrufen von Konfigurationroutinen in den Playern bzw. Engines. Dabei
+	können z.B. Windows geöffnet werden, wie z.B. beim @{"8 Bit Amplifier" link "8 Bit Amplifier"}
+	oder der Pfad des Exoticrippers kann beim @{"Eagleexotic" link "Eagleexotic"}  in einem File-
+	requester eingestellt werden.
+
+@endnode	
+@node "Manager_LoadConfig" "Manager / Lade Konfiguration"
+
+ @{u}Lade Konfiguration@{uu}
+
+	Laden von eigenen Einstellungen der angewählten Engines oder Player.
+	Einige Engines wie z.B. die @{"Amplifier" link "AIntroduction"}, @{"Eagleexotic" link "Eagleexotic"} usw. besitzen
+	eigene Konfigurationsdateien, die hiermit geladen werden können,
+	wobei zu beachten ist, daß Einstellungen wie Zustand, Größe und
+	Position der zugehörigen Fenster trotzdem vom Eagleplayer selbst
+	verwaltet werden und nicht mitgeladen werden.
+
+	@{i}Anmerkung: Beim Laden des Eagleplayers werden diese Konfigurations-
+	           dateien automatisch mitgeladen.@{ui}
+@endnode	
+
+
+@node "Manager_SaveConfig" "Manager / Speichere Konfiguration"
+
+ @{u}Speichere Konfiguration@{uu}
+
+	Speichern von eigenen Einstellungen der angewählten Engines oder
+	Player. Einige Engines wie z.B. die @{"Amplifier" link "AIntroduction"}, @{"Eagleexotic" link "Eagleexotic"}  usw.
+	besitzen eigene Konfigurationsdateien, die hiermit gespeichert
+	werden können, wobei zu beachten ist, daß Einstellungen wie
+	Zustand, Größe und Position der zugehörigen Fenster trotzdem
+	vom Eagleplayer selbst verwaltet werden und nicht mitgespeichert
+	werden
+
+	@{i}Anmerkung: Beim Speichern der @{"Eagleplayer.Config" alink "EP_Main.guide/Saveconfig"} sichern auch alle
+                   Engines und Player ihre aktuelle Konfiguration automatisch
+                   mit, so daß ein manuelles Speichern der Konfigurationsdateien 
+                   nur in den seltesten Fällen nötig wird.@{ui}
+
+@endnode	
+
+@node "M.E.L.G.U" "M.E.L.G.U"
+
+  @{u}M.E.L.G.U@{uu}
+
+
+	Dieses Engine wurde ab V2.00 des Eagleplayers entfernt und durch die
+	wesentlich leistungsfähigere Listenverwaltung @{"Pysion" link "Pysion"} ersetzt.
+	(Pysion ist in der Lage, die alten Datenfiles von M.E.L.G.U zu
+	laden.)
+@endnode
+
+
+@node "Messagewindow" "Messagewindow"
+
+  @{u}Messagewindow@{uu}
+
+
+	Eine Engine, welches alle Informationstexte, die im Scoller durch
+	das Window sausen, untereinander anzeigt, für Leute, die es ganz
+	genau wissen wollen, was der Eagleplayer so zu melden hat.
+
+@endnode
+
+@node "Moduleinfo" "Moduleinfo"
+
+  @{u}Moduleinfo@{uu}
+
+	Moduleinfo zeigt je nach verwendetem Abspieler eine Reihe von
+	Informationen über die zum aktuellen Zeitpunkt geladene Musikdatei
+	an. Dies kann zum Beispiel die Anzahl der verwendeten Stimmen, den
+	internen Namen des Musikstückes, den Autor, die vom Eagleplayer
+	berechnete Spielzeit (@{"Protracker" alink "EP_Player.Guide/Protracker"}, @{"Oktalyzer" alink "EP_Player.Guide/Oktalyzer"}, @{"SonicArranger" alink "EP_Player.Guide/SonicArranger"}, @{"AIFF" alink "EP_Player.Guide/AIFF"} usw.),
+	die Namen der Samples und vieles mehr umfassen.
+	Das Fenster ist beliebig größenveränderlich und fontsensitiv und man
+	kann ein @{"Hintergrundbild" link "Backpic"} einstellen.
+
+	Als besonderes Highlight kann man die Instrumente durch Doppelklick
+	bzw. <ENTER> abspielen. Durch Betätigung des Knopfs @{"Speichern" link "Moduleinfo_Savesample"} öffnet
+	sich der @{"Samplesaver" link "Samplesaver"} und das im Moduleinfo angewählte Instrument
+	wird auch dort gesetzt. Durch einen Doppelklick auf eines der Speicher-
+	module aktivieren Sie den Sicherungsvorgang des Instruments.
+
+	@{i}Tastaturunterstützung im Moduleinfo:@{ui}
+
+	8 & Cursor Hoch			= Ein Eintrag höher
+	2 & Cursor Runter		= Ein Eintrag tiefer
+	9 & Shift + Cursor Hoch		= Eine Seite höher
+	3 & Shift + Cursor Runter	= Eine Seite tiefer
+	7 & Ctrl + Cursor Hoch		= An den Anfang der Liste
+	1 & Ctrl + Cursor Runter	= Ans Ende der Liste
+	Cursor Links			= Slider 10 Hz nach links
+	Cursor Rechts			= Slider 10 Hz nach rechts
+	Shift + Cursor Links		= Slider 500 Hz nach links
+	Shift + Cursor Rechts		= Slider 500 Hz nach Rechts
+	Ctrl + Cursor Links		= Slider auf 4000 Hz
+	Ctrl + Cursor Rechts		= Slider auf 58000 Hz
+	P, <Enter>			= angewähltes Instrument spielen
+	Esc				= @{"Hide" link "Hide"} Window
+	A+Q				= @{"Quit" link "Quit"}
+	A+H				= @{"Hide" link "Hide"}
+	A+A				= @{"About" link "About"}
+	W				= Modul weiterspielen
+	S				= Stop
+
+
+	@{i}Weitere Links zum Moduleinfo:@{ui}
+
+	@{"Informationsliste                " link "Moduleinfo_Infoliste"}
+	@{"Instrument speichern             " link "Moduleinfo_SaveSample"}
+	@{"Instrument spielen               " link "Moduleinfo_Play"}
+	@{"Zeit vorwärts zeigen             " link "Moduleinfo_Vorwaerts"}
+	@{"Zeit rückwärts zeigen            " link "Moduleinfo_Rueckwaerts"}
+	@{"Modul weiterspielen              " link "Moduleinfo_Modulecont"}
+	@{"Abspielen des Instruments stoppen" link "Moduleinfo_Stop"}
+	@{"Samplesaver Schalter             " link "Moduleinfo_SamplesaverOn"}
+	@{"Choose Font                      " link "Moduleinfo_Choosefont"}
+
+
+@endnode
+
+@node "Moduleinfo_Slider" "Schieberegler"
+
+  @{u}Frequenzregler@{uu}
+
+	Mit diesem Regler können Sie die Abspielrate (auch Samplefrequenz) ein-
+	regeln.
+
+
+	@{i}Tastaturunterstützung des Reglers:@{ui}
+
+	Cursor Links			= Slider 10 Hz nach links
+	Cursor Rechts			= Slider 10 Hz nach rechts
+	Shift + Cursor Links		= Slider 500 Hz nach links
+	Shift + Cursor Rechts		= Slider 500 Hz nach Rechts
+	Ctrl + Cursor Links		= Slider auf 4000 Hz
+	Ctrl + Cursor Rechts		= Slider auf 58000 Hz
+
+@endnode
+
+@node "Moduleinfo_Infoliste" "Informationsliste"
+
+  @{u}Informationsliste@{uu}
+
+	In dieser Liste werden alle über das geladene Modul verfügbaren
+	Informationen angezeigt. Dazu zählen z.B. Größe, Name, Format,
+	Anz der Instrumente, Spielzeit, Autor, Pattern und die Instrumente,
+	die durch Doppelklick @{"abgespielt" link "Moduleinfo_play"} werden können.
+@endnode
+
+@node "Moduleinfo_SaveSample" "Instrument speichern"
+
+  @{u}Instrument speichern@{uu}
+
+	Als besonderes Highlight kann man die Instrumente auch speichern!
+	Durch Betätigung des Knopfs öffnet sich der @{"Samplesaver" link "Samplesaver"} und das
+	im Moduleinfo angewählte Instrument wird auch dort gesetzt. Durch
+	einen Doppelklick auf eines der Speichermodule oder den Namen des
+	gewählten Samples aktivieren Sie den Sicherungsvorgang des 
+	Instruments.
+@endnode
+
+@node "Moduleinfo_Play" "Instrument spielen"
+
+  @{u}Instrument spielen@{uu}
+
+	Wenn Sie dieses Knopf betätigen, wird das angewählte Instrument abgespielt,
+	falls dies möglich ist. Das Modul im EP wird angehalten, bleibt aber im
+	Speicher und kann durch Anwahl des der @{"Weiterspielen" link "Moduleinfo_Modulecont"}-Option wieder von
+	der Stelle an der es gestoppt wurde, gespielt werden. Eine zweite 
+	Möglichkeit ist die @{b}zweimalige@{ub} Anwahl der @{"Playtaste" alink "EP_Main.guide/Play"} im Eagleplayer
+	Hauptfenster.
+
+@endnode
+
+@node "Moduleinfo_Vorwaerts" "Zeit vorwärts zeigen"
+
+  @{u}Zeit vorwärts zeigen@{uu}
+
+	In der Anzeigebox wird die bisherige Spielzeit in Minuten und Sekunden
+	angezeigt.
+@endnode
+
+@node "Moduleinfo_Rueckwaerts" "Zeit rückwärts zeigen"
+
+  @{u}Zeit rückwärts zeigen@{uu}
+
+	Es wird die übrige Spielzeit angezeigt, falls der Eagleplayer in der
+	Lage ist, die Gesamtspielzeit des Musikstückes zu berechnen, ansonsten
+	wird die Spielzeit für dieses Modul in @{"positiver Richtung" link "Moduleinfo_Vorwaerts"} angezeigt.
+@endnode
+
+@node "Moduleinfo_Modulecont" "Modul weiterspielen"
+
+  @{u}Modul weiterspielen@{uu}
+
+	Das Modul, das durch das @{"Abspielen" link "Moduleinfo_Play"} eines Instruments unterbrochen wurde,
+	wird fortgesetzt.
+@endnode
+
+@node "Moduleinfo_Stop" "Abspielen des Instruments stoppen"
+
+  @{u}Abspielen des Instruments stoppen@{uu}
+
+	Das @{"Abpielen" link "Moduleinfo_Play"} eines Instruments wird angehalten. Falls ein Modul läuft,
+	hat diese Funktion keine Bedeutung.
+@endnode
+
+@node "Moduleinfo_SamplesaverOn" "Samplesaver Schalter"
+
+  @{u}Samplesaver an/aus@{uu}
+
+	Sobald dieser Schalter aktiviert wird, zeigt Moduleinfo die Zusatz-
+	funktionen zum Abspielen der Samples des geladenen Moduls an, namentlich
+	der @{"Frequenzregler" link "Moduleinfo_SaveSample"}, die momentane @{"Abspielfrequenz" link "Moduleinfo_Slider"} und den Schalter zum
+	an- und ausschalten des	@{"Samplesavers" link "Moduleinfo_SaveSample"}.
+@endnode
+
+@node "Moduleinfo_Choosefont" "Choose Font"
+
+  @{u}Choose Font@{uu}
+
+	Using this option you may select an alternative font (to the current 
+	screen`s one) for use in Moduleinfo`s window. I would suggest a small
+	and non proportional font but that depends on your personal taste...
+@endnode
+
+@node "Moduleinfo.OLD" "Moduleinfo.OLD"
+
+  @{u}Moduleinfo@{uu}
+
+	Moduleinfo zeigt je nach verwendetem Abspieler eine Reihe von
+	Informationen über die zum aktuellen Zeitpunkt geladene Musikdatei
+	an. Dies kann zum Beispiel die Anzahl der verwendeten Stimmen, den
+	internen Namen des Musikstückes, den Autor, die vom Eagleplayer
+	berechnete Spielzeit (@{"Protracker" alink "EP_Player.Guide/Protracker"}, @{"Oktalyzer" alink "EP_Player.Guide/Oktalyzer"}, @{"SonicArranger" alink "EP_Player.Guide/SonicArranger"}, @{"AIFF" alink "EP_Player.Guide/AIFF"} usw.),
+	die Namen der Samples und vieles mehr umfassen.
+	Das Fenster ist beliebig größenveränderlich und fontsensitiv.
+	
+
+ @{u}Menüoptionen:@{uu}
+
+  @{i}Track @{ui}            - Moduleinfo zeigt zusätzlich in der rechts unten befind-
+                      lichen Anzeigebox die Nummer der Musikdatei in der 
+                      aktuellen Liste, sowie die Gesamtanzahl der in der Liste
+                      vorhandenen Musikstücke
+  @{i}Time Current @{ui}     - in der Anzeigebox wird die bisherige Spielzeit in Minuten
+                      und Sekunden angezeigt
+  @{i}Time Remain @{ui}      - es wird die übrige Spielzeit angezeigt, falls der Eagle-
+                      player in der Lage ist, die Gesamtspielzeit des Musik-
+                      stückes zu berechnen, ansonsten erscheinen 3 Fragezeichen
+  @{i}Time System @{ui}      - es wird die aktuelle Uhrzeit angezeigt
+  @{i}Time Percent @{ui}     - prozentuale Fortschrittsanzeige für den Abspielvorgang,
+                      deren Werte entweder aus der berechneten Spielzeit oder
+                      wenn diese nicht verfügbar ist, aus der Patternposition 
+                      berechnet werden.
+  @{i}System Default Font-@{ui}dieser Schalter läßt dem Anwender die Wahl zwischen der
+                      für die Bildschirmtitel eingestellten Schriftart (=aus)
+                      oder der nichtproportionalen Schriftart, wie sie auch
+                      für die Shell-Fenster durch den Anwender eingestellt
+                      wurde. In letzerem Modus hat man den Vorteil eines
+                      aufgeräumteren Outputs im Listview des Moduleinfo.
+
+
+ @{u}Arexx-Port:@{uu}
+
+  Moduleinfo besitzt einen eigenen Arexx-Port, über den sich der
+  Ausgabetext des Programmes komplett abrufen läßt.
+  Der Name des Ports ist schlicht und einfach @{i}Moduleinfo@{ui}.
+
+  Das einzige momentan verfügbare Kommando ist @{i}getsonginfos{ui}.
+  Damit werden alle Informationen außer der Sampleliste als Rückgabewert
+  angegeben.
+
+  @{u}Beispiel:@{uu}
+  @{i} /* simple Moduleinfo macro */
+
+   options results
+
+   address 'Moduleinfo'
+
+   getsonginfos
+   interesting=result@{ui}
+
+@endnode
+
+@node "Noiseconverter" "Noiseconverter"
+
+  @{u}Noiseconverter@{uu}
+
+	Der Noiseconverter ist eine der neuen Engines, die mit dem
+	Eagleplayer V2.00 ausgeliefert werden. Es hat die Aufgabe,
+	seltene Soundformate, für die z.B. kein Player zur Verfügung
+	steht oder die mit anderen Playern besser zusammenarbeiten
+	in diese Formate umzuwandeln. Typisch ist diese Verfahrens-
+	weise schon seit der V1.54 mit den Protrackerclones (z.B.
+	Noisepacker, Trackerpacker ...). Im Moment arbeitet der
+	Noiseconverter unsichtbar im Hintergrund ohne eigenes
+	Konfigurationsfenster.
+	Der Vorteil dieser Engine besteht in der einfachen Erweiter-
+	barkeit. Jeder, der ein bißchen Programmiererfahrung hat,
+	kann sich seine Converter selbst schreiben.
+
+
+
+  @{u}Für Programmierer@{uu}
+
+
+	Der Noiseconverter lädt externe Converter die sich im Ver-
+	zeichnis "/Engines/Noiseconverters" befinden ein und convertiert
+	automatisch alle entpackten Dateien, die keinen Player gefunden
+	haben, falls dies möglich ist.
+	Die externen Converter sind ähnlich aufgebaut woie die externen
+	Player. Sie besitzen einen Header und eine Tagliste (Siehe
+	Beispielsourcecode).
+
+	@{b}Wichtig@{ub} ist Tag_Convert. Die Parameterübergabe erfolgt folgen-
+	dermaßen:
+
+	Input:	d0=Size des Modules
+		a0=Adr des Modules
+	Output: d0=Convertsize oder NULL für Fehler
+		d1=Flags (z.B. Originalfile freigeben, siehe Includes)
+		d2=Memsize or NULL
+		a0=ConvertAdr
+		a1=Formatname
+		a2=SamplePtr (für Protrackerclones) oder NULL
+
+	Da man z.B bei den Protrackerclones nur die Songs convertieren
+	muss, reicht es aus, nur Speicher für die neuen Songdaten zu
+	allokieren und einen Sampleptr auf die Instrumente im Original-
+	modul zu setzen. Dies hat den Vorteil, dass die Module auch
+	im Originalformat gespeichert werden können.
+
+	@{b}Wichtig!!!@{ub} d2, die Memsize, muß immer um `SecurityMem` größer sein
+	als die Convertedsize in d1, sonst gibt der EP einen Fehler aus!
+	Falls es sich jedoch um einen Kodierer (ala Wantonpacker, Pro-
+	runner 1.0) handelt, reicht es aus, die Songdaten zu konvertieren.
+	In diesem Fall wird logischerweise kein neuer Speicherbereich
+	benötigt und d2 muss NULL gesetzt werden. a0 muß in diesem Fall
+	auf die originale Adresse des Modules zeigen. Hier ist dann kein
+	Speichern im Originalformat möglich!
+@endnode
+
+@node "Noiseeagle" "Noiseeagle"
+
+  @{u}Noiseeagle@{uu}
+
+ 
+	Wer die Eagleplayeroberfläche überhaupt nicht mag (Hi Cpt. Bifat of
+	TEK) kann diese Engine starten, das genau wie der gute alte Noise-
+	player ein File anfordert und dieses abspielt. Der Unterschied zum
+	Original besteht darin, daß ein wenig mehr Replays unterstützt
+	werden und auf die hardwarehackenden Maus/Tastaturabfragen
+	verzichtet wurde.
+
+	-seit Eagleplayer 2.0 nicht mehr in der Distribution
+@endnode
+
+
+@node "Patternscroll" "PatternScroll"
+
+  @{u}Patternscroll@{uu}
+
+
+	Sollte eigentlich jedem, der schon mal einen Tracker in der Hand
+	hatte, bekannt sein. Der Patternscroll zeigt das "Notenblatt" von
+	Trackermusikstücken in der üblichen Hexadezimalen Form an, also
+	genauso, wie die Stücke auch komponiert wurden.	Als kleines Bonbon
+	wurde das Teil gleich so geschrieben, daß es bis zu 16 Stimmen 
+	unterstützen kann (z.B. @{"FT2" alink "EP_Player.Guide/Fasttracker II"}).
+	Verbraucht auf einem 50Mhz 68030 Rechner im 8 Stimmen Modus
+	durchschnittlich unter 20% Rechenzeit, bei 4 Stimmen unter 10% !
+
+         - Ab Version 1.53 des EP wurde das Programm komplett überarbeitet
+           und bietet ein frei in der Größe ziehbares Fenster, sowie 
+           bis zu 16 Stimmen (Patternscroll++ bis zu 32 mit
+           halb so breitem Text) unterstützen.
+         - Bei selber Größe wurde die Geschwindigkeit noch einmal um 30%
+           gesteigert
+         - die automatische Größenveränderung läßt sich bei den neuen
+           Patternscrollern abschalten
+         - seit V1.54b gibt es auch den "invertierten" Modus, der vom
+           Patternscroll+, der bei einigen älteren Versionen beilag,
+           bekannt ist. Dieser ist zwar durch die doppelte durch CPU und
+           Blitter zu bewältigende Datenmenge spürbar langsamer, sieht
+           aber weitaus besser aus.
+         - In der Version 2.0 des Eagleplayers kamen nochmals eine Menge an
+           Musikformaten hinzu, bei denen das Patternscoll-Feature unterstützt
+           wird
+
+	@{i}Anmerkung: Die Bezeichnung der Noten erscheint in der Terminologie, wie 
+	           sie beim Protracker verwendet wird. Andere Musikprogramme 
+	           benennen die Noten und/oder Kommandos anders, was aber hier 
+	           ignoriert wird. @{ui}
+
+	Der Patternscroll für Kickstart 1.3 erscheint seit der Version 2.0 des
+	Eagleplayers nicht mehr mit in der Distribution. (wieso auch)
+@endnode
+
+@node "Patternscroll++" "PatternScroll++"
+
+    Dieselbe Funktion wie @{"Patternscroll" link "Patternscroll"}, mit dem einzigen Unterschied, daß
+    die Breite der dargestellten Zeichen halbiert wurde und damit das
+    Notenblatt von bis zu 32 Stimmen angezeigt werden kann.
+@endnode
+
+@node "Playerloader" "Playerloader"
+
+  @{u}Playerloader@{uu}
+
+
+	Der Playerloader ist neben den Amplifiern die wahrscheinlich wichtigste 
+	neue Engine des Eagleplayer 2.0.
+	Der Playerloader testet das gerade eingeladene Modul auf den Typ und
+	lädt automatisch den entsprechenden externen Player hinein, wodurch
+	es sich eben erübrigt, alle externen Player schon beim Start zu
+	laden. Das spart nicht nur Zeit, sondern ganz nebenbei auch locker
+	1 Megabyte Speicher.
+	Die frühere Methode, die externen Player durch spezielle Präfixe oder
+	Suffixe der Module zu identifizieren, läßt sich zwar immer noch
+	benutzen ('Playerbatch'), aber dieses Programm ist doch viel
+	komfortabler in der Handhabung.
+
+	Anmerkung: Wer den Playerloader deaktiviert, ist selbst schuld.
+@endnode
+
+
+@node "Publicscreenselector" "PublicScreenSelector"
+
+  @{u}PublicScreenSelector@{uu}
+
+
+	Der PublicScreenSelector erlaubt es, auf einfachste Weise den Eagleplayer
+	auf einem beliebigen aktiven Publicscreen zu öffnen, ohne daß man sich
+	lange mit der Eingabe der manchmal "fingerbrechenden" Namen aufhalten
+	muß.
+
+	Alternativ zum PublicScreenSelector läßt sich auch noch die "PubscreenJump"-
+	Funktion des @{"BifatGUI" link "BifatGui"} verwenden, den "Hardcore"-Tippern sei die 
+	"Change Pubscreen" Menüoption empfohlen.
+
+@endnode
+
+
+@node "Pysion" "Pysion"
+
+  @{u}Pysion@{uu}
+
+	Pysion ist die herausragende Listenverwaltung des Eagleplayers. Sie
+	wird seit V2.0 mitgeliefert. Mit Pysion können Moduleslisten erstellt
+	werden, die der Eagleplayer abspielen kann. Als besonderes Highlight
+	kann Pysion die Listen folgender Abspieler laden (in alphabetischer
+	Reihenfolge):
+
+	* Accessible Player
+	* BananaPlay
+	* DASMod
+	* Delitracker
+	* Eagleplayer
+	* Empy
+	* Hippoplayer
+	* M.E.L.G.U.
+	* Smartplay
+
+	Und nicht zu vergessen, behandelt Pysion, falls der Extractor geladen
+	ist, jedes Archive, das dieser verarbeiten kann, als Liste und nimmt
+	die Dateien aus dem Archiv in die Liste auf. 
+	Beachten Sie bitte, daß Archive als @{i}Listen@{ui} hinzugefügt werden
+	müssen!
+
+	Da die V0.9 leider zur Release nicht fertig wurde, sind nur grundlegen-
+	de Funktionen benutzbar.
+
+	@{i}Weitere Highlights die bereits kurz vor der Vollendung stehen:@{ui}
+	
+	* lernbare Autorenliste
+	* Gruppenverwaltung
+	* Modulesprefs
+
+	Kurze Einführung in die Interaktion mit Eagleplayer:
+	- Eagleplayer ist in der Lage, die erstellten Listen direkt 
+	  zu übernehmen, die Funktion dafür ist der "Execute"- bzw.
+	  "Ausführen" - Button
+	- Eagleplayer ist in der Lage, die erstellten Listen direkt
+	  zu laden und zu verwenden, genauso einfach wie Archive
+	  vom @{"Extractor" link "Extractor"} als Unterverzeichnisse gehandhabt werden,
+	  geschieht das dann auch mit Listen vom Pysion und
+	  der anderen oben aufgeführten Programme.
+
+
+
+	@{i}Tastaturunterstützung im Pysion@{ui}
+
+	8 & Cursor Hoch			= Ein Eintrag höher
+	2 & Cursor Runter		= Ein Eintrag tiefer
+	9 & Shift + Cursor Hoch		= Eine Seite höher
+	3 & Shift + Cursor Runter	= Eine Seite tiefer
+	7 & Ctrl + Cursor Hoch		= An den Anfang der Liste
+	1 & Ctrl + Cursor Runter	= Ans Ende der Liste
+	<Enter>				= angewähltes Modul laden
+	Esc				= @{"Hide" link "Hide"} Window
+	A+Q				= @{"Quit" link "Quit"}
+	A+H				= @{"Hide" link "Hide"}
+	A+A				= @{"About" link "About"}
+
+	je nach Catalog: Deutsch,(Englisch)
+	E,(A)				= Add
+	L,(D)				= Delete
+	S,(S)				= Liste speichern
+	A,(E)				= Execute (nur im Asynchronmodus)
+	F,(T)				= Eintrag an den Anfang der Liste
+	N,(B)				= Eintrag an das Ende der Liste
+	O,(U)				= mit höherem Eintrag tauschen
+	U,(O)				= mit niedrigerem Eintrag tauschen
+	M,(P)				= Moduleseinstellungen
+	C,(C)				= -++- löschen
+	P,(P)				= gewähltes Modul spielen
+@endnode
+
+@node "Quadrascope" "Quadrascope/Stereoscope/Monoscope"
+
+  @{u}Quadrascope/Stereoscope/Monoscope@{uu}
+
+ 
+	Anzeige der aktuellen abgespielten Samples, entweder getrennt
+	(Quadrascope) oder additiv zusammengefaßt. (Monoscope, Stereoscope)
+	Diese Anzeige erfolgt in Echtzeit, daß heißt, daß auf einem ange-
+	schlossenen Oszilloskop dasselbe sichtbar sein müßte.
+
+	Stereoscope wurde in der Version 2.0 des Eagleplayer durch das
+	frühere Stereoscope AGA ersetzt und Monoscope wurde entfernt.
+
+	Menüoptionen des Quadrascope:
+
+	Standard   - es wird pro Spalte lediglich ein Punkt gezeichnet, schnellster
+	             Anzeigemodus
+	Solid      - der Abstand von der Mitte bis zu den Punkten wird ausgefüllt
+	Line       - die einzelnen Punkte werden miteinander verbunden
+	Space      - siehe @{"Spacescope" link "Spacescope"}
+
+	Horizontal - Anzeige waagerecht, wie bei einem Oszilloskop
+	Vertical   - Anzeige senkrecht
+	Halve      - alle Ausschläge werden positiv angezeigt, nicht wie beiden
+	             Modi oben nach beiden seiten
+	Mirror     - alle Ausschläge werden positiv angezeigt und an der Mitte
+	             gespiegelt
+		@{i}Anm: diese 4 Schalter haben keinen Einfluß auf den "Space"-Modus @{ui}
+
+	Slow       - benötigte Rechenzeit halbieren
+@endnode
+
+
+@node "Samplesaver" "Samplesaver"
+
+  @{u}Samplesaver@{uu}
+
+	Mit diesem Engine können Sie die Instrumente eines Module sich einzeln
+	anhören und sogar in verschiedenen Formaten speichern. Diese Module
+	werden beim Start aus dem Verzeichnis "Samplesavers/" geladen.
+	Die Abspieltgeschwindigkeit kann mittels eines Frequenzreglers im
+	unteren Bereich des Fensters eingestellt werden. Zu allem Überfluß ist
+	dieses Engine fontsensitiv, das Window ist größenveränderbar und hat
+	natürlich Localeunterstützung. Weiterhin ist der Samplesaver komplett
+	über die Tastatur steuerbar.
+
+
+	@{i}Tastaturunterstützung im Samplesaver@{ui}
+
+	8 & Cursor Hoch             = Ein Eintrag höher
+	2 & Cursor Runter           = Ein Eintrag tiefer
+	9 & Shift + Cursor Hoch     = Eine Seite höher
+	3 & Shift + Cursor Runter   = Eine Seite tiefer
+	7 & Ctrl + Cursor Hoch      = An den Anfang der Liste
+	1 & Ctrl + Cursor Runter    = Ans Ende der Liste
+	Cursor Links                = Slider 10 Hz nach links
+	Cursor Rechts               = Slider 10 Hz nach rechts
+	Shift + Cursor Links        = Slider 500 Hz nach links
+	Shift + Cursor Rechts       = Slider 500 Hz nach Rechts
+	Ctrl + Cursor Links         = Slider auf 4000 Hz
+	Ctrl + Cursor Rechts		= Slider auf 58000 Hz
+	<Enter>                     = angewähltes Instrument mit angewähltem 
+	                              Saver speichern
+	Esc                         = @{"Hide" link "Hide"} Window
+	@{b}@{i}A @{ui}@{ub}+ Q                       = @{"Quit" link "Quit"}
+	@{b}@{i}A @{ui}@{ub}+ H                       = @{"Hide" link "Hide"}
+	@{b}@{i}A @{ui}@{ub}+ A                       = @{"About" link "About"}
+	Tab                         = Wecheln des Listviews (Speichermodule<->Instrumente)
+	P,Space                     = Play
+	S                           = Stop
+
+
+	@{i}Weitere Links zum Samplesaver@{ui}
+
+	@{"Liste der Speichermodule" link "Samplesaver_Formatlist"}
+	@{"Instrumentenliste" link "Samplesaver_Samplelist"}
+	@{"Informationsliste" link "Samplesaver_Informationen"}
+	@{"Eigenschaftenliste" link "Samplesaver_Eigenschaften"}
+	@{"Frequenzregler" link "Samplesaver_Slider"}
+	@{"Spielen" link "Samplesaver_Play"}
+	@{"Stopp" link "Samplesaver_Stop"}
+
+@endnode
+
+@node "Samplesaver_Formatlist" "Liste der Speichermodule"
+
+  @{u}Liste der Speichermodule@{uu}
+
+	Diese Liste zeigt Ihnen die verfügbaren Speichermodule. Durch
+	einen Doppelklick auf ein Modul aktivieren Sie die Savefunktion
+	und ein Filerequester öffnet sich. Dort geben Sie den Namen
+	des Instruments ein (so wie es halt heißen soll).
+	Es wird das Instrument verwendet, das in der @{"Instrumentenliste" link "Samplesaver_Samplelist"}
+	angezeigt wird.
+@endnode
+
+@node "Samplesaver_Samplelist" "Instrumentenliste"
+
+  @{u}Instrumentenliste@{uu}
+
+	Diese Liste zeigt Ihnen die Instrumente, die gespeichert werden
+	können. Es kann vorkommen, daß einige Instrumente, die im @{"Moduleinfo" link "Moduleinfo"}
+	angezeigt werden, nicht in dieser Liste enthalten sind, da einige
+	Angaben (z.B. Adresse im Speicher oder Länge des Instruments) fehlen.
+	Durch einen Doppelklick auf ein Instrument oder Enter aktivieren Sie
+	die Savefunktion und ein Filerequester öffnet sich. Dort geben Sie
+	den Namen des Instruments ein (so wie es halt heißen soll).
+	Es wird der Saver verwendet , der in der @{"Liste der Speichermodule" link "Samplesaver_Formatlist"}
+	angezeigt wird.
+@endnode
+
+@node "Samplesaver_Informationen" "Informationsliste"
+
+  @{u}Informationsliste@{uu}
+
+	In dieser Liste sind Informationen über das angewählte Speicher-
+	format enthalten (z.B. Programmierer und Versionsnummer oder
+	Hinweise auf ähnliche Formate bzw. mögliche Schwierigkeiten).
+@endnode
+
+@node "Samplesaver_Eigenschaften" "Eigenschaftenliste"
+
+  @{u}Eigenschaftenliste@{uu}
+
+	In dieser Liste sind die Eigenschaften des Instruments (z.B. Länge
+	und Typ) aufgelistet.
+@endnode
+
+@node "Samplesaver_Slider" "Frequenzregler"
+
+  @{u}Frequenzregler@{uu}
+
+	Mit diesem Regler können Sie die Abspielrate (auch Samplefrequenz) ein-
+	regeln. Bei Speicherformaten, die dieses unterstützen wird diese Ein-
+	stellung mitabgespeichert (z.B. @{"AIFF" alink "EP_Player.guide/AIFF"}).
+
+
+	@{i}Tastaturunterstützung des Sliders:@{ui}
+
+	Cursor Links			= Slider 10 Hz nach links
+	Cursor Rechts			= Slider 10 Hz nach rechts
+	Shift + Cursor Links		= Slider 500 Hz nach links
+	Shift + Cursor Rechts		= Slider 500 Hz nach Rechts
+	Ctrl + Cursor Links		= Slider auf 4000 Hz
+	Ctrl + Cursor Rechts		= Slider auf 58000 Hz
+@endnode
+
+@node "Samplesaver_Play" "Instrument abspielen"
+
+  @{u}Instrument spielen@{uu}
+
+	Wenn Sie dieses Knopf betätigen, wird das angewählte Instrument abgespielt,
+	falls dies möglich ist. Das Modul im EP wird angehalten, bleibt aber im
+	Speicher und kann durch drücken auf die Playtaste im EP erst in den Pause-
+	modus und dann wieder in den Playmodus versetzt werden.
+@endnode
+
+@node "Samplesaver_Stop" "Stopp"
+
+  @{u}Stopp@{uu}
+
+	Das Abspielen eines Samples wird gestoppt. Falls ein Modul gespielt wird,
+	ist diese Funktion bedeutungslos.
+@endnode
+
+
+
+
+@node "Spacescope" "Spacescope"
+
+  @{u}Spacescope@{uu}
+
+
+	Nett anzusehender Sampleanzeiger, den ich zum ersten Mal auf dem
+	Atari ST sah. Die erste Umsetzung auf dem Amiga war das Tracker-
+	programm "Quadracomposer". Nach dem Eagleplayer unterstützten auch
+	andere Musikabspieler (Delitracker, Hippoplayer) diese Art der
+	Anzeige.
+	Braucht aufgrund hoher Blitterbeanspruchung und ziemlich vielen 
+	Punkten pro Rasterdurchlauf eine Menge Rechenzeit (besonders auf
+	unbeschleunigten Maschinen, aber wer hat sowas noch).
+	Wem das Teil zuviel Rechenzeit verbraucht, der kann die 1200 Punkte,
+	die pro Durchlauf dargestellt werden, auf 800, 400 oder 120 
+	verringern. Außerdem kann durch den "Slow Mode" die Rechenzeit 
+	durch eine geringere Refreshrate auf etwa die Hälfe gesenkt werden.
+	(800 Punkte in 1/50sek = 40000 Punkte pro Sekunde     P L U S
+	200 KByte Daten pro Sekunde, die geschaufelt werden müssen, um den
+	Puffer systemkonform ins Fenster darzustellen, d.h. ohne alles c.a.
+	16% der Blitterperformance+20% Rechenzeit auf einem 50MHz MC 68030
+	Computer)
+
+	Menüoptionen:
+
+	 30Pix*4 - siehe oben
+	100Pix*4
+	200Pix*4
+	300Pix*4
+
+	Inverted    - statt Grau auf Schwarz, Anzeige schwarz auf Grau
+	Bright Mode - es werden 4 statt 2 Farben benutzt, wodurch der Kontrast
+	              verstärkt wird, aber gleichzeitig auch der Rechenaufwand
+	              ansteigt
+	              Anmerkung: Unter ECS/AGA kommt es ab und zu zu "blauen"
+	                         Pixeln bei der Darstellung, der Blitter ist
+	                         halt zu langsam...
+	Slow Mode   - spart c.a. 50% der nötigen Rechenzeit ein
+
+
+        Einige Module, bei denen es besonders gut aussieht:
+
+		"AON.---> FMDemosong <----" von Tommy   (Anm.: muss man gesehen haben)
+		"Mod.Beast II ingame"
+		"Mod.eternia" by luigi chelini
+		"Mod.Load master loading" by Rebels,
+		"Mod.Breeze-Diablo" by Diablo/BudBrain,
+		"Mod.Disco Groove" by RSI
+		"Mod.Madness took me" by Scoopex
+		"Mod.Boesendorfer P.S.S" by TRSI
+		 . 
+		 . 
+
+	Spacescope wurde in der Version 2.0 des Eagleplayers entfernt, da
+	1. das Fenster weder größenveränderlich war und 2. SpaceScope+
+	die schnelleren Programmroutinen besitzt.
+@endnode
+
+@node "Spacescope+" "Spacescope+"
+
+  @{u}Spacescope+@{uu}
+
+
+         - wie @{"Spacescope" link "Spacescope"}, nur größenveränderliches Fenster
+
+@endnode
+
+
+@node "Stereoscope" "Stereoscope"
+
+  @{u}Stereoscope@{uu}
+
+ 
+	wie @{"Quadrascope" link "Quadrascope"}, nur im perfrekten "Oszilloskop"-Look. Benötigt
+	eine Menge Rechenzeit durch die großen Datenmengen, die ständig
+	bewegt werden müssen (weit über 400 KByte pro Sekunde an
+	anfallenden Daten im Normalmodus bei 16 Farben, noch wesentlich mehr
+	bei Screens höherer Farbtiefe). Es kann ein wenig rechenzeitfreundlicher
+	durch den "Slow Mode" geschaltet werden, wodurch die Anzeige statt
+	50 mal pro Sekunde nur mit 25 Bildern pro Sekunde erfolgt.
+
+	BENÖTIGT MINDESTENS OS3.0 UND EINEN SCREEN MIT 2 FREIEN PENS. (16 FARBEN
+	WORKBENCH !!!)
+@endnode
+
+
+@node "Time" "Time"
+
+  @{u}Time@{uu}
+
+ 
+	Anzeige der Abspiel-, sowie der Systemzeit. Das Programm wurde so
+	umgeschrieben, daß der Prozessorzeitaufwand drastisch gesenkt
+	werden konnte.
+@endnode
+
+
+@node "Voicemeter" "Voicemeter"
+
+  @{u}Voicemeter@{uu}
+
+
+         - Quasi Aussteuerungsanzeige, die auf die von der Replayroutine ein-
+           gestellten Lautstärkewerte reagiert. Also wieder derselbe Gag wie
+           bei den schon vorher auf dem Markt befindlichen Programmen.(Tracker)
+           Verschiedene Bertiebsmodi möglich, erreichbar über die Taste
+           "1" !! Eine Anwahl mittels Gadgets ist in Vorbereitung.
+
+	Seit Eagleplayer 2.0 nicht mehr dabei.
+
+@endnode
+
+
+@node "Quit" "Beenden"
+
+ @{u}Quit@{uu}
+
+	Das Engine wird beendet.
+@endnode
+
+@node "About" "Über"
+
+ @{u}About@{uu}
+
+	Es erscheint ein Informationwindow über den Autoren der Engine und
+	eventuell einige Informationen zur Engine.
+@endnode
+
+@node "Active" "Aktiv"
+
+ @{u}Aktivieren@{uu}
+
+	Die Engine wird aktiviert, sprich in den Speicher geladen. Abhängig
+	vom Typ der Engine (z.B. Scopes) und den bereits gemachten Einstellungen
+	wird sofort auch das zugehörige	Konfigurations- oder AnzeigeFenster 
+	geöffnet.
+	Einige Engines besitzen kein eigenes Fenster, sondern arbeiten
+	im Hintergrund (z.B. @{"Playerloader" link "Playerloader"}, @{"Eagleripper" link "Eagleripper"}, @{"Noiseconverter" link "Noiseconverter"})
+@endnode
+
+@node "Show" "Zeigen"
+ 
+ @{u}Show@{uu}
+
+	Die Benutzeroberfläche der angewählten Engine wird geöffnet.
+
+@endnode
+
+@node "Hide" "Verstecken"
+ 
+ @{u}Verstecken@{uu}
+
+	Die Oberfläche der angewählten Engine wird geschlossen, in
+	einigen Fällen (z.B. Scopes, Moduleinfo) auch 
+	gleichzeitig die Engine aus dem Speicher entfernt.
+
+@endnode
+
+@node "SelectBackPic" "Wähle ein Hintergrundbild"
+ 
+ @{u}Wähle ein Hintergrundbild@{uu}
+
+	Hier können Sie ein Bild anwählen, welches Sie in den Hintergrund
+	des Windows legen möchten. Die Runterrechnung der Farben übernimmt
+	das Engine.
+	Die Funktion muß @{"angeschaltet" link "BackPic"} werden!
+
+  @{i}Anmerkung:@{ui}
+	Leider unterstützen nicht alle Engines dieses Feature.
+@endnode
+
+@node "BackPic" "Hintergrundbild"
+ 
+ @{u}Hintergrundbild@{uu}
+
+	Hier stellen Sie ein, ob Sie das @{"selektierte Bild" link "SelectBackPic"} auch wirklich
+	im Hintergrund sehen möchten. 
+
+  @{i}Anmerkung:@{ui}
+	Leider unterstützen (noch) nicht alle Engines dieses Feature.
+
+@endnode
+
+@node "Save Config" "Speichere Konfiguration"
+ 
+ @{u}Speichere Konfiguration@{uu}
+
+	Die eingestellten Parameter, wie Pfade, Haken im PullDownMenu
+	werden in einer für dieses Engine definierten Konfigurations-
+	Datei gespeichert.
+
+	@{b}ACHTUNG!!!@{ub} Die Einstellungen der Windowgröße/Position speichert
+			der Eagleplayer immer selber ab!
+
+@endnode
+
+@node index "Index zu den Engines"
+
+	@{u}Index der Eagleplayer-Dokumentation der EP_Engine.guide@{uu}
+
+
+	@{"Index der Hauptdokumentation" Alink "EP_Main.Guide/Index"}
+	@{"Index der Playerdokumentation" Alink "EP_Player.Guide/Index"}
+	@{"Index der Programmierungsdokumentation" Alink "EP_Programmierung.Guide/Index"}
+
+
+     @{i}Allgemeine Links@{ui}
+
+	@{"Engine-Inhaltsverzeichnis" link "Die Engines"}
+	@{"Einleitung zu den Engines" link "Einleitung zu den Engines"}
+	@{"Informationen zu den einzelnen Engines" link "InfoPage"}
+	@{"Programmierung der Engines" Alink "EP_Programmierung.Guide/Die Engines"}
+	@{"Fehler in den Engines" link "Bugs"}
+	@{"Entfernte Engines" link "Removed"}
+	@{"Grafikkarten Tips" link "GFXBoards"}
+	@{"Einleitung zu den Amplifiern" link "AIntroduction"}
+	@{"Steuerung der Amplifier" link "Amplifiermanager"}
+
+	@{"Aktiv" link "Active"}
+	@{"Zeigen" link "Show"}
+	@{"Verstecken" link "Hide"}
+	@{"Beenden" link "Quit"}
+	@{"Speichere Konfiguration" link "Save Config"}
+	@{"Hintergrundbild" link "BackPic"}
+	@{"Wähle Hintergrundbild" link "SelectBackPic"}
+
+     @{i}Links zu den Engines@{ui}
+
+	@{"14 Bit Amplifier" link "14 Bit Amplifier"}
+	@{"8 Bit Amplifier" link "8 Bit Amplifier"}
+	@{"Amplifiermanager" link "Amplifiermanager"}
+	@{"BifatGui" link "BifatGui"}
+	@{"DirListViewer" link "DirListViewer"}
+	@{"Eagleexotic" link "Eagleexotic"}
+	  @{"Eagleexotic  Wähle Eagleexoticpfad" link "Eagleexotic_1"}
+	  @{"Eagleexotic  Konfiguration speichern" link "Eagleexotic_2"}
+	@{"Eagleplayer1x-Gui" link "Eagleplayer1x-Gui"}
+	@{"Eagleripper" link "Eagleripper"}
+	 @{"Modus 1" link "Eagleripper_2"}
+	 @{"Modus 2" link "Eagleripper_3"}
+	 @{"Sicherheitsmodus" link "Eagleripper_6"}
+	@{"EMPYGui" link "EMPYGui"}
+	@{"Extractor" link "Extractor"}
+	@{"FFT-Analyzer" link "FFT-Analyzer"}
+	@{"Formatloader" link "Formatloader"}
+	  @{"Formatloader_List" link "Formatloader_Formatlist"}
+	  @{"Formatloader_Slider" link "Formatloader_Slider"}
+	@{"Levelmeter" link "Levelmeter"}
+	@{"Levelgraph" link "Levelgraph"}
+	@{"Manager" link "Manager"}
+	  @{"Manager  Modus" link "Manager_Mode"}
+	  @{"Manager  Anzeigefelder" link "Manager_Listviews"}
+	  @{"Manager  Hinzufügen" link "Manager_Add"}
+	  @{"Manager  Löschen" link "Manager_Delete"}
+	  @{"Manager  Alle löschen" link "Manager_DeleteAll"}
+	  @{"Manager  Konfiguration" link "Manager_Config"}
+	  @{"Manager  Lade Konfiguration" link "Manager_LoadConfig"}
+	  @{"Manager  Speichere Konfiguration" link "Manager_SaveConfig"}
+	@{"Messagewindow" link "Messagewindow"}
+	@{"Moduleinfo" link "Moduleinfo"}
+	  @{"Moduleinfo  Informationsliste" link "Moduleinfo_Infoliste"}
+	  @{"Moduleinfo  Instrument speichern" link "Moduleinfo_SaveSample"}
+	  @{"Moduleinfo  Instrument spielen" link "Moduleinfo_Play"}
+	  @{"Moduleinfo  Zeit vorwärts zeigen" link "Moduleinfo_Vorwaerts"}
+	  @{"Moduleinfo  Zeit rückwärts zeigen" link "Moduleinfo_Rueckwaerts"}
+	  @{"Moduleinfo  Modul weiterspielen" link "Moduleinfo_Modulecont"}
+	  @{"Moduleinfo  Abspielen des Instruments stoppen" link "Moduleinfo_Stop"}
+	@{"Noiseconverter" link "Noiseconverter"}
+	@{"Patternscroll" link "Patternscroll"}
+	@{"Patternscroll++" link "Patternscroll++"}
+	@{"Playerloader" link "Playerloader"}
+	@{"Pysion" link "Pysion"}
+	@{"Quadrascope/Stereoscope/Monoscope" link "Quadrascope"}
+	@{"PublicScreenSelector" link "PublicScreenSelector"}
+	@{"Samplesaver" link "Samplesaver"}
+	  @{"Samplesaver  Liste der Speichermodule" link "Samplesaver_Formatlist"}
+	  @{"Samplesaver  Instrumentenliste" link "Samplesaver_Samplelist"}
+	  @{"Samplesaver  Informationsliste" link "Samplesaver_Informationen"}
+	  @{"Samplesaver  Eigenschaftenliste" link "Samplesaver_Eigenschaften"}
+	  @{"Samplesaver  Frequenzregler" link "Samplesaver_Slider"}
+	  @{"Samplesaver  Spielen" link "Samplesaver_Play"}
+	  @{"Samplesaver  Stopp" link "Samplesaver_Stop"}
+	@{"Spacescope" link "Spacescope"}
+	@{"Spacescope+" link "Spacescope+"}
+	@{"Stereoscope" link "Stereoscope"}
+	@{"Time" link "Time"}
+	@{"Voicemeter" link "Voicemeter"}
+
+@endnode
+
+@endnode

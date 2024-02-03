@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE>SP * Save Picture</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: sp.html 1.4 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>SP * Save Picture</h3>
+A tool to extract a picture from a <a href="dump.html">dump file</a> created
+by WHDload.
+<h4>Installation</h4>
+SP is contained only in the <tt>DEV</tt> archive, not in the <TT>USR</tt>
+archive
+<br>copy it to C: or a similar place
+<h4>Usage</h4>
+First a dump file must be created. Start the installed program from which the
+picture should be ripped. It must be run with the option <a
+href="opt.html#Snoop">Snoop/S</a> enabled. Also <a
+href="opt.html#Expert">Expert/S</a> and <a
+href="opt.html#DebugKey">DebugKey/K/N</a> must be set. If the picture to rip is
+shown press the DebugKey. WHDLoad now writes the dump file. Using Shell/CLI
+enter the directory where the dump file is located. Now invoke <tt>SP</tt> with
+the filename to save as argument. <tt>SP</tt> will load the dump file and try
+to save the picture.
+If you have set the <a href="opt.html#CoreDumpPath">CoreDumpPath</a> option you
+dont need to enter the directory of the dump file because SP reads the global
+WHDLoad configuration file to find it.
+<h4>Options</h4>
+<table>
+<tr>
+  <td colspan=2><tt>OutputFile/A,Cop/K,CS=CopStop/K,Width/K,Height/K,con0/K,mod1/K,mod2/K,pt1/K,pt2/K,pt3/K,pt4/K,NoCopLst/S</tt></td>
+</tr>
+<tr>
+  <td valign=top><tt>OutputFile/A</tt></td>
+  <td>the filename of the picture to save</td>
+</tr>
+<tr>
+  <td valign=top><tt>Cop/K</tt></td>
+  <td>sets the start address of the first copperlist to interpret, if you
+  like to overwrite the address contained in the dump file</td>
+</tr>
+<tr>
+  <td valign=top><tt>CS=CopStop/K</tt></td>
+  <td>this options specifies the address to stop interpreting the
+  copperlist. It must be used if the screen is built up of more than one
+  picture</td>
+</tr>
+<tr>
+  <td valign=top><tt>Width/K</tt></td>
+  <td>specifies the width of the picture to save, it will not affect the modulo values!</td>
+</tr>
+<tr>
+  <td valign=top><tt>Height/K</tt></td>
+  <td>specifies the height of the picture to save</td>
+</tr>
+<tr>
+  <td valign=top><tt>con0/K</tt></td>
+  <td>overwrites the <tt>bplcon0</tt> register contained in the dump file</td>
+</tr>
+<tr>
+  <td valign=top><tt>mod1/K,mod2/K</tt></td>
+  <td>overwrites the <tt>bplmod1</tt>/<tt>bplmod2</tt> register contained in the dump file</td>
+</tr>
+<tr>
+  <td valign=top nowrap><tt>pt1/K,pt2/K,pt3/K,pt4/K</tt>&nbsp;&nbsp;</td>
+  <td>overwrites the <tt>bplpt1,2,3,4</tt> register contained in the dump file</td>
+</tr>
+<tr>
+  <td valign=top><tt>NoCopLst/S</tt></td>
+  <td>disables dumping the copperlist</td>
+</tr>
+</table>
+</BODY>
+</HTML>

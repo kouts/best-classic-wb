@@ -1,0 +1,1751 @@
+@database 40a62710-0
+@master IconLib.guide
+@$VER: 1.0
+@width 83
+@remark Created with Heddley v1.20ß © Edd Dumbill 1994-5
+
+@node "Main" "icon.library 46.4"
+
+
+  @{b}Universal Amiga OS 3.x icon.library in Assembler@{ub}
+  @{b}________________________________________________@{ub}
+
+
+  @{" Program Description " link "Description" 0}     @{" Programmbeschreibung " link "Beschreibung" 0}
+
+  @{" System Requirements " link "Requirements" 0}     @{" Voraussetzungen " link "Voraussetzungen" 0}
+
+  @{" Program Features " link "Features" 0}        @{" Eigenschaften " link "Eigenschaften" 0}
+
+  @{" Library Versions " link "Versions" 0}        @{" Library Versionen " link "Versionen" 0}
+
+  @{" Latest Changes " link "Changes" 0}          @{" Letzte Änderungen " link "Änderungen" 0}
+
+  @{" Download Links " link "Downloads" 0}          @{" Bezugsquellen " link "Bezugsquellen" 0}
+
+  @{" Installation " link "Installing" 0}            @{" Installation " link "Installieren" 0}
+
+  @{" Configuration " link "Configuration" 0}           @{" Konfiguration " link "Konfiguration" 0}
+
+  @{" Third Party Tools " link "ThirdParty" 0}       @{" Drittanbieter Tools " link "Drittanbieter" 0}
+
+  @{" HAM + DOpus5 + Bonus " link "BonusPrograms" 0}    @{" HAM + DOpus5 + Bonus " link "Bonusprogramme" 0}
+
+
+
+  @{" Contact and Feedback " link "Contact" 0}    @{" Kontakt und Berichte " link "Kontakt" 0}
+
+  @{" Important Restrictions " link "Restrictions" 0}  @{" Einschränkungen !! " link "Einschränkungen" 0}
+
+  @{" Rights & Distribution " link "Copyright" 0}   @{" Rechte & Verteilung " link "Rechtliches" 0}
+
+
+
+                 Copyright 2007-2021
+
+                   Peter Keunecke
+@endnode
+
+@node "Description" " Program Description "
+
+ This is an @{b}optimized replacement for the icon.library@{ub}
+ of AmigaOS 3.0-3.9 or Aros 68k which can exist in the
+ Kickstart ROM or is loaded from the LIBS: directory.
+
+ This shared library offers several functions to load,
+ decode, display and save icon images and to configure
+ settings for the execution of the associated programs
+ by storing tooltypes, a default tool, stacksize, icon
+ position and drawer window data in the ".info" files. 
+
+ @{b}Supported icon types are all old and MWB planar icons@{ub}
+ @{b}as well as color-mapped NewIcons or OS 3.5 ColorIcons@{ub}
+ @{b}and also OS4 and PNG TrueColor and merged Aros icons.@{ub} 
+
+ All icons can be displayed either with the blitter or
+ FBlit and the Amiga chipset or on a graphics card by
+ P96 or CGX in their best quality as fast as possible.
+
+ There are 5 methods available to display icon images:
+
+ 1.) Planar icons are using bitplane data directly to
+     select pens and currently assigned screen colors.
+     No color palette data is stored in planar icons,
+     thus they need a screen palette with locked pens.
+
+ 2.) NewIcons and ColorIcons are using index bytes for
+     for every pixel pointing to a 24 bit RGB palette,
+     so they are limited to 256 colors for each image.
+     One of them can be used for transparency masking.
+     The colors have to be mapped to the actual screen
+     palette and the images are converted from chunky
+     data into bitplanes, which both can take a while.
+     This method always finds the best matching colors
+     of the screen palette or tries to get a free pen.
+
+ 3.) On Hi/TrueColor screens NewIcons and ColorIcons
+     are displayed perfectly by directly drawing their
+     24 bit RGB colors to a gfx-card without mapping.
+     This can be done a lot faster than the 2. method,
+     and also leaves more pens for other applications.
+
+  :( Unfortunately, the WB icon dragging routine still
+     needs traditional bitplanes from selected images.
+  :) To keep loading fast the color reduction, mapping
+     and C2P are delayed until the icons get selected. 
+
+ 4.) OS4, PNG and Aros icons are using TrueColor ARGB
+     images with 24 bit color data and an Alphachannel
+     byte for soft border fading over the background.
+     On gfx-cards these icons are displayed perfectly.
+     But on 8-bit and planar screens they first need a
+     time consuming color reduction into OS 3.5 icons
+     followed by the color mapping and C2P conversion.
+
+ 5.) On HAM screens palette based icons are converted
+     into ARGB images like OS4 and PNG icons and then
+     either one of the 16 or 64 base colors is used or
+     2 color components of the previous pixel are hold
+     and that with the greatest difference is updated.
+     HAM images can display much more different colors
+     on a native Amiga screen than the color mapping.
+     But the chipset is far too slow to work with HAM.
+@endnode
+
+@node "Requirements" " System Requirements"
+
+ Ok, the most important required qualification first:
+
+ The system needs a user who understands how it works
+ and what he's really doing when he changes something.
+ Nobody just knowing the fire-button on his joystick.
+
+ Somebody asked me to mention that @{fg shine}the name@{i}_extension@{ui}@{fg text}
+ @{fg shine}has to be removed after copying a library into Libs:@{fg text}.
+ Yes, of course, you sometimes have to use your brain. 
+
+ @{b}@{u}For experienced users of Amiga OS 3.x and Aros 68k:@{ub}@{uu}
+
+ This icon.library can be used on all real Amigas, on
+ Minimig, Vampire, Amithlon and emulators like WinUAE.
+
+ It works with any 680x0 CPU and needs no FPU or MMU.
+ The library can display all icons on all screenmodes.
+
+ @{b}The 68000 version was made for fast systems like the
+ Minimig@{ub}, because a plain Amiga at 7 MHz is too slow!
+ The fastest thing you can do with such a slow Amiga:
+ "Throw it into the bin!"... or buy an accelerator ;)
+
+ @{fg shine}If you really want to use something better than just
+ 4-color or MagicWB icons then you need a CPU >30 MHz.@{fg text}
+
+ Planar icons can not be made faster by icon.library,
+ because they need no decompression or color mapping.
+ 
+ @{b}You should have a fast harddisk, enough FastMem and@{ub}
+ @{b}a gfx-card to have more fun, but that's not required.@{ub}
+
+ This library works with every Workbench since v39 or
+ Wanderer (Aros version) and AfA_OS, DOpus5 or Scalos.
+
+ On some systems you have to replace the icon.library
+ that is loaded from the Kickstart ROM with tools like
+ SetPatch v44+ or RemLib, LoadResident or LoadModule.
+
+ @{fg shine}The support for PNG icons is limited to RGB and RGBA.@{fg text}
+ Only these two TrueColor formats are decoded, @{b}but no@{ub}
+ @{b}grayscale or interlaced or PLTE palette based images.@{ub}
+ @{b}Only the chunks IHDR, IDAT, icOn and IEND are parsed@{ub},
+ all other PNG chunks are skipped over and ignored. A
+ wrong image type causes a fallback to default icons.
+@endnode
+
+@node "Features" " Program Features"
+
+ This icon.library can display all types of icons like
+ old, MWB, OS 3.5, OS4, PNG or Aros icons and NewIcons.
+
+ It works on all OS 3.0-3.9 and Aros 680x0 systems and
+ can be used for any native screenmode or on gfx-cards.
+
+ This library has been written completely in optimized
+ assembler code with my IconBeFast v2 already built in.
+ It is smaller than the original and works much faster,
+ provided that the IconBeFast patch was not installed
+ already, which is also included in the SystemPatch v3.
+
+ But this icon.library has more improvements than just
+ a faster color mapping. It can also delay the decoding
+ of the 2. image, until an icon gets actually selected.
+
+ It won't waste ChipMem for Workbench icons, if you set
+ Prefs/Workbench to use "Other Memory" or by adding the
+ command WBCTRL IMT=ICONFAST to your startup-sequence.
+ OS 3.1.4-3.2 does not need memory settings like that.
+
+ A cache for the screens colortable is built just once
+ after booting and will be updated only when the number
+ of shared pens has changed.
+
+ Another optional cache with a cube of 512 "FastColors"
+ can be used to calculate the closest colors directly.
+ On RTG screens this optimization is always activated,
+ because they need these colors only for icon dragging. 
+
+ A zlib inflate function is embedded for uncompressing
+ OS4 and PNG images. The library has a color reduction
+ which is based on 15 bits precision for the first 128
+ colors until the palette is scanned with less bits for
+ a matching color or before another one is added to it.
+ A palette occupation table avoids up to 200 scans to
+ save time. A fast dithering changes the brightness of
+ the pixels alternately by +2 or -2 and uses a checker
+ board pattern for new mixed colors and higher quality.
+
+ This library can display TrueColor icons on all native
+ Amiga screens with normal palette based color mapping.
+ Two levels of the alpha channel are translated into a
+ mixture with 25 % or 50 % of gray to get soft borders,
+ because the blitter supports only transparency masks.
+
+ WB:Icon->Info and saving TrueColor icons will convert
+ them into the OS 3.5 format with both 680x0 versions.
+ But 68020 displays a requester in case that TrueColor
+ icons would directly be replaced by ColorIcons. It can
+ be allowed or prevented for a single icon, in drawers
+ or always. The OS 3.5 conversion has the advantage of
+ getting smaller files and a much faster icon loading,
+ although the lower quality is very often hard to see.
+
+ Bad planar images in OS 3.5 and OS4 icons are replaced
+ by internal defaults, if too tiny or with a depth > 3.
+
+ TrueColor icons with only one image will automatically
+ get a darker second image with a simple glow-effect.
+
+ For Hi/TrueColor screens a direct drawing mode on gfx-
+ cards is much faster than the color mapping and offers
+ HiColor image quality or even a pefect icon rendering.
+ TrueColor versions like TC020 are also supporting soft
+ borders by alpha channel blending over the background.
+ Only the 68000 version has no direct drawing built-in,
+ because there are no gfx-cards or drivers available.
+
+ DefIcons are displayed ghosted with 50 % transparency. 
+ If you don't like this feature, call "IconGhostingOff"
+ or add the tooltype "NoGhost" to particular deficons.
+
+ The Ram Disk icon gets automatically synchronized with
+ def_Ram.info in ENV:Sys and ENVARC:Sys, and you won't
+ need Copy or MakeLink to create a RAM:Disk.info file.
+
+ Icon labels can be written in Outline or Shadow style.
+
+ The space optimization routine for writing was added.
+ It is always activated, regardless of option settings,
+ and it rebuilds the color tables from scratch closing
+ possible gaps and avoiding multiple entries with same
+ RGB values. Icon images are always compressed now, but
+ the RGB color tables are simply copied. That's faster.
+
+ The optimized RLE decoder has a direct 8-bit handling.
+
+ Supports the OS 3.1.4 function BumpRevisionLength() to
+ make copies of icons with long file names possible. It
+ could also be done with WB v45.132 and WBCTRL MNL=102.
+
+ All v51 versions can display the Eastern preview icons
+ in TrueColor. Saving as OS4 icons is also possible, if
+ zlib.library v3.2 is installed, ColorIcons by default.
+ The OS 3.9 picture.datatype 45.17 offers best scaling.
+
+ This icon.library has support for DOpus5, AfA_OS and a
+ special version for Aros 68k and Wanderer is included.
+@endnode
+
+@node "Versions" " Library versions "
+
+ @{fg shine}The 68000 version@{fg text} uses palette based color mapping for
+ all NewIcons, ColorIcons, OS4 and PNG icons. It has no
+ support for direct drawing on graphics cards nor any
+ special handling or optimization for 68020+ programs.
+
+ The 68000 and 68020 versions always display OS4 and PNG
+ icons after a color reduction in the OS 3.5 format with
+ maximal 255 colors and a simple transparency mask, even
+ on Hi/TrueColor screens. But if you save the converted
+ icons in this OS 3.5 format, they will become smaller
+ and can be loaded much faster than the TrueColor icons.
+
+ @{b}OS 3.2 won't accept the v46 libraries, but TC020 works.@{ub}
+
+ @{fg shine}The 68020 version@{fg text} is probably the best choice for slow
+ Amigas and it already has support for direct drawing on
+ graphics cards. On Hi/TrueColor screens it displays all
+ color-mapped icons perfectly, only OS4 and PNG icons in
+ a little lower quality but with less memory than TC020.
+ After saving TrueColor icons in the OS 3.5 format they
+ can be loaded much faster than the original ARGB icons!
+
+ @{fg shine}The TC020 version@{fg text} can display OS4 and PNG icons in best
+ TrueColor quality and with soft alpha channel blending
+ on graphics cards. This can happen very fast without a
+ time consuming color reduction, but needs more memory
+ to hold the compressed ARGB images. The icons are also
+ copied and saved in their original OS4 or PNG format.
+ TC020 has additional ARGB buffers for faster rendering.
+ Furthermore, TC020 supports 8-bit and native modes by
+ a color reduction in the same way as the 68020 version.
+
+ PNG icons can be converted into the OS4 format, which
+ makes them about 15 % larger, but loading 30 % faster.
+ @{b}If, for some reason, you would like to save ARGB icons@{ub}
+ @{b}in the OS 3.5 format, you could still use the command@{ub}
+ @{b}"ConvertTrueColor"@{ub} before displaying them. This works
+ like a downgrade to the 68020 mode. "PreserveTrueColor"
+ switches back to the TC020 mode. The v51 versions can
+ display the preview icons of Eastern in TrueColor, too.
+
+
+ @{u}Some special versions are stored in the Bonus drawer:@{uu}
+
+ I've made a new @{fg shine}experimental FastWB version@{fg text} to achieve
+ a faster and more responsive TrueColor icon dragging on
+ Workbench 3.1.4/3.5/3.9 for slower Amigas. This is not
+ a 100 % perfect solution, because it still can happen
+ that some parts of the window where you select the
+ icons are not refreshed after the dragging, but that's
+ not a big problem, since you can still update windows
+ from the WB menu. My fix already tries to take care for
+ any window switching, scrolling, resizing and also has
+ a timeout of 1 second after the last icon movement in
+ order to avoid a later graphical damage from menus or
+ requesters opening suddenly over the active window. Try
+ it out and report any issues or enjoy the speed-up. It
+ is best used together with the option "HoldTCbuffer1". 
+
+ @{fg shine}The Aros 68k version@{fg text} is quite the same as TC020, but it
+ has some additional support for Wanderer which uses the
+ alpha channel data to make the background transparent.
+ This feature needs to be enabled in the preferences for
+ Wanderer. It's no v51 version, because Eastern doesn't
+ work on Aros yet, but you can use DefIcons v44+ from
+ Stephan Rupprecht in WBstartup + ENVARC:deficons.prefs.
+
+ @{fg shine}The LD020 version@{fg text} uses some older line by line direct
+ drawing code that sometimes is still faster than 68020
+ to display color mapped icons on a Hi/Truecolor screen.
+
+ @{fg shine}The HAM6 and HAM8 versions@{fg text} are based on TC020, but are
+ able to display NewIcons, ColorIcons, OS4 and PNG icons
+ with much more different HAM colors on the Workbench by
+ using the AGA chipset. Makes not much sense on OCS/ECS.
+ Unfortunately, the Amiga is too slow to enjoy HAM WBs.
+@endnode
+
+@node "Changes" " Latest changes "
+
+ All the TrueColor versions are able to load OS4 and
+ PNG icons 30-70% faster now on native Amiga screens
+ with WB v44+ or Wanderer, except WB 3.1 and DOpus5.
+
+ OS 3.2 needs at least an icon.library v47 now. Thus,
+ only v51 will work like TC020, FastWB, HAM6 or HAM8.
+ They can be used on 3.2 instead of my 68020 version.
+
+ In case that you still prefer to save OS4 and PNG
+ icons as 3.5 ColorIcons, then use ConvertTrueColor.
+
+ The new Workbench v47 should be more efficient and
+ faster now by avoiding lots of unecessary refreshs,
+ but I don't own the new OS and couldn't test it yet.
+ FastWB has probably no advantage anymore on OS 3.2.
+
+ The new OS 3.2 file type identification of DefIcons
+ is only supported by my v51 libraries like TC020.
+ I have no intentions to upgrade the 680x0 versions.
+
+ The DefIcons v47 file type identification works now
+ even for picture files if Eastern is also installed.
+ A small CLI test program FileType is supplied, too. 
+
+ On DOpus5 the 2. image of HAM icons was not visible
+ anymore since build #531.
+
+ A DOpus5 patch for the Workbench WBInfo() function
+ caused missing icon images in SwazInfo on Workbench.
+
+ IconUpscaling, IconDownscaling and GrayscaleOnOff
+ are only supported by the 68020 version from now on.
+@endnode
+
+@node "Downloads" " Download links "
+
+ @{fg shine}The complete icon.library package is available at:@{fg text}
+ http://aminet.net/package/util/libs/IconLib_46.4
+
+ @{fg shine}Updates, bugfixes, test versions and IconDemoADFs:@{fg text}
+ http://eab.abime.net/showthread.php?t=64079
+
+ @{fg shine}Some other useful programs at Aminet are:@{fg text} 
+ http://aminet.net/package/util/boot/FBlit
+ http://aminet.net/package/util/boot/LoadModule
+ http://aminet.net/package/util/boot/RemAPollo
+ http://aminet.net/package/util/libs/zlib-library
+ http://aminet.net/package/util/wb/AutoUpdateWB
+ http://aminet.net/package/util/wb/CopyIcon44
+ http://aminet.net/package/util/wb/DefIcons44
+ http://aminet.net/package/util/wb/Eastern
+ http://aminet.net/package/util/wb/FullPalette22
+ http://aminet.net/package/util/wb/image2icon
+ http://aminet.net/package/util/wb/i2iGUI-V2
+ http://aminet.net/package/util/wb/MUIScrMode1_5
+ http://aminet.net/package/util/wb/NewIcons46
+ http://aminet.net/package/util/wb/ProcessIcon
+ http://aminet.net/package/util/wb/SwazInfo18b install by hand
+
+ @{fg shine}Some high resolution monitor drivers (for HAM6/8):@{fg text}
+ http://aminet.net/package/driver/moni/HighGFXnmore
+
+ @{fg shine}Icon sets:@{fg text}
+ http://aminet.net/pix/gicon
+ http://aminet.net/pix/icon
+ http://aminet.net/pix/mwb
+ http://aminet.net/pix/nicon
+ http://aminet.net/pix/picon
+ http://www.masonicons.de
+ http://www.five-star.com/kens_icons/icons.htm
+ http://www.amiga-look.org/category/glowicons
+ http://www.intuitionbase.com/customisation.php?category=icons
+ http://os4depot.net/index.php?function=browse&cat=graphics/icon
+
+ @{fg shine}Icon structure:@{fg text}
+ http://krashan.ppa.pl/articles/amigaicons
+ http://www.evillabs.net/wiki/index.php/Amiga_Icon_Formats
+@endnode
+
+@node "Installing" " Installation "
+
+ The installation depends on many things like CPU, ROM,
+ OS and WB version, memory, gfx-system, speed, patches. 
+
+ @{fg shine}On most 68020+ systems with workbench.library v44-45@{fg text}
+ just '@{b}copy icon.library_68020 to LIBS:icon.library@{ub}'.
+
+ Always remove the extension and set the flags P-RW-D.
+
+ @{fg shine}For fast systems with a gfx-card@{fg text} @{b}TC020@{ub} is recommended,
+ but you could also try out the FastWB version instead,
+ which ignores many redundant refreshes from WB v44/45.
+
+ @{fg shine}OS 3.2 needs at least an icon.library v47@{fg text}, so you can
+ only @{b}install my v51 icon.libraries like TC020@{ub} on 3.2,
+ but it's still possible to call "ConvertTrueColor" in
+ case that you prefer to create faster 3.5 ColorIcons.
+ My 68000 and 68020 versions are not accepted anymore.
+
+ Most @{fg shine}68000 systems@{fg text} are far too slow to have a benefit
+ from using the icon.library_68000, you can't even load
+ icons into FastMem. FBlit, P96 and CGX need 020+ CPUs.
+ @{b}My 68000 version is for faster systems like a Minimig.@{ub}
+
+ @{fg shine}On OS 3.0/3.1 systems@{fg text} it's required to @{b}remove the old
+ icon.library@{ub} of the Kickstart Rom from the list of the
+ resident modules before a new icon.library from Libs:
+ can be loaded. I'd recommend to use @{b}RemLib@{ub} by Thomas
+ Rapp @{b}or SetPatch v44@{ub}, because they won't cause reboots.
+ On the same way you can also replace the old workbench.
+ A new WB v44+ has many advantages for old 3.1 systems. 
+ SetPatch v44 will update both without additional tools.
+ If you have an older version, add this before SetPatch:
+
+ If EXISTS Libs:icon.library
+    RemLib >NIL: icon.library
+    If EXISTS Libs:workbench.library
+       RemLib >NIL: workbench.library
+    EndIf
+ EndIf
+
+ @{fg shine}Alternatively@{fg text}, it's possible to @{b}load the new libraries
+ resident@{ub}, but these methods need to reboot your system.
+ This can be done with @{b}LoadResident@{ub}, @{b}LoadModule@{ub} or other
+ tools like @{b}BlizKick@{ub}. - Or you could build your own Rom.
+ For example, insert these lines before SetPatch (<v44):
+
+ Version >NIL: icon.library 46
+ If WARN
+    If EXISTS LIBS:workbench.library
+       LoadResident >NIL: LIBS:workbench.library
+    EndIf
+ LoadResident >NIL: LIBS:icon.library REBOOT
+ EndIf
+
+ @{fg shine}OS 3.0/3.1@{fg text} has just one @{b}limitation of workbench.library
+ v39-40@{ub}, which will never reload the palette based icons
+ after a screenmode change and thus the colors of disks
+ cannot be remapped at all. Therefore it needs a reboot.
+
+ Install @{b}SwazInfo@{ub} on WB 3.0/3.1 to replace WB=>IconInfo.
+ If the SwazInfo Installer fails, install it manually.
+
+ The @{b}NewIcons patch@{ub} can be used to achieve a transparent
+ background for the icon images, and supplies @{b}DefIcons@{ub} !  
+
+ I've created some demo floppy images for OS 3.0/3.1 to
+ show you how to install the library and other programs: 
+ @{b}IconDemoADF@{ub} http://eab.abime.net/showthread.php?t=64079
+
+ The Envarc:@{b}FBlit.cfg@{ub} for WB 3.1 and also for WB 3.1.4+
+ are provided. It depends only on the workbench.library
+ version (v39-40 or v44+) which config file FBlit needs.
+ FastMem will be used by default if FBlit was detected.
+
+ @{b}Never install FBlit together with a P96 or CGX driver.@{ub}
+
+ @{fg shine}On systems with P96 or CGX@{fg text} you should activate @{b}FastMem@{ub}
+ for the icon images. On OS 3.9 set Prefs/Workbench to
+ "other memory", or on 3.5 call "WBCTRL IMT=ICONFAST",
+ on WB 3.0/3.1 you can use my command "IconsToFastMem".
+ OS 3.1.4-3.2 activates FastMem automatically for RTG.  
+
+ @{fg shine}An alternative CPU version@{fg text} of the icon.library can be
+ installed in a subdirectory of LIBS: for the case that
+ no library was already resident. If LIBS:icon.library
+ is the 68000 version then you can add a 020 CPU version
+ @{b}as LIBS:68020/icon.library@{ub}. Or if LIBS:icon.library was
+ compiled for the 68020+ then you can add an alternative
+ @{b}as LIBS:68000/icon.library@{ub}. The correct version will be
+ loaded automatically. This feature @{b}works with SetPatch
+ v44 or RemLib@{ub} by Thomas Rapp, but not with LoadModule,
+ LoadResident, BlizKick or with a resident icon.library.
+
+ .
+@endnode
+
+@node "Configuration" " Configuration "
+
+  @{b}Optional commands to be called before LoadWB starts:@{ub}
+  @{b}____________________________________________________@{ub}
+
+ @{fg shine}AllFramesOn1/2/3@{fg text} and @{fg shine}AllFramesOff@{fg text} are for systems with
+ @{b}WB v44+@{ub} on OS v39-44. The number at the end (1-3) sets
+ the frame size. But some color icons may never get any
+ frames when they have an internal "Frameless" flag set
+ which can only be changed with the OS 3.9 IconEdit or
+ the icon processor modul of Report+. On WB 3.1 you can
+ use the NewIcons patch to enable transparent frames.
+ On WB v45+ the frame settings are in Prefs/Workbench.    
+ 
+ @{fg shine}PlanarFrames1/2/3@{fg text} can be used on @{b}WB v44+@{ub} to enable the
+ @{b}frames exclusively for the old 4-color and MWB icons@{ub},
+ but not for TrueColor or color mapped icons. Changing
+ the frame sizes in Prefs/Workbench is still possible.
+ By calling PlanarFrames1/2/3 once, the True/ColorIcons
+ will always remain frameless, ignoring AllFramesOn1-3.
+  
+ @{fg shine}A faster color mapping mode@{fg text} is optional available and
+ can be activated @{b}by setting icon quality to bad@{ub} under
+ @{b}Prefs/Workbench@{ub}. On WB v39-44 you can use the command
+ @{fg shine}FastColors@{fg text}. It maps 512 RGB colors with a cubic cache.
+ I would recommend to use this option on slower Amigas.
+ With a locked screen palette the quality won't change.
+
+ @{fg shine}IconsToFastMem@{fg text} can be used @{b}on Amigas with gfx-cards@{ub} to
+ load the icons faster and save ChipMem if you have no
+ other program like Prefs/Workbench or WBCtrl to do it.
+ It's sometimes required @{b}for WB 3.1@{ub}, but not for FBlit.
+ On OS 3.1.4-3.2 the memory type is set automatically.
+ 
+ @{fg shine}IconsTo24BitDmaMem@{fg text} can be used for saving some of the
+ faster 32-bit memory for your real applications. But
+ this option will also make the icon rendering slower.
+
+ @{fg shine}IconGhostingOff@{fg text} disables the 50 % transparency of the
+ deficons, in case that somebody prefers opaque icons.
+ 
+ @{fg shine}GrayscaleOnOff@{fg text} can be used to display icons in shades
+ of gray only instead of colors. You can activate it in
+ @{b}Prefs/Workbench by setting icon quality to bad@{ub} again.
+ WB v39-44 needs both: GrayscaleOnOff plus FastColors.
+ This option is only available for the 68020 version.
+ 
+ @{fg shine}OutlineIconText@{fg text} and @{fg shine}ShadowIconText@{fg text} are optimizing the
+ style of icon label text. Open @{b}Prefs/Fonts@{ub} to choose
+ @{b}a text color and the background color@{ub}, but then switch
+ back to text-only mode before you save your settings.
+ On v47 WBCtrl LABELOUTLINE or LABELSHADOW can be used.
+ 
+ After activating outline or shadowtext or grayscale at
+ runtime you need to update your icons with a WB-Reset.
+
+ @{fg shine}FileType@{fg text} is a test program for the @{b}type identification@{ub}
+ feature of the @{b}OS 3.2 DefIcons@{ub} tool. For experiments.
+
+ @{fg shine}KillPlanarImages@{fg text} and @{fg shine}KeepPlanarImages@{fg text} are changing the
+ libraries treatment of old images in OS 3.5-4.x icons.  
+ Without these options planar images with over 8 colors
+ or a width of less than 8 pixels are replaced by the
+ internal 4-color default images. KillPlanarImages will
+ replace always. KeepPlanarImages saves broken colors.
+ @{b}With KillPlanarImages you can reduce the icon size and@{ub}
+ @{b}avoid some memory wastage for up to 256 wrong colors.@{ub}
+ If the icons are loaded into ChipMem then a small dot
+ image is used instead of the internal default images.
+ To test it just disable ColorIcons in Prefs/Workbench.
+
+ @{fg shine}Reduce8PlanesTo3@{fg text} can be used to convert wrong looking
+ MWB icons with 256 colors for using the pens 0-7 only.
+ This option is an alternative to the previous options.  
+
+ @{fg shine}FakeIconSizeForAfA@{fg text} compensates the problem that AfA_OS
+ has with different sizes of my internal default images
+ in comparison to the larger color mapped or OS4 icons.
+ It's for AfA only, because it wastes space on WB 3.1.
+
+ @{fg shine}ConvertTrueColor@{fg text} can be used for OS4 and PNG icons if
+ you still want to create the smaller and faster OS 3.5
+ format with up to 255 colors using TrueColor versions.
+ Of course, you've to save the icons to get more speed.
+ @{fg shine}PreserveTrueColor@{fg text} switches back to the TrueColor mode.
+
+ @{fg shine}ConvertPNGtoOS4@{fg text} makes PNG icons about 15 % larger, but
+ @{b}loading OS4 icons is about 30 % faster@{ub}. This feature
+ needs the zlib.library v3.2 being installed to work.
+ Only TrueColor versions are supporting the conversion.
+
+ @{fg shine}HoldTCbuffer1@{fg text} makes the window scrolling, resizing and
+ the slow icon dragging of the WB @{b}a little faster@{ub}, but
+ with a higher memory consumption. All buffer memory is
+ always freed as soon as the window is closed again. It
+ is only working @{b}in TrueColor versions on RTG screens@{ub}.
+
+ @{fg shine}DOnoColorMapping@{fg text} is an option @{b}for TrueColor screens on@{ub}
+ @{b}DOpus5@{ub} which should be used together with the enabled
+ icon setting "@{b}Use Custom Drag Routines@{ub}" for more speed
+ and a better quality. It avoids all the color mapping.
+ Use it with HoldTCbuffer1 for best speed and quality.
+ @{b}It is highly recommended to install my patched version
+ 5.83 of DOpus5, which has a fix for a big memory leak.@{ub}
+
+ @{fg shine}IconUpScaling@{fg text} and @{fg shine}IconDownScaling@{fg text}, only for the 68020
+ version available, can be used from a shell at runtime
+ to @{b}enlarge the images to 150 % or reduce them to 66 %@{ub}
+ of their width and height. This works with all PNG, OS
+ 3.5 and OS4 icons, but not with NewIcons, old 4-color
+ and MWB icons, but NewIcons can be converted. Calling
+ these commands for a second time switches the scaling
+ off again. Don't get confused when saving scaled icons
+ to disk, because they are updated then and will appear
+ immediately as double-scaled icons! Switch the scaling
+ off after writing is done and then refresh the window.
+ 
+ @{fg shine}InvertGhostingMask@{fg text} is an optional fix that should only
+ be installed @{b}if you get invisible deficons@{ub} when you're
+ dragging them around. Never use it without this issue!
+ 
+ @{fg shine}NoDelayedImage2@{fg text} is an option @{b}for debug purposes only@{ub},
+ which disables the delayed color mapping for selected
+ icons in order to see whether that was causing issues.
+ Don't use it else, because @{b}activating it costs speed@{ub}.
+@endnode
+
+@node "ThirdParty" " Third party tools "
+
+ @{b}Always read the original tool documentation first !@{ub}
+ Use the download links to get the latest full packs.
+
+ @{fg shine}AutoUpdateWB@{fg text} by Elena Novaretti, Massimo Tantignone.
+ This small patch lets Workbench automatically update
+ the contents of a drawer window whenever a file is
+ created/renamed/deleted in its associated directory
+ by any other means than the Workbench itself. Added
+ AutoUpdateWB v37.0 (29.3.2012) patched for old WBs.
+
+ @{fg shine}CopyIcon@{fg text} by Stephan Rupprecht can be used to copy
+ the icon images from one icon to another one. But it
+ won't overwrite any existing settings or tooltypes.
+ I've modified CopyIcon to work on 68000 and WB 3.0+.
+
+ @{fg shine}FullPalette and FPPrefs@{fg text} by Massimo Tantignone can be
+ used to set and lock colors of the screen palette.
+ On some sytems it can be useful to have correct MWB
+ colors or to use a fixed screen palette. It also has
+ an optional fix for DOpus5 problems with ReleasePen.
+
+ @{fg shine}2 modified versions of Rebel's 16 color palette@{fg text} are
+ supplied and can be copied as @{b}FullPalette.prefs@{ub} into
+ Envarc:Sys and used by calling FPPrefs after IPrefs.
+ This may allow a much better balanced color mapping.
+
+ @{fg shine}LoadModule@{fg text} by Thomas Richter can load icon.library
+ and other modules like workbench.library resident by
+ replacing the Rom versions. Read the documentation.
+ Some options need the "P" bit set for the libraries. 
+ Some WBs v44-45 are not reset-proof and may need the
+ LoadModule options IGNOREVERIFY and NOMEMFKICK then.
+ On Aros 68k systems since 2020 LM seems not to work.
+
+ @{fg shine}LoadResident@{fg text} by Mikolaj Calusinski is a similar tool
+ to load modules resident. @{b}See installation example@{ub}.     
+ On Aros 68k systems LoadResident did never work yet.
+
+ @{fg shine}RemLib@{fg text} by Thomas Rapp can remove libraries from the
+ list of resident modules without making new modules
+ resident. The advantage is that @{b}it needs no reboot!@{ub}
+ Just make sure that you have an icon.library copied
+ into Libs: and call RemLib before SetPatch as shown
+ already in the @{b}example on the installation page@{ub}. It
+ still works on Aros 68k as long as no MMU is active.
+
+ @{fg shine}OpenWin.rexx@{fg text} by DaxB is a benchmark script which can
+ measure the time it takes to open a window with many
+ icons to compare the icon loading with other setups.
+ It works with WB v44+ and DOpus5 and requires Arexx.
+@endnode
+
+@node "BonusPrograms" " HAM + bonus programs "
+
+ @{fg shine}The HAM6 and HAM8 versions@{fg text} @{b}are a technical experiment.@{ub}
+
+ @{b}OS4, PNG and also color mapped icons are displayed much@{ub}
+ @{b}nicer on HAM screens with up to 4096 or 256k colors and@{ub}
+ @{b}Eastern picture icons are looking a lot better in HAM8.@{ub}
+ Unfortunately, HAM-WBs are too slow on Amiga chipsets. 
+
+ Copy the icon.library from the HAM6 or HAM8 drawer into
+ LIBS: and the @{b}FullPalette.prefs file into ENVARC:Sys@{ub} to
+ get the required 16/64 base colors and you have to call
+ @{b}FPPrefs@{ub} in your startup-sequence directly after IPrefs.
+ HAM modes can only be selected with @{b}MUIScreenmodePrefs@{ub}.
+
+ As an alternative, if you don't want install the latter
+ you can try the HAM screenmode preset files which will
+ need the corresponding monitor drivers being installed.
+ The tooltypes ACTION=USE can be changed to ACTION=SAVE.
+
+ Never change the colors 0-15 / 0-63 of the HAM palette!
+ There are some extra files with the HAM palettes, which
+ can be used for creating wallpapers with 16/64 colors.
+ It's impossible to get the MWB colors for the last four
+ pens of a palette on HAM screens. Use Reduce8PlanesTo3.
+
+ The HAM versions have TrueColor support like TC020, but
+ the delayed second image and the ghosting are disabled.
+ DOpus5 has no real support for HAM screens. But you can
+ choose the display setting "Use Workbench" as a screen.
+
+
+ @{fg shine}DirectoryOpus 5.82 and DOpus5.83@{fg text}
+
+ A completely new approach makes the DOPus5 icon loading
+ a lot faster. Instead of delaying the colormapping, it
+ is not done at all anymore on Hi/TrueColor screens when
+ you disable it with my option @{b}DOnoColorMapping@{ub}, but you
+ have to enable "@{b}use custom drag routines@{ub}" in DOpus too.
+ I've also made @{b}a fix for a big memory leak@{ub} in this code
+ of DOpus 5.82 under P96 and added a better transparency
+ masking for the icons when these options are activated.
+ You will get a @{b}faster icon loading@{ub} without using slower
+ planar images. For the TC020, FastWB and Aros versions
+ my option @{b}HoldTCbuffer1 is also recommended@{ub} for optimal
+ speed and soft borders on RTG screen modes.
+
+ You can find a @{b}bug-fixed DOpus5.83@{ub} in the Bonus drawer.
+ Rename it and replace DirectoryOpus if you are starting
+ it by LoadWB. A DOpus v5.82 patch of AfA_OS for Eastern
+ and DefIcons from Bernd Roesch can still be executed on
+ my fixed DOpus5.83, since it's not a new C-compilation,
+ but just an edited binary file, and the patching works.
+
+ The DOpus5 bug in the custom dragging was the usage of
+ "Width" in the VSprite structure of AddBob() instead of
+ "Words Per Row" and also without any RemBob() later. It
+ uses only AddVSprite() and RemVSprite() now in the fix.
+
+ Running DOpus5 and the WB at the same time is possible,
+ but with different screen depths it gets unpredictable.
+
+
+ @{fg shine}The Aros 68k version@{fg text} is quite the same as TC020, but it
+ has some @{b}additional support for Wanderer@{ub} which uses the
+ alpha channel data to make the background transparent.
+ This feature needs to be enabled in the preferences for
+ Wanderer. It's no v51 version, because Eastern doesn't
+ work on Aros yet, but you can install @{b}DefIcons v44+@{ub} by
+ Stephan Rupprecht in WBstartup + @{b}ENVARC:deficons.prefs@{ub}.
+ Allow copying of deficons to ENV: again in the startup-
+ sequence @{b}by commenting this out:@{ub} @{fg shine};@{fg text} @{b}PAT@{ub} "~@{b}(def_#?.info)@{ub}"
+ The Aros icon.library has to be removed with @{b}RemLib@{ub} by
+ Thomas Rapp somewhere above SetPatch. Other tools can't
+ be used on Aros 68k anymore. FastMem is set by default.
+
+
+ @{fg shine}My experimental FastWB version@{fg text} tries to achieve a more
+ @{b}responsive and faster TrueColor icon dragging@{ub} with the
+ Workbench 3.1.4/3.5/3.9 for slower Amigas. This is not
+ a 100 % perfect solution, because it still can happen
+ that some parts of the window where you selected icons
+ for the dragging are not refreshed after their release,
+ but that is no big problem, since you can still update
+ the window from the WB menu. My @{b}WBfix@{ub} already tries to
+ take care for any window switching, scrolling, resizing
+ and also has a timeout of about 1 second after the last
+ icon movement in order to avoid later graphical damage
+ by menus or requesters opening suddenly over the active
+ window. Brings more speed together with HoldTCbuffer1.
+ @{b}WB 3.2 should be more optimized and may not need a fix.@{ub}   
+
+
+ LD020 uses the older @{b}line by line direct drawing@{ub} code,
+ because sometimes that runs still faster than 68020.
+
+ The @{fg shine}patches for workbench.library@{fg text} 45.127 and 45.131 to
+ 45.132 include some fixes, explained in the lha file.
+@endnode
+
+@node "Contact" " Contact and Feedback"
+
+ If you have some problems with my icon.library, want
+ to make any suggestions or discuss new features then
+ @{fg shine}you can send me an email@{fg text} to <@{b}pkeunecke@alice-dsl.net@{ub}>
+
+ @{fg shine}or use my threads@{fg text} at @{b}A1k.org@{ub} or @{b}English Amiga Board@{ub}:
+
+ http://www.a1k.org/forum/index.php?threads/27403/
+ http://eab.abime.net/showthread.php?t=64079
+
+ @{b}But I won't appear in any other forums, at Twitter,@{ub}
+ @{b}Facebook, Reddit, in other social media or over IRC.@{ub}
+
+ Your feedback is always welcome, because testing the
+ library code to find the hidden bugs is very difficult.
+ If nobody reports any issues, it can take years before
+ I may stumble upon a rare bug by coincidence one day.
+
+ Please, send a @{b}description of your system@{ub} with infos
+ about the ROM, OS and WB version, CPU, your screenmode,
+ FBlit, P96, CGX, your startup-sequence and patches, the
+ version of icon.library, the icon type and screenshots.
+
+ Thanks a lot to all the Amiga users who have already
+ sent bugreports or made suggestions for improvements!
+@endnode
+
+@node "Restrictions" " Important restrictions "
+
+ It's not allowed to distribute or install the
+
+ TrueColor versions of this icon.library with or
+
+ on AmiKit X or XE or any other freeware distro
+
+ or software package for more than 10 Euro. This
+
+ applies to all v51 versions, LD020 and the Aros
+
+ version. They may switch into a low quality mode
+
+ after a while and it's not recommended to use
+
+ them on AmiKit X or XE, which are not supported
+
+ anymore! But you can still use the new 68000 or
+
+ 68020 versions, or any other versions of older
+
+ releases up to Build #538 without restrictions.
+@endnode
+
+@node "Copyright" " Rights & distribution "
+
+ @{b}This program is freeware.@{ub} I don't give any warranties.
+ You are using this program on your own risk and you
+ are responsible for any damage it could cause to your
+ system. This icon.library is completely independent
+ and free of the AmigaOS copyright. :)
+
+ @{"Read the restrictions for the distribution here, too!" link "Restrictions" 0}
+
+
+ @{b}Copyright 2007-2021:@{ub}
+
+   @{b}Peter Keunecke@{ub}
+@endnode
+
+@node "Beschreibung" " Programmbeschreibung "
+
+ Dies ist @{b}ein optimierter Ersatz für die icon.library@{ub}
+ von AmigaOS 3.0-3.9 oder Aros 68k, die im Kickstart ROM
+ existiert oder aus dem LIBS: Verzeichnis geladen wird.
+
+ Diese Shared Library enthält die Funktionen zum Laden,
+ Dekodieren, Anzeigen und Speichern von Piktogrammen und
+ zum Verwalten von Einstellungen für die Ausführung der
+ zugehörigen Programme durch Erfassen von Tooltypes, dem
+ DefaultTool, der Stackgrösse, der Icon-Position und bei
+ Verzeichnissen von Fensterdaten in den ".info"-Dateien. 
+
+ @{b}Unterstützt werden alle alten planaren und MWB-Icons,@{ub}
+ @{b}sowie palettenbasierte NewIcons oder OS 3.5 ColorIcons,@{ub}
+ @{b}als auch OS4 oder PNG TrueColor-Icons und Aros Icons.@{ub} 
+
+ Alle Icons werden entweder per Blitter oder FBlit vom
+ Amiga-Chipsatz oder mit P96 bzw CGX auf Grafikkarten in
+ ihrer besten Qualität so schnell wie möglich angezeigt.
+
+ Es gibt jetzt 5 Methoden, um Icon-Bilder darzustellen:
+
+ 1.) Planare Icons wählen direkt mit den Bitplane-Daten
+     die Farbstifte und ihre aktuellen Bildschirmfarben.
+     In planaren Icons sind keine Paletten gespeichert,
+     deshalb benötigen sie verriegelte Bildschirmfarben.
+
+ 2.) NewIcons und ColorIcons verwenden Index-Bytes für
+     jedes Pixel, die auf eine 24-Bit RGB-Palette zeigen
+     und folglich auf 256 Farben pro Bild begrenzt sind.
+     Eine davon kann zur Transparenzmaskierung verwendet
+     werden. Die Farben werden der aktuellen Bildschirm-
+     palette zugewiesen und die Chunky-Bytes der Bilder
+     in Bitplanes konvertiert, was beides aufwendig ist.
+     Diese Methode findet immer die am besten passenden
+     Farben der Palette oder versucht, freie Farbstifte
+     zu erhalten.
+
+ 3.) Auf Hi/TrueColor-Screens werden NewIcons und OS 3.5
+     ColorIcons perfekt angezeigt, indem sie ihre 24-Bit
+     RGB-Farben ohne Mapping an eine Grafikkarte senden.
+     Dies geht wesentlich schneller als die 2. Methode
+     und läßt auch mehr Farbstifte für Anwendungen frei.
+
+  :( Leider benötigt die WB Icon-Zieh-Routine immer noch
+     die herkömmlichen Bitplanes der ausgewählten Icons.
+  :) Für schnelleres Laden werden die Farbreduktion, das
+     Mapping und C2P verzögert, bis die Auswahl erfolgt. 
+
+ 4.) OS4, PNG und Aros Icons verwenden TrueColor Bilder
+     mit 24-Bit Farbdaten und einem Alphakanal Byte für
+     eine weiche Überblendung vom Rand zum Hintergrund.
+     Grafikkarten können diese Icons perfekt angezeigen,
+     aber auf 8-Bit und planaren Screens benötigen sie
+     erst eine zeitaufwendige Farbreduzierung in OS 3.5
+     Farben, gefolgt vom Mapping und der C2P-Umwandlung.
+
+ 5.) Auf HAM-Bildschirmen werden palettenbasierte Icons
+     in ARGB-Bilder konvertiert wie bei OS4 und PNG und
+     dann wird entweder eine der 16 oder 64 Grundfarben
+     verwendet oder zwei Farbkomponenten des vorherigen
+     Pixels gehalten und die mit der größten Abweichung
+     wird aktualisiert. Auf normalen Amiga-Bildschirmen
+     können HAM-Bilder viel mehr unterschiedliche Farben
+     verwenden als beim ColorMapping. Aber der Chipsatz
+     ist leider doch zu langsam, um mit HAM zu arbeiten.
+@endnode
+
+@node "Voraussetzungen" " Voraussetzungen"
+
+ Ok, die wichtigste erforderliche Qualifikation zuerst:
+
+ Das System braucht einen Benutzer, der versteht, wie's
+ funktioniert und was er bewirkt, wenn er es verändert.
+ Keinen, der nur den Feuerknopf seines Joysticks kennt.
+
+ Man bat mich zu erwähnen, dass @{fg shine}die Namens@{i}_Erweiterung@{ui}@{fg text}
+ @{fg shine}der Library beim Kopieren nach Libs: zu entfernen@{fg text} ist.
+ Ja natürlich, manchmal muss man sein Gehirn benutzen. 
+
+ @{b}@{u}Für erfahrene Benutzer von Amiga OS 3.x und Aros 68k:@{ub}@{uu}
+
+ Diese icon.library läuft auf allen echten Amigas, auf
+ Minimig, Vampire, Amithlon und Emulatoren wie WinUAE.
+
+ Sie arbeitet mit jeder 680x0 CPU und braucht keine FPU
+ oder MMU. Sie zeigt auf jedem Bildschirm alle Icons an.
+
+ @{b}Die 68000-Version ist nur für schnelle Systeme wie den@{ub}
+ @{b}Minimig geeignet@{ub}, ein Amiga mit 7 MHz ist zu langsam !
+ Das schnellste, was Du mit lahmen Amigas machen kannst:
+ "Schmeiß sie weg!"...oder kaufe einen Beschleuniger ;)
+
+ @{fg shine}Wenn man wirklich etwas besseres nutzen möchte als nur@{fg text}
+ @{fg shine}4-farbige oder MWB-Icons, braucht man eine CPU >30 MHz.@{fg text}
+
+ Planare Icons kann die icon.library nie beschleunigen,
+ weil keine Dekomprimierung und Farbzuordnung nötig ist.
+ 
+ @{b}Man sollte eine schnelle Festplatte, viel FastMem und@{ub}
+ @{b}eine Grafikkarte besitzen, um mehr Spaß zu haben, aber@{ub}
+ @{b}das ist nicht unbedingt erforderlich.@{ub}
+
+ Diese Library funktioniert mit jeder Workbench ab v39,
+ Wanderer (Aros-Version) und AfA_OS, DOpus5 oder Scalos.
+
+ Auf einigen Systemen muss man die icon.library, die aus
+ dem Kickstart-ROM geladen wird, mit Tools wie SetPatch
+ v44 oder RemLib, LoadResident oder LoadModule ersetzen.
+
+ @{fg shine}Es werden nur PNG Bilder mit RGB oder RGBA unterstützt.@{fg text}
+ Nur diese beiden Formate werden dekodiert, @{b}aber keine@{ub}
+ @{b}Graustufen, Interlaced oder Paletten-basierten Bilder.@{ub}
+ @{b}Nur IHDR, IDAT, icOn und IEND werden ausgewertet@{ub}, alle
+ anderen PNG-Chunks werden übersprungen und ignoriert.
+ Falsche Bildformate führen zur Anzeige von Ersatzicons.
+@endnode
+
+@node "Eigenschaften" " Eigenschaften"
+
+ Diese icon.library kann alle Arten von Icons anzeigen:
+ vier-farbig, MWB, OS 3.5, OS4, PNG, Aros und NewIcons.
+
+ Sie unterstützt alle 680x0 Systeme mit OS 3.0-3.9 oder
+ Aros und native Bildschirmmodi oder auch Grafikkarten.
+
+ Diese Library wurde komplett in optimiertem Assembler
+ Code geschrieben, der IconBeFast v2 schon beinhaltet.
+ Sie ist kleiner als das Original und arbeitet deutlich
+ schneller, vorausgesetzt, mein IconBeFast-Patch wurde
+ nicht bereits installiert, zB. mittels SystemPatch v3.
+
+ Aber diese Library hat mehr Verbesserungen als nur die
+ schnellere Farbzuweisung. Sie kann auch die Dekodierung
+ des 2. Bildes verzögern, bis ein Icon ausgewählt wird.
+
+ Es wird kein ChipMem für Workbench Icons verschwendet,
+ wenn man Prefs/Workbench auf "Anderen Speicher" setzt
+ oder den Befehl WBCTRL IMT=ICONFAST vor LoadWB aufruft.
+ OS 3.1.4/3.2 braucht diese Speichereinstellungen nicht.
+
+ Ein Cache für die Bildschirm-Palette wird beim WB-Start
+ erstellt und nur aktualisiert, wenn sich die Anzahl der
+ gemeinsam genutzten Farbstifte danach geändert hat.
+
+ Ein weiterer optionaler Cache mit einem Würfel von 512
+ "FastColors" erlaubt es, die beste Farbe zu berechnen.
+ Diese Optimierung ist bei RTG Screens immer aktiviert,
+ denn dann braucht man diese Farben nur zum Icon-Ziehen. 
+
+ Eine zlib Inflate Routine dient zum Dekomprimieren von
+ OS4 und PNG Bildern. Die interne Farbreduktion basiert
+ auf 15 Bits Genauigkeit für die ersten 128 Farben, bis
+ die Palette mit weniger Bits nach der passenden Farbe
+ durchsucht wird oder bevor eine weitere erstellt wird.
+ Eine Palettenbelegungstabelle vermeidet bis zu ca. 200
+ Scans und spart Zeit. Ein schnelles Dithering ändert
+ die Helligkeit der Pixel abwechselnd um +2 oder -2 und
+ verwendet ein Schachbrettmuster für die Farbmischungen.
+
+ Diese Library kann OS4 und PNG Icons auf allen nativen
+ Amiga-Bildschirmen mit der normalen palettenbasierten
+ Farbzuweisung darstellen. Zwei Alphakanal-Level werden
+ durch eine Mischung mit 25% oder 50% Grau dargestellt,
+ um weichere Abstufungen an den Rändern zu erhalten, da
+ der Blitter nur einfache Transparenzmasken unterstützt.
+
+ WB:Icon->Info und das Abspeichern von TrueColor-Icons
+ konvertiert sie in das OS 3.5 Format bei beiden 680x0
+ Versionen. Die 68020 Version zeigt einen Requester für
+ den Fall an, dass TrueColor Icons direkt von ColorIcons
+ ersetzt werden würden. Das kann für ein einzelnes Icon
+ erlaubt oder verhindert werden, für Ordner oder immer.
+ Die OS 3.5-Konvertierung hat den Vorteil, dass kleinere
+ Dateien entstehen und das Anzeigen viel schneller geht,
+ obwohl die geringere Qualität oft kaum zu erkennen ist.
+
+ Schlechte planare Bilder in OS 3.5 und OS4 Icons werden
+ automatisch durch interne Icons ersetzt, falls sie zu
+ winzig sind oder mehr als drei Bitplanes besitzen.
+
+ TrueColor Icons mit nur einem Bild erhalten automatisch
+ ein dunkleres 2. Bild mit einem einfachen Glüheffekt.
+
+ Bei Hi/TrueColor Bildschirmen ist direktes RGB Zeichnen
+ auf den Grafikkarten viel schneller als Farbzuweisungen
+ mittels Bildschirm-Palette und bietet HiColor-Qualität
+ oder sogar die perfekte Icon Darstellung. Die TrueColor
+ Versionen, wie TC020, unterstützen auch weiche Ränder
+ durch eine Alphakanalüberblendung über dem Hintergrund.
+ Nur die 68000 Version bietet kein direktes Zeichnen an,
+ weil es keine Grafikkarten oder Treiber dafür gibt.
+
+ DefIcons werden als Geisterbilder mit 50 % Transparenz
+ dargestellt. Wer diese Funktion nicht mag, kann sie mit
+ "IconGhostingOff" global abschalten oder den Tooltype-
+ Eintrag "NoGhost" gezielt bei den DefIcons hinzufügen.
+
+ Das Ram Disk Icon wird automatisch synchronisiert mit
+ def_Ram.info in ENV:Sys und ENVARC:Sys und man benötigt
+ kein Copy oder MakeLink mehr zur RAM:Disk.info Datei.
+
+ Icon Labels mit Outline oder Shadow Text sind möglich.
+
+ Die Paletten-Optimierungsroutine für das Icon-Speichern
+ wurde hinzugefügt. Sie ist immer aktiviert, unabhängig
+ von den Optionseinstellungen und baut die Farbtabellen
+ von Grund auf neu, schließt darin die möglichen Lücken
+ und vermeidet mehrere Einträge mit gleichen RGB-Werten.
+ Icon-Bilder werden jetzt immer komprimiert, aber die
+ RGB-Farbtabellen werden nur kopiert. Das ist schneller.
+
+ Der optimierte RLE-Decoder behandelt 8 Bitplanes extra.
+
+ Ab 3.1.4 wird BumpRevisionLength() unterstützt, um das
+ Icon-Kopieren mit langen Dateinamen zu ermöglichen. Es
+ funktionierte auch mit WB v45.132 und WBCTRL MNL=102.
+
+ Alle v51 Versionen können die Eastern Preview Icons in
+ TrueColor anzeigen. Das Abspeichern als OS4 Icons ist
+ ebenfalls möglich, wenn zlib.library v3.2 installiert
+ ist, sonst als ColorIcons. Die beste Skalierung bietet
+ der OS 3.9 picture.datatype v45.17.
+
+ Diese icon.library hat Unterstützung für DOpus5, AfA_OS
+ und eine Aros 68k Version mit Anpassungen für Wanderer.
+@endnode
+
+@node "Versionen" " Library Versionen "
+
+ @{fg shine}Die 68000 Version@{fg text} verwendet immer die palettenbasierte
+ Farbzuweisung für alle NewIcons, ColorIcons, OS4 und
+ PNG Icons. Sie hat keine Unterstützung für das direkte
+ Zeichnen auf Grafikkarten und auch keine Optimierung
+ oder spezielle Behandlung für Programme, die erst auf
+ einem System mit 68020+ CPU installiert werden können.
+
+ @{fg shine}Die 68000 und 68020 Versionen@{fg text} zeigen OS4 und PNG Icons
+ immer nach einer Farbreduktion in das OS 3.5 Format mit
+ maximal 255 Farben und mit einfacher Transparenzmaske,
+ auch auf Hi/TrueColor Bildschirmen. Beim Speichern der
+ konvertierten Icons im OS 3.5 Format werden sie kleiner
+ und können danach schneller geladen werden als zuvor.
+
+ @{b}OS 3.2 akzeptiert v46 nicht mehr, aber TC020 geht noch.@{ub}
+
+ @{fg shine}Die 68020 Version@{fg text} ist wahrscheinlich die beste Wahl für
+ langsame Amigas und sie hat bereits Unterstützung für
+ direktes Zeichnen auf Grafikkarten. Auf Hi/TrueColor
+ Bildschirmen zeigt sie alle ColorIcons perfekt an, nur
+ OS4 und PNG Icons in etwas schlechterer Qualität, aber
+ mit weniger Speicher als TC020. Nach dem Speichern von
+ TrueColor Icons im OS 3.5 Format können sie können sie
+ viel schneller geladen werden als die originalen Icons.
+
+ @{fg shine}Die TC020 Version@{fg text} kann die OS4 und PNG Icons in bester
+ TrueColor Qualität und dank Alphakanalüberblendung mit 
+ weichen Rändern auf Grafikkarten darstellen. Dies kann
+ sehr schnell und ohne eine zeitraubende Farbreduktion
+ geschehen, benötigt aber mehr Speicher, um zusätzlich
+ die komprimierten ARGB Bilder zu halten. Das Speichern
+ und Kopieren der Icons erfolgt in ihrem urprünglichen
+ Format. TC020 besitzt zusätzliche ARGB Puffer für ein
+ schnelleres Anzeigen. Außerdem unterstützt TC020 8-Bit
+ und native Bildschirme durch eine Farbreduktion in der
+ gleichen Weise wie die 68020 Version.
+
+ PNG Icons können in das OS4 Format konvertiert werden,
+ was sie etwa 15% größer macht, aber 30% schneller lädt.
+ @{b}Wer aus irgendeinem Grund ColorIcons speichern möchte,@{ub}
+ @{b}kann immer noch den Befehl ConvertTrueColor verwenden@{ub},
+ bevor sie anzeigt werden. Dies wirkt wie ein Downgrade
+ zum 68020 Modus. PreserveTrueColor schaltet zurück in
+ den TC020 Modus. Die v51 Libraries können die Vorschau-
+ bilder-Icons von Eastern auch in TrueColor anzeigen.
+
+
+ @{u}Im Bonus Ordner findet man einige spezielle Versionen:@{uu}
+
+ @{fg shine}Eine experimentelle FastWB Version@{fg text} versucht das Ziehen
+ von Icons auf der Workbench 3.1.4/3.5/3.9 schneller zu
+ machen und die extrem vielen unnötigen Refreshes in den
+ Fenstern so weit wie möglich zu ignorieren. Dies ist
+ keine 100 % perfekte Lösung, denn es kann immer noch
+ vorkommen, dass einige Teile des Fensters, in dem man
+ die Icons auswählt, nach dem Ziehen nicht aktualisiert
+ werden, aber das ist kein großes Problem, denn man kann
+ die Fensterinhalte immer noch im WB-Menü aktualisieren.
+ Mein Fix versucht bereits, Fensterwechsel, Scrollen und
+ Größenänderung zu berücksichtigen und hat außerdem ein
+ 1 Sekunden Timeout nach der letzten Icon Bewegung, um
+ eine spätere grafische Beschädigung zu vermeiden, etwa
+ durch plötzlich sich über dem aktiven Fenster öffnende
+ Menüs oder Requester. Einfach mal testen und eventuelle
+ Probleme melden oder das flüssigere Handling geniessen. 
+ Zusammen mit HoldTCbuffer1 ergibt es optimale Leistung. 
+
+ @{fg shine}Die Aros 68k Version@{fg text} ist ziemlich identisch mit TC020,
+ hat aber zusätzlich noch Unterstützung für Wanderer, um
+ mittels Alphakanal Daten den Hintergrund transparent zu
+ machen. Diese Funktion muss in den Voreinstellungen für
+ Wanderer aktiviert werden. Es ist kein v51, denn bisher
+ funktioniert Eastern noch nicht auf Aros 68k, aber man
+ kann DefIcons v44+ von Stephan Rupprecht nach WBstartup
+ kopieren und zusätzlich ENVARC:deficons.prefs kopieren.
+
+ @{fg shine}Die LD020 Version@{fg text} verwendet eine ältere zeilenbasierte
+ Routine zum direkten Zeichen, die manchmal immer noch
+ schneller ist, um die RGB Farben von ColorIcons direkt
+ auf einem Grafikkarten RTG Bildschirm darzustellen.
+
+ @{fg shine}Die HAM6 und HAM8 Versionen@{fg text} basieren auf TC020, können
+ aber NewIcons, ColorIcons, OS4 und PNG Icons nativ auf
+ dem AGA Chipset mit viel mehr verschiedenen HAM-Farben
+ anzeigen. Das macht auf OCS/ECS wenig Sinn. Leider ist
+ der Amiga zu langsam, um HAM WBs tatsächlich zu nutzen.
+@endnode
+
+@node "Änderungen" " Letzte Änderungen "
+
+ Alle TrueColor Versionen können jetzt OS4 und PNG Icons
+ 30-70% schneller mit WB v44+ oder Wanderer auf nativen
+ Bildschirmen anzeigen, aber nicht mit WB 3.1 und DOpus5.
+
+ OS 3.2 benötigt jetzt mindestens eine icon.library v47.
+ Deshalb funktionieren nur noch TC020, FastWB oder HAM,
+ die anstelle der 68020 Version verwendet werden können.
+
+ Falls jemand immer noch lieber OS4 und PNG Icons als
+ ColorIcons speichern möchte, gibt es ConvertTrueColor.
+
+ Die neue Workbench v47 müsste effizienter und schneller
+ sein, da viele unnütze Refreshes vermieden werden, aber
+ ich besitze das neue OS nicht, um dies auch zu testen.
+ FastWB hat wahrscheinlich keinen Vorteil mehr auf 3.2.
+
+ Die neue OS 3.2 Dateityperkennung von DefIcons wird nur
+ von meinen v51 Libraries wie TC020 unterstützt. Ich habe
+ nicht die Absicht, die 680x0-Versionen höher zu setzen.
+
+ Die DefIcons v47 Dateityperkennung funktioniert jetzt
+ auch für Bilddateien, wenn Eastern ebenfalls installiert
+ ist. Ein kleines CLI Testprogramm "FileType" liegt bei. 
+
+ Auf DOpus5 war das zweite Bild der HAM-Icons seit Build
+ #531 nicht mehr sichtbar.
+
+ Ein DOpus5 Patch für die WBInfo() Funktion der Workbench
+ führte WB-seitig zu fehlenden Icon-Bildern bei SwazInfo.
+
+ IconUpscaling, IconDownscaling und GrayscaleOnOff werden
+ ab jetzt nur noch von der 68020 Version unterstützt.
+@endnode
+
+@node "Bezugsquellen" " Bezugsquellen "
+
+ @{fg shine}Das komplette icon.library Paket findet man unter:@{fg text}
+ http://aminet.net/package/util/libs/IconLib_46.4
+
+ @{fg shine}Updates, Bugfixes, Testversionen und IconDemoADFs:@{fg text}
+ http://eab.abime.net/showthread.php?t=64079
+
+ @{fg shine}Weitere nützliche Programme im Aminet sind:@{fg text} 
+ http://aminet.net/package/util/boot/FBlit
+ http://aminet.net/package/util/boot/LoadModule
+ http://aminet.net/package/util/boot/RemAPollo
+ http://aminet.net/package/util/libs/zlib-library
+ http://aminet.net/package/util/wb/AutoUpdateWB
+ http://aminet.net/package/util/wb/CopyIcon44
+ http://aminet.net/package/util/wb/DefIcons44
+ http://aminet.net/package/util/wb/Eastern
+ http://aminet.net/package/util/wb/FullPalette22
+ http://aminet.net/package/util/wb/image2icon
+ http://aminet.net/package/util/wb/i2iGUI-V2
+ http://aminet.net/package/util/wb/MUIScrMode1_5
+ http://aminet.net/package/util/wb/NewIcons46
+ http://aminet.net/package/util/wb/ProcessIcon
+ http://aminet.net/package/util/wb/SwazInfo18b 
+
+ @{fg shine}Monitortreiber für hohe Auflösungen (für HAM6/8):@{fg text}
+ http://aminet.net/package/driver/moni/HighGFXnmore
+
+ @{fg shine}Icon Pakete:@{fg text}
+ http://aminet.net/pix/gicon
+ http://aminet.net/pix/icon
+ http://aminet.net/pix/mwb
+ http://aminet.net/pix/nicon
+ http://aminet.net/pix/picon
+ http://www.masonicons.de
+ http://www.five-star.com/kens_icons/icons.htm
+ http://www.amiga-look.org/category/glowicons
+ http://www.intuitionbase.com/customisation.php?category=icons
+ http://os4depot.net/index.php?function=browse&cat=graphics/icon
+
+ @{fg shine}Icon Strukturen:@{fg text}
+ http://krashan.ppa.pl/articles/amigaicons
+ http://www.evillabs.net/wiki/index.php/Amiga_Icon_Formats
+@endnode
+
+@node "Installieren" " Installation "
+
+ Die Installation hängt von vielen Dingen ab: CPU, ROM,
+ OS und WB Version, Speicher, Grafik, Leistung, Patches. 
+
+ @{fg shine}Bei 68020+ Systemen mit workbench.library v44-45@{fg text} reicht
+ meistens '@{b}copy icon.library_68020 to LIBS:icon.library@{ub}'.
+
+ Immer die Erweiterung entfernen und P_RW_D Flags setzen. 
+
+ @{fg shine}Für schnelle Systeme mit Grafikkarte@{fg text} ist @{b}TC020@{ub} gedacht,
+ aber man kann dann auch die FastWB Version ausprobieren,
+ die viele redundante Refreshes von WB v44/45 ignoriert.
+
+ @{fg shine}OS 3.2 benötigt mindestens eine icon.library v47@{fg text}, daher
+ läßt sich @{b}nur noch v51, wie TC020@{ub}, auf 3.2 installieren,
+ aber man kann immer noch ConvertTrueColor aufrufen, wenn
+ man lieber schnellere 3.5 ColorIcons erstellen möchte.
+ Die 68000 und 68020 Versionen akzeptiert OS 3.2 nicht.
+
+ Die meisten @{fg shine}68000 Amigas@{fg text} sind viel zu langsam, um einen
+ Vorteil bei Verwendung der icon.library_68000 zu haben,
+ man kann nicht einmal Icons ins FastMem laden. P96, CGX
+ und FBlit benötigen 68020 CPUs. @{b}Meine 68000 Version ist@{ub}
+ @{b}für viel schnellere Systeme gedacht, z.B. den Minimig.@{ub}
+
+ @{fg shine}Bei OS 3.0/3.1 Systemen@{fg text} ist es erforderlich, die alte
+ Rom icon.library aus der Liste der residenten Module zu
+ entfernen, bevor die neue icon.library aus Libs: geladen
+ werden kann. Ich würde empfehlen, @{b}RemLib@{ub} von Thomas Rapp
+ oder @{b}SetPatch v44@{ub} zu verwenden, da diese keine Reboots
+ verursachen. In gleicher Weise kann man auch die alte
+ Workbench ersetzen. Eine neue WB v44+ hat viele Vorteile
+ für alte 3.1 Systeme. SetPatch v44 aktualisiert beide
+ ohne zusätzliche Tools. Ansonsten vor SetPatch einfügen:
+
+ If EXISTS Libs:icon.library
+    RemLib >NIL: icon.library
+    If EXISTS Libs:workbench.library
+       RemLib >NIL: workbench.library
+    EndIf
+ EndIf
+
+ @{fg shine}Alternativ@{fg text} ist es möglich, beide Libs @{b}resident zu laden@{ub},
+ aber diese Methoden erfordern einen Reboot des Systems.
+ Dies kann mittels@{b} LoadResident, LoadModule oder BlizKick@{ub}
+ erreicht werden. - Oder man kann sein eigenes Rom bauen.
+ Zum Beispiel diese Zeilen vor SetPatch (<v44) einfügen:
+
+ Version >NIL: icon.library 46
+ If WARN
+    If EXISTS LIBS:workbench.library
+       LoadResident >NIL: LIBS:workbench.library
+    EndIf
+ LoadResident >NIL: LIBS:icon.library REBOOT
+ EndIf
+
+ @{fg shine}OS 3.0/3.1@{fg text} hat bei der @{b}workbench.library v39-40@{ub} nur die
+ @{b}Einschränkung@{ub}, die palettenbasierten Icons nach einem
+ Wechsel des Bildschirmmodus nie neu zu laden und somit
+ können die Farben von Disk Icons niemals neu zugeordnet
+ werden. Dafür ist dann ein Neustart erforderlich. Man
+ sollte auch @{b}SwazInfo@{ub} installieren, um WB=>IconInfo zu
+ ersetzen. Wenn der Installer fehlschlägt, dann manuell.
+
+ Der @{b}NewIcons Patch@{ub} erlaubt bei 3.1 einen transparenten
+ Hintergrund für die Icon Bilder und liefert DefIcons !  
+
+ Ich habe einige Demo-Disketten Images für OS 3.0/3.1
+ erstellt, um zu zeigen, wie man das installieren kann:
+ @{b}IconDemoADF@{ub} http://eab.abime.net/showthread.php?t=64079
+
+ Die Envarc:@{b}FBlit.cfg@{ub} für WB 3.1 und auch für WB 3.1.4+
+ werden mitgeliefert. Es hängt von der workbench.library
+ Version (v39-40 oder v44+) ab, welche Konfiguration für
+ FBlit benötigt wird. FastMem wird automatisch verwendet,
+ sofern FBlit beim Booten erkannt wurde.
+
+ @{b}FBlit nie zusammen mit P96 oder CGX Treibern verwenden!@{ub}
+
+ @{fg shine}Auf Systemen mit P96 oder CGX@{fg text} sollte man @{b}FastMem@{ub} für
+ Icon-Bilder aktivieren. Bei OS 3.9 Prefs/Workbench auf
+ "anderer Speicher" setzen oder bei 3.5 mit dem Befehl
+ "WBCtrl IMT=ICONFAST" vor LoadWB aktivieren, für WB 3.1
+ kann man auch meinen Befehl "IconsToFastMem" verwenden.
+ OS 3.1.4-3.2 aktiviert das FastMem automatisch für RTG.  
+
+ @{fg shine}Eine alternative CPU Version@{fg text} der icon.library kann in
+ einem Unterverzeichnis von LIBS: installiert werden für
+ den Fall, dass noch keine Library resident geladen war.
+ Wenn LIBS:icon.library die 68000 Version ist, kann man
+ eine 020-er Version @{b}als LIBS:68020/icon.library@{ub} ablegen.
+ Oder wenn LIBS:icon.library für den für den 68020+ ist,
+ kann man eine Alternative @{b}als LIBS:68000/icon.library@{ub}
+ hinzufügen. Die richtige Version wird dann automatisch
+ geladen. Dies @{b}funktioniert mit SetPatch v44 oder RemLib@{ub}
+ von Thomas Rapp, aber nicht mit LoadResident, BlizKick,
+ LoadModule oder bei einer residenten icon.library.
+
+ .
+@endnode
+
+@node "Konfiguration" " Konfiguration "
+
+ @{b}Optionale Befehle, die man vor LoadWB aufgerufen kann:@{ub}
+ @{b}______________________________________________________@{ub}
+
+ @{fg shine}AllFramesOn1/2/3@{fg text} und @{fg shine}AllFramesOff@{fg text} sind für Systeme mit
+ @{b}WB v44+@{ub} auf OS v39-44. Die Zahl am Ende (1-3) bestimmt
+ die Rahmengröße. Einige ColorIcons werden jedoch keine
+ Rahmen erhalten, wenn sie ein internes Frameless-Flag
+ gesetzt haben, was nur mit dem OS 3.9 IconEdit und dem
+ Icon-Modul von Report+ geändert werden kann. Bei WB 3.1
+ kann man den NewIcons Patch verwenden, um transparente
+ Rahmen zu aktivieren. Bei der WB v45+ befinden sich die
+ Rahmeneinstellungen schon in den Workbench Preferences.    
+ 
+ @{fg shine}PlanarFrames1/2/3@{fg text} kann auf @{b}WB v44+@{ub} verwendet werden, um
+ die @{b}Rahmen ausschließlich für die alten 4-color und MWB@{ub}
+ @{b}Icons@{ub} zu aktivieren, aber nie für True/ColorIcons oder
+ NewIcons. Das Ändern der Rahmen in Prefs/Workbench ist
+ weiterhin möglich. Nach dem Aufruf von PlanarFrames1-3
+ bleiben True/ColorIcons und NewIcons *immer* rahmenlos.
+  
+ @{fg shine}Eine schnellere Farbzuweisung@{fg text} kann optional aktiviert
+ werden, indem man die @{b}Icon Qualität in Prefs/Workbench@{ub}
+ @{b}auf schlecht@{ub} setzt. Bei WB v39-44 ist das auch mit dem
+ Befehl @{fg shine}FastColors@{fg text} möglich. Dann dienen 512 RGB Farben
+ eines Farbspeicher-Würfels zur direkten Farbberechnung.
+ Diese Option ist auf langsameren Amigas zu empfehlen.
+ Bei verriegelten Farben ändert sich die Qualität nicht.
+
+ @{fg shine}IconsToFastMem@{fg text} ist @{b}für Amigas mit Grafikkarten@{ub} gedacht,
+ um die Icons schneller zu laden und ChipMem zu sparen,
+ wenn man kein anderes Programm wie Prefs/Workbench oder
+ WBCtrl dafür nutzen kann. Es wird manchmal @{b}für WB 3.1@{ub}
+ benötigt, aber nicht für FBlit. Seit OS 3.1.4-3.2 wird
+ der Speichertyp vollkommen automatisch eingestellt.
+ 
+ @{fg shine}IconsTo24BitDmaMem@{fg text} kann verwendet werden, um mehr vom
+ schnelleren 32-Bit FastMem für Anwendungen zu behalten.
+ Mit dieser Option wird die Icon Anzeige aber langsamer.
+
+ @{fg shine}IconGhostingOff@{fg text} schaltet die Transparenz von DefIcons
+ global aus, falls jemand Angst vor Geisterbildern hat.
+ 
+ @{fg shine}GrayscaleOnOff@{fg text} kann verwendet werden, um Icons nur in
+ Grautönen statt in Farben anzuzeigen. Man kann es dann
+ @{b}in Prefs/Workbench aktivieren@{ub}, indem man @{b}die Qualität@{ub}
+ dort @{b}auf schlecht@{ub} setzt. Die WB v39-44 benötigt beides:
+ die Befehle GrayscaleOnOff und FastColors vor LoadWB.
+ Diese Option wird nur in der 68020 Version unterstützt.
+ 
+ @{fg shine}OutlineIconText@{fg text} und @{fg shine}ShadowIconText@{fg text} optimieren den Stil
+ des Icon Label-Textes. Zur Farbwahl dient @{b}Prefs/Fonts@{ub},
+ wo man eine @{b}Textfarbe und eine Hintergrundfarbe@{ub} wählt,
+ aber danach in den "Nur Text" Modus zurück schaltet,
+ bevor man seine Einstellungen abspeichert. Bei OS 3.2
+ kann man WBCtrl LABELOUTLINE oder LABELSHADOW benutzen.
+ 
+ Nach dem Aktivieren von Outline- oder Shadowtext oder
+ Graustufen zur Laufzeit bitte mit WB-Reset auffrischen.
+
+ @{fg shine}FileType@{fg text} ist mein Testprogramm für die Identifikation
+ des Dateityps im OS 3.2 DefIcons Tool. Für Experimente.
+
+ @{fg shine}KillPlanarImages@{fg text} und @{fg shine}KeepPlanarImages@{fg text} ändern die Weise,
+ wie planare Bilder in OS 3.5 und OS4 Icons zu behandeln
+ sind. Ohne eine Option werden planare Bilder mit mehr
+ als 8 Farben oder einer Breite von weniger als 8 Pixeln
+ durch interne 4-color Icons ersetzt. KillPlanarImages
+ ersetzt alles. KeepPlanarImages verschont Falschfarben.
+ @{b}Mit KillPlanarImages kann man die Dateigröße reduzieren@{ub}
+ @{b}und Speicherverschwendung für die oft nutzlosen Bilder@{ub}
+ @{b}vermeiden.@{ub} Falls die Icons ins ChipMem geladen werden,
+ ersetzt nur ein schwarzer Punkt die planaren Bilder. Um
+ es zu testen, ColorIcons in Prefs/Workbench abschalten.
+
+ @{fg shine}Reduce8PlanesTo3@{fg text} kann benutzt werden, um falschfarbige
+ MWB Icons mit 8 Bitplanes zur Verwendung der Farben 0-7
+ und 3 Bitplanes zu konvertieren. Es ist als Alternative
+ zu den vorherigen Optionen gedacht.  
+
+ @{fg shine}FakeIconSizeForAfA@{fg text} kompensiert das Problem, dass AfA_OS
+ mit unterschiedlichen Größen der internen Ersatzbilder
+ im Vergleich zu den größeren OS 3.5 oder OS4 Icons hat.
+ Ein Fix nur für AfA, der auf WB 3.1 Platz verschwendet.
+
+ @{fg shine}ConvertTrueColor@{fg text} kann bei den TrueColor Versionen dafür
+ verwendet werden, um OS4 und PNG Icons trotzdem in das
+ kleinere und schnellere OS 3.5 Format mit 255 Farben zu
+ konvertieren. Natürlich muss man die Icons abspeichern,
+ damit es wirkt. @{fg shine}PreserveTrueColor@{fg text} schaltet dann zurück.
+
+ @{fg shine}ConvertPNGtoOS4@{fg text} macht PNG Icons etwa 15 % größer, aber
+ @{b}das Laden der OS4 Icons geht etwa 30 % schneller@{ub}. Dafür
+ muss aber die zlib.library v3.2 schon installiert sein.
+ Nur TrueColor Versionen unterstützen die Konvertierung.
+
+ @{fg shine}HoldTCbuffer1@{fg text} macht das Fenster-Resizing, Scrollen und
+ das langsame Icon-Ziehen bei TrueColor etwas flüssiger,
+ aber bei höherem Speicherverbrauch. Der gesamte Puffer
+ wird dann erst beim Schließen des Fensters freigegeben.
+ Dies funktioniert nur mit TrueColor Versionen auf RTG.
+
+ @{fg shine}DOnoColorMapping@{fg text} ist @{b}für DOpus5 TrueColor Bildschirme@{ub}
+ und funktioniert nur zusammen mit der Icon Einstellung
+ "@{b}Use Custom Drag Routines@{ub}", um langsame Farbzuweisungen
+ zu vermeiden, höhere Geschwindigkeit und eine bessere
+ Qualität zu erzielen. Für optimale Leistung sollte man
+ zusätzlich HoldTCbuffer1 verwenden. @{b}Es wird empfohlen,@{ub}
+ @{b}meine gepatchte Version DOpus 5.83 zu installieren, in@{ub}
+ @{b}der ein großes Speicherleck im Dragging behoben wurde.@{ub}
+
+ @{fg shine}IconUpScaling@{fg text} und @{fg shine}IconDownScaling@{fg text}, nur für die Version
+ 68020 verfügbar, kann man als Shell-Befehl zur Laufzeit
+ verwenden, @{b}um die Icon-Bilder auf 150 %@{ub} Breite und Höhe
+ @{b}zu vergrößern oder auf 66 % zu verkleinern@{ub}. Dies geht
+ bei allen PNG, OS 3.5-4 Icons, aber nicht mit NewIcons,
+ alten 4-color und MWB Icons. NewIcons vorher umwandeln.
+ Ein 2. Aufruf der Befehle schaltet die Skalierung aus.
+ Es mag etwas verwirrend sein, wenn man skalierte Icons
+ abspeichert, denn sie werden dadurch aktualisiert und
+ erscheinen sofort als doppelt skalierte Icons! Einfach
+ die Skalierung ausschalten, nachdem der Schreibvorgang
+ abgeschlossen wurde und dann das Fenster aktualisieren.
+ 
+ @{fg shine}InvertGhostingMask@{fg text} ist ein optionaler Fix, den man nur
+ installieren sollte,@{b} wenn die DefIcons beim Verschieben@{ub}
+ @{b}unsichtbar werden@{ub}. Niemals ohne diesen Fehler benutzen!
+ 
+ @{fg shine}NoDelayedImage2@{fg text} ist eine Option, die @{b}nur zum Debugging@{ub}
+ dient und die verzögerte Farbzuweisung für selektierte
+ Icons deaktiviert, um zu sehen, ob es Fehler vermeidet.
+ Sonst nie aktivieren, @{b}weil dies Geschwindigkeit kostet@{ub}!
+@endnode
+
+@node "Drittanbieter" " Drittanbieter Tools "
+
+ @{b}Bitte immer zuerst die originale Dokumentation lesen!@{ub}
+ Für neue und vollständige Pakete die Downloads nutzen.
+
+ @{fg shine}AutoUpdateWB@{fg text} von Elena Novaretti, Massimo Tantignone.
+ Mit diesem kleinen Patch kann die Workbench den Inhalt
+ eines Fensters automatisch aktualisieren, wenn Dateien
+ in dessen zugehörigem Verzeichnis erstellt, umbenannt
+ oder gelöscht werden, außer durch die Workbench selbst.
+ Version v37.0 (29.3.2012) ist mein Patch für alte WBs.
+
+ @{fg shine}CopyIcon@{fg text} von Stephan Rupprecht kann verwendet werden,
+ um die Icon-Bilder von einem Icon auf ein anderes zu
+ kopieren. Dabei überschreibt es keine der bestehenden
+ Einstellungen oder Tooltypes. Es wurde so modifiziert,
+ dass es auch noch auf 68000 und WB 3.0+ funktioniert.
+
+ @{fg shine}FullPalette@{fg text} und @{fg shine}FPPrefs@{fg text} von Massimo Tantignone können
+ verwendet werden, um Farben der Bildschirm-Palette zu
+ setzen und zu sperren. Auf einigen Systemen kann es
+ nützlich sein, korrekte MWB Farben oder eine Palette
+ mit festen Farbeinstellungen zu verwenden. Es hat auch
+ einen optionalen Fix für DOpus5-Fehler bei ReleasePen.
+
+ @{fg shine}2 modifizierte Varianten der 16-farbigen Palette von@{fg text}
+ @{fg shine}Rebel@{fg text} sind vorhanden und können als @{b}FullPalette.prefs@{ub}
+ nach Envarc:Sys kopiert und durch Aufruf von FPPrefs
+ unter IPrefs verwendet werden. Dies kann eine deutlich
+ ausgewogenere Farbverteilung bei Bildern ermöglichen.
+
+ @{fg shine}LoadModule@{fg text} von Thomas Richter kann diese Library oder
+ andere Module wie die workbench.library resident laden
+ und alte Rom-Versionen ersetzen (siehe Dokumentation).
+ Für einige Optionen muss das "P"-Bit bei den Libraries
+ gesetzt werden. Manche WBs v44-45 sind nicht reset-fest
+ und benötigen möglicherweise die LoadModule Optionen
+ IGNOREVERIFY und NOMEMFKICK, um Abbrüche zu vermeiden.
+ Auf Aros 68k ab 2020 scheint LM nicht zu funktionieren.
+
+ @{fg shine}LoadResident@{fg text} von Mikolaj Calusinski ist ein ähnliches
+ Tool, um Module resident zu laden. @{b}Siehe Installation@{ub}.     
+ Auf Aros 68k hat LoadResident bisher nie funktioniert.
+
+ @{fg shine}RemLib@{fg text} von Thomas Rapp kann Libraries aus der Liste der
+ residenten Module entfernen, ohne neue Module resident
+ zu laden und erfordert deshalb keinen Neustart! Nachdem
+ sichergestellt ist, dass eine neue Library nach Libs: 
+ kopiert wurde, kann man RemLib vor SetPatch aufrufen,
+ wie bereits im @{b}Beispiel auf der Installationsseite@{ub}. Es
+ funktioniert auch mit Aros 68k, aber nur ohne eine MMU.
+
+ @{fg shine}OpenWin.rexx@{fg text} von DaxB ist ein Benchmark Skript, das die
+ Zeit misst, um ein Fenster mit vielen Icons zu öffnen.
+ Es ermöglicht, die Lade-Geschwindigkeit zu vergleichen.
+ Mittels Arexx funktioniert es bei WB v44+ und DOpus5.
+@endnode
+
+@node "Bonusprogramme" " HAM + Bonusprogramme "
+
+ @{fg shine}Die HAM6 und HAM8 Libs@{fg text} sind @{b}ein technisches Experiment@{ub}.
+
+ @{b}OS4, PNG und auch palettenbasierte Icons werden auf HAM@{ub}
+ @{b}Bildschirmen mit bis zu 4096 oder 256k Farben sehr viel@{ub}
+ @{b}schöner dargestellt und auch die Eastern Icons sehen in@{ub}
+ @{b}HAM8 wesentlich besser aus als mit normalen Screenmodes@{ub}.
+ Leider sind HAM WBs auf den Amiga Chipsätzen zu langsam. 
+
+ Kopiere die icon.library aus dem HAM6 oder HAM8 Ordner
+ nach LIBS: und @{b}FullPalette.prefs nach ENVARC:Sys@{ub}, um die
+ benötigten 16/64 Basisfarben zu erhalten und dann sollte
+ man @{b}FPPrefs@{ub} in der startup-sequence nach IPrefs starten.
+ Die HAM Option gibt es nur in @{b}MUIScreenmode Preferences@{ub}.
+
+ Als Alternative, wenn man letzteres nicht installieren
+ möchte, kann man meine HAM Screenmode Dateien verwenden,
+ falls die zugehörigen Monitortreiber installiert wurden.
+ Die Tooltypes ACTION=USE kann man in ACTION=SAVE ändern.
+
+ Bitte niemals die Basisfarben 0-15 bzw. 0-63 der Palette
+ verändern! Es gibt auch einige Dateien mit diesen Farben
+ zum Erstellen dazu passender Workbenchhintergrundbilder.
+ Es ist unmöglich, die MWB Farben für die letzten 4 Pens
+ bei HAM Screens zu nutzen. Dann hilft Reduce8PlanesTo3.
+
+ Die HAM Versionen bieten TrueColor Unterstützung wie bei
+ TC020, aber das verzögerte zweite Bild und das Ghosting
+ sind deaktiviert. DOpus5 hat keine eigene Unterstützung
+ für HAM Screens, aber es geht mit "Workbench verwenden".
+
+
+ @{fg shine}DirectoryOpus 5.82 und DOpus5.83@{fg text}
+
+ Ein völlig neuer Ansatz macht das Laden der DOPus5 Icons
+ viel schneller. Statt die Farbzuweisungen zu verzögern,
+ passiert es auf Hi/TrueColor-Bildschirmen garnicht mehr,
+ wenn man es mit der Option @{b}DOnoColorMapping@{ub} deaktiviert,
+ aber man muss dazu "@{b}Spezielle Ziehroutinen@{ub}" einschalten.
+ Ich habe auch einen Fix für ein großes Speicherleck auf
+ P96 im DOpus Code erstellt und eine bessere Transparenz-
+ Maskierung für die Icons hinzugefügt, wenn die Optionen
+ aktiviert sind. Sie bewirken ein @{b}schnelleres Laden@{ub} der
+ Icons ohne langsamere planare Bilder. Für die Versionen
+ TC020, FastWB und Aros wird auch die noch @{b}HoldTCbuffer1@{ub}
+ empfohlen für eine optimale Geschwindigkeit und weiche
+ Icon-Ränder auf Hi/TrueColor Bildschirmen.
+
+ Im Bonus Ordner befindet sich @{b}das fehlerbereinigte DOpus@{ub}
+ @{b}5.83@{ub}. Nach dem Benennen kann man DirectoryOpus ersetzen,
+ wenn es durch LoadWB geladen wird. Der DOpus v5.82 Patch
+ von AfA_OS (Bernd Roesch) für Eastern und DefIcons läßt
+ sich immer noch auf dem gefixten DOpus5.83 ausgeführen,
+ weil es nur editiert aber keine neue C-Kompilierung ist.
+
+ Der DOpus5 Bug im Custom-Dragging war die Verwendung von
+ "Width" in der VSprite Struktur von AddBob() anstatt von
+ "Words Per Row" und auch ohne späteres RemBob(). Der Fix
+ verwendet jetzt nur noch AddVSprite() und RemVSprite().
+
+ Gleichzeitiges Ausführen von DOpus5 und Workbench geht,
+ aber unterschiedliche Bildschirmtiefen ergeben Probleme.
+
+
+ @{fg shine}Die Aros 68k Version@{fg text} ist ziemlich identisch mit TC020,
+ aber sie hat zusätzlich Unterstützung für Wanderer, der
+ den Alphakanal verwendet, um den Hintergrund transparent
+ zu machen. Diese Funktion muss in den Einstellungen für
+ Wanderer aktiviert werden. Es ist kein v51, denn Eastern
+ funktioniert noch nicht auf Aros, aber man kann @{b}DefIcons@{ub}
+ @{b}v44+@{ub} von Stephan Rupprecht in WBstartup installieren und
+ sein @{b}deficons.prefs von OS 3.9 nach ENVARC: kopieren@{ub}. In
+ der startup-sequence muss man das Kopieren von deficons
+ nach ENV: wieder zulassen und @{b}vor "PAT" auskommentieren:@{ub}
+ @{b}Copy ENVARC: ENV: ALL NOPRO NOREQ@{ub} @{fg shine};@{fg text} @{b}PAT@{ub} "~@{b}(def_#?.info)@{ub}"
+ Die Aros icon.library muss durch @{b}RemLib@{ub} von Thomas Rapp
+ vor SetPatch entfernt werden. Andere Tools tun es nicht.
+ Die Aros 68k Version belegt grundsätzlich immer FastMem.
+
+
+ @{fg shine}Eine experimentelle FastWB Version@{fg text} versucht, @{b}schnelleres@{ub}
+ @{b}oder flüssigeres Icon Ziehen@{ub} bei Workbench 3.1.4/3.5/3.9
+ für langsamere Amigas zu ermöglichen. Es ist keine 100 %
+ perfekte Lösung, denn es kann immer noch vorkommen, dass
+ einige Teile des Fensters, in denen man Icons zum Ziehen
+ ausgewählt hat, nach dem Ablegen nicht mehr aktualisiert
+ werden, aber das ist kein großes Problem, da man dieses
+ Fenster immer noch über das WB-Menü aktualisieren kann.
+ Der @{b}WBFix@{ub} beachtet bereits Fensterwechsel, Scrollen und
+ Änderungen der Fenstergröße und hat auch ein Timeout von
+ einer Sekunde nach der letzten Iconbewegung, um spätere
+ Grafikschäden durch sich plötzlich über diesem aktiven
+ Fenster öffnende Menüs oder Requester zu vermeiden. Dies
+ bringt mehr Geschwindigkeit zusammen mit HoldTCbuffer1.
+ @{b}Die optimierte WB 3.2 braucht möglicherweise keinen Fix.@{ub}   
+
+
+ @{fg shine}LD020@{fg text} verwendet älteres @{b}zeilenweises Zeichnen auf RTG@{ub},
+ was manchmal noch schneller läuft als der 68020 Code.
+
+ Die @{fg shine}Patches für workbench.library@{fg text} 45.127 und 45.131 auf
+ 45.132 enthalten einige Fehlerkorrekturen (siehe lha).
+@endnode
+
+@node "Kontakt" " Kontakt und Berichte"
+
+ Wenn jemand Probleme mit der icon.library hat, neue
+ Features wünscht oder Verbesserungsvorschläge machen
+ möchte, @{fg shine}kann er mir eine E-Mail zusenden an:@{fg text}
+             <@{b}pkeunecke@alice-dsl.net@{ub}>
+
+ @{fg shine}oder meine Threads@{fg text} bei @{b}A1.k.org@{ub} oder @{b}EAB@{ub} @{fg shine}benutzen:@{fg text}
+
+ http://www.a1k.org/forum/index.php?threads/27403/
+ http://eab.abime.net/showthread.php?t=64079
+
+ @{b}Ich werde aber nie in anderen Foren, bei Facebook,@{ub}
+ @{b}Twitter, Reddit und sonstigen sozialen Medien oder@{ub}
+ @{b}in IRC Chats auftauchen bzw. Fragen beantworten.@{ub}
+
+ Erfahrungsberichte von Anwendern sind immer nützlich
+ und willkommen, denn es ist manchmal sehr schwierig,
+ nur durch Tests versteckte Fehler zu finden. Es kann
+ Jahre dauern, bis ich zufällig ein Problem entdecke,
+ wenn niemand mir einen Bug-Report zuschickt.
+
+ Bitte eine @{b}Systembeschreibung@{ub} mit Informationen zur
+ ROM, OS und WB Version, CPU, Screenmode, FBlit, P96,
+ CGX, zur startup-sequence und verwendeten Patches,
+ Icon-Typ, Library Version und Screenshots beifügen. 
+
+ Vielen Dank an alle Amiga User, die bereits Fehler
+ gemeldet oder mir ihre Vorschläge mitgeteilt haben!
+@endnode
+
+@node "Einschränkungen" " Einschränkungen !! "
+
+ Die Verteilung oder die Installation der TrueColor
+
+ Versionen dieser icon.library mit oder auf AmiKit X,
+
+ AmiKit XE oder einer anderen Freeware Distribution
+
+ für mehr als 10 Euro sind nicht erlaubt. Dies gilt
+
+ für alle v51 Versionen, LD020 und die Aros Version.
+
+ Sie schalten sich möglicherweise nach einiger Zeit
+
+ in einen Modus mit geringerer Qualität und es wird
+
+ nicht empfohlen, sie mit AmiKit X, XE zu verwenden,
+
+ die inzwischen nicht mehr unterstützt werden !
+
+
+
+ Sie können aber weiterhin die neuen 68000 oder 68020
+
+ Versionen oder andere Versionen von älteren Ausgaben
+
+ bis hin zu Build #538 ohne Einschränkungen verwenden.
+@endnode
+
+@node "Rechtliches" " Rechte & Verteilung "
+
+ @{b}Dieses Programm ist Freeware.@{ub} Ich gebe keine Garantien.
+ Die Benutzung erfolgt auf eigenes Risiko und der Nutzer
+ trägt für jegliche Schäden an seinem System selbst die
+ Verantwortung. Diese icon.library ist vollständig frei
+ und unabhängig vom AmigaOS Copyright. :)
+
+ @{"Diese Einschränkungen zur Verteilung sind zu beachten!" link "Einschränkungen" 0}
+
+
+ @{b}Copyright 2007-2021:@{ub}
+
+   @{b}Peter Keunecke@{ub}
+@endnode
+

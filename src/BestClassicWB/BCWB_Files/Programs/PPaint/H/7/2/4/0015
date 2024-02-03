@@ -1,0 +1,119 @@
+@DATABASE 0015
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 10. Altri programmi di utilità"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}10.        Altri programmi di utilità@{UB}
+
+Personal Paint viene fornito con alcuni programmi di utilità e file di
+dati, ideati per operare nello stesso ambiente applicativo del programma
+principale. Questo capitolo descrive alcuni programmi memorizzati nel
+cassetto "PPaint_Tools" del disco programma.
+
+
+@{B}10.1       AskAssign@{UB}
+
+Come spiegato nella sezione @{"1.11" LINK PPaintCD:H/7/2/4/0002/Main 1254} ("Parametri di programma e cassetti
+predefiniti"), per creare o ridefinire volumi logici è possibile
+utilizzare il comando AmigaDOS "Assign". Il programma AskAssign, incluso
+nel pacchetto Personal Paint, è una versione "interattiva" di tale
+comando: svolge le stesse funzioni di quest'ultimo, ma si avvale di
+un'interfaccia grafica e può essere attivato sia da Workbench, con il
+mouse, sia da Shell o da CLI. L'utility AskAssign viene anche utilizzata
+nella procedura InstallPPaint.
+
+La sezione @{"1.13.1" LINK PPaintCD:H/7/2/4/0002/Main 1513} ("Installazione automatica: il programma
+InstallPPaint") spiega come creare cassetti e selezionare percorsi
+AmigaDOS a cui assegnare nomi logici. Nella procedura InstallPPaint,
+AskAssign viene utilizzato per specificare la posizione in cui installare
+i file e i programmi del pacchetto Personal Paint. Se eseguito
+individualmente (ad es. selezionando con un doppio click la sua icona),
+AskAssign permette di assegnare volumi logici (come "PPaint" o "FONTS")
+utilizzando il mouse. Il nome logico da assegnare può essere modificato
+editando il campo "ASKNAME" nel gadget testo "Tool Types" ("Parametri")
+della finestra Workbench Information ("Informazioni"). Per fare ciò,
+occorre selezionare la voce menu Information (nello schermo Workbench)
+quando l'icona AskAssign risulta evidenziata (ad es. in seguito alla
+selezione con il mouse). I testi presenti nel quadro selezione file di
+AskAssign possono essere modificati editando gli altri campi
+visualizzabili nel gadget testo "Tool Types". Normalmente, la versione di
+AskAssign fornita con Personal Paint è configurata per permettere, se
+eseguita da Workbench, l'assegnazione del volume logico "FONTS".
+
+
+@{B}10.2       ColorText@{UB}
+
+Come spiegato nella sezione @{"3.1.3.2" LINK PPaintCD:H/7/2/4/0017/Main 477}, l'editor di testi di Personal Paint
+è in grado di utilizzare tutti i tipi di font, compresi quelli a colori
+(tra i file acclusi al programma, vi sono anche alcuni font a colori). Il
+sistema operativo di Amiga, a partire dalla versione 2.0, gestisce
+direttamente i font a colori. Operando con versioni precedenti, è invece
+necessario utilizzare il programma ColorText per integrare nel software di
+sistema le appropriate funzioni di gestione font. Il programma ColorText è
+stato sviluppato da Inter/Active Softworks, creatrice anche del formato
+ColorFont.
+
+Nei sistemi operativi precedenti la versione 2.0, ColorText può essere
+attivato con un doppio click sulla sua icona. A partire dalla versione
+2.0, non è necessario attivare ColorText per utilizzare i font a colori.
+
+
+@{B}10.3       Driver HP DeskJet@{UB}
+
+A Personal Paint sono allegati i nuovi driver HP DeskJet (sviluppati
+congiuntamente da Cloanto e Commodore-Amiga). Le versioni di questi driver
+sono le prime senza il famoso problema della compressione RLE. Il driver
+550C utilizza l'inchiostro nero oltre agli inchiostri ciano, magenta e
+giallo, e non ha più la limitazione dei 10 pollici verticali nelle stampe
+grafiche. Rispetto alle precedenti versioni, inoltre, il driver fa uso di
+nuove procedure per il bilanciamento del ciano.
+
+I driver DeskJet utilizzano l'impostazione del parametro "Soglia B/N" per
+effettuare uno schiarimento progressivo dell'immagine nelle stampe a
+colori. Utilizzando la stampa a 24 bit di Personal Paint con questi
+driver, bisognerebbe regolare a 1 (nessuno schiarimento) il suddetto
+parametro ed evitare i valori 4, 5 e 6 del parametro "Densità" (questi
+comportano diversi livelli di schiarimento - o @{I}depletion@{UI} - e
+interlacciamento). Per accrescere la qualità di stampa, è invece
+consigliabile regolare la densità a 7, attivando così l'interlacciamento
+di stampa (@{I}shingling@{UI}) senza modificare ulteriormente l'intensità.
+
+I driver sono consigliati anche per le stampanti DeskJet 560C e DeskJet
+520. Qualche utente, in base a informazioni a volte incomplete, è stato
+portato a ritenere che tali stampanti potessero lavorare a 600×300 punti
+per pollice (dpi) in modo grafico. Queste capacità (spesso reclamizzate),
+sono legate all'utilizzo della tecnica RET (@{I}Resolution Enhancement
+Technology@{UI}) applicata ai dati 300×300 dpi. Queste stampanti non sono in
+grado di stampare a colori a 600×300 dpi, né risulta alcun comando
+documentato che consenta di inviare dati grafici in bianco e nero oltre i
+300×300 dpi. Pertanto, i driver allegati a Personal Paint sfruttano
+pienamente anche le capacità di queste stampanti. Il testo viene stampato
+a 600×300 dpi a seconda dell'impostazione della stampante (stampa in modo
+testo - non grafica).
+
+
+@{B}10.4       Font@{UB}
+
+Del pacchetto Personal Paint fanno parte diversi font a colori e un font
+dal nome "Personal.font". Questi possono essere installati dalle procedure
+di installazione.
+
+Personal Paint e ColorType usano lo stesso font Personal nell'interfaccia
+utente. Anche il font è stato aggiornato ed esteso periodicamente. Avendo
+installato versioni diverse di entrambi i programmi, potrebbe essere
+richiesta una versione meno recente del font, per cui potrebbero essere
+visualizzati "strani" simboli nell'interfaccia utente. In questo caso è
+sufficiente cancellare il font Personal dal cassetto "FONTS:". Tutte le
+versioni di Personal Paint e di PFM2 ricercano il font anche nel proprio
+cassetto di partenza, dove il font viene normalmente copiato dalla
+procedura di installazione automatica.
+
+Per chi usa il font Topaz 8 per visualizzare i nomi delle icone sullo
+schermo Workbench, Personal 8 potrebbe essere, per compattezza e
+leggibilità, un ottimo sostituto.
+
+@ENDNODE

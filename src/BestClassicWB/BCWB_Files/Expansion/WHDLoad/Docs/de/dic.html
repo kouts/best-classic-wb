@@ -1,0 +1,117 @@
+<HTML>
+<HEAD>
+<TITLE>DIC * Erzeugen von Diskettenabbildern</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: dic.html 1.5 2004/04/07 19:50:53 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>DIC * Erzeugen von Diskettenabbildern</h3>
+<p>DIC ist ein Programm um ein Abbild einer Floppydisk zu erzeugen.
+DIC liest den Inhalt einer Floppydisk &uuml;ber das entsprechende Ger&auml;t
+(z.B. das "trackdisk.device" f&uuml;r DF0:) aus und schreibt die Daten in
+eine Datei. Der voreingestellte Name des Diskettenabbildes ist "Disk.1",
+wobei "1" die Nummer der gelesenen Diskette ist. Die Option <tt>NAME</tt>
+kann verwendet werden, wenn ein anderer Name f&uuml;r das Abbild gew&uuml;nscht
+wird.</p>
+<p>DIC kann auch andere Ger&auml;te wie RAD:, PC0: oder DS0: und High Density
+Disketten auslesen.</p>
+<p>Wenn ein Track einer Floppydisk nicht korrekt gelesen werden kann und
+DIC von einem interaktiven Terminal gestartet wurde (z.B. CON:), fragt es
+ob der entsprechende Track &uuml;bersprungen werden soll oder ob erneut
+versucht werden soll den Track zu lesen. Auf nicht interaktiven Terminals
+werden diese Tracks voreingestellt immer &uuml;bersprungen.<br>Der Bereich f&uuml;r
+&uuml;bersprungene Tracks wird im Diskettenabbild mit der Zeichenkette "<tt>TDIC</tt>"
+gef&uuml;llt. Dadurch ist es m&ouml;glich den Lesefehler auch sp&auml;ter noch nachzuvollziehen.</p>
+<p>DIC kann Disketten mittels der Option <tt>SIZE/K/N</tt> auch teilweise lesen.
+Dabei werden Daten nach der angegebenen Gr&ouml;&szlig;e weggelassen. Dies ist sinnvoll,
+wenn Bereiche am Ende unbenutzt sind.</p>
+<p>Tracks k&ouml;nnen auch mittels der Option <tt>SKIPTRACK/K/N</tt> &uuml;bersprungen werden.
+Dies ist hilfreich f&uuml;r Disketten die einen diskbasierenden Kopierschutz (z.B. den
+RN-CopyLock auf Track 1) enthalten.</p>
+<p>Wenn die Option <tt>PEDANTIC/S</tt> verwendet wird, bricht DIC sofort ab wenn
+ein Track nicht gelesen werden kann.</p>
+<p>DIC kann jederzeit durch dr&uuml;cken von Ctrl-C abgebrochen werden.</p>
+<h4>Installation</h4>
+kopiere das Programm nach C: oder einem &auml;hnlichen Platz.
+<h4>Benutzung</h4>
+<p>Interaktive Benutzung:
+<ul>
+<li>&ouml;ffne eine Shell
+<li>wechsle in das Verzeichnis in welchem die Abbilder abgelegt werden sollen
+<li>gebe "DIC" ein und dr&uuml;cke RETURN
+<li>nun lege die Disketten ein und folge den Instruktionen von DIC
+<li>nachdem die letzte Diskette gelesen wurde, breche DIC mittels Ctrl-C ab
+</ul>
+Um DIC in einem Installationsskript zu verwenden sollten die Optionen
+<tt>FD=FIRSTDISK/K/N</tt>, <tt>LD=LASTDISK/K/N</tt> und
+<tt>PEDANTIC/S</tt> verwendet werden. Bei den Disketten mit einem physischen
+Kopierschutz ist <tt>SKIPTRACK/K/N</tt> anzuwenden. Wenn m&ouml;glich sollte auch
+<tt>SIZE/K</tt> eingesetzt werden, um Plattenplatz &uuml;berall auf der Welt zu sparen ;-).
+<h4>Optionen</h4>
+<table>
+<tr><td colspan=2>
+<tt>DEVICE,NAME,SKIPTRACK/K,SIZE/K,FD=FIRSTDISK/K/N,LD=LASTDISK/K/N,PEDANTIC/S</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>DEVICE</tt>
+</td><td>
+das Ger&auml;t von dem DIC die Abbilder lesen wird
+<br>voreingestellt "DF0:"
+<br>Beispiel "RAD:"
+</td></tr>
+<tr><td valign=top>
+<tt>NAME</tt>
+</td><td>
+Name unter welchem das gelesene Abbild gespeichert werden soll. Diese Option
+setzt implizit <tt>FIRSTDISK/K/N</tt> und <tt>LASTDISK/K/N</tt> auf 1, was
+bedeutet, dass nur ein Abbild gelesen wird.
+</td></tr>
+<tr><td valign=top>
+<tt>SKIPTRACK/K/N</tt>
+</td><td>
+Die Tracks die hier angegeben werden, werden nicht gelesen. Der entsprechende
+Bereich im Abbild wird mit der Zeichenkette "<tt>TDIC</tt>" gef&uuml;llt. Die folgende
+Tabelle zeigt die flexiblen M&ouml;glichkeiten der Trackspezifikation:
+  <table>
+  <tr><td>Liste</td><td>ausgew&auml;hlte Tracks</td></tr>
+  <tr><td>1-5</td><td>1,2,3,4,5</td></tr>
+  <tr><td>2,90</td><td>2,90</td></tr>
+  <tr><td>2*2</td><td>2,4,...,156,158</td></tr>
+  <tr><td>10-20*5</td><td>10,15,20</td></tr>
+  <tr><td>1-5,7,99-104*2</td><td>1,2,3,4,5,7,99,101,103</td></tr>
+  </table>
+</td></tr>
+<tr><td valign=top>
+<tt>SIZE/K</tt>
+</td><td>
+Die Gr&ouml;&szlig;e des erzeugten Abbildes, praktisch wenn es unbenutzte Bereiche am
+Ende der Diskette gibt. Wenn SIZE gr&ouml;&szlig;er als das physische Abbild ist wird die
+Option ignoriert.
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>FD=FIRSTDISK/K/N</tt>&nbsp;&nbsp;
+</td><td>
+Nummer der ersten Disk
+<br>voreingestellt "FD=1"
+<br>Beispiel "FD=0"
+</td></tr>
+<tr><td valign=top>
+<tt>LD=LASTDISK/K/N</tt>
+</td><td>
+voreingestellt "LD=999999"
+<br>Beispiel "LD=3"
+</td></tr>
+<tr><td valign=top>
+<tt>PEDANTIC/S</tt>
+</td><td>
+wenn angegeben beendet sich DIC sobald ein Track nicht korrekt gelesen werden kann,
+sollte in Installationsskripten immer verwendet werden
+</td></tr>
+</table>
+<h4>R&uuml;ckgabewert</h4>
+Der R&uuml;ckgabewert ist 0, wenn alle Abbilder von <tt>FD</tt> bis <tt>LD</tt>
+erfolgreicht erzeugt wurden. Sonst wird 10 zur&uuml;ckgegeben.
+</BODY>
+</HTML>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+<HEAD>
+<TITLE>WHDLoadCD32</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: cd32.html 1.1 2014/12/04 23:37:38 wepl Exp wepl $ -->
+<link rel="stylesheet" type="text/css" href="../../basic.css" title="style1">
+<link rel="SHORTCUT ICON" href="/favicon.ico">
+</head>
+<BODY><HR><CENTER>
+<A HREF="../../index.html">[Main]</A>
+<A HREF="../../docs/WHDLoad.html">[Docs]</A>
+<A HREF="../../reg.html">[Registration]</A>
+<A HREF="../../download.html">[Installs]</A>
+<A HREF="../../search.html">[Search]</A>
+<A HREF="../../team.html">[Team]</A>
+<A HREF="../../guestbook.html">[Guestbook]</A>
+<A HREF="../../links.html">[Links]</A>
+</CENTER><HR>
+
+<h3>WHDLoadCD32</h3>
+
+WHDLoadCD32 è una versione speciale di WHDLoad per il CD&sup3;&sup2; che è
+stata ottimizzata per questo hardware e gira solamente su una versione non modificata
+di CD&sup3;&sup2;. Questa versione di WHDLoad non funziona su SX-32 o altre macchine.
+
+<p>Queste sono le differenze rispetto alla versione normale di WHDLoad:
+<ul>
+
+<li>non ha bisogno di un keyfile WHDLoad, quindi CD con WHDLoadCD32 possono
+essere ridistribuiti liberamente
+
+<li>solo la CPU 68020 è supportata, il che implica la mancanza di supporto per la MMU
+
+<li>la fast memory non è supportata
+
+<li>non è presente nessun tipo di supporto in scrittura, quindi non si possono
+effettuare salvataggi e non ci sono highscore e coredump (il CD è un supporto di sola lettura)
+
+<li>molte opzioni inutili per il CD&sup3;&sup2; sono state rimosse per
+ottenere un eseguibile più piccolo e risparmiare memoria, vedi <a href="opt.html">
+Utilizzo e opzioni</a> per controllare quali
+
+<li>le seguenti funzioni resload non sono implementate e chiamarle causerà
+la chiusura di WHDLoad, che ritornerà un valore pari a TDREASON_ILLEGALARGS:
+
+<ul>
+<li><a href="../autodoc.html#resload_DiskLoadDev">resload_DiskLoadDev</a>
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_Log">resload_Log</a>
+</ul>
+
+<li>le seguenti funzioni resload sono fittizie, non svolgono alcuna operazione
+ma riportano sempre successo:
+
+<ul>
+<li><a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a>
+<li><a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>
+<li><a href="../autodoc.html#resload_DeleteFile">resload_DeleteFile</a>
+</ul>
+
+<li>non c'è nessun supporto per il <a href="freezer.html">freezer/monitor</a>
+
+<li>contrariamentenon alla versione normale di WHDLoad non c'è nessun controllo
+interno sulla dimensione dello stack, secondo i miei test una grandezza di 4096
+byte risulta sufficiente per WHDLoadCD32
+
+</ul>
+
+<h3>Consigli per l'utilizzo di WHDLoad su CD&sup3;&sup2;</h3>
+
+Il problema principale di CD&sup3;&sup2; è la quantità limitata di memoria, visto
+che ci sono solo 2 MiB di memoria chip. Quindi l'obiettivo principale è di avere
+quanta più memoria disponibile per WHDLoad, soprattutto per l'operazione di
+<a href="opt.html#Preload">Preload/S</a>.
+Quando si lancia un programma installato con WHDLoad è meglio assicurarsi che
+non ci sia nessun altro programma in esecuzione.
+
+<ul>
+
+<li>Se l'installatore consente la scelta tra diskimage e file è meglio usare i file.
+Questo perchè file piccoli possono essere utilizzati in cache meglio di file grandi.
+
+<li>Se l'installatore consente l'utilizzo di file compressi tramite ProPack/FImp
+è meglio farlo (il rateo di compressione migliore si ottiene con RNC1).
+I file compressi hanno bisogno di meno memoria nel Preload e non rallentano
+l'operazione di caricamento in maniera significativa.
+
+<li>E' consigliabile utilizzare AllocMemReverse (o qualcosa di simile) prima di lanciare
+WHDLoadCD32. AllocMemReverse è un piccolo programma incluso del dev-package di
+WHDLoad. Esso modifica la funzione AllocMem dell'exec in modo da utilizzare sempre
+l'attributo MEM_REVERSE per le allocazioni, la memoria verrà allocata
+dall'alto verso il basso e non al contrario come normalmente accade, lasciando
+libere le regioni basse della memoria. Questo è necessario perchè WHDLoad ha
+bisogno della memoria a partire dall'indirizzo 0, l'inizio della memoria chip.
+Altrimenti la memoria che viene utilizzata negli indirizzi bassi devi essere copiata e
+questo necessita di memoria aggiuntiva, tutto a discapito della quantità
+disponibile per il programma installato e per le operazioni di Preload.
+
+<li>Conviene utilizzare sempre l'opzione <a href="opt.html#Data">Data</a>.
+Il Preload non sa quali file saranno caricati dal programma installato, quindi
+carica tutti i file che trova. Per evitare questo comportamento è consigliabile
+creare una directory contenente solo i file strettamente necessari. Per esempio
+si possono cancellare tutti i file obsoleti come #?.info, #?.Slave, ReadMe, Manual, ...
+per poi lanciare WHDLoad con le directory Slave e Data come argomenti, per esempio
+<tt>WHDLoadCD32 :Slaves/XYZ.Slave Data=:Data/XYZ Preload</tt>, 
+non è necessario cambiare la directory corrente.
+
+<li>E' meglio non utilizzare file di dati compressi con XPK, visto che richiede
+molta memoria, sia per le sue librerie sia per la decompressione. In aggiunta
+la decompressione causerà problemi di frammentazione della memoria.
+
+</ul>
+<HR><CENTER>
+<A HREF="../../index.html">[Main]</A>
+<A HREF="../../docs/WHDLoad.html">[Docs]</A>
+<A HREF="../../reg.html">[Registration]</A>
+<A HREF="../../download.html">[Installs]</A>
+<A HREF="../../search.html">[Search]</A>
+<A HREF="../../team.html">[Team]</A>
+<A HREF="../../guestbook.html">[Guestbook]</A>
+<A HREF="../../links.html">[Links]</A>
+</CENTER><HR></BODY>
+</HTML>

@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE>Bugs</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: bugs.html 1.14 2021/12/21 21:58:14 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Bugs non connus</h3>
+Si vous d&eacute;couvrez un nouveau bug ou tout autre probl&egrave;me, signalez-le s'il vous plait en remplissant
+le rapport de bug à l'adresse suivante:
+<a href="http://mantis.whdload.de/search.php?project_id=4&hide_status_id=-2">http://mantis.whdload.de</a>.
+<h3>Bugs connus</h3>
+<h4>Probl&egrave;mes g&eacute;n&eacute;raux</h4>
+<ul>
+<li>Il existe un probl&egrave;me g&eacute;n&eacute;ral avec les p&eacute;riph&eacute;riques connect&eacute;s &agrave; l'Amiga qui g&eacute;n&egrave;rent des interruptions &agrave; des moments al&eacute;atoires ou r&eacute;guliers.
+Un exemple est ma carte r&eacute;seau (Hydra). Si ma pile TCP/IP tourne, la plupart des programmes install&eacute;s se bloquent apr&egrave;s un court laps de temps parce que la carte cr&eacute;e des interruptions PORTS
+(le m&ecirc;me type d'interruptions que celles cr&eacute;&eacute;es par le clavier) auxquelles le programme install&eacute; ne peut pas r&eacute;pondre correctement. En effet, sit&ocirc;t que la requ&ecirc;te
+a &eacute;t&eacute; acquitt&eacute;e avec un RTE, une nouvelle interruption se produit.
+Pour &eacute;viter ce probl&egrave;me, la pile TCP/IP doit &ecirc;tre arrêtée <a
+href="opt.html#ExecuteStartup">avant de d&eacute;marrer</a> WHDLoad.<br>
+Les piles USB tombent dans la même catégorie (utiliser "AddUSBHardware REMOVE ALL"
+pour Poseidon) et l'interruption Voodoo des cartes Mediator (vous devez positionner
+"VoodooInt = No"). A partir de la version 16.8 de WHDLoad, les interruptions créées par les cartes du Mediator seront gérées par WHDLoad, aucune option n'est requise.<br>
+
+<li>Si vous avez des erreurs de lecture/écriture concernant les fichiers, vérifiez
+que vos disques durs sont correctement configurés. WHDLoad lit des morceaux de données (>1MB)
+qui peuvent se montrer incorrects alors que d'autres applications auront l'air de fonctionner
+sans problème. Vérifiez aussi que les paramètres du MaxTransfer et du Mask sont correctement mis.
+Comme valeur sûre, utilisez pour le MaxTransfer = 0x7FEC et pour le Mask = 0x7FFFFC.
+Cela concerne spécialement les cartes insérées dans le port PCMCIA et les adaptateurs IDE-CF.<br>
+
+D'autres problèmes peuvent venir de l'allocation mémoire. Certains configurations
+ont des soucis avec la mémoire allouée en mode Reverse. Dans de tel cas, activez l'option <a href="opt.html#NoMemReverse">NoMemReverse/S</a>
+pour que WHDLoad n'utilise pas ce mode.
+
+<li>Si vous utilisez le programme Picasso96, vous devez être sûr que l'option FakeNativeModes est mise sur NO (tooltype du driver du moniteur). Sinon, il pourrait y avoir des erreurs graphiques et peut-être des plantages.
+
+</li>
+<li>Quelques configurations hardware n'acceptent pas les fonctions li&eacute;es au MMU de WHDLoad. Les syst&egrave;mes concern&eacute;s sont tous &agrave; base de 68030. L'option
+ <a href="opt.html#MMU">MMU/S</a> ne doit pas &ecirc;tre activ&eacute;e sur ces syst&egrave;mes.
+Si cette option est positionn&eacute;e, WHDLoad bloque la machine. Les mat&eacute;riels suivant sont connus pour poser des probl&egrave;mes: cartes acc&eacute;l&eacute;ratrices "Apollo A630", "Apollo 1230", "Elbox 1230" et "Magnum MK2".
+<li>Il semblerait qu'il y ait des problèmes avec les extensions de mémoire PCMCIA sur A1200. WHDLoad peut afficher des requêtes d'erreur
+telles que Dos error #235 (exécutable non valide) pendant le chargement du slave. Les raisons peuvent être que la limite de mémoire qui se
+trouve dans la liste de mémoires du système serait incorrecte car WHDLoad essaye d'allouer la mémoire en utilisant le drapeau MEMF_REVERSE et reçoit une
+valeur invalide en retour (pointeur sur une mémoire inexistante). Cela peut arriver avec certains types de carte
+mémoire ou sur une configuration spécifique.
+</ul>
+<h4>Concernant les d&eacute;veloppeurs</h4>
+<ul>
+<li>L'op&eacute;ration de permutation entre le syst&egrave;me d'exploitation et le
+programme install&eacute; n'est pas fiable &agrave; 100%. Le probl&egrave;me est que la plupart des registres sp&eacute;cialis&eacute;s et certains registres CIA ne peuvent &ecirc;tre lus et par cons&eacute;quent ne peuvent
+&ecirc;tre sauvegard&eacute;s et restaur&eacute;s. WHDLoad lui-m&ecirc;me ne change pas ces registres, mais quand il commute du programme
+install&eacute; vers l'OS (par exemple pour charger un fichier du disque), l'OS peut changer certains de ces registres non restaurables.
+Si le programme install&eacute; a besoin que les registres demeurent inchang&eacute;s, cela peut poser des probl&egrave;mes. Il est connu que l'OS change au moins cop2lc, bltafwm et bltalwm, et peut &ecirc;tre plus. Pour contourner ce probl&egrave;me,
+il existe une possibilit&eacute; de restaurer les registres modifi&eacute;s pendant la s&eacute;quence de commutation. Se reporter &agrave;
+<A HREF="../autodoc.html#WHDLTAG_CBSWITCH_SET">WHDLTAG_CBSWITCH_SET</A> pour plus d'informations.
+</ul>
+</BODY>
+</HTML>

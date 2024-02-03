@@ -1,0 +1,249 @@
+
+
+                   $VER: Players.eng V2.32 (20.03.2000)
+                   Copyright 2000 by Delirium Softdesign
+                      (Peter Kunath and Frank Riffel)
+
+
+
+  In this document file are all players listed that are officially released
+  or supported by Delirium Softdesign.
+
+
+  1. SOME WORDS
+
+  All players from us are adapted and tested with care. If problems arise
+  from our adaptions we will fix them till the next release if possible. For
+  this we will need some information about your system (type, processor,
+  memory, kickstart) and a precise description of the fault. In addition we
+  must know which version of DeliTracker was used, which player and/or
+  module(s) caused the fault.
+
+  If you have removed a bug or improved a player we would be pleased if you
+  send this player to us. If you have adapted a completely new player it
+  would be nice if you send us the player (perhaps with source) and some
+  modules for this player. Please remark if we can include the player in
+  the next distribution. We can not make any warranties for modules that
+  include the replay routine. If you send me routines please include some
+  modules for testing. Any other routines are welcome too.
+
+  We can not make any warranties for modules that include their replay routine.
+
+
+  2. INTERNAL PLAYERS
+
+
+  Player                Comment
+  ===================   ==================================================
+
+  SoundTracker15        Player for old SoundTracker modules.
+                        Uses NotePlayer Interface.
+
+  SoundTracker31        Player for SoundTracker modules with 31
+                        instruments. Uses NotePlayer Interface.
+
+  NoiseTracker          Player for NoiseTracker modules.
+                        Uses NotePlayer Interface.
+
+  StarTrekker4          Player for StarTrekker modules without AM sounds.
+                        Uses NotePlayer Interface.
+
+  ProTracker            ProTracker Player (supports all PT1.1b effects)
+                        all internal ST like players are based on this
+                        replay routine. Uses NotePlayer Interface.
+
+  CustomPlay            With this interface it is possible to integrate
+                        special players and modules. The module contains
+                        the full relocatable replay routine. Custom Modules
+                        are more like a players than a modules.
+                        Note: DO NOT PACK CUSTOM MODULES !
+
+
+
+  3. EXTERNAL PLAYERS
+
+  Player                Comment
+  ===================   ==================================================
+
+  Actionamics           ; ---
+
+  AIFF                  Don't pack; Loads samples while playing. Has a GUI.
+                        Supports 8 and 16bit samples.
+
+  Amos                  ; ---
+
+  ArtOfNoise            Supports 4 and 8 voice modules. Uses Noteplayer
+                        Interface (up to 8 Voices).
+
+  DataType              Uses datatype.library for playing samples.
+                        WARNING: certain datatypes have severe problems
+                        recognizing files (e.g. MacSND datatype) which
+                        can cause system lockups, gurus, etc.
+                        Martin Blom's ProTracker DataType is ignored
+                        by this player.
+
+  DDMF                  Plays X-Tracker modules (version 8).
+                        Uses Noteplayer Interface (up to 32 Voices).
+
+  DeliAY                ZX Spectrum sound emulation.
+
+  DeliSID               Requires playsid.library.
+
+  Delta1.0              ; ---
+
+  Delta2.0              Uses Noteplayer Interface.
+
+  DIGIbooster           ; ---
+
+  DigiMugi              Supports 4 and 7 voice modules. Uses Noteplayer
+                        Interface (up to 8 Voices).
+
+  DSS                   Uses Noteplayer Interface.
+
+  EarAche               ; ---
+
+  EMS                   Rarely used.
+
+  FastTracker2          Requires at least a '020 CPU.
+                        Uses Noteplayer Interface (up to 32 Voices).
+
+  FC1.4                 Uses Noteplayer Interface.
+
+  Fred                  Uses Noteplayer Interface.
+
+  FTM                   Modules of this type may now be crunched.
+
+  GlueMon               Uses Noteplayer Interface.
+
+  GMOD                  ; ---
+
+  Hippel                Replay code inside the module!
+
+  Hippel_7V             Uses Noteplayer Interface (7 Voices).
+
+  Hippel-COSO           Uses Noteplayer Interface.
+
+  HolyNoise             ; ---
+
+  IFF-8SVX              Don't pack the samples. Loads samples while playing.
+                        Has a GUI for some memory settings. Hint: The normal
+                        audio DMA can playback samples with frequencies up
+                        to 28 kHz. If you want to play samples with a higher
+                        sampling rate make sure to have a productivity screen
+                        in the foreground. This is because in the current
+                        hardware, the audio DMA is coupled with the scanrate.
+                        The hardware can output two samples per scanline.
+                        In standard video mode, this results in a maximum
+                        output rate of 2 x 15kHz = 30 kHz. In productivity
+                        the scanrate is doubled so the maximum output rate
+                        raises to ~60 kHz.
+
+  IFF-SMUS              This player has a GUI for setting the instrument
+                        path. This path may also be relative to the module.
+                        Notes: Songfiles where no instrument is set are
+                        recognized and loaded, but you won't hear anything.
+                        The instrument names must have a '.instr' suffix.
+
+  Impulse               Requires at least a '020 CPU.
+                        Uses Noteplayer Interface (32 Voices).
+
+  JamCracker            Uses Noteplayer Interface.
+
+  JasonPage             Uses Noteplayer Interface.
+
+  LME                   ; ---
+
+  M.O.N                 Replay code inside the module!
+
+  MarkII                Uses Noteplayer Interface.
+
+  MaxTrax               ; ---
+
+  MED                   Plays 'MMD0', 'MMD1' and 'MMD2' modules with 4-8
+                        channels, no songs, no MIDI.
+                        Uses Noteplayer Interface.
+
+  Mline                 Modules may not be packed.
+
+  MultiTracker          Uses Noteplayer Interface (up to 32 Voices).
+
+  Music-Ass             Uses Noteplayer Interface.
+
+  MusicMaker            Uses Noteplayer Interface (up to 8 Voices).
+
+  OctaMED               Plays 'MMD3' modules of OctaMED Soundstudio.
+
+  Oktalyzer             Uses Noteplayer Interface (up to 8 Voices).
+
+  Poly                  Requires at least a '020 CPU.
+                        Uses Noteplayer Interface (up to 32 Voices).
+
+  ProRunner21           ; ---
+
+  PSA                   ; ---
+
+  PumaTracker           ; ---
+
+  QuadraComposer        ; ---
+
+  RIFF-WAV              Don't pack; Loads samples while playing. Has a GUI.
+                        Supports 8 and 16bit samples.
+
+  RobHubbard2           Uses Noteplayer Interface.
+
+  SaPlayer              Uses Noteplayer Interface.
+
+  ScreamTracker3        Requires at least a '020 CPU.
+                        Uses Noteplayer Interface (up to 32 Voices).
+
+  SCUMM                 Replay code inside the module!
+
+  SIDMon1.0             Uses Noteplayer Interface.
+
+  SIDMon2.0             Uses Noteplayer Interface.
+
+  SoundControl          Uses Noteplayer Interface.
+
+  Soundfactory          Doesn't play "executable" module format
+
+  SoundFX13             Doesn't play "executable" module format
+                        Uses Noteplayer Interface.
+
+  SoundFX20             Doesn't play "executable" module format
+                        Uses Noteplayer Interface.
+
+  SoundMon20            Uses Noteplayer Interface.
+
+  SoundMon22            Uses Noteplayer Interface.
+
+  StarTrekker4AM        Plays only StarTrekker modules with AM sounds. The
+                        corresponding '.NT' file must exist else the module
+                        won't be played. Both files may be crunched.
+
+  StoneTracker          Requires at least a 68020 CPU.
+                        Uses Noteplayer Interface.
+
+  Synthesis             ; ---
+
+  TakeTracker           Uses Noteplayer Interface (up to 8 Voices).
+
+  TFMX_1.5              The songfile must begin with 'mdat.' and the sample
+                        file with 'smpl.' Both files may be crunched.
+
+  TFMX                  Supports 4 and 7 voice modules. Uses Noteplayer
+                        Interface (up to 7 Voices).
+                        The songfile must begin with 'mdat.' and the sample
+                        file with 'smpl.' Both files may be crunched.
+
+  THX                   ; ---
+
+  TimFollin             Uses Noteplayer Interface.
+
+  TME                   ; ---
+
+  VectorDean            Uses Noteplayer Interface.
+
+  VSSDeliPlayer         ; ---
+
+  Whittaker             Replay code inside the module! Uses Noteplayer Interface.
+

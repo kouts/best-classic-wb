@@ -1,0 +1,33 @@
+;
+; example script to be used with WHDLoad option ExecuteCleanup
+; - restore emulation settings
+; - restart all software which has been stopped previously with ExecuteStartup
+;
+
+; enable max speed and JIT for UAE
+;uae-configuration cpu_speed max cachesize 8192
+
+; start Poseidon USB-stack
+;ENVARC:PsdStackLoader
+
+; start wireless connection
+;RUN <>NIL: C:WirelessManager prism2.device
+
+; start Roadshow
+;RUN >NIL: NetLogViewer CX_POPUP=NO
+;AddNetInterface DEVS:NetInterfaces/~(#?.info) Quiet
+
+; start Genesis with a X-Surf card
+;AmiTCP:bin/online x-surf0
+
+; start the IP-stack via ARexx
+;C:rx online.rexx
+
+; reawake smbfs-shares
+; requires smbfs 1.182 and mounted from CLI with option SETENV
+If EXISTS ENV:smbfs-process
+  List ENV:smbfs-process/#? LFORMAT="Break ${ENV:smbfs-process/%s} E" TO=T:smbfs-awake
+  Execute T:smbfs-awake
+  Delete T:smbfs-awake QUIET
+EndIf
+

@@ -1,0 +1,475 @@
+
+
+             $VER: DeliTracker-History.eng V2.32 (20.03.2000)
+                Copyright 1992-2000 by Delirium Softdesign
+                      (Peter Kunath and Frank Riffel)
+
+
+
+V2.32   DeliTracker now shows subsong information in the screen title bar.
+
+V2.31   Improved the DMA-Wait routines in the Paula-NotePlayer.
+
+V2.30   Fixed a bug in the Paula-NotePlayer in case a player requested
+        not all 4 channels.
+
+V2.29   The maximum filename length was increased to the DOS limit of 108
+        characters. The Decruncher genie was rewitten in C. It supports
+        now a wide range of archivers. Enhanced the following players:
+        DeltaMusic2.0, FastTracker2, ScreamTracker3, Sidmon1.0, Sidmon2.0,
+        TFMX, Gluemon, ImpulseTracker and PolyTracker. The OctaMED player
+        was removed because the MED player now supports 4-8 channel modules.
+
+V2.28   Improvements in: Hippel, TFMX_note, Actionamics, ScreamTracker3,
+        SAplayer_note, IFF-SMUS, FC1.4_note, TimFollin_note, JasonPage_note,
+        DataType.
+        New components: GlueMon, OctaMEDSS, MlineDeliPlayer, NewYearGenie,
+        AHI-NotePlayer. Removed the separate Xmas-Genie archive.
+        Changed the Installer script.
+
+V2.27   Fixed a slight bug in the TFMX-Pro player. Added NotePlayer support
+        to MusicMaker. The ScreamTracker3 player was rewritten from scratch.
+        Improved DDMF, ImpulseTracker, FastTracker2, TakeTracker and TFMX1.5.
+        Adapted new players for PolyTracker, THX and Amos. Improved the
+        Converter genie. Fixed a bug in the ProTracker duration calculation.
+        The install script now uses UNLZX.
+
+V2.26   Fixed a bug in the Paula-NotePlayer. Improved FredMon, DigiBooster
+        and MarkII players. The FutureComposer1.3 player was replaced with
+        a converter. Added Soundfactory player.
+
+V2.25   Fixed division by zero bug in ScreamTracker player. Added DMA-Wait
+        to IFF-SMUS player. Now the TFMX player supports the 'TFHD' one
+        file format. Improved check routine of the VectorDean player.
+        Introduced new players for ImpulseTracker and X-Tracker (DDMF)
+        modules. Improved Converter and LightOrgan genie. Added FFTScope
+        genie to distribution.
+
+V2.24   Fixed several bugs in DIGIBooster, ScreamTracker and FastTracker2.
+        The IFF-SMUS player now features a GUI.
+
+V2.23   Fixed incorrect tooltype-names in the docs. Removed a bug in the
+        portamento effect of the ProTracker player. The memory usage of the
+        DIGIBooster player was reduced by 200k.
+
+V2.22   StoneTracker and DIGIBooster players have been added. The ProTracker
+        player now supports subsongs. Improved the SoundFX, TakeTracker and
+        VectorDean players. Fixed a bug in AllocListData(). LevelMeter
+        released.
+
+V2.21   Fixed a bug that caused an enforcer hit in the CLI parse routine.
+
+V2.20   The mainwindow can now be opend in zoomed state.
+
+V2.19   Fixed a bug in the routine which chooses the appropriate NotePlayer.
+        Corrected a wrong TagID. Removed some bugs in the Hippel-COSO and
+        ScreamTracker 3.0 players.
+
+V2.18   Added a new ToolType/CLI option that enables you to quit DeliTracker
+        with the closegadget. Improved ScreamTracker und FastTracker2 players.
+        Slight changes in the 14Bit-NotePlayer.
+
+V2.17   The DSS player is now based on the 3.0a sources, the last released
+        version before GVP died. NotePlayer support was also added. The
+        VectorDean player was improved. Rewritten the S3M and XM players.
+        Updated the french docs.
+
+V2.16   NotePlayers can now be forced. Written a player for AIFF samples.
+        The ModuleInfo was improved, it can handle alot of formats now.
+        Fixed minor bugs in TFMX, MED/OctaMED, TakeTracker, IFF-8SVX and
+        DataType. The RIFF-WAV player can now handle 16bit samples.
+
+V2.15   Another bug in the NotePlayer-Interface was fixed. Improved several
+        players. Added NotePlayer support to the SoundFX and Whittaker players.
+        ModuleInfo-genie rewritten and improved, this includes support for
+        non-ProTracker modules. Speeded up the DeliMix routines. All mixing
+        NotePlayers are about 15% faster now. This release includes french
+        docs. Changed the Installer script to support this language.
+
+V2.14   Fixed a minor bug in DeliTracker's NotePlayer-Interface routines.
+        Adapted many new players: FastTracker2, LME, PSA, TimFollin, SCUMM,
+        RobHubbard2, Hippel_7V, JasonPage and SoundControl. The Hippel-COSO
+        player supports the noteplayer interface. The MED/OctaMED DeliPlayers
+        are now based on the OctaMED V6 replay routines. The EarAche player
+        replaces the Grouleff player. Improved the spectral resolution of the
+        FFTAnalyzer. Now it uses a highly optimized 504-point-FFT which is
+        almost as fast as the old 128-point FFT. The 14Bit-NotePlayer can
+        now be calibriated.
+
+V2.13   The mayority of all genies was improved. The 4Voice-NotePlayer
+        and the 8Voice-NotePlayer now provide better soundquality. Some
+        minor things in QuadraScope, QuadraScope+, MonoScope, StereoScope,
+        LightOrgan and the DrWhoGenie where fixed. A player for ArtOfNoise
+        modules and one supporting the datatype.library were added. A brand
+        new TFMX player replaces the old TFMX-Pro and TFMX_7V players. This
+        player supports the NotePlayer interface, too. Fixed some bugs in 
+        the QuadraComposer and the MED/OctaMED players. Fixes a nasty lowmem
+        problem in DeliTracker which could make trouble on 3.x machines.
+        Added auto-boost calculation in several NotePlayers.
+        Now the correct error requester shows up when an loading/saving of 
+        a module list fails.
+
+V2.12   Fixed a bug in the Decruncher genie. New player for DigitalMugician
+        modules. Tried to write a DeliPlayer that uses the Sound-DataTypes
+        for playing. Unfortunately this is quite impossible due to massive
+        bugs and missing features of the sound.datatype. Installer script
+        now supports DeliAY installation.
+
+V2.11   Improved the Arexx functions showgui/hidegui. Added a missing
+        Comment routine. Speeded up the 68000 code of the 4Voice-NotePlayer.
+        The Converter genie supports now MED songs. New Deli-Wizard version,
+        handles 51 formats now. Fixed a bug in the NotePlayer Interface that
+        caused sometimes a 'division by zero' guru.
+
+V2.10   The FFT Analyzer now shows the sound level dB(A) weighed. New
+        DeliWizard that supports now 50(!) different formats. Menu bug in
+        DeliSID and QuadrascopePlus fixed. Player/Genie ARexx functions
+        now take the name as argument as reference. The old player and
+        genie numbers are no longer used (e.g status m pnr was replaced
+        with status m pna)! The example ARexx scripts were updated. The
+        ST-NT-PT_Song player is now realized as converter. A new convert
+        genie for non ProTracker modules was introduced. This renders the
+        GraveComposer Player obsolete. In one case the ProTracker player
+        trashed the last character of the module name. This is fixed.
+        Enhanced the IFF-8SVX, RIFF-WAV and FutureComposer_1.4 players.
+        DrWhoGenie released.
+
+V2.09x  This is a special edition for christmas '94. You will find a
+        nice Xmas-Genie in the Bonus/ directory. A new Deli-Wizard is
+        also included. This made some players obsolete. The SonicArranger
+        player now supports the NotePlayer-Interface.
+
+V2.09   Rearranged startup-code and made some other internal changes. Finally
+        got the OK from Ron and Hakan to include the DeliSID PlaySID player.
+        Added Headphone-Noteplayer. The FTM player and some NotePlayers
+        produced a 'click' noise when the module was started or stopped. This
+        is now fixed. Removed a bug in the DeliMix Routines. Fixed an alignment
+        bug in the IFF-8SVX and RIFF-WAV players. The error-requester of the
+        SetComment routine now works okay. DeliTracker disabled the Audio-DMA
+        even if a NotePlayer was used, this is fixed. The DeliS3M player was
+        rewritten.
+
+V2.08   Fixed Tooltype parsing. Fixed rexx command 'status g gui'. Fixed
+        a harmless bug in the installer script. Added support for 8 unsigned
+        bit samples to the Quadrascope; now you can watch the first four
+        waveforms of S3M modules. Some minor changes concerning the internal
+        handling of NotePlayer interrupts. Added GraveComposer Player.
+        Revised documentation. Improved 32Voices-NotePlayerPlus.
+
+V2.07   Renamed 'Load Module' to 'Open' thus we where forced to change two
+        menu shortcuts. Improved fadeout feature. Now you can select time
+        for fadeing out. Addapted support for the NotePlayer-Interface to
+        MED and both Future Composer players. All NotePlayer-Genies that
+        perform mixing will now step down the mix frequency if the processor
+        is to slow for the selected rate. Fixed volume bug in the FTM player.
+
+V2.06   Added 'Prefix' and 'Low Chipmem' options. Redesigned options window
+        to make room for new switches. Added PlaySID, S3M and TakeTracker
+        players. Reduced priority of all Genies from -5 to -25. This is to
+        avoid problems with stupid scsi/cdrom driver software that uses a
+        task with priority -20 to recognize diskchange. Not released.
+
+V2.05   Changed NotePlayer interface. Modules can now be loaded to FAST mem,
+        if the player supports this. Changed FTM player to make use of this
+        feature. Fixed some Arexx commands and add one status. Added volume
+        boost for 14Bit-NotePlayer. Not released.
+
+V2.04   Changed the random generation routine. Changed program window
+        resizing code. The new code now uses IDCMP_NEWSIZE messages. This
+        is because many patches don't pass IDCMP_SIZEVERIFY messages
+        (e.g. XSize). Improved quality (reduced noise) of ModSave-NotePlayer
+        and 32Voice-NotePlayerPlus. Added MultiTracker and TakeTracker
+        players. Not released.
+
+V2.03   Made program window sizable. Fixed some Noteplayers (32Voice).
+        Removed some misspellings from the docs. Changed Timeout handling
+        to old behaviour. Added Actionamics player. Decrunch Genie now
+        supports a match pattern. Not released.
+
+V2.02   Fixed some bugs in the ToolType parsing. Fixed some other minor bugs.
+        Added VectorDean player. Fixed broken noteplayer interfaceing of the
+        RIFF-WAV player. Fixed speed problem in OctaMED player. Fixed songend
+        problem of internal ProTacker player. Replaced AudioDev-NotePlayer
+        with Paula-NotePlayer. Not released.
+
+V2.01   Removed a "beta" requester from the internal AudioDevice-Noteplayer.
+        Removed "MoA" from the distribution disk. This version was buggy.
+
+V2.0    Introduced a new concept called "Genies". This was the biggest
+        part and a main reason for advancing to version number 2.
+
+        Wrote Noteplayer Genies, Decrunch Genie, Scope Genies. The
+        'Deli-Wizzard' Converter genie was written by Nicolas Franck
+        (Author of the famous Pro-Wizard).
+
+        Completely revised documentation.
+
+        Adapted some player to work with the new Noteplayer interface.
+        (Oktalyzer, OctaMED, Kris, Jamcracker, PT/NT/ST, FastTracker)
+
+        Improved player handling this includes support for swapable and
+        asynchronus players.
+
+        Fixed several bugs and problems (8-/.
+
+        Improved some players (e.g Sonic Arranger Player now supports
+        PC-relative modules, too).
+
+        Greatly improved the IFF-8SVX player to load samples while playing.
+
+        Added new players (like RIFF-WAV Player for MS-DOS samples).
+
+        The GUI was completely redesigend and improved. Foldable main
+        window. Now the comment can be set/shown within DeliTracker. The
+        old prefs window was split into 2 seperate windows: An option
+        window and a player window. Added a edit (program) window for
+        modulelists. Make use of shortcuts where ever possible.
+
+        Installation is done with the Commodore Installer.
+
+        Changed Startup Code to work with ReadArgs() and FindToolType.
+
+        DeliTracker can load an unlimited number of players and
+        genies now.
+
+        Added 'Appicon and 'Random Song'.
+
+        Interrupt generating is now done with the timer.device instead of
+        occuping a precious CIA.
+
+        Make use of V39 functions where applicable (Menus, BusyPointer,
+        Lowmem-Handler...).
+
+        The prefs file format changed. Configurations are now saved to a
+        configuration directory instead of wasting precious ram in ENV:.
+        Modulelists are now handled sepaerately.
+
+        Arexx:  Renamed Arexx portname to 'DELITRACKER'
+                Changed stringhandling, quotes are now obsolete
+                Removed some obsolte commands ('OpenPrefsWin',...)
+                Renamed/Changed some commands ('Random' to 'RandomMod')
+                Added new commands (ShowGUI,...)
+
+        Due to the much increased functionality the size grow up to 80k.
+
+        BTW. The complete source this release (all players, genies, docs
+        and DeliTracker itself) is currently over 4MB big !!!
+
+===========================================================================
+
+V1.37a  Fixed a bug in the internal ProTracker player. Changed the DMAwait
+        of several players to use DeliTracker's support function.
+
+V1.37   Added dtg_WaitAudioDMA function. Now the ProTracker replayer should
+        have no more problems with the audio dma timing (even on an A4000).
+        DeliTracker can now handle up to 80 players. Changed certain players.
+
+V1.36   Changed the dtg_SetTimer function and made it public. Documentation
+        reworked. The player for FTM modules was enhanced (works now with
+        VBR on).
+
+V1.35   Added a new tag (DTP_SubSongTest) for the subsong handling. Changed
+        some players to use this tag. Fixed a bug in the refresh routine of
+        the gadgets. It was caused by two exchanged pointers.
+
+V1.34   Now finally the menus look (WFLG_NEWLOOKMENUS, GTMN_NewLookMenus)
+        correct under V39. If you open a window it will be opened on the
+        same screen as an already opened window this applies to the
+        requesters, too.
+
+V1.33   DeliTracker's AppWindow feature can now handle drawers. If you drop
+        a drawericon the complete directory is scanned and inserted into
+        the module list. The maximum number of listelements was increased
+        to 9999. To give the user a bid more power two ARexx functions for
+        module list manipulation where implemented. A wrong set flag that
+        caused menu shortcuts being ignored under Kickstart V39 was fixed.
+        Changed the meaning of the mainwindow closegadget from Quit to Hide.
+
+V1.32   Improved the ramdom routine. The TFMX_Pro and TFMX_7V Players are
+        now aware of 'unpacked' TFMX modules. For all that have lots of
+        songs we have written a ST/NT/PT song player.
+
+V1.31   First version that will only run under Kickstart 2.0. The
+        asl.library is used instead of the req.library. Removed a small
+        bug in the gadget refresh routine. Fixed a bug in the timeout
+        function. Some minor improvements in the ProTracker and Mark II
+        players.
+
+V1.30   Release Version. All docs were improved, updated and rewritten.
+        This is the first release of DeliTracker that comes without any
+        restrictions. We count on the fairness of the users and hope that
+        they continue to support good software.
+
+V1.29   The OS 2.0 version of DeliTracker now is a commodity. This has
+        some advantages for the user i.e Hotkey support. Fixed a small
+        bug in the Arexx status routine. Boolean options now take <no|yes>
+        instead of <0|1> as argument. Due to Dominik's annoying complains
+        we changed the parsing routine to make it more csh-friendly ;-)
+
+V1.28   Improved startup code. Changed decrunch support form inbuild code
+        to XPK V2 (XPK V1 had too many bugs).
+
+V1.27   Reorganised source code to match our new internal labeling
+        convention. No new functions, but the code was improved.
+        The MED and OktaMED players now support 'MMD1' type modules.
+
+V1.26   Some people complaind about the missing menu. For those we
+        re-implemented menus, the menu structure is slighly different
+        to those in V1.16. The 2.x Version of DeliTracker now presents
+        Errormessages with EasyRequestArgs() instead of the req.lib
+        TextRequest().
+
+V1.25   Added pubscreen captability to DeliTracker_2.x. The OS 2.0
+        version now can be used on any pubscreen and works correct
+        with other default pubscreens than "Workbench". No functional
+        change was made for the OS 1.3 version (DeliTracker_1.3).
+
+V1.24   DeliTracker now uses a much faster PowerPacker decrunch code.
+        Made a few internal improvements and some code changes to make
+        the future support of XPK easier.
+
+V1.23   Implemented a fadeout mode for smooth transition between
+        modules. Reworked some pices of code to work more efficient.
+
+V1.22   Some users complained about the randomplay routine. Now the
+        randomplay routine selects only modules that have not been
+        played (shuffleplay). Added EMS player. In the TFMX players
+        some light bugs where removed.
+
+V1.21   DeliTracker resets the LED to the initial state after shutdown.
+        The defaultpath for the configuration file moved from S: to ENV:.
+        All players got a $VER: ID-string. Added several players.
+
+V1.20   The old configfiles were replaced by userfriendly, editable ASCII
+        files which may contain modulelists. This and the songend feature
+        forced us to modify the playerinterface. To avoid another change
+        we decided to make our playerinterface Tag-Based (yea!). A patch
+        program was build to update old players and custommodules. A bug
+        in the timerallocation of the internal ProTracker player was fixed.
+        The internal Faster/Slower functions are now only used if the
+        internal interrupt generation is used. Due to the Hardware Reference
+        Manual the volume can range from 0-64 (65 values!), now DeliTracker
+        pays attention to this. Internal work revision !
+
+V1.19   Added Randommode for playing modules in random order. Added support
+        for Songend detection and made this feature available for some
+        players. Added Timeout option for automatical change of modules after
+        a user selectable time. Added Appendmode for selecting modules from
+        different directorys. If the Appwindow feature is used DeliTracker
+        converts the LOCK to a real path. Redesign of the prefswindow to match
+        the new funtionality. Added support for imploder packed modules. A
+        player for Sonic Arranger modules was adapted by the author of this
+        soundsystem. Internal work revision !
+
+V1.18   Added shortcut support for volume and balance. Fixed little bug in
+        the Stringhandling: If you save a configfile after you had selected
+        a module and then removed it from memory, the configfile contained
+        the module name/path. That caused DeliTracker to load this module if
+        this configfile was loaded. Now in this case the module name/path is
+        not set. Internal ST/NT Code completely changed. Now the routine is
+        based on Protracker. This version now should play every SoundTracker
+        like module correct (especially those ProTracker modules that didn't
+        work). Internal Players: Custom, PT, NT, ST15, ST31, StarTrekker w/o
+        AM sounds. Some new players where adapted, too.
+
+V1.17   Menus removed, because most users didn't used them anyway. From now,
+        you can use shortcuts for almost every operation. Fixed very small
+        bug in an arexx-routine. Added SIDMon II player.
+
+V1.16   Changed the the playerinterface (Now we have one reserved
+        librarybase for future compatibility). Optimisations and bugfixes
+        in the internal stringhandling routines. All Players that use the
+        DeliTracker internal timer interrupt as interrupt source now work
+        well with applications that use the serial.device. The complete
+        color decrunch stuff has been deleted. This has more reasons one of
+        them is that the Mousepointer is set "busy" if DeliTracker is busy
+        Added OktaMED 1.0 player.
+
+V1.15   Changed the Playerinterface (hopefully the last time). Bugfix
+        in the callingsequence of external Playerroutines. Other things
+        fixed that could lead to a error. Code cleanup. Added FTM Player
+        First offical demo released.
+
+V1.14   Changed Includefile (new functions for external players)
+        Player Config-Routine bugfixed.
+        Internal improvements
+
+V1.13   First version for abergläubische Gemüter ;^)
+        Improved ExtLoad() routine.
+
+V1.12   Added Rexx 'Eject' function. Little fixes in the internal
+        SoundTracker replay routine (Some trackers save the wrong
+        volume >$40)
+
+V1.11   Menu layout is done via ROM-Functions (2.x only).
+        Added $VER: ID-String for 2.x version comand.
+        Made a special demoversion (mainly for Amiga'91)
+
+V1.10   The audiochannels are only allocated while a module is loaded.
+
+V1.09   Subsongnumber bug fixed.
+        Rework of the external player interface
+
+V1.08   Improvements in the Configfile (Subsongnummer).
+        Improvements in some ARexx-Functions (optional Parameters).
+
+V1.07   DeliTracker (KS2.x only) is now a AppWindow, that means you can
+        simply drag modules onto the DeliTracker window and then they are
+        played.
+
+V1.06   DeliTracker is captable of being a Default-Tool.
+        Codeoptimisations.
+        Implemented Retry-Option when the audiochannels are allocated
+
+V1.05   Added Quickstart.
+        Added Colordecrunch.
+
+V1.04   Improved external playerinterface (seperate handling of Volume
+        and Balance, configuration for external players). Added some
+        gadgets in the Prefswin. Little optimisations in the main code.
+        New Players: Music-Assembler and MED 3.11
+        Fixed last Gadgetrefreshbug.
+
+V1.03   Rearanging of the Preferences-Window. Bug in the Save-Config
+        routine removed. Total rework of the  internal players
+        Bugfixes in The Musical Enlightenment und SoundFX players
+        Gadgetrefresh implemetet properly. Bug that caused 32 Byte not
+        to be freed when quiting fixed.
+
+V1.02   Improved ARexx-Interface. New Players: Game Music Creator,
+        SidMon 1.0 and The Musical Enlightenment
+        Added PowerPacker support.
+
+V1.01   Added ARexx-Interface. Some new Players : SoundFX and MarkII
+        Bugfixed in the Delete-Playerroutine.
+        Improved startupcode.
+
+V1.0    DeliTracker grew up to 60 (!) KB. Removed internal support for
+        unusual players. Therfore a external playerinterface was invented.
+        Added Prefswindow. Added Tooltypesupport. Added Customplayers.
+        New Player: Oktalyzer
+
+V0.9    Added resident startup. Added some other players (JamCracker,
+        FutureComposer 1.3&1.4, SoundMon).
+
+V0.8    New graphical Userinterface (added Volume/Balance slider)
+        Chaged from VBlank-Interrupt to CIAB-Timerinterrupt
+        From now DeliTracker plays correct on PAL and NTSC.
+
+V0.7    Frist approch for an Arexx interface fails. Fixed a bug that
+        caused memoryfragmentation.
+
+V0.6    We chaged the name to DeliTracker. Added playroutines for
+        TFMX 1.5. Pathes can be saved into a Configfile.
+
+V0.5    First version with a graphical Userinterface. If Errors occour
+        a the reason for the error is printed out.
+
+V0.4    Implemented Soundtracker & Pro/Noisetracker.
+
+V0.3    Added REQ.library filerequester.
+
+V0.2    Added window. Bugfixes in the IRQ-Routine.
+
+V0.1    The name of the program was SndPlay. It played only whittaker
+        modules and was only runable from CLI

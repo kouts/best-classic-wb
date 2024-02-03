@@ -1,0 +1,35 @@
+
+PPLoadseg 2.1 (39.1) is based on v37.4 which was I believe the final
+version written by Nico François, back in 1991 (Six years ago!)
+
+Changes:
+
+o Many small optimisations.
+
+o Patch now uses 68020+ opcodes for slight speed increase, and a few
+  bytes less memory usage
+
+o Now uses DECR_NONE, instead of DECR_POINTER. This will prevent all
+  those boot-pictures that use more than 16 colours from flashing.
+
+o Made all code PC relative, making the file lots smaller (No reloc-tables)
+
+o Now uses OpenLibrary instead of OldOpenLibrary.
+  (No difference, just more 90's IMHO)
+
+o Uses a global PrintTxt routine to cut down the size a little.
+
+o Caches cleared after installing patches, as there is self-modifying
+  code in use.
+
+o Zero data moved to end of hunks to allow BSS areas to be used.
+
+
+Release info
+
+39.0 12.4.97  - Initial release.
+39.1 19.7.97  - Enabled ALL of phxass optimisations
+
+---------------------------------------------------
+
+PPLoadSeg unchanged from 39.1 release.

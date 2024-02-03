@@ -1,0 +1,662 @@
+@DATABASE Copper-Demon.guide
+@MASTER Copper-Demon.guide
+@AUTHOR Valenta Ferenc
+@(C) ©1996 Valenta Ferenc
+@$VER: Copper-Demon.guide 3.2 (14.12.96)
+@FONT newstyle.font 8
+@SMARTWRAP
+
+@NODE MAIN "Welcome to Copper-Demon!"
+@PREV Author
+@{CODE}
+                      *** @{B}Copper-Demon 3.2@{UB} ***
+
+                   @{I}Copyright ©1996 by Valenta Ferenc@{UI}
+
+          "Real programmers don't document. If it was hard
+             to write, it should be hard to understand."
+
+
+        @{"Introduction    " LINK "Introduction"}    What the hell is it?
+        @{"Legal stuff     " LINK "Disclaimer"}    Copyright and disclaimer
+
+        @{"Requirements    " LINK "Requirements"}    68060, 18Megs... :-)
+        @{"Installation    " LINK "Installation"}    Nothing could be easier...
+
+        @{"Usage           " LINK "Usage"}    Tooltypes and arguments
+        @{"Using the GUI   " LINK "GUI"}    Grab your mouse!
+        @{"Hotkeys         " LINK "Keys"}
+        @{"Signals         " LINK "Signals"}    Ctrl- C,D,E,F
+
+        @{"Problems        " LINK "Problems"}    and solutions
+        @{"History         " LINK "History"}    and future
+
+        @{"Thanks          " LINK "Thanks"}    Who helped me
+        @{"The author      " LINK "Author"}    How to reach me
+
+
+Merry Christmas and happy new year!
+
+@ENDNODE
+
+@NODE Introduction "Introduction"
+
+@{LINE}@{B}Introduction@{UB}@{LINE}
+
+Copper-Demon lets you create rainbow color effects for a selectable pen
+color number on public screens, using the entire 16 million color range
+of the AGA chips. You specify max. 32 colors (but at least 2), and
+Copper-Demon will make a smooth color change by setting a new color
+value on every scanline.@{LINE}
+
+@{B}Main features include:@{UB}@{LINE}
+
+  o All pubscreen supported, not only the Workbench@{LINE}
+  o Color-cache makes the refresh faster@{LINE}
+  o Optimized copperlist@{LINE}
+  o Pointer resolution can be fixed@{LINE}
+  o OpenWorkBench() patch, no more deadlocks@{LINE}
+  o Border can be blanked@{LINE}
+  o Commodity, GUI interface (font sensitive)@{LINE}
+  o Written in pure, highly optimized assembly (source ~85K)@{LINE}
+
+@ENDNODE
+
+@NODE Disclaimer "Copyright and disclaimer"
+
+@{LINE}@{B}Copyright ©1995,1996 @{"Valenta Ferenc" LINK "Author"}@{UB}@{LINE}
+
+This product is copyrighted freeware. You may distribute it as long
+as all files are included and no profit is made. (Except if the profit
+goes to me ;-) Parts of this product may NOT be included in commercial
+software and it may NOT be modified in any way without my written
+permission. This software is provided "as is". No warranty. Use at your
+own risk!@{LINE}
+
+@ENDNODE
+
+@NODE Requirements "System requirements"
+
+@{LINE}@{B}System requirements@{UB}@{LINE}
+
+  o Amiga with AGA chipset (currently A1200, A4000 and CD32)@{LINE}
+  o At least MC68EC020 processor (as found in the A1200)@{LINE}
+  o Kickstart 3.0 or better@{LINE}
+  o Commodities.library V39@{LINE}
+  o Reqtools.library V38 (© Nico Francois & Magnus Holmgren)@{LINE}
+  o ScreenNotify.library V1 recommended (© Stefan Becker)@{LINE}
+  o Some free memory@{LINE}
+
+Won't work on gfx boards. (Unless they emulate the Copper :-)@{LINE}
+Reqtools.library and ScreenNotify.library can be downloaded from AmiNet.
+(util/libs/ReqToolsUsr.lha and util/libs/ScreenNotify10.lha)@{LINE}
+No other disk-based library required.@{LINE}
+
+Tested on A1200/EC020, A4000/040 (Pogi), A1200/060 (Alan)@{LINE}
+Checked with Enforcer (Pogi)
+
+@ENDNODE
+
+@NODE Installation "Installation"
+
+@{LINE}@{B}Installation@{UB}@{LINE}
+
+Simply copy Copper-Demon and it's icon to C: or SYS:WBStartup or
+wherever you want. Copy @{"Copper-Demon.prefs" LINK "File"} and @{".presets" LINK "File"} to
+either the same directory as the main program (PROGDIR:), or ENV: or S:.
+It will search for the prefs file in the above order. The presets file
+will be searched for only in the same dir as the prefs found in.
+That's all!@{LINE}
+
+For a quick look, click @{"here" SYSTEM "Run >NIL: Copper-Demon POPUP"}.
+
+@ENDNODE
+
+@NODE Usage "Tooltypes and arguments"
+
+@{LINE}@{B}Tooltypes and arguments@{UB}@{LINE}
+
+Copper-Demon accepts the same CLI-arguments and tooltypes. Once it's
+started, it can be controlled by @{"signals" LINK "Signals"},
+@{"hotkeys" LINK "Keys"}, @{B}Exchange@{UB} commands or the @{"GUI" LINK "GUI"}@{LINE}
+
+@{B}CXPRI=       (CXPRI/N/K)@{UB}@{LINE}
+
+Commodity priority. Not very useful, just ignore it.@{LINE}
+
+@{B}POPKEY=      (POPKEY/K)@{UB}@{LINE}
+
+Popup @{"hotkey" LINK "Popup"}. Default to 'Shift Alt C'@{LINE}
+
+@{B}POPUP        (POPUP/S)@{UB}@{LINE}
+
+@{"Open the GUI" LINK "Popup"} at program start@{LINE}
+
+@{B}PATCHOPENWB  (PATCHOPENWB/S)@{UB}@{LINE}
+
+There is a bug in the 3.0 Kickstarts. If a program opens the WB screen,
+a deadlock may occur, depending on the task priorities and system load.
+This is a workaround for this problem. See also @{"quit" LINK "Quit"}@{LINE}
+
+@{B}BORDBLNK     (BORDBLNK/S)@{UB}@{LINE}
+
+Sets the borderblank bit in gfxbase. The border gets black instead
+of color #0, and will left blanked even if you quit Copper-Demon.@{LINE}
+
+@{B}NOLIB        (NOLIB/S)@{UB}@{LINE}
+
+Do not use scrennotify.library.
+Only useful when debugging, ignore it.@{LINE}
+
+@{B}DELAY=       (DELAY/N/K)@{UB}@{LINE}
+
+Copperlist refresh delay in milliseconds. The lower this value,
+the faster Copper-Demon's reaction is on sprite-resolution changes,
+but eats more CPU-time. Default is 500ms.@{LINE}
+
+@{B}DEBUG        (DEBUG/S)@{UB}@{LINE}
+
+Print @{"debug" LINK "Debug"} information to the default output.
+If started from WB, a reasonable console window will be opened.
+
+@ENDNODE
+
+@NODE GUI "Using the GUI"
+@{CODE}
+@{B}Using the GUI@{UB}
+
+The GUI is font-sensitive since V3.1. It always used topaz.font before.
+If you are using amigaguide.datatype V40 or better, you can double-click
+on the '@{B}gadgets@{UB}'. Note that ALL requesters and windows are async,
+so you can press gadgets in the main window while a requester is active.
+
+ |o|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+ |¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+ |     Affected @{B}Screens         Colors@{UB}                               |
+ |                                                                   |
+ ||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯| |¯¯¯¯¯¯¯|   R  @{BG TEXT}!!!!!!!!!!!!!!!!!!@{BG BACKGROUND} 100 |
+ ||                          | | Color |   G  @{BG TEXT}!!!!!!!!!!!!!!!!!!@{BG BACKGROUND} 100 |
+ ||                          | | select|   B  @{BG TEXT}!!!!!!!!!!!!!!!!!!@{BG BACKGROUND} 100 |
+ ||     Screen selector      | |       |     @{B}Up     New     Presets@{UB}  |
+ ||                          | |       |    @{B}Down   Delete   Restore@{UB}  |
+ ||                          | |       |   @{B}On  @{BG TEXT}  @{BG BACKGROUND}   Misc     About@{UB}   |
+ ||                          | |       |   @{B}Step@{UB}   @{BG TEXT}              @{BG BACKGROUND}@{UB}  5  |
+ | ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯   ¯¯¯¯¯¯¯                              |
+ |    @{B}Screens      Remove      Hide      Quit      Load      Save@{UB}    |
+ |___________________________________________________________________|
+
+@{B}Links:@{UB}
+
+@{"Screens" LINK "Screens"} @{"Remove" LINK "Remove"} @{"Hide" LINK "Hide"} @{"Quit" LINK "Quit"} @{"Load" LINK "Load"} @{"Save" LINK "Save"}
+@{"Up" LINK "Up"} @{"Down" LINK "Down"} @{"New" LINK "New"} @{"Delete" LINK "Delete"} @{"Presets" LINK "Presets"} @{"Restore" LINK "Restore"}
+@{"Misc" LINK "Misc"} @{"About" LINK "About"} @{"Step" LINK "Step"} @{"On" LINK "On"} @{"Colors" LINK "Colors"}
+
+@ENDNODE
+
+@NODE Keys
+
+@{LINE}@{B}Keyboard shortcuts@{UB}@{LINE}
+
+@{B}ESC@{UB}    - Has the same effect as the window close gadget@{LINE}
+@{B}Space@{UB}  - @{"Restore" LINK "Restore"}. If you got a purple screen with purple windows@{LINE}
+         and purple icons, just press space!@{LINE}
+@{B}q@{UB}      - @{"Quit" LINK "Quit"}@{LINE}
+@{B}h@{UB}      - @{"Hide" LINK "Hide"}@{LINE}
+
+@ENDNODE
+
+@NODE Problems "Problems"
+
+@{LINE}@{B}Problems (and solutions)@{UB}@{LINE}
+
+Copper-Demon creates user-copperlists for the screens, using the OS 2.0+
+userclip option. Some programs may don't like this. Contact @{"me" LINK "Author"}
+immediately if you have problems with some program. I will try to fix it.
+I want Copper-Demon to be as system friendly as possible.@{LINE}
+
+  o PC-Task (© Chris Hames) hangs up very often when dealing with mouse@{LINE}
+    (using it's built in mouse driver)@{LINE}
+    This is not my fault: it hangs up with ALL this kind of software@{LINE}
+    I have tried (MagicCopper, WBVerlauf, CopperPrefs... All crashed.)@{LINE}
+    You should not use Copper-Demon and PC-Task's mouse driver together. :-(@{LINE}
+
+  o Some program, for example Term (© Olaf Olsen Barthel) cannot close@{LINE}
+    it's screen. Disable the lock option in the @{"misc" LINK "Misc"} requester.@{LINE}
+
+  o Copper-Demon may conflict with some screen/mouse blanker prg.@{LINE}
+    BlitzBlank makes the pointer jump at every second. (Reported by Troy Davis)@{LINE}
+    I don't know how to fix this. Note that most of the blankers are hacks!@{LINE}
+
+  o CygnusEd's screen always appears in the public screen list, even if it's@{LINE}
+    private. I don't know why.@{LINE}
+
+  o Copper-Demon seems to crash on Blizzard cards under certain circumstances.@{LINE}
+    I don't know why. Perhaps due to another bug in MrgCop(). Commodore/AT@{LINE}
+    failed to write a perfect MrgCop routine since 10 years... If it crashes@{LINE}
+    on your machine please contact me!@{LINE}
+
+@ENDNODE
+
+@NODE History "Revision history"
+@{CODE}
+@{B}History@{UB}
+
+1.0    *initial release*
+
+       o CLI only
+       o Works only on the WB screen
+       o 2 colors (Like MagicCopper, WBVerlauf)
+
+2.0    Released at SCENEST'96
+
+       o Support all pubscreens (each screen have it's own process)
+       o 16 color/screen
+       o Uses ScreenNotify.library
+       o Sprite-resolution can be fixed
+       o Built-in help text
+
+3.0    Released at Pie Slice (and AmiNet)
+
+       o GUI, Commodity interface
+       o Now one simple process does everything
+       o Can be started from Workbench (tooltypes)
+       o Prefs/presets file
+       o Uses timer.device instead of Delay()
+       o 32 color/screen
+       o Nice guide instead of the online help
+       o Many bugs fixed
+
+3.1    AmiNet release
+
+       * Warning! On 96.11.08 I accindentally uploaded the wrong
+       * version. It still causes Enforcer hits, and the icon
+       * contains bad tooltypes. (Delay=0 etc...) Sorry...
+
+       o GUI is now font sensitive, always uses the screen font
+       o Presets remember the step value (suggested by Troy D. Davis)
+       o Improved documentation, including history :-)
+       o Some more nice effects included (created by Pogi)
+       o BUG: The GUI should hide when the owner tries to close
+         the screen which the GUI is opened on, but this didn't
+         work on the Workbench screen before.
+       o BUG: Changing the sprite-resolution now causes the
+         copperlist to be refreshed even if the refresh is disabled.
+       o BUG: Copper-Demon caused (harmless) enforcer hits if a screen
+         hasn't been in the front since it's opened/added to the list/
+         Copper-Demon started. Reported by Pogi.
+       o BUG: Some memory handling bug fixed.
+
+3.2    AmiNet release
+
+       o Requester asks if you really want to remove the selected effect
+       o Some hotkeys added
+       o Some more effects added (created by Renze de Ruiter)
+       o Added ScreenToFront() call, the default public screen pops in
+         the front when opening the GUI (suggested by K.B.G.)
+       o Borderblank option added
+       o RMB no more zips the main window. (Does nothing instead)
+       o NewIcon included for Copper-Demon.
+       o BUG: If the screennotify.library was not available, the
+         patchopenwb option didn't work.
+       o BUG: The 'remove screen' requester now cancels if you press the
+         load button while the requester is active. Async requesters are
+         a little confusing even for the programmer...
+       o BUG: Screen/preset names with spaces weren't handled correctly.
+         Copper-D. now puts quotes around the names when saving.
+         (Reported by Kasper B. Graversen)
+       o BUG: The GUI now really hides when closing the WB screen...
+
+       See also @{"problems" LINK "Problems"}
+
+@{B}Future@{UB}
+
+These things are on the top of my to do list. I will do them when I will
+have time to code. I know code is more important than school, but I have
+to pass some exams... :-(
+
+       o Make 2 independent color change on 2 different colours
+         (Suggested by Christer Bjarnemo and Renze de Ruiter)
+       o The prefs file should be saved to ENVARC:
+         (Like all the OS2.0+ programs)
+       o Localization
+       o Use different effects for the WB screen depending on the
+         (randomly selected) backdrop picture
+         (Suggested by Nick Hyde)
+
+@ENDNODE
+
+@NODE Thanks "Thanks"
+
+@{LINE}A "thank you" to the following people:@{LINE}
+
+       @{B}Pogi@{UB} for testing with Enforcer and for the color effects@{LINE}
+
+       @{B}Alan@{UB} for testing on the 68060@{LINE}
+
+       @{B}Kasper B. Graversen@{UB} for betatesting and his suggestions@{LINE}
+
+       @{B}Renze de Ruiter@{UB} for some more color effects@{LINE}
+
+       @{B}All people@{UB} who sent me bug reports and suggestions or other@{LINE}
+
+       @{B}Nico François@{UB} and @{B}Magnus Holmgren@{UB} for the reqtools.library@{LINE}
+
+       @{B}Stefan Becker@{UB} for the screennotify.library@{LINE}
+
+       @{B}Amiga Technologies@{UB} for making all this possible
+
+@ENDNODE
+
+@NODE Author "About the author"
+@NEXT MAIN
+
+@{LINE}@{I}@{B}@{U}Valenta Ferenc@{UI}@{UB}@{UU}  (name order reversed)@{LINE}
+
+@{B}E-Mail:@{UB}    vf@caesar.elte.hu    (Please use this one)@{LINE}
+           vf@ludens.elte.hu@{LINE}
+
+@{B}Address:@{UB}   Vak Bottyán str.3  5/8@{LINE}
+           HU-1111, Budapest@{LINE}
+           Hungary@{LINE}
+
+@{B}Homepage:@{UB}  http://caesar.elte.hu/~vf/@{LINE}
+           Under construction - links may not work this time, sorry :-(@{LINE}
+           New versions and my other programs will be available here@{LINE}
+
+Ideas, suggestions, remarks, bug reports, nice color effects are always welcomed.
+Please send me a mail if you like/use this proggy. Send me a mail also if
+you don't, and tell me (nicely) why.@{LINE}
+
+Note that english is not my native language.
+
+@ENDNODE
+
+@NODE Signals "Controlling Copper-Demon by signals"
+@PREV Debug
+
+@{LINE}@{B}Signals@{UB}@{LINE}
+
+@{B}CTRL/C@{UB}  @{"quit" LINK "Quit"}@{LINE}
+@{B}CTRL/D@{UB}  enable/disable @{"debug" LINK "Debug"} messages@{LINE}
+@{B}CTRL/E@{UB}  force refresh all screens@{LINE}
+@{B}CTRL/F@{UB}  @{"popup" LINK "Popup"}@{LINE}
+
+Signals can be sent by pressing the keys or by @{B}Break@{UB}.
+
+@ENDNODE
+
+@NODE Hide "Hide interface"
+
+@{LINE}@{B}Hide interface@{UB}@{LINE}
+
+You can hide Copper-Demon's interface by:@{LINE}
+  o pressing the window's @{B}close@{UB} gadget,@{LINE}
+  o pressing the @{B}hide@{UB} gadget,@{LINE}
+  o pressing one of the hide @{"hotkeys" LINK "Keys"}@{LINE}
+  o using the commodity @{B}Exchange@{UB} program.@{LINE}
+  o closing the public screen where the @{"GUI" LINK "GUI"} is.@{LINE}
+    (This will happen only if the ScreenNotify.library is available.)@{LINE}
+
+The GUI will be closed immediately, no other actions will be done.
+The @{"undo buffer" LINK "Restore"} will be left unchanged.
+
+@ENDNODE
+
+@NODE Popup "Opening the GUI"
+
+@{LINE}@{B}Popup@{UB}@{LINE}
+
+You can open the GUI by:@{LINE}
+  o specifying the POPUP @{"tooltype" LINK "Usage" 14} or @{"CLI-argument" LINK "Usage" 14}@{LINE}
+  o sending a ctrl/f @{"signal" LINK "Signals"}@{LINE}
+  o pressing the defined @{"hotkey" LINK "Usage" 10}@{LINE}
+  o using the commodity @{B}Exchange@{UB} program.@{LINE}
+  o starting the program once again.@{LINE}
+
+The @{"GUI" LINK "GUI"} will always pop up on the default public screen.
+
+@ENDNODE
+
+@NODE Quit "Quit"
+
+@{LINE}@{B}Quit@{UB}@{LINE}
+
+You can quit Copper-Demon by:@{LINE}
+  o pressing the @{B}quit@{UB} gadget. A requester will ask if@{LINE}
+    you are sure you want to quit.@{LINE}
+  o pressing the quit @{"hotkey" LINK "Keys"}@{LINE}
+  o sending a ctrl/c @{"signal" LINK "Signals"}.@{LINE}
+  o using the commodity @{B}Exchange@{UB} program.@{LINE}
+
+The @{"GUI" LINK "GUI"} will be closed immediately and all resources will be released.
+If the @{"PATCHOPENWB" LINK "Usage" 18} option is activated and an other program patched
+the OpenWorkBench() function since Copper-Demon had been started, a requester
+will warn you and the program will not quit until the vector is restored.
+
+@ENDNODE
+
+@NODE Debug "Debug"
+@NEXT Signals
+
+@{LINE}@{B}Debug info@{UB}@{LINE}
+
+This option can be activated by:@{LINE}
+  o specifying the DEBUG @{"tooltype" LINK "Usage" 100} or @{"CLI-argument" LINK "Usage" 100}@{LINE}
+  o sending a ctrl/d @{"signal" LINK "Signals"}. The second time this will@{LINE}
+    disable it. (In other word: toggle)@{LINE}
+
+The following actions will be displayed:@{LINE}
+  o reading items from the @{"prefs/presets" LINK "File"} file@{LINE}
+  o opening/closing or changing the status of a screen that is added to the list@{LINE}
+  o signals, Exchange commands@{LINE}
+  o etc...@{LINE}
+
+Error messages are always displayed, unless you redirect them to NIL:.
+
+@ENDNODE
+
+@NODE Load "Load preferences"
+@PREV File
+
+@{LINE}@{B}Load preferences@{UB}@{LINE}
+
+This will re-load the @{"prefs file" LINK "File"}. All changes made to
+the screen list and to the colors will be lost!
+
+@ENDNODE
+
+@NODE Save "Save preferences"
+
+@{LINE}@{B}Save preferences@{UB}@{LINE}
+
+This will save your settings to the @{"prefs file" LINK "File"}. Be careful,
+don't hit me if this option doesn't seem to work; perhaps you saved your
+settings to Env: which may be assigned to Ram:Env and will go away at reset!
+Some guy reported this as a bug. :-) Ok, you are right, this is a little
+strange. The reason is that I have Env: on HDD. If you don't you should
+move the prefs/presets file to PROGDIR: or S: or you will have copy the
+files from Env: to Envarc: everytime after you save them.
+
+@ENDNODE
+
+@NODE File "Prefs and presets file format"
+@NEXT Load
+
+@{LINE}@{B}Preferences and presets@{UB}@{LINE}
+
+Both are text files, but I suggest you should not edit them yourself.
+Each line will be parsed by ReadArgs() and if some line can't be parsed,
+they will be simply ignored. Comments and bad lines won't be saved if
+you save the prefs! Copper-Demon will search for the prefs file
+in the following directories: PROGDIR:, ENV:, S:. (In this order) If not
+found, one will be created in ENV:. The presets file will be searched for
+only in the same directory as the prefs found in, and won't be created
+if not found.@{LINE}
+
+@{B}Copper-Demon.prefs@{UB}  This file is used to store the actual settings.@{LINE}
+
+Template: SCREEN/A, COLORS/A/M, NORFSH/S, NOLOCK/S, OFF/S,@{LINE}
+          STEP/N/K, COLNUM/N/K, SPRES/N/K@{LINE}
+
+@{B}Copper-Demon.presets@{UB}  This file is used to store the pre-defined
+color effects.@{LINE}
+
+Template: NAME/A, COLORS/A/M, STEP/N/K@{LINE}
+
+Colors are 6 digits hexadecimal numbers, 2 digits for each  of R, G, B.
+(As shown in the @{"color-selector" LINK "Colors"} gadget)
+
+@ENDNODE
+
+@NODE Restore "Undo"
+
+@{LINE}@{B}Undo@{UB}@{LINE}
+
+This will undo the canges made to the selected screen's colors.
+If you select a new screen, the undo-buffer will be purged.
+
+@ENDNODE
+
+@NODE Step "Step"
+
+@{LINE}@{B}Step@{UB}@{LINE}
+
+Set the number of lines between color changes. If you have a fast processor,
+you may set this lower, this will look a tad better, but gives slower
+screen dragging.
+
+@ENDNODE
+
+@NODE Up "Move color up"
+
+@{LINE}@{B}Move up@{UB}@{LINE}
+
+Move the @{"selected color" LINK "Colors"} up a place.
+
+@ENDNODE
+
+@NODE Down "Move color down"
+
+@{LINE}@{B}Move down@{UB}@{LINE}
+
+Move the @{"selected color" LINK "Colors"} down a place.
+
+@ENDNODE
+
+@NODE New "Add new color"
+
+@{LINE}@{B}Add new color@{UB}@{LINE}
+
+Add a new entry to the color list. It will be inserted after the @{"selected color" LINK "Colors"}.
+
+@ENDNODE
+
+@NODE Delete "Delete color"
+
+@{LINE}@{B}Delete color@{UB}@{LINE}
+
+Delete the @{"selected color" LINK "Colors"} from the list.
+
+@ENDNODE
+
+@NODE About "About requester"
+
+@{LINE}@{B}About@{UB}@{LINE}
+
+Brings up the about requester. Version number, author info and freeware notes
+will be displayed.
+
+@ENDNODE
+
+@NODE On "On/off"
+
+@{LINE}@{B}On@{UB}@{LINE}
+
+Enable/disable copperlist for a particular screen.
+
+@ENDNODE
+
+@NODE Colors "Colors"
+
+@{LINE}@{B}Color selector@{UB}@{LINE}
+
+You can select a color with the @{"color-selector" LINK "GUI"} gadget.
+The color operations always affect the @{B}selected color@{UB}.
+
+@ENDNODE
+
+@NODE Screens "Screens"
+
+@{LINE}@{B}Screen selector@{UB}@{LINE}
+
+You can select a screen with the @{"screen-selector" LINK "GUI"} gadget.
+Only the @{B}selected screen@{UB}'s flags or colors can be changed.
+Everytime you select a screen, the @{"undo buffer" LINK "Restore"} is purged.
+
+You can add new screens with the @{B}screen requester@{UB}.
+(Press the @{B}Screens@{UB} gadget and it will pop up)
+You can remove them with the @{"Remove" LINK "Remove"} gadget.
+
+@ENDNODE
+
+@NODE Remove "Remove screen from list"
+
+@{LINE}@{B}Remove screen@{UB}@{LINE}
+
+Remove the @{"selected screen" LINK "Screens"} from the list.
+A requester will ask you if you are sure you want to remove it.
+
+@ENDNODE
+
+@NODE Misc "Open the misc requester"
+
+@{LINE}@{B}Open the misc requester@{UB}@{LINE}
+
+@{B}Pointer resolution@{UB}@{LINE}
+
+Fix the resolution of all sprites on the screen in question.@{LINE}
+
+@{B}Lock@{UB}@{LINE}
+
+If set, the screen remains locked when Copper-Demon is waiting. The
+screen owner can't close the screen without first waking up
+Copper-Demon, so the effect can safely be removed before the screen
+is closed. This function is rather unneccessary this time, but may
+be useful later. Disabled if the screennotify.library is not available.
+Switch it off if the program can't close the screen.
+(For example: Term)@{LINE}
+
+@{B}Refresh@{UB}@{LINE}
+
+If not set, the copperlist will not be refreshed until you change something,
+(colors, flags...) or refresh @{"signal" LINK "Signals"} received.@{LINE}
+
+@{B}Color@{UB}@{LINE}
+
+The color to be changed by the copper. You can change all the 256 color
+registers, even if you have a 2 color screen. (Even the pointer colors)@{LINE}
+
+@ENDNODE
+
+@NODE Presets "Open the preset requester"
+
+@{LINE}@{B}Open the preset requester@{UB}@{LINE}
+
+@{B}Add@{UB}@{LINE}
+
+Add the @{"selected screen" LINK "Screens"}'s colors to the list.
+You will be asked for the name.@{LINE}
+
+@{B}Remove@{UB}@{LINE}
+
+Remove the selected effect from the list.@{LINE}
+
+@{B}Load@{UB}@{LINE}
+
+Re-load the @{"presets file" LINK "File"}.@{LINE}
+
+@{B}Save@{UB}@{LINE}
+
+Save the presets file.
+
+@ENDNODE

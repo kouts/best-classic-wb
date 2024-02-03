@@ -1,0 +1,774 @@
+
+
+                 $VER: Developer.eng V2.17 (18.07.1995)
+                   Copyright 1995 by Delirium Softdesign
+                      (Peter Kunath and Frank Riffel)
+
+                  DeliTracker Development Documentation
+
+
+  1.OVERVIEW
+
+  2.PLAYERS
+   2.1 Normal Players
+   2.2 Custom Modules
+   2.3 Interrupts
+
+  3.GENIES
+   3.1 Generic Kind
+   3.2 Converter
+   3.3 Decruncher
+   3.4 NotePlayer
+
+  4.TAGS
+
+  5.DELITRACKER SUPPORT FUNCTIONS
+
+
+  1.OVERVIEW
+
+  DeliTracker can be extended with external code. From DOS sight external
+  code for DeliTracker is nothing else than an executable object file
+  that contains a characteristic structure at the beginning of first code
+  hunk. When DeliTracker has loaded such external code it evaluates this
+  structure. It consists of three parts: one longword of code, two longs
+  used as identifier and at last a pointer to a taglist. The first long
+  usually contains a moveq #-1,d0 and a rts instruction. This prevents a
+  system crash if a user accidentally tries to run a normal genie or player
+  from shell. To get a program that works without DeliTracker, too, you
+  can change this to a bra.w to your own startup code. You should use the
+  PLAYERHEADER macro from 'deliplayer.i' to create this structure. It has
+  two parameters: a pointer to the tag array and a pointer to the optional
+  startupcode.
+
+    PLAYERHEADER <tagarray>,[startup]
+
+        tagarray        Pointer to a tag array, terminated with TAG_DONE.
+        startup         Pointer to optional startup code. Only set if you
+                        need to make the code run without DeliTracker.
+                        This option is sometimes useful for debugging
+                        purposes.
+                        Note: In case the startup code is called you have
+                        to do anything by your own! The startup option
+                        does not make sense in most cases. Use rarely.
+
+  This taglist contains all informations that DeliTracker must know. We
+  have choosen to use a tag array because it is extremely flexible and
+  extensible. For the other direction the external code has the limited
+  ability to check the internal program state by looking at the DeliTracker
+  Global structure. It can also take advance of inbuild support functions.
+  At the moment DeliTracker knows two different types of external code:
+
+        1) Players they have the task to identify and play a modules.
+
+        2) Genies can perform several other things. This includes module
+           conversion, extended decrunch support and information display.
+
+  Both types can run synchronusly or asynchronusly. The term synchronuns
+  means that the player or the genie is not running as seperate task.
+  DeliTracker will communicate with the genie or player using real fuction
+  calls (jsr). In asynchronus mode DeliTracker will spawn an own process
+  for the player or genie. Now DeliTracker uses a message based interface
+  to "call" the functions of the external code. In general genies tend to
+  run asynchronus whereas player run synchronous. If a player or genie is
+  running asynchronously a CTRL-C signal must terminate it. As you see
+  DeliPlayers and DeliGenies are very similiar. Indeed DeliTracker handles
+  them in the same way but of course in two sperate lists. All external
+  code that has set the DTP_CustomPlayer, DTP_Check1 or DTP_Check2 tag is
+  a player. The rest is threated as genie.
+
+  If a player or genie has a GUI it should offer the following menu items:
+
+        Project
+                About      A ?  Displays a short info
+                ==============
+                Save Prefs A S  Save the current settings as default
+                ==============
+                Hide       A H  Hide the GUI
+                ==============
+                Quit       A Q  Remove the Player/Genie (same as CTRL-C)
+
+        Settings
+                Activate   A A  Activates the window if the GUI is opened
+                Popup      A P  Opens the GUI after loading
+                ==============
+                Other settings  Other genie specific settings, see the
+                ··············  particular genie documentation.
+
+  Some general things:
+
+  A good point to start with is to read the supplied example sources. To
+  get an idea how DeliTracker calls the player routines see 'Testplayer.s'.
+  Configuration files should not be saved to ENV:. Instead they should be
+  stored in DeliTracker's default configuration directory. The path of this
+  directory can be found in the 'DeliConfig' ENV-Variable. If this variable
+  is not set the configuration should be saved to 'PROGDIR:DeliConfig'.
+  Your player should not change the LED (Filter) state because DeliTracker
+  will handle this. Besides the interrupt routine any other subroutine may
+  trash any register. When DeliTracker calls a player function (exept the
+  interrupt routine) a5 will contain the address to the global player data
+  structure (Base).
+
+
+  2.PLAYERS
+
+  It is not difficult to adapt a player if you have the replayroutine.
+  You only need to write some interfacecode. DeliTracker has some helpful
+  builtin routines that will make this job a lot easier. To adapt a new
+  soundsystem you need the replayroutine of that soundsystem, and some
+  modules for testing the adaption. At the beginning of an external
+  player you can find the characteristic playerstructure. DeliTracker
+  distinguishes between two kinds: normal players and custom modules.
+
+    2.1 Normal Players
+
+    Normal players identify and play modules. They must allways have a
+    check routine. This is the schematic structure of a normal player:
+
+        { player header }       identifies the objectfile
+        { tag array     }       description of the playerfuntions.
+        { interfacecode }       playername/registerconversion/checkcode...
+        { replaycode    }       replay code itself
+        { optional data }       optional data
+
+    In order to recognize different moduleformats every player must contain
+    a specific routine, that tells DeliTracker if the player can play this
+    module or not. This routine has the task to check certain positions in
+    the module that are identical in every module (like 'M.K.' at offset
+    $438 in NoiseTracker modules) or significant assembler instructions (if
+    the module contains the player). Testing against one or two branches or
+    jumps is NOT enough, cause many modules with player have branchtables at
+    the beginning of the module. If the player recognizes a wrong module, it
+    is likely that a system crash will result! So be very careful with the
+    ckeck routine. There are two different types of check functions but your
+    player must use exactly one check routine.
+
+    a) DTP_Check1: The check function is called after DeliTracker has
+    loaded 1K of the file. This has the advantage that you can implement
+    players that can load the module by itself. The disadvantage is that
+    you don't profit from the internal packsupport and of course it is
+    more complex to write such players. Use this type only where you must
+    load the module by yourself!
+
+    b) DTP_Check2: The check function is called after the module is loaded
+    and decrunched. This is the easy way. All memory allocation, loading
+    and decrunching is done by DeliTracker.
+
+    Regardless of the playertype the checkfunction must return d0.l=0 if
+    the player can handle this module or d0.l<>0 if not.
+
+
+    2.2 Custom modules
+
+    This is a very special thing: Custom modules contain replay and sound
+    data, both relocatable. They don't contain a check routine. With the
+    custom module interface you can adapt almost every module. If you have
+    more modules with the same replay routine we suggest to write an own
+    player for this moduleformat.
+
+        { player header }       identifies the objectfile
+        { tag array     }       description of the playerfuntions.
+        { interfacecode }       playername/registerconversion/checkcode...
+        { replaycode    }       replay code itself
+        { optional data }       optional data
+        { SOUND DATA    }       music data (the module)
+
+
+    2.3 Interrupts
+
+    Players can be divided in two categories:
+
+    a) Player that uses the internal timer interrupt from DeliTracker
+
+     Advantage: The player is independent from the selected videomode
+        The player has automatically the faster/slower function. No expense
+        for interrupthandling (interrupt structure and the insert/remove
+        code). Compatible with the serial.device.
+
+    b) Player that generates their own interrupt
+
+     Advantage: You can use other interrupt sources (like AudioIRQ)
+
+     Disadvantage: You have to handle the interrupts by yourself, and if
+        you use VBlank the player is not independent to the videomode.
+
+    If you use your own timerinterrupt you should allocate CIAB because
+    under 2.x the CIAA is used by the system. Do not to run the soundcode
+    directly in the timerinterrupt. Instead you should Cause() a SoftInt in
+    the timer interrupt and execute the routine in the SoftInt. This is to
+    assure maximum compatibility for modem users because the SoftInt has a
+    lower priority thant the RBF interrupt. Beware of writing directly to
+    the 680x0 intvectors! You should use AddIntServer() or SetIntVector()
+    from the OS.
+
+
+  3.GENIES
+
+  As said Genies can 'help' DeliTracker to perform different tasks. At the
+  moment four different functionalitys are distinguished: output of notes
+  (not to be mixed up with players), decrunching and conversion of Modules
+  and finaly acting on the current module.
+
+    3.1 Generic Kind
+
+    This kind of genie can do many things (e.g display informations). Of
+    course neither the module nor DeliTracker's global structure may be
+    changed to obtain the desired informations. Usually this type will use
+    DTP_InitPlay/DTP_EndPlay to get notified when the module changes.
+
+    3.2 Converter
+
+    This genie has the task to change a module. E.g. it can convert one
+    format into another or change the size of the module. It is identified
+    by the special tag DTP_Convert. This tag contains the address of the
+    conversion function. DeliTracker will call this function at the right
+    time.
+
+    3.3. Decruncher
+
+    This kind of genie enhances DeliTracker's dtg_LoadFile() function.
+    The calling interface is not documented yet beacuse this part may
+    still change.
+
+    3.4 Noteplayer
+
+    This genie type will convert/redirect 'Notes' to the actualy used
+    audiohardware. The interface is not documented yet beacuse this
+    part is still under development.
+
+
+  4.TAGS
+
+  In addition to the system tags (TAG_DONE, TAG_IGNORE, TAG_MORE, TAG_SKIP)
+  this tags may be used:
+
+  DTP_CustomPlayer (BOOL) - this tag identifies a player as customplayer.
+                If this tag is used the following tags are ignored:
+                                DTP_PlayerVersion
+                                DTP_PlayerName
+                                DTP_Creator
+                                DTP_Check1
+                                DTP_Check2
+                                DTP_ExtLoad
+                                DTP_Config
+                                DTP_UserConfig
+
+  DTP_RequestDTVersion (UWORD) - only if the DeliTracker version is greater
+                than or equal to the requested version (ti_Data) will
+                DeliTracker accept the player. If your player uses
+                functions that were introduced in later revisions of
+                DeliTracker you must set this tag according to the version
+                that introduced this function.
+
+  DTP_RequestKickVersion (ULONG) - set this tag to the required OS version.
+
+  DTP_PlayerVersion (ULONG) - Tag that contains the version (high word) and
+                revision number (low word) of the player. If there are two
+                players with same name the player with the higher version
+                is used.
+
+  DTP_PlayerName (STRPTR) - ti_Data contains a pointer to the playername.
+                This string may be as long as you wish, but only the first
+                24 chars are actually used. This tag must exist !
+
+  DTP_Creator (STRPTR) - pointer to the author/adaptor name. This string
+                is visible in the prefs window if the player is selected.
+                The string may contain $A as line separator.
+
+  DTP_Check1 (FPTR) - pointer to a module identification routine. This
+                routine is called after the first 1024 bytes of the module
+                are loaded. If the module is shorter, the rest will contain
+                zero. If the routine recognizes the moduleformat it must
+                return d0=0 else d0<>0.
+
+  DTP_Check2 (FPTR) - pointer to a module identification routine. This
+                routine is called after the complete module is loaded (and
+                decrunched). If the routine recognizes the module it must
+                return d0=0 else d0<>0.
+
+  DTP_Extload (FPTR) - pointer to a optional loadroutine for modules. If
+                an error occurs return d0<>0 else d0=0. Please remember to
+                free all allocated resources (memory, locks,...), because
+                no further player function is called.
+
+  DTP_Interrupt (FPTR) - pointer to a interruptroutine. This routine is
+                called every 1/50 sec. via a timer.device. Note: your
+                interruptroutine is not executed in the timerinterrupt
+                itself. This is the standard method for gaining the
+                correct playspeed regardless of the videomode. If the
+                DTP_Faster/DTP_Slower pointers are not supplied,
+                DeliTracker emulates this by changing the interrupt
+                frequency. If this tag doesn't exist, you must supply
+                DTP_StartInt/DTP_StopInt.
+
+  DTP_Stop (FPTR) - pointer to optional stop routine. If this tag does not
+                exist, DeliTracker uses the following standard method:
+                        stop interrupt (DTP_StopInt)
+                        cleanup sound (DTP_EndSnd)
+                        reinitialize the song (DTP_InitSnd)
+                This routine will stop playing the song, reset the
+                'patterncounter' to the begin and change the playspeed
+                to default. This means that the interrupt is started
+                again and the song should begin to play from the
+                beginning.
+
+  DTP_Config (FPTR) - pointer to an optional initialising routine. This
+                routine is only called once after the player is loaded.
+                Purpose: The player could load a specific configfile.
+                Must return d0=0 if all is ok else d0<>0. In case of an
+                error DeliTracker will remove this player.
+
+  DTP_UserConfig (FPTR) - pointer to a optional initialising routine. This
+                routine is called if the user selects the 'Config' button
+                in the prefswindow. Purpose: The player could open a player
+                specific configwindow for setting special options (e.g
+                instrumentpath for a sonix player) and saving them into a
+                configfile.
+
+  DTP_SubSongRange (FPTR) - Obsolete, please use DTP_NewSubSongRange!
+                This tag should be supplied if the player supports
+                multimodules. ti_Data points to a function that returns
+                in d0 the minimum and in d1 the maximum subsong number.
+
+  DTP_InitPlayer (FPTR) - pointer to an initialising routine, that is
+                called if a module is loaded successfully. Must return
+                d0=0 if all is ok else d0<>0. The audioallocation must be
+                done here. (DeliTracker has a function that does the
+                allocation.) If the player supports subsongs it has to set
+                dtg_SndNum(a5) to the first subsongnumber. If a routine
+                for DTP_SubSongRange exists, DeliTracker performs this for
+                you and you may omit the initialization for dtg_SndNum(a5).
+
+  DTP_EndPlayer (FPTR) - pointer to a cleanuproutine, that is called if the
+                module is removed from memory. Audiochannels have to be
+                freed here. (Use the DeliTracker internal supportroutine)
+
+  DTP_InitSound (FPTR) - pointer to an optional initialising routine. This
+                routine has the task to (re)initialize the module. If the
+                interrupt is started the song should begin to play at the
+                beginning.
+
+  DTP_EndSound (FPTR) - pointer to an optional cleanuproutine. For example
+                it can be used to reset the volumeregister or the audiodma.
+
+  DTP_StartInt (FPTR) - pointer to an initialising routine, that must exist
+                if DTP_Interrupt doesn't exist. It has the task to start
+                the sound.
+
+  DTP_StopInt (FPTR) - pointer to a cleanuproutine, that must exist if
+                DTP_Interrupt doesn't exist. It has the task to stop the
+                sound.
+
+  DTP_Volume (FPTR) - pointer to function that sets the volume. This
+                function is called every time the volume is changed (via
+                arexx or slider) and once at the initialising phase of the
+                module (before DTP_InitSnd is called). The mastervolume can
+                be found in dtg_SndVol(a5). The mastervolume is the highest
+                volume allowed. The effective volume can be calculated
+                using the following formula:
+                        VOL_eff=( ( MASTERVOLUME*modulevolume ) >>6 ).
+                See also the example sources.
+
+  DTP_Balance (FPTR) - pointer to a function that sets the balance. This
+                function is called every time the balance is changed (via
+                arexx or slider) and once at the initialising phase of the
+                module (before tf_InitSnd is called). The balance for the
+                left channel can be found in dtg_SndLBal(a5), for the right
+                channel in dtg_SndRBal(a5). Note: All players that support
+                balance are capable of volume too! Then you must use the
+                same routine for both operations. The mastervolume for the
+                left channels can be calculated with this formula:
+                    LeftMaster =( ( dtg_Volume(a5)*dtg_SndLBal(a5) ) >>6 ).
+                For the right channels the formula is similar.
+
+  DTP_Faster (FPTR) - pointer to a function that increases the playspeed.
+
+  DTP_Slower (FPTR) - pointer to a function that decreases the playspeed.
+
+  DTP_NextPatt (FPTR) - pointer to a function that increases the
+                patternpointer.
+
+  DTP_PrevPatt (FPTR) - pointer to a function that decreases the
+                patternpointer.
+
+  DTP_NextSong (FPTR) - pointer to a function that increases the
+                subsongcounter (only if the subsong exists).
+
+  DTP_PrevSong (FPTR) - pointer to a function that decreases the
+                subsongcounter (only if the subsong exists).
+
+  ;--- tags in revision 14 or higher (distributed as Release 1.35) ---
+
+  DTP_SubSongTest (FPTR) - The tag is only evaluated if DTP_SubSongRange
+                exits too. ti_Data points to a routine that returns
+                a boolean value. This indicates if the subsong number
+                dtg_SubNum(a5) is valid (d0=0) or not (d0<>0). This tag
+                is only necessary for players where not every subsong
+                in the subsong range is existant.
+
+  ;--- tags in revision 16 or higher (distributed as Release 2.01) ---
+
+  DTP_NewSubSongRange (APTR) - enhanced replacement for DTP_SubSongRange.
+                This tag should be supplied if the player supports
+                multimodules. ti_Data is  a pointer to an array of three
+                WORDs: The first word contains the default subsong that
+                should be played at first. The second contains the minimum
+                and the third the maximum subsong number. In most cases
+                the first and the second word will be equal.
+
+  DTP_DeliBase (APTR) - the address of a pointer where DT will
+                store a pointer to the DeliGlobals
+
+  DTP_Flags (ULONG) - contains various Flags.
+                Currently the following flags are defined:
+                PLYF_CUSTOM     - player is a customplayer
+                PLYF_SONGEND    - this player supports songend
+                PLYF_ANYMEM     - modules of this player can be stored
+                                  anywhere, chipmem is not required
+
+  DTP_CheckLen (ULONG) - Length of the check Code. Set this tag only if
+                the check code is PC-relative and reentrant! If set this
+                enables DeliTracker to swap out the player code.
+
+  DTP_Description (APTR) - Pointer to a string that describes what this
+                player/genie does and what special features it has. The
+                string may contain $A as line separator.
+
+  DTP_Decrunch (FPTR) - private, still under development!
+
+  DTP_Convert (FPTR) - pointer to a module conversion routine. This routine
+                is called after a module has been loaded and decrunched. It
+                has the task to convert the module from one to another
+                module format. The conversion routine works usually the
+                following way:  1) recognize source format
+                                2) allocate memory for target format with
+                                dtg_AllocListData().
+                                3) convert source to target format
+                This routine returns NULL if a conversion took place
+                (success) and -1 in any other case (error). Make sure that
+                the conversion routine does not change the source module!
+                Note: for temporary memory allocations you can use the
+                exec memoryhandling functions as well. But be aware that
+                memory of the final converted module must be allocated with
+                DeliTracker's dtg_AllocListData()!
+
+  DTP_NotePlayer (APTR) - private, still under development!
+
+  DTP_NoteStruct (APTR) - private, still under development!
+
+  DTP_NoteInfo (APTR) - private, still under development!
+
+  DTP_NoteSignal (FPTR) - private, still under development!
+
+  DTP_Process (FPTR) - pointer to process entry code. If this tag is set
+                DeliTracker will start the player or genie as seperate
+                process.
+
+  DTP_Priority (BYTE) -  priority of the created process. Only in
+                conjunction with DTP_Process possible. If this tag is
+                omitted, the new process will have the same priority
+                as DeliTracker.
+
+  DTP_StackSize (ULONG) - stack size of the created process. Only in
+                conjunction with DTP_Process possible. If this tag is
+                omitted, the stacksize will be set to 4096 bytes.
+
+  DTP_MsgPort (APTR) - address of a pointer where DT will store the port
+                address to which DT will send it's messages. Only in
+                conjunction with DTP_Process useful.
+
+  DTP_Appear (FPTR) - pointer to a routine that opens/activates the genie
+                or player GUI. Returns the old window state (<>0 if the
+                window was already opened else 0). Note: Make sure that
+                you open on the right screen! See dtg_LockPubScreen() and
+                dtg_UnLockPubScreen().
+
+  DTP_Disappear (FPTR) - pointer to a routine that closes the GUI. This
+                routine must return the old window state (0 if the window
+                was already closed or <>0 if it was open).
+
+  DTP_ModuleName (APTR) - address of a pointer to the real module name.
+                The string must be null terminated. This Tag is for
+                players only and is evaluated after InitPlay().
+
+  DTP_FormatName (APTR) - address of a pointer to the real format name.
+                The string must be null terminated. This Tag is for
+                convert genies only and is evaluated after the Convert()
+                function has been called.
+
+  DTP_AuthorName (APTR) - not implemented yet!
+
+  ;--- tags in revision 17 or higher (distributed as Release 2.07) ---
+
+  DTP_InitNote (FPTR) - private, still under development!
+
+  DTP_PlayTime (APTR) - not implemented yet!
+
+
+
+  5.DELITRACKER SUPPORT FUNCTIONS
+
+  DeliTracker provides some support functions that can be called from genies
+  and players. Every function is called like this:
+
+        move.l  dtg_XXX(a5),a0          ; a5 must contain the base
+        jsr     (a0)
+
+  All functions (exept dtg_SongEnd/dtg_SetTimer) use d0/d1/a0/a1 as scratch
+  register. A5 must contain the base (exept dtg_SongEnd/dtg_SetTimer).
+  Currently the following functions are available:
+
+
+  dtg_GetListData
+
+        SYNOPSIS
+                memory size = dtg_GetListData(number)
+                A0     D0                     D0.l
+
+        FUNCTION
+                Returns the address and the length of a file that was
+                loaded with dtg_LoadFile().
+
+        INPUTS
+                number - number of the file beginning with 0 for the file
+                         that was selected by the user.
+
+        RESULT
+                memory - startaddress of the files in memory, if error 0.
+                size - length of the loaded file in bytes or 0 in case of
+                       an error
+
+
+  dtg_LoadFile
+
+        SYNOPSIS
+                success = dtg_LoadFile(name)
+
+        FUNCTION
+                Loads and decrunches the specified file to chipmemory.
+                Note: this function automatically adds '.pp' to the
+                      filename.
+
+        INPUTS
+                name - store the filename in the internal buffer
+                       (dtg_PathArray contains a pointer to this buffer)
+
+        RESULT
+                success - success d0.l=0, else d0.l<>0.
+
+
+  dtg_CopyDir
+
+        SYNOPSIS
+                dtg_CopyDir()
+
+        FUNCTION
+                Copies the directory of the selected file at the end
+                of the string, that dtg_PathArray points to.
+
+
+  dtg_CopyFile
+
+        SYNOPSIS
+                dtg_CopyFile()
+
+        FUNCTION
+                Copies the filename of the selected file at the end
+                of the string, that dtg_PathArray points to.
+
+
+  dtg_CopyString
+
+        SYNOPSIS
+                dtg_CopyString(string)
+                               A0
+
+        FUNCTION
+                a0 contains the address of a string, which is copied at
+                the end of the string that dtg_PathArray points to.
+
+        INPUTS
+                string - a0 contains the pointer to the string
+
+
+  dtg_AudioAlloc
+
+        SYNOPSIS
+                success = dtg_AudioAlloc()
+
+        FUNCTION
+                Allocates the audiochannels
+
+        RESULT
+                success - if we got them: d0.l=0, else d0.l<>0.
+
+
+  dtg_AudioFree
+
+        SYNOPSIS
+                dtg_AudioFree()
+
+        FUNCTION
+                Frees the audiochannels that were allocated with
+                dtg_AudioAlloc.
+
+
+  dtg_StartInt
+
+        SYNOPSIS
+                dtg_StartInt()
+
+        FUNCTION
+                Starts the soundinterrupt. If DTP_Interrupt exists,
+                DeliTracker starts the internal timer interrupt,
+                else DTP_StartInt is called.
+
+
+  dtg_StopInt
+
+        SYNOPSIS
+                dtg_StopInt()
+
+        FUNCTION
+                Stops the soundinterrupt. If DTP_Interrupt exists,
+                DeliTracker stops the internal timerinterrupt, else
+                DTP_StopInt is called.
+
+
+  dtg_SongEnd
+
+        SYNOPSIS
+                dtg_SongEnd()
+
+        FUNCTION
+                Signals DeliTracker, that the module was played once.
+                This function doesn't change any registers and is save
+                to call from interrupts.
+
+
+  dtg_CutSuffix
+
+        SYNOPSIS
+                dtg_CutSuffix()
+
+        FUNCTION
+                Removes the suffix '.pp', '.im', '.xpk' at the end of the
+                string, that dtg_PathArray points to.
+
+
+  ;------ extensions in revision 14 (distributed as Release 1.34)
+
+  dtg_SetTimer
+
+        SYNOPSIS
+                dtg_SetTimer()
+
+        FUNCTION
+                Programs the timer with the value that is stored in
+                dtg_Timer(a5). This function doesn't change any
+                registers and is save to call from interrupts.
+
+
+  ;------ extensions in revision 15 (distributed as Release 1.37)
+
+  dtg_WaitAudioDMA
+
+        SYNOPSIS
+                dtg_WaitAudioDMA()
+
+        FUNCTION
+                Waits a particular amount of time before returning.
+                This amount of time is enough for the audio hardware
+                to set new values. This function is only allowed if
+                the internal timer-interrupt is used. Use it instead
+                of the usual dbra or rasterline dma wait's in the
+                replayer's interruptcode. This function doesn't change
+                any registers.
+
+
+  ;------ extensions in revision 16 (distributed as release 2.01)
+
+  dtg_LockScreen
+
+        SYNOPSIS
+                screen = dtg_LockScreen()
+                D0
+
+        FUNCTION
+                Try to lock the screen on which DeliTracker is running.
+                This is allways a pubscreen.
+
+        RESULT
+                Screenpointer in d0 or NULL on failure.
+
+
+  dtg_UnlockScreen
+
+        SYNOPSIS
+                dtg_UnlockScreen()
+
+        FUNCTION
+                this function unlocks DeliTracker's screen. Note: do not
+                unlock a screen more times than you have locked it!
+
+
+  dtg_NotePlayer
+
+        SYNOPSIS
+                dtg_NotePlayer()
+
+
+        FUNCTION
+                this call plays the notes specified in the current NoteStruct
+                structure. This function call is not allowed if the active
+                player doesn't have a valid NotePlayer structure.
+                Note: This call is guaranteed to preserve all registers. It
+                is save to call from interrupt, if the interrupt level is 4
+                or lower.
+
+        INPUTS
+                current NoteStruct.
+
+
+  dtg_AllocListData
+
+        SYNOPSIS
+                memory = dtg_AllocListData(byteSize,Flags)
+                D0                         D0.l     D1.l
+
+
+        FUNCTION
+                This is the memory allocator function for module specific memory
+                to be used by all players and genies. It provides a means of
+                specifying that the allocation should be made in a memory area
+                accessible to the chips, or accessible to shared system memory.
+                If the allocation is successful, DeliTracker will keep track of
+                the new block and dtg_GetListData()) will return the location and
+                size of this block.
+
+
+        INPUTS
+                byteSize - the size of the desired block in bytes.
+
+                Flags - flags that are passed through to AllocMem().
+
+        RESULT
+                A pointer to the newly allocated memory block is returned in d0.
+                If there are no free memory regions large enough to satisfy the
+                request, zero will be returned. The pointer must be checked
+                for zero before the memory block may be used!
+
+
+  dtg_FreeListData
+
+        SYNOPSIS
+                dtg_FreeListData(memoryBlock)
+                                 A1
+
+        FUNCTION
+                Free a region of memory allocated with AllocListData(),
+                returning it to the system pool from which it came.
+
+        INPUTS
+                memoryBlock - pointer of the memory block to free, may be NULL.
+

@@ -1,0 +1,142 @@
+@database "TPD.doc"
+
+@Node Main "Tron's PCX DataType"
+
+	TPD - Tron's PCX DataType V39.7
+	===============================
+
+A PCX datatype for OS 3.0 or newer
+
+	@{"Purpose" link "Purpose"}
+	@{"Advantages" link "Advantages"}
+	@{"History" link "History"}
+
+	@{"Installation" link "Installation"}
+
+	@{"Copyright" link "Copyright"}
+	@{"Author" link "Author"}
+@EndNode
+
+@Node "Purpose" "Purpose of Tron's PCX DataType"
+
+TPD is a @{"datatype" link "DataTypes"} for OS 3.0 or newer.
+This datatypes enables your system to read PCX files.
+
+PCX is a image file format invented by the programmes of the program
+"PaintBrush" and one of the most common image formats on MS-DOS computers.
+
+With this datatype you will be able to display such PCX files with
+"MultiView" or load them as patterns or pictures with "WBPattern".
+
+@EndNode
+
+@Node "DataTypes" "What are datatypes ?"
+
+Datatypes are a new feature of OS 3.0. They are BOOPSI classes which are
+controlled via the new "datatypes.library".
+
+With this library an application is able to load all files supported by one
+of the datatypes and display them without knowing anything about the format
+of the file.
+
+Programs which support datatypes are e.g. "MultiView" or "WBPattern",
+both part of Workbench 3.0.
+
+@EndNode
+
+@Node "Advantages" "Advantages"
+
+What are the advantages of this PCX datatype ?
+
+- fast:
+  - chunky to planar conversion via WritePixelLine()
+  - asynchronous I/O
+- low memory usage
+- supports:
+  - CGA/EGA format (planar)
+  - VGA format (chunky)
+  - true color format (hybrid)
+- converts true color into HAM/HAM8 on EGS/AGA machines
+- screen mode selection via BestModeID()
+@EndNode
+
+@Node "History" "History"
+
+39.1:
+- first public release
+
+39.2:
+- improved description file
+- added sanity check for DTA_SourceType
+
+39.3:
+- supports files with unaligned run-length compression
+
+39.4:
+- rewrote library initialisation
+
+39.5:
+- fixed bug with wrong window size (e.g. MultiView on Workbench)
+
+39.6:
+- fixed crash if "pcx.datatype" was flushed before ever being used
+
+39.7:
+- supports monochrom files with invalid color map
+@EndNode
+
+@Node "Installation"
+
+The installation is quite easy:
+
+	1.) Copy "PCX" and "PCX.info" to "DEVS:DataTypes".
+	2.) Copy "pcx.datatype" to "SYS:Classes/DataTypes".
+	3.) Type "AddDataTypes REFRESH" in a CLI or simply reboot.
+
+Ok, now TPD is ready to be used.
+
+@EndNode
+
+@Node "Copyright" "Copyright"
+
+Tron's PCX DataType (c) 1993-1995 by Matthias Scheler
+
+Permission is granted to make and distribute verbatim copies of this
+manual provided the copyright notice and this permission notice are
+preserved on all copies.
+
+No guarantee of any kind is given that the program described in this
+document is 100% reliable. You are using this material at your own risk.
+The author *can not* be made responsible for any damage which is caused
+by using these programs.
+
+This package is freely distributable, but still copyright by
+Matthias Scheler. This means that you can copy it freely as long as you
+don't ask for a more than nominal copying fee.
+
+Permission is granted to include this package in Public-Domain collections,
+especially in Fred Fishs Amiga Disk Library (including CD ROM versions of
+it) and one of the AmiNet CD ROMs. The distribution file may be uploaded
+to Bulletin Board Systems or FTP servers. If you want to distribute this
+program you *must* use the original distribution archive 'TPD.lha'.
+
+TPD must NOT be included or used in commercial programs unless by written
+permission from the author.
+
+TPD must NOT be used on any machine which is used for the research,
+development, construction, testing or production of weapons or other
+military applications. This also includes any machine which is used for
+training persons for *any* of the above mentioned purposes.
+@EndNode
+
+@Node "Author" "Author"
+
+Matthias Scheler
+Schützenstraße 18
+D-33178 Borchen
+
+E-Mail:
+ tron@lyssa.owl.de
+ tron@uni-paderborn.de (Files to this address, please)
+ Matthias Scheler,2:243/6350.18@fidonet
+@EndNode

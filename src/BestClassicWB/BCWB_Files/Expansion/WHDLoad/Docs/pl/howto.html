@@ -1,0 +1,262 @@
+<HTML>
+<HEAD>
+<TITLE>Programowanie WHDLoad</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: howto.html 1.6 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Schemat działania programu</h3>
+<p>Poniższa tabela pokazuje kolejność wykonywanych operacji, które następują
+po uruchomieniu programy zainstalowanego przy pomocy pakietu WHDLoad.
+Mam nadzieję, że to pomoże zrozumieć jak działa WHDLoad i jak WHDLoad,
+plik .slave oraz zainstalowany program współpracują.</p>
+<table cellpadding=3>
+  <tr>
+    <td valign=top>Użytkownik</td>
+    <td>
+      <ul>
+        <li>uruchamia demo lub grę poprzez kliknięcie na ikonę lub poprzez uruchomienie WHDLoad z linii poleceń (CLI)
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>System operacyjny</td>
+    <td valign=top>
+      <ul>
+        <li>uruchamia plik wykonywalny WHDLoad
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>WHDLoad</td>
+    <td>
+      <ul>
+        <li>sprawdza środowisko sprzętowe i programowe
+        <li>wczytuje i sprawdza plik .slave
+        <li>alokuje wymaganą dla zainstalowanego programu ilość pamięci
+        <li>jeśli <a href="opt.html#Preload">Preload/S</a> jest włączone, wczytuje
+            obrazy dysków i plików do RAM-u (tylko wtedy, gdy dostępna jest wolna
+            pamięć)
+        <li>wyłącza System Operacyjny (wyłącza multitasking i przerwania, degraduje
+            kości graficzne do stanu OCS, initializuje cały sprzęt zgodnie ze zdefiniowanymi wartościami)
+        <li>wykonuje skok do pliku .slave
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Slave</td>
+    <td>
+      <ul>
+        <li>wczytuje główny plik wykonywalny zainstalowanego programu poprzez wywołanie funkcji
+            WHDLoad (np. <a
+            href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a> lub <a
+            href="../autodoc.html#resload_LoadFile">resload_LoadFile</a>)
+        <li>&quot;łata&quot; główny plik wykonywalny (tak, aby program wczytał swoje dane poprzez
+            plik .slave, naprawił problemy związane z kompatybilnością, uaktywnił opcję
+            wyjścia z programu)
+        <li>uruchamia główny plik wykonywalny
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Zainstalowany program</td>
+    <td>
+      <ul>
+        <li>robi swoje
+        <li>podczas odczytu danych z dysku, odwołuje się do pliku .slave (gdyż plik .slave
+            wcześniej nałożył się na niego, &quot;łatając&quot; go), a następnie plik .slave
+            odwołuje się do WHDLoad, który częściowo włącza OS, aby wczytał dane
+            (tylko jeśli dane nie są <a
+            href="opt.html#Preload">załadowywane wcześniej (Preload)</a>); na koniec wraca do
+            dalszego wykonywania zainstalowanego programu.
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Użytkownik</td>
+    <td>
+      <ul>
+        <li>wychodzi z programu poprzez naciśnięcie zdefiniowanego klawisza wyjścia (<a
+            href="opt.html#QuitKey">QuitKey</a>)
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Slave</td>
+    <td>
+      <ul>
+        <li>wywołuje WHDLoad poprzez funkcję <a
+            href="../autodoc.html#resload_Abort">resload_Abort</a>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>WHDLoad</td>
+    <td>
+      <ul>
+        <li>ponownie włącza OS (rejestry sprzętowe, ekran oraz pamięć wracają do poprzedniego stanu),
+        <li>uwalnia wszystkie zaalokowane obszary i zasoby,
+        <li>wraca do systemu.
+      </ul>
+    </td>
+  </tr>
+</table>
+<h3>Jak zainstalować prosty, jednodyskowy program wczytywany po ścieżkach</h3>
+To jest bardzo mały i krótki poradnik jak stworzyć wersję instalacyjną niesystemowej gry/dema
+wykorzystującą WHDLoad. Poradnik opisuje zwykłą, idealną, prostą sytuację.
+W rzeczywistości taka sytuacja prawdopodobnie nigdy nie wystąpi. W ramach
+zapoznania się ze specjalnymi przypadkami i problemami, przeczytaj kolejny
+rozdział.
+<ol>
+  <li>Początki
+    <ul>
+      <li>Stwórz katalog, w których przechowywane są wszystkie pliki.
+      <li>Stwórz obraz dysku używając programu <A HREF="dic.html"> DIC </A>.
+      <li>Stwórz plik <a href="opt.html#optwb">#?.info</a> z &quot;WHDLoad&quot;
+          jako &lt;Default Tool&gt; oraz Tooltype &quot;SLAVE=#?&quot; zawierającym
+          nazwę pliku .slave. (lub prościej, skopiuj ikonę z Przykładowej
+          Instalacji i wyłącz wszystkie parametry za wyjątkiem &quot;SLAVE=&quot;).
+    </ul>
+  <li>Plik .slave<br>
+    Aby stworzyć plik .slave potrzebujemy następujących informacji:
+    <ol>
+      <li>gdzie na dysku znajduje się główny plik wykonywalny (loader)?
+      <li>gdzie wewnątrz pliku wykonywalnego znajduje się disk loader?
+    </ol>
+    Aby zdobyć te informacje, najpierw należy przeanalizować botblok.
+    W większości przypadków, główny plik wykonywalny będzie wczytywany właśnie
+    stąd przy pomocy exec.DoIO(). Czasami bootblock zawiera specjalny trackloader.
+    Kolejną czynnością jest utworzenie pliku .slave, który zastępuje botblok
+    i wczytuje główny plik wykonywalny z obrazu dysku. Teraz należy wyciągnąć
+    główny plik wykonywalny z obrazu dysku lub ze <a
+    href="dump.html#memory">zrzutu pamięci</a>. Następnie musimy odnaleźć
+    w nim loader. Najszybszą metodą jest odszukanie ciągu
+    <tt>$AAAAAAAA</tt> (używanego przez MFM decoding) przy pomocy hex-edytora.
+    Następnie wycinamy obszar o długości
+    (+/- <tt>$1000</tt> bajtów), deasemblujemy go i odszukujemy początek
+    procedury. Rozszyfrowujemy listę parametrów i tworzymy kod pliku .slave,
+    który zastąpi procedurę loadera, w taki sposób, że wszystkie odwołania do
+    loadera będą przekierowane do pliku .slave. Następnie plik .slave
+    dostosuje parametry i wywoła z WHDLoad funkcję
+    <a
+    href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a>.
+  <li>W idealnej sytuacji wersja instalacyjna jest gotowa.<br>
+Jedyną rzeczą, która pozostała do zrobienia jest stworzenie ładnej Ikony.
+Wyciągnij z programu dwa obrazki wykorzystując do tego <a href="snoop.html">opcję snoop</a> w WHDLoad i program <a href="sp.html">SP</a> lub jakiegoś programu zatrzymującego działanie innych programów albo UAE.
+Następnie stwórz ikonę. Zalecana jest 16-kolorowa paleta <a href="http://aminet.net/package/pix/mwb/RomIcons10.lha">RomIcon</a>.
+</ol>
+<h3>Możliwe problemy i sytuacje wyjątkowe</h3>
+<h4>Niestandardowy trackloader</h4>
+Niektóre programy używają swoich własnych formatów. Oznacza to, że <a
+href="dic.html">DIC</a> nie może stworzyć obrazów dysków. Aby je stworzyć
+należy do tego celu użyć programu <a href="rawdic.html">RawDIC</a>.
+Aby zasięgnąć więcej informacji, przeczytaj dokumentację programu RawDIC.
+<h4>Zmiana dysków</h4>
+Jeżeli program wykorzystuje więcej niż jeden dysk, plik .slave musi przekierować
+dostępy do dysków do odpowiedniego obrazu dysku. Czasami nie jest to proste.
+Niektóre programy obsługują więcej niż jedną stację dysków, tak więc można
+wykorzystać numer tego urządzenia w celu wyboru dysku. Większość programów
+używa specjalnego identyfikatora na każdym dysku w celu ich rozróżnienia.
+W takim przypadku należy wykorzystać zmienną, która przechowuje numer dysku
+i przy każdej próbie dostępu do identyfikatora dysku zwiększać jej wartość (jeżeli
+dojdziemy do ostatniego dysku, należy ją zmniejszać). Loader odczytuje identyfikator
+dysku w kółko, do czasu gdy prawidłowy dysk zostanie włożony. Czasami pojawiają
+się komunikaty z prośbą o włożenie dysku, które należy deaktywować.
+<h4>Zapisywanie tablic z najlepszymi wynikami</h4>
+Nie ma tutaj zbyt wiele do powiedzienia. Wykorzystaj <a
+href="../autodoc.html#resload_SaveFile">resload_SaveFile</a>, aby zapisać odpowiedni
+obszar pamięci na dysk. Jeżeli chcesz, możesz go trochę zaszyfrować, aby lamerzy
+za szybko nie doszli do tego, jak oszukiwać. Nie jest zalecane dokonywanie zapisów
+bezpośrednio do obrazów dysków (wykorzystując
+<a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>), ponieważ, w sytuacji
+jakiegoś błędu (np. zawieszenie), istnieje duże prawdopodobieństwo, że obrazy
+dysków zostaną uszkodzone.
+<h4>Zapisy stanów gry - Savegames</h4>
+Sposób dokonywania zapisów stanu gry odbywa się w ten sam sposób co zapis tablic z najlepszymi wynikami.
+<h4>Dostęp do systemu operacyjnego</h4>
+W czasie, gdy plik .slave i zainstalowany program są wykonywane, nie
+jest możliwy dostęp do systemu operacyjnego! W związku
+z tym każda próba dostępu do systemu, jaka może się odbyć przez zainstalowany
+program, musi zostać wyłączona. Jeżeli nie jest ich dużo i dla środowiska
+WHDLoad są mało istotne (jak np.
+exec.Disable() lub exec.SuperState()) można je zdeaktywować instrukcją NOP (<tt>$4e71</tt>).
+Jeżeli dostępy do systemu są ważnymi elementami pracy zainstalowanego programu
+(jak np. exec.DoIO()), należy je przekierować do pliku .slave i zaemulować.
+Jeżeli jest ich dużo, w nieużywanym obszarze pamięci należy stworzyć
+prostą exec.library (inicjonowaną przez długie słowo w adresie <tt>$4</tt>). Za przykład
+niech posłuży dołączone źródło Oscar.slave, które emuluje
+exec.AllocMem(). Aby wykryć dostęp do systemu operacyjnego, należy posłużyć się
+początkową tablicą execbase, która jest wstawiana do adresu
+<tt>$f0000001</tt>, aby sprawić, że wszystkie procedury, które wykorzystują
+execbase wywołają wyjątek &quot;Address Error&quot;.<br>
+Jeżeli wywołań funkcji systemowych jest bardzo dużo, należy wykorzystać
+jeden z pakietów kickemu, który znajduje się w pakiecie WHDLoad dla developerów.
+Znajduje się tam jeden pakiet dla Kickstartu 1.3
+('src/sources/whdload/kick13.s') i jeden dla Kickstartu 3.1 ('src/sources/whdload/kick31.s').
+Pakiety wymagają oryginalnych obrazów kickstartów i utworzą one kompletne
+środowisko systemowe wewnątrz WHDLoad. Więcej informacji dostępnych jest
+w specjalnych dokumentacjach.
+<h3>Problemy z kompatybilnością</h3>
+<h4>Ograniczony dostęp do adresów wolnej pamięci na procesorach 68000/68010/68ec020</h4>
+Na tych procesorach przestrzeń adresowa jest ograniczona do 16 MB
+(<tt>$000000...$ffffff</tt>), ponieważ procesor posiada tylko 24 linie adresowe.
+W wyniku tego wszystkie próby dostępu do wyższych adresów wykonywane są na
+niższych 16 MB poprzez ignorację najmniej znaczących 8 bitów. Niektóre
+programy używają tych bitów do przechowywania danych lub po prostu zapominają
+ich wyczyścić. Na procesorach takich, jak
+68020/680ec30/68030/68040/68060, które posiadają z pełną, 4-GB przestrzenią adresową,
+coś takiego po prostu nie zadziała z powodu dostępu do pełnych, 32-bitowych adresów.<br>
+Aby rozwiązać ten problem, trzeba &quot;załatać&quot; dostępy do tych adresów poprzez
+przekierowanie ich do właściwych adresów.<br>
+Czasami powodem dostępu do dziwnych adresów może być nieinicjowanie wskaźnika.
+W takim przypadku pomaga wyczyszczenie <tt>$400</tt> - <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a>.
+<h4>Rożne ramki stosu dla różnych procesorów</h4>
+Ramki stosu tworzone przez procesor na przerwaniach i wyjątkach
+są różne dla różnych członków rodziny 68k. Na 68000 ramka stosu wynosi 6 bajtów,
+za wyjątkiem błędów szyny i adresów (Bus Errors i Address Errors). Ramka stosu
+zawiera zapisane SR w rejestrze (a7) i zapisane PC w rejestrze (2,a7). Na wszystkich
+procesorach od 68010 wzwyż, minimalna ramka stosu wynosi 8 bajtów oraz dodatkowo
+zawiera liczbę wektorową jako słowo w rejestrze (6, a7). Ta žquot;złożona z
+czterech słów&quot; ramka stosu formatowana jest na stan <tt>$0</tt> i tworzona jest dla potrzeb polecenia &quot;Trap #xx&quot;
+oraz przerwań (Interrupts) na procesorach 68010-68060. Ramki stosu dla innych wyjątków
+są różne dla różnych procesorów. Instrukcja RTE działa inaczej niż
+na 68000. Na 68000 po prostu przywraca poprzednie wartości rejestrów SR i PC i dalej
+kontynuuje pracę programu od przerwanego adresu. Na 68010 (i wyższych) dodatkowo
+zostanie zwolniona ramka stosu w zależności od jej sformatowania.<br>
+Niektóre adresy wyrzucają adres (PC) oraz SR i dopiero wtedy wykonują instrukcję RTE.
+Tak dzieje się tylko na 68000. Takie działanie na procesorach od 68010 wzwyż
+powoduje nieoczekiwane wyniki.
+<br>Jeżeli program tak robi, należy to poprawić. Czasami wystarcza zamiana
+instrukcji RTE na RTR.
+<h4>MOVEM.x RL,-(An) n a 68000/010 i 68020-68060</h4>
+Istnieje różnica, jeżeli rejestr używany w trybie wcześniejszego zmniejszania zawartości (RL)
+jest również zawarty w spisie rejestrów. Dla 68020-68060 wartość zapisywana
+do pamięci jest bazową wartością rejestru pomniejszoną o rozmiar operacji.
+Procesory 68000 i 68010 zapisują bazową wartość rejestru (nie pomniejszoną). <br>Ponieważ taka
+konstrukcja nie jest za bardzo użyteczna, nie jest znany żaden z obecnych programów, który wykazywałby w związku z tym jakieś problemy.
+<h3>Ogólne zasady pisania własnych programów instalacyjnych</h3>
+<ul>
+<li>Nie zmieniaj rejestrów procesora obecnych w wyższych procesorach takich jak VBR czy CACR. VBR zawsze wynosi 0 z programistycznego punktu widzenia, nawet jeżeli został przesunięty z powodu emulacji Auto Vectorów (i poleceń &quot;Trap&quot;, jeżeli flaga <a
+href="../autodoc.html#WHDL_EmulTrap">WHDL_EmulTrap</a> jest ustawiona).
+Bity w CACR są różne dla każdego procesora. Istnieje tylko jedna metoda zmiany
+<a href="cache.html">buforów</a>, przy pomocy <a href="../autodoc.html">resload_SetCACR/SetCPU</a> i bitdef z 'exec/execbase.i' i 'whdload.i'.
+Cała część kodu instalowanego programu, która narusza te rejestry musi być
+wyłączona lub ominięta. W przeciwnym razie WHDLoad nie będzie działać poprawnie!
+<li>Nigdy nie modyfikuj obrazów dysków. Ma to ogromną zaletę, w chwili, gdy ktokolwiek chce uruchomić grę z dyskietek. Wystarczy tylko zapisać obrazy z powrotem na dyskietki (zakładając, że program działa bez stosowania poprawek).
+<li>Nigdy nie stosuj oryginalnego kodu programu bezpośrednio w pliku .slave (problem praw autorskich).
+<li>Włączaj Cache tylko wtedy, gdy jesteś pewien, że będzie to działać na wszystkich procesorach.
+<li>Wykorzystuj najmniejszą możliwą ilość pamięci dla <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a>. Niektórzy lubią umieszczać tagi na końcu pamięci Chip, tak więc pomaga wykorzystywanie tylko adresów <tt>$1f0000</tt> zamiast <tt>$200000</tt>.
+</ul>
+<h3>Sztuczki i kruczki</h3>
+<h4>Co lepiej wykorzystywać: obrazy dysków, czy pliki?</h4>
+Czasami będzie istniała możliwość użycia obrazów dysków lub plików znajdujących
+się na dysku. Obie metody mają swoje zalety. Do utworzenia pliku .slave, wykorzystanie obrazów dysków
+jest z reguły prostsze i szybsze. Z kolei bezpośrednie pliki programu są
+prostsze do buforowania (w przypadku, gdy jest niewiele dostępnej pamięci
+lub pamięć jest pofragmentowana). Wymagana ilość wolnego miejsca na twardym
+dysku czasami również będzie w tym przypadku mniejsza. Obrazy dysków powinny
+być stosowane tylko wtedy, jeżeli liczba plików przekracza liczbę 30.
+</BODY>
+</HTML>

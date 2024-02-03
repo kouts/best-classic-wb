@@ -1,0 +1,71 @@
+NAME
+	HackProPack 1.00a
+
+SYNOPSIS
+	HackProPack FILE/A,FROM/K,TO/K
+
+DESCRIPTION
+	The cruncher ProPack by Rob Northen Computing offers a
+	special mode for crunching data files with a 16 bit key.
+	This prevents unauthorized persons from unpacking such
+	a file if they don't have the right key. Until yesterday!
+
+	HackProPack finds the right keys for locked data files.
+	It requires either Kickstart V37+ or the arp.library
+	together with older OS releases.
+
+	FILE specifies the file that should be analyzed.
+	No wildcards supported.
+
+	Usually the whole possible range of keys (1-65535/$1-$ffff)
+	will be tested on the locked file. With FROM and TO, you
+	may set a different range. This is useful if you want to
+	have a guess first, or if you don't want to wait all the
+	time to scan the whole range but do it step by step. Both
+	FROM and TO support either decimal or hexadecimal values.
+
+	When the right key has been found, write it down somewhere
+	and decrunch the file either with ProPack or xfdDecrunch.
+
+EXAMPLES
+	Shell> HackProPack DH0:Data/Locked.RNC
+		Tests all possible keys on that file.
+
+	Shell> HackProPack Locked.RNC FROM 4000 TO 5000
+		Tests keys 4000 to 5000 on that file.
+
+	Shell> HackProPack Locked.RNC TO $8000
+		Tests keys $1 to $8000 on that file.
+
+ABOUT
+	HackProPack uses a totally new method to find the right
+	key. The file is unpacked only once, together with an
+	array of key-related information. The actual key scanning
+	is only based on that array and a 16 bit CRC checksum.
+	Together with the highly optimized code, this certainly
+	is the fastest method ever developped on the Amiga.
+
+	BUT: You need CrunchedLength+(UncrunchedLength*2) bytes
+	of free memory.
+
+	The scanning time depends on the size of the data file,
+	the key itself (1234 will be reached earlier than 5678)
+	and certainly on your CPU speed. For really big files
+	(256-512kB), it might take some hours.
+
+HISTORY
+	HackProPack 1.00a
+	- Fixed some arp.library stuff.
+	- Added possibility to enter FROM/TO in hex.
+
+	HackProPack 1.00
+	- First public release.
+
+COPYRIGHT
+	HackProPack is freely distributable for noncommercial use.
+
+AUTHOR
+	Georg Hörmann
+	Martinswinkelstraße 16c
+	82467 Garmisch-Partenkirchen
+	Germany

@@ -1,0 +1,227 @@
+Short: v1.5, Supports over 80 archive formats (via XAD).
+Author: mechanismx@lineone.net (Andrew Bell)
+Uploader: mechanismx@lineone.net (Andrew Bell)
+Type: util/arc
+Requires: AmigaOS 3.0+, MC68020, 2-4MB of RAM recommended.
+          util/arc/xadmaster.lha    - version 10+
+          util/libs/mui38usr.lha    - version 3.8+
+          dev/mui/MCC_NList0_89.lha - version 0.89+
+          dev/mui/MCC_NListtree.lha - version 18.8+
+          dev/mui/MCC_Speedbar.lha  - version 1.3+
+Optional: util/virus/xvslibrary.lha - version 33+
+          comm/www/OpenURL30.lha    - version 3+
+	  docs/hyper/xadclients.lha - version 1.3+
+
+ (Note: This version lacks documentation)
+
+ ============================================================================
+                            Quick Introduction
+ ============================================================================
+
+ Voodoo-X is an MUI based archive browser and extractor that uses the XAD
+ unarchiver engine. This means it doesn't depend on external archiver
+ commands being in the C: (etc.) drawer.
+
+ The following archives, disk packers and filesystems are supported:
+
+ Ace, Ace MS-EXE, Amiga Plus Unpack, Amiga Standard FS, AmiPack, Ar, Arc,
+ Arj, Arj MS-EXE, BZip, BZip2, CAB, CAB MS-EXE, CompDisk, Compress, Cpio,
+ CrunchDisk, DImp, DImp SFX, DMS, DMS SFX, GZip, LhA, LhA MS-EXE, LhA SFX,
+ LhF, LhPak SFX, LhSFX, LhWarp, LZX, Marc's DiskCruncher, Microsoft FAT FS,
+ MSA, MXM-Simple Archive SFX, PackDev, PackDisk, PCompress PACK, RAR,
+ RAR MS-EXE, S-Omni, S-Pack, S-Pack SFX, SanityOS FS, Savage Compressor,
+ SDS Software SFX, Sensi disk FS, Shrink, SuperDuper3, Tar, Trackmo-DOS FS,
+ WinZip MS-EXE, xDisk, xMash, XPK Archive, ZAP, Zip, Zip MS-EXE, Zoo, Zoom,
+ Zoom 5 plus many more in the future.
+
+ This list depends on the version of XAD you're using. By the time you read
+ this, XAD might be several generations better and more advanced.
+
+
+ ============================================================================
+                             Long Introduction
+ ============================================================================
+
+ Voodoo-X is an MUI based front-end for Dirk Stoecker's powerful unarchiving
+ system xadmaster.library (Shareware). Unlike other dearchiver front-ends,
+ Voodoo-X doesn't depend on external archiver commands (such as LZX, LHA,
+ DMS, etc.) being in the C: drawer nor does it require complicated command
+ line setups for these commands. This is because XAD does all the hard work.
+ :-)
+
+ Voodoo-X allows you to quickly browse an archive's contents and view
+ individual files (with filetypes) like pictures and documents just by
+ double clicking your mouse. This method of browsing archives proves to
+ be highly effective since you don't need to get your hands dirty by
+ extracting files to temporary locations such as Ram:. Voodoo-X does all
+ that for you.
+
+ xadmaster.library is a modular system and will support even more archiver
+ formats in the future.
+
+ Note: Voodoo-X doesn't actually write disk based archives (like DMS, xMash,
+       etc.) back to disk, but instead examines them to see if they are
+       OFS or FFS formatted, if they are, it then allows you to browse
+       through the contents of them and retrieve individual files.
+
+       Voodoo-X can also retrieve files from inside standard FFS formatted
+       (i.e AmigaDOS) ADF files like those used with WinUAE. OFS, FFS,
+       DirCache, International, double-density and high-density disks
+       formats are all supported.
+
+
+ ============================================================================
+                       Known bugs/Things still to do
+ ============================================================================
+
+ These are known problems and are not worth reporting. You're only wasting
+ your own time if you report them, but thanks for the effort anyway. :-)
+
+- No Locale support yet (planned).
+
+- Those who use small screen resolutions (i.e. like < 640x512) may notice
+  some weird layouts with MUI. Don't ask me why, but some people have
+  reported MUI defaulting to the Helvetica font.
+
+- Progress bar resets to 0 with really big archives (100MB+).
+
+- You need to quit Voodoo-X and restart it to update any newly configured
+  toolbars. I removed the "Update Toolbar" feature at the last moment due
+  to some bugs/design issues that would have taken ages to fix. I'll bring
+  this feature back in version 1.6.
+
+- The Listtree viewmode is obsolete, will be totally removed sometime in
+  favour of NListtree. So questions like "What's the point of having two
+  tree viewmodes?" will be ignored. It's a transitional thing, get used
+  to it. ;-)
+
+- Voodoo-X looks for toolbar images in its home dir by default. This can be
+  problematic when launching it from environments (like filemanagers, etc.)
+  that screw with the PROGDIR: path (this is where Voodoo-X expects to find
+  the Images drawer). To bypass this, use an absolute path to the image
+  location. For example, use something like "MyTools:Voodoo-X/Images/Quit"
+  instead of "Images/Quit".
+
+- Lack of documentation. I've absolutely no time to update the documentation
+  for this version. If somebody could do this for me I'd be very greatful. :-)
+  You can find the v1.4 HTML docs on my website, in the old v1.4 archive.
+
+  You'll just have to play around with it for now. Read the history file
+  for a detailed description of changes made since v1.4.
+
+
+ ============================================================================
+                        New things for Voodoo-X 1.5
+ ============================================================================
+
+- Major speed improvements when loading archives.
+- Support for Simone Tellini's SpeedBar MUI class. Buttons can now be
+  configured to suit. Thanks to Martin Merz for taking the time to
+  draw the images for me.
+- Improved client information window.
+- Support for archives with multiple portions.
+- Improved temporary file handling.
+- The About window now shows the history file.
+- Low memory handlers.
+- More shell arguments
+- Support for Carsten Scholling's NListtree.mcc. You now have proper
+  multiselection in tree mode. :-)
+- New archive information window. Also shows DMS texts, etc.
+- Overwrite requesters now popup when extracting.
+- New recent submenu that holds recently accessed archives.
+- Run executables inside arhives.
+- Plus lots more (see history file).
+
+ ============================================================================
+                                 Features
+ ============================================================================
+
+ o Browse many archives very quickly. Voodoo-X contains an archive history
+   list, much like the URL history list of a web browser. This allows you
+   to switch between archives VERY QUICKLY with only three clicks of the
+   mouse button.
+
+ o Retrieve files from within DMS archives (and other disk based archive
+   formats too) without having to extract the entire archive to disk or
+   a virtual disk device like FMS.
+
+ o Browse archives inside archives. Quickly gain access to that document
+   inside that LHA inside that LZX inside that DMS. ;)
+
+ o Quickly view pictures, documents or similar files that are inside archives
+   simply by double clicking on a file. Voodoo-X will then extract it and
+   start the viewer of your choice.
+
+ o Drag one or more archive icons from Workbench into the main window to
+   browse their contents.
+
+ o Support for multipart archives.
+ 
+ o Support for archives that contain multiple portions (like embedded filing
+   systems, etc).
+
+ o Virus checking. If you have Georg Hoermann's xvs.library system installed
+   then you can check archives for file viruses. You can also specify if
+   every file extracted should be checked.
+
+ o Lots of archiver formats are supported (common ones and obscure ones). 
+   Disk image formats are also supported, so you can treat AmigaDOS
+   formatted ADF files as normal archives under Voodoo-X.
+
+ o Fast decompression, thanks to xadmaster.library. Note that this really
+   depends on the client being used. Some clients are coded in C and might
+   noticeably slower than the original archive program on older CPUs.
+
+ o Very easy-to-use user interface, thanks to MUI.
+
+ o Quickly copy, move or delete archives using pull down menus. This can
+   be highly convenient when going through download directories.
+
+ o Search window. Search for strings or filename patterns inside archives.
+   Uses assembly optimized string search routines for greater speed.
+
+ o Nice progress bars. :-)
+
+
+ ============================================================================
+                               Quick thanks
+ ============================================================================
+
+ I would like thank those individuals that took the time to send a gift and
+ honoured the GIFTWARE status of this program. They know who they are.
+ Thanks again!
+
+ I would like to say no-thanks to those individuals that said they'd send a
+ gift if I added feature X, Y or Z and after I did, they never upheld there
+ part of the deal.
+
+ So only those people who have took the time and bothered to send a gift will
+ get first priority when it comes feature requests.
+
+
+ ============================================================================
+                                 Copyright
+ ============================================================================
+
+ Voodoo-X is Copyright © 2000-2001 Andrew Bell. All rights reserved. Voodoo-X
+ is uncrippled GIFTWARE and is provided "AS IS". Please refer to the
+ documentation for more information.
+
+ Although Voodoo-X is uncrippled GIFTWARE, xadmaster.library and MUI are
+ SHAREWARE. Please consider registering XAD/MUI and show your support for
+ Amiga software.
+
+ Voodoo-X wouldn't be possible without the following third-party software:
+
+ xadmaster.library         - Copyright © 1998-2001 Dirk Stoecker. 
+ muimaster.library         - Copyright © 1992-2001 Stefan Stuntz.
+ NList MUI custom class    - Copyright © 1996-2001 Gilles Masson.
+ Listtree MUI custom class - Copyright © 1995-1997 Klaus Melchior.
+ xvs.library               - Copyright © 1997-2001 Georg Hoermann.
+ Speedbar MUI custom class - Copyright © 1999-2001 Simone Tellini.
+
+ Special thanks to the above programmers, for their hard work.
+
+ Another special thanks goes to Dirk for allowing me to access to the beta
+ versions of XAD to test with Voodoo-X. Thanks again!
+

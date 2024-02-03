@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE>SP * Save Picture (Salva Immagine)</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: sp.html 1.4 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>SP * Save Picture (Salva Immagine)</h3>
+Un tool per estrarre un'immagine da un <a href="dump.html">file di dump</a> creato da WHDLoad.
+<h4>Installazione</h4>
+SP è contenuto solo nell'archivio <tt>DEV</tt>, non in quello <TT>USR</tt>
+<br>copialo in C: o in un posto simile
+<h4>Utilizzo</h4>
+Prima di tutto bisogna creare un file di dump. Poi avvia il programma da cui estrarre l'immagine.
+Deve essere avviato con l'opzione <a href="opt.html#Snoop">Snoop/S</a> abilitata.
+Anche <a href="opt.html#Expert">Expert/S</a> e <a href="opt.html#DebugKey">DebugKey/K/N</a> devono essere abilitate. Se
+l'immagine che vuoi estrarre appare premi il DebugKey. WHDLoad scriverà il file di dump. Vai nella directory del dump con
+una Shell. Ora avvia <tt>SP</tt> con il nome del file da salvare come argomento.
+<tt>SP</tt> caricherà il file di dump e tenterà di salvare l'immagine.
+Se hai selezionato l'opzione <a href="opt.html#CoreDumpPath">CoreDumpPath</a> non devi inserire la directory, SP
+leggerà il file di configurazione di WHDLoad per trovarlo.
+<h4>Opzioni</h4>
+<table>
+<tr>
+  <td colspan=2><tt>OutputFile/A,Cop/K,CS=CopStop/K,Width/K,Height/K,con0/K,mod1/K,mod2/K,pt1/K,pt2/K,pt3/K,pt4/K,NoCopLst/S</tt></td>
+</tr>
+<tr>
+  <td valign=top><tt>OutputFile/A</tt></td>
+  <td>il nome del file dell'immagine da salvare</td>
+</tr>
+<tr>
+  <td valign=top><tt>Cop/K</tt></td>
+  <td>imposta l'indirizzo di partenza della prima copperlist da interpretare, se vuoi sovrascrivere l'indirizzo contenuto
+      nel dump</td>
+</tr>
+<tr>
+  <td valign=top><tt>CS=CopStop/K</tt></td>
+  <td>questa opzione specifica l'indirizzo di fine interpretazione della copperlist. Deve essere utilizzato se lo schermo è
+      formato da più di una immagine</td>
+</tr>
+<tr>
+  <td valign=top><tt>Width/K</tt></td>
+  <td>specifica la larghezza dell'immagine da salvare, non interferisce con i valori di modulo!</td>
+</tr>
+<tr>
+  <td valign=top><tt>Height/K</tt></td>
+  <td>specifica l'altezza dell'immagine da salvare</td>
+</tr>
+<tr>
+  <td valign=top><tt>con0/K</tt></td>
+  <td>sovrascrive il registro <tt>bplcon0</tt> contenuto nel dump</td>
+</tr>
+<tr>
+  <td valign=top><tt>mod1/K,mod2/K</tt></td>
+  <td>sovrascrive il registro <tt>bplmod1</tt>/<tt>bplmod2</tt> contenuto nel dump</td>
+</tr>
+<tr>
+  <td valign=top nowrap><tt>pt1/K,pt2/K,pt3/K,pt4/K</tt>&nbsp;&nbsp;</td>
+  <td>sovrascrive il registro <tt>bplpt1,2,3,4</tt> contenuto nel dump</td>
+</tr>
+<tr>
+  <td valign=top><tt>NoCopLst/S</tt></td>
+  <td>disabilita il dump della copperlist</td>
+</tr>
+</table>
+</BODY>
+</HTML>

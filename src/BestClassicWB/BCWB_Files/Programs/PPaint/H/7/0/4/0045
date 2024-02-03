@@ -1,0 +1,775 @@
+@DATABASE 0045
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - A. Program Messages"
+@TOC PPaintCD:H/7/0/4/OO00/Main
+
+@{B}A.         Program Messages@{UB}
+
+This appendix lists (in alphabetical order) and explains the most
+important messages of Personal Paint. A more complete description can be
+found in the referenced sections.
+
+If the message is displayed in a requester containing only the Proceed,
+Cancel or OK gadgets, the <Return> key can be used instead of the OK or
+Proceed gadget, while <Esc> can be pressed instead of selecting the Cancel
+gadget. Sections @{"1.10.12" LINK PPaintCD:H/7/0/4/0002/Main 984} ("The <Return> key") and @{"1.10.16" LINK PPaintCD:H/7/0/4/0002/Main 1029} ("The <Esc>
+key") have more on the topic.
+
+
+@{B}All rights reserved - Unauthorized reproduction or transfer is illegal@{UB}
+
+This message has to be displayed for strictly legal reasons. More in
+Appendix F.
+
+
+@{B}Animation is not possible: image larger than screen@{UB}
+
+As explained in the introduction to animation, the animation frame format
+cannot exceed the screen limits. It may be possible to open a larger
+screen by choosing a different screen mode, or by activating an overscan
+mode or by enabling autoscroll.
+
+
+@{B}Animations cannot be loaded as anim-brushes@{UB}
+@{B}Anim-Brushes cannot be loaded as animations@{UB}
+
+Amiga anim-brushes use a standard file format (described in section
+@{"6.8.2" LINK PPaintCD:H/7/0/4/2151/Main 370}), which is different from the formats normally used by animations.
+Furthermore, anim-brushes can be of sizes which are incompatible with the
+screen modes required to display animations. These differences make it
+difficult to directly process anim-brushes by animation functions, and
+vice versa. Personal Paint offers conversion options between the two
+formats through ARexx scripts. Anim-brushes can be easily copied from the
+current animation by clicking three times on the Define Brush tool
+(section @{"3.1.6" LINK PPaintCD:H/7/0/4/0017/Main 1027}).
+
+
+@{B}Animations cannot be merged@{UB}
+
+The Color Merge functions only handle images - not animations.
+
+
+@{B}Another program is using the file@{UB}
+
+The operation on the specified file cannot be performed because the file
+is currently being locked by another process. This can happen, for
+example, if another program is writing to the same picture file which
+Personal Paint is trying to load.
+
+
+@{B}Audio cannot be activated@{UB}
+
+Personal Paint cannot start the CloantoAudio module, after searching for
+it in the "DEVS" logical volume and in the drawer (or volume) from where
+Personal Paint was loaded. By default, the "DEVS" logical volume is
+assigned to the "Devs" drawer of the boot disk (which may be the Workbench
+disk containing Personal Paint). It may also be that the CloantoAudio file
+was found, but the CloantoAudio module could not reply in time (handshake
+function) because it was slowed down by another disk operation, or because
+there was not enough memory. Personal Paint tries to load the audio module
+if there is enough memory to do so, and no other Cloanto program has
+already loaded CloantoAudio. The same CloantoAudio module can serve an
+unlimited number of Cloanto programs, thus overcoming the limitations set
+by the Amiga on the maximum number of open audio channels. If the
+CloantoAudio module is started manually (e.g. by selecting its icon), it
+remains RAM-resident until the computer is reset or switched off, and does
+not need to be loaded every time from its client programs. Sections @{"1.11" LINK PPaintCD:H/7/0/4/0002/Main 1074}
+and @{"1.13" LINK PPaintCD:H/7/0/4/0002/Main 1258}.
+
+
+@{B}Bad IFF structure@{UB}
+
+The file read by Personal Paint is recognized as being in IFF format, but
+its content does not keep to the rules defined for the IFF standard. Some
+programs do not use the IFF format correctly.
+
+
+@{B}Brush ... will be lost@{UB}
+
+This warning message is displayed before Free Brush is executed (section
+@{"5.7" LINK PPaintCD:H/7/0/4/0048/Main 144}). If the operation is confirmed, it will not be possible to recover
+the brush with Restore Brush.
+
+
+@{B}Brush frames will be lost@{UB}
+
+The current brush is an anim-brush consisting of more than one frame. The
+anim-brush has not been saved. The selected command would cause the loss
+of all frames except for the current one.
+
+
+@{B}Brush size is ..., ... planes
+Used size is ..., ... planes@{UB}
+
+This information is provided by the Chop Information function. More in
+section @{"5.13" LINK PPaintCD:H/7/0/4/0048/Main 492}.
+
+
+@{B}Clipboard device cannot be opened@{UB}
+
+The Amiga public clipboard cannot be opened. The "clipboard.device" file
+in the "DEVS" logical unit probably cannot be loaded. Personal Paint tries
+to open the Clipboard (if it is not already open) whenever this is
+required by a program function.
+
+
+@{B}Clipboard does not contain the required data@{UB}
+
+A function which should read data from the clipboard has been used (e.g.
+brush data), but the clipboard is empty, or only contains a different type
+of data (for example, digitized audio) than what was expected. Sections
+@{"5.10" LINK PPaintCD:H/7/0/4/0048/Main 307} and @{"7.1" LINK PPaintCD:H/7/0/4/0001/Main 10}.
+
+
+@{B}Clipboard write error@{UB}
+
+In most cases, this message indicates that there is not enough memory (RAM
+or disk) for the Amiga operating system to store the specified clipboard
+data. Sections @{"5.10.2" LINK PPaintCD:H/7/0/4/0048/Main 337} and @{"11.1" LINK PPaintCD:H/7/0/4/0046/Main 9}.
+
+
+@{B}Data compression algorithm not identified@{UB}
+
+Graphical data can occupy more memory than one would believe. Different
+techniques exist to @{I}compress@{UI} this data, so that it occupies less space
+than it would otherwise. Personal Paint uses and recognizes different
+standard image compression techniques in the different file formats it
+uses (IFF-ILBM, GIF, PCX, etc.) Another program may write some data using
+a compression method (or @{I}algorithm@{UI}) not recognized by Personal Paint. When
+Personal Paint tries to load this data, it displays this message. This
+means that the data cannot be loaded by Personal Paint unless it is saved
+in another format.
+
+
+@{B}Decryption impossible@{UB}
+
+An incorrect encryption key has been used to load an encrypted picture. An
+encrypted image can only be loaded if the same key used to save the data
+is also used to load it. This message can also appear if the disk is
+damaged or the picture file has been modified by another program, though
+this is very unlikely. Sections @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11}, @{"4.2" LINK PPaintCD:H/7/0/4/0049/Main 135} and @{"9.4" LINK PPaintCD:H/7/0/4/0047/Main 225}.
+
+
+@{B}Disk incompatible@{UB}
+
+The format of the disk in the specified drive is not recognized by the
+operating system. The disk may be damaged, not formatted or be in a format
+not recognized by AmigaDOS. Sections @{"1.3.4" LINK PPaintCD:H/7/0/4/0002/Main 189}, @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11} and @{"11.2" LINK PPaintCD:H/7/0/4/0046/Main 51}.
+
+
+@{B}Disk is not mounted@{UB}
+
+The specified disk is not inserted in any drive. Section @{"11.2" LINK PPaintCD:H/7/0/4/0046/Main 51}.
+
+
+@{B}Disk is write-protected@{UB}
+
+Data cannot be written on a disk which is write-protected. The hole at the
+corner of the disk must be covered by the write-protect tab. Section
+@{"11.2" LINK PPaintCD:H/7/0/4/0046/Main 51}.
+
+
+@{B}Disk not validated@{UB}
+
+The Amiga operating system has not yet validated the disk. The operation
+may have failed, or still be in progress, if the disk has just been
+inserted. If the disk is not successfully validated ("Disk not validated"
+system message), no new data can be written to the disk, which can be read
+normally. Section @{"11.2" LINK PPaintCD:H/7/0/4/0046/Main 51}.
+
+
+@{B}Display Mode Selection@{UB}
+@{B}Selected image...
+Current mode... - ... colors@{UB}
+
+The picture selected for a load operation has the same size as the current
+image format. However, the selected file would require a different video
+mode from the current one (as indicated in the video mode information
+contained in the IFF-ILBM file, or calculated by Personal Paint if there
+is no such information). This requester allows the user to decide whether
+to maintain the current screen mode or to adopt the new one. Section
+@{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11}.
+
+
+@{B}Error during file I/O@{UB}
+
+Personal Paint has several detailed error messages which are used if an
+error occurs during a read or write operation. The Amiga operating system
+may issue error codes which Personal Paint cannot translate into messages
+indicating the exact cause of the error. If this happens during a file
+read/write operation, this message is displayed.
+
+
+@{B}Error during printer output@{UB}
+
+An error is signalled by the Amiga operating system while data is being
+sent to the printer. The most likely causes are: printer is switched off
+or is in the off-line (deselected) state; printer is out of paper or the
+paper is jammed; the printer's cover is open; the printer cable is not
+connected properly; the wrong port (serial vs. parallel) was selected in
+the Amiga Printer Preferences. Sections @{"4.3" LINK PPaintCD:H/7/0/4/0049/Main 201} and @{"11.3" LINK PPaintCD:H/7/0/4/0046/Main 130}.
+
+
+@{B}Error in file structure@{UB}
+
+Personal Paint recognized the file format and began processing the file,
+but at some point the data was inconsistent with the format specification.
+For example, this could indicate improper use of pad bytes in an IFF
+file.
+
+
+@{B}Error opening diskfont.library version 34
+Error opening icon.library version 33@{UB}
+
+The specified library does not exist, or its version number is lower than
+the one required.
+
+
+@{B}Error: The keys are different@{UB}
+
+Personal Paint requires the encryption key to be written twice. This
+message is displayed if the first key and the control key are different.
+This additional control is useful to prevent an image stored using an
+incorrectly typed key from not being loaded any more. Section @{"9.4" LINK PPaintCD:H/7/0/4/0047/Main 225}.
+
+
+@{B}File is protected from deletion@{UB}
+@{B}File is protected from reading@{UB}
+@{B}File is write-protected@{UB}
+
+The specified file has a software protection which prevents the operating
+system from removing, reading or modifying it. The Workbench Information
+(or Info) or the Shell/CLI Protect command can be used to modify the
+access status of the file.
+
+
+@{B}Format Selection@{UB}
+@{B}Requested format...
+Current format... - ... colors@{UB}
+@{B}Selected image...
+Current format... - ... colors@{UB}
+
+The current image format (i.e. size and/or number of colors) would be
+changed as specified in the Image Format requester or in an IFF-ILBM or
+settings file. When an image file is loaded, this requester allows the
+user to choose between the new and the current format. The Stretch option
+can be set to resize the image, if necessary. Color reduction is always
+applied automatically when needed. Sections @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11}, @{"4.5" LINK PPaintCD:H/7/0/4/0049/Main 901}, @{"9.7" LINK PPaintCD:H/7/0/4/0047/Main 319}, @{"9.8" LINK PPaintCD:H/7/0/4/0047/Main 366} and
+@{"9.13.3" LINK PPaintCD:H/7/0/4/0047/Main 734}.
+
+
+@{B}... frames out of ... would be stripped@{UB}
+
+The Strip Frames function indicates how many frames would be removed, and
+asks for confirmation, before actually doing so.
+
+
+@{B}Image data is incomplete@{UB}
+
+Personal Paint can now load incomplete or corrupt image files.
+
+
+@{B}Icons cannot be loaded@{UB}
+
+The "PPaint_Icons" drawer cannot be found, or it does not contain the
+correct default icon files. Sections @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323} and @{"9.10.2" LINK PPaintCD:H/7/0/4/0047/Main 572}.
+
+
+@{B}Incorrect version of Personal.font@{UB}
+
+This message usually appears only when a new version of Personal Paint is
+run for the first time. It indicates that the program, searching for its
+user interface font (named "Personal"), found an incorrect (probably
+older) version of the font. Normally, Personal Paint searches for the font
+inside the "PPaint:fonts" drawer (first choice) and in the system FONTS:
+directory (second choice). Any old "Personal.font" files stored in these
+directories are normally updated automatically by the installation
+procedure. The same should be done in case of manual installation. If
+different versions of Personal Paint or the Personal Fonts Maker need to
+be used on the same computer, and these programs require different
+versions of the Personal font, then the "Personal.font" file should be
+removed from the system FONTS: directory.
+
+This message may also be displayed if a correct version of "Personal.font"
+has been installed, but the old Personal font is still in use by the
+system or by an application. If this is the case, executing the "Avail
+FLUSH" command from a Shell window or rebooting the system should solve
+the problem.
+
+Section @{"10.4" LINK PPaintCD:H/7/0/4/0015/Main 76} has more on the Personal font.
+
+
+@{B}Incorrect version of the user interface texts@{UB}
+
+It is likely that the program has not been installed properly, since it
+has found a user interface file belonging to a different program version.
+This may happen, for example, when testing a new version of the program
+which has not yet been installed (but another version of the program is
+installed).
+
+
+@{B}I/O libraries not found@{UB}
+
+This error message indicates that Personal Paint was unable to locate and
+load its input/output libraries (used to load and save files), which are
+normally stored in the "libs" directory placed in the same drawer of the
+program file. This could be caused by improper installation. PPaint
+normally searches for these files both in the local directory and in the
+system "libs" directory, and uses the newest libraries which are
+available.
+
+
+@{B}Insufficient Chip memory for the requested screen@{UB}
+@{B}Insufficient Chip memory to display window@{UB}
+
+There is not enough Chip RAM to open a screen, window or requester.
+Sections @{"1.3.2" LINK PPaintCD:H/7/0/4/0002/Main 89} and @{"11.1" LINK PPaintCD:H/7/0/4/0046/Main 9}.
+
+
+@{B}Invalid data@{UB}
+
+This general purpose message is used if extremely unusual circumstances
+are encountered. This may happen, for example, when attempting to load an
+image whose size is 0 by 0.
+
+
+@{B}Invalid number of colors for the requested screen@{UB}
+
+In most cases, this indicates that the hardware being used does not
+support as many colors as specified in the picture or settings file being
+loaded. Probably, a particular screen mode was requested in an IFF-ILBM
+file written on a computer supporting the same video mode, but with more
+colors. Personal Paint automatically selects a different video mode as
+close as possible to the requested number of colors.
+
+
+@{B}Invalid parameter in line...@{UB}
+
+An error has been encountered in loading a settings file. One or more
+parameters of an instruction in the specified line have been found to
+contain a value out of the valid range. Sections @{"9.1" LINK PPaintCD:H/7/0/4/0047/Main 9}, @{"9.2" LINK PPaintCD:H/7/0/4/0047/Main 76} and Appendix
+@{"C" LINK PPaintCD:H/7/0/4/0044/Main 1}.
+
+
+@{B}Invalid window size@{UB}
+
+To contain the required text elements, a window would become larger than
+the screen. This may happen if requester texts in a "UIText" file are
+edited without considering space limitations in lower resolution video
+modes. Sections @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323} and @{"9.11" LINK PPaintCD:H/7/0/4/0047/Main 636}.
+
+
+@{B}Line too long...@{UB}
+
+An error has been encountered in loading a settings file. The line whose
+position from the top of the file is indicated is too long (i.e. it
+contains too many characters). Sections @{"9.1" LINK PPaintCD:H/7/0/4/0047/Main 9}, @{"9.2" LINK PPaintCD:H/7/0/4/0047/Main 76} and Appendix @{"C" LINK PPaintCD:H/7/0/4/0044/Main 1}.
+
+
+@{B}Memory save mode@{UB}
+
+This message indicates that Personal Paint has detected a low-memory
+environment and has taken action to reduce the occupation of RAM. This
+mode can also be activated by holding the <F1> key down while the program
+is starting. If possible, the program does the following things: the audio
+functions are not used (the CloantoAudio module is not loaded); the
+Workbench screen is closed; the printer driver is not pre-loaded at the
+start of the program, and is removed from RAM (expunged) immediately after
+each print operation; the directory lists of the file requester are not
+stored to speed up the re-display of the same lists. Sections @{"9.15" LINK PPaintCD:H/7/0/4/0047/Main 863} and
+@{"11.1" LINK PPaintCD:H/7/0/4/0046/Main 9}.
+
+
+@{B}No frames to strip@{UB}
+
+The Strip Frames function has not found any duplicate frames.
+
+
+@{B}No memory for undo@{UB}
+
+The Storyboard would not be able to undo the selected operation. If the
+operation is confirmed, the Undo and Cancel functions will be disabled.
+
+
+@{B}No monitor information for the requested screen mode@{UB}
+
+An IFF-ILBM file contains a reference to a video mode which is not
+supported by the system hardware or operating system. (Most other file
+formats do not contain explicit video mode information.) It may happen
+that a given monitor, theoretically supported by the system, was not
+activated as indicated in section @{"11.4" LINK PPaintCD:H/7/0/4/0046/Main 303}.
+
+
+@{B}Object too large@{UB}
+
+An internal Amiga error has occurred. The data found is too large to be
+handled by the operating system.
+
+
+@{B}Operation impossible@{UB}
+
+A function of the Amiga operating system has returned an error, but the
+cause of the failure is not specified. Personal Paint cannot complete the
+operation.
+
+
+@{B}Path incorrect@{UB}
+
+The path (i.e. the set of names of drawers, separated by '/' signs) which
+is written in the file requester, does not exist in the requested unit.
+One or more of the drawer names are incorrect or too long (maximum 25
+characters). Some characters cannot be used in the names of files and
+drawers. Sections @{"1.4" LINK PPaintCD:H/7/0/4/0002/Main 236}, @{"1.5" LINK PPaintCD:H/7/0/4/0002/Main 280} and @{"3.4" LINK PPaintCD:H/7/0/4/0017/Main 1252}.
+
+Virtual Memory uses this message to indicate that the given path could not
+be accessed. Personal Paint attempts to create the last directory of the
+path (usually the "t" directory), but the rest of the path name must refer
+to existing devices and drawers.
+
+
+@{B}Path too long@{UB}
+
+The selected path contains too many levels (i.e. drawers within drawers),
+which AmigaDOS cannot handle.
+
+
+@{B}Personal.font cannot be opened@{UB}
+
+Personal Paint uses a custom font, which contains symbols especially
+designed for the program, for its user interface texts. On startup,
+Personal Paint searches for the font in the "FONTS" logical volume or in
+"PPaint:Fonts". Section @{"1.13" LINK PPaintCD:H/7/0/4/0002/Main 1258}.
+
+
+@{B}PostScript module cannot be opened@{UB}
+
+The "PPaint_PS" file cannot be loaded by Personal Paint. The program needs
+to access this external module to output in PostScript mode. Sections
+@{"1.13" LINK PPaintCD:H/7/0/4/0002/Main 1258} and @{"4.3.3" LINK PPaintCD:H/7/0/4/0049/Main 588}.
+
+
+@{B}Printer device cannot be opened@{UB}
+
+Personal Paint cannot activate the printer driver to execute a printing
+operation. This may happen if there is not enough RAM available, or if the
+"printer.device" file cannot be accessed in the "Printers" drawer in the
+"DEVS" logical unit. Sections @{"1.11" LINK PPaintCD:H/7/0/4/0002/Main 1074}, @{"1.13" LINK PPaintCD:H/7/0/4/0002/Main 1258} and @{"11.3" LINK PPaintCD:H/7/0/4/0046/Main 130}.
+
+
+@{B}Printing copy ... of ...@{UB}
+
+An image or a brush is being printed. The progress indication gives
+detailed information on the data which the Amiga printer device has
+already sent to the printer, and the amount still to be transmitted.
+Sections @{"4.3" LINK PPaintCD:H/7/0/4/0049/Main 201}, @{"5.3" LINK PPaintCD:H/7/0/4/0048/Main 85} and @{"11.3" LINK PPaintCD:H/7/0/4/0046/Main 130}.
+
+
+@{B}Stencil size does not match@{UB}
+
+The operation requested would have required the stencil to be exactly as
+wide and as tall as the image over which the stencil would have to be
+applied. Section @{"8.2" LINK PPaintCD:H/7/0/4/0016/Main 301} and subsections.
+
+
+@{B}Studio server cannot be activated@{UB}
+
+The Studio Print mode was selected for printing, but the Studio Server
+software could not be activated. Most likely, the Studio software was not
+installed properly, or it is an older version of the software. The Studio
+Print Server software is supported from version 2 of the Studio and
+CanonStudio packages. Previous releases of Studio printer drivers can be
+accessed by selecting Personal Paint's "PRT" (System printer) print mode.
+In this case, it may be preferable to (also) activate Personal Paint's own
+24-bit printing routines (section @{"4.3.2.4" LINK PPaintCD:H/7/0/4/0049/Main 423}).
+
+
+@{B}Syntax error in line...@{UB}
+
+An error has been found in a settings file. In the specified line, a
+keyword has not been recognized, or a command parameter is missing or
+appears in an incorrect format. Section @{"9.2" LINK PPaintCD:H/7/0/4/0047/Main 76} and Appendix @{"C" LINK PPaintCD:H/7/0/4/0044/Main 1}.
+
+
+@{B}The animation can be viewed using "Play File"@{UB}
+
+Some animation formats (e.g. some rare HAM and HAM8 files) cannot be
+loaded and edited by Personal Paint, but only played from file.
+
+
+@{B}The animation has been modified@{UB}
+
+The animation has been modified, but not saved yet. By proceeding with the
+operation requested, it would be lost.
+
+
+@{B}The animation will be lost@{UB}
+
+Proceeding with the selected command would imply deleting the current
+animation.
+
+
+@{B}The current font has no palette@{UB}
+
+The Copy Font Palette command has been executed, but the current font does
+not have an associated color palette. Sections @{"3.1.3.2" LINK PPaintCD:H/7/0/4/0017/Main 398} and @{"8.1.8" LINK PPaintCD:H/7/0/4/0016/Main 281}.
+
+
+@{B}The current one is the only brush@{UB}
+
+The Next Transparency command (which copies the transparency information
+of another brush to the current brush) failed because there is no other
+brush. Section @{"5.9.7" LINK PPaintCD:H/7/0/4/0048/Main 279}.
+
+
+@{B}The drawer is not empty@{UB}
+
+Delete was used to remove a non-empty directory.
+
+
+@{B}The filter requires a brush@{UB}
+
+Some image processing filters use the current brush to apply certain
+transformations to the image. This message appears if no brush has been
+defined.
+
+
+@{B}The filter requires an additional brush@{UB}
+
+Image processing effects such as Alpha Channel require two consecutive
+brushes.
+
+
+@{B}The file does not contain the required data@{UB}
+
+A file has been selected for a read operation, but the data contained in
+that file is not of the expected type, or the content of the file has been
+damaged. This can happen, for example, if Personal Paint tries to load a
+settings file, but discovers that the file specified through the file
+requester contains a brush image. In order to reduce the risk of similar
+errors, files of different types should not be stored in the same drawer.
+It is also advisable to append standard @{I}suffixes@{UI} to file names. Sections
+@{"1.4" LINK PPaintCD:H/7/0/4/0002/Main 236} and @{"1.11" LINK PPaintCD:H/7/0/4/0002/Main 1074}.
+
+
+@{B}The file does not exist@{UB}
+
+A file has been specified for a load operation, but Personal Paint cannot
+find a file with the given name following the specified path. Section @{"3.4" LINK PPaintCD:H/7/0/4/0017/Main 1252}
+("The File Requester") explains how to avoid the risk of mistyping file
+and directory names.
+
+
+@{B}The file exists and would be overwritten@{UB}
+
+An operation which would overwrite an existing file has been selected. The
+Confirm Overwriting option is active (section @{"9.9.6" LINK PPaintCD:H/7/0/4/0047/Main 525}), so the program
+displays this warning message, indicating the file whose content would be
+overwritten. The operation is aborted if the Cancel gadget of the
+requester containing the message is selected. This makes it possible to
+execute the operation again, using a different file name.
+
+
+@{B}The file will be deleted@{UB}
+
+The Delete File command has been executed. The operation is aborted if the
+Cancel gadget of the requester containing the message is selected.
+
+
+@{B}The filter requires two environments@{UB}
+
+Stereograms and other effects require two environments (i.e. two images).
+The filters apply the changes to the current environment, using the other
+environment as a source.
+
+
+@{B}The font cannot be opened@{UB}
+
+The Font Requester has failed to load the specified font. This may happen
+if an incorrect typeface name is typed, or if the available memory
+conditions or a read/write error interrupt the font load operation.
+Section @{"3.1.3.2" LINK PPaintCD:H/7/0/4/0017/Main 398}.
+
+
+@{B}The image has been modified@{UB}
+
+The current image has been changed since it was last saved or defined. A
+command has been executed which would cause the loss of the current image
+(e.g. a Load Image or Quit command).
+
+
+@{B}The image is too large@{UB}
+
+The maximum image size supported by Personal Paint is limited by the Amiga
+hardware. The original Amiga blitter could not handle images larger than
+1008 by 1024 pixels. ECS and AA chips can process images as large as 32752
+by 32767 pixels.
+
+
+@{B}The image will be cut@{UB}
+
+An image format smaller than the format of the image currently displayed
+(or being loaded) has been selected. Unless the Stretch option of the
+Format Selection requester is enabled, this additional warning requester
+appears. Sections @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11} and @{"4.5" LINK PPaintCD:H/7/0/4/0049/Main 901}.
+
+
+@{B}The other image has been modified@{UB}
+
+A Copy to Other command has been executed, but the image in the other
+environment has not yet been saved since it was last modified. Proceeding
+with the command would cause the other image to be lost. Section @{"4.8.2" LINK PPaintCD:H/7/0/4/0049/Main 1105}.
+
+
+@{B}There is not enough memory@{UB}
+@{B}There is not enough memory to load the user interface texts@{UB}
+
+There is not enough memory to perform the operation requested. Sections
+@{"1.3.2" LINK PPaintCD:H/7/0/4/0002/Main 89} and @{"11.1" LINK PPaintCD:H/7/0/4/0046/Main 9}.
+
+
+@{B}The requested display mode does not support double-buffering@{UB}
+
+The specified display mode does not support double-buffering. The
+introduction to chapter 6 ("Animation") explains this in more detail. This
+warning message is displayed only once during each session with a given
+screen mode.
+
+
+@{B}The requested screen cannot be used@{UB}
+@{B}The requested screen mode requires 2.x O.S. or higher@{UB}
+@{B}The requested screen mode requires ECS or higher@{UB}
+
+The IFF-ILBM file specified for loading an image also contains a reference
+to a screen mode to be used. Due to hardware or operating system
+limitations on the machine used to load the image, another screen mode has
+to be used by Personal Paint. Sections @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11} and @{"11.4" LINK PPaintCD:H/7/0/4/0046/Main 303}.
+
+
+@{B}The screen is not available any more@{UB}
+
+A screen selected in the Grab Screen requester was closed before it could
+be grabbed. Section @{"4.4" LINK PPaintCD:H/7/0/4/0049/Main 870}.
+
+
+@{B}The selected image type cannot be loaded@{UB}
+
+The selected picture file uses an image encoding format not supported by
+Personal Paint. These may include unusual IFF formats and image formats
+which could not be edited with the freedom and precision required by
+Personal Paint (e.g. Dual-Playfield images).
+
+
+@{B}The size of the following brush does not match@{UB}
+
+The Next Transparency command cannot apply the transparency information of
+the following brush to the current one, because the two have different
+sizes. Section @{"5.9.7" LINK PPaintCD:H/7/0/4/0048/Main 279}.
+
+
+@{B}The Undo buffer will be freed@{UB}
+
+An explicit request to release the Undo buffer has been made (e.g. by
+selecting the Undo tool with the right mouse button), or there is not
+enough memory to allocate an Undo buffer for the selected operation. If
+there is not enough memory to display this message, the buffer is freed
+without displaying this request for confirmation. Sections @{"3.1.10" LINK PPaintCD:H/7/0/4/0017/Main 1137} and
+@{"11.1" LINK PPaintCD:H/7/0/4/0046/Main 9}.
+
+
+@{B}The ... user interface text should be shortened
+The ... user interface text should be made splittable@{UB}
+
+The "UIText" file for the specified language was loaded successfully, but
+some texts were found to be too long to be displayed properly in some
+video modes. A text can be made splittable by inserting an underscore
+character ('_') where Personal Paint may go to a new line if there is not
+enough horizontal space. Some texts (e.g. non-"TMS" texts) can only be
+displayed in a single line. If these are too long, they must be shortened.
+Sections @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323} and @{"9.11" LINK PPaintCD:H/7/0/4/0047/Main 636}.
+
+
+@{B}The user interface text file cannot be opened@{UB}
+
+The "UIText" file associated to the user interface language which is to be
+loaded cannot be found. Personal Paint searches for the files in the
+"PPaint_Prefs" drawer of either the "PPaint" volume, or the current
+drawer. Sections @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323} and @{"9.11" LINK PPaintCD:H/7/0/4/0047/Main 636}.
+
+
+@{B}Title not correct@{UB}
+
+A wrong path has been specified for a file read or write function, or the
+selected file name is not correct. Sections @{"1.4" LINK PPaintCD:H/7/0/4/0002/Main 236}, @{"1.5" LINK PPaintCD:H/7/0/4/0002/Main 280} and @{"3.4" LINK PPaintCD:H/7/0/4/0017/Main 1252}.
+
+
+@{B}UIGraphics.pic cannot be loaded@{UB}
+
+The file containing the images used in Personal Paint's user interface
+could not be loaded. Possible causes include: file not found, insufficient
+memory, file corrupt. When editing the image, it is important that the
+reference lines used to the delimit the areas in the picture be respected
+and not modified. Section @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323}.
+
+
+@{B}UIText: Error in line...@{UB}
+
+A syntax error has been found in a "UIText" user interface file. For
+example, a keyboard shortcut was not enclosed in a couple of '<' and '>'
+signs, or an unrecognized keyboard qualifier name was used. A line number
+greater than the number of lines in the file indicates that one or more
+texts are missing. Sections @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323} and @{"9.11" LINK PPaintCD:H/7/0/4/0047/Main 636}.
+
+
+@{B}Virtual memory settings cannot be changed@{UB}
+
+There is not enough storage space to move the virtual memory objects which
+are currently in use. The changes to the virtual memory settings are
+cancelled.
+
+
+@{B}Virtual memory storage limit exceeded@{UB}
+
+This warning message indicates that one or both storage devices used for
+virtual memory already have less free space than the user-requested
+minimum. This may happen after changing a virtual memory storage device,
+or after increasing the minimum values.
+
+
+@{B}Volume is full@{UB}
+
+The unit to which a save operation has been directed is full, and cannot
+contain the requested amount of data. The data can still be saved on any
+unit which has enough free room to contain it. The disks which come with
+Personal Paint are almost completely full. Additional data (e.g. a
+picture) should not be saved to these disks. Instead, a new disk should be
+formatted, or a new drawer should be created on a hard disk partition
+where some space is left, to contain all Personal Paint files. Sections
+@{"1.3.4" LINK PPaintCD:H/7/0/4/0002/Main 189}, @{"1.5" LINK PPaintCD:H/7/0/4/0002/Main 280}, @{"1.13" LINK PPaintCD:H/7/0/4/0002/Main 1258} and @{"11.2" LINK PPaintCD:H/7/0/4/0046/Main 51}.
+
+
+@{B}Volume not mounted@{UB}
+
+The selected peripheral does not contain any storage unit. There probably
+is no disk in the selected drive. This can only happen if the Expand Path
+option has been disabled, as Personal Paint's default volume access mode
+is by logical name, rather than physical name. Section @{"9.9.1" LINK PPaintCD:H/7/0/4/0047/Main 460}.
+
+
+@{B}Workbench screen cannot be closed@{UB}
+
+Personal Paint cannot close the Workbench screen, since it contains other
+windows than those used to display the content of disks and drawers.
+Section @{"9.15" LINK PPaintCD:H/7/0/4/0047/Main 863}.
+
+
+@{B}Workbench screen cannot be opened@{UB}
+
+Personal Paint cannot open the Workbench screen, as requested in a
+settings file or through a program menu. There is probably not enough free
+Chip RAM. Sections @{"9.15" LINK PPaintCD:H/7/0/4/0047/Main 863} and @{"11.1" LINK PPaintCD:H/7/0/4/0046/Main 9}.
+
+@ENDNODE

@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE>Reloc * Rilocare gli Eseguibili</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: reloc.html 1.4 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Reloc * Rilocare gli Eseguibili</h3>
+Un piccolo tool per rilocare un eseguibile standard AmigaDOS in un indirizzo assoluto e salvarlo in un semplice file di
+dati. Questo fu necessario in vecchie versioni di WHDLoad per gestire gli eseguibili AmigaDOS. A partire dalla versione
+8.0 di WHDLoad, la funzione <a href="../autodoc.html#resload_Relocate">resload_Relocate</a> può essere utilizzata al suo posto.
+<h4>Installazione</h4>
+Reloc è contenuto solo nell'archivio <tt>DEV</tt>, non in quello <TT>USR</tt>
+<br>copialo in C: o in un posto simile
+<h4>Opzioni</h4>
+<table>
+<tr>
+<td colspan=2><tt>INPUTFILE/A,OUTPUTFILE,ADR/K,QUIET/S</tt></td></tr>
+<tr>
+<td valign=top nowrap><tt>INPUTFILE/A</tt>&nbsp;&nbsp;</td>
+<td>l'eseguibile che deve essere rilocato; deve essere specificato</td>
+</tr>
+<tr>
+<td valign=top><tt>OUTPUTFILE</tt></td>
+<td>il nome del file da scrivere, se non specificato il file sorgente verrà sovrascritto</td>
+</tr>
+<tr>
+<td valign=top><tt>ADR/K</tt></td>
+<td>l'indirizzo di partenza per il file rilocato, se non specificato verrà utlizzato $400, puoi usare delle semplici
+espressioni come "$5000" = "20480" = " -$Ff +-33+19512+$4e8" (preponi "$" per i numeri esadecimali, gli operatori
+supportati sono "+" e "-", unario e binario)</td>
+</tr>
+<tr>
+<td valign=top><tt>QUIET/S</tt></td>
+<td>disabilita tutti gli output, eccetto i messaggi di errore, abilita questa opzione per utilizzarlo con
+l'installatore</td>
+</tr>
+</table>
+<h4>Return code</h4>
+Il return code viene impostato a 0 se tutto va bene, altrimenti viene impostato a 10.
+<h4>Background</h4>
+Gli HUNK dall'eseguibile vengono copiati nello stesso ordine nel file assoluto. Gli HUNK BSS vengono esplosi nella loro
+reale dimensione. Non sono supportati gli HUNK introdotti con AmigaDOS 2.0 (ad esempio RELOC32_SHORT).
+</BODY>
+</HTML>

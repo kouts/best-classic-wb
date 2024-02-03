@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE>Dumping</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: dump.html 1.8 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Dump e Logfile di WHDLoad</h3>
+WHDLoad può creare vari dump e logfile, questi possono tornare utili principalmente nel debugging.
+<h4><a name="memoria">Dump della Memoria</a></h4>
+Un dump della memoria è l'intera memoria utilizzata dal programma installato riversata in un file.
+La dimensione del dump dipende dal programma installato (è uguale al valore di <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a> nella struttura dello Slave).
+Il dump viene creato se <a href="opt.html#DebugKey">DebugKey</a> viene premuto o se dopo un errore viene premuto il
+pulsante CoreDump. Il nome del file di dump della memoria creato è ".whdl_memory". La sua posizione di default è "PROGDIR:"
+ma può essere cambiata con l'opzione <a href="opt.html#CoreDumpPath">CoreDumpPath</a>. Se esiste un file con lo stesso nome
+questo sarà sovrascritto in ogni caso. Se il programma installato utilizza anche della memoria Expansion
+(<a href="../autodoc.html#ws_ExpMem">ws_ExpMem</a>), verrà salvato con il nome ".whdl_expmem".
+<h4><a name="register">Dump dei Registri</a></h4>
+Il dump dei registri contiene l'intero stato della CPU (inclusa la MMU), dei CIA e dei chip Custom. Qualche registro dei
+CIA e dei chip Custom non sono leggibili, e saranno contenuti nel file di dump solo se la modalità
+<a href="opt.html#Snoop">Snoop</a> è attiva. Le informazioni verranno scritte in formato ASCII con qualche evidenziazione
+mediante l'utilizzo di sequenze di Escape (mediante CSI - Control Sequence Introducer, decimale 155).
+Per visualizzarlo, consigliamo l'utilizzo di un programma che supporta le sequenze di Escape (ad esempio More, MuchMore,
+MultiView, ...). Il nome del file di dump è ".whdl_register", la posizione di default è "PROGDIR:" ma può essere
+modificata con l'opzione <a href="opt.html#CoreDumppath">CoreDumpPath</a>. Se ci sarà già un file con lo stesso nome,
+il dump verrà accodato - altrimenti ne verrà creato uno nuovo.
+<h4><a name="complete">Dump file completo</a></h4> Il dump file completo è un file IIF contenente le informazioni di tutti
+i dump file precedenti. Questo file è generato per poter essere utilizzato da altre applicazioni. La struttura del file è
+descritta in un file aggiuntivo chiamato <tt>whddump.i</tt>. Applicazioni che utilizzano il dump file completo sono
+WHDLoadGCI (interfaccia grafica per i programmatori) e <ahref="sp.html">SP</a> (salva immagine).
+Il nome del file creato è ".whdl_dump". La posizione di default è "PROGDIR:" ma può essere modificata con l'opzione 
+<a href="opt.html#CoreDumpPath">CoreDumpPath</a>. Se esiste un file con lo stesso nome questo sarà sovrascritto.
+<h4><a name="FileLog">Log di accesso ai file</a></h4>
+Verrà creato un log di tutti gli accessi ai dischi se l'opzione <a href="opt.html#FileLog">FileLog/S</a> sarà stata
+attivata. Questa funzione è molto utile per analizzare le operazioni sui dischi del programma installato per il debug e
+l'ottimizzazione. Le operazioni eseguite dalle seguenti funzioni di resload andranno a finire all'interno del log:
+<ul>
+<li><a href="../autodoc.html#resload_DeleteFile">resload_DeleteFile</a>
+<li><a href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a>
+<li><a href="../autodoc.html#resload_Examine">resload_Examine</a>
+<li><a href="../autodoc.html#resload_ExNext">resload_ExNext</a>
+<li><a href="../autodoc.html#resload_GetFileSize">resload_GetFileSize</a>
+<li><a href="../autodoc.html#resload_GetFileSizeDec">resload_GetFileSizeDec</a>
+<li><a href="../autodoc.html#resload_ListFiles">resload_ListFiles</a>
+<li><a href="../autodoc.html#resload_LoadFile">resload_LoadFile</a>
+<li><a href="../autodoc.html#resload_LoadFileDecrunch">resload_LoadFileDecrunch</a>
+<li><a href="../autodoc.html#resload_LoadFileOffset">resload_LoadFileOffset</a>
+<li><a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a>
+<li><a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>
+</ul>
+Ogni accesso ai file tramite le funzioni sopraelencate, aggiungeranno una riga nel file di log. La riga identificherà la
+funzione chiamata, il CRC dei dati scritti/letti, i parametri ed il risultato. WHDLoad accumulerà i dati del log in un
+<a href="opt.html#LogBuffer">buffer/K/N</a> interno. Il buffer verràliberato all'uscita o durante un accesso se sarà pieno.
+Le informazioni verranno scritte in un file ASCII, il nome del dump è ".whdl_log" (nelle versioni di WHDLoad precendenti
+alla 18.0 il nome era ".whdl_filelog").
+La posizione di default è "PROGDIR:" ma può essere cambiata tramite l'opzione
+<a href="opt.html#CoreDumppath">CoreDumpPath</a>.
+Se un file con lo stesso nome esiste già il log verrà aggiunto, altrimenti un nuovo file verrà creato.
+</BODY>
+</HTML>

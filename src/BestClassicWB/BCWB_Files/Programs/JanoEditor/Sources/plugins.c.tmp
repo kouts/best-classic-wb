@@ -1,0 +1,146 @@
+/**********************************************************
+**                                                       **
+**      $VER: Plugins.c v1.0 (23.11.2002)                **
+**      Utility function to enable external programs     **
+**      to access and process internal files of Jano     **
+**                                                       **
+**      © T.Pierron, C.Guilaume. Free software under     **
+**      terms of GNU public license.                     **
+**                                                       **
+**********************************************************/
+
+#include <dos/dos.h>
+#include <exec/memory.h>
+#include "Project.h"
+#include "ProtoTypes.h"
+#include "Plugins.h"
+
+extern Project first;
+
+/* Gives to an external process the list of opened files inside Jano */
+APTR build_project_id_list( void )
+{
+	Project * list = AllocVec( sizeof(list) * NbProject );
+	Project   p;
+	int       i;
+
+	if( list )
+		for( p = first, i = 0; p; list[ i ] = p, p = p->next, i++ );
+
+	return list;
+}
+
+#define	fd    ((struct FileDescriptor *)file)
+
+/* Open a file descriptor associated to an internal project */
+APTR open_project( APTR id, WORD mode )
+{
+	Project p;
+	APTR    file;
+	
+	for( p = first; p && p != id; p = p->next );
+
+	if( p && (fd = AllocVec( sizeof(*fd), MEMF_PUBLIC | MEMF_CLEAR )) )
+	{
+		p->open_count ++;
+		fd->fd_Project    = p;
+		fd->fd_CurLinePtr = p->the_line;
+	}
+	return file;
+}
+
+/* Add a string to current position of a file */
+BOOL write_data( APTR file, STRPTR str, ULONG length )
+{
+	Project edit;
+	ULONG   cpos[3];
+	BOOL    err;
+
+	edit = fd->fd_Project;
+	add_string( NULL, fd->fd_CurLinePtr, fd->fd_CurColumn, str, length, cpos );
+
+	edit->max_lines += buf[2];
+
+	/* Try to always show end of inserted text */
+	if( buf[1] > 0 )
+	{
+		ULONG newtop;
+
+		edit->nbl = fd->fd_CurLine + buf[1];
+		newtop    = center_vert( edit );
+		
+		if( newtop == edit->top_line )
+		{
+			scroll_up( edit, fd->fd_CurLinePtr,
+				(fd->fd_CurLine-newtop) * YSIZE + gui.topcurs, edit->left_pos );
+		}
+		else /* Redraw whole content */
+		{
+			Line ln = edit->show;
+			LONG nb = newtop - edit->top_line;
+			if(nb < 0) while( nb++ ) ln = ln->prev;
+			else       while( nb-- ) ln = ln->next;
+			edit->show = ln;
+			redraw_content( edit, edit->show, gui.topcurs, gui.nbline );
+		}
+	}
+	else REDRAW_CURLINE(edit);
+
+	/* Move cursor forward */
+	fd->fd_CurLine  += buf[1];
+	fd->fd_CurColumn = buf[0];
+
+	while( buf[1] ) { buf[1]--; fd->fd_CurLinePtr = fd->fd_CurLinePtr->next; }
+
+	if( buf[2] > 0 ) prop_adj(edit);
+
+	/* Actually only ERROR_NO_FREE_STORE is possible and set by add_string() */
+	return IoErr();
+}
+
+/*
+ * Read data from a file - Notice that (once not usual), this function 
+ * actually never fails :-)
+ */
+LONG read_data( APTR file, STRPTR buffer, ULONG length )
+{
+	LONG   lsize = fd->fd_CurLinePtr->size - fd->fd_CurColumn;
+	Line   line  = fd->fd_CurLinePtr;
+	STRPTR buf   = buffer;
+
+	if( line == NULL ) return 0;
+
+	/* Copy first partially "selected" line */
+	CopyMem( line->stream + fd->fd_CurColumn, buf, lsize );
+	buf    += lsize;
+	length -= line->size;
+	line    = line->next;
+
+	while( line && line->size < length )
+	{
+		*buf++ = '\n';
+		CopyMem( line->stream, buf, line->size );
+		buf    += line->size;
+		length -= line->size+1;
+		line    = line->next;
+	}
+	/* Do not handle special cases in main loop */
+	if( line && length )
+	{
+		*buf++ = '\n'; length--;
+		CopyMem( line->stream, buf, length );
+		buf += length;
+	}
+	fd->fd_CurLinePtr = line;
+	fd->fd_CurColumn  = length;
+
+	/* Nb. of character read */
+	return buf - buffer;
+}
+
+#if	0
+BOOL seek_cursor( APTR file, LONG pos, UWORD whence )
+{
+	/* TODO */
+}
+#endif

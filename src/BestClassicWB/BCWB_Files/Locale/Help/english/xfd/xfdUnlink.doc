@@ -1,0 +1,40 @@
+NAME
+	xfdUnlink 1.01
+
+SYNOPSIS
+	xfdUnlink SOURCE/A,DEST1/A,DEST2/A
+
+DESCRIPTION
+	xfdUnlink unlinks files that have been linked together with
+	so-called 4EB9-Linkers. It requires either Kickstart V37+
+	or the arp.library together with older OS releases.
+
+	SOURCE specifies the file (with path) that should be
+	unlinked. No wildcards or directories supported.
+
+	DEST1 and DEST2 specify the filenames that should be
+	used to save the unlinked files.
+
+EXAMPLE
+	Shell> xfdUnlink dh0:Linked ram:Unlinked1 ram:Unlinked2
+
+	Unlinks the file 'dh0:Linked' and saves the resulting
+	files as 'ram:Unlinked1' and 'ram:Unlinked2'.
+
+HISTORY
+	xfdUnlink 1.01
+	- Fixed xfdFreeObject() call. Some bytes have not been
+	  released correctly. Thanks to WEPL for the hint.
+
+	xfdUnlink 1.00
+	- First public release. Just a very simple program that
+	  does what is necessary.
+
+COPYRIGHT
+	xfdUnlink is freely distributable for noncommercial use.
+
+AUTHOR
+	Georg Hörmann
+	Martinswinkelstraße 16c
+	82467 Garmisch-Partenkirchen
+	Germany

@@ -1,0 +1,186 @@
+<HTML>
+<HEAD>
+<TITLE>Programmation de WHDLoad</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: howto.html 1.7 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Flot d'ex&eacute;cution</h3>
+<p>Le tableau suivant montre le flot d'ex&eacute;cutions d'un programme install&eacute; par WHDLoad.
+J'esp&egrave;re que cela aidera &agrave; comprendre comment WHDLoad fonctionne et comment WHDLoad,
+le slave et le programme install&eacute; coop&egrave;rent.</p>
+<table cellpadding=3>
+  <tr>
+    <td valign=top>L'UTILISATEUR</td>
+    <td>
+      <ul>
+        <li>d&eacute;marre la d&eacute;mo ou le jeu en cliquetant sur l'ic&ocirc;ne ou en d&eacute;marrant WHDLoad par la ligne de commande.
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Le syst&egrave;me d'exploitation</td>
+    <td valign=top>
+      <ul>
+        <li>charge l'ex&eacute;cutable WHDLOAD et le d&eacute;marre
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>WHDLoad</td>
+    <td>
+      <ul>
+        <li>v&eacute;rifie l'environnement logiciel et mat&eacute;riel
+        <li>charge et v&eacute;rifie le slave
+        <li>alloue la m&eacute;moire n&eacute;cessaire pour le programme install&eacute;
+        <li>Si <a href="opt.html#Preload">Preload/S</a> est activ&eacute;, les images disques et les fichiers sont charg&eacute;s en m&eacute;moire (tant qu'il reste de la m&eacute;moire)
+        <li>d&eacute;sactive le syst&egrave;me d'exploitation (d&eacute;sactive le multit&acirc;che et les interruptions, restreint l'environnement graphique &agrave; l'OCS, initialise tout le mat&eacute;riel avec des valeurs d&eacute;finies)
+        <li>saute dans le code du slave.
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Slave</td>
+    <td>
+      <ul>
+        <li>charge le programme principal du programme install&eacute; en appelant une fonction WHDLoad (par exemple <a
+            href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a> ou <a
+            href="../autodoc.html#resload_LoadFile">resload_LoadFile</a>)
+        <li>modifie le programme principal (pour que ce programme charge ses donn&eacute;es &agrave; travers le slave, pour corriger des probl&egrave;mes de compatibilit&eacute;, pour am&eacute;nager une sortie du programme)
+        <li>appelle le programme principal
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Programme install&eacute;</td>
+    <td>
+      <ul>
+        <li>fait les choses qu'il a &agrave; faire
+        <li>au chargement des donn&eacute;es &agrave; partir du disque, il appelle le slave
+            (car celui-ci a modifi&eacute; le programme pour cela pr&eacute;c&eacute;demment), et
+            le slave appelle WHDLoad, et WHDLoad active partiellement l'OS
+            pour charger les donn&eacute;es (uniquement si les donn&eacute;es ne sont pas <a
+            href="opt.html#Preload">Preload</a>'ed), puis retourne, retourne
+            et le programme install&eacute; continue.
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>L'UTILISATEUR</td>
+    <td>
+      <ul>
+        <li>sort du programme en appuyant sur la <a
+            href="opt.html#QuitKey">Touche pour quitter</a>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>Le Slave</td>
+    <td>
+      <ul>
+        <li>retourne &agrave; WHDLoad et appelant <a
+            href="../autodoc.html#resload_Abort">resload_Abort</a>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign=top>WHDLoad</td>
+    <td>
+      <ul>
+        <li>r&eacute;active l'OS (restaure les registres du hardware, l'affichage, et la m&eacute;moire)
+        <li>lib&egrave;re toutes les resources allou&eacute;es
+        <li>retourne au syst&egrave;me d'exploitation
+      </ul>
+    </td>
+  </tr>
+</table>
+<h3>Comment installer un programme simple &agrave; 1 disque avec un chargement de pistes</h3>
+C'est un guide pas &agrave; pas tr&egrave;s petit et court qui explique comment cr&eacute;er un install en utilisant WHDLoad. Le guide refl&egrave;te un cas simple et id&eacute;al. Dans le monde r&eacute;el, un tel cas n'arrive probablement jamais. Pour les cas particuliers et les probl&egrave;mes, lire les chapitres suivants.
+<ol>
+  <li>Travail pr&eacute;liminaire
+    <ul>
+      <li>Cr&eacute;er un tiroir qui contient tous les fichiers.
+      <li>Cr&eacute;er une image disque en utilisant<A HREF="dic.html"> DIC </A> dans ce r&eacute;pertoire.
+      <li>Cr&eacute;er un fichier <a href="opt.html#optwb">#?.info</a> avec "WHDLoad" comme &lt;Outil par d&eacute;faut&gt; et un tooltype "SLAVE=#?" contenant le nom du slave (ou copier simplement une ic&ocirc;ne d'un exemple d'install, d&eacute;sactiver tous les tooltypes sauf "SLAVE=").
+    </ul>
+  <li>Le Slave<br>
+    Pour &eacute;crire le slave nous avons besoin des informations suivantes:
+    <ol>
+      <li>O&ugrave; est situ&eacute; le programme ex&eacute;cutable principal sur le disque ?
+      <li>O&ugrave; est situ&eacute; le programme de chargement dans le programme principal ?<br>
+    </ol>
+Pour obtenir ces informations, nous analysons d'abord le secteur de boot. La plupart du temps, le programme principal est charg&eacute; &agrave; partir d'un exec.DoIO(). Parfois un programme de chargement sp&eacute;cial se trouve dans le secteur de boot.
+A pr&eacute;sent, nous &eacute;crivons un slave qui simule le bootblock et qui charge le programme principal &agrave; partir de l'image disque.
+Maintenant nous extrayons le programme principal de l'image ou d'un
+    <a href="dump.html#memory">dump m&eacute;moire</a>. Apr&egrave;s cela, nous devons trouver
+le programme de chargement dans le programme principal. Une fa&ccedil;on rapide est de rechercher les chaînes de données $AAAAAAAAA ou $55555555 (utilis&eacute; par le d&eacute;codage MFM)
+avec un &eacute;diteur hexad&eacute;cimal. Couper la zone trouvée &agrave; (+/- $1000 octets),
+la d&eacute;sassembler, et rechercher le d&eacute;but de la routine. Comprendre la liste des
+param&egrave;tres. Maintenant, nous cr&eacute;ons le code du slave qui redirige la routine
+de chargement vers le slave. Ce dernier ajuste alors les param&egrave;tres et appelle
+la fonction <a
+    href="../autodoc.html#resload_DiskLoad">resload_DiskLoad</a>.
+  <li>Dans le cas id&eacute;al, l'install est alors termin&eacute;.<br>
+Une derni&egrave;re chose &agrave; faire est de cr&eacute;er une ic&ocirc;ne sympa. R&eacute;cup&eacute;rer 2 images en utilisant
+<a href="snoop.html">snoop</a> dans WHDLoad et <a href="sp.html">SP</a>
+ou un moniteur syst&egrave;me ou U.A.E. pour extraire les images d'écran et cr&eacute;er l'ic&ocirc;ne. La palette &agrave; 16 couleurs <a
+href="http://aminet.de/package/pix/mwb/RomIcons10.lha">RomIcon</a>
+est recommand&eacute;e.
+</ol>
+<h3>Probl&egrave;mes possibles et cas sp&eacute;ciaux</h3>
+<h4>Chargeur de pistes non standard</h4>
+Certains programmes utilisent leur propre format de piste. Cela signifie que <a
+href="dic.html">DIC</a> est incapable de cr&eacute;er les images disque. Pour cr&eacute;er les fichiers ou les images &agrave; partir de tels disques, l'utilisation de <a href="rawdic.html">RawDIC</a> est
+recommand&eacute;e. Consultez la documentation de RawDIC pour plus d'informations.
+<h4>Plusieurs disques</h4>
+Si le programme utilise plus d'un disque, le slave doit rediriger les acc&egrave;s disque vers l'image appropri&eacute;e. Parfois cela n'est pas facile. Certains programmes utilisent plus d'un lecteur, donc vous pouvez utiliser le num&eacute;ro du lecteur pour s&eacute;lectionner le disque. La plupart des programmes utilisent un identificateur sur chaque disque pour les distinguer. Dans ce cas, utilisez une variable qui contient le num&eacute;ro du disque, et &agrave; chaque acc&egrave;s &agrave; l'identificateur du disque (trouver un tel acc&egrave;s en analysant les param&egrave;tres du chargeur), augmenter la variable (si le dernier disque est atteint, la remettre &agrave; 0). Avec un peu de chance, le chargeur relit l'identificateur encore et encore jusqu'&agrave; ce que le bon disque soit ins&eacute;r&eacute;. Parfois une requ&ecirc;te du programme demandant d'ins&eacute;rer le bon disque appara&icirc;t. D&eacute;sactivez-l&agrave;.
+<h4>Sauvegarde des meilleurs scores</h4>
+Pas grand chose &agrave; dire ici. Utiliser <a
+href="../autodoc.html#resload_SaveFile">resload_SaveFile</a> pour &eacute;crire la zone de m&eacute;moire appropri&eacute;e sur le disque. Vous pouvez aussi crypter le fichier pour &eacute;viter que des gros nazes le modifient trop facilement. Il est d&eacute;conseill&eacute; d'&eacute;crire directement sur les images disque en utilisant
+<a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>, en effet, si
+quelque chose se passe mal (par exemple plantage), il est possible que les images soient corrompues.
+<h4>Sauvegarde des parties</h4>
+M&ecirc;me chose que pour les hiscores.
+<h4>Acc&egrave;s au syst&egrave;me d'exploitation</h4>
+Quand le slave et le programme install&eacute; sont ex&eacute;cut&eacute;s, aucune fonction du syst&egrave;me n'est disponible! Cependant, il faut d&eacute;sactiver toutes les tentatives d'acc&egrave;s par le programme install&eacute;. S'il n'y en a pas beaucoup, et s'ils n'ont pas beaucoup d'int&eacute;r&ecirc;t dans l'environnement WHDLoad (comme
+exec.Disable() ou exec.SuperState()), les convertir en NOP ($4e71). Si l'acc&egrave;s est une fonction importante (comme exec.DoIO()), redirigez les vers le slave et &eacute;mulez les. S'il y en a beaucoup, cr&eacute;ez une simple biblioth&egrave;que exec dans une zone inutilis&eacute;e (initialisez le mot long &agrave; l'adresse $4). Vous pouvez jeter un oeil &agrave; la source du slave d'Oscar, qui &eacute;mule
+exec.AllocMem(). Pour d&eacute;tecter les acc&egrave;s au syst&egrave;me d'exploitation, execbase est mis initialement &agrave; $f0000001 afin que toutes les routines qui essayent d'utiliser execbase cr&eacute;eront une exception "Address Error".<br>
+Si un usage intensif des fonctions de l'OS il y a, utilisez un des paquetages kickemu qui se trouvent dans l'archive whdload d&eacute;veloppement.
+Il existe un paquetage pour le Kick 1.3 ('src/sources/whdload/kick13.s') et un pour le Kick 3.1 ('src/sources/whdload/kick31.s').
+Ces paquetages n&eacute;cessitent une image kickstart et cr&eacute;&eacute;nt un environnement syst&egrave;me complet &agrave; l'int&eacute;rieur de l'espace WHDLoad. Consulter &eacute;galement le fichier readme fourni pour de plus amples informations.
+<h3>Probl&egrave;mes de compatibilit&eacute; courants</h3>
+<h4>Espace d'adressage limit&eacute; sur 68000/68010/68ec020</h4>
+Sur ces processeurs, l'espace d'adressage est limit&eacute; &agrave; 16 m&eacute;ga-octets ($000000...$ffffff)
+parce que le CPU poss&egrave;de uniquement 24 lignes d'adresse. Aussi, les acc&egrave;s &agrave; des adresses sup&eacute;rieures sont en fait effectu&eacute;es sur les 16MB de base, et les 8 bits de poids fort sont ignor&eacute;s comme s'ils &eacute;taient &agrave; z&eacute;ro.
+Certains programmes utilisent ces octets pour stocker des donn&eacute;es, ou oublient simplement de les mettre &agrave; z&eacute;ro. Sur un processeur &agrave; espace d'adressage 32 bits (4 giga-octets)
+comme les 68020/68ec030/68030/68040/68060, ces programmes ne fonctionneront pas,
+car l'adresse compl&egrave;te 32 bit sera utilis&eacute;e. <br>Pour r&eacute;soudre ce probl&egrave;me,
+vous devez patcher ces acc&egrave;s et les rediriger vers l'adresse appropri&eacute;e.
+<br>Parfois la raison de ces acc&egrave;s &agrave; de telle adresse est un pointer non-initialis&eacute;.
+Dans ce cas, il serait utile d'effacer le contenu de la m&eacute;moire de $400 &agrave;
+<a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a>.
+<h4>Structures de pile diff&eacute;rentes selon le processeur</h4>
+Les structures de pile cr&eacute;&eacute;es par le processeurs lors d'interruptions ou d'exceptions sont diff&eacute;rentes entre les membres de la famille des 680x0.
+Sur le 68000, la structure de la pile comporte 6 octets, sauf en cas d'erreurs d'adressage et d'erreurs de bus. La structure de pile contient le SR dans (a7) et le PC dans (2,a7). Sur tous les autres processeurs (68010+), la taille minimale de structure de pile est 8 octets et contient le num&eacute;ro du vecteur d'interruption/exception dans (6,a7). Cette structure de pile est cr&eacute;&eacute;e pour "Trap #xx" et les interruptions sur 68010-68060. Les structures de pile sur d'autres exceptions sont diff&eacute;rentes sur chaque processeur. L'instruction RTE fonctionne diff&eacute;remment entre le 68000 et le 68010+. Sur un 68000, il restaure simplement le SR et le PC et continue l'ex&eacute;cution du programme &agrave; l'addresse o&ugrave; il avait &eacute;t&eacute; interrompu. Sur les processeurs 68010+, il lib&egrave;re en plus le reste de la structure de pile selon le format de celle-ci. <br>Certains
+programmes empilent une adresse (PC) et un SR et ex&eacute;cutent un RTE. Cela fonctionne uniquement sur 68000. Sur un 68010+, le r&eacute;sultat est inattendu.
+<br>Si un programme fait cette op&eacute;ration, vous devez r&eacute;parer &ccedil;a. Parfois, il suffit de remplacer le RTE par un RTR.
+<h4>MOVEM.x RL,-(An) sur 68000/010 et 68020-060</h4>
+Il existe une diff&eacute;rence si le registre utilis&eacute; dans le mode pr&eacute;d&eacute;cr&eacute;mentation est aussi dans la liste des registres. Pour le 68020-040, la valeur &eacute;crite en m&eacute;moire est la valeur initiale du registre d&eacute;cr&eacute;ment&eacute;e de la taille de l'op&eacute;ration. Le 68000 et le 68010 &eacute;crivent la valeur initiale du registre (non d&eacute;cr&eacute;ment&eacute;e).<br>Une telle construction &eacute;tant peu utile, aucun logiciel n'est connu pour avoir des probl&egrave;mes &agrave; cause de cela.
+<h3>Conseils g&eacute;n&eacute;raux pour &eacute;crire des installs</h3>
+<ul>
+<li>Ne pas modifier les registres CPU des processeurs plus r&eacute;cents comme le VBR ou le CACR. Le VBR est toujours &agrave; 0 du point de vue du programmeur du slave, m&ecirc;me s'il est d&eacute;plac&eacute; en raison de l'&eacute;mulation des auto vecteurs (et des traps si le flag <a
+href="../autodoc.html#WHDL_EmulTrap">WHDL_EmulTrap</a> est mis). Les bits dans le CACR sont diff&eacute;rents pour chaque processeur. Il y a une seule fa&ccedil;on correcte de modifier les caches, c'est en utilisant <a href="../autodoc.html">resload_SetCACR/SetCPU</a>
+et les bitdefs de 'exec/execbase.i' et 'whdload.i'. Il faut &eacute;galement d&eacute;sactiver ou sauter tout ce qui concerne ces registres dans le programme install&eacute; sinon WHDLoad ne fonctionnera pas correctement.
+<li>Ne jamais modifier les images disque. Cela pr&eacute;sente l'avantage de permettre de cr&eacute;er des disquettes avec les images et de d&eacute;marrer le jeu &agrave; partir des disquettes (&agrave; condition que le programme fonctionne sans corrections, ce qui est loin d'&ecirc;tre le cas le plus probable).
+<li> Ne jamais inclure de donn&eacute;es/fichiers originaux du programme directement dans le slave (probl&egrave;me de copyright).
+<li>Activer les caches uniquement si vous &ecirc;tes s&ucirc;r que le programme tourne sur tous les processeurs.
+<li>Utiliser le moins de m&eacute;moire de base possible (<a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a>). Certains utilisateurs ont des tags r&eacute;sidents &agrave; la fin de la m&eacute;moire Chip, aussi il est int&eacute;ressant d'utiliser uniquement $1f0000 au lieu de $200000 et WHDLoad peut utiliser de la m&eacute;moire allou&eacute;e en absolu.
+</ul>
+<h3>Trucs et astuces</h3>
+<h4>Quel est la meilleure solution: fichiers images disque ou fichiers ?</h4>
+Parfois vous devez choisir entre fichiers images disque ou vrais fichiers. Les deux ont leurs avantages.
+L'utilisation des images disque est souvent la fa&ccedil;on la plus facile et rapide de cr&eacute;&eacute;r le slave. Mais les vrais fichiers sont plus facilement cach&eacute;s (s'il y a peu de m&eacute;moire ou que celle-ci est fragment&eacute;e). L'espace requis sur le disque dur est &eacute;galement moindre avec des vrais fichiers qu'avec des images disque. Utilisez les images disque que s'il y a beaucoup de fichiers (plus de 30).
+</BODY>
+</HTML>

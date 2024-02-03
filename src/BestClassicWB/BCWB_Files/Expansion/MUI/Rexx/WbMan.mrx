@@ -1,0 +1,22 @@
+/*
+** This script shows how to obtain a list
+** of an applications ARexx commands.
+*/
+
+options results
+address 'WBMAN'
+
+
+/* read the list into a temporary file */
+
+'help t:_tmp'
+
+
+/* type the file to stdout */
+
+address command "type t:_tmp"
+
+
+/* delete the temporary file */
+
+address command "delete >nil: t:_tmp"

@@ -1,0 +1,26 @@
+/* $VER: ZIC 1.0 (15.01.15)
+ * 
+ * This file enables CrossDOS (PC FAT16) on a 100MB Zip drive.
+ * 
+ */
+
+FileSystem	= L:CrossDOSFileSystem
+Flags		= 0
+Surfaces	= 1
+SectorsPerTrack	= 32
+SectorSize      = 512
+Reserved	= 0
+Interleave	= 0
+Buffers		= 128
+BufMemType	= 1
+MaxTransfer	= 0x01FE0000
+Mask		= 0xFFFFFFFC
+BootPri		= -127
+StackSize	= 8192
+Priority	= 10
+DosType		= 0x4D534400
+LowCyl		= 1
+HighCyl         = 6143
+Mount		= 1
+Activate	= 1
+GlobVec		= -1

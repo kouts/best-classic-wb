@@ -1,0 +1,159 @@
+Short: v1.2, Extract files out of DOS ADF files.
+Author: Andrew Bell <andrew.ab2000@bigfoot.com>
+Uploader: Andrew Bell <andrew.ab2000@bigfoot.com>
+Type: disk/misc
+Requires: 020+, OS 3.0+, 2MB of fast memory recommended.
+Version: 1.2
+
+(See "History" for info on the changes made since the last public release)
+
+Introduction
+------------
+
+UnADF is a Shell tool that allows you to extract the files out of an
+AmigaDOS OFS/FFS formatted ADF disk image file. With the various versions
+of UAE available, ADF files have become very common. An ADF file is simply
+the entire data of an Amiga floppy disk saved as a file. UnADF allows you
+to save the entire contents (i.e files & dirs) of these ADF files to your
+harddrive.
+
+AmigaDOS ADF files are very similar to archives, they contain files just
+like archives do, but weren't actually intended for this purpose.
+
+UnADF allows you to quickly obtain files from within ADFs, without having
+to resort to device drivers such as fmsdisk.device.
+
+Features
+--------
+
+UnADF supports OFS, OFS-Intl, OFS-DirCache, FFS, FFS-Intl and FFS-DirCache
+ADF floppy formats. It also supports hard links to files and directories,
+that are normally created with the AmigaDOS "makelink" command. Both
+Double Density (901120 bytes) and High Density (1802240 bytes) image sizes
+are supported.
+
+With the help of xfdmaster.library, UnADF can decompress compressed ADF
+files before extracting. xfdmaster.library is not included with UnADF, but
+can be obtained from Aminet. UnADF does not require xfdmaster.library and
+will work without it.
+
+Notes
+-----
+
+Softlinks are currently not supported in this version of UnADF, and all
+checksums are ignored, so always check that your data is valid after you
+extract it.
+
+UnADF might slow down a little if it encounters an ADF with heavily
+fragmented hash chains or data blocks.
+
+But floppies are obsolete!
+--------------------------
+
+Just because the medium itself is becoming obsolete, it doesn't mean that the
+data on those disks is obsolete too. For example, I bought 9 or 10 commercial
+Amiga titles fairly recently, and half of these came on floppy disks! I use
+FloppyFlux to store backups of these disks on my harddrive as ADFs. If I
+need to get files from them, I use UnADF. I try to avoid them little plastic
+floppy disks as much as possible, I'm only interested in the data they
+hold. ;)
+
+You can get the latest version (currently 1.2) of FloppyFlux on Aminet at:
+disk/bakup/FloppyFlux.lha.
+
+Non-DOS ADF files
+-----------------
+
+Not all ADFs are formatted with FFS/OFS, but instead use their own custom
+disk format. This includes most games and demos, so UnADF will report these
+types of ADF files as non-DOS/corrupt or will report the rootblock as
+invalid.
+
+Requirements
+------------
+
+020+, OS 3.0+, 2MB of fast memory recommended.
+
+UnADF is *VERY* memory hungry, especially while decompressing ADFs.
+
+Usage
+-----
+
+UnADF is very easy to use. There are currently three parameters:
+
+LOWMEM - Tell UnADF not to load the entire ADF file to memory. This option
+         slows down UnADF a *LOT*! If this option is used, UnADF can't
+         decompress ADFs, because the entire ADF must be loaded into
+         memory for decompression.
+
+LIST   - Switch, this tells UnADF to list the contents of the ADF only.
+
+DEST   - The destination directory. A little note: UnADF doesn't actually
+         save the contents directly to this directory, but instead creates
+         a sub-directory inside it, with the name of the disk.
+
+         So for example, if an ADF was formatted with the name "Empty", UnADF
+         will use this name as the name of the sub-directory. If a sub-
+         directory already exists with this name, then UnADF will append an
+         extension in the form of <dirname>.<number>, e.g. Empty.001.
+
+Examples: UnADF Store:MyADF.adf DEST=ram:     ; save dir to ram:
+          UnADF dh1:ADisk LIST                ; view contents of an ADF
+
+History
+-------
+
+ 1.1 (28.12.99) - Initial release.
+
+ 1.2 (11.02.00) - UnADF now copies file comments, date stamps and protection
+                  flags. Added at the request of Jan R. Haugan.
+
+                - Redesigned the extraction routines. They are now a little
+                  slower, but very memory efficient.
+
+                - Added the LOWMEM parameter. This tells UnADF not to load
+                  the entire 900K+ ADF to memory. Only small amounts will
+                  be loaded into memory at any one time.
+
+                - Improved error checking while saving files.
+
+                - Added support for High Density ADF images. HD support
+                  never made it into version 1.1 because I didn't have a
+                  HD floppy drive to rip one for testing. Special thanks
+                  go to Dirk Stoecker for giving me some tips on how to
+                  create one without needing a HD floppy drive. :-)
+ 
+
+Copyright
+---------
+
+UnADF is Copyright © 1999 Andrew Bell. All rights reserved.
+
+UnADF is FREEWARE, this means you can copy it as many times as you like
+as long as no profit is gained from it's distribution and all of the files
+remain together in their original and unmodified state. You are not allowed
+to distribute modifed versions of UnADF or it's related files.
+
+With the rise of WinUAE, a lot of illegal ADF files have appeared on the
+Internet that contain copyrighted material, mainly games. I received a
+lot of emails assuming that FloppyFlux had been designed for storing such
+ADFs, let me put the record straight, I DID NOT! Both FloppyFlux and
+UnADF were designed for storing and handling personal disk collections
+such as PD or magazine floppy disks, and not illegal ADFs from pirate web
+sites.
+
+The author does not condone the use of illegal ADFs with UnADF or FloppyFlux.
+
+Author
+------
+
+My name is Andrew Bell and you can contact me via email at:
+
+-- andrew.ab2000@bigfoot.com
+
+Or to get the latest version of this program and to see my other work you
+can visit my web page at:
+
+-- http://www.andrewb.exl.co.uk
+
+Enjoy! :-)

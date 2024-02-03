@@ -1,0 +1,525 @@
+@DATABASE 0044
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - C. Parametri di programma e di ambiente"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}C.         Parametri di programma e di ambiente@{UB}
+
+Le sezioni @{"1.14" LINK PPaintCD:H/7/2/4/0002/Main 1520}, @{"9.1" LINK PPaintCD:H/7/2/4/0047/Main 9} e @{"9.2" LINK PPaintCD:H/7/2/4/0047/Main 87} spiegano come memorizzare in un file i
+parametri di ambiente e di programma. Questa appendice elenca i codici
+associati ai vari parametri, descrivendo il formato e la funzione delle
+possibili impostazioni.
+
+Tutti i valori numerici possono essere espressi sia nel formato decimale
+che in quello esadecimale (preceduti dal prefisso "0x"). Ad esempio, se si
+vuole assegnare il valore 16 al parametro COLORS, le espressioni "COLORS =
+16" e "COLORS = 0x10" sono equivalenti. Ogni file può contenere un numero
+di  impostazioni qualsiasi. Nel caso di assegnamenti multipli (ad es. se
+lo stesso codice appare più di una volta nel file), l'ultima definizione
+incontrata prevale sulle precedenti. Le sigle LONGMIN e LONGMAX indicano,
+rispettivamente, il valore minimo e massimo dei numeri a 32 bit accettati
+(da un valore negativo di alcuni miliardi ad uno positivo di alcuni
+miliardi, ovvero 0x7FFFFFFF). Analogamente, SHORTMIN = -32768 e SHORTMAX =
+32767 (0x7FFF).
+
+
+@{B}C.1        Parametri di programma@{UB}
+
+I parametri di programma sono impostazioni globali. Quando si assegna un
+dato valore a uno di essi, tale valore viene utilizzato per entrambi gli
+ambienti del programma.
+
+
+@{B}AUDCUE@{UB}  (Volume segnalazioni di conferma - Sezione @{"9.5" LINK PPaintCD:H/7/2/4/0047/Main 319})
+
+Valori: 0 .. 64.
+
+
+@{B}AUDERR@{UB}  (Volume segnalazioni di errore - Sezione @{"9.5" LINK PPaintCD:H/7/2/4/0047/Main 319})
+
+Valori: 0 .. 64.
+
+
+@{B}AUDIO@{UB}  (Segnalazioni audio - Sezione @{"9.5" LINK PPaintCD:H/7/2/4/0047/Main 319})
+
+0 = No, 1 = Sì
+
+
+@{B}BARS@{UB}  (Barra di schermo e barra strumenti - Sezioni @{"9.12.1" LINK PPaintCD:H/7/2/4/0047/Main 744} and @{"9.12.2" LINK PPaintCD:H/7/2/4/0047/Main 754})
+
+Valori: 0.. 3. Occorre sommare i singoli valori-opzione: 1 = Visualizzare
+barra del titolo, 2 = visualizzare barra strumenti.
+
+
+@{B}BKFTRANSP@{UB}  (Trasparenza di sfondo - Sezione @{"9.14.3" LINK PPaintCD:H/7/2/4/0047/Main 963})
+
+0 = No, 1 = Sì.
+
+
+@{B}CAVRESIZE@{UB}  (Rimodellamento con media - Sezione @{"9.13.3" LINK PPaintCD:H/7/2/4/0047/Main 833})
+
+0 = No, 1 = Sì.
+
+
+@{B}CREDUC@{UB}  (Riduzione colori - Sezione @{"9.7" LINK PPaintCD:H/7/2/4/0047/Main 363})
+
+0 = Qualitativa, 1 = Quantitativa.
+
+
+@{B}CREMAP@{UB}  (Adattamento colori - Sezione @{"9.8" LINK PPaintCD:H/7/2/4/0047/Main 414})
+
+0= Normale, 1 = Retinatura, 2 = Floyd-Steinberg.
+
+
+@{B}DISPLAY@{UB}  (Amiga DisplayID - Sezione @{"4.5" LINK PPaintCD:H/7/2/4/0049/Main 1127})
+
+Il valore 0xFFFFFFFF rappresenta il modo video dello schermo Workbench
+(particolarmente utile nei file parametri di startup). All'attivazione,
+Personal Paint condivide il modo video del Workbench, così da evitare
+sfarfallamenti del monitor in presenza di schede grafiche o di modi video
+con particolari frequenze.
+
+
+@{B}FILREQ@{UB}  (Opzioni del quadro selezione file - Sezione @{"9.9" LINK PPaintCD:H/7/2/4/0047/Main 510})
+
+Valori: 0 .. 63. Occorre sommare i singoli valori-opzione: 1 = Espandere
+percorso, 2 = File dopo cassetti, 4 = Ordinare secondo data, 8 = Doppio
+click, 16 = Conferma sovrascrittura, 32 = Quadro di sistema (ASL).
+
+
+@{B}FILTER@{UB}  (Filtri per l'elaborazione di immagini - Sezione @{"3.1.4" LINK PPaintCD:H/7/2/4/0017/Main 633})
+
+Formato: @{I}FILTER = "Nome", Tipo, <Matrice>, FDiv, Dev, DeltaX, DeltaY@{UI}
+
+Il campo Nome va incluso tra virgolette e può contenere i caratteri @{I}
+virgolette@{UI} e @{I}barra inversa@{UI} solo se questi sono preceduti dal carattere
+barra inversa ("\\").
+
+Tipo: 0 = Convoluzione, 1 = Quantità 2 = Casuale, 3 = Sparso, 4 = Riunito,
+5 = Floyd-Steinberg, 6 = Trasparenza ambiente, 7 = Trasparenza pennello, 8
+= Stereogramma.
+
+Matrice: 5 blocchi  (righe della matrice di convoluzione) di 5 valori
+ognuno. I campi vuoti devono essere impostati a zero. I valori ammessi
+sono SHORTMIN .. SHORTMAX.
+
+Il valore FDiv (Fattore di divisione) deve rientrare nel limite SHORTMIN
+.. -1 o 1 .. SHORTMAX per i filtri di convoluzione, e 1 .. 3 per i filtri
+Sparso e Riunito; negli altri tipi di filtro, il valore FDiv viene
+ignorato.
+
+Nella definizione dei filtri di convoluzione vengono considerati anche i
+valori Dev, DeltaX e DeltaY, che devono rientrare nel limite SHORTMIN ..
+SHORTMAX.
+
+Le seguenti note si riferiscono ai filtri di tipo stereogramma.
+
+Un valore "FDiv" ("Fattore di divisione", valori SHORTMIN .. SHORTMAX)
+maggiore di zero produce stereogrammi SIRDS (motivi casuali) e indica il
+numero di colonne da generare. Ciò significa che l'ampiezza del motivo
+casuale sarà uguale all'ampiezza dell'immagine divisa per "FDiv". Valori
+minori o uguali a zero producono stereogrammi SIPS (il pennello attuale
+viene usato come motivo grafico).
+
+Il parametro "Deviazione" (valori 1 .. 16) permette di intervenire sulla
+qualità dello stereogramma generato. Gli stereogrammi a bassa qualità
+(valori di deviazione bassi) possono riprodurre un maggior numero di
+livelli di profondità. In essi, tuttavia, alcune forme possono apparire
+leggermente alterate (ad es. larghe barre verticali che appaiono
+"ristrette"). Le immagini ad alta qualità sono più facili da vedere, ma la
+loro "piattezza" (di importanza relativa, vista l'ottima definizione) non
+lascia spazio a molti livelli di profondità.
+
+Il valore "DeltaX" (campo SHORTMIN .. SHORTMAX) viene usato per
+inizializzare il generatore di numeri casuali degli stereogrammi SIRDS (e
+di quelli SIPS con eliminazione dell'eco). Valori negativi producono un
+valore di inizializzazione sempre diverso, ad ogni elaborazione. Valori
+maggiori o uguali a zeroconsentono un'esatta riproduzione di immagini
+SIRDS, in quanto il motivo casuale resta costante per ogni singolo
+valore.
+
+Con il parametro "DeltaY" è possibile controllare diverse opzioni,
+associate a singoli bit. Il campo di valori possibili è 0 .. 3, ottenibili
+sommando: 1 = Simboli di riferimento (in cima all'immagine), 2 =
+Eliminazione dell'eco.
+
+
+@{B}GCLIP@{UB}  (Confinare grafica - Sezione @{"9.13.2" LINK PPaintCD:H/7/2/4/0047/Main 820})
+
+0 = No, 1 = Sì.
+
+
+@{B}ICONS@{UB}  (Scrittura icone - Sezione @{"9.10" LINK PPaintCD:H/7/2/4/0047/Main 607})
+
+0 = No, 1 = Sì (standard), 2 = Sì (immagini ridotte).
+
+
+@{B}LANG@{UB}  (Lingua interfaccia utente - Sezione @{"9.11" LINK PPaintCD:H/7/2/4/0047/Main 721})
+
+0 = Inglese, 1 = Tedesco, 2 = Italiano, 99 = Personalizzata.
+
+
+@{B}PATHANBSH@{UB}  (Percorso predefinito: anim-brush - Sezione @{"6.8" LINK PPaintCD:H/7/2/4/2151/Main 367})
+
+PATHBSH = @{I}"Percorso"@{UI}
+
+
+@{B}PATHBSH@{UB}  (Percorso predefinito: pennello - Sezione @{"5.1" LINK PPaintCD:H/7/2/4/0048/Main 17})
+
+PATHBSH = @{I}"Percorso"@{UI}
+
+
+@{B}PATHSET@{UB}  (Percorso predefinito: parametri - Sezione @{"9.1" LINK PPaintCD:H/7/2/4/0047/Main 9})
+
+PATHSET = @{I}"Percorso"@{UI}
+
+
+@{B}UNDOLIM@{UB}  (Annullamento multilivello - Sezioni @{"3.1.10" LINK PPaintCD:H/7/2/4/0017/Main 1334} e @{"9.3.2" LINK PPaintCD:H/7/2/4/0047/Main 220})
+
+UNDOLIM = @{I}MaxLivelli, MaxMemoria@{UI}
+
+Valori MaxLivelli: 1 .. SHORTMAX (numero di livelli annullamento).
+
+Valori MaxMemoria: 1 .. LONGMAX (in byte: 1 Mbyte = 1 048 576 byte).
+
+Il parametro MaxMemoria indica la quantità massima di memoria (compresa
+quella virtuale) utilizzabile per i livelli di annullamento (fino a un
+massimo di "MaxLivelli").
+
+Quando uno dei limiti viene raggiunto, i livelli più vecchi vengono
+progressivamente liberati per lasciare spazio a quelli più nuovi.
+
+A prescindere dalla regolazione di questi parametri, il programma
+garantisce sempre un livello di annullamento (anche se questo eccede il
+limite indicato dal parametro MaxMemoria).
+
+
+@{B}VIRTMEM@{UB}  (Parametri memoria virtuale - Sezione @{"9.3.1" LINK PPaintCD:H/7/2/4/0047/Main 150})
+
+VIRTMEM = @{I}"Percorso RAM", <Abilitazione RAM>, <Min. libero RAM>, "Percorso
+disco", <Abilitazione disco>, <Min. libero disco>@{UI}
+
+Percorso: Percorso (tra virgolette).
+
+Abilitazione: 0 = Disabilitato, 1 = Abilitato.
+
+Min. libero: espresso in byte (1 Mbyte = 1.048.576 byte).
+
+
+@{B}WBCLOSE@{UB}  (Chiusura Workbench in emergenza - Sezioni @{"4.10.2" LINK PPaintCD:H/7/2/4/0049/Main 1443} e @{"9.3.3" LINK PPaintCD:H/7/2/4/0047/Main 241})
+
+WBCLOSE = @{I}Abilitazione@{UI}
+
+0 = Chiusura non consentita, 1 = Chiusura abilitata.
+
+In caso di scarsità di memoria, e se consentito da questo parametro,
+Personal Paint può automaticamente chiudere lo schermo Workbench per
+liberare memoria.
+
+
+@{B}WBENCH@{UB}  (Schermo Workbench - Sezione @{"9.15" LINK PPaintCD:H/7/2/4/0047/Main 973})
+
+0 = Chiuso, 1 = Aperto.
+
+
+@{B}C.2        Parametri ambiente@{UB}
+
+I valori assegnati ai parametri ambiente sono relativi all'ambiente in uso
+al momento della lettura del file (i parametri @{U}di programma@{UU} impostati
+nello stesso file influiscono, invece, su entrambi gli ambienti).
+
+
+@{B}ASCROLL@{UB}  (Autotraslazione - Sezione @{"4.5.4" LINK PPaintCD:H/7/2/4/0049/Main 1275})
+
+0 = No, 1 = Sì.
+
+
+@{B}COLORS@{UB}  (Numero di colori - Sezione @{"4.5.3" LINK PPaintCD:H/7/2/4/0049/Main 1261})
+
+Il numero di colori dello schermo e dell'immagine deve essere compatibile
+con l'impostazione del parametro DISPLAY (modo video). I valori validi per
+i sistemi Amiga con architettura grafica avanzata sono: 2, 4, 8, 16, 32,
+64, 128 e 256.
+
+
+@{B}COORD@{UB}  (Coordinate - Sezione @{"9.6" LINK PPaintCD:H/7/2/4/0047/Main 345})
+
+0 = No, 1 = Origine 0:0, 2 = Origine 1:1.
+
+
+@{B}DISPLAY@{UB}  (Amiga DisplayID - Sezione @{"4.5" LINK PPaintCD:H/7/2/4/0049/Main 1127})
+
+L'identificatore specificato permette di attivare l'equivalente modo
+video. I programmatori possono trovare i valori relativi ai diversi modi
+video nei file "graphics/displayinfo.h" (file di inclusione del sistema
+operativo 1.@{I}x@{UI} e 2.@{I}x@{UI}) o "graphics/modeid.h" (sistema operativo 3.@{I}x@{UI}).
+
+
+@{B}IMAGEH@{UB}  (Altezza immagine - Sezione @{"4.5.2" LINK PPaintCD:H/7/2/4/0049/Main 1239})
+
+Il valore indicato definisce l'altezza dell'immagine attuale (limite
+blitter originale: 1024; limite ECS e architettura grafica avanzata:
+32767).
+
+
+@{B}IMAGEW@{UB}  (Larghezza immagine - Sezione @{"4.5.2" LINK PPaintCD:H/7/2/4/0049/Main 1239})
+
+La larghezza dell'immagine attuale può essere superiore a quella dello
+schermo in uso. La dimensione massima è stabilita dal chip blitter di
+Amiga (1008 pixel per i modelli Amiga con chip set originale e 32752 per i
+modelli con ECS e architettura grafica avanzata).
+
+
+@{B}LOCKDISP@{UB}  (Blocco modo video - Sezione @{"4.5" LINK PPaintCD:H/7/2/4/0049/Main 1127})
+
+LOCKDISP = @{I}Attivazione blocco@{UI}
+
+0 = Sbloccato, 1 = Bloccato.
+
+
+@{B}MGFYGRID@{UB}  (Griglia nell'area ingrandita - Sezione @{"3.1.8" LINK PPaintCD:H/7/2/4/0017/Main 1267})
+
+Indica il tipo/attivazione di griglia: 0 = Nessuna griglia, 1 = Linee, 2 =
+Punti (linee con il colore di fondo).
+
+
+@{B}PALETTE@{UB}  (File tavolozza colori - Sezioni @{"8.1.1" LINK PPaintCD:H/7/2/4/0016/Main 52} and @{"9.1" LINK PPaintCD:H/7/2/4/0047/Main 9})
+
+Formato: @{I}PALETTE = "Nome del file"@{UI}
+
+Il campo "Nome del file" va incluso tra virgolette e può contenere i
+caratteri @{I}virgolette@{UI} e @{I}barra inversa@{UI} solo se questi sono preceduti dal
+carattere barra inversa ("\\").
+
+
+@{B}PATHANIM@{UB}  (Percorso predefinito: animazione - Sezione @{"6.1" LINK PPaintCD:H/7/2/4/2151/Main 106})
+
+PATHANIM = @{I}"Percorso"@{UI}
+
+
+@{B}PATHCOL@{UB}  (Percorso predefinito: tavolozza colori - Sezione @{"8.1.1" LINK PPaintCD:H/7/2/4/0016/Main 52})
+
+PATHCOL = @{I}"Percorso"@{UI}
+
+
+@{B}PATHPIC@{UB}  (Percorso predefinito: immagine - Sezione @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11})
+
+PATHPIC = @{I}"Percorso"@{UI}
+
+
+@{B}PATHPLAY@{UB}  (Percorso predefinito: animare da file - Sezione @{"6.3" LINK PPaintCD:H/7/2/4/2151/Main 166})
+
+PATHPLAY = @{I}"Percorso"@{UI}
+
+
+@{B}PATHPS@{UB}  (Percorso predefinito: uscita PostScript - Sezione @{"4.3.3.5" LINK PPaintCD:H/7/2/4/0049/Main 859})
+
+PATHPS = @{I}"Percorso"@{UI}
+
+
+@{B}PATHSTEN@{UB}  (Percorso predefinito: maschera colori - Sezione @{"8.2.1" LINK PPaintCD:H/7/2/4/0016/Main 384})
+
+PATHSTEN = @{I}"Percorso"@{UI}
+
+
+@{B}PRINT@{UB}  (Impostazioni generali stampante - Sezione @{"4.3" LINK PPaintCD:H/7/2/4/0049/Main 254} e sottosezioni)
+
+Formato: @{I}PRINT = NumCopie Modo@{UI}
+
+NumCopie deve essere compreso tra 1 e SHORTMAX.
+
+Modo: 0 = Stampante di sistema, 1 = Modo PostScript di Personal Paint.
+
+
+@{B}PRINTCOR@{UB}  (Correzione colori di stampa - Sezione @{"4.3.2.8" LINK PPaintCD:H/7/2/4/0049/Main 648})
+
+PRINTCOR = @{I}Grafico, BrillGrigio, ContrGrigio, GammaGrigio, BrillCiano,
+ContrCiano, GammaCiano, BrillMagenta, ContrMagenta, GammaMagenta,
+BrillGiallo, ContrGiallo, GammaGiallo, BrillNero, ContrNero, GammaNero,
+UcrM, UcrY@{UI}
+
+Grafico: 0 = Normale, 1 = Inverso.
+
+Valori brillantezza e contrasto: -100 .. 100.
+
+Valori gamma: 1000 .. 160000 (in unità/10000, cioè 0.1 .. 16.0).
+
+Valori Ucr: LONGMIN .. LONGMAX (in percentuale/10000 - 0% = nessuna
+correzione).
+
+
+@{B}PRINTLAY@{UB}  (Formato della pagina di stampa - Sezione @{"4.3.1" LINK PPaintCD:H/7/2/4/0049/Main 354})
+
+Format: @{I}PRINTLAY = Indicatori Unità LarghCarta AltezzaCarta MargineSin
+MargineSup XDimAuto YDimAuto XDimPercent YDimPercent XDimUnità YDimUnità
+XDimPixel YDimPixel XDimVolte YDimVolte TipoDim@{UI}
+
+Indicatori: 1 = Centrare X, 2 = Centrare Y, 4 = Stampa verticale (i
+singoli valori-opzione vanno sommati).
+
+Unità: 0 = Pollice, 1 = Centimetro, 2 = Punto PS.
+
+LarghCarta AltezzaCarta MargineSin MargineSup: micrometri, LONGMIN ..
+LONGMAX.
+
+XDimAuto, YDimAuto: devono essere 0.
+
+XDimPercent, YDimPercent: 0 .. 100.
+
+XDimUnit, YDimUnit: micrometri, 0 .. LONGMAX.
+
+XDimPixel, YDimPixel, XDimVolte, YDimVolte: 0 .. SHORTMAX.
+
+TipoDim: 0 = Automatico, 1 = Percentuale foglio, 2 = Unità 3 = Pixel, 4 =
+Volte.
+
+
+@{B}PRINTPS@{UB}  (Parametri stampa PostScript - Sezione @{"4.3.3" LINK PPaintCD:H/7/2/4/0049/Main 734})
+
+Formato: @{I}PRINTPS = Indicatori Dpi Lpi Spot Uscita AngC AngM AngY AngK UcrM
+UcrY UcrK Gcr Modo@{UI}
+
+Indicatori: 1 = Immagine negativa, 2 = Immagine speculare, 4 = EPS, 8 =
+Registri, 16 = Inserimento carta manuale, 32 = Compressione, 64 = Ciano,
+128 = Magenta, 256 = Giallo, 512 = Nero (i singoli valori-opzione vanno
+sommati).
+
+Dpi: 0 .. SHORTMAX (0 = Valore predefinito della stampante).
+
+Lpi: 0 .. LONGMAX (in 1/10000 di Lpi, 0 = Valore predefinito della
+stampante).
+
+Spot: Predefinito = 0, successivi = a partire da 1, nello stesso ordine in
+cui appaiono nel gadget ciclante "Spot".
+
+Uscita: 0 = Stampante di sistema, 1 = Porta seriale, 2 = Porta Parallela,
+3 = File.
+
+Valori AngC, AngM, AngY, AngK: 0 .. LONGMAX (in gradi/10000 - ang > 360° =
+Valore predefinito della stampante).
+
+Valori UcrM, UcrY, UcrK: LONGMIN .. LONGMAX (in percentuale/10000 - 0% =
+Correzione dei colori disattivata).
+
+Valori Gcr: 0 .. LONGMAX (in percentuale/10000 - 100% = Il nero non
+subisce variazioni).
+
+Modo: 0 = grigi, 1 = colori, 2 = CMY, 3 = CMYK.
+
+
+@{B}PRINTSYS@{UB}  (Parametri stampante di sistema - Sezione @{"4.3.2" LINK PPaintCD:H/7/2/4/0049/Main 427})
+
+Formato: @{I}PRINTSYS = Indicatori Retinatura Stampa Livello Densità
+@{UI}
+Indicatori: 1 = Scalatura intera, 2 = Stampa negativa, 4 = Smussamento, 8
+= Correzione Rosso, 16 = Correzione Verde, 32 = Correzione Blu, 64 =
+Avanzamento pagina (Form Feed).
+
+Retinatura: 0 = Ordered, 1 = Halftone, 2 = Floyd-Steinberg.
+
+Stampa: 0 = Bianco e nero, 1 = Grigi-1, 2 = Grigi-2, 3 = Colore, 4 = Grigi
+8 bit, 5 = Colore 24 bit.
+
+Valori Livello: 1 .. 15.
+
+Valori Densità: 1 .. 7.
+
+
+@{B}RTG@{UB}  (Retargetable Graphics - Sezione @{"4.5.5" LINK PPaintCD:H/7/2/4/0049/Main 1290})
+
+0 = No, 1 = Sì, 2 = Automatica.
+
+
+@{B}SBOARD@{UB}  (quadro "Storyboard" - Sezione @{"6.4" LINK PPaintCD:H/7/2/4/2151/Main 196})
+
+SBOARD = @{I}Ampiezza fotogrammi, Colonne, Righe@{UI}
+
+Ampiezza = In pixel di bassa risoluzione.
+
+Colonne = Fotogrammi per riga.
+
+Righe = Numero di righe di fotogrammi.
+
+
+@{B}SCREENH@{UB}  (Altezza schermo - Sezione @{"4.5.2" LINK PPaintCD:H/7/2/4/0049/Main 1239})
+
+L'altezza dello schermo può variare tra 200 e l'altezza massima consentita
+dall'overscan dell'attuale modo video. I valori negativi selezionano le
+altezze dei livelli overscan nello stesso ordine descritto per il codice
+SCREENW.
+
+
+@{B}SCREENW@{UB}  (Larghezza schermo - Sezione @{"4.5.2" LINK PPaintCD:H/7/2/4/0049/Main 1239})
+
+Il valore specificato definisce la larghezza dello schermo e può variare
+tra 320 (minimo) e la massima ampiezza overscan dell'attuale modo video. I
+valori negativi indicano le larghezze impostate nelle preferenze di
+sistema per i diversi livelli overscan: -1 = Nessun overscan, -2 = Testo,
+-3 = Grafica, -4 = Estremo e -5 = Massimo.
+
+
+@{B}SNAPGRID@{UB}  (Parametri griglia - Sezione @{"9.13.1" LINK PPaintCD:H/7/2/4/0047/Main 800})
+
+SNAPGRID = @{I}PassoX, PassoY, InizioX, InizioY@{UI}
+
+Valori PassoX e PassoY: 1 .. SHORTMAX
+Valori InizioX e InizioY: 0 .. SHORTMAX
+
+
+@{B}C.3        Parametri a sola lettura@{UB}
+
+I parametri di programma di seguito illustrati sono riservati agli utenti
+più esperti. Questi parametri non vengono scritti da Personal Paint:
+possono solo essere inseriti in un file utilizzando un editor di testi o
+un programma di trattamento testi come Personal Write.
+
+
+@{B}REDBITS, GREENBITS, BLUEBITS@{UB}
+
+REDBITS = @{I}BitRosso@{UI}
+
+GREENBITS = @{I}BitVerde@{UI}
+
+BLUEBITS = @{I}BitBlu@{UI}
+
+Valori: 0 .. 8 (0 = regolazione automatica in base al modo video; tutti a
+8 = palette a 24 bit).
+
+Questi parametri possono forzare Personal Paint ad usare un dato numero di
+bit per le componenti della tavolozza colori (a prescindere dall'hardware
+in uso).
+
+Ad esempio, per simulare le limitazioni di un sistema con chip set
+originale su un calcolatore AGA è sufficiente impostare tutti e tre i
+parametri a 4. Viceversa, se si dispone di hardware a 12 o 18 bit (ad es.
+sistemi ECS o schede video Picasso), può essere utile regolare i tre
+parametri a 8 per evitare di perdere informazioni-colore.
+
+Adoperando valori volutamente bassi (ad es. 1 per emulare una periferica
+CMYK/RGBW) è possibile ottenere interessanti effetti di elaborazione delle
+immagini.
+
+
+@{B}THICKX, THICKY@{UB}
+
+THICKX = @{I}Spessore orizzontale@{UI}
+
+THICKY = @{I}Spessore verticale@{UI}
+
+Questi parametri regolano lo spessore orizzontale e verticale degli
+elementi dell'interfaccia utente (bordi, barre, ecc.). Al valore 0
+corrisponde uno spessore dinamico (cioè scelto dal programma in base alle
+dimensioni dello schermo); successivi valori forzano un determinato
+spessore (1 = spessore singolo, 2 = doppio, 3 = quadruplo e così via). In
+realtà queste ultime impostazioni non possono far assumere agli oggetti
+uno spessore maggiore di quello determinato dal valore 0: se così non
+fosse, alcuni quadri potrebbero non essere più visualizzabili (perché
+troppo grandi).
+
+Valori spessore: 0 .. 128.
+
+@ENDNODE

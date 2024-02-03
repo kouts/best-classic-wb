@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<TITLE>Errores Conocidos</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: bugs.html 1.13 2021/12/21 21:58:14 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>Errores Desconocidos</h3>
+Si encuentra cualquier error nuevo o tiene otros problemas por favor repórtelos
+utilizando el seguidor de errores en
+<a href="http://mantis.whdload.de/search.php?project_id=4&hide_status_id=-2">
+http://mantis.whdload.de</a>.
+<h3>Errores Conocidos</h3>
+<h4>Problemas Generales</h4>
+<ul>
+<li>Hay un problema general con todo el hardware extra conectado a la Amiga
+que genere Interrupciones al azar o en forma regular. Un ejemplo es mi
+tarjeta de red (Hydra). Si tengo mi pila de TCP/IP ejecutándose, prácticamente cualquier
+programa instalado se congelará luego de un corto tiempo debido a que la tarjeta crea
+interrupciones de PUERTO (el mismo tipo de interrupciones generadas por el
+teclado) las cuales no pueden ser respondidas directamente por el programa
+instalado. Esto es debido a que tan pronto como la solicitud ha sido
+recibida con un RTE, la siguiente interrupción ocurre.
+Para evitar este problema, la pila TCP/IP debe ser detenida  <a
+href="opt.html#ExecuteStartup">antes de arrancar</a> WHDLoad.<br>
+Dentro de la misma categoria estan cayendo las pilas USB (use
+"AddUSBHardware REMOVE ALL"
+para Poseidon) y la interrupcion de Voodoo de las tarjetas Mediator
+(debe configurarse "VodooInt = No"). Comenzando con WHDLoad versión 16.8 está disponible una
+solución integrada para las interrupciones generadas por las tarjetas Mediator, por lo tanto
+no se requiere ninguna configuración en especial.
+
+<li>Si Ud. obtiene errores relacionados con la lectura/escritura de archivos verifique que sus discos
+duros estén correctamente configurados. WHDLoad lee grandes porciones de datos (>1MB) lo cual
+fácilmente puede causar problemas en configuraciones incorrectas aun cuando otras aplicaciones parezcan
+funcionar correctamente. Esto significa que hay que asegurarse que los valores de MaxTransfer y Mask en
+HDToolBox están correctamente configurados en todas las particiones. Valor seguros (para hardwware
+"difícil") son MaxTransfer = 0x07FEC y Mask = 0x07FFFFC. Esto se aplica especialmente 
+a tarjetas en el puerto PCMCIA y los adaptadores IDE-tarjeta-CF.<br>
+
+Otra razón para problemas puede ser la alocación de memoria. Hay configuraciones que
+tienen problemas con alocación Reversa de memoria. En estos casos WHDLoad puede
+ser forzado a no utilizar el modo Reverso configurando la opción
+<a href="opt.html#NoMemReverse">NoMemReverse/S</a>.
+
+<li>Si Ud. está usando el software Picasso96 debe asegurarse que la opción
+FakeNativeModes esté configurada como NO (tooltype del manejador del monitor).
+De otro modo se producirán errores gráficos y probablemente un colapso del sistema.
+<li>Hay algunas configuraciones de hardware que no soportan las funciones
+relacionadas con la MMU de WHDLoad. Los únicos sistemas afectados son aquellos
+basados en 68030. La opción <a href="opt.html#MMU">MMU/S</a> no debe ser activada
+en dichos sistemas! Si la opción se encuentra activada, WHDLoad congelará
+completamente la máquina. Actualmente el siguiente hardware ha sido reportado
+como causante de problemas: placas aceleradoras "Apollo A630", "Apollo 1230", "Elbox 1230" y "Magnum MK2".
+<li> Parece haber problemas con expansiones de RAM via PCMCIA en A1200.
+WHDLoad puede mostrar cuadros de error tales como <tt>Dos error #235 (executable not valid)
+on loading "xxx.slave"</tt>. La razón parece ser que la memoria está incorrectamente
+asociada en las listas de memoria del sistema, dado que WHDLoad intenta asignar la memoria
+usando el indicador MEMF_REVERSE y recibe un código de error inválido como retorno (puntero a
+memoria no existente). No se sabe si esto sucede solo con tarjetas específicas o bajo determinadas
+configuraciones.
+</ul>
+<h4>Relacionados con los Desarrolladores</h4>
+<ul>
+<li>La operación de conmutación entre el sistema operativo (SO) y el programa
+instalado no es completamente confiable. El problema es que la mayoría de los
+registros Custom y algunos registros de la CIA no pueden ser leídos y por lo
+tanto no pueden ser salvados y restaurados. WHDLoad en si no cambia estos
+registros, pero cuando conmuta desde el programa instalado al SO (por ej. para
+leer un fichero desde disco) el SO puede cambiar algunos de estos registros
+no restaurables. Si el programa instalado depende en que todos los registros
+permanezcan sin cambios, esto causará problemas. Es sabido que el SO cambia al
+menos cop2lc, bltafwm y bltalwm, y tal vez mas. Como una forma de evitar estos
+problemas hay una posibilidad de restaurar los registros sin cambios durante la
+operación de conmutación. Ver <A HREF="../autodoc.html#WHDLTAG_CBSWITCH_SET">WHDLTAG_CBSWITCH_SET</A>
+para mas información.
+</ul>
+</BODY>
+</HTML>

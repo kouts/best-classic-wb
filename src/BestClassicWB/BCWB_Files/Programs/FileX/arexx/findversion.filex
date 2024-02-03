@@ -1,0 +1,25 @@
+/*
+ * FileX arexxscript
+ *
+ * FindVersion - Searches for the versionstring
+ */
+
+OPTIONS RESULTS
+
+GETATTR PROJECT SEARCHSTRING VAR oldsearchstring
+GETATTR PROJECT CURSORPOS VAR oldpos
+
+GOTOBYTE 0
+
+FIND QUIET TEXT '$VER:'
+
+IF rc ~= 0 THEN DO
+	GOTOBYTE oldpos
+	REQUESTNOTIFY PROMPT '"No Versionstring found!"'
+	END
+
+IF LENGTH(oldsearchstring) = 0 THEN
+	SETATTR PROJECT SEARCHSTRING FROMVAR '"' || '"'
+	else
+	SETATTR PROJECT SEARCHSTRING FROMVAR oldsearchstring
+

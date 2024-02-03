@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<TITLE>WHDLoadCD32</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: cd32.html 1.4 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>WHDLoadCD32</h3>
+
+WHDLoadCD32 is a special WHDLoad version to be used on the CD&sup3;&sup2;. It
+has been optimized for this hardware and will therefore only run on a plain not
+expanded CD&sup3;&sup2;. It will not run on SX-32 or any other machine.
+
+<p>These are the differences to the normal WHDLoad:
+<ul>
+
+<li>it does not require nor use a WHDLoad keyfile, therefore CDs with
+WHDLoadCD32 on it can be distributed freely
+
+<li>only the 68020 CPU is supported, which means also no MMU support
+
+<li>fast memory is not supported
+
+<li>there is absolut no writing support, neither savegames, highscores nor
+coredumps (a CD is usually read-only)
+
+<li>many options have been removed which are not useful on a CD&sup3;&sup2; to
+make the executable smaller and save memory, check <a href="opt.html">Usage and
+Options</a> to see which options are omitted
+
+<li>the following resload functions are not implemented and using them will
+terminate WHDLoad with a return value TDREASON_ILLEGALARGS:
+
+<ul>
+<li><a href="../autodoc.html#resload_DiskLoadDev">resload_DiskLoadDev</a>
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_Log">resload_Log</a>
+</ul>
+
+<li>the following resload functions are dummies, they will do nothing but return
+always success:
+
+<ul>
+<li><a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a>
+<li><a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>
+<li><a href="../autodoc.html#resload_DeleteFile">resload_DeleteFile</a>
+</ul>
+
+<li>there is no <a href="freezer.html">freezer/monitor</a> support built in
+
+<li>there is no internal check for sufficient stackspace as in the normal
+WHDLoad, to my tests the default of 4096 bytes should enough for WHDLoadCD32
+
+</ul>
+
+<h3>Hints for using WHDLoad on a CD&sup3;&sup2;</h3>
+
+The main problem on the CD&sup3;&sup2; is the limited main memory. There are
+only 2 MiB of chip memory. Therefore the aim must be to get as much free memory
+as possible for WHDLoad and especially for the <a href="opt.html#Preload">Preload/S</a> operation. Make sure that
+no other programs are running while starting an installed program using
+WHDLoadCD32.
+
+<ul>
+
+<li>If install gives the choice between diskimages and files use files. Because
+many smaller files can be better cached than less big files.
+
+<li>If an install provides the ability to compress files using ProPack/FImp use
+it and compress all files (RNC1 gives best compression ratio). Compressed files
+need less memory for Preload and cause nearly no delay in loading speed.
+
+<li>Use AllocMemReverse before running WHDLoadCD32 (or an adequate
+replacement). AllocMemReverse is a small program included in the dev-package of
+WHDLoad. It patches the exec function AllocMem to always use the memory
+attribute MEM_REVERSE for the allocations. That will result in memory getting
+allocated from the top of the free memory to the bottom and not from bottom to
+top as normal. This will hold the lower memory regions free. The background
+is, that WHDLoad needs memory starting at address 0, the start of chipmem. All
+memory which is used in this lower region needs to be swapped out. To save this
+swapped memory additional memory is required. The more memory is used in the
+low memory regions the less is available for the installed program and for
+preloading data files.
+
+<li>Always use the <a href="opt.html#Data">Data</a> option. Preload does not
+know which files will be loaded by the installed program, therefore it loads all
+files it finds. To avoid that unnecessary files are loaded create a directory
+which only contains the required files. Delete all obsolete stuff like #?.info,
+#?.Slave, ReadMe, Manual, .... Then call WHDLoad with Slave and Data directory
+as argument, e.g. <tt>WHDLoadCD32 :Slaves/XYZ.Slave Data=:Data/XYZ Preload</tt>.
+There is no need to change the current directory to anywhere.
+
+<li>Don't use XPK compressed data files. XPK decompression needs much memory
+because XPK libraries must be in memory, decompression itself needs memory and
+decompression will cause memory fragmentation.
+
+</ul>
+</BODY>
+</HTML>

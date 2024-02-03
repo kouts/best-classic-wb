@@ -1,0 +1,25 @@
+.Key OBJECT,FALLBACK
+.bra {
+.ket }
+
+If "{FALLBACK}" EQ ""
+  If EXISTS {OBJECT}
+    PPaintCD:PPView {OBJECT}
+  EndIf
+Else
+  PPaintCD:H/2/CheckVideo -256
+  If WARN
+    If EXISTS {FALLBACK}
+      PPaintCD:PPView {FALLBACK}
+    EndIf
+  Else
+    If EXISTS {OBJECT}
+      PPaintCD:PPView {OBJECT}
+    EndIf
+  EndIf
+EndIf
+
+
+; Cloanto ® CD-ROM Configuration Scripts
+; Copyright © 1995, 1996 Cloanto Italia srl - All Rights Reserved
+; Cloanto is a registered trademark of Cloanto Italia srl

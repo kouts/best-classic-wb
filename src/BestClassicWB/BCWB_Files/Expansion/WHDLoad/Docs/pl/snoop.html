@@ -1,0 +1,246 @@
+<HTML>
+<HEAD>
+<TITLE>Snooping</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: snoop.html 1.6 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Snooping</h3>
+<h4>Co to jest?</h4>
+Snooping to jedna z cech WHDLoad, która dokonuje sprawdzania i odnotowuje
+dostępy do rejestrów CIA oraz rejestrów własnych.
+Jeśli opcja <a href="opt.html#Snoop">Snoop</a> jest aktywna, wszystkie
+nieprawidłowe i błędne próby dostępu wygenerują błąd dostępu i przerwanie pracy
+uruchamianego programu. WHDLoad wyświetli komunikat wyjaśniający powód niepowodzenia.
+
+Wykorzystując funkcję <a
+href="../autodoc.html#resload_Control">resload_Control</a> oraz znaczniki <a
+href="../autodoc.html#WHDLTAG_CUST">WHDLTAG_CUST_DISABLE/READ/STROBE/WRITE</a>
+można modyfikować wewnętrzną konfigurację pakietu WHDLoad w kwestii tego, które rejestry
+są odczytywalne/zapisywalne. Dzięki temu niedozwolony dostęp może być ignorowany, lub też
+dozwolony dostęp - wykryty. Te funkcje powinny być używane jedynie podczas tworzenia pliku .slave,
+a nie w publicznych wydaniach instalatorów.
+
+<h4>Rejestry własne</h4>
+Wszystkie próby zapisu i odczytu rejestrów są weryfikowane. Niedozwolone działania to:
+<ul>
+<li>dostępy do nieistniejących rejestrów,
+<li>odczyt z rejestrów oznaczonych jako przeznaczone &quot;tylko do zapisu&quot; (Write Only),
+<li>zapis do rejestrów oznaczonych jako przeznaczone &quot;tylko do odczytu&quot; (Read Only),
+<li>dostępy do rejestrów wczesnego odczytu (Early Read),
+<li>dostępy typu &quot;byte write&quot; (za wyjątkiem <tt>bltcon0l</tt> i <tt>aud*vol+1</tt>).
+</ul>
+Rejestry &quot;Strobe&quot; mogą być odczytywane i zapisywane. Zestaw sprawdzonych
+rejestrów własnych może się różnić w zależności od układów graficznych: OCS
+(Old ChipSet - A500, A1000, stara A2000), ECS (Enhanced ChipSet
+- A600, nowa A2000, A3000) i AGA (Advanced Graphics - A1200, A4000). Jest to
+użyteczne zwłaszcza przy wychwytywaniu błędów w starych programach.
+
+<h4>Rejestry CIA</h4>
+Podczas prób dostępu do rejestrów CIA tylko próby zapisu są weryfikowane. Oznacza to, że 
+próby odczytu nieistniejących rejestrów w obszarze pamięcie  $bfd000...$bfefff nie zostaną wykryte. Dla wszystkich prób zapisu, zapisywane wartości będą przechowywane wewnętrznie przez WHDLoad. Dla niektórych rejestrów CIA są dokonywane szczególne sprawdzenia w zależności od wpisywanej wartości:
+
+<p><table border=1 summary="Tabela rejestrów CIA">
+<tr>
+	<th>addres</th>
+	<th>rejestr</th>
+	<th>sprawdzenie</th>
+</tr><tr>
+	<td>$bfe001</td>
+	<td>ciaa.ciapra</td>
+	<td>ustawienie bitu Overlay #0 jest zabronione</td>
+</tr><tr>
+	<td>$bfe201</td>
+	<td>ciaa.ciaddra</td>
+	<td>bity #6-7 mogą posiadać dowolną wartość (używane przez joypady), niższe bity muszą być ustawione na %000011</td>
+</tr><tr>
+	<td>$bfe801</td>
+	<td>ciaa.ciatodlow</td>
+	<td rowspan=3>dostępy odczytu-zapisu-zmiany (na przykład bchg) są niedozwolone w przypadku ustawienia bitu ALARM w ciaa.ciacrb (sprawdzane tylko na procesorze 68060)</td>
+</tr><tr>
+	<td>$bfe901</td>
+	<td>ciaa.ciatodmid</td>
+</tr><tr>
+	<td>$bfea01</td>
+	<td>ciaa.ciatodhi</td>
+</tr><tr>
+	<td>$bfed01</td>
+	<td>ciaa.ciaicr</td>
+	<td>dostępy odczytu-zapisu-zmiany (na przykład bchg) są niedozwolone (sprawdzane tylko na procesorze 68060)</td>
+</tr><tr>
+	<td>$bfd100</td>
+	<td>ciab.ciaprb</td>
+	<td>bity dla MOTOR #7, SELECT #3-6 i STEP #0 nie mogą być kasowane, pozostałe bity mogą być zmieniane; dzięki temu każda próba dostępu do stacji dysków zostanie wykryta</td>
+</tr><tr>
+	<td>$bfd200</td>
+	<td>ciab.ciaddra</td>
+	<td>dopuszczalna zapisywana wartość to %11000000</td>
+</tr><tr>
+	<td>$bfd300</td>
+	<td>ciab.ciaddrb</td>
+	<td>dopuszczalna zapisywana wartość to %11111111</td>
+</tr><tr>
+	<td>$bfd800</td>
+	<td>ciab.ciatodlow</td>
+	<td rowspan=3>dostępy odczytu-zapisu-zmiany (na przykład bchg) są niedozwolone w przypadku ustawienia bitu ALARM w ciaa.ciacrb (sprawdzane tylko na procesorze 68060)</td>
+</tr><tr>
+	<td>$bfd900</td>
+	<td>ciab.ciatodmid</td>
+</tr><tr>
+	<td>$bfda00</td>
+	<td>ciab.ciatodhi</td>
+</tr><tr>
+	<td>$bfdd00</td>
+	<td>ciab.ciaicr</td>
+	<td>dostępy odczytu-zapisu-zmiany (na przykład bchg) są niedozwolone (sprawdzane tylko na procesorze 68060)</td>
+</tr></table>
+
+
+<h4>Jak to działa?</h4>
+Jeżeli opcja &quot;Snoop&quot; jest włączona, WHDLoad zaznacza w drzewie
+translacji MMU adresy rejestrów CIA i rejestrów własnych
+jako nieprawidłowe/zabezpieczone przed zapisem. Z tego powodu każdy dostęp do rejestrów własnych lub/i CIA
+generuje błąd dostępu. WHDLoad wówczas sprawdza, czy próba dostępu była prawidłowa.
+Jeżeli okaże się, że nie była, nastąpi przerwanie wykonywanego programu. Jeżeli
+próba dostępu jest prawidłowa i wystąpiła operacja odczytu, zostanie ona zaemulowana
+i będzie kontynuowane wykonywanie programu. Jeżeli wystąpiła operacja zapisu,
+WHDLoad odpowiednio dokonana zapisu wartości wewnętrznego schowka.
+<br>Zaznaczanie obszarów pamięci oraz emulacja pociągają za sobą
+zwolnienie wykonywania programu. Jak bardzo, to zależy od typu procesora
+oraz typu pamięci graficznej (16/32-bit), a także od ustawienia wskaźnika stosu.
+Zależne jest to również od typu dostępu (Bajt/Słowo/Długie Słowo, Zapis/Odczyt).
+Na 68030 zapis jest szybszy niż odczyt
+(gdyż odczyt stosu zajmuje 92 bajty, a zapis 32 bajty), na
+68060 odczyt jest szybszy, ponieważ emulacja zapisu jest bardziej złożona.
+
+<h4>Tryb &quot;Fast Snoop&quot;</h4>
+Opcja <a href="opt.html#Snoop">Snoop/S</a> uaktywnia szybki snooping.
+Dostępy odczytu nie będą sprawdzane. Również nie są prowadzone oznaczenia.
+Ten tryb może być przydatny w celu zdobycia zawartości rejestrów własnych, np.
+zapisania obrazka przy wykorzystaniu programu <a href="sp.html">SP</a>.
+
+<h4>Skaner copperlisty</h4>
+Od WHDLoad w wersji 13 sprawdzana jest również copperlista. Skaner
+zostaje uaktywniony podczas zapisu do rejestrów <tt>coplc</tt> jeśli
+DMA coppera jest włączone lub wtedy, gdy zainstalowany program włącza DMA coppera
+poprzez zapis do rejestrów <tt>dmacon</tt>.
+Skaner podąża za copperlistą, sprawdza i ustawia wszystkie instrukcje Move
+zgodnie z restrykcjami opcji Snoop (OCS/ECS/AGA).
+Instrukcje Skip i Wait (za wyjątkiem CEND) są ignorowane. Gdy zostanie
+odnaleziona nieprawidłowa próba dostępu, zainstalowany program zostanie
+wyłączony. Skaner podąży za odgałęzieniami
+(<tt>copjmp</tt>), wykryje pętle i sprawdzi do 16 podlist. Instrukcje
+Move w copperliście zostaną zapisane do węwnętrznego pliku rejestru,
+który zostanie zapisany na dysk przy wyjściu z WHDLoad. Skaner jest
+nieaktywny w trybie &quot;Fast Snoop&quot;.
+
+<h4>Sprawdzanie wskaźników audio</h4>
+Gdy opcja <a href="opt.html#ChkAudPt">ChkAudPt/S</a> jest włączona, WHDLoad sprawdza,
+czy zainstalowany program zapisuje tylko poprawne adresy do własnych wskaźników audio DMA.
+Poprawne wskaźniki oznaczają że wskazywany jest adres wewmątrz BaseMem i różny od 0.
+Sprawdzane są tylko operacje zapisu długich słów. Zapisywanie słów nie jest sprawdzane.
+Sprawdzenie to może być użyteczne w wyszukiwaniu problemów w procedurach odtwarzania dźwięku.
+
+<h4>Sprawdzanie priorytetu blittera</h4>
+Gdy opcja <a href="opt.html#ChkBltHog">ChkBltHog/S</a> jest włączona, WHDLoad sprawdza, czy zainstalowany program
+nie włącza bitu <tt>BltHog</tt> poprzez zapis do rejestru <tt>dmacon</tt>.
+Priorytet blittera może powodować problemy na niektórych konfiguracjach
+w połączeniu z dużymi operacjami na blitterze (wykorzystanie wszystkich kanałów).
+
+<h4>Sprawdzanie rozmiaru blittera</h4>
+Gdy opcja <a href="opt.html#ChkBltSize">ChkBltSize/S</a> jest włączona, WHDLoad sprawdza, czy zadania blittera
+nie próbują przedostać się poza pamięć określoną w BaseMem. Podczas próby
+zapisu do <tt>bltsize</tt> lub <tt>bltsizh</tt> sprawdza, czy tryb linii jest włączony
+w <tt>bltcon1</tt>. Jeżeli jest włączony, zostanie zignorowane sprawdzanie rozmiaru.
+W przeciwnym razie WHDLoad wyliczy pierwsze i ostatnie słowo dla każego
+uaktywnionego kanału DMA. Jeżeli jeden adres znajduje się poza obszarem
+BaseMem, program zostanie wyłączony z odpowiednią informacją w oknie
+komunikatu.
+Obliczenia zostały zaprojektowany w taki sposób, aby współpracowały
+ze wszystkimi trybami (rosnący/malejący, pozytywny/negatywny, nieparzyste
+moduły/wskaźniki).
+<br>Pamiętaj, że tryb rysowania linii nie jest sprawdzany i wszystkie rejestry
+blittera mogą być zapisane do coppera jeśli bit <tt>copcon</tt> jest ustawiony.
+
+<h4>Sprawdzanie oczekiwania blittera</h4>
+Gdy opcja <a href="opt.html#ChkBltWait">ChkBltWait/S</a> jest włączona WHDLoad użyje instrukcji śledzenia, aby
+sprawdzić, czy zainstalowany program wykonuje poprawienie oczekiwanie na
+zakończenie wykonywania operacji blittera, zanim ten rozpocznie wykonywać
+kolejną. Wykorzystywana jest do tego wewnętrzna zmienna, która reprezentuje
+stan pracy blittera. Zmienna jest ustawiona, gdy dokonywany jest zapis
+do <tt>bltsize</tt> lub <tt>bltsizh</tt>. Zmienna jest czyszczona,
+gdy dokonywany jest odczyt z rejestru <tt>dmaconr</tt>.
+Przy każdorazowym zapisie do rejestru blittera sprawdzana jest wewnętrzna
+zmienna. Jeżeli wykazuje ona pracę blittera, wykonywanie zainstalowanego programu
+zostanie przerwane, a WHDLoad zgłosi PC ostatniej czynności wykonywanej
+przez blitter.
+<br>Istnieją dwa &quot;wąskie gardła&quot; tej opcji. Pierwsze to takie, że nie
+jest sprawdzane wykorzystanie blittera poprzez coppera, drugie - wykorzystanie
+przerwań blittera.
+
+<h4>Sprawdzanie zerwania koloru</h4>
+Gdy opcja <a href="opt.html#ChkColBst">ChkColBst/S</a> jest włączona, WHDLoad sprawdza,
+czy podczas każdego zapisu do rejestru <code>custom.bplcon0</code> bit
+<code>color</code> jest ustawiony. Niektóre urządzenia, a w szczególności flickerfixer-y
+wymagają, by ten bit był ustawiony w celu generowania poprawnego sygnału wizyjnego na wyjściu.
+W celu zapewnienia jak najlepszej zgodności bit ten zawsze powinien być ustawiony.
+Sprawdzane są bezpośrednie zapisy do <code>custom.bplcon0</code> oraz wpisy dokonywane przez
+copperlistę.
+
+<h4>Copper Control Check</h4>
+Gdy opcja <a href="opt.html#ChkCopCon">ChkCopCon/S</a> jest włączona, WHDLoad sprawdza,
+czy podczas każdego zapisu do rejestru <code>custom.copcon</code> bit #1 nie jest ustawiony.
+Bit ten włącza możliwość zapisywania rejestrów Blittera przez Coppera. Czasami może to być
+przydatne przy wykrywaniu czy program używa Coppera do kontroli aktywności DMA.
+
+<h4>Przyszłość</h4>
+Planuję dodanie funkcji podobnych do zamrażania (Freezing) i ikonifikacji (Iconifing)
+Zalecane jest, aby autorzy programów instalacyjnych sprawdzali swoje pliki .slave z opcją
+&quot;Snoop&quot;, aby zapewnić sobie kompatybilność w przyszłości.
+
+<h4>Wymagania</h4>
+Dla opcji &quot;Snoop&quot; wymagane jest MMU. WHDLoad musi
+<a href="mmu.html#usercontrol">używać</a> MMU, a z racji tej <a
+href="opt.html#MMU">MMU/S</a> musi być włączony na procesorach 68030.
+<h4>Ograniczenia</h4>
+<ul>
+<li>68020 + 68851
+<ul>
+<li>Nie jest obsługiwany.
+</ul>
+<li>68030
+<ul>
+<li>Dostęp do odczytu-zapisu-modyfikacji rejestrów CIA nie są wykrywane.
+</ul>
+<li>68040
+<ul>
+<li>Dostęp do odczytu-zapisu-modyfikacji rejestrów CIA nie są wykrywane.
+<li>Instrukcja <tt>movem</tt> może wywoływać dostępy do nieprawidłowych
+rejestrów bez wygenerowania błędu dostępu. Jest to możliwe gdyż
+tylko pierwsza próba dostępu jest sprawdzana.
+<li>Instukcje nie mogą odwoływać się do więcej niż jednego śledzonego rejestru w tym samym czasie.
+Oznacza to, że np. kod <tt>move.b ($dff006),($bfd800)</tt> nie może zostać
+wykonany. Jeżeli taki kod wystąpi w programie, WHDLoad pokaże komunikat o
+błędzie dostępu.
+</ul>
+<li>68060
+<ul>
+<li>Instrukcja <tt>movem</tt> może wywoływać dostępy do nieprawidłowych
+rejestrów bez wygenerowania błędu dostępu. Jest to możliwe gdyż
+tylko pierwsza próba dostępu jest sprawdzana.
+<li>Instrukcja <tt>move &lt;rejestr CIA/własny&gt;,sr</tt> jest wykonywana
+nieprawidłowo.
+<li>Jakakolwiek instrukcja <tt>(ssp)+</tt> lub <tt>-(ssp)</tt> w połączeniu z
+zapisem do rejestrów CIA lub rejestrów własnych nie może zostać wykonana z powodu
+problemów z ramką stosu. WHDLoad wykrywa takie próby dostępu i informuje
+o nich stosownym komunikatem.
+<li>Instukcje nie mogą odwoływać się do więcej niż jednego śledzonego rejestru w tym samym czasie.
+Oznacza to, że np. kod <tt>move.b ($dff006),($bfd800)</tt> nie może zostać
+wykonany. Jeżeli taki kod wystąpi w programie, WHDLoad pokaże komunikat o
+błędzie dostępu.
+</ul>
+</ul>
+</BODY>
+</HTML>

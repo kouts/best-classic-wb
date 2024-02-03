@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE>Bug</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: bugs.html 1.9 2019/02/21 00:41:00 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Nuovi Bug</h3>
+Se vi capita di trovare nuovi bug o avete qualsiasi altro problema, per favore
+riportateli usando il bugtracker all'indirizzo
+<a href="http://mantis.whdload.de/search.php?project_id=4&hide_status_id=-2">
+http://mantis.whdload.de</a>.
+<h3>Bug Conosciuti</h3>
+<h4>Problemi generali</h4>
+<ul>
+<li>C'è generalmente un problema con tutto l'hardware supplementare connesso all'Amiga
+che genera interrupt a caso o ad intervalli regolari. Un esempio è la mia
+scheda di rete (Hydra). Se il mio stack TCP/IP è in esecuzione, quasi tutti
+i programmi installati si bloccano dopo poco perché la scheda crea dei PORTS
+interrupt (lo stesso tipo di interrupt creati dalla tastiera) che non possono ricevere una corretta risposta dal programma
+installato.
+Questo succede perché nel momento in cui la richiesta viene riconosciuta con un RTE, arriva il successivo interrupt.
+Per ovviare a questo inconveniente, lo stack TCP/IP deve essere chiuso <a href="opt.html#ExecuteStartup"> prima di avviare</a> WHDLoad.<br>
+Lo stesso genere di problemi possono essere causati dagli stack-USB (per i modelli Poseidon esegui il comando "AddUSBHardware REMOVE ALL") e dagli interrupt delle Voodoo sulle schede Mediator (devi impostare "VoodooInt = No").
+A partire dalla versione 1.68, WHDLoad implementa una soluzione parziale (workaround) per questo problema, quindi nessun
+settaggio speciale è più necessario.<br>
+Se si utilizza una versione di Picasso96 maggiore o uguale alla 1.36 anche la scheda video Spectrum crea tali interrupt.
+Per evitarlo bisogna reinstallare una versione di Picasso96 precedente, oppure il driver deve essere disabilitato.
+
+<li>Se vengono riportati errori nella lettura/scrittura di files, bisogna controllare che gli hard disk siano configurati
+correttamente. WHDLoad legge grandi blocchi di dati (>1MB) in una singola operazione, questa può fallire in sistemi settati  
+in maniera non completamente corretta anche se altre applicazioni sembrano funzionare senza problemi. Bisogna quindi essere
+sicuri di aver settato propriamente i parametri MaxTransfer e Mask in HDToolBox per tutte le partizioni. Un valore sicuro
+(solitamente per hardware non completamente funzionante) è MaxTransfer = 0x7FEC e Mask = 0x0fffffc. Questi settaggi di ripiego
+sono particolarmente importanti per schede PCMCIA e adattatori IDE-CF.<br>
+Un altro motivo per questo tipo di problema può essere l'allocazione della memoria. Ci sono configurazioni che hanno
+problemi con l'allocazione di tipo "Reverse". In questo caso è possibile scegliere di non utilizzare l'allocazione "Reverse"
+specificando l'opzione <ahref="opt.html#NoMemReverse">NoMemReverse/S</a>.
+
+<li> Se si utilizza sofware Picasso96 bisogna essere sicuri di impostare l'opzione FakeNativeModes a NO (tooltype del driver
+del monitor), altrimenti ci potrebbero essere problemi grafici e crash.
+<li>C'è qualche rara configurazione hardware che non supporta le caratteristiche di gestione della MMU di WHDLoad.
+Gli unici sistemi affetti da questo problema sono quelli basati su 68030. L'opzione <a href="opt.html#MMU">MMU/S</a> non
+deve essere abilitata in questi sistemi! Se questa opzione è attivata, WHDLoad bloccherà l'intero sistema. Attualmente
+sappiamo che il seguente hardware crea problemi: schede acceleratrici "Apollo A630", "Apollo 1230", "Elbox 1230" e "Magnum MK2".
+<li> Possono verificarsi problemi con le espansioni RAM su PCMCIA con A1200. WHDLoad potrebbe visualizzare
+<tt>Dos error #235 (executable not valid) on loading "xxx.slave"</tt>. Il motivo sembra essere una incorretta associazione
+della memoria nella lista di sistema, WHDLoad tenta di allocare la memoria utilizzando l'opzione MEMF_REVERSE e questa operazione
+ritorna un puntatore non valido (verso un'area inesistente). Non è ancora chiaro per quale motivo questo avvenga, potrebbe dipendere
+da schede o configurazioni particolari.
+</ul>
+<h4>Per lo sviluppatore</h4>
+<ul>
+<li>L'operazione di switching (deviazione dell'esecuzione) tra il sistema operativo (OS) ed il programma installato non è
+completamente degna di fiducia.
+Il problema è che la maggior parte dei registri Custom e qualche registro CIA non possono essere letti, e quindi salvati e
+ripristinati.
+WHDLoad non cambia questi registri, ma quando passa dal programma installato all'OS (per esempio per caricare un file dal
+disco), l'OS può cambiare qualcuno di questi registri non ripristinabili.
+Se il programma installato dipende dal fatto che tutti i registri rimangano inalterati, questo fatto può causare dei problemi.
+E' risaputo che l'OS cambia almeno cop2lc, bltafwm e bltalwm, e forse altri. Per raggirare questo problema c'è la possibilità
+ di ripristinare i registri modificati durante l'operazione di switching. Dai uno sguardo a
+<A HREF="../autodoc.html#WHDLTAG_CBSWITCH_SET">WHDLTAG_CBSWITCH_SET</A> per ulteriori informazioni.
+</ul>
+</BODY>
+</HTML>

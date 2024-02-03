@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<TITLE>SP * Zapisywanie obrazków</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: sp.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>SP * Zapisywanie obrazków</h3>
+Narzędzie do wyciągania obrazka z pliku <a href="dump.html">zrzutu</a>
+tworzonego przez WHDLoad.
+<h4>Instalacja</h4>
+SP jest zawarty jedynie w archiwum <tt>DEV</tt>, a nie w <TT>USR</tt>.
+<br>Skopuj go do C: lub w podobne miejsce.
+<h4>Użycie</h4>
+Najpierw musi zostać utworzony plik zrzutu. Uruchom zainstalowany program, z którego
+chcesz wyciąć obrazek. Program musi być uruchomiony z włączoną opcją
+<a href="opt.html#Snoop">Snoop/S</a>. Muszą być również ustawione opcje
+<a href="opt.html#Expert">Expert/S</a> i <a
+href="opt.html#DebugKey">DebugKey/K/N</a>. Jeśli obrazek, który chcesz
+wyciąć pojawi się na ekranie, naciśnij klawisz zdefiniowany jako
+DebugKey. WHDLoad zapisze plik zrzutu. Używając shella/CLI wejdź do
+katalogu, w którym został zapisany plik zrzutu. Teraz wywołaj
+<tt>SP</tt> z nazwą pliku do zapisania jako argument.
+<tt>SP</tt> wczyta plik zrzutu i spróbuje zapisać obrazek.
+Jeśli ustawiłeś opcję <a href="opt.html#CoreDumpPath">CoreDumpPath</a> nie musisz przechodzić
+do podkatalogu zawierającego pliki zrzutów, gdyż polecenie SP odczytuje globalną konfigurację pakietu
+WHDLoad i znajdzie ustawioną tam ścieżkę.
+<h4>Opcje</h4>
+<table>
+<tr>
+  <td colspan=2><tt>OutputFile/A,Cop/K,CS=CopStop/K,Width/K,Height/K,con0/K,mod1/K,mod2/K,pt1/K,pt2/K,pt3/K,pt4/K,NoCopLst/S</tt></td>
+</tr>
+<tr>
+  <td valign=top><tt>OutputFile/A</tt></td>
+  <td>nazwa pliku z obrazkiem do zapisania</td>
+</tr>
+<tr>
+  <td valign=top><tt>Cop/K</tt></td>
+  <td>ustawia adres pierwszej copperlisty, jeśli
+  chcesz użyć innego adresu niż adres zapisany w pliku zrzutu</td>
+</tr>
+<tr>
+  <td valign=top><tt>CS=CopStop/K</tt></td>
+  <td>opcja ta określa adres, na którym ma zakończyć się interpretacja
+  copperlisty. Opcja ta musi być używana, gdy ekran jest złożony z więcej
+  niż jednego obrazka</td>
+</tr>
+<tr>
+  <td valign=top><tt>Width/K</tt></td>
+  <td>określa szerokość obrazka do zapisania, nie wpływa na wartości modulo!</td>
+</tr>
+<tr>
+  <td valign=top><tt>Height/K</tt></td>
+  <td>określa wysokość obrazka do zapisania</td>
+</tr>
+<tr>
+  <td valign=top><tt>con0/K</tt></td>
+  <td>zastępuje rejestr <tt>bplcon0</tt> zawarty w pliku zrzutu</td>
+</tr>
+<tr>
+  <td valign=top><tt>mod1/K,mod2/K</tt></td>
+  <td>zastępuje rejestry <tt>bplmod1</tt>/<tt>bplmod2</tt> zawarte w pliku zrzutu</td>
+</tr>
+<tr>
+  <td valign=top nowrap><tt>pt1/K,pt2/K,pt3/K,pt4/K</tt>&nbsp;&nbsp;</td>
+  <td>zastępuje rejestry <tt>bplpt1,2,3,4</tt> zawarte w pliku zrzutu</td>
+</tr>
+<tr>
+  <td valign=top><tt>NoCopLst/S</tt></td>
+  <td>wyłącza zrzucanie copperlisty</td>
+</tr>
+</table>
+</BODY>
+</HTML>

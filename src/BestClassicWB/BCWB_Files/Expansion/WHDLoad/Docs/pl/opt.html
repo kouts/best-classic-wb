@@ -1,0 +1,647 @@
+<HTML>
+<HEAD>
+<TITLE>Uruchamianie i opcje</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: opt.html 1.18 2023/05/04 21:40:50 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Uruchamianie</h3>
+WHDLoad może zostać uruchomiony zarówno z linii poleceń (CLI/shell), jak
+i z poziomu Workbencha. Opcje mogą być określone w pliku konfiguracji
+globalnej oraz poprzez argumenty lub parametry. Opcja <a
+href="#Slave">Slave</a> jest zazwyczaj wymagana. Pozostałe opcje
+mogą być również potrzebne, a zależy to od Twojego sprzętu, jak i
+programu, który chcesz uruchomić poprzez WHDLoad. Przy uruchamianiu z
+poziomu linii poleceń, WHDLoad przy wyjściu zwraca następujące kody
+powrotne:
+
+<ul>
+<li>0 - operacja zakończona powodzeniem
+<li>5 - operacja wcześniejszewgo wczytania danych za pomocą funkcji Preload została poniechana poprzez naciśnięcie klawisza Esc w okienku powitalnym
+<li>10 - błąd, plik .slave nie może zostać wykonany ze względu na wcześniejsze problemy, wyświetlany jest komunikat błędu
+<li>20 - błąd krytyczny, niewystarczająca ilość wolnej pamięci
+<li>&gt; 100 - plik .slave został wykonany, zwrócił kod błędu 100 + TDREASON
+</ul>
+
+<h3>Opcje i konfiguracja globalna</h3>
+Opcje można podzielić na lokalne i globalne. Opcje lokalne są podawane jako
+argumenty z linii poleceń lub parametry przy uruchamianiu z poziomu
+Workbencha.
+
+<br>Jeśli WHDLoad jest uruchamiany z Workbencha za pomocą ikonki, 
+spróbuje zaktualizować ikonkę zgodnie z opcjami <a
+href="#PreloadSize">PreloadSize/N</a>, <a +href="#Config">Config</a> oraz
+opcjami zmienionymi w wyskakującym okienku startowym. Jeśli taka operacja
+jest pożądana także podczas uruchamiania z linii poleceń, musi być użyte 
+do symulacji uruchamiania z poziomu Workbencha narzędzie podobne
+do WBRun (zawartego w OS3.5/3.9).
+
+<br>Konfiguracja globalna jest zapisana w pliku
+&quot;<code>S:WHDLoad.prefs</code>&quot;. Jest to zwykły plik ASCII,
+zawierający po jednej opcji w linii. Puste linie i komentarze są ignorowane.
+Komentarz zaczyna się od znaku &quot;<code>;</code>&quot; i kończy na końcu
+linii.
+<br>Przykładowy plik konfiguracyjny jest zawarty w pakiecie WHDLoad
+(&quot;<code><a href="../../S/WHDLoad.prefs">S/WHDLoad.prefs</a></code>&quot;).
+
+<h3>Lista dostępnych opcji</h4>
+
+<p>istnieją trzy typy opcji:
+<table cellpadding=3>
+  <tr>
+    <td valign=top>liczbowy:</td>
+    <td>wartością tej opcji jest liczba całkowita,<br>
+        w linii poleceń musisz używać zapisu dziesiętnego, jako parametr
+        możesz także używać liczy w zapisie szesnastkowym poprzedzając wartość
+        symbolem &quot;<code>$</code>&quot;,
+    </td>
+  </tr>
+  <tr>
+    <td>ciąg:</td>
+    <td>wartością opcji jest ciąg tekstowy,</td>
+  </tr>
+  <tr>
+    <td>przełącznik:</td>
+    <td>opcja zostanie włączona, gdy zostanie podana.</td>
+  </tr>
+</table>
+
+<p>Kolumna &quot;Lokalna&quot; pokazuje, czy opcja może być używana jako argument polecenia lub parametr w ikonce.
+Kolumna &quot;Globalna&quot; pokazuje, czy opcja może być używana w globalnym pliku konfiguracyjnym.
+
+<p>Wiele opcji jest niedostępnych w pakiecie <a href="cd32.html">WHDLoadCD32</a>. Kolumna
+&quot;CD&sup3;&sup2;&quot; pokazuje, czy opcja jest dostępna w tej specjalnej wersji pakietu.
+
+<table border=1 cellpadding=3>
+<tr><th>Nazwa opcji</th><th>Typ</th><th>Lokalna</th><th>Globalna</th><th>CD&sup3;&sup2;</th><th>Wartość domyślna</th></tr>
+<tr><td><a href="#BranchCache">BranchCache</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#ButtonWait">ButtonWait</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>x</td></tr>
+<tr><td><a href="#Cache">Cache</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>x</td></tr>
+<tr><td><a href="#Chk">Chk</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#ChkAudPt">ChkAudPt</a></td><td>switch</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#ChkBltHog">ChkBltHog</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#ChkBltSize">ChkBltSize</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#ChkBltWait">ChkBltWait</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#ChkColBst">ChkColBst</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#ChkCopCon">ChkCopCon</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#ChkInts">ChkInts</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#ChipNoCache">ChipNoCache</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>-</td></tr>
+<tr><td><a href="#Config">Config</a></td><td>ciąg</td><td align=center>x</td><td align=center>-</td><td align=center>x</td><td>""</td></tr>
+<tr><td><a href="#ConfigDelay">ConfigDelay</a></td><td>liczbowy</td><td align=center>x</td><td align=center>x</td><td align=center>x</td><td>400</td></tr>
+<tr><td><a href="#CoreDump">CoreDump</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#CoreDumpPath">CoreDumpPath</a></td><td>ciąg</td><td align=center>-</td><td align=center>x</td><td align=center>-</td><td>PROGDIR:</td></tr>
+<tr><td><a href="#Custom">Custom</a></td><td>ciąg</td><td align=center>x</td><td align=center>-</td><td align=center>x</td><td>""</td></tr>
+<tr><td><a href="#Custom">Custom1</a></td><td>liczbowy</td><td align=center>x</td><td align=center>-</td><td align=center>x</td><td>0</td></tr>
+<tr><td><a href="#Custom">Custom2</a></td><td>liczbowy</td><td align=center>x</td><td align=center>-</td><td align=center>x</td><td>0</td></tr>
+<tr><td><a href="#Custom">Custom3</a></td><td>liczbowy</td><td align=center>x</td><td align=center>-</td><td align=center>x</td><td>0</td></tr>
+<tr><td><a href="#Custom">Custom4</a></td><td>liczbowy</td><td align=center>x</td><td align=center>-</td><td align=center>x</td><td>0</td></tr>
+<tr><td><a href="#Custom">Custom5</a></td><td>liczbowy</td><td align=center>x</td><td align=center>-</td><td align=center>x</td><td>0</td></tr>
+<tr><td><a href="#D">D</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#Data">Data</a></td><td>ciąg</td><td align=center>x</td><td align=center>-</td><td align=center>x</td><td>-</td></tr>
+<tr><td><a href="#DebugKey">DebugKey</a></td><td>liczbowy</td><td align=center>x</td><td align=center>x</td><td align=center>-</td><td>$78 (CAA)</td></tr>
+<tr><td><a href="#DCache">DCache</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#ExecuteArgs">ExecuteArgs</a></td><td>ciąg</td><td align=center>x</td><td align=center>-</td><td align=center>-</td><td>-</td></tr>
+<tr><td><a href="#ExecuteCleanup">ExecuteCleanup</a></td><td>ciąg</td><td align=center>x</td><td align=center>x</td><td align=center>-</td><td>-</td></tr>
+<tr><td><a href="#ExecutePreDisk">ExecutePreDisk</a></td><td>string</td><td align=center>x</td><td align=center>x</td><td align=center>-</td><td>-</td></tr>
+<tr><td><a href="#ExecutePostDisk">ExecutePostDisk</a></td><td>string</td><td align=center>x</td><td align=center>x</td><td align=center>-</td><td>-</td></tr>
+<tr><td><a href="#ExecuteStartup">ExecuteStartup</a></td><td>ciąg</td><td align=center>x</td><td align=center>x</td><td align=center>-</td><td>-</td></tr>
+<tr><td><a href="#Expert">Expert</a></td><td>przełącznik</td><td align=center>-</td><td align=center>x</td><td align=center>-</td></tr>
+<tr><td><a href="#Exp">ExpChip</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#Exp">ExpLocal</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#Exp">Exp24Bit</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#FileLog">FileLog</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#FreezeKey">FreezeKey</a></td><td>liczbowy</td><td align=center>x</td><td align=center>x</td><td align=center>-</td><td>$78 (CAA)</td></tr>
+<tr><td><a href="#FullChip">FullChip</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>-</td></tr>
+<tr><td><a href="#LogBuffer">LogBuffer</a></td><td>liczbowy</td><td align=center>x</td><td align=center>x</td><td align=center>-</td><td>4096</td></tr>
+<tr><td><a href="#MMU">MMU</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>-</td></tr>
+<tr><td><a href="#NoAutoVec">NoAutoVec</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>x</td></tr>
+<tr><td><a href="#NoCache">NoCache</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>x</td></tr>
+<tr><td><a href="#NoFileCache">NoFileCache</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>x</td></tr>
+<tr><td><a href="#NoFilter">NoFilter</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>x</td></tr>
+<tr><td><a href="#NoMemReverse">NoMemReverse</a></td><td>przełącznik</td><td align=center>-</td><td align=center>x</td><td align=center>-</td></tr>
+<tr><td><a href="#NoFlushMem">NoFlushMem</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>-</td></tr>
+<tr><td><a href="#NoMMU">NoMMU</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>-</td></tr>
+<tr><td><a href="#NoNetwork">NoNetwork</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>-</td></tr>
+<tr><td><a href="#NoResInt">NoResInt</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>x</td></tr>
+<tr><td><a href="#NoReq">NoReq</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>x</td></tr>
+<tr><td><a href="#NoVBRMove">NoVBRMove</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>x</td></tr>
+<tr><td><a href="#NoWriteCache">NoWriteCache</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>-</td></tr>
+<tr><td><a href="#NoWriteInfo">NoWriteInfo</a></td><td>switch</td><td align=center>x</td><td align=center>x</td><td align=center>-</td></tr>
+<tr><td><a href="#NTSC">NTSC</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>x</td></tr>
+<tr><td><a href="#PAL">PAL</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>x</td></tr>
+<tr><td><a href="#Preload">Preload</a></td><td>przełącznik</td><td align=center>x</td><td align=center>x</td><td align=center>x</td></tr>
+<tr><td><a href="#PreloadSize">PreloadSize</a></td><td>liczbowy</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#Proxy">Proxy</a></td><td>ciąg</td><td align=center>-</td><td align=center>x</td><td align=center>-</td><td>-</td></tr>
+<tr><td><a href="#QuitKey">QuitKey</a></td><td>liczbowy</td><td align=center>x</td><td align=center>x</td><td align=center>x</td><td>$59 (F10)</td></tr>
+<tr><td><a href="#ReadDelay">ReadDelay</a></td><td>liczbowy</td><td align=center>-</td><td align=center>x</td><td align=center>x</td><td>0</td></tr>
+<tr><td><a href="#RestartKey">RestartKey</a></td><td>liczbowy</td><td align=center>x</td><td align=center>x</td><td align=center>x</td><td>$78 (CAA)</td></tr>
+<tr><td><a href="#SaveDir">SaveDir</a></td><td>ciąg</td><td align=center>x</td><td align=center>-</td><td align=center>-</td><td>-</td></tr>
+<tr><td><a href="#SavePath">SavePath</a></td><td>ciąg</td><td align=center>x</td><td align=center>x</td><td align=center>-</td><td>-</td></tr>
+<tr><td><a href="#ShowRegs">ShowRegs</a></td><td>ciąg</td><td align=center>-</td><td align=center>x</td><td align=center>-</td><td>SYS:Utilities/MultiView</td></tr>
+<tr><td><a href="#Slave">Slave</a></td><td>ciąg</td><td align=center>x</td><td align=center>-</td><td align=center>x</td><td>WHDLoad.Slave</td></tr>
+<tr><td><a href="#Snoop">Snoop</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#Snoop">SnoopAGA</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#Snoop">SnoopECS</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#Snoop">SnoopOCS</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#SplashDelay">SplashDelay</a></td><td>liczbowy</td><td align=center>x</td><td align=center>x</td><td align=center>x</td><td>200</td></tr>
+<tr><td><a href="#StoreBuffer">StoreBuffer</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#SuperScalar">SuperScalar</a></td><td>przełącznik</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#TimeOut">TimeOut</a></td><td>liczbowy</td><td align=center>x</td><td align=center>-</td><td align=center>x</td><td>0</td></tr>
+<tr><td><a href="#WriteCache">WriteCache</a></td><td>switch</td><td align=center>x</td><td align=center>-</td><td align=center>-</td></tr>
+<tr><td><a href="#WriteDelay">WriteDelay</a></td><td>liczbowy</td><td align=center>x</td><td align=center>x</td><td align=center>-</td><td>150</td></tr>
+</table>
+
+<h4>Przykład użycia</h4>
+<table cellpadding=3>
+  <tr>
+    <td valign=top><a name="optwb">Workbench:</a></td>
+    <td><img src="../pic/wbopt.gif" alt="Workbench Options"></td>
+  </tr>
+  <tr>
+    <td valign=top><a name="optcli">CLI lub shell:</a></td>
+    <td><tt>1&gt; WHDLoad SuperGame.Slave Preload NTSC QuitKey=69 Custom1=1</tt></td>
+  </tr>
+</table>
+<h3>Opis wszystkich opcji</h3>
+
+<a name="ButtonWait"></a><h4>ButtonWait/S</h4>
+Opcja ta nie wpływa bezpośrednio na WHDLoad, ale może być testowana przez plik
+.slave.
+<br>Znaczenie tej opcji jest takie, że jeżeli jest włączona, użytkownik chce,
+aby zainstalowany program czekał na naciśnięcie przycisku, gdy pokazywany jest
+obrazek i/lub odgrywana muzyka. W normalnej sytuacji muzyka lub obrazek są
+obecne w czasie ograniczonym wczytywaniem danych.
+
+<a name="BranchCache"></a><h4>BranchCache/S</h4>
+Opcja ta włącza &quot;Branch Cache&quot; procesora 68060. Na
+innych typach procesorów opcja nie działa.
+<br>Opcja nie działa również w sytuacji, gdy opcja <a href="#NoCache">NoCache/S</a> jest włączona.
+
+<a name="Cache"></a><h4>Cache/S</h4>
+Opcja ta włącza &quot;Instruction Cache&quot; i wyłącza &quot;Data Cache&quot; dla zainstalowanego programu. Na procesorach 68030 zostanie także włączony bufor instrukcji. Jeśli MMU jest wykorzystywane przez WHDLoad, zaznaczany jest obszar pamięci Chip jako &quot;Cacheable Writethrough (imprecise)&quot;.
+<br>Opcja ta nie działa jeżeli aktywna jest opcja <a href="#NoCache">NoCache/S</a>.
+
+<a name="Chk"></a><h4>Chk/S</h4>
+Opcja ta to skrót i włącza opcje <a href="#ChkBltSize">ChkBltSize/S</a>,
+<a href="#ChkBltWait">ChkBltWait/S</a> oraz <a href="#ChkColBst">ChkColBst/S</a>.
+
+<a name="ChkAudPt"></a><h4>ChkAudPt/S</h4>
+Opcja ta sprawdza, czy wskaźniki zapisane we wskaźnikach własnych danych audio są
+dopuszczalnymi adresami w pamięci Chip. Wskaźniki muszą mieć inną wartość od Null
+i zawierać się w BaseMem. Opcja ta działa jedynie w połączeniu z jedną z opcji
+<a href="snoop.html">SnoopOCS/SnoopECS/SnoopAGA</a>. Opcja ta jest przydatna
+przy diagnozowaniu problemów w procedurach odtwarzania dźwięku,
+
+<a name="ChkBltHog"></a><h4>ChkBltHog/S</h4>
+Opcja ta sprawdza na bieżąco, czy nie są ustawione bity <code>blthog</code>
+(<code>bltpri</code>) w rejestrze custom.dmacon. Działa tylko w połączeniu z
+opcjami <a href="snoop.html">SnoopOCS/SnoopECS/SnoopAGA</a>. Włączenie
+<code>blthog</code> ustala dla blittera wyższy od procesora priorytet dostępu do pamięci,
+co może spowodować problemy na niektórych konfiguracjach. Dodatkowo czasami można uzyskać
+lepszą wydajność dając procesorowi więcej cykli dostępu do magistrali.
+
+<a name="ChkBltSize"></a><h4>ChkBltSize/S</h4>
+Opcja ta sprawdza, czy zainstalowany program prawidłowo korzysta z blittera,
+tak, aby tylko właściwe obszary pamięci były wykorzystywane do operacji
+blittera. Opcja ta działa tylko w połączeniu z opcjami
+<a href="snoop.html">SnoopOCS/SnoopECS/SnoopAGA</a>.
+Będą sprawdzane wszystkie operacje blittera za wyjątkiem trybu linii.
+
+<a name="ChkBltWait"></a><h4>ChkBltWait/S</h4>
+Opcja ta sprawdza, czy zainstalowany program prawidłowo oczekuje na
+zakończenie operacji blittera przed rozpoczęciem nowej. Opcja ta działa tylko
+w połączeniu z opcjami <a href="snoop.html">SnoopOCS/SnoopECS/SnoopAGA</a>.
+
+<a name="ChkColBst"></a><h4>ChkColBst/S</h4>
+Opcja ta sprawdza na bieżąco, czy ustawiony jest bit <code>color</code> w
+rejestrze <code>custom.bplcon0</code>. Opcja ta działa tylko w połączeniu z
+opcjami <a href="snoop.html">SnoopOCS/SnoopECS/SnoopAGA</a>.
+Niektóre urządzenia, a w szczególności flickerfixer-y
+wymagają, by ten bit był ustawiony w celu generowania poprawnego sygnału wizyjnego na wyjściu.
+W celu zapewnienia jak najlepszej zgodności bit ten zawsze powinien być ustawiony.
+Sprawdzane są bezpośrednie zapisy do <code>custom.bplcon0</code> oraz wpisy dokonywane przez
+copperlistę.
+
+<a name="ChkCopCon"></a><h4>ChkCopCon/S</h4>
+Opcja ta sprawdza, czy zainstalowany program nie próbuje przy pomocy coppera i
+ustawień <code>custom.copcon</code> dostać się do rejestrów DMA. Opcja ta
+działa tylko w połączeniu z jedną z opcji <a href="snoop.html">SnoopOCS/SnoopECS/SnoopAGA</a>.
+Czasami może to być przydatne przy wykrywaniu czy program używa Coppera do kontroli aktywności DMA.
+
+<a name="ChkInts"></a><h4>ChkInts/S</h4>
+Opcja ta sprawdza przy każdym wystąpieniu przerwania, czy jest para pasujących
+ustawień w <code>intreq</code> i <code>intena</code> tego przerwania. Jeśli
+nie, program zostanie przerwany informując użytkownika odpowiednim komunikatem
+błędu. Opcja ta pozwala na szybkie wykrycie problemów z przyznawaniem przerwań
+na szybszych komputerach (68040/060) lub wadliwego sprzętu powodującego
+niepożądane przerwania. Zważając na fakt, iż warunek może być zgłoszony, gdy
+przerwania są wyłączone poprzez ustawienie opcji <code>intena</code> w tym
+samym momencie, w którym wystąpi przerwanie, opcja ta została dodana jako
+przełącznik. Od wersji 17.1 opcja ta włącza również pobieżne sprawdzenie systemu i
+klawiatury dla przerwań poziomu 4-6, które normalnie są wykonywane jedynie dla
+przerwań poziomu 1-3.
+
+<a name="ChipNoCache"></a><h4>ChipNoCache/S</h4>
+Opcja ta wyłącza buforowanie pamięci Chip (BaseMem). Powinna być wykorzystywana na
+sprzęcie, który nie umożliwia buforowania pamięć Chip (np. karty
+BlizzardPPC) w celu uniknięcia zwolnienia wykonywanego programu. Zobacz
+również rozdział <cite><a href="cache.html#chipmem">Obsługa buforów
+procesorów</a></cite>.
+
+
+<a name="Config"></a><h4>Config/K</h4>
+Przy użyciu tej opcji można określić elementy konfiguracji wyświetlane w okienku wyświetlanym podczas uruchamiania WHDLoad. Opcja ta nadpisuje opcję <a href="../autodoc.html#ws_config">ws_config</a> określoną w pliku .slave. W celu poznania składni zobacz opis funkcji <a href="../autodoc.html#ws_config">ws_config</a> w dokumentacji dla programistów.<br>
+Jeśli nie zostaną podane parametry dla funkcji <a href="../autodoc.html#ws_config">ws_config</a> w pliku .slave, ani nie zostanie ustawiona opcja Config/K, a plik .slave sprawdza elementy
+<a href="#custom">Custom1-5/K/N</a>/<a href="#buttonwait">ButtonWait/S</a> poprzez 
+funkcję <A HREF="../autodoc.html#resload_Control">resload_Control</a>,
+WHDLoad podczas uruchamiania z poziomu workbencha doda opcję Config/K do ikonki. Rodzaj elementów zostanie pobrany z aktualnych wartości opcji <a href="#custom">Custom1-5/K/N</a> (0-1 wartość logiczna, 2-63 lista, >63 ciąg binarny).
+
+<a name="ConfigDelay"></a><h4>ConfigDelay/K/N</h4>
+Opcja ta określa czas w 1/50 sekundy przez który pakiet WHDLoad będzie wyświetlał okno informacyjne
+przy uruchamianiu, jeśli zostały określone w nim jakiekolwiek przyciski (zobacz <a href="#Config">Config/K</a> oraz <a href="#Expert">Expert/S</a>). Jeśli wartość opcji ConfigDelay/K/N jest niższa od wartości <a href="#ReadDelay">ReadDelay/K/N</a> lub <a href="#SplashDelay">SplashDelay/K/N</a>, wartość ta zostanie zignorowana. Okno jest wyświetlane co najmniej tyle czasu ile czasu jest przetwarzana opcja <a href="#Preload">Preload/S</a>. Jeśli przycisk konfiguracji zostanie naciśnięty, licznik czasu dla opcji ConfigDelay zostaje zrestartowany.<br>
+Jeśli opcja zostanie ustawiona na -1, do okna zostanie dodany przycisk Start, a okno zostanie otwarte do czasu wciśnięcia tego przycisku. Okno może również zostać zamknięte poprzez naciśnięcie spacji, klawisza Enter, Return lub przycisku &quot;Fire&quot; dżojstika w porcie 1. Naciśnięcie klawisza Esc przerywa działanie funkcji <a href="#Preload">Preload/S</a> i powoduje natychmiastowe zakończenie pracy.
+
+<a name="CoreDump"></a><h4>CoreDump/S</h4>
+Jeżeli opcja ta jest aktywna, przy każdym wyjściu z zainstalowanego programu,
+WHDLoad utworzy <a href="dump.html">plik zrzutu zawartości pamięci i rejestrów</a>.
+Może być to przydatne podczas próby wyciągnięcia modułu muzycznego lub do
+wyszukiwania błędów.
+
+<a name="CoreDumpPath"></a><h4>CoreDumpPath</h4>
+Docelowa ścieżka katalogu dla wszystkich <a href="dump.html">plików zrzutu</a>
+tworzonych przez pakiet WHDLoad.
+
+<a name="Custom"></a><h4>Custom/K, Custom1/K/N, Custom2/K/N, Custom3/K/N, Custom4/K/N, Custom5/K/N</h4>
+Te opcje nie są wykorzystywane przez WHDLoad, lecz przez pliki .slave i służą do
+kontroli różnych specyficznych elementów. Custom/K może zawierać ciąg podczas, gdy
+Custom1-5/K przechowuje tylko zmienną będącą liczbą całkowitą. Sprawdź
+w dokumentacji instalowanego programu, czy opcja Custom jest obsługiwana.
+
+<a name="D"></a><h4>D/S</h4>
+Opcja ta wykorzystywana jest do wyszukiwania błędów. Jeżeli jest ona włączona
+i zostanie zlokalizowany w pamięci obsługiwany program wstrzymujący pracę
+innych programów (HRT/TK), WHDLoad zasymuluje NMI przed wykonaniem pierwszej
+instrukcji procesora zawartej w pliku .slave.
+
+<a name="Data"></a><h4>Data/K</h4>
+Używając tej opcji możesz określić katalog, który będzie katalogiem domowym operacji na plikach zainstalowanego programu. Można również określić wiele katalogów oddzielając je przecinkami (dlatego nazwa katalogu nie może zawierać przecinka!). Jeśli zostanie określonyhc kilka katalogów z danymi wszystkie określone katalogi będą używane podczas próby wczytania pliku. Zapisywanie danych natomiast następować będzie tylko do pierwszego podanego katalogu. Opcja ta nadpisuje wartość zmiennej <a href="../autodoc.html#ws_CurrentDir">ws_CurrentDir</a> zawartej w pliku .slave.
+
+<a name="DCache"></a><h4>DCache/S</h4>
+Opcja ta włącza Instruction Cache i Data Cache dla zainstalowanego programu.
+Na procesorach 68030 zostanie włączony także tryb burst dla instrukcji. Jeżeli
+wykorzystywane jest MMU, pamięć Chip zaznaczana jest jako &quot;Cacheable
+Writethrough (imprecise)&quot;.
+<br>Opcja nie działa jeżeli aktywna jest opcja <a href="#NoCache">NoCache/S</a>.
+
+<a name="DebugKey"></a><h4>DebugKey/K/N</h4>
+Ustawia <A HREF="rawkey.html"> kod klawisza</A>, który umożliwia wyjście z
+programu i zapis <a href="dump.html">plików
+zrzutu</a>. Opcja działa tylko <a href="#Expert">w trybie
+eksperta</a> i VBR jest przekierowane przez WHDLoad (opcja <a
+href="#NoVBRMove">NoVBRMove/S</a> nie jest ustawiona, a procesor to co
+najmniej 68010) lub plik .slave posiada obsługę tej opcji.
+
+<a name="ExecuteArgs"></a><h4>ExecuteArgs</h4>
+Opcja ta umożliwia przekazywanie argumentów do skryptów/programów
+wywoływanych poprzez opcje
+<a href="#ExecuteCleanup">ExecuteCleanup</a>, 
+<a href="#ExecutePreDisk">ExecutePreDisk</a>, 
+<a href="#ExecutePostDisk">ExecutePostDisk</a> 
+i <a href="#ExecuteStartup">ExecuteStartup</a>. 
+Użycie tej opcji umożliwia kontrolowanie zachowania skryptów/programów
+w pojedynczej instalacji bez konieczności posiadania wielu różnych skryptów.
+
+<a name="ExecuteCleanup"></a><h4>ExecuteCleanup</h4>
+Przy pomocy tej opcji można wywołać dowolne polecenie, którego wykonanie ma
+nastąpić po wyjściu z WHDLoad.
+Wykorzystując systemowe polecenie Execute można także wykonać dowolny skrypt.
+<br>Przykładowy skrypt zawarty jest w pakiecie WHDLoad("<code><a
+href="../../S/WHDLoad-Cleanup">S/WHDLoad-Cleanup</a></code>").
+
+<a name="ExecutePreDisk"></a><h4>ExecutePreDisk</h4>
+Przy pomocy tej opcji można wywołać dowolne polecenie, którego wykonanie ma nastąpić
+przed dokonaniem jakiegokolwiek dostępu do odczytu/zapisu danych. Jeśli nastąpi przełączenie
+do systemu operacyjnego polecenie jest wykonywane przed dostępem do dysku.
+Jest ono także wywoływane przy wyjściu z WHDLoad.
+Podczas wykonywania tego polecenia podsystem graficzny jest wyłączony
+i biblioteka intuition jest zablokowana. Polecenie to nie może wykonywać
+lub wpływać w żaden sposób na intuition  - w przeciwnym razie nastąpi zawieszenie systemu.
+ 
+<a name="ExecutePostDisk"></a><h4>ExecutePostDisk</h4>
+Przy pomocy tej opcji można wywołać dowolne polecenie, którego wykonanie ma nastąpić
+po dokonaniu jakiegokolwiek dostępu do odczytu/zapisu danych. Jeśli nastąpi przełączenie
+do systemu operacyjnego polecenie jest wykonywane po dostępie do dysku.
+Jest ono także wywoływane przy uruchamianiu WHDLoad.
+Podczas wykonywania tego polecenia podsystem graficzny jest wyłączony
+i biblioteka intuition jest zablokowana. Polecenie to nie może wykonywać
+lub wpływać w żaden sposób na intuition  - w przeciwnym razie nastąpi zawieszenie systemu.
+
+<a name="ExecuteStartup"></a><h4>ExecuteStartup</h4>
+Przy pomocy tej opcji można wywołać dowolne polecenie, którego wykonanie ma
+nastąpić przed uruchomieniem WHDLoad. Może to być wykorzystane w celu wyłączenia
+jakichś elementów sprzętowych, które mogą powodować nieprawidłowości w
+powiązaniu z WHDLoad jak np. stos TCP/IP lub USB. Więcej informacji znajdziesz
+w rozdziale <a href="bugs.html">błędy</a>.
+Wykorzystując systemowe polecenie Execute można także wykonać dowolny skrypt.
+<br>Przykładowy skrypt zawarty jest w pakiecie WHDLoad("<code><a
+href="../../S/WHDLoad-Startup">S/WHDLoad-Startup</a></code>").
+
+<a name="Expert"></a><h4>Expert/S</h4>
+Opcja ta włącza tryb eksperta. Wpływa ona na opcję <a
+href="#DebugKey">DebugKey/S</a> i ostrzeżenia podczas przełączania się między
+zainstalowanym programem a systemem (color cycle copper screens). Jeśli tryb
+eksperte nie jest aktywny, opcja <a href="#DebugKey">DebugKey/S</a> jest
+niedostępna. W trybie eksperta zostaje dodany do niektórych okien komunikatów
+o błędach dodatkowy przycisk, podpisany <a href="#ShowRegs"><i>Show
+Regs</i></a>, pozwalający na wyświetlenie rejestru oraz informacji o statusie
+podobnych do tych zapisywanych w plikach <a href="dump.html#register">zrzutu
+rejestrów</a>. Dodatkowo są dodawane przyciski do <a href="#ConfigDelay">okna startowego</a> pozwalające na zmianę opcji związanych z wyszukiwaniem błędów. Jeśli program był uruchamiany z poziomu Workbencha, zmienione opcje zostaną zapisane w ikonce.
+
+<a name="Exp"></a><h4>ExpChip/S, ExpLocal/S, Exp24Bit/S</h4>
+Jeśli zainstalowany program wykorzystuje dodatkową pamięć (<a href="../autodoc.html#ws_ExpMem">ws_ExpMem</a>) te opcje
+mogą być wykorzystane, aby zmusić WHDLoad do ulokowania tej pamięci odpowiednio
+w pamięci Chip, w pamięci lokalnej lub w pamięci 24bitDMA. Może to wpływać na
+prędkość zainstalowanego programu, gdyż określona pamięć może być wolniejsza w
+porównaniu z domyślną pamięcią Fast. Można wykorzystać programy (np. SysInfo,
+GvpInfo i inne) do sprawdzenia konfiguracji pamięci, aby zobaczyć, która pamięć ma
+odpowiednie dla nas właściwości.
+<br>Opcje te powstały z nadzieją na rozwiązanie problemów
+kompatybilności zainstalowanych programów na szybkich maszynach przez
+odpowiednie ich spowolnienie przy wykorzystaniu wolniejszej pamięci.
+
+<a name="FileLog"></a><h4>FileLog/S</h4>
+Opcja ta służy tylko do wyszukiwania błędów. Zobacz rozdział <cite><a
+href="dump.html#FileLog">Pliki zrzutów i raportów WHDLoad</a></cite>.
+
+<a name="FreezeKey"></a><h4>FreezeKey/K/N</h4>
+Jeżeli korzystasz z jednego z obsługiwanych programów zatrzymujących działanie
+innych programów (HRTMon lub Thrillkill) możesz użyć tej opcji do ustawienia
+<A HREF="rawkey.html">kodu</A> klawisza, którego wciśnięcie sprawi, że WHDLoad
+wejdzie w tryb wstrzymania. Aby opcja ta zadziałała, VBR musi być
+przekierowane przez WHDLoad (opcja <a href="#NoVBRMove">NoVBRMove/S</a> musi
+być wyłączona, a procesor to co najmniej 68010), a program zatrzymujący
+działanie innych programów musi być aktywny. Dokładniejsze informacje znajdziesz na podstronie
+<a href="freezer.html">Monitory systemu / programy zatrzymujące działanie innych programów</a>.
+
+<a name="FullChip"></a><h4>FullChip/S</h4>
+Włączenie tej opcji powoduje, że WHDLoad nie tylko zapisuje i wczytuje obszar pamięci chip określonej poprzez <a href="../autodoc.html#ws_BaseMemSize">ws_BaseMemSize</a> w pliku .slave, lecz całą dostępną pamięć chip (execbase.MaxLocMem). Jeśli WHDLoad wykorzystuje układ MMU do ochrony pamięci, robi to tylko dla prób niedozwolonego dostępu wywoływanych przez CPU. Ochroną tą nie są objęte bezpośrednie odwołania do pamięci przez układy specjalizowane takie jak Blitter, dostęp do dysku z wykorzystaniem kanału DMA. Podczas dostępu do danych na dysku z wykorzystaniem DMA mogą wystąpić uszkodzenia danychn w pamięci chip niewykrywane przez ochronę pamięci zaimplementowaną w pakiecie WHDLoad. Włączenie tej opcji błędy takie nie mogą powodować uszkodzeń w systemie operacyjnym, ponieważ przed uruchomieniem programu zawartość całej pamięci chip jest zapisywana, a podczas kończenia pracy - odtwarzana.<br>Zanim zainstalowany program zostanie uruchomiony dodatkowo wolna pamięć chip (część pomiędzy BaseMemSize a MaxLocMem) zostanie wypełniona specjalnym wzorcem. Po zakończeniu działania programu WHDLoad sprawdza dodatkową pamięć, czy przypadkiem nie została ona w żaden sposób zmieniona. Jeśli jakaś zmiana zostanie wykryta, WHDLoad pokaże odpowiedni komunikat błędy. Tylko w takim wypadku dodatkowa pamięć zostanie zapisana w <a href="dump.html#memory">pliku zrzutu pamięci</a> (nie plik kompletnego zrzutu), który pozwoli na dalsze poszukiwania błędów.<br>Opcja ta może być przydatna podczas tworzenia/wyszukiwania błędów w celu zapobieżenia uszkadzania działającego systemu oraz aby pomóc czasowo uszkodzonym pakietom instalacyjnym, które jeszcze nie mają naprawionych wszystkich błędów w zainstalowanym programie.
+<br>Opcja FullChip/S nie może być łączona z opcją <a
+href="#Exp">ExpChip/S</a>. W przypadku włączenia obu opcji, opcja FullChip/S jest ignorowana.
+ 
+<a name="LogBuffer"></a><h4>LogBuffer/K/N</h4>
+Opcja ta pozwala ustalenie wewnętrznego bufora do przechowywania wiadomości z fukcji 
+<a href="#FileLog">FileLog/S</a> oraz <A HREF="../autodoc.html#resload_Log">resload_Log</a>.
+Domyślna wielkość bufora to 4096 bajtów. Bufor ten jest alokowany tylko w przypadku
+włączenia opcji <a href="#FileLog">FileLog/S</a>. Gdy bufor jest pełny,
+WHDLoad przerywa wykonywanie programu, przełącza do systemu operacyjnego w celu opróżnienia bufora i zapisania jego zawartości do pliku raportu. Aby zapobiec tym przełączeniom wielkość bufora powinna być odpowiednio duża aby przechować jak największą liczbę wpisów.
+
+<a name="MMU"></a><h4>MMU/S</h4>
+Opcja ta musi być włączona na procesorach 68030, aby uzyskać opcje powiązane z
+MMU, czyli <a href="mmu.html#mem">ochrona pamięci</a>, lepsze <a
+href="mmu.html#cache">zarządzanie buforami</a>, <a
+href="snoop.html">Snooping</a>, funkcje <A
+HREF="../autodoc.html#resload_ProtectRead">resload_Protect#?</a>. Na procesorach
+68040/060 włączenie tej opcji nie przyniesie żadnych efektów, gdyż MMU używane
+jest domyślnie. Zalecane jest ustawienie tej opcji w globalnej konfiguracji na
+wszystkich pełnych procesorach 68030, gdyż zwiększa to stabilność i
+bezpieczeństwo. Jeżeli opcja <a href="#NoMMU">NoMMU/S</a> jest włączona, to ta
+funkcja nie przyniesie żadnych efektów.
+
+<a name="NoAutoVec"></a><h4>NoAutoVec/S</h4>
+Włączenie tej opcji sprawi, że WHDLoad nie wyjdzie z zainstalowanego programu
+w sytuacji, gdy nastąpi niespodziewane przerwanie autovector lub NMI (wektory
+#25-31 / $64-$7c). Opcja powinna być używana na systemach/sprzętach, które
+tworzą takie przerwania losowo, aby ustrzec się przed niespodziewanymi
+przerwami pracy WHDLoad. Pamiętaj jednak, że opcja ta nie uzdrowi uszkodzonego
+sprzętu generującego te przerwania. Niektóre zainstalowane programy mogą nadal
+działać nieprawidłowo na takim sprzęcie nawet z włączoną tą opcją. Zatem lepszym
+rozwiązaniem będzie wymontowanie (lub naprawa jeśli to możliwe) urządzenia
+generującego te przerwania.
+
+<a name="NoCache"></a><h4>NoCache/S</h4>
+Wybranie tej opcji sprawi, że wszystkie <a href="cache.html">buforowania</a>
+zostaną wyłączone.
+<br>Opcja ta jest nadrzędną wobec opcji <a href="#BranchCache">BranchCache/S</a>,
+<a href="#Cache">Cache/S</a>, <a href="#DCache">DCache/S</a>, <a
+href="#StoreBuffer">StoreBuffer/S</a> i <a
+href="#SuperScalar">SuperScalar/S</a>.
+
+<a name="NoFileCache"></a><h4>NoFileCache/S</h4>
+Wyłącza buforowanie plików WHDLoad i wymusza przełączenie się na system przy
+każdej operacji dyskowej zainstalowanego programu.
+<br>Opcja ta wyłącza działanie opcji <a href="#Preload">Preload/S</a>.
+
+<a name="NoFilter"></a><h4>NoFilter/S</h4>
+Wyłącza filtr audio. Zwróć uwagę, że opcja ta działa tylko podczas startu.
+Jeżeli zainstalowany program sam wpływa na zachowanie filtru, opcja nie
+zadziała.
+
+<a name="NoFlushMem"></a><h4>NoFlushMem/S</h4>
+Zasadniczo WHDLoad czyści pamięć na starcie, aby uzyskać jak największą ilość
+dostępnej pamięci w celu użycia opcji <a href="#Preload">Preload/S</a>. Wiąże
+się to z usunięciem z pamięci wszystkich nieużywanych zasobów, takich jak
+biblioteki, czcionki, itp. Użycie tej opcji sprawi, że WHDLoad nie wyczyści
+pamięci. Opcja może być wykorzystana na systemach z dużą ilością wolnej
+pamięci zapobiegając ponownemu wczytywaniu rezydentnych zasobów, co zwiększy
+wydajność.
+
+<a name="NoMemReverse"></a><h4>NoMemReverse/S</h4> Jeśli ta opcja jest włączona
+WHDLoad nie będzie alokował pamięci z wykorzystaniem flagi MEM_REVERSE. Dostałem
+zgłoszenia, że używanie tej flagi powoduje kłopoty na niektórych konfiguracjach
+(np. komputerach wykorzystujących pamięci w slotach PCMCIA Amigi600/1200 jako pamięć
+FAST, komputerach z kartą M-Tec1230/8 MB i systemem w wersji 3.0). Źródło tych
+problemów nie jest znane. Opcja ta może także pomóc w przypadku uszkodzonych
+wyższych obszarów pamięci, gdyż WHDLoad będzie wtedy używał w pierwszej
+kolejności adresów z niższych obszarów. Jeśli pojawiają Ci się dziwne błędy,
+warto spróbować użyć tej opcji.<br>
+Opcja ta jest zawsze aktywna na Kickstarcie 2.0 (v37) z powodu błędu implementacji
+Kickstartu, który może skutkować zamrożeniami systemu podczas wykonywania funkcji
+exec.AllocMem.
+
+<a name="NoMMU"></a><h4>NoMMU/S</h4>
+Po włączeniu tej opcji WHDLoad nie będzie korzystał z MMU. Opcja zalecana
+tylko podczas testowania lub wyszukiwania błędów. Zobacz również rozdział <a
+href="mmu.html#usercontrol">MMU</a>. Opcja ta jest nadrzędną dla opcji <a
+href="#MMU">MMU/S</a>.
+
+<a name="NoNetwork"></a><h4>NoNetwork/S</h4>
+Jeśli ta opcja będzie ustawiona, WHDLoad nie będzie próbował nawiązać połączenia z Internetem w celu <a href="net.html">sprawdzenia aktualizacji</a> wykorzystywanych pakietów instalacyjnych jak i samego WHDLoad.
+
+<a name="NoReq"></a><h4>NoReq/S</h4>
+Opcja ta może być użyta jedynie przy uruchamianiu WHDLoad z poziomu
+linii poleceń (CLI/shell). Przy uruchamianiu z poziomu Workbencha nie
+przyniesie ona żadnego skutku. Opcja ta wymusza na WHDLoad
+niewyświetlanie żadnych komunikatów w nowym, oddzielnym oknie, natomiast
+przekierowuje wszystkie komunikaty wyjściowe do okna poleceń, z którego został
+wywołany WHDLoad.
+
+<a name="NoResInt"></a><h4>NoResInt/S</h4>
+Opcja ta wyłącza przerwania podczas wykonywania funkcji resload. Domyślnie przerwania
+są dozwolone podczas wykonywania funkcji resload. Przerwania mogą odtwarzać dźwięk,
+uaktualniać zawartość ekranu lub wykonywać inne ważne rzeczy. Wyłączenie ich może
+spowodować zakłócenia dźwięku/obrazu, lub doprowadzić do całkowitego uszkodzenia programu.
+Niewłaściwie działające przerwania mogą zniszczyć wewnętrzne obszary danych pakietu WHDLoad,
+co zazwyczaj prowadzi do zawieszenie pakietu, jak i całego systemu operacyjnego.
+Opcja ta może być przydatna w takich przypadkach. Jeśli zainstalowana gra zachowuje się dziwnie
+lub zawiesza pakiet WHDLoad bez tej opcji, ale działa z nią poprawnie, najprawdopodobniej powodem
+tych zachowań są przerwania. WHDLoadtakich przypadkach pakiet instalacyjny wymaga poprawienia.<br>
+Rozpoczynając od wersji 17, WHDLoad podczas rozpoczynania funkcji resload sprawdzi aktywność blittera. Jeśli będzie on aktywny, pakiet WHDLoad przerwie działanie wyświetlając stosowny komunikat.
+
+<a name="NoVBRMove"></a><h4>NoVBRMove/S</h4>
+Domyślnie WHDLoad przekierowuje tablicę wektorów używając VBR (ang. Vector
+Register Base). Przekierowanie następuje do innego miejsca pamięci.
+Zaletą tego jest to, że zainstalowany program nie może zmienić tablicy
+wektorów, zwiększa to bezpieczeństwo i stabilność pracy. Niektóre
+zainstalowane programy nie będą poprawnie pracować z przekierowaną tablicą wektorów.
+Może to być spowodowane faktem, że zainstalowany program wykorzystuje
+wyjątki procesora lub wykonuje inne dziwne rzeczy.
+W takich przypadkach, opcja ta musi być włączona, aby
+zabezpieczyć się przed przekierowaniem VBR przez WHDLoad.
+<br>Kolejną cechą przekierowanego VBR jest to, że WHDLoad może dokonywać
+kontroli klawiatury każdorazowo, gdy następuje przerwanie autowektorów.
+Sprawdzając klawiaturę WHDLoad jest zdolny wyjść z zainstalowanego programu
+niezależnie od pracy tego programu. Działa to wówczas, gdy opcja <a
+href="#QuitKey">QuitKey/S</a> lub <a href="#DebugKey">DebugKey/S</a> jest
+aktywna, obsługiwana przez plik .slave i nastąpi wciśnięcie zdefiniowanego
+klawisza (podobnie sprawa się ma w przypadku zdefiniowanej opcji <a
+href="#FreezeKey">FreezeKey/S</a>).
+<br>Przekierowanie VBR wymaga co najmniej procesora 68010. Na 68000 opcja ta nie działa, gdyż nie posiada on VBR, a tabela wektorów jest zawsze ustawiona na $0 i nie może być przeniesiona. Na procesorach 68000 WHDLoad obsługuje niektóre dodatkowe urządzenia (ACA500, Zeus), które pozwalają na przeniesienie wektorów przerwań w inne obszary pamięci w celu zapewnienia obsługi funkcji <a href="#QuitKey">QuitKey/S</a>. Możliwości te nie będą wykorzystywane w przypadku włączenia tej opcji.
+
+<a name="NoWriteCache"></a><h4>NoWriteCache/S</h4>
+Opcja ta wyłącza własność WHDLoad umożliwiającą zapis zawartości bufora na
+dysk. Wyłączenie jej sprawi, że WHDLoad będzie próbował buforować wszystkie
+operacje zapisu w pamięci i przechowywać je tam będzie do czasu wyjścia z
+zainstalowanego programu, aby uniknąć niepotrzebnych przełączeń między
+zainstalowanym programem a systemem operacyjnym.
+
+<a name="NoWriteInfo"></a><h4>NoWriteInfo/S</h4>
+Jeśli ta opcja jest włączona, WHDLoad nie uaktualni pliku .info podczas uruchamiania
+z poziomu Workbencha. Domyślnie WHDLoad uaktualnia parametr <a href="#PreloadSize">PreloadSize/N</a> jeśli został
+zmieniony lub nie jest obecny, jak również uaktualnia opcje jak 
+<a href="#custom">Custom1-5/K/N</a> i <a href="#buttonwait">ButtonWait/S</a>
+jeśli zostały zmienione z poziomu okienka powitalnego.
+
+<a name="NTSC"></a><h4>NTSC/S</h4>
+Po wybraniu tej opcji WHDLoad będzie używał ekranu pracującego w trybie NTSC
+(60Hz). Na Amigach pracujących w trybie PAL wymagana jest obecność sterownika
+NTSC w katalogu &quot;<code>DEVS:Monitors/</code>&quot;.
+
+<a name="PAL"></a><h4>PAL/S</h4>
+Po wybraniu tej opcji WHDLoad będzie używał ekranu pracującego w trybie PAL
+(50Hz). Na Amigach pracujących w trybie NTSC wymagana jest obecność sterownika
+PAL w katalogu &quot;<code>DEVS:Monitors/</code>&quot;.
+
+<a name="Preload"></a><h4>Preload/S</h4>
+Jeżeli opcja ta jest włączona, WHDLoad będzie starał się na samym początku
+wczytać do pamięci tak dużo plików i obrazów plików, na ile pozwala wolna
+pamięć. Jeśli w trakcie wczytywania danych ilość pamięci okaże się niewystarczająca na wczytanie wszystkich danych, opcja wczytywania zostanie przerwana. Po czym zostanie wczytana tylko część plików. 
+Wpływa to na wzrost prędkości zainstalowanego programu, z racji
+unikania przełączania pomiędzy systemem, a zainstalowanym programem, w celu
+doczytania danych z dysku. Opcja ta powinna być zawsze włączona.
+
+<a name="PreloadSize"></a><h4>PreloadSize/N</h4>
+Opcja ta określa ile danych WHDLoad ma do  <a href="#Preload">wcześniejszego załadowania</a>. Jest używana jedynie do wyliczenia pasku postępu podczas wczytywania danych. Jeśli zainstalowany program jest uruchamiany z poziomu Workbencha, WHDLoad sam ustawi/zaktualizuje ustawienia tej opcji w ikonce po powrocie do systemu operacyjnego (chyba, że zostanie użyty parametr <a
+href="#NoWriteInfo">NoWriteInfo</a>. Wartość opcji PreloadSize nie jest jedynie sumą wielkości wszystkich plików.
+
+<br>Są dwa możliwe etapy działania opcji pokazywane różnymi kolorami paska postępu. Tylko gdy plik .slave posiada ustawioną flagę <a href="../autodoc.html#WHDL_Examine">WHDLF_Examine</a> - WHDLoad zgromadzi metadane dotyczące plików wczytywanych opcją Preload. Domyślnie kolorem pierwszego etapu jest czarny. Drugi etap jest zawsze aktywny gdy opcja <ahref="#Preload">Preload</a> jest ustawiona. Domyślnym kolorem drugiego etapu jest niebieski.
+
+<a name="Proxy"></a><h4>Proxy/K</h4>
+Używając tej opcji możesz określić adres serwera pośredniczącego (proxy) wykorzystywanego przez WHDLoad do <a href="net.html">połączenia z Internetem</a>. Opcja ta powinna być wykorzystywana jedynie w przypadku niemożliowści nawiązania bezpośredniego połączenia, ponieważ WHDLoad potrafi wykonywać jedynie pojedyncze proste zapytania HTTP. Składnia wpisywania adresu serwera pośredniczącego to [użytkownik:hasło@]serwer[:port]. Nazwa serwera dla serwera pośredniczącego jest wymagana. Numer portu jest opcjonalny, w przypadku nie podania numeru portu domyślnie używany jest port 80. Jeżeli serwer pośredniczący wymaga autoryzacji należy również podać użytkownika i hasło. WHDLoad obsługuje jedynie podstawowy tryb autoryzacji.
+
+<a name="QuitKey"></a><h4>QuitKey/K/N</h4>
+Definiuje <A HREF="rawkey.html">kod klawisza</A>, po wciśnięciu którego
+WHDLoad opóści zainstalowany program. Opcja działa tylko w
+przypadku przekierowania VBR przez WHDLoad (opcja <a
+href="#NoVBRMove">NoVBRMove/S</a> jest nieaktywna, a procesor to co najmniej
+68010) lub gdy plik .slave ją obsługuje.
+
+<a name="ReadDelay"></a><h4>ReadDelay/K/N</h4>
+Opcja ta określa czas mierzony w 1/50 sekundy przez jaki WHDLoad będzie
+oczekiwał po załadowaniu danych z dysku, a także po dokonaniu wczytania danych
+początkowych (<a href="#Preload">Preload/S</a>). Pozwala to rozwiązać problemy z
+napędami (np. CD-Rom), które zazwyczaj wykonują jakąś pracę po odczytaniu
+danych (np. wyłączenie silnika).
+
+<a name="RestartKey"></a><h4>RestartKey/K/N</h4>
+Używając tej opcji można zdefiniować <A HREF="rawkey.html">kod klawisza</A>,
+po wciśnięciu którego WHDLoad zrestartuje zainstalowany program.
+
+<a name="SaveDir"></a><h4>SaveDir/K</h4>
+Opcja ta określa podkatalog dla operacji zapisu zainstalowanego programu w połączeniu z opcją <a href="#SavePath">SavePath/K</a>. Może być wymagane określenie tego parametru, zamiast pozwolenia pakietowi WHDLoad na określenie samodzielnie podkatalogu, w sytuacji gdy masz zainstalowanych wiele wersji gry używających tego samego pliku .slave, ale posiadające niekompatybilny format zapisywanych plików. Może to być także bardzo przydatne, gdy plik .slave nie zawiera nazwy gry, a nazwa pliku .slave nie jest nazwą jaką byś chciał używać jako nazwa podkatalogu do zapisywania danych.
+
+<a name="SavePath"></a><h4>SavePath/K</h4>
+Opcja ta wymusza na WHDLoad przekierowanie wszystkich operacji zapisywania danych dokonywanych przez zainstalowany program do innego podkatalogu na dysku. Opcja ta określa katalog bazowy dla wszystkich zainstalowanych programów. Każdy zainstalowany program będzie posiadał własny podkatalog w katalogu bazowym. W przypadku braku podkatalogu, zostanie on utworzony przez WHDLoad (podczas pierwszej operacji zapisu). Nazwa podkatalogu może zostać określona poprzez opcję <a href="#SaveDir">SaveDir/K</a> lub w przypadku jej braku będzie pobierana przez WHDLoad z informacji z pliku .slave (<a href="../autodoc.html#ws_name">ws_name</a> lub nazwa pliku .slave). Wewnętrznie ten podkatalog jest obsługiwany jak dodatkowy podkatalog <a href="#Data">Data</a>.
+
+<a name="ShowRegs"></a><h4>ShowRegs/K/N</h4>
+Opcja ta jest wykorzystywana jedynie w połączeniu z opcją <a
+href="#Expert">Expert/S</a>. Używając tej opcji można określić program, który
+będzie używany do wyświetlania zrzutów rejestrów po naciśnięciu przycisku
+<i>Show Regs</i> w oknie komunikatu błędu wyświetlanym przez WHDLoad. WHDLoad
+doda nazwę tymczasowo zapisanego pliku (obecnie <tt>T:.whdl_register</tt>) do
+podanej linii wywołującej.
+
+<a name="Slave"></a><h4>Slave</h4>
+Nazwa pliku .slave, który powinien być użyty przez WHDLoad w celu wczytania
+programu. Plik .slave zawiera kod, który jest wymagany do komunikacji pomiędzy
+zainstalowanym programem a WHDLoad. Jeśli jako parametr zostanie podana "*",
+WHDLoad przeszuka obecny katalog w celu dopasowania nazwy pliku do wzorca
+"#?.slave" i użyje pierwszy pasujący plik. Jeśli nie dopasuje żadnej nazwy pliku
+zostanie użyty domyślny plik "WHDLoad.slave" do wyświetlenia komunikatu błędu.
+
+<a name="Snoop"></a><h4>Snoop/S, SnoopAGA/S, SnoopECS/S, SnoopOCS/S</h4>
+Te opcje włączają <a href="snoop.html">snooping rejestrów CIA/własnych</a>
+obsługiwany przez WHDLoad.
+
+<a name="SplashDelay"></a><h4>SplashDelay/K/N</h4>
+Opcja ta określa czas mierzony w 1/50 sekundy, przez jaki WHDLoad pokazuje
+początkowe informacje na temat zainstalowanego programu i autora pliku .slave.
+Jeśli wartość SplashDelay/K/N jest mniejsza od <a
+href="#ReadDelay">ReadDelay/K/N</a>, opcja zostanie zignorowana i okienko z
+informacjami wyświetlane będzie przez czas określony przy opcji <a
+href="#ReadDelay">ReadDelay/K/N</a>. Okienko wyświetlane jest tak długo, jak
+długo trwa <a href="#Preload">wczytywanie</a> danych.
+<br>Jeżeli zostanie podana wartość 0, okienko nie zostanie wyświetlone.
+Jeśli opcja zostanie ustawiona na -1, do okna zostanie dodany przycisk Start, a okno zostanie otwarte do czasu wciśnięcia tego przycisku. Okno może również zostać zamknięte poprzez naciśnięcie spacji, klawisza Enter, Return lub przycisku &quot;Fire&quot; dżojstika w porcie 1. Naciśnięcie klawisza Esc przerywa działanie funkcji <a href="#Preload">Preload/S</a> i powoduje natychmiastowe zakończenie pracy. Zobacz również opis funkcji <a href="#ConfigDelay">ConfigDelay/K/N</a>.
+
+<a name="StoreBuffer"></a><h4>StoreBuffer/S</h4>
+Opcja ta włącza Store Buffer procesora 68060. Na innych procesorach nie daje
+ona żadnego efektu.
+<br>Opcja nie działa, gdy włączona jest opcja <a href="#NoCache">NoCache/S</a>.
+
+<a name="SuperScalar"></a><h4>SuperScalar/S</h4>
+Opcja ta włącza możliwość wykonywania przez procesro 68060 wielu instrukcji w
+jednych cyklu. Na innych procesorach opcja ta nie działa.
+<br>Opcja nie działa, gdy włączona jest opcja <a href="#NoCache">NoCache/S</a>.
+
+<a name="TimeOut"></a><h4>TimeOut/K/N</h4>
+Określa po jakim czasie ma nastąpić wyjście z zainstalowanego programu.
+Wymaga, aby opcja <a href="#NoVBRMove">NoVBRMove/S</a> nie była włączona oraz
+aby zainstalowany program nie modyfikował timera <code>ciaa.ciatod</code>.
+Czas do wyjścia określony jest w 1/50 sekundy. Aby ustawić czas dema lub gry
+uaktywnij opcję <a href="#Expert">Expert/S</a> i ustaw <a
+href="#DebugKey">DebugKey/K/N</a>. W momencie, gdy będziesz chciał, aby
+WHDLoad przerwał wykonywanie programu wciśnij &quot;debug key&quot;. Spójrz teraz do
+utworzonego pliku <a href="dump.html">.whdl_register</a> i odszukaj wartości
+<code>ciaa-event</code>. Jeżeli korzystasz z ekranów PAL (50 Hz) jest to
+wartość, którą należy podać przy parametrze TimeOut/K/N. W przypadku ekranów
+NTSC (60 Hz) musisz przemnożyć wartość przez 5/6.
+
+<a name="WriteCache"></a><h4>WriteCache/S</h4>
+Opcja ta włącza funkcję zapisu buforów WHDLoad. Jako, że domyślnie ta opcja jest włączona, wykorzystywanie jej ma sens jedynie by zastąpić ustawienie globalne <a href="#NoWriteCache">NoWriteCache/S</a>. Możesz wyłączyć tę funkcję dla wszystkich zainstalowanych tytułów, a włączyć ją jedynie dla wybranych tytułów.
+
+<a name="WriteDelay"></a><h4>WriteDelay/K/N</h4>
+Opcja ta określa czas mierzony w 1/50 sekundy przez jaki WHDLoad będzie
+oczekiwał po zapisaniu danych na dysk. Oddziałuje to na wszystkie funkcje <A
+HREF="../autodoc.html">resload_Save#?</a> oraz na opcję <a
+href="#FileLog">FileLog/S</a>. Jest to szczególnie użyteczne, zwłaszcza, że
+systemy plików zazwyczaj nie zapisują danych od razu. Zabiera to trochę
+czasu (od 1 do 3 sekund) zanim wszystkie struktury dysku danego systemu plików
+zostaną zaktualizowane. Domyślnie wartość parametru WriteDelay wynosi 150
+i sprawia, że WHDLoad oczekuje 3 sekundy po każdym zapisie danych na dysk.
+Można ustawić tę wartość na 0, ale nie powinieneś wówczas wychodzić z programu
+poprzez restart komputera, ponieważ zapisywane dane mogą nie zostać poprawnie
+zapisane.
+</BODY>
+</HTML>

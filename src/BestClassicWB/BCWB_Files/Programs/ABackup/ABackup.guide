@@ -1,0 +1,883 @@
+@database ????
+@master ????
+@width 80
+@width 76
+@node Main "Preliminary"
+============================================================================
+                                ABackup 5.22
+
+                 Copyright (C) 1992-1999 by Denis GOUNELLE
+============================================================================
+
+Table of contents : 
+
+        @{" Introduction                                " Link "Introduction"}
+        @{" Informations légales                        " Link "InfoLegales"}
+        @{" Diffusion                                   " Link "Diffusion"}
+        @{" Modes de fonctionnements                    " Link "ModesDeFonct"}
+        @{" Arguments                                   " Link "Arguments"}
+        @{" Fenêtre d'application                       " Link "AppWindow"}
+        @{" Compatibilité avec les versions précédentes " Link "Compatibilite"}
+        @{" Utilisation de disques amovibles            " Link "DisquesAmov"}
+        @{" Remerciements                               " Link "Merci"}
+        @{" Auteurs                                     " Link "Auteurs"}
+        @{" Liste des modifications                     " Link "Historique"}
+        @{" Questions/Réponses                          " Link "FAQ"}
+
+@endnode
+@node Diffusion "Diffusion"
+
+Since  v5.22,  ABackup  is  now  a   freeware   program.   Without   written
+authorization, any commercial usage or selling is absolutly  forbidden.  You
+can copy and spread this program under the following conditions: 
+
+    1. All the files must be provided 
+    2. No file can be modified, in any way 
+    3. You can't ask for more than 5 USD for this 
+
+In spite of several tests, no warranty is made that there are no  errors  in
+ABackup. YOU USE THIS PROGRAM AT YOUR OWN RISK.  In  no  event  I  shall  be
+liable for any damage, direct or indirect, resulting of the use of ABackup. 
+
+@endnode
+@node Introduction "Introduction"
+ABackup is a program which allows you to backup data from your hard disk. It
+can be used on any Amiga model, providing you have Kickstart V37 or  higher,
+and at least 1 Mb of memory. 
+
+ABackup has all the features you might expect from such a program: 
+
+  - Both full and selective backup and restore operations  (you  can  select
+    the files by name, by date, by protection bits, but also one by one) 
+
+  - Backup to floppy disks, to partitions (for example a  SyQuest  cartrige)
+    or to an archive  file.  Optional  data  compression,  data  encryption,
+    verification, and archive bit setting. 
+
+  - Restore to  any  directory,  with  or  without  restoring  the  original
+    directory tree, and handling of already existing  files.  Optional  date
+    and empty directories restore. 
+
+  - Backup of non-AmigaDOS partitions (PC, Mac, UNIX, ...) 
+
+  - Optional report file for all operations 
+
+  - Full Intuition interface, AmigaGuide documentation. 
+
+However, ABackup is not just one more  backup  program.  This  program  also
+provides unusual features, like: 
+
+  - Support for removable disks  (SyQuest,  Zip,  Jaz,  etc...),  which  are
+    handled like floppy disks. 
+
+  - Transparent support of High Density floppy disks. Cyclic utilisation  of
+    several disks drives. Supports mixing of Double Density and High Density
+    floppy disks. Transparent support of the "diskspare.device". 
+
+  - Asynchronous writes for maximal backup speed 
+
+  - Data compression can be performed by the "xpk.library"  or  an  external
+    program. Automatic exclusion of files already compressed. 
+
+  - Allows full operation automatization : you can,  for  example,  start  a
+    backup just with a double-click over an icon. 
+
+  - Lots of controls, in order to avoid data loss due to handling errors. 
+
+  - Supports of the "MultiUserFileSystem" :  access  rights  and  owner  are
+    automatically backed up. When restoring files to a  partition  which  is
+    managed by this filesystem, theses informations  will  be  automatically
+    restored. 
+
+
+@endnode
+@node InfoLegales "Legal information"
+The "xpk.library"  library  is  (C)  by  U.  Dominik  Mueller,  Bryan  Ford,
+Christian Schneider, and the others XPK authors. 
+
+The "diskspare.device" device is (C) by Klaus Deppisch. 
+
+The "MultiUserFileSystem" filesystem is (C) by Geert Uytterhoeven. 
+
+All other products, brands and softwares quoted, are trade  marks  of  their
+respective owners. 
+
+@endnode
+@node Auteurs "Authors"
+ABackup has been written by : 
+
+    Denis GOUNELLE
+    27, rue Jules Guesde
+    45400 FLEURY-LES-AUBRAIS
+    FRANCE
+
+    EMail: denis.gounelle@wanadoo.fr
+
+    Homepage: http://perso.wanadoo.fr/denis.gounelle
+
+Version 5.00 of ABackup was written with Reza Elghazi. 
+
+@endnode
+@node ModesDeFonct "Four ways to make it work"
+Depending on the @{" Arguments " Link "Arguments"} specified when starting  the  program,  ABackup
+may be used in four different modes : 
+
+ 1. @{" Interactif avec interface Intuition " Link "StdIntuition"}
+
+    This is the default mode : the program shows a standard  Intuition  GUI,
+    and you direct the operations with the mouse and/or the keyboard. 
+
+ 2. @{" Automatique avec interface Intuition " Link "AutoIntuition"}
+
+    This mode is useful when you often do  the  same  operation  :  you  can
+    create an Project icon, whith all the  suitable  parameters,  and  start
+    this operation just by a double-click on the icon. 
+
+ 3. @{" Interactif avec interface Shell " Link "StdShell"}
+
+    This mode allows to use ABackup as a file  archiver,  as  if  it  was  a
+    program like "LhA" or "Tar". 
+
+ 4. @{" Automatique avec interface Shell " Link "AutoShell"}
+
+    This mode is very useful, for example, to make night-time backups  to  a
+    disk partition or a streamer. 
+
+@endnode
+@node StdIntuition "Interactive with Intuition interface"
+Once ABackup has been loaded and setup, the @{" Fenêtre principale " Link "MainWin"}  is  opened
+on the screen specified in the Preferences. 
+
+@endnode
+@node AutoIntuition "Automatic with Intuition interface"
+This mode is selected by a double-click on a "Project" icon,  of  which  the
+"Default Tool" is ABackup, and whose "Tool Types" have at least  the  "MODE"
+and "FROM" specifications (see @{" Arguments " Link "Arguments"}). 
+
+Once ABackup has been loaded and setup, the program automatically loads  the
+directory tree (or the archive catalog) and does the file  selection.  Then,
+the @{" Fenêtre moniteur " Link "MonitorWin"} appears, and the specified operation begins. 
+
+@endnode
+@node StdShell "Interactive with Shell interface"
+This mode is selected when you start ABackup  from  a  Shell  command  line,
+specifying at least the operation to  perform  (BACKUP,  RESTORE  or  VERIFY
+arguments) and the operation source (FROM argument). The  program  will  not
+open any Intuition window (except for the requests) but  will  rather  print
+messages into the Shell window. 
+
+Once ABackup has been loaded and setup, the program automatically loads  the
+directory tree (or the archive catalog) and does the file  selection.  Then,
+the specified operation begins and messages, like those usually displayed on
+the @{" Fenêtre moniteur " Link "MonitorWin"}, appear on the Shell window. 
+
+@endnode
+@node AutoShell "Automatic with Shell interface"
+This mode is selected like the @{" Interactif avec interface Shell " Link "StdShell"}  mode,  but
+with the additionnal QUIET argument. In this case, ABackup doesn't make  any
+request nor any display (except error messages), so it is suggested  to  ask
+for a full operation report. 
+
+Once ABackup has been loaded and setup, the program automatically loads  the
+directory tree (or the archive catalog) and does the file  selection.  Then,
+the specified operation begins. 
+
+@endnode
+@node Arguments "Arguments"
+The list of possible ABackup arguments is shown below.  For  each  argument,
+the first line shows the Shell syntax, while the second one shows  the  Tool
+Types syntax. 
+
+FROM/K source 
+FROM=source 
+    Specifies the name of the source directory or volume  (backup),  or  the
+    source archive (restore/verify). In order to backup several  volumes  at
+    the same time, specify the volume  names  separated  by  a  comma  (e.g.
+    "SYS:,Work:"). 
+
+TO/K destination 
+TO=destination 
+    Specifies the name of the destination archive (backup), or the directory
+    to restore to (restore). 
+
+B=BACKUP/S 
+MODE=BACKUP 
+    Begins a backup operation, in automatic mode. 
+
+R=RESTORE/S 
+MODE=RESTORE 
+    Begins a restore operation, in automatic mode. 
+
+V=VERIFY/S 
+MODE=VERIFY 
+    Begins a verify operation, in automatic mode. 
+
+SE=SELECT/K ALL|ARC|file 
+SELECT=ALL|ARC|file 
+    Specifies   the   name   of   the   selection   file   to    use    (see
+    @{" Enregistrement des sélections " Link "EnrSelection"}). By default, in "Automatic  with  Shell
+    interface" mode, all the files are selected. 
+    The "ALL" keyword is an easy way to select  all  the  files.  The  "ARC"
+    keyword is an easy way to select all the  files  with  the  archive  bit
+    cleared. 
+
+RP=REPORT/K file 
+REPORT=file 
+    Specifies the name of the report file. 
+
+IM=IMAGE/S 
+IMAGE 
+    This toggle  activates  the  "image"  backup,  which  allows  to  backup
+    non-AmigaDOS disk partitions. 
+
+PRF=PREFS/K file 
+PREFS=file 
+    Specifies the name of the Preferences file to use. 
+
+CAT=CATALOG/K file 
+CATALOG=file 
+    Specifies the name of the archive catalog file (restore/verify).  Useful
+    only if the "Use catalog file" option has been activated. 
+
+SFX=ECSUFFIX/K .suffix 
+ECSUFFIX=.suffix 
+    Specifies the suffix added by  the  external  compression  program.  For
+    example, if you want to use the LZX program, you must specify the ".lzx"
+    value for this argument. 
+
+QUIET/S 
+    This toggle activates the @{" Automatique avec interface Shell " Link "AutoShell"} mode. 
+
+HELPPATH=directory 
+    Specifies the name of  the  online  help  directory.  Default  value  is
+    "HELP:language", where language is the prefered language,  as  specified
+    in the system Preferences. 
+
+PREFSPATH=directory 
+    Specifies the name of the Preferences program directory.  Default  value
+    is "SYS:Prefs". 
+
+@endnode
+@node MainWin "Main window"
+The main window allows selection of the operation to perform: 
+
+Backup files and dirs 
+    To backup a directory, or one (or more) logical volume, by archiving all
+    the files in this directory or this volume(s). 
+    Once you will have selected the source directory or volume, ABackup will
+    load  the  list  of   the   corresponding   files,   and   display   the
+    @{" Fenêtre de sélection " Link "SelectionWin"}, to let you select the files to backup. An option
+    in  the  backup  Preferencs  allow  to  disable  loading  of  files   or
+    directories which comment  begins  with  the  "SKIPME"  keyword  :  this
+    feature avoids wasting lots of time loading  the  contents  of  a  large
+    directory you never backup. 
+
+Backup partitions 
+    To backup one or more physical volumes, by archiving every  cylinder  of
+    this volume(s). 
+    ABackup will display the @{" Fenêtre de sélection " Link "SelectionWin"}, to let you  select  the
+    partitions to backup. 
+    CAUTION ! Restoring such partitions  will  be  possible  only  if  their
+    characteristics have not changed : for exemple, the size and location of
+    the partition must be the same  as  those  backed  up.  Take  note  that
+    ABackup can't format the target  drive  :  if  you  need  to  restore  a
+    partition to a new disk drive, you must first low-level format it. 
+
+Restore 
+    To restore data previously backed up. 
+    ABackup will display the @{" Fenêtre de sélection de l'archive " Link "ArchiveWin"}, to let you
+    select the archive to restore. 
+
+Verify 
+    To verify an archive. This means at least integrity  checking,  but  you
+    can also ask to compare backed up data with original data. In this  last
+    case, ABackup will perform integrity checking even if  a  comparison  is
+    not possible (original file not found, etc...) 
+    ABackup will display the @{" Fenêtre de sélection de l'archive " Link "ArchiveWin"}, to let you
+    select the archive to verify. 
+
+Rebuild catalog 
+    This function is useful when an archive file is damaged, or if you  lose
+    the last floppy disk of a backup set : it allow to rebuild  the  archive
+    catalog, which is required to restore data. Take note that this function
+    is not supposed to recover any error that may occur, and is not intended
+    for inexperienced users. 
+    If the damaged archive is an archive file, you must first check that the
+    first header block is at a block boundary, that is at a address multiple
+    of 512 (you may use the "TYPE archive HEX" command for this,  the  first
+    and the third long word of the header blocks are set to "#0000"). If the
+    damaged archive  is  on  floppy  disks,  you  must  give  the  disks  in
+    increasing order of disk numbers. This function works even if some disks
+    are missing. 
+    ABackup will display the @{" Fenêtre de sélection de l'archive " Link "ArchiveWin"}, to let you
+    select the archive for which the catalog is to rebuild. 
+
+Preferences 
+    To call the external configuration program 
+
+See also @{" Fenêtre d'application " Link "AppWindow"}. 
+
+@endnode
+@node SelectionWin "Selection window"
+This window shows the list of files or partitions, so that  you  can  select
+which ones are to backup, restore, or verify. It is made of an  upper  part,
+containing selection gadgets, and a lower part, in which  is  displayed  the
+list of the files or  partitions.  You  can  scroll  this  list,  using  the
+scroller at the right of the window. You can print the  currently  displayed
+list, using the "Print current list" item in the "Project" menu. 
+
+When selecting files to backup, you can add a new volume or directory to the
+current list, using either the "Add directory" item in the "Project" menu or
+the @{" Fenêtre d'application " Link "AppWindow"}. 
+In order to have an estimation of the  number  of  disks  and  of  the  time
+required for the backup, you can use the "Estimate" item  in  the  "Project"
+menu. 
+
+The "Files:" and "Size:" fields respectively show  the  number  of  selected
+files or partitions, and  the  total  size  of  the  selected  objects.  The
+"Directory:" field shows the name of the directory containing the  currently
+displayed files. 
+
+To go down in the directory tree, just click  on  a  directory  name  :  the
+contents of this directory will be displayed (except if  this  directory  is
+empty). The "Root" and "Parent" gadgets allow to  go  up  in  the  directory
+tree, respectively to the root directory and to the parent directory of  the
+current directory. 
+
+If you click on a file, empty  directory,  or  partition's  name,  you  will
+toggle the state of this entry : if it was selected, it will be  unselected,
+and if it was not selected, it will be selected. To toggle all the  contents
+of a non-empty directory, you just have to hold down the  SHIFT  key,  while
+clicking on the directory's name. 
+You can move the mouse without  releasing  the  left  button,  in  order  to
+"drag-select"  or  "drag-unselected"  the  other  files,   directories,   or
+partitions. 
+
+If you double-click on a file's name, ABackup will try  to  call  a  viewing
+program, depending on the file's type. A requester will allow you to confirm
+the viewing request and, if necessary, to modify the name of the program  to
+call. 
+If you double-click  on  a  partition's  name,  ABackup  will  display  some
+information about this partition (unit number, number of blocks  per  track,
+etc...). 
+
+The selection gadgets are: 
+
+Filter 
+    Tells if the other selection gadgets  will  add  ("Include")  or  remove
+    ("Exclude") files or partitions from the selection list. 
+
+Recursive 
+    If activated, any selection action will be recursively  applied  to  any
+    files or directories, contained in the sub-directories  of  the  current
+    directory. 
+
+All 
+    Include or exclude all the files or partitions. 
+
+Reverse 
+    Toggle all the selection : any selected file or partition is unselected,
+    and any unselected file or partition become selected. 
+
+By name 
+    Include  or  exclude  all  the  files  or  partitions  matching  a  name
+    ("ram:foo" for example) or a pattern ("#?.info"  for  example).  ABackup
+    recognize the same patterns as AmigaDOS (refer to your  AmigaDOS  manual
+    for more information). 
+    A requester will allow you to enter the name or the pattern. Two gadgets
+    allow you to find files or partitions that match ("Match") or that don't
+    match ("No Match") the given name or pattern. 
+
+By date 
+    Include or exclude files  depending  on  their  last  modification  date
+    and/or time. 
+    A requester  will  allow  you  to  enter  the  date  (in  "DD-MM-YY"  or
+    "DD-MMM-YY" format) and/or the time ("HH:MM:SS"  format).  If  you  only
+    specify a date, the time will be assumed to be "00:00:00". If  you  only
+    specify a time, the date will be assumed to be today's date. Two gadgets
+    allow you to find files modified before ("Before")  or  after  ("After")
+    the specified date. 
+
+By bits 
+    Include or exclude files depending on their protection bits. 
+    A requester will allow you to specify, for each protection bit,  if  you
+    want it to be set ("+" character in the corresponding  gadget),  cleared
+    ("-" character in the corresponding gadget), or if  you  don't  want  to
+    test it (empty gadget). 
+
+At the bottom of the window, three gadgets allow (from left to right): 
+
+- to start the operation (backup, restore or verify). ABackup  will  display
+  the @{" Fenêtre moniteur " Link "MonitorWin"}. 
+- to call the external configuration program 
+- to go back to the @{" Fenêtre principale " Link "MainWin"}. 
+
+Last, the "Selection" menu allow to record a selection, in order  to  recall
+it later. See @{" Enregistrement des sélections " Link "EnrSelection"} for more information. 
+
+@endnode
+@node MonitorWin "Monitor window"
+This window allows you to  follow  the  process  of  the  current  operation
+(backup, restore, etc...).  It  is  made  of  an  upper  part,  with  eleven
+information fields, and a lower part in which messages are displayed. 
+
+The information fields are: 
+
+Saved/Restored/Verified/Read 
+    Number  of  files  or  partitions  processed  (left),  number  of  bytes
+    processed (right). The gauge at  the  right  of  the  window  shows  the
+    percentage of files or partitions  processed  on  the  total  number  of
+    selected objects. 
+
+Left 
+    Number of files or partitions not yet processed (left), number of  bytes
+    not yet processed (right). The gauge at the right of  the  window  shows
+    the percentage of files or partitions not yet  processed  on  the  total
+    number of selected objects. 
+
+Disk 
+    Number of the current floppy disk  (left).  Duration  of  the  operation
+    (right). 
+
+Compression 
+    Compression ratio. 
+
+Destination/Source 
+    Archive name. The gauge at the right of the  window  shows  the  current
+    position on the target (write) or source (read) volume. 
+
+At the bottom of the window, the "Pause" gadget  allows  you  to  pause  the
+operation. Click a second time on this gadget to resume. The "Abort"  gadget
+allows you to definitively abort  the  operation  (you  will  be  asked  for
+confirmation). The name of the optional report  file  is  displayed  between
+these two gadgets. 
+
+Once the operation finished, ABackup will ask you if you want to go back  to
+the @{" Fenêtre principale " Link "MainWin"}. If you answer "no", the program will  go  back  to
+the @{" Fenêtre de sélection " Link "SelectionWin"}. 
+
+@endnode
+@node LoadTreeWin "Loading window"
+This window appears while ABackup is scanning the contents of a directory or
+a volume, or loading the catalog of an archive. It allows your to follow the
+processing and, if necessary, to abort it by clicking on the "Abort"  gadget
+: ABackup will return to the @{" Fenêtre principale " Link "MainWin"}. 
+
+Once the loading finished, ABackup will display the  @{" Fenêtre de sélection " Link "SelectionWin"},
+so you can select the files or partitions to process. If you have asked  for
+a "Verify" operation, note that a Preferences option allows you to skip  the
+selection and to always verify all the archive. 
+
+@endnode
+@node InfoWin "Information window"
+This window appears when ABackup is about to load the catalog of an archive.
+It displays some information saved during the backup : 
+
+Source 
+    Name of the source directory(ies) or volume(s). 
+
+Files 
+    Number of files in the archive. 
+
+Bytes 
+    Number of data bytes in the archive. 
+
+Date 
+    Backup date. 
+
+Time 
+    Backup time. 
+
+Compression 
+    Compression method used for the backup. 
+
+Comment 
+    Optionnal comment specified during the backup. 
+
+To continue the operation, click on the "Continue"  gadget  :  ABackup  will
+display  the  @{" Fenêtre de chargement " Link "LoadTreeWin"}.  To  cancel  and  go  back   to   the
+@{" Fenêtre principale " Link "MainWin"}, click on the "Abort" gadget. 
+
+@endnode
+@node ArchiveWin "Archive selection window"
+This window is like the one used by the Preferences program. It is made of: 
+
+- a cyclic gadget that lets you select the archive type (device, file, tape)
+
+- two lists that let you select the units to use, if the archive type is set
+  to "Device". The list on the left shows all the connected units,  the  one
+  on the right shows the units to use. To transfer a unit from one  list  to
+  another, just click on it's name in the list. 
+
+- a string gadget, and a request calling button, that lets  you  select  the
+  name of the archive file, if the archive type is set to "File". 
+
+- a gadget that allows you to ask to load the archive catalog from  a  file,
+  instead of loading it from the archive itself. 
+
+To validate the request, click on  the  "Ok"  gadget  :  ABackup  will  then
+display the @{" Fenêtre d'information " Link "InfoWin"}, if you have asked for a  restore  or  a
+verify operation. If you  asked  for  a  catalog  rebuilding,  ABackup  will
+display the @{" Fenêtre moniteur " Link "MonitorWin"}, and will start to read the archive. Once the
+archive will have  been  read  entirely,  ABackup  will  create  an  archive
+catalogue file. To use this catalog, activate the "Use catalog file" option.
+
+@endnode
+@node EnrSelection "Selection recording"
+ABackup has the capability of recording a file selection  so  that  you  can
+recall it later.  This  can  be  useful  if  you  frequently  use  the  same
+selections (for example all the files with the archive bit cleared) but also
+when using one the automatic mode: you can specify the name of  a  selection
+file as an @{" Arguments " Link "Arguments"}. 
+
+The recording process records the selection actions themselves, and not  the
+name of the selected files (assuming you don't select files  or  directories
+by clicking on their names in the  list).  This  way,  you  can  apply  this
+selection to any source directory. Also, if new files are created, they will
+be automatically taken in account. 
+
+In order to record a selection, choose the "Record" item in the  "Selection"
+menu, on the @{" Fenêtre de sélection " Link "SelectionWin"}. Once you will have specified  the  name
+of the selection file, ABackup will record all your selection actions.  Once
+you have finished, select the "Save" or  "Abort"  item  in  the  "Selection"
+menu, depending on whether you want to keep this selection or to cancel  the
+recording. 
+
+To recall a selection, select the "Load" item in  the  "Selection"  menu.  A
+file requester will be displayed, allowing you to specify the selection file
+you want use. Then the file will be loaded, and  ABackup  will  execute  the
+selection actions it contains. 
+
+Selections are recorded as text files,  in  a  directory  specified  in  the
+Preferences. Here is the description  of  the  selection  language  used  by
+ABackup, which will allow you to create or modify a selection  file  as  you
+like, by means of your usual text editor. 
+
+CD : 
+    Go back to the root directory
+
+CD / 
+    Go back to the parent directory
+
+CD "dir" 
+    Go down into the given sub-directory
+
+INVERT 
+    Reverse the selection
+
+RECURS {YES|NO} 
+    Set the recursivity flag
+
+INCLUDE ALL 
+EXCLUDE ALL 
+    Include/exclude all the files
+
+INCLUDE "name" 
+EXCLUDE "name" 
+    Include/exclude the given file or directory
+
+INCLUDE NAME "name or pattern" {MATCH|NOMATCH} 
+EXCLUDE NAME "name or pattern" {MATCH|NOMATCH} 
+    Include/exclude using the given name or pattern
+
+INCLUDE DATE "date and/or time" {UPTO|SINCE} 
+EXCLUDE DATE "date and/or time" {UPTO|SINCE} 
+    Include/exclude using the given date and/or time
+
+INCLUDE BITS mask value 
+EXCLUDE BITS mask value 
+    Include/exclude using protection bits
+    (files for which "bits AND mask = value")
+
+Here is an example of selection file:
+
+RECURS YES
+; back to the root !
+CD :
+; clears any previous selection
+EXCLUDE ALL
+; include all files with archive bit cleared
+INCLUDE BITS "0x10 0x00"
+; exclude all ".o" files
+EXCLUDE NAME "#?.o" MATCH
+
+Note that empty lines and lines starting by a  ";"  character  are  ignored.
+Also note that ABackup automatically stores the  state  of  the  recursivity
+indicator at the beginning of your selection record: if you take a  look  at
+the created files, you'll see that they all begin with a "RECURS" command. 
+
+If you want to be sure to clear a previous selection, it is  recommended  to
+start all your  selections  by  clicking  on  the  "Root"  gadget  and  then
+excluding all the files of the selection. 
+
+@endnode
+@node Compatibilite "Compatibility with the previous versions"
+ABackup has been entirely re-written for this version. Archives  created  by
+the previous versions of the program are supported as follow: 
+
+    v1.00-v2.01  you must rebuild the archive catalog 
+
+    v2.10-v2.43  directly supported 
+
+    v3.00-v3.12  NOT SUPPORTED 
+
+    v4.00-v4.09  directly supported 
+
+Archives crypted by a previous version are NOT supported,  whatever  version
+you used for the backup. 
+
+@endnode
+@node AppWindow "Application window"
+When you run ABackup on  the  Workbench  screen,  the  program's  window  is
+automatically set as an "Application Window". If you run ABackup on a public
+or custom screen, an "Application  Icon"  is  automatically  opened  on  the
+Workbench screen. 
+
+This allows you to drop the following icons: 
+
+Preferences file icon 
+    Accepted on the @{" Fenêtre principale " Link "MainWin"} and the @{" Fenêtre de sélection " Link "SelectionWin"}. The
+    file will immediatly be loaded, and the new parameters taken in account.
+
+Archive file or volume 
+    Accepted only on the  @{" Fenêtre principale " Link "MainWin"}.  The  corresponding  archive
+    will immediatly be scanned for a restore operation. 
+
+Directory(ies) or AmigaDOS volume(s) icon(s) 
+    Accepted on the @{" Fenêtre principale " Link "MainWin"}, or the  @{" Fenêtre de sélection " Link "SelectionWin"}  if
+    the current operation is a backup. The list of the  files  contained  in
+    the corresponding directory(ies) or volume(s) will immediatly be  loaded
+    and added to the list of the files to backup. 
+
+Selection file icon 
+    Accepted only on the @{" Fenêtre de sélection " Link "SelectionWin"}. The file will immediatly be
+    loaded, and the selection executed as if you had selected the file  with
+    the "Open" item of the "Selection" menu. 
+
+A double-click on the Application Icon will bring to the  front  the  screen
+used by ABackup. 
+
+@endnode
+@node DisquesAmov "Removable disks support"
+ABackup  supports  removable/amovible  disks,  like  SyQuest,  Zip  and  Jaz
+systems. This means that it is possible to write on several disks, just like
+floppy disks, if the data to backup doesn't fit on a single one. 
+
+In order to use this function, you just have  to  select  the  corresponding
+partition as the destination  partition,  in  the  Backup  preferences  (for
+exemple, set the destination to SH0:, in order to use the first partition of
+your SyQuest drive). The name to select must correspond  to  the  "physical"
+name of the  partition,  that  is,  the  partition  name  you  specified  in
+HDToolsBox (not the name of the disk icon on the Workbench). 
+
+Of course, ABackup will only write  to  the  specified  partition.  If  your
+removable disk has three partitions named SH0:, SH1: and SH2:, and  you  ask
+to use SH1: as the destination partition, the two other partitions  will  be
+left unchanged. For security reasons, however, it is recommanded to dedicate
+the full disk for your backup. 
+
+Before using them to backup your data, the disks must  have  been  low-level
+formatted and partitionned. When using  several  disks,  every  backup  disk
+*MUST*  have  a  partition  with  the  name  specified  as  the  destination
+partition. I mean that if you selected SH0: as  the  destination  partition,
+there must be a partition named SH0: on each disk you plan to use  for  your
+backup. However, this partition can have different size and location on each
+disk. 
+
+@endnode
+@node Merci "Thanks"
+Several persons have helped, directly or not, to achieve this project : 
+
+    AmigaDream
+    AmigaNews
+    Andrew D. Appleby (also known as "-AD-" or "morse" :-)
+    Daniel J. Andrea II
+    Gaël Marziou
+    Jean-Pierre Rivière
+    Jérome Chesnot (R.A.M.)
+    Michel Castel
+    Michel Schinz
+    Philippe Brand (RAMSES SysOp)
+    Stéphane Anquetil
+
+    the translators :
+
+    Alessandro Basso
+    Francesco Mancuso
+    Horst Schumann
+    Kersten Emmrich
+    Martin Steigerwald
+    Stefan Salewski
+
+    and Etienne Schneider for the icons.
+
+And also all the people who reported bugs  or  suggested  enhancements,  and
+those who send the shareware fee. 
+
+Denis would like to send personal greetings to Jean-Philippe  Rapp  (without
+whom ABackup may have never existed) and to Michel Schinz. 
+
+Reza would like to send personal greetings to Michael Berg and Jan  van  den
+Baard. 
+
+While finishing this program, we have a thought for Pierre Carrette, one  of
+the author of BrowserII, who left us in May 1995. 
+
+@endnode
+@node Historique "Program history"
+v5.00, 15-Aug-95, 107332 bytes 
+
+v5.01, 30-Sep-95, 108388 bytes 
+  -  Catalog  rebuilding  was  unusuable  for  archives  on   floppy   disks
+    (terminated without creating the new catalogue) 
+  - A few errors corrected in old  archive  format  support  (one  of  these
+    errors made failed backup which where made just after). 
+  - Using several units (DF0: and DF1: for example)  now  works  (in  v5.00,
+    ABackup  couldn't  open  the  second  unit,  because   it's   name   was
+    overwritten) 
+  - Added the "__stackext" directive for all recursive functions,  in  order
+    to avoid crashes by lack of stack space 
+  - Added the ECSUFFIX argument, which let you specify the suffix  added  by
+    the external compression program (so you may now use LZX) 
+  - Do not change now the comment, the  icon  and  the  protection  bits  of
+    archive files, when you do a restore or a verify operation 
+  - The message suggesting to verify the backup, when  a  bad  cylinder  has
+    been detected, only appears now at the end of the backup 
+  - When using a custom screen, the window opened by ABackup was too  large,
+    so the screen's menu bar disapeared at the first WindowToFront() call 
+  - No more problems when you quit the program,  and  visitors  windows  are
+    left on ABackup custom screen (the screen is left opened) 
+  - When you ask to rebuild the  catalog,  ABackup  now  first  display  the
+    archive selection window (as for restore or verify), and do not ask  any
+    comment for the catalog. 
+  - The "Preferences" gadget, on the Monitor window, is  wider  (the  german
+    text did not fit in) 
+  - Do not verify now the name  of  the  SCSI  driver,  in  the  Preferences
+    program (this was a problem because, if the SCSI  port  number  was  not
+    correct, the previous driver name was taken back) 
+
+v5.02, 28-Oct-95, 108180 bytes 
+  - Didn't react to the "Abort" gadget while sorting directory trees (during
+    the loading of the files to backup) 
+  - When "No" was answered to the request asking if the current  disk  could
+    be overwritten, the first bloc of the disk was destroyed anyway 
+  - Removed two enforcer hits at program  startup  (occurred  only  when  no
+    catalog file was installed) 
+  - Now sets the archive bit only on successfully backed up files  (no  more
+    on any selected file) 
+  - Couldn't find the on-line help with a Kickstart version lower  than  V40
+    (used the "language" variable, which is not defined before this version)
+  - The disk gauge now goes up to 100% in read more (restore/verify, it used
+    to stop at 98%, although 100% was read) 
+  - Speeded up the filename sorting function  (should  be  about  two  times
+    faster on directories containing several hundred of files) 
+
+v5.10, 23-Dec-95, 111996 bytes 
+  - Enhanced MUFS support : you can't restore or verify files for which  you
+    don't have read access 
+  - Catalog rebuilding totally rewritten. For archives created by  v5.10  or
+    higher, the generated catalog  will  be  good  up  to  64  sub-directory
+    levels, and 256 sub-directories per level. Things will  also  be  better
+    (but not perfect) for previous archive formats. 
+  - About two times faster when reading archives (restore/verify operations)
+  - Filename sorting algoritm changed (now takes less than  two  seconds  to
+    sort a 3000 files directory, instead of more than one hour) 
+  - Selected/processed/left sizes have now a decimal (i.e. 2.6 Mb instead of
+    2 Mb) 
+  - Input/output buffer for streamer access can be allocated in FAST  memory
+    now. 
+  - A few bugs fixed in old archive format support 
+  - Automatic splitting of large files will  now  be  correct  even  if  the
+    temporary directory is not on RAM: 
+  - Windows where too high on a Custom screen,  so  the  screen's  menu  bar
+    could disappear in some cases. 
+  - Added missing "__stackext" directive on two recursive functions 
+
+v5.11, 03-Feb-96, 112152 bytes 
+  - No longer crashes when it have to switch to another disk drive to  write
+    the archive catalog 
+  - The "Print current list" item used to send the output to the  "Ram:Toto"
+    file, instead of the printer 
+
+v5.12, 01-May-96, 112172 bytes 
+  - If the last disk was not much used, the disk header was not  written  at
+    the right location (overwrited the  archive  catalog  instead  of  being
+    written on the first cylinder) 
+  - Did not check the length of the root  name  before  copying  it  in  the
+    header blocks, so it overwritted other  data  area  if  longer  than  32
+    characters. 
+  - The "ARC" keyword after the "SELECT" argument had  to  be  specified  in
+    uppercase in order to be recognized. 
+  - Display problem when restoring/verifying a  partition  :  the  displayed
+    size of the last cylinder was in fact the total size of the partition 
+  - When you confirm the overwritting  of  an  existing  archive  file,  the
+    DELETE and WRITE protection bits are set before opening the file 
+  - On the selection window, links are flagged by the "Link" word instead of
+    the file size (like "Drawer" for the directories) 
+
+v5.13, 09-Jul-96, 112436 bytes 
+  - Fixed a few bugs when a uncrypted backup was made over a crypted archive
+  - The verified/to verify count was not always correct 
+  - Now restores date and comment of not empty directories 
+
+v5.14, 18-Jan-97, 114780 bytes 
+  - Compiled with SAS/C 6.57 
+  - In the selection window, selection by name, by date and by bits was made
+    from the root directory, instead of the current directory 
+  - Fixed a (not frequent) bug when reading data spread on  two  consecutive
+    disks 
+  - Fixed several bugs in the  "Automatic  with  Intuition  interface"  mode
+    (didn't load the file list when called with  a  directory  icon,  didn't
+    load the catalog when called with an archive file icon, etc...) 
+  - In the "Automatic with Intuition interface", the SELECT argument is  now
+    required in order to directly start the operation  (if  omited,  ABackup
+    will stop on the selection window) 
+  - Added the "ALL" keyword on the SELECT argument 
+  - Can now verify partitions if comparison is disabled even if  the  source
+    partitions are not mounted 
+
+v5.20, 06-Feb-98, 120608 bytes 
+  - Allow to use several removable disks (SyQuest, Zip, Jaz, etc...)  for  a
+    backup. 
+  - Added the "Ignore SKIPME" option in the backup Preferences. 
+  - Bug fixed : when recording a selection, generated a "CD :" instead of  a
+    "CD /", and vice-versa. 
+  - Bug fixed : the CATALOG argument was not recognized as a "Tool Types". 
+  - Bug fixed : the REPORT and CATALOG arguments were taken in account  only
+    when using ABackup in one of the two "from Shell" modes. 
+  - Bug fixed : if the default text font was too wide, didn't always  switch
+    back to the "Topaz 8" font. 
+
+v5.21, 15-Mar-98, 120628 bytes 
+  - Compiled with SAS/C 6.58 
+  - If the archive catalog duplication fails, allow to retry to another file
+
+v5.22, 21-Aug-99, 120188 bytes 
+  - Now reminds about the report file selected by the  file  requester,  and
+    uses it for the next request 
+  - Bug fixed: the CATALOG argument was not always handled in the right way 
+  - Bug fixed: the REPORT argument was not always handled in the right way 
+  - Is now distributed as a freeware program, no more 68060 special version 
+
+@endnode
+@node FAQ "Frequently Asked Questions"
+
+Q:I've tried to use LZX, with external compression, but it doesn't work. All
+  the files are "Stored", and lots of ".lzx" files are left in the temporary
+  directory. 
+A:If the external compression program adds a suffix to filenames  (LZX  adds
+  ".lzx"), you must use the ECSUFFIX argument to tell ABackup  which  suffix
+  is added. 
+
+Q:At the end of a backup, I had a requester "CAUTION ! Some cylinders on the
+  target drive were defectives !". I thought ABackup could handle this  kind
+  of problem, so I would not have to restart the backup again. 
+R:This kind of error is handled by  ABackup,  which  simply  marks  the  bad
+  cylinders as "unusuable", and try to write  on  the  next  cylinder.  This
+  message is only here to suggest you to perform a verify operation, to make
+  sure the backup  is  correct  (some  write  errors  might  have  not  been
+  detected). 
+
+@endbase 
+
+@endnode

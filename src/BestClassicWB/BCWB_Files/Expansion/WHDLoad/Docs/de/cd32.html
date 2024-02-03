@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<TITLE>WHDLoadCD32</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: cd32.html 1.4 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>WHDLoadCD32</h3>
+
+WHDLoadCD32 ist eine spezielle WHDLoad Version für das CD³². Sie wurde für diese
+Hardware optimiert und ist deshalb auch nur auf einem nicht erweitertem CD³²
+lauffähig. Ein SX-32 oder anderes Gerät wird nicht unterstützt.
+
+<p>Nachfolgend die Unterschiede zum normalen WHDLoad:
+<ul>
+
+<li>es benötigt und benutzt keinen WHDLoad Schlüssel, damit können auch CD's die
+WHDLoadCD32 enthalten problemlos verbreitet werden, ohne die Lizenz zu verletzen
+
+<li>es wird nur der 68020 Prozessor unterstützt, damit sind auch keine
+MMU-Funktionen vorhanden
+
+<li>FastMem-Speicher wird nicht unterstützt
+
+<li>es gibt keinerlei schreibende Funktionen, damit können keine Spielstände,
+Bestwerte und auch keine Coredumps gesichert werden (eine CD ist für gewöhnlich
+nur lesbar)
+
+<li>viele Optionen die nicht sinnvoll auf einem CD³² wären sind entfernt worden,
+dies macht das WHDLoad Programm kleiner und spart damit wertvollen
+Hauptspeicher, im Kapitel <a href="opt.html">Benutzung und Optionen</a> ist
+aufgelistet welche Optionen vorhanden sind
+
+<li>die folgenden Resload-Funktionen sind nicht implementiert, den Versuch diese zu benutzen
+quittiert WHDLoadCD32 mit einem Kode TDREASON_ILLEGALARGS:
+
+<ul>
+<li><a href="../autodoc.html#resload_DiskLoadDev">resload_DiskLoadDev</a>
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_Log">resload_Log</a>
+</ul>
+
+<li>die folgenden Resload-Funktionen sind funktionslos, sie tun nichts aber
+kehren mit einem Kode zurück der Erfolg anzeigt:
+
+<ul>
+<li><a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a>
+<li><a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>
+<li><a href="../autodoc.html#resload_DeleteFile">resload_DeleteFile</a>
+</ul>
+
+<li>es werden keine <a href="freezer.html">Freezer</a> unterstützt
+
+<li>es gibt keine WHDLoad eigene Prüfung auf genügend Stackspeicher wie im
+normalen WHDLoad, die standardmäßigen 4096 Bytes sollten für WHDLoadCD32 aber
+ausreichend sein
+
+</ul>
+
+<h3>Tips and Tricks für WHDLoad auf dem CD³²</h3>
+
+Das Hauptproblem mit WHDLoad auf dem CD³² ist der beschränkte Hauptspeicher. Es
+sind nur 2 MB Chip-Memory vorhanden. Das Ziel muss es deshalb sein, so viel wie
+möglich Speicher für WHDLoad und insbesondere die Preload-Operation frei zu
+haben. Keine anderen Programme sollten gleichzeitig mit WHDLoad laufen.
+
+<ul>
+
+<li>Wenn die Install die Wahl zwischen Disk-Images und einzelnen Dateien bietet
+sollten die Dateien gewählt werden. Denn einzelne kleine Dateien lassen sich
+besser zwischenspeichern als wenige große Images.
+
+<li>Wenn die Install es ermöglicht die Dateien zu komprimieren, sollte dies auch
+getan werden. ProPack im Modus 1 (RNC1) bietet dabei die beste Kompressionsrate.
+Komprimierte Dateien benötigen weniger Speicher beim Preload und verursachen
+kaum eine Verlangsamung der Ladegeschwindigkeit.
+
+<li>Das Programm AllocMemReverse (oder etwas vergleichbares) sollte vor dem
+Start von WHDLoadCD32 ausgeführt werden. Diese kleine Programm ist im dev-Paket
+von WHDLoad enthalten. Es modifiziert die Speicherbelegungsfunktion AllocMem des
+Betriebssystem derart, dass Speicher immer mit dem Attribut MEM_REVERSE
+alloziert wird. Dadurch wird Speicher vom Ende statt vom Anfang her belegt und
+damit Speicher am Anfang freigehalten. WHDLoad benötigt immer Speicher von der
+Adresse 0 an. Je weniger Speicher in diesem Bereich belegt ist, desto weniger
+muss als Schattenspeicher für die Sicherung des belegten Speichers allokiert
+werden, und umso mehr Speicher ist dann für das installierte Programm und die
+Preload-Operation verfügbar.
+
+<li>Die Option <a href="opt.html#Data">Data</a> sollte immer verwendet werden.
+Die Preload-Operation weiss nicht welche Dateien vom installierten Program
+geladen werden, deshalb lädt es alle Dateien im entsprechenden Verzeichnis. Um
+zu vermeiden das unnötige Dateien geladen werden, sollte ein Verzeichnis
+angelegt werden welches nur die erforderlichen Dateien enthält. Alles unnötige
+wie #?.info, #?.Slave, ReadMe, Manual, usw. kann gelöscht werden. WHDLoad sollte
+dann mit dem Slave und dem Data-Verzeichnis als Argument aufgerufen werden, z.B.
+<tt>WHDLoadCD32 :Slaves/XYZ.Slave Data=:Data/XYZ Preload</tt>. Es ist dabei
+nicht notwendig das aktuelle Verzeichnis auf einen bestimmten Pfad zu setzen.
+
+<li>Die Daten Dateien des installierten Programmes sollten nicht mit XPK
+komprimiert werden. Das Entpacken von XPK-Dateien benötigt viel Speicher, wegen
+den XPK Libraries und dem Entpacken an sich. Ausserdem wird beim Entpacken der
+Speicher fragmentiert was zu weiter verringertem Möglichkeiten für Preload
+führen kann.
+
+</ul>
+</BODY>
+</HTML>

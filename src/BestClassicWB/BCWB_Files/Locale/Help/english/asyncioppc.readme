@@ -1,0 +1,110 @@
+Short:    asyncio.library with WarpOS functions (V40.6)
+Uploader: achimste@gmx.de (Achim Stegemann)
+Author:   achimste@gmx.de (Achim Stegemann)
+Type:     util/libs
+Version:  40.6
+
+What was wrong in the last version ?
+The dummy SPrintF-calls must not be removed !! Writing in PPC mode caused
+severe mistakes again. See the source code !
+Note for developers: If anybody has an ideaa, why the lib locks up, please
+email me !
+
+Notice:
+This archive is EMAIL-WARE !!
+..what da hell is dis ??
+Simple... if you use it, simply send me a mail, so I know that
+someone is using it !!
+There is no copyright on it.
+
+Requires:
+* MC68020 or PPC-board with WarpOS V4 (powerpc.library 15.0 or better)
+
+Introduction:
+Many developer among you have used the asyncio.library, even me !
+The latest version of that one was V39.2. It is now some years old but
+still good for plain M68K Amigas.
+
+I decided to continue developing the library for support of PPC-WOS.
+I bumped the lib-version to V40.
+
+
+Advantage of this enhanced asyncio.library:
+
+*  You dont need a PPC to use this library. You can still access all
+   V39 functions from a plain 68k-Amiga.
+
+The library is split in two parts:
+1. The original V39-M68k functions ! I.e V40 is (of course)
+   100% compatible to V39 !
+2. The V40 part contains all V39 functions but converted to WarpOS.
+   The functions have simply a "PPC" added to the name, e.g
+   OpenAsync (M68K) goes OpenAsyncPPC.
+
+
+Contents of the archive:
+The archive contains the FULL SOURCE code for StormC 3.0.
+You can use as a tutorial or whatever.
+I simply have taken the source from original V39 source and
+made the WOS port. That's all.
+
+Also provided are include files for StormC and VBCC !
+
+
+Developer information.. How to use it ?
+
+The big advantage of asyncio_ppc is, that you can access a file from
+both CPU sides !!
+Example:
+* Open a file in 68k mode
+* Read datas in PPC mode
+* Close the file in 68k mode
+or whatever you like !!
+
+
+Usage of functions:
+It is important, that you must only use the M68k (V39) functions from
+the 68k side and you must only use the PPC-funtions (V40) from the PPC side.
+Example:
+M68k: file=OpenAsync("test",MODE_READ,8192);
+PPC:  ReadAsyncPPC(file,buf,1000);
+M68k: ReadAsync(file,buf,1000);
+M68k: CloseAsync(file);
+This one would be wrong:
+PPC:  WriteAsync(file,buf,len);
+or
+M68K: CloseAsyncPPC(file);
+
+Understood ? Simple...
+So don't mix up the functions !!
+
+Note: It is important that you use several kBytes of buffer space, to avoid
+CPU switches ! The larger the buffer, the less switches !!
+I recommend using buffer between 16 kB and 64 kB.
+Larger buffers usually dont enhance speed anymore.
+
+
+Using asyncio V40 will give you no improvement, if you only use the
+V39 functions !!
+
+
+Tests:
+The asyncio.library has been successfully tested with the
+following programs:
+* Digital Almanac II
+* Digital Almanac III
+* AmigaAMP
+* AMPlifier
+* CyberQT
+* CyberAVI
+* ACTION (from OS 3.9)
+
+Enhance your application NOW !!
+Feel free to use asyncio V40 as you like !!
+
+Credits:
+* Sven Ottemann for StormC linker libs and bugfix.
+* Oliver Roberts for VBCC includes.
+
+Internet: http://soft-ware.de/dalmanac
+

@@ -1,0 +1,27 @@
+;BestClassicWB User-Startup
+;----------------------
+;OS3.2
+
+;BEGIN MUI
+IF EXISTS SYS:Expansion/MUI
+   Assign >NIL: MUI: SYS:Expansion/MUI
+   IF EXISTS MUI:Libs
+      Assign >NIL: ADD LIBS: MUI:Libs
+   EndIF
+   IF EXISTS MUI:Locale
+      Assign >NIL: ADD LOCALE: MUI:Locale
+   EndIF
+   C:Version >NIL: exec.library 39
+   IF NOT WARN
+      IF EXISTS MUI:Docs
+         IF EXISTS HELP:dummy
+         EndIF
+         Assign >NIL: ADD HELP: MUI:Docs
+      EndIF
+   EndIF
+EndIF
+;END MUI
+
+;BEGIN Miami
+Assign Miami: "SYS:Internet/MiamiDx"
+;END Miami

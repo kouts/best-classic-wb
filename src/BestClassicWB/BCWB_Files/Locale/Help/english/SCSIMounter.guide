@@ -1,0 +1,524 @@
+@DATABASE SCSIMounter.guide
+
+@NODE Main "SCSIMounter Version 2.0"
+
+SCSIMounter
+-----------
+
+Removable media partition mounter for Kickstart 2.0 or higher.
+
+     @{" Versions " LINK Versions}
+     @{" Disclaimer " LINK Disclaimer}
+     @{" Purpose " LINK Purpose}
+     @{" Secondary use " LINK "Secondary use"}
+     @{" Requirements " LINK Requirements}
+     @{" Before you begin " LINK "Before you begin"}
+     @{" Start SCSIMounter " LINK "Start SCSIMounter"}
+     @{" Panels " LINK Panels}
+     @{" Operation " LINK Operation}
+     @{" Keyboard Equivalents " LINK "Keyboard Equivalents"}
+     @{" Tool Types " LINK "Tool Types"}
+     @{" Command Line Use " LINK "Command Line Use"}
+     @{" Known Problems " LINK "Known Problems"}
+     @{" Credits " LINK Credits}
+     @{" Trademarks " LINK Trademarks}
+
+@ENDNODE
+
+@NODE Versions "Versions and History"
+
+2.02 - Terrible bug fixed which caused SCSIMounter to fail on 68000
+       machines.
+2.00 - SCSIMounter is a commodity now
+       bi-lingual user interface
+1.30 - New @{" tool type " LINK "Tool Types"} 'MASK'
+1.20 - Minor changes to the CLI interface. New @{" tool type " LINK "Tool Types"} 'NOUNMOUNT'
+1.10 - ReadArgs() CLI Interface added
+1.04 - Now works with beta kickstarts (V 36)
+       @{" Keyboard equivalents " LINK "Keyboard Equivalents"} for everything (including list view)
+       Layout bug fixed
+       No funtional changes.
+1.03 - Made more tolerant :-)
+1.02 - Fix for gvpscsi.device (GVP Series II) added.
+@ENDNODE
+
+@NODE Disclaimer "Disclaimer"
+
+SCSIMounter may be freely distributed for non-commercial purposes only.
+The entire risk as to the quality and performance of this program is
+with you.
+
+The author assumes no responsibility or liability whatsoever with
+respect to your use or inability to use of this software.
+@ENDNODE
+
+@NODE Purpose "Purpose"
+
+Most owners of removable media SCSI drives are stuck with the problem
+that their software doesn't handle disk changes correctly.
+For example, the current Commodore implementation doesn't mount the
+partitions on a removable media SCSI drive (e.g. SyQuest or Ricoh)
+when there was no cartridge in the drive at boot time.
+
+Even worse, after another cartridge with a different Rigid Disk Block
+(i.e. a different partition table) has been inserted, the system
+gets totally confused and reports read/write errors when trying
+to access the device which can lead to loss of important data on
+the cartridge.
+
+Until now, the only possibility to work around this problem was to
+reboot the system every time a new cartridge has been inserted.
+
+SCSIMounter allows you to mount and unmount partitions without rebooting
+the machine. It sports a nice 2.0-style point-and-click user interface
+that makes handling removable media a piece of cake.
+@ENDNODE
+
+@NODE "Secondary use" "Secondary use"
+
+SCSIMounter can also be used to mount partitions that have intentionally
+not been mounted (e.g. the wb_1.3: partition on an A3000 when running
+under 2.0). You don't have to create a mountlist for it!
+@ENDNODE
+
+@NODE Requirements "Requirements"
+
+· Any Amiga with a SCSI host adaptor that supports the Commodore
+  RDB (Rigid Disk Block) and 'SCSI Direct' standards.
+· Kickstart 2.0 or higher (version 37.175 preferred)
+
+The program has been tested on an A3000 with Commodore's scsi.device
+and on an A2500 with a Microbotics HardFrame (HardFrame.device) but
+I see no reason why it shouldn't work on any other host adaptor.
+
+The program may be of no use for owners of certain GVP controllers
+which support removable media correctly (Though not all GVP software
+might do so).
+@ENDNODE
+
+@NODE "Before you begin" "Before you begin"
+
+First, determine the name of the device driver of your hard disk
+controller card.
+
+    Examples of popular controllers and their devices:
+
+    manufacturer/controller           device
+    --------------------------------------------------
+    Commodore A590/A2091/A3000        scsi.device
+    Old GVP                           scsidev.device
+    GVP Series II                     gvpscsi.device
+    Supra SupraDrive                  harddisk.device
+    Advanced Storage Systems Nexus    nexus.device
+    Microbotics HardFrame             HardFrame.device
+    ICD AdSCSI                        icddisk.device
+    IVS Trumpcard Professional        ivs_scsi.device
+    BSC ALF2/3                        ALF.device
+    BSC Oktagon 2008                  Oktagon.device
+    --------------------------------------------------
+
+Click once one the SCSIMounter icon and select 'Information' from the
+'Icons' menu.
+
+Add or change the following @{" tool type " LINK "Tool Types"}:
+
+    DEVICE=Name_of_your_scsi_device_here
+
+for example if you use a HardFrame controller write:
+
+    DEVICE=HardFrame.device
+
+Don't add path names here, only the name of the device is required.
+Take care to capitalize the device name correctly (exec device names
+are case sensitive!)
+
+NOTE
+
+SCSIMounter will not work with the Commodore A2090(A) controller card
+because this product does not support Commodore's own 'SCSI direct' and
+'RDB' standards properly.
+@ENDNODE
+
+@NODE "Start SCSIMounter" "Start SCSIMounter"
+
+SCSIMounter can be used either from Workbench or from the CLI.
+
+
+* Workbench use
+
+  Double click on the SCSIMounter icon. After a short time, a window
+  with a listview and three buttons will appear (assuming @{" CX_POPUP " LINK "Tool Types"}
+  is set to `yes'). If the window doesn't appear several things could 
+  have gone wrong:
+
+  · Do you use Kickstart 2.0 or higher?
+  · Did you specify and spell the name of your device driver correctly?
+  · Does your host adaptor support RDB?
+  · Is there any memory left on your system?
+  · Do you have commodities.library (supplied with Workbench 2.04)
+    in libs:?
+
+* CLI use
+
+  Type 'SCSIMounter gui device Name_of_your_scsi_device'
+  example:
+
+  1> SCSIMounter gui device HardFrame.device
+
+  If the 'gui' argument is not given, SCSIMounter will be started
+  in @{" command line " LINK "Command Line Use"} mode as described later in this document.
+@ENDNODE
+
+@NODE Panels "Panels"
+
+   @{" Main panel " LINK "Main panel"}
+
+    @{" UNIT " LINK "Main panel" 6}
+    @{" DRIVE TYPE " LINK "Main panel" 9}
+    @{" REV. " LINK "Main panel" 11}
+    @{" CAP. " LINK "Main panel" 13}
+    @{" STATUS " LINK "Main panel" 15}
+    @{" HIDE " LINK "Main panel" 22}
+    @{" UPDATE " LINK "Main panel" 24}
+    @{" MOUNT " LINK "Main panel" 26}
+
+   @{" Partition Selector panel " LINK "Partition Selector panel"}
+
+    @{" CHECKGADGETS " LINK "Partition Selector panel" 5}
+    @{" CANCEL " LINK "Partition Selector panel" 29}
+    @{" MOUNT " LINK "Partition Selector panel" 31}
+    @{" UNMOUNT ALL " LINK "Partition Selector panel" 34}
+@ENDNODE
+
+@NODE "Main panel" "Main panel"
+@TOC Panels
+
+   The main panels shows all devices connected to the SCSI port with
+   information about their capacity and current status. The currently
+   selected unit is higlighted.
+
+   UNIT - This is the unit number of a SCSI device.
+          Up to seven devices can be connected to the SCSI bus
+
+   DRIVE TYPE - Manufacturer and product specification
+
+   REV. - Revision of Hardware, Firmware and ROM of device
+
+   CAP. - Device capacity in Megabytes or Kilobytes
+
+   STATUS - Current Status of device. If the device is busy or
+            not accessable due to the lack of media (if it's a
+            removable media drive) the status will be set to
+            'not ready'
+
+   There are three 'action buttons' present:
+
+   HIDE - Put SCSIMounter to sleep. To wake it up again, use the
+          hotkey as specified in @{" CX_POPKEY " LINK "Tool Types" or the Commodities Exchange
+          program on you system partition. Closing the window
+          using its closegadget has the same effect.
+
+   UPDATE - Re-scan SCSI bus and update display
+
+   MOUNT - Mount partitions on selected drive
+
+   For every action buttons there's also a menu item with identical
+   function. All buttons have @{" keyboard equivalents " LINK "Keyboard Equivalents"} (marked with an
+   underscore in the label text). The listview can be scrolled using
+   the arrow up and arrow down keys on your keyboard rather than using
+   the mouse.
+
+   There's one important menu item that has no button equivalent:
+
+   QUIT - Quits SCSIMounter and removes it from the list of commodity
+          programs
+
+@ENDNODE
+
+@NODE "Partition Selector panel" "Partition Selector panel"
+@TOC Panels
+
+   This panel shows all available partitions and allows you to
+   individually mount them.
+
+   CHECKGADGETS - Determine if the particular partition should
+                  be mounted or not.
+
+                  checked: mount corresponding partition
+                  not checked: don't mount specified partition
+
+
+   Other partition Information on the partition selector -
+
+          Number of Partition == @{" keyboard equivalent " LINK "Keyboard Equivalents"}
+
+          Device name of partitions
+
+          Size of partitions
+
+          Dostype (FileSystem) of partition
+
+             Examples of dostypes:
+
+             DOS0 - Old filesystem partition
+             DOS1 - FastFileSystem partition
+             UNI1 - Unix boot partition
+             RESV - Reserved partition
+
+   CANCEL - Go back to main panel, don't mount anything
+
+   MOUNT - Unmount all currently mounted partitions on the selected
+           device and mount the new partitions (if any).
+
+   UNMOUNT ALL - If this gadget is checked, SCSIMounter will try
+                 to unmount all partitions currently mounted on the
+                 selected unit. If there are locks on this device
+                 there will be a 'BUSY' icon on your Workbench screen.
+
+                 WARNING:
+
+                 This option can be dangerous if used with non-removable
+                 devices because it will unmount all partitions
+                 including your boot partition (SYS:) forcing you to
+                 reboot your computer. Use it with care!
+@ENDNODE
+
+@NODE Operation "Operation"
+
+SCSIMounter is pretty self-explanatory. Nevertheless, here are some
+basic operation procedures.
+
+* Mount a new cartridge
+
+  · Click on the listview entry of the desired device. (Make sure its
+    status is 'ready')
+
+  · Click on the 'Mount' button
+
+    The 'select partitions' panel will ask you which partitions to mount
+
+  · Chosse the partitions you would like to mount
+
+  · Make sure that the 'Unmount all' gadget is checked
+
+  · Click on 'Mount' button on the partition selector panel
+
+    SCSIMounter will automatically unmount all existing partitions
+    on the device and mount the new partitions.
+
+
+* Add a SCSI drive that was not present at boot time
+
+  · Click on the 'Update' button
+
+    The new drive's name and other information should appear in the
+    listview
+
+  · Click on the corresponding entry
+  · Click on the 'Mount' button
+
+    and so on...
+
+
+* Mount a partition that has the automount flag not set
+
+  · Click on the listview entry of the desired device. (Make sure its
+    status is 'ready')
+
+  · Click on the 'Mount' button
+
+  · On the partition selector panel, make sure the 'unmount all' check
+    gadget is *not* checked
+
+  · Select 'Unselect All' from the 'Edit' menu or press 'Rt. Amiga-U'
+
+  · Click on the check gadget of the partition(s) to mount
+
+  · Click on the 'Mount' gadget or press 'Rt. Amiga-M'
+
+
+WARNING !!!
+
+    Don't unmount your boot partition (where you system files live) or
+    you'll soon be forced to reboot you machine...
+@ENDNODE
+
+@NODE "Keyboard Equivalents" "Keyboard Equivalents"
+
+* Requesters
+
+  gadget         keystroke activation     menu shortcut
+  -------------------------------------------------------
+  OK             O                        Rt. Amiga-O
+  Cancel         C                        Rt. Amiga-C
+
+
+* Main window & Project menu
+
+  gadget         keystroke activation     menu shortcut
+  -------------------------------------------------------
+  About          none                     Rt. Amiga-A
+  Mount          M                        Rt. Amiga-M
+  Update         U                        Rt. Amiga-U
+  Quit           Q                        Rt. Amiga-Q
+  Listview up    Arrowkey up              none
+  Listview dowm  Arrowkey down            none
+
+
+* Partition Selector
+
+  gadget         keystroke activation     menu shortcut
+  -------------------------------------------------------
+  Mount          M                        Rt. Amiga-M
+  Cancel         C                        Rt. Amiga-C
+  Select All     none                     Rt. Amiga-A
+  Unselect All   none                     Rt. Amiga-U
+  Partitions     0-9                      none
+@ENDNODE
+
+@NODE "Tool Types" "Tool Types"
+
+The following tool types are supported:
+
+@{" DEVICE " LINK "Before you begin" 24}  - See above
+
+NOUNMOUNT - If this tool type is set, the 'Unmount All' gadget is not
+            checked by default and other partitions on the same unit are
+            not removed. This option is useful if you don't use
+            SCSIMounter with removable media. Don't set this tool type
+            for removable media!
+
+MASK      - Default DMA Mask. If not specified, the mask in the RDB will be 
+            used. Don't specify this tool type unless you know what
+            you're doing
+
+CX_POPUP  - If you want the SCSIMounter window to pop up the first time
+            you double-click on the SCSIMounter disk icon, set this
+            to yes: 
+                        CX_POPUP=yes
+
+            If you want SCSIMounter to run in the background the first
+            time it is being started e.g. if you're running it from the
+            WBStartup drawer, set this to no:
+                        CX_POPUP=no
+
+CX_POPKEY - Key combination for the commodity `hotkey'. Default:
+                        CX_POPKEY=alt shift f10
+
+CX_PRIORITY Commodity priority. Default value:
+                        CX_PRIORITY=0
+
+LANGUAGE  - Determines the language to use for the user interface
+            Possible values: 
+                       LANGUAGE=German
+                       LANGUAGE=English
+            This tool type overrides global language settings. Remove
+            it if you want to use the system's default language...
+
+PUBSCREEN - Name of the public screen on which SCSIMounter should open.
+
+
+@ENDNODE
+
+@NODE "Command Line Use" "Command Line Use"
+
+For the advanced user, SCSIMounter can be used in command line mode
+by specifying all required arguments on the command line. In CLI mode,
+it is not possible to individually select partitions. All partitions on
+the particular unit will be mounted.
+
+Note that SCSIMounter will not attempt to open commodities.library
+and add itself to the list of commodities in CLI mode except when 
+the `GUI' argument (see below for more info) is given.
+
+SCSIMounter supports 2.0-style ReadArgs() CLI options. The command
+template looks like that:
+
+D=DEVICE/K,U=UNIT/N,N=NOUNMOUNT/S,GUI/S,QUIET/S
+
+@{" DEVICE " LINK "Before you begin" 24}    - Specifies the device used for you hard drive controller
+            e.g. scsi.device.
+            If this argument is left out, DEVICE defaults to
+            'scsi.device'.
+
+UNIT      - Specifies the SCSI unit number of the drive to be mounted.
+            e.g. 6
+            This argument is not required if the GUI option is used.
+
+NOUNMOUNT - If this switch is set, SCSIMounter will not unmount old
+            partitions. It basically works the same as the 'Unmount All'
+            check gadget in the 'partition selector' panel. If you're
+            mounting removable cartridges, use this option with care!
+
+GUI       - If this keyword is used, SCSIMounter will open its
+            'unit selector' panel as if it was started from Workbench.
+
+QUIET     - Don't output information on selected unit and mounted
+            partition but output fatal error messages. Ideal for use
+            in shell scripts
+
+Examples:
+
+1> scsimounter device HardFrame.device unit 6 quiet
+
+(mounts all partitions on SCSI unit 6 connected to a HardFrame
+controller and is quiet about device and partitions)
+
+2> scsimounter d u 3
+Unit Drive Type                  Rev.    Cap.  Status
+3    SyQuest   SQ555             FGJ     43 M  ready
+Unmounting device: sq0
+Mounting device  : sq0
+
+(mounts all partitions on SCSI unit 3 connected to a Commodore
+A590/A2091/A3091 controller and unmounts old partitions on the
+same unit. Outputs full device and partition information)
+@ENDNODE
+
+@NODE "Known Problems" "Known Problems"
+
+· The program only removes the dos entries for the volumes and devices.
+  It doesn't remove the filesystem process and associated memory
+  allocations. Apparently the current FS doesn't support the ACTION_DIE
+  packet. I'm still looking for a legal way to solve this problem.
+@ENDNODE
+
+@NODE Credits "Credits"
+
+Author: Martin A. Blatter
+        Pfaffächerstr. 59
+        CH-8913 Ottenbach
+        Switzerland
+
+Work address: Relog AG
+              Attn: Martin A. Blatter
+              Bruggerweg 2
+              CH-8037 Zurich
+              Switzerland
+
+              (Relog AG develops high quality software for the
+              Amiga computer)
+
+E-Mail: blatter@amiga.physik.unizh.ch
+        cbmvax!cbmehq!cbmswi!zethos!blatter
+
+Bug reports or suggestions are welcome. If you find this program useful,
+feel free to send a donation to the above address.
+
+This program uses Relog's ITools(tm), the object-oriented user interface
+system (c) 1991 by Christian A. Weber and Relog AG.
+
+Special thanks to  · Christian A. Weber
+                   · Peter Simeon for the SCSI inquiry code
+                   · Michael-Wolfgang Hohmann for the AmigaGuide
+                     version of the manual.
+                   · Andreas F. Bobak for the new icon and betatesting
+                   
+@ENDNODE
+
+@NODE Trademarks "Trademarks"
+
+All trademarked product and company names used herein are used for
+identification purposes only. No infringement of trademarks is intended.
+Trademarks remain property of the trademark holder.
+@ENDNODE

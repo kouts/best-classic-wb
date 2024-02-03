@@ -1,0 +1,386 @@
+@DATABASE 0046
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 11. Lösen von Problemen"
+@TOC PPaintCD:H/7/1/4/OO00/Main
+
+@{B}11.        Lösen von Problemen@{UB}
+
+Dieses Kapitel befaßt sich mit Problemen, die bei der Benutzung des
+Computers und seiner Peripheriegeräte auftreten können. Es finden sich
+sowohl Hinweise zur Behebung dieser Schwierigkeiten, als auch solche, mit
+denen die Probleme von vornherein vermieden werden können.
+
+
+@{B}11.1       Speichermangel@{UB}
+
+Der Speicher eines Computers gehört zu denjenigen Dingen, die
+grundsätzlich zu knapp bemessen zu sein scheinen, und zwar gleichgültig,
+wie viel davon zur Verfügung steht. Wenn bei der Arbeit mit Personal Paint
+Speicherprobleme auftauchen, beziehen diese sich meist auf einen Mangel an
+Chip RAM.
+
+Die Abschnitte @{"1.3.2" LINK PPaintCD:H/7/1/4/0002/Main 95} und @{"4.10.2" LINK PPaintCD:H/7/1/4/0049/Main 1354} enthalten Informationen über Speicher im
+Allgemeinen und über die Speicheranzeige von Personal Paint. Wie in diesen
+Abschnitten erwähnt, kann die Anzeige in der Menüleiste der Workbench
+häufig zu Mißverständnissen führen, da sie auch fragmentierte
+Speicherbereiche anzeigt, als handele es sich um durchgehende Blöcke.
+
+Eine Situation, in der die noch verfügbare Speichermenge knapp wird, kann
+sowohl durch eine natürlichsprachliche Meldung (z. B. "Nicht genug
+Speicher" oder "Zu wenig Chip RAM") angezeigt werden, als auch durch
+folgende Symptome: Menüs werden können nicht mehr korrekt geöffnet werden,
+Fenster lassen sich nicht mehr in der Größe verändern oder verschieben,
+der Bildschirm blitzt auf und zeigt an, daß bestimmte Prozesse nicht
+ausgeführt werden können, usw.
+
+Die Menge des verfügbaren (Chip) RAM läßt folgendermaßen erhöhen:
+
+- Das aktuelle Bild zweimal löschen (Abschnitt @{"3.1.9" LINK PPaintCD:H/7/1/4/0017/Main 1267})
+
+- Einen Bildschirmmodus mit weniger Auflösung oder Farben wählen
+  (Abschnitte @{"1.3.2" LINK PPaintCD:H/7/1/4/0002/Main 95} und @{"4.5" LINK PPaintCD:H/7/1/4/0049/Main 1030})
+
+- Die aktuelle Umgebung löschen (Abschnitt @{"4.8.6" LINK PPaintCD:H/7/1/4/0049/Main 1310})
+
+- Pinsel löschen (Abschnitt @{"5.7" LINK PPaintCD:H/7/1/4/0048/Main 167})
+
+- Maske löschen (Abschnitt @{"8.2.7" LINK PPaintCD:H/7/1/4/0016/Main 462})
+
+- Tonausgabe abschalten (Abschnitt @{"9.5" LINK PPaintCD:H/7/1/4/0047/Main 302})
+
+- Workbenchbildschirm schließen (Abschnitt @{"9.15" LINK PPaintCD:H/7/1/4/0047/Main 961})
+
+- Beenden anderer, gleichzeitig laufender Programme
+
+usw.
+
+Durch die Eingabe von "Avail FLUSH" in einem Shell-Fenster oder durch die
+Auswahl des Menüpunktes "FlushLibs" im Workbenchmenü "Debug" (dies wird
+erst dann aktiviert, wenn die Workbench mit dem Befehl "LoadWb -DEBUG"
+geöffnet wird) werden alle RAM-residenten Betriebssystemresourcen
+gelöscht, die nicht mehr benötigt werden. Wenn in vorhergehenden Sitzungen
+viele große Schriften benutzt wurden oder größere, von anderen Programmen
+benötigte Bibliotheken nicht mehr erforderlich sind, kann dies einiges an
+Speicher verfügbar machen. Üblicherweise führt das System diese Funktion
+selbst aus, wenn der Speicher knapp wird.
+
+Im Notfall (d. h., wenn Personal Paint den Hauptbildschirm nicht öffnen
+kann) führt Personal Paint die oben erwähnten Funktionen evtl. Schritt für
+Schritt selbst aus.
+
+
+@{B}11.2       Probleme mit Datenträgern@{UB}
+
+Häufig greift das Amiga-Betriebssystem auch einige Zeit nach einem
+Schreibvorgang noch einmal kurz schreibend auf den Datenträger zu. Aus
+diesem Grunde sollte eine Disk erst einige Sekunden nach dem Erlöschen der
+Laufwerkskontrolleuchte aus dem Laufwerk genommen (oder der Computer
+ausgeschaltet) werden. Probleme können auch durch elektrische Störungen
+verursacht werden. Leuchten, Monitore und andere elektrische Geräte, die
+von der gleichen Steckdose gespeist werden wie der Computer, sollten daher
+niemals ein- oder ausgeschaltet werden, während der Rechner Daten auf eine
+Disk schreibt.
+
+Fehler werden grundsätzlich zuerst vom Betriebssystem des Amiga und dann
+vom entsprechenden Programm, das die Daten speichern zu speichern
+versucht, signalisiert. Die häufigsten Fehlerquellen: Disk ist
+schreibgeschützt, Disk ist voll, Disk ist beschädigt oder nicht formatiert
+(Abschnitte @{"1.3.4" LINK PPaintCD:H/7/1/4/0002/Main 203} und @{"1.6" LINK PPaintCD:H/7/1/4/0002/Main 342}). Anders als 5.25"-Disketten, sind
+3.5"-Disketten dann schreibgeschützt, wenn man durch das Schreibschutzloch
+blicken kann.
+
+Wenn das Amiga-Betriebssystem bei dem Versuch, Daten auf eine Diskette zu
+schreiben, einen Schreib-/Lesefehler ("read/write error") meldet, sollte
+zuerst die Diskette ausgeworfen und der Schreibschutz gesetzt werden. Wenn
+versucht wird, auf die Diskette zu schreiben, können wertvolle Daten
+verloren gehen. Ist der Schreibschutz nicht aktiviert, versucht das System
+evtl. auch dann auf die Diskette zu schreiben, wenn der Benutzer dies gar
+nicht wünscht (dies gilt besonders für beschädigte Disketten). Nachdem die
+Diskette nun mit gesetztem Schreibschutz wieder eingelegt worden ist,
+sollten alle Systemmeldungen abgebrochen werden (es sei denn, die Meldung
+"Software Error" erscheint). Nun zeigt das Programm, welches die Daten
+speichern wollte, eine eigene Fehlermeldung an. Die Daten, die
+ursprünglich auf der defekten Diskette gespeichert werden sollten, sind
+auf einen anderen Datenträger zu sichern. Auch alle anderen Daten im RAM
+oder auf dem Bildschirm sollten auf den anderen Datenträger gespeichert
+werden, falls ihre Kopie auf der defekten Diskette durch den
+Schreibvorgang beschädigt worden sein sollte. Schließlich ist eine Kopie
+der defekten Diskette anzufertigen (Abschnitt @{"1.6" LINK PPaintCD:H/7/1/4/0002/Main 342}). Falls dies mit der
+Kopierfunktion der Workbench nicht möglich ist, sollte ein anderes
+Kopierprogramm verwendet werden.
+
+Zur Wiederherstellung der meisten Dateien kann dann ein Reparaturprogramm
+wie "DiskSalv" benutzt werden. Die Datei, die zu dem Zeitpunkt geschrieben
+wurde, als der Fehler auftrat, ist allerdings in den allermeisten Fällen
+verloren. Es ist zu beachten, das verschiedene Reparaturprogramm auch
+unterschiedliche Ergebnisse erzielen können. Die Diskette, bei der der
+Fehler auftrat, ist nicht weiter zu verwenden, es sei denn, daß sich ein
+Hardwarefehler mit Sicherheit ausschließen läßt. Besonders bei Verwendung
+minderwertiger oder einseitiger Disketten kann es nämlich vorkommen, daß
+weitere Fehler auftauchen. Das gleiche gilt, wenn die magnetische
+Oberfläche der Diskette verschmutzt oder verkratzt ist. Kratzer werden
+üblicherweise sichtbar, wenn Licht von der magnetischen Oberfläche
+reflektiert wird. Die Oberfläche sollte niemals berührt oder verunreinigt
+werden.
+
+Wenn kleinere Fehler auftreten, kann das Amiga-Betriebssystem sie
+teilweise automatisch beheben; dieser Vorgang wird auch als Validierung
+oder engl. "Validating" bezeichnet. Sollte z. B. ein Schreibvorgang
+plötzlich unterbrochen werden (z. B. durch einen Stromausfall oder
+Auswerfen einer Diskette), ohne weitere Beschädigung des Datenträgers zu
+verursachen, versucht das Betriebssystem, diesen beim nächsten Einlegen
+(oder Anmelden, wenn es sich um eine Festplatte handelt) zu validieren.
+Dieser Vorgang kann von einigen Sekunden bis zu mehreren Minuten dauern,
+abhängig von der Größe des Datenträgers. Falls die Disk schreibgeschützt
+ist, muß der Validierungsvorgang bei jedem Einlegen (oder Anmelden)
+wiederholt werden. Erfolgt während der Validierung ein Schreibzugriff auf
+die Disk, wird die Fehlermeldung "Disk not validated" ausgegeben. In
+diesem Fall sollte nicht die "Cancel"-Option des Dialogfensters ausgewählt
+werden, da die Meldung nach erfolgreicher Validierung automatisch
+verschwindet. Von einer nicht validierten Disk können zwar Daten gelesen
+werden, ein Schreibzugriff ist jedoch nicht möglich. Dies ergibt sich aus
+der Tatsache, daß diejenigen Datenstrukturen, die die freien Bereiche der
+Disk kennzeichnen, nicht auf dem aktuellen Stand sind.
+
+Die schwerwiegendsten Fehler werden üblicherweise durch physikalisch
+beschädigte oder defekte Disks verursacht, wobei Verschmutzungen die
+häufigste Problemquelle bilden. Ein Schwall Kaffee über die auf dem Tisch
+liegenden Disketten, klebrige Limotropfen oder auch ein paar Körnchen Sand
+in der Disk stellen größte Gefahren dar. Aber: Wenn die magnetische
+Scheibe in der Diskette nicht verkratzt ist, lassen sich die Daten häufig
+noch retten. Die meisten Flüssigkeiten führen zwar nicht zur Beschädigung
+der Scheibe, müssen aber so schnell wie möglich entfernt werden. Dazu ist
+zunächst die magnetische Scheibe aus dem sie umgebenden Gehäuse zu
+entnehmen. Die beiden Gehäusehälften lassen sich meist mit einer
+entmagnetisierten Klinge trennen, bei einer 3.5"-Diskette ist vorher noch
+der Shutter (die aus Metall oder Kunststoff bestehende Abdeckung der
+Diskettenöffnung) mit der Hand abzunehmen. Nun kann die magnetische
+Scheibe der Diskette vorsichtig unter fließendem Wasser gereinigt und
+danach mit einem weichen, fusselfreien, nicht statischen Tuch abgetrocknet
+werden. Schließlich ist die Scheibe in ein neues, unbeschädigtes Gehäuse
+einzusetzen (der Shutter ist nicht nötig) und die Daten können auf eine
+neue, fehlerfreie Disk kopiert werden. Die hier beschriebene Methode führt
+nicht immer zum Ziel, stellt aber oft die letzte Möglichkeit dar. Falsche
+Handhabung kann zur Beschädigung von Disk oder Laufwerk führen.
+
+
+@{B}11.3       Druckerprobleme@{UB}
+
+Nachfolgend werden einige Vorschläge zur Verbesserung der Druckausgabe
+sowie Lösungsansätze zu vielen Problemen, die sich beim Druckvorgang
+ergeben können, aufgeführt.
+
+Zunächst einmal müssen die Druckparameter in den Amiga-"Preferences"
+absolut korrekt eingestellt werden. Die häufigste Fehlerquelle ist die
+Einstellung eines falschen Druckertreibers. Es ist darauf zu achten, daß
+der in den "Preferences" eingestellte Treiber auch mit dem verwendeten
+Drucker übereinstimmt. Außerdem müssen auch die anderen Einstellungen des
+"Preferences"-Programms korrekt eingestellt und auf der Workbench
+abgespeichert sein, da nicht alle Drucker die gleichen Codes und
+Steuerzeichen benutzen.
+
+Sobald der Name des Druckertreibers im "Preferences"-Programm angegeben
+worden ist, können Programme, die eine Druckausgabe erzeugen, die
+korrekten Steuerzeichen an den Drucker schicken und der Amiga aktiviert
+den richtigen Treiber. Die meisten Druckerparameter lassen sich auch über
+die Druckereinstellungen von Personal Paint wählen, lediglich der
+Druckertreiber selbst kann nicht ausgewählt werden.
+
+Die Druckertreiber befinden sich im Verzeichnis "Printers", welches
+seinerseits im Verzeichnis "Devs" von Workbench und Extras-Diskette zu
+finden ist. Dabei muß ein Treiber zunächst auf die Workbench-Diskette
+kopiert werden, bevor er benutzt werden kann. Dieser Vorgang wird beim
+Betriebssystem 1.3 problemlos von dem Programm "InstallPrinter" auf der
+Workbench erledigt. Bei Workbenchversionen ab 2.1 befinden sich die
+unbenutzten Druckertreiber im Verzeichnis "Storage/Printers", sie können
+von dort aus mit der Maus auf die Workbench ins Verzeichnis
+"Devs/Printers" kopiert werden. Einige der gebräuchlichsten Druckertreiber
+befinden sich bereits auf der Personal Paint-Programmdiskette. Wenn diese
+(oder die Kopie) als Workbench benutzt werden soll, können - falls
+notwendig - weitere oder aktualisierte Treiber daraufkopiert werden.
+
+Sollte für einen bestimmten Druckertyp einmal kein Treiber existieren,
+kann meist ein ähnlicher oder kompatibler Typ benutzt werden. Die meisten
+Nadeldrucker sind kompatibel einem der Standards Epson (ESC/P), Nec
+(Pinwriter), IBM (Proprinter) oder sogar zu mehreren von ihnen.
+Laserdrucker verfügen meist über den HP LaserJet und/oder
+PostScript-Standard. Wenn mehr als eine Möglichkeit in Frage kommt, sollte
+die gewählt werden, die genau mit dem "Preferences"- Druckertreiber
+übereinstimmt. Die Handbücher von Drucker und Amiga können darüber
+Aufschluß geben, welcher Druckertreiber für welches Druckermodell am
+besten geeignet ist. Einige Vorschläge für die gängigsten Druckertypen
+sind auch in Anhang @{"D" LINK PPaintCD:H/7/1/4/2163/Main 1} zu finden. Wenn trotz aller Bemühungen die
+Informationen in den Handbüchern nicht zu finden sind und kein
+Druckertreiber verfügbar ist, kann häufig der Händler oder der Hersteller
+des Druckers weiterhelfen.
+
+Druckertreiber, die in Betriebssystemversionen vor 1.2 enthalten waren,
+sowie Versionen mit den Suffixen Alpha, Beta, Gamma oder Omega
+funktionieren evtl. mit den meisten Programmen nicht korrekt.
+
+Das Programm "Prefs/Printer" wird mit der Maus von der Workbench aus
+gestartet. Wenn der Workbenchbildschirm geschlossen ist, kann er mit Hilfe
+des Workbench-Parameters (Abschnitt @{"9.15" LINK PPaintCD:H/7/1/4/0047/Main 961}) wieder geöffnet werden. Falls
+dies nicht möglich ist, sollte das Programm beendet werden (Abschnitt
+@{"4.11" LINK PPaintCD:H/7/1/4/0049/Main 1462}), um genug Speicher zum Öffnen der Workbench freizugeben.
+
+Wenn anstatt des gewünschten Bildes plötzlich Buchstaben gedruckt werden
+oder innerhalb eines Textes unerwünschte Zeichen auftreten, ist
+möglicherweise der falsche Druckertreiber eingestellt. Ein Beispiel: Bei
+bestimmten falschen Drucker/Treiber-Kombinationen wird zu Beginn jedes
+Druckvorgangs das Zeichen "P" oder "K" ausgegeben, obwohl dies nicht zum
+Dokument gehört. Auch das Seitenformat (A4, Letter, Wide Tractor, usw.)
+muß in den Voreinstellungen des Systems oder in denen von Personal Paint
+korrekt eingestellt werden. Auch hier gilt: Falls die Werte von Personal
+Paint aus eingestellt werden, müssen sie nicht erneut in den
+Drucker-"Preferences" des Systems gesetzt werden.
+
+In einigen Fällen läßt es sich nicht umgehen, die Werksvoreinstellung des
+Druckers zu modifizieren. Einige Druckermodelle besitzen Anordnungen von
+kleinen, sog. "DIP"-Schaltern, die sich an der Rückseite oder unter der
+Abdeckung des Gerätes befinden. Andere Drucker lassen eine Veränderung der
+im Druckerspeicher abgelegten Einstellungen über ein Bedienfeld zu. Ein
+häufig nicht korrekt eingestellter Parameter ist der für den automatischen
+Zeilenvorschub; für die meisten Druckertreiber ist dieser auszuschalten.
+Falsch eingestellter Zeilenvorschub äußert sich durch breite Streifen in
+der ausgedruckten Grafik oder einen Zeilenvorschub beim Textdruck, der
+doppelt so breit ist wie gewünscht. Wenn Akzente oder andere
+landesspezifische Sonderzeichen nicht gedruckt werden können, liegt dies
+möglicherweise an einer falschen Voreinstellung des Zeichensatzes (z. B.
+"Italic"/"Epson" gegenüber "Standard"/"IBM"), evtl.  muß auch der
+landesspezifische Zeichensatz geändert werden. Personal Paint druckt zwar
+grundsätzlich im Grafikmodus, aber bestimmte Probleme beim Textdruck
+weisen oft auch auf grundsätzliche Fehleinstellungen hin.
+
+Wenn beim Papiereinzug zwischen Walze und Traktor gewählt werden kann,
+gilt es zu bedenken, daß - besonders bei preiswerteren Druckern - der
+Einzug über die Walze auf kurze Distanz (wie es z. B. bei Einzelblättern
+der Fall ist) meist sehr viel genauere Ergebnisse liefert. Bei einigen
+Druckertypen kann jedoch die Verwendung von zu dünnem oder zu dickem
+Papier dazu führen, daß das Blatt durchrutscht, bzw. eingeklemmt wird.
+Dies schlägt sich in  nichtlinearem, asymmetrischem und unpräzisem
+Papiertransport nieder.
+
+In vielen Fällen weist ein Grafik- oder Textausdruck störende, dünne,
+horizontale Linien auf, die sich durch Einzug mit der Walze (statt mit dem
+Traktor) und das Einstellen einer geringeren Entfernung zwischen Druckkopf
+und Walze verringern lassen. Wenn das Farbband auf dem Papier
+Schmierspuren hinterläßt oder die Ränder des Blattes verschmutzt, befindet
+sich der Druckkopf dagegen meist zu nah an der Walze. Bei manchen Druckern
+läßt sich die Streifenbildung auch durch Auswahl eines anderen
+Papierformates und/oder der Einzelblattoption in den "Preferences"
+verringern. Eine weitere Problemquelle bildet oft auch das interne
+Netzteil von bestimmten Druckern, welches nicht genung Leistung abgibt, um
+alle Nadeln mit der gleichen Kraft auf das Farbband schlagen zu lassen.
+Einige Drucker sprechen auch nur einen Teil der im Druckkopf verfügbaren
+Nadeln an (üblicherweise die oberen 16 von 24), wenn einige der Parameter
+in den "Preferences" wie oben gesetzt sind. Diese Druckertreiber
+interpretieren einige "Preferences"-Parameter, die normalerweise nicht
+benutzt würden (wie Papierart) etwas unkonventionell (wenn auch in diesem
+Fall mit Sicherheit nicht unerwünscht). Auch die Einstellung für den
+Schwellwert (Threshold) wird in einigen Fällen zweckentfremdet (so werden
+z. B. beim HP DeskJet-Drucker Farbe und Helligkeit korrigiert).
+
+So ungewöhnlich dies auch klingen mag: Grafiken werden häufig
+monodirektional schneller (und genauer) ausgedruckt als bidirektional. Die
+meisten Drucker lassen eine Einstellung dieses Wertes entweder via
+Software oder manuell zu. S/W-Druck erfolgt am schnellsten, während
+Graustufen- und Farbausdrucke grundsätzlich mehr Zeit benötigen.
+
+Zur Verminderung der unschönen "Treppenbildung" können Parameter wie
+Smoothing/Glätten eingesetzt werden. Auch diese verringern jedoch
+üblicherweise die Druckgeschwindigkeit.
+
+Bei einigen Farbdruckern kann (oder muß) zum Druck von schwarzem Text oder
+von Graustufenbildern das farbige Farbband gegen ein schwarzes getauscht
+werden. Dies ist auch üblicherweise preiswerter als ein farbiges.
+
+Zu hohe Druckdichten (z. B. 300 bis 360 dpi statt 50 bis 180 dpi) können
+zu einem zu dunklen und verschmierten Druckbild führen, sowie zu einer
+Verstärkung unerwünschter, horizontaler Streifen.
+
+Auch PostScript-Ausdrucke erscheinen oft zu dunkel und kontrastarm, wenn
+der LPI-Wert zu hoch gewählt wurde. Mehr dazu in Kapitel @{"4.3.3" LINK PPaintCD:H/7/1/4/0049/Main 663}. Im
+Zweifelsfall sollten die Standardeinstellungen des Druckers angewendet
+werden (Personal Paint DPI und LPI auf 0, Standard-Spot und Winkel größer
+als 360). Der zu unerwünschten Mustern führende Moiré-Effekt wird in
+Abschnitt @{"4.3.3.11.2" LINK PPaintCD:H/7/1/4/0049/Main 932} behandelt.
+
+Ein weiteres Problem mit PostScriptdruckern ergibt sich aus der seriellen
+Verbindung zwischen Computer und Drucker. Bei Verwendung der seriellen
+Schnittstelle müssen einige Kabelverbindungen gekreuzt und damit anders
+verbunden werden, als es bei einem normalen 1:1-Kabel der Fall ist. Zum
+Ermöglichen von Handshaking und interaktivem Betrieb kann die folgende
+Verkabelung benutzt werden: 1-1 (Ein- und Ausgabepins mit der gleichen
+Nummer werden direkt verbunden), 2x3 (Pin zwei wird mit Pin drei auf der
+anderen Seite verbunden und umgekehrt), 4x5, 7-7, 6+8x20 (Pins sechs und
+acht auf jeder Seite werden verbunden und mit Pin 20 der Gegenseite
+verbunden). Die anderen Signale werden nicht benötigt.
+
+Schließlich noch ein warnender Hinweis für alle Besitzer eines Amiga 1000:
+Dieser Computer erfordert ein spezielles Druckerkabel. Der Anschluß eines
+normalen Amiga-Druckerkabels oder eines handelsüblichen Centronics-Kabels
+kann zur Beschädigung der angeschlossenen Geräte führen.
+
+
+@{B}11.4       Probleme mit Bildschirmmodus und Monitor@{UB}
+
+Die häufigsten Symptome der hier beschriebenen Probleme sind: Schwarzer
+Bildschirm, flimmerndes oder instabiles Bild, unnormale
+Geräuschentwicklung des Monitors, Nicht-Einstellbarkeit bestimmter
+Bildschirmmodi oder Farben.
+
+Versionen des Amiga-Betriebssystems ab 2.0 bieten die Möglichkeit, den
+verwendeten Monitor einzustellen. Dabei werden jedem Monitortyp bestimmte
+Bildschirm- (oder Video-) Modi zugeordnet. Dies ist notwendig, weil die
+verschiedenen Amiga-Modelle über unterschiedlich leistungsfähige
+Grafikchipsets und Monitore verfügen. Deshalb sollten alle Anzeigemodi,
+die von der Hardware unterstützt werden und sich als brauchbar erweisen,
+mit den entsprechenden Monitorpiktogrammen aktiviert werden. Dazu sind die
+Piktogramme in die Verzeichnisse "Wbstartup" (Version 2.0) oder
+"Devs/Monitors" (2.1 und 3.@{I}x@{UI}) zu kopieren, da die entsprechenden Modi
+sonst von Personal Paint nicht benutzt werden können. Andererseits können
+Bildschirmmodi auch fälschlicherweise aktiviert werden. Ein Beispiel: Die
+Aktivierung des "Multiscan" Monitors bei einem Amiga, der nur mit einem
+Monitor zu Darstellung von NTSC- oder PAL-Grafik ausgerüstet ist, kann bei
+der Anzeige einiger Bilder zu fehlerhafter Darstellung führen. Ist dies
+der Fall, sind die überflüssigen Monitorpiktogramme aus dem "Wbstartup"-
+oder "Devs/Monitors"-Verzeichnis wieder in "Monitors" (Workbench 2.0) oder
+"Storage/Monitors" (Version 2.1 und höher) zu kopieren.
+
+Bilder, die auf Amigas mit AA- (Advanced Architecture-) Chipset erstellt
+worden sind, werden auf älteren Systemen evtl. auch dann anders
+dargestellt, wenn die gleiche Anzahl von Farben benutzt wird. Dies liegt
+daran, daß bei AA-Systemen mehr Farben für die Palette zur Verfügung
+stehen. Die Personal Paint-Funktionen für Palette, Farbenreduktion und
+Neuverteilung benutzen dann die "gröbere" Auflösung, um eine genauerer
+Repräsentation des Originals zu erzielen, wenn im Bootmenü des AA-Systems
+entweder Original- oder Advanced-Chipset eingestellt wurde.
+
+"Double-Scan"- (dbl-) Grafikmodi und andere Modi mit höherer Bandbreite
+(wie sie z. B. von Flickerfixer oder dem Commodore 2320 Display Enhancer
+erzeugt werden, verlangen einen adäquaten Monitor (MultiSync, Multiscan,
+VGA, usw.), um korrekt dargestellt werden zu können. Zur Anzeige der
+Bildschirmmodi mit der höchsten Bandbreite müssen diese Flickerfixer oder
+Display Enhancer jedoch evtl. wieder ausgeschaltet werden. Andererseits
+besitzen die normalen Videomodi des Amiga ("normales" NTSC oder PAL) evtl.
+eine Bandbreite, die eine korrekte Darstellung auf bestimmten
+Multiscanmonitoren nicht zuläßt. Dieses Problem stellt sich besonders bei
+Amiga-Modellen mit Advanced Architecture-Chipset, bei denen verschiedene,
+völlig unterschiedliche Bildschirmmodi benutzt werden müssen (und die
+unteren Horizontalfrequenzen nicht durch einen Flickerfixer oder Display
+Enhancer korrigiert werden können). Die Firma Commodore liefert
+verschiedene Multiscan-Monitore, die alle Bildschirmmodi darstellen
+können. Andere Monitore können ebenfalls funktionieren, teilweise ist auch
+eine Neueinstellung des Gerätes durch einen qualifizierten Techniker
+möglich, damit Signale niedrigerer Frequenz verarbeitet werden können
+(Probleme treten typischerweise bei horizontalen Ablenkfrequenzen von
+unter 30 kHz und  Bildwiederholfrequenzen von unter 55 Hz auf).
+
+Mehr zum Thema Bildschirmmodi in Abschnitt @{"4.1" LINK PPaintCD:H/7/1/4/0049/Main 10} ("Bild laden").
+
+@ENDNODE

@@ -1,0 +1,51 @@
+/* Eagleplayer-DOpus-Steuerung
+   (c) 1993 DEFECT
+
+ - spielt übergebenen Song (Anwendung z.B. Doppelclick,siehe Filetypes bei Dopus)
+
+ - lädt gegebenenfalls Eagleplayer (Pfad richtig anpassen,siehe unten !)
+
+ - in Opus als "Executable" ("AmigaDOS") einbinden, asynchron starten ! (siehe
+   Handbuch), folgende Kommandozeile:  rx rexx:EP_Load_One_Module.dopus {f}
+
+*/
+parse arg filename
+
+options results
+
+if pos('rexx_EP',SHOW('Ports')) = 0 then
+ do
+
+  Waittime = 60		/* 1 min Wartezeit, bei Bedarf ändern */
+
+			/* Eagle laden , Pfad bei Bedarf ändern !!!!!! */
+  address COMMAND 'cd EP:'
+  address COMMAND 'run >nil: EP:Eagleplayer loadmodule Skip_Config_Item randomstart no loadlist Skip_Config_Item loaddir no'
+
+  testflag=0
+  time ('R')
+
+  address 'DOPUS.1'		/* address 'DOPUS.1' */
+  toptext 'Attempting to Load Eagleplayer'
+
+  do while (testflag=0) & (time('E') < Waittime)
+   if (pos('rexx_EP',SHOW('Ports')) ~= 0) then testflag =1
+  end
+
+  if pos('rexx_EP',SHOW('Ports')) ~= 0 then
+    toptext 'Eagleplayer loaded'
+   else
+    do
+     toptext 'Couldn`t load Eagleplayer'
+     exit
+    end
+end
+
+address 'rexx_EP'
+
+LoadModule filename
+aha=result
+LoadDir yes
+address 'DOPUS.1'
+toptext 'Eagleplayer: '||aha
+exit

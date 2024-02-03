@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE>FindAccess * Find Accesses</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: fa.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>FindAccess * Find Access to a memory location</h3>
+This tool will load the specified file and scans it for accesses to a given
+address. It will find all absolute and relative 8-bit, 16-bit and 32-bit
+references. It has been written to analyse the coredump files. It is similar
+to the Freezer command FA but will not disassemble the access but show it as a
+pure hex dump.
+<h4>Installation</h4>
+FindAccess is only contained in the <tt>DEV</tt> archive, not in the
+<TT>USR</tt> archive <br>copy it to C: or a similar place
+<h4>Usage</h4>
+I use the following alias (added to my S:Shell-Startup) to search in the last
+memory dump written by WHDLoad:
+<p><tt>alias fa FindAccess C:.whdl_memory</tt></p>
+so I can open a Shell and type for example:
+<p><tt>fa $15000</tt></p>
+and will get the output:
+<p><tt>FindAccess 1.2 (17-Jan-99 14:45:18) by Bert Jahn
+<br>loading file <B>Workbench:CE/.whdl_memory</B>
+<br>scanning accesses to $15000 (86016)  file: $0-$80000
+<br>Relative  Word at $ 14240 -> 06C00000 07C00000 <B>0DC0</B> 00000CC0 000004C0
+</tt></p>
+<h4>Options</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,ADDRESS/A,ORG</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+the name of the file to scan
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>ADDRESS/A</tt>&nbsp;&nbsp;
+</td><td>
+the access address you search for, you can use simple expressions like "$5000"
+= "20480" = " -$Ff +-33+ 19512+$4e8" (prefix "$" for hexadecimal numbers,
+supported operators are "+" and "-", unary and binary)
+</td></tr>
+<tr><td valign=top>
+<tt>ORG</tt>
+</td><td>
+the logical start address of the file, if not specified $0 is used, you can
+use same simple expressions as with ADDRESS/A
+</td></tr>
+</table>
+</BODY>
+</HTML>

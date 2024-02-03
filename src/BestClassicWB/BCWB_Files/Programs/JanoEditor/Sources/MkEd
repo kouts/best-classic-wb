@@ -1,0 +1,41 @@
+.key Target/a
+.bra {
+.ket }
+
+set CPU    "68020"
+set CFLAGS "NoVer NoStackCheck Opt CPU $CPU Define mc$CPU Define __SASC__"
+set EXE    "/JanoEditor"
+
+If "{Target}" eq "help"
+   echo "Usage: make file, compile one file using SAS/C compiler"
+   echo "use 'MakeEd all' to rebuild the entire project"
+   echo "    'MakeEd exe' to make linkage of all object files"
+   echo "    'MakeEd cat' to rebuild catalog files"
+Else
+	If "{Target}" eq "all"
+		sc NoLink #?.c ProgramName $EXE $CFLAGS
+		sc   Link #?.o ProgramName $EXE NoIcons
+	Else
+		If "{Target}" eq "exe"
+			sc Link #?.o ProgramName $EXE NoIcons
+		Else
+		if "{Target}" eq "gexe"
+			gcc #?.o -o jed -s -noixemul
+			protect jed +e
+		else
+			If "{Target}" eq "cat"
+				; Rebuild strings header:
+				CatComp /Catalogs/JanoEditor.cd CFILE Jed_Strings.h NOARRAY NOBLOCK NOCODE
+
+				; Rebuild translated catalog:
+				CatComp /Catalogs/JanoEditor.cd /Catalogs/français.ct CATALOG /Catalogs/français/JanoEditor.catalog
+				CatComp /Catalogs/JanoEditor.cd /Catalogs/deutsch.ct CATALOG /Catalogs/deutsch/JanoEditor.catalog
+				CatComp /Catalogs/JanoEditor.cd /Catalogs/norsk.ct CATALOG /Catalogs/norsk/JanoEditor.catalog
+				CatComp /Catalogs/JanoEditor.cd /Catalogs/polski.ct CATALOG /Catalogs/polski/JanoEditor.catalog
+			Else
+				sc NoLink {Target} $CFLAGS
+			EndIf
+		EndIf
+		EndIf
+	EndIf
+EndIf

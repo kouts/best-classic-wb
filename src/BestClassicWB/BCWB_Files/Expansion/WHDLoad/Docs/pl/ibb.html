@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE>InstallBB * Instalacja botbloków</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: ibb.html 1.4 2004/04/07 20:13:01 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>InstallBB * Instalacja botbloków</h3>
+InstallBB odczytuje i zapisuje botblok z dysku i na dysk. Botblok traktowany
+jest jako plik wykonywalny. Podczas zapisu zachowuje oryginalny typ
+systemu plików poprzez odczytanie botbloku i połączenie go z DosType
+(<tt>DOS0</tt>, <tt>DOS1</tt> ...) w nowy botblok. Suma kontrolna
+botbloku jest obliczana automatycznie.
+
+<h4>Instalacja</h4>
+InstallBB znajduje się w archiwum <tt>DEV</tt>, nie w archiwum
+<TT>USR</tt>
+<br>skopiuj go do C: lub w podobne miejsce
+<h4>Opcje</h4>
+<table>
+<tr><td colspan=2>
+<tt>PROGRAM/A,UNIT/K/N,WRITE/S</tt>
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>PROGRAM/A</tt>&nbsp;&nbsp;
+</td><td>
+plik wykonywalny, które będzie zapisany lub odczytany, musi zostać określony
+</td></tr>
+<tr><td valign=top>
+<tt>UNIT/K/N</tt>
+</td><td>
+numer urządzenia obsługiwanego przez trackdisk.device (numer urządzenia stacji dysków)
+<br>domyślnie 0 (DF0:)
+</td></tr>
+<tr><td valign=top>
+<tt>WRITE/S</tt>
+</td><td>
+brak tej opcji spowoduje, że botblok zostanie odczytany z dysku.
+W przypadku odznaczenia, plik zostanie zapisany na dysk.
+</td></tr>
+</table>
+</BODY>
+</HTML>

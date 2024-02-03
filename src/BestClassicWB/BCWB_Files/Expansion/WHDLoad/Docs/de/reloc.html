@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE>Reloc * Relozieren von ausf&uuml;hrbaren Dateien</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: reloc.html 1.5 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Reloc * Relozieren von ausf&uuml;hrbaren Dateien</h3>
+Reloc ist ein kleines Programm um ausf&uuml;hrbare AmigaDOS-Dateien auf eine absolute Adresse zu relozieren und diese dann als normale Daten-Dateien zu speichern. Dies war erforderlich bei fr&uuml;heren WHDLoad Versionen um ausf&uuml;hrbare AmigaDOS-Dateien zu verwenden. Seit WHDLoad Version 8.0 kann die Funktion <a href="../autodoc.html#resload_Relocate">resload_Relocate</a> daf&uuml;r verwendet werden.
+<h4>Installation</h4>
+Reloc ist nur im <tt>DEV</tt>, nicht im <TT>USR</tt> Archiv enthalten.
+<br>Kopiere das Programm nach C: oder einem &auml;hnlichen Platz.
+<h4>Optionen</h4>
+<table>
+<tr>
+<td colspan=2><tt>INPUTFILE/A,OUTPUTFILE,ADR/K,QUIET/S</tt></td></tr>
+<tr>
+<td valign=top nowrap><tt>INPUTFILE/A</tt>&nbsp;&nbsp;</td>
+<td>die ausf&uuml;hrbare AmigaDOS-Datei die reloziert werden soll, muss angegeben werden</td>
+</tr>
+<tr>
+<td valign=top><tt>OUTPUTFILE</tt></td>
+<td>der Name der Ausgabedatei, wenn nicht angegeben wird die Quelldatei &uuml;berschrieben</td>
+</tr>
+<tr>
+<td valign=top><tt>ADR/K</tt></td>
+<td>die Adresse auf die reloziert werden soll, wenn nicht angegeben wird $400 verwendet, es k&ouml;nnen einfache Ausdr&uuml;cke wie "$5000" = "20480" = " -$Ff +-33+ 19512+$4e8" (Prefix "$" f&uuml;r hexadezimale Zahlen, unterst&uuml;tzte Operatoren sind "+" and "-", un&auml;r und bin&auml;r) verwendet werden</td>
+</tr>
+<tr>
+<td valign=top><tt>QUIET/S</tt></td>
+<td>vermeidet jegliche Textausgaben au&szlig;er Fehlermeldungen, sinnvoll wenn es in Installationsskripten verwendet wird</td>
+</tr>
+</table>
+<h4>R&uuml;ckgabewert</h4>
+Der R&uuml;ckgabewert ist 0 bei Erfolg, ansonsten wird 10 zur&uuml;ckgegeben.
+<h4>Hintergrundinformationen</h4>
+Die HUNK's aus der ausf&uuml;hrbaren Datei werden in der selben Reihenfolge in die Ausgabedatei kopiert. BSS-HUNK's erhalten in der Ausgabedatei ihre volle Gr&ouml;&szlig;e. HUNK's die mit AmigaDOS 2.0 eingef&uuml;hrt wurden (z.B. RELOC32_SHORT) werden nicht unterst&uuml;tzt.
+</BODY>
+</HTML>

@@ -1,0 +1,912 @@
+                      XFD Package - Release 1.38
+                      ==========================
+
+COPYRIGHT
+---------
+All  parts  of  this  software  package  are  freely  distributable for
+noncommercial use.  If you redistribute XFD, you have to keep all files
+together.  All programs are copyright by their authors.
+
+DISCLAIMER
+----------
+The  authors  are  not  liable  for any changes made to any part of the
+package, or consequences thereof as they cannot be made responsible for
+damages  or  loss  of  data  directly  or  indirectly  caused  by their
+software.
+
+AUTHORS
+-------
+Georg Hörmann          - Definition of XFD standard, xfdmaster.library,
+                         xfd#? tools, Assembler includes, some external
+                         decrunchers.
+Dirk Stöcker           - External decrunchers, 'C' support and
+			 xfdmaster.library and tools starting with 38.5.
+
+???                    - External decrunchers.
+A. Van Helsing/X-Trade - External decrunchers.
+Chris Young	       - Installer script.
+Codetapper	       - External decrunchers.
+Dexter&Bartman/Abyss   - External decrunchers.
+DII                    - External decruncher and older Amiga E stuff.
+Don Adan/Wanted Team   - External decrunchers.
+Jan Poruba	       - External decruncher.
+Stuart Caie/Kyzer      - External decrunchers.
+Mr.Larmer/Wanted Team  - External decrunchers.
+Nils Görs              - External decruncher.
+Psygore                - External decrunchers.
+Ronald van Dijk	       - External decrunchers and AmigaE support.
+Sven Steiniger	       - older Amiga E support.
+WEPL                   - External decrunchers and Oberon includes.
+
+INTRODUCTION
+------------
+Almost  every  Amiga  user  has  some  crunched files on his/her disks,
+either  Powerpacked docs or crunched demos, utilities or whatever.  But
+what to do when you need the files to be uncrunched, and you don't call
+the cruncher your own (or it does not support decrunching)? Enters XFD.
+
+FEATURES
+--------
+This  software  package allows you to decrunch almost every packed file
+known  on the Amiga.  It consists of the xfdmaster.library as the brain
+and a couple of programs that offer certain functions to the user.
+
+The  xfdmaster.library is a standard Amiga shared, runtime library.  It
+works  with  Kickstart  V33+ and offers applications the possibility to
+directly support any crunched files.
+
+Other  than the predecessor decrunch.library, the xfdmaster.library has
+a  more  flexible interface, offers the possibility to decrunch already
+loaded  program  segments,  supports  external  decrunchers, is able to
+unlink 4EB9/4EF9- and text-linked files  and can scan for crunched data
+in any memory area.
+
+REQUIREMENTS
+------------
+xfdmaster.library  requires  OS1.2 to work  properly.  To decrunch XPKF
+files, you also need xpkmaster.library and the proper sub library.
+
+All  included external  utilities need  OS2.0 or OS1.2 and arp.library,
+with exception of xfdPatch and xfdDecrunchAddr which always need OS2.0.
+
+EXTERNAL DECRUNCHERS
+--------------------
+External  decrunchers  can  be easily written by any programmer who has
+knowledge  about the inner workings of a new cruncher.  That way almost
+everybody is able to keep the library up-to-date.  External decrunchers
+are  stored in "LIBS:xfd/" and xfdmaster.library loads them on startup.
+Please  check  out  your own "LIBS:xfd/" drawer and compare it with the
+latest  one included in this package.  The slaves from this package are
+always  the latest versions.  There exist old external decrunchers that
+are  no  longer  required,  please delete them from "LIBS:xfd/" to save
+diskspace AND memory.  They are mentioned in "LIBS:xfd/.README.FIRST"
+
+ATTENTION
+---------
+Although  I  clearly  stated  in the autodocs that external decrunchers
+have  to  be fully reentrant (which means they can handle several files
+within the same time), some externals are programmed not 100% safe.  If
+you  ever  have trouble with XFD, first disable the external slaves and
+then try again.  If there's still a problem, send me a bug report.
+
+SUBMISSIONS
+-----------
+You are a programmer who has
+- developed external decrunchers for xfdmaster.library?
+- written applications that support xfdmaster.library?
+You have new crunchers that are not supported yet?
+Please send anything of the above to the following address:
+
+( Georg Hörmann			)
+( Martinswinkelstraße 16c	)
+( 82467 Garmisch-Partenkirchen	)
+( Germany			)
+
+As  Georg  has  no time  to improve  xfdmaster.library, he gave  me the
+sources to do further updates. Maybe in some future time he  will again
+make  the library  himself,  but at  the moment  I am the author of the
+xfdmaster.library.
+
+You can contact me at:
+Dirk Stöcker
+Geschwister-Scholl-Straße 10
+01877 Bischofswerda
+GERMANY
+
+or "stoecker@epost.de" or "dirk@dstoecker.de".
+
+I still  need some of the  older crunchers,  strange data crunchers and
+lots of linkers. Any sent stuff is welcome.
+
+THANKS
+------
+Special  thanks  go  out  to  all the people who sent me new crunchers,
+external  decrunchers,  bug  reports  or  whatever.  You will find your
+names somewhere in the history.
+
+HELP ME
+-------
+Who  is  interested  in writing a nice GUI for xfdmaster.library?  As I
+don't  have  enough  time to do this myself, I'm searching for somebody
+who  would  like  to  and has the skills to code a GUI-based all-in-one
+xfdDecrunch/Unlink/List/Scan  utility.   It  should read files, analyse
+them  quickly  (crunched?/linked?) scan them if necessary and save back
+the  result.   All  this  combined  with  lots  of  options and default
+settings would be very useful for all of us.
+
+HISTORY
+-------
+XFD 1.38 [xfdmaster.library 39.15]
+- Added DefJam3.2T variant (TETRAGON text instead of DEFJAM, maybe a version
+  developed between TetraPack and DefJam?). Would be nice if anyone can send
+  me this cruncher.
+- Added BlueHouseCruncher and LhLib updates. DMP0 is obsolete now. Thanks
+  Ronald van Dijk.
+- Added PAL! decruncher. Thanks Ronald.
+- Added MSS! and mss! ID's to CrunchMania. Thanks Ronald for the hint.
+- Updated ByteKillerData. Thanks Ronald for the file.
+- Updated Pack-Ice, added JamPacker from Ronald.
+- Added CPic-slave made by Stuart Caie. Thanks a lot. Long waiting for this
+  one.
+- Added V2.0 of LOB decruncher by Wanted Team.
+- Added ATM4 and TheChamp external from Wanted Team.
+- Added AU5! ID to IAM ICE! packer data slave.
+- Fixed CNC slave to again support $0500 data files (Overlooked one bit-count
+  difference between $0400 and $0500 data).
+- Many updated external slaves. Fixes done by Ronald van Dijk.
+- Removed external JEK!. This is replaced by JekPacker external.
+
+XFD 1.37 [xfdmaster.library 39.14]
+- Updated ByteKillerData slave. Thanks Ronald van Dijk for sending the file.
+- Added RMS-More slave from Ronald van Dijk.
+- Added PacPic slave done by Stuart Caie. Lots of thanks for this format.
+- Fixed PCompress detection.
+- Added CNC and RPck slaves from Wanted Team.
+- Added Infogrames and TurboPackerData slaves by Ronald van Dijk.
+- Fixed PKprotector detection problem.
+- Added DEN!-Id to PowerPacker. Thanks Ronald van Dijk for example files.
+- Added RexxExe external to support two ARexx2Exe converter file types.
+- Fixed recognition of D815 external slave.
+- Added BlueHouseCruncher external from Ronald van Dijk. This also replaces
+  BHC3, which can be removed.
+- Added IFF-HUFF external. Thanks Don Adan for the file.
+- Added PackIce. Remove obsolete Ice!_eof, Ice_TSM and -CJ- slaves. Thanks
+  Ronald for this update.
+- Removed .4Vx slave from distribution (many problems and no test-files of
+  this format).
+- Moved Z&G! to Stonecracker 4.03 data. Please remove external. Added ZULU
+  ID to Stonecracker4.03.
+- Bug fixes in Imploder, Amos Compiler Cruncher, PowerPacker, IAM, RPck and
+  CrunchMania slaves. Thanks Ronald van Dijk for example files and help.
+- Optimized and fixed CNC slave.
+- Added LeCrunch Data to LeCrunch external. Remove obsolete LeCr external.
+- Fixed and shortened FIRE external. Added data scanning to it.
+
+XFD 1.36 [xfdmaster.library 39.13]
+- Fixed bug in RNC slave, which destroyed RELOCS for uncrunched hunks.
+- Added BRLE. Thanks to the author with these strange characters as name
+  for sending it.
+- Fixed and optimized ByteKillerClone external.
+- Now supports PP3.0 files with missing end hunk.
+- Added fixed versions of CRUNCH2A and MagneticFieldsCruncher from Wanted
+  Team. Thanks Don Adan for sending the files.
+- Disabled the internal MagneticFields decruncher, which never really worked
+  as expected.
+- Added fixed versions of PP2S and CATC decrunchers by Wanted Team.
+- Replaced ByteKillerClone by newest fixed Wanted Team version.
+- Fixed and optimized Silmarils external.
+- Fixed xfdList to cut filenames without ESC-codes. Thanks Luca 'Hexaae'
+  Longone for showing the problem.
+- Added XX50 ID for PowerPacker. Thanks Don Adan for the files.
+- Fixed "pack" slave recognition.
+- Fixed EXP1.1 unlinking. Thanks Ronald van Dijk for example file.
+- Fixed 4Vx. It recognices no longer the AmigaMail files.
+- Added MMCMP slave done by Stuart Caie.
+- Added hidden Imploder decrunched method support. Thanks Zeeball for files.
+- Added another 4eb9 linker. Thanks Zeeball for files.
+- Fixed some of the Enforcer/MungWall hits I got reported (but not yet all!)
+- Moved DataPACK slave into ByteKillerClone. Remove DataPACK external!
+
+XFD 1.35 [xfdmaster.library 39.12]
+- Added new SZDD slave, which includes LPAK files.
+- Added CoMp slave done by Kyzer.
+- Added updated LhLib and TimeCruncherData slaves.
+- Added -CJ- slave done by Psygore. Fixed by me to be reentrant, shortened
+  a lot and migrated to V39 methods.
+- Added Damage slave done by Codetapper.
+- Bugfix in GP data slave.
+- Fixed Silmarils detection and made it V39 slave.
+- Added documentation how to make V39 data slaves. This is much easier and
+  most time also much more secure than the old method (no own memory
+  allocation)! See the provided examples.
+- Added Dune and NTG-Cruncher slaves done by Ronald van Dijk.
+- Added EDAM-ID to File-Imploder. Thanks Ronald van Dijk for the file.
+- Removed Enforcer hit in StoneCracker 4.04 code.
+- New version of B9AB slave.
+- Added SCC! slave by Codetapper (included in new ByteKillerClone external).
+- Added SQ external done by Ronald van Dijk.
+- Added MiniChainer0.33 Linker (reported as 4EB9-Linker). Thanks Ronald van
+  Dijk for the program.
+- Added ...$01 ID to RNC. Thanks Ronald van Dijk for the files.
+- Added ShellScript slave.
+
+XFD 1.34 [xfdmaster.library 39.11]
+- Added bug-fixed version of SZDD slave.
+- Added MentalImage slave done by Ronald van Dijk.
+- Added PTN!-ID to Stonecracker.
+- Added SiCr slave done by Ronald van Dijk.
+- Added SPv3 slave updated by Kyzer.
+- Added RDC9-ID to Imploder Data.
+- Added LhLib slave done by Ronald van Dijk.
+- Added Z&G! slave by Kyzer.
+- Added B9AB slave by Ronald van Dijk.
+- Fixed little bug in Crunch slave. Thanks Ronald van Dijk for the hint.
+- Added DSC3, EDP1 and fixed Vice slave sent by Don Adan.
+
+XFD 1.33 [xfdmaster.library 39.10]
+- Fixed bug in installer introduced in last version.
+- Added Iron-ID to CrunchMania slave.
+- Added SZDD slave made by Kyzer. Thanks for that one. I always wanted to
+  have an decruncher for that nasty Microsoft format.
+- Splitted user and developer archive. Added all available sources to
+  developer archive.
+- Added support for modified SuperCruncher2.7 files. Thanks Don Adan for
+  sending examples.
+- Added CD³¹-ID to CrunchMania slave. Thanks Don Adan for the files.
+- Fixed Enforcer hits.
+
+XFD 1.32 [xfdmaster.library 39.9]
+- Fixed Enforcer hits in master library, Crunch and ByteKillerClone
+  externals.
+- Added Dupa-ID to Imploder slave.
+- Fixed ISC Pass3 bug. Thanks Don Adan for the hint.
+- Fixed and shortened HUFF slave. Thanks Ronald van Dijk for example files.
+- Fixed and shortened RLE slave and included data scanning. Thanks Ronald
+  van Dijk for error report.
+- Fixed crash in Imploder slave. Thanks Ronald for the example file.
+- Added 3 new external slaves ByteKillerData, TimeCruncherData and 
+  ZeroPacker done by Ronald van Dijk. Thanks a lot, as these formats are
+  very hard to detect (Nearly impossible :-).
+
+XFD 1.31 [xfdmaster.library 39.8]
+- Added GAZ!-ID to PowerPacker slave.
+- Added $29075337-ID to PowerPacker slave and AYS!-ID to Stonecracker
+  slave. Thanks to Ronald van Dijk for the files.
+- Added KennyGrant external done by Kyzer. Remove GraftGold external,
+  as this is inluded in new KennyGrant.
+- Added updated TPWM slave. Thanks WEPL for the file.
+
+XFD 1.30 [xfdmaster.library 39.7]
+- Added "IFT?"-ID to CrunchMania slave. Remove "IFT?" external.
+- Fixed data scanning problem.
+- Added internal "SMF Compacker" slave made by Georg Hörmann.
+- Added TRX external. Thanks Georg Hörmann for making this one.
+- Added LZW external done by Georg Hörmann.
+
+XFD 1.29 [xfdmaster.library 39.6]
+- Finally fixed crash in CrunchMania decruncher. The related file
+  crashs all known decrunchers, but no more xfdmaster. :-) Thanks Georg
+  Hörmann for fixing the bug. I did not find a solution myself.
+- Added fixed version of D815 slave made by Mr. Larmer. Thanks for
+  sending this one.
+- Added "Pd" Data to IAM-ATM5 slave. Remove Pd external, if you have.
+- Added GK90 slave (a IAM-ICE! derivate) made by Mr. Larmer.
+- Added FLS0 data to PMC slave. Thanks to Mr.Larmer for the files.
+- Added MDCS and POPI slaves made by Mr. Larmer.
+- Removed some source examples to reduce needed archive size.
+- Fixed bug in IAM-ICE! decruncher.
+- Shortened and fixed VICE slave.
+- Finally fixed another crash in Stonecracker decruncher. Thanks again
+  Georg Hörmann for fixing the bug.
+
+XFD 1.28 [xfdmaster.library 39.5]
+- Removed some useless instructions from PCompress2 slave.
+- Added support for XPK password request in xfdDecrunch.
+- Shortened and fixed XP10 slave.
+- Fixed name creation problem with xfdScan. Names from file 101 and
+  up have been wrong.
+- Added ZbL! external.
+- Added SOS external. Thanks to WEPL for that one.
+- Shortened and fixed GP data slave. Removed self modifying code and
+  other bad behaviour.
+- Added Andromeda decruncher. Thanks Mr. Larmer for that one.
+- Fixed pack decruncher.
+- Updated external TTW! (IFF cruncher) done by Ronald van Dijk. Thanks
+  for the new version.
+
+XFD 1.27 [xfdmaster.library 39.4]
+- Fixed Segment recognition for Stonecracker 4 Library files. Thanks
+  Håkan Parting for the report.
+- Replaced =SB= external by LHA3 external, which doesn't crash and is
+  written in C language. It also supports V39 stuff, data scanning and
+  is a bit shorter.
+  There exist some corrupt files due to a bug of LHA3 by Stefan Boberg.
+- Silmarils no longer detects NetBSD executables.
+- Added external TTW! (IFF cruncher) done by Ronald van Dijk. Thanks
+  for that one.
+- Added IlScuro and Switch externals done by Codetapper. Thanks for
+  the stuff.
+- PseudoPacker now directly decrunches files without exe header. No
+  need to use ADDHEAD of xfdDecrunchAddr.
+- Included ISC external in master library and fixed it a lot. It now
+  can handle multipass ISC files and also files with a crunchrate
+  higher than 50%. Please remove external ISC.
+- Added STORECOMMENT option to xfdDecrunchAddr tool.
+- Included PCompress2 external in master library and added data
+  scanning. Please remove the external file.
+- Fixed and shortened JR decruncher. Thanks Codetapper for example
+  files.
+- Fixed Enforcer hit for corrupt Titanics files.
+- Fixed and shortened VDCO decruncher.
+- Again fixed IAM (ATM5) Packer. Now it really works. :-)
+
+XFD 1.26 [xfdmaster.library 39.3]
+- ATOM decruncher now removes 2 byte security buffer. Thanks Don Adan
+  for the hint.
+- Optimized and fixed IAM packer slave. Thanks Don Adan for example
+  files.
+- Removed VOL1 external, as it is included in new LOB added in release
+  1.25. Thanks Don Adan for the hint.
+- Splitted StoneCracker 4.04 and 4.04 Library to support really short
+  library files.
+- Updated all the missing internal clients to V39. All internal data
+  clients support user targets now, when it is possible for that type.
+- Added HAL! ID to MasterCruncher3.0 Data client. Thanks Don Adan for
+  some files.
+- Added Pseudo Packer 1.0 address cruncher as Pseudo external.
+
+XFD 1.25 [xfdmaster.library 39.2]
+- Fixed CP and ATOM slaves. The decrunch routines should not be able to
+  crash anymore. Thanks Mr. Larmer for the example files. These clients
+  are the first external V39 clients.
+- Fixed little bug in GZip slave.
+- Both executable test heads (C and ASM) support V39 auto allocation
+  now.
+- Imploder Data slave bug fixed.
+- Updated some more clients to V39.
+- Fixed Enforcer hits in Crunch, 4GetIt!, ImploderClone clients and in
+  master library.
+- Added new Cruncher ID's MLDC & MD12 (PowerPacker), PAC/01 (RNC) and
+  Pack (StoneCracker 4.04). Thanks to Ronald van Dijk for example
+  files.
+- Added or updated LOB, LZSS, NJMP, XPAC and Silmarils externals.
+  Thanks Don Adan for the files.
+
+XFD 1.24 [xfdmaster.library 39.1]
+- Added support for TurboSqueezer5.1. Thanks to Richard Wagenführer for
+  sending the cruncher. Fixed TurboSqueezer6.1 Segment Decruncher.
+  Added xfdSegHead.a to source drawer. This header allows to test the
+  segment functions.
+- Again fixed PowerPacker4.0 Reloc correction routine. The library will
+  no longer crash for some defective files, but produce files which
+  contain additional stuff behind the real data. Using a file split
+  utility to remove that should produce a valid executable file again.
+  This is a bug of PowerPacker and not of xfdmaster.library.
+- Fixed broken error detection for PowerPacker files.
+- Added segment support to "MegaCruncher Obj".
+- Added "Unknown Cruncher 2" (Unknown2 external). Anyone who knows the
+  name of that address cruncher? Thanks Don Adan for some example
+  files.
+- Added SubPacker1.0, a (lossy) ProTracker module packer. Thanks Martin
+  Jeppesen for the cruncher.
+- Fixed MasterCruncher3.0 Data detection (corrupted since Release
+  1.22).
+- Added Data scanning to Crunch1.3 slave.
+- Included PCR4 decruncher made by Jan Poruba.
+- Joined PMC and TurtleSmasher2.0 decrunch code and improved it a bit.
+- Fixed bug in StoneCracker data slaves.
+- Added auto buffer allocation feature. When USERTARGET is supported
+  the master library automatically allocates the buffer for client.
+  Added xfdrr_MinSourceLen field to allow easy buffer truncation
+  checks. The decrunch routine of data slaves can be really short now,
+  when the format allows to supply size information in Recog function.
+- Bumped version to 39.
+- Updated internal slaves to support new features. As a result some
+  more of the data slaves support USERTARGET now.
+- Added FileShield linker. Thanks to Heiner Schneegold for example
+  files.
+  NOTE: The first unlinked file is really useless, as it contains
+  only 1 zero word and 3 RTS instructions.
+
+XFD 1.23 [xfdmaster.library 38.7]
+- Updated AddressHead to support 2 more headers (total 10 now).
+- Fixed bug in PowerPacker4.0 Reloc correction routine, which caused a
+  crash for at least 2 (partly) defective files.
+- Moved DeluxeCruncher into library, as it is a ByteKiller clone.
+  Please remove external DeluxeCruncher.
+- Added support for StoneCracker 4.10 Plain Address header and
+  ByteKiller 2.03/2.05. Address crunched files no longer pass a hunk
+  structure test, as there are lots of files with defective structure
+  which are still decrunchable and the decrunch slaves do not need a
+  correct structure.
+- Fixed bug in FileDescript linker which caused a crash on 68000 CPU's.
+- Added ByteKiller97 slave. What guy did a ByteKiller clone in 1997?
+  And additionally he forgot to add pad bytes in the hunk version.
+- Fixed Crunch external to support BSS hunks.
+- ProPack slave now supports files with missing HUNK_END.
+
+XFD 1.22 [xfdmaster.library 38.6]
+- Added new Cruncher ID's SLAM (StoneCracker 4.04), ViS1 & ViSL
+  (CrunchMania), FLT! (Imploder), KDUB (MasterCruncher 3.0),
+  LSD! (MasterCruncher 3.0 or CrunchMania), 1AM & 2AM (StoneCracker).
+  Please remove KDUB, LSD! and 1AM externals.
+  Thanks to Rafal Mania and Don Adan for example files.
+- Added StoneCracker2.92 Data. External 89A8 is obsolete now.
+- Added updated decrunchers. Thanks to Martin Jeppesen for sending
+  them.
+- Added FileDescript Linker (xDiz and TxtExtract). These are the first
+  two implemented linkers, which do not use executable files.
+- Included Installer script made by Chris Young.
+- Replaced ByteKillerFake by newer ByteKillerClone. Thanks Don Adan for
+  the file.
+- Added "Unknown Cruncher 1" (Unknown1 external). Anyone who knows the
+  name of that address cruncher? Thanks Martin Jeppesen and Don Adan
+  for example files.
+- Fixed bug in xfdList.
+- GZip external is a lot saver now, updated DeluxeCruncher and
+  AddrHeads.
+- Added LeCrunch external. I do not have the cruncher itself. Would be
+  fine if anyone could send it.
+- Added Crunch external for Crunch1.3 and Crunch1.4ß files. Remove CRUa
+  or related externals.
+- Moved Supplex into master library as "Mega Cruncher Obj".
+- Added "PowerPacker4.0 LoadSeg Overlay" files support.
+- Added TUC1.16 decruncher done by Georg Hörmann. As you can see Georg
+  is still alive and programming (I did not get TUC finished for about
+  a half year now.). TUC is really a worst example of programming.
+
+XFD 1.21 [xfdmaster.library 38.5]
+- Bugfix in xfdmaster.library 38.3 "PK Protector 2.00" slave. Special
+  thanks to Jan Andersen for sending me the bug report from Alex van
+  Niel. Released as xfdmaster.library 38.4.
+- From now the library is no longer done by Georg but by Dirk Stöcker.
+  Maybe that changes back again in future. Nobody knows :-)
+- Included PPbk in xfdmaster.library now doing complete decrunching.
+  Please remove PPBK from LIBS:xfd directory!
+- Added ID XPKZ to CrunchMania and PACK to PowerPacker.
+- Added new externals PCompress2, GZip, DataPACK, ISC, DeluxeCruncher
+  and their sources.
+- New external AddrHeads removes xfd and ObjectMaster address headers.
+- Included xfdDecrunchAddr tool in the distribution.
+- Updated LSD! external to support fake CrM2 files.
+- Added Text-Linkers EXP1.1, ETA0.91, ETA0.99 and ETA1.00. Has anyone
+  a linker program or not recogniced linker files? Please send them.
+- Added new V38.5 AmigaE support files done by Sven Steiniger.
+- Added Crunch-O-Matic 1.0 (COMatic external). This cruncher seems to
+  be buggy, as some of the decrunched files are corrupt. The decruncher
+  itself should not do any weird things (like crashing) except
+  producing corrupt files, as there is no way testing the files.
+  Solutions, bug fixes or newer Crunch-O-Matic versions are welcome.
+- Fixed a bug Georg introduced in 38.3 SyncroPacker fix. Normal
+  SyncroPacker files are recogniced again.
+- Removed some little Enforcer hits in GNU-Packer, FlashSpeed and TSK.
+- Updated some other external decrunchers.
+
+XFD 1.20 [xfdmaster.library 38.3]
+- Removed externals AMOS, CRND, CRUN, FUCK as they are included in the
+  external ByteKillerFake too. Thanks to Dirk Stöcker for the hint.
+- PowerPacker Data slave supports PP2O files now (capital O instead of
+  zero). Thanks to Dirk Stöcker again.
+- Added new externals DMP0, PCompress and Supplex written by Dirk
+  Stöcker and Nils Görs. Thanks guys, this really saved me some work.
+- Added sourcecodes for new PCompress and Supplex externals.
+- Added support for patched DragPack 1.0 files. These will not appear
+  very much as they are made by hand, but it was simple to implement,
+  so why not? Thanks to Dirk Stöcker again for the example.
+- Added support for another SyncroPacker version to the S.P. slave.
+  The example file must have been created by a version different to
+  4.6, but I don't know if any other versions exist, so I added it
+  to 4.6. Thanks again to Dirk for the file.
+- Improved ProPack slave. It now supports files with manipulated IDs.
+  But the correct algorithm type in the ID is still required, so some
+  totally overwritten IDs will still not be recognized.
+- Added StoneCracker 4.03 slave. Thanks to Dirk for the files.
+- Reworked recognition for StoneCracker 4.04 files. Manipulated IDs
+  will be accepted now. Thanks to Dirk for the files.
+- Reworked ProPack slave again. It now accepts any kind of
+  manipulation. Thanks to Dirk for the files.
+- Fixed CP external. This one recognized 'CPic' files and then crashed.
+  As I don't have CP files, I just added a 'negative' recognition to
+  avoid CPic files. Thanks to Dirk for the bug report.
+- Added PK-Protector 2.00 slave. This will just remove the protection
+  from crunched files so you can decrunch them afterwards. Thanks to
+  Mr.Larmer for sending the program.
+
+XFD 1.19 [xfdmaster.library 38.2]
+- Added external slave 'UNIX-Compress' and its sourcecode written by
+  Dirk Stöcker. Thanks a lot. This is the first slave written in 'C'
+  and a good example how to do it correctly.
+- Fixed problem with PowerPacker Data slaves. With odd file lengths the
+  slaves crashed on MC68000. Thanks to Dirk Stöcker for the report.
+- Added recognition for 'PARA' files to Imploder slave. It's just a
+  cloned FImp file and the external PARA slave wrongly recognized
+  'SCOPTIONS' files as PARA crunched. Please remove PARA slave from
+  LIBS:xfd!! Thanks again to Dirk for the report.
+- Added new Include files for 'C' language. These are 100% correct
+  and have been created by Dirk Stöcker. Thanks once again.
+- Fixed Autodocs: Some synopsises for 'C' were incorrect. Thanks one
+  more time to Dirk ;-)
+- Fixed Imploder Data slave: The last longword is just a checksum that
+  has been stripped at some clones, I don't test for this any longer.
+  Thanks for the example files to Dirk.
+- Added old Imploder version. I can only guess which version created
+  the file sent by Dirk Stöcker (maybe 1.0?), because I've never seen
+  such an Imploder file header and I don't have Imploder 1.0, but it's
+  definately an original Imploder file. Anyway, such files are handled
+  correctly now.
+- Added PowerPacker 2.0 slave. Thanks to Dirk for the example file.
+- Fixed bug in CrunchMania Data slaves and added XFDPFF_RECOGLEN and
+  XFDPFF_USERTARGET support.
+- Added XFDPFF_RECOGLEN and XFDPFF_USERTARGET to Imploder Data and
+  PowerPacker Data slaves. All important data formats support the
+  new flags now, I will add them to the minor slaves somewhere in
+  the near future.
+- Added xfdm_ExecBase field to the library base. Not all internal
+  slaves can support this cached pointer, but most will do in the
+  future. The main library code already supports the field for better
+  CPU performance.
+- Did a little definition add-on I forgot in v38.1: If slaves support
+  XFDPFF_RECOGLEN but can't for what reason ever determine the correct
+  lengths for return to the caller, they set xfdrr_MinTargetSize and
+  xfdrr_FinalTargetSize to -1. So please check for those values in
+  your applications. Sorry!
+- Added support for cached ExecBase to almost every internal slave
+  and by the way fixed some bad library calls that might have caused
+  crashes (funny: all errors stuck in error handling code ;-)
+
+XFD 1.18 [xfdmaster.library 38.1]
+- Added support for CrunchyDat 1.0 files. Thanks go to Bert Jahn for
+  sending me that packer.
+- Added new feature to xfdRecogBuffer(): The recog code can determine
+  the length of the decrunched file already during recognition. The
+  caller then knows how big the buffer for decrunching must be and
+  can allocate its own buffer for that purpose. This is supported by
+  xfdDecrunchBuffer() now. All this meant changes in xfdBufferInfo,
+  lots of additional flags and a new structure called xfdRecogResult.
+  See autodocs for further information.
+  Idea by Dirk Stöcker, author of XPK, to make XFD more compatible to
+  XPK and let XPK benefit from the power of xfdmaster.library.
+- Unfortunately, in the current state of development, everything is
+  prepared for the new features, but no slave supports them until now.
+  And there will always be slaves that never ever support them because
+  it's simply impossible to calculate the decrunched length without
+  starting to decrunch the files.
+  Nevertheless I will try to update all slaves as soon as possible.
+- Here we go: Added support for new features to StoneCracker Data
+  slaves and ProPack Data slaves to test the new options. Works fine!
+  Now it's your turn, Dirk ;-)
+- Added external slaves and sourcecodes (4GetIt, BHC3, ImploderClone,
+  PPBk) written by Dave Jones. Thanks dude!
+
+XFD 1.17 [xfdmaster.library 37.8]
+- Added support for StoneCracker 2.99b files. Thanks to Mr. Larmer for
+  sending me that old cruncher.
+- Fixed bug in xfdScan() routine that caused crashes when using hooks.
+  Thanks again to Mr. Larmer for the report.
+- Finally added support for old ProPack data files. These use the same
+  identifier like the new ones, therefore it was a bit complicated to
+  determine the correct type. Thanks again to Mr. Larmer for example
+  files and decrunchers.
+
+XFD 1.16 [xfdmaster.library 37.6]
+- Fixed problem with ProPack (RNC) executables that contain hunks
+  with reloc information. Thanks to Mr. Larmer/Wanted Team for the
+  example file.
+- Added JEK!, LeCr and Vice decrunchers written by Mr. Larmer.
+- Added support for PowerPacker LoadSeg (PPLS) files. Thanks for
+  the suggestion to WEPL. These files may cause problems because
+  overlayed files are crunched as well with this format without
+  any differences :-(
+
+XFD 1.15 [xfdmaster.library 37.5]
+- Added support for CFP 1.35/1.36 protected files.
+- Fixed bug in xfdStripHunks(). It may happen that a hunk_name etc.
+  is the very last hunk without any other information after it. In
+  this case the old routine crashed. Thanks for the example file to
+  Christoph Dietz.
+- Added new ProPack strain. Thanks to WEPL for sending the sample.
+- Added 68000-fixed version of BOND external slave to the library.
+  Thanks to Dirk Stöcker for the bug report.
+- Fixed external CP slave. Now it won't produce wrong recognitions
+  any longer. Thanks to Holger Wessling and Emmanuel Poirier for
+  the example files.
+
+XFD 1.14 [xfdmaster.library 37.3]
+- Added CPU cache handling code to all routines that manipulate any
+  buffers. I hope this will reduce problems with 68040/060 CPUs.
+- Replaced several buggy sublibraries by Mr.Larmer/Wanted Team with
+  new cleaned-up versions. Thanks for that updates, dude.
+- Added new sublibrary (DPRa) and some Amiga E stuff by DII. Thanks!
+
+XFD 1.13 [xfdmaster.library 37.2]
+- Added segment support to Titanics Cruncher 1.1/1.2, Spike Cruncher,
+  ProPack, TurboSqueezer 6.1/8.0 and HQC Cruncher 2.0 slaves.
+- Added Master Cruncher 3.0 Data slave, added segment support to
+  Master Cruncher 3.0 slave and rewrote parts of the Master Cruncher
+  decrunch routines.
+- Added new version of xfdPatch with a serious bug fixed. Sorry folks!
+- Arhh! Bug fixed in the optimized Crunchmania routines added in 1.12.
+  Empty code hunks caused a system crash. Thanks to Holger Wessling
+  for the report and the example files.
+- Fixed little bug in the StoneCracker 4.04 Data length calculation.
+  No crash this time :-) Thanks to Holger again for the example file.
+- Added segment support to DragPack 2.52 slave.
+- Added XFDPFF_RELMODE flag support to the following slaves: Propack,
+  Imploder (Normal/Lib/Overlay) and CrunchMania (Normal/Lib/Simple)!
+  As these crunchers already allocate their hunks during LoadSeg(),
+  I wrote a hunk manager that checks the memory type of each loaded
+  hunk and switches to another area if neccessary.
+- Added segment support to Chryseis Cruncher 0.9 and ReloKit 1.0.
+  Finally I made it!! All internal reloc slaves support full segment
+  decrunching and relocation modes now :-))
+- Combined Powerpacker x.x Master/Normal to simple PowerPacker x.x
+  slaves. This saves memory and CPU time.
+- Added data scan support to LightPack 1.5 and TurtleSmasher 2.00
+  Data slaves. Changed CrunchMaster 1.0 type from data to address.
+- Added data scan support to ST Cruncher 1.0 Data slave. Now all
+  internal data slaves support data scanning!!
+- Added Super Cruncher 2.7 slave with buffer and segment support.
+- Added Ultimate Packer 1.1 slave with buffer and segment support.
+- Added Old ProPack (RNC) slave. Thanks to WEPL for the sourcecode
+  and the example files. This slave cannot handle XFDREL_#? as only
+  the first hunk is crunched and all others are already relocated at
+  decrunch time. Sorry!
+- Added SA/SC/SF/SP/SQ Cruncher slave. Here we have a big problem:
+  There exist different versions of the SA, SC and SP formats with
+  different crunch algorithms. Therefore these will only be scanned
+  for, but not decrunched. SF and SQ should work properly. Thanks to
+  WEPL for the sourcecode and the example files.
+- Added PowerPacker Patch 1.0 slave. This silly tool adds different
+  headers to standard PowerPacker 4.0 files. Thanks to Dave Jones
+  for sending that stuff.
+- Added ExeDescript 1.0 Linker to the internal linker brain. This
+  one is a bit special as it just adds a data hunk at the end of a
+  file with some text in it. To recognize this stuff, the whole file
+  must be in memory. Sorry, but the xfdm_MinLinkerSize field is of
+  no use any longer for this type of linker. Thanks to Dave Jones
+  for sending lots of example files.
+
+XFD 1.12 [xfdmaster.library 37.1]
+- Fixed problem in ProPack slave. It may happen that some hunks are
+  not crunched in the RNC format but included as plain hunks. This has
+  not been supported correctly. Thanks to Dave Jones and John Aadnoy
+  for the example files.
+- Optimized decrunch speed of CrunchMania slave by factor 50 !!!
+  You won't see it with small files, but Holger Wessling sent me two
+  files that took several minutes to decrunch with the old routine
+  and about 4 seconds with the new one (the file had up to 140 hunks
+  and 6200 reloc entries at 700000 bytes). Thanks Holger.
+- Added lots of external decrunchers written by Mr.Larmer/Wanted Team.
+  Thanks for all the work you had with that stuff.
+- Added new utility called xfdPatch. Just use it!
+- Added an extra feature to Imploder and CrunchMania slaves:
+  they both will decrunch even some modified files now. Thanks to
+  Dave Jones for sending the 'The Party IV' 40k intros.
+- Added full GNU Packer 1.2 support. Thanks to Mr.Larmer/Wanted Team
+  for sending that stuff.
+- Added new version of xfdPatch that allows to set relocation modes.
+- Added support for TrashEliminator 1.0.
+- Added new version of xfdLibInfo.
+- Added new functions to xfdmaster.library: xfdScanData(),
+  xfdFreeScanList() and xfdObjectType(). The data scanner is based
+  on an idea by Holger Wessling. Thanks dude!
+- Added new fields to xfdBufferInfo and xfdSegmentInfo structures.
+  Read the autodocs for more details about the new behaviour of
+  xfdRecogBuffer()/xfdRecogSegment() concerning external slaves.
+  This was neccessary as a lot of people sent me files that made
+  some trouble with external slaves. Thanks to Axel Folley, Holger
+  Wessling, John Aadnoy and all the others for the example files.
+- Added new utility called xfdScan that supports the new data scan
+  routines.
+- Added data scan support and improved data recognition/testing to
+  ANC, SoundTracker Song, CrunchMania, DragPack 2.52, GNU Packer,
+  IAM (ICE!/ATM5), PMC, StoneCracker, XPK, ProPack, PackIt and
+  Imploder data slaves.
+- Added new versions of xfdList, xfdDecrunch and xfdPatch.
+- Added data scan support for PowerPacker PP20 data. This code is
+  a real data analyzer that checks data for proper decrunchability.
+  The crypted data PX20 however can not be scanned in deep mode.
+- Added segment support to QuickPowerPacker 1.0.
+- Added new function xfdInitScanHook() for easy hook management.
+- Added ProPackExe external decruncher. Thanks to WEPL for sending
+  this new format.
+
+XFD 1.11 [xfdmaster.library 36.4]
+- Added new versions of xfdDecrunch, xfdList and xfdUnlink with
+  several bug fixes and/or new features.
+- Fixed support for Hunk_Reloc32Short in xfdTestHunkStructureFlags(),
+  xfdRelocate() and xfdStripHunks(). Thanks to WEPL for the report.
+- Added new/updated external decrunchers written by WEPL (thanks
+  for all your work): Ice_TSM, SSUR, TPWM, BOND, CMP1, LOB, DeCloner.
+- Added Oberon include file for xfdmaster.library. Thanks again to
+  WEPL for that stuff. Please note that it is written for XFD 1.07
+  and therefore a bit old, but you may modify it for your needs.
+- Added external decruncher for 4Vx written by Psygore. Thanks to
+  Holger Wessling for sending it.
+- Added full segment decrunch support to Imploder, Imploder Library
+  and Imploder Overlay slaves. No dirty jump-in hacks, but a real
+  emulation that also corrects the hunktable entries of overlays.
+- Fixed PowerPacker 3.0/4.0 Overlay segment decrunching code.
+  The entries in the hunktable haven't been updated.
+
+XFD 1.10 [xfdmaster.library 36.3]
+- Added recognition and unlink code for Glue 2.2 and Glue 2.3 text
+  linkers. You will get the text file and the original executable
+  as a result after unlinking such files. Thanks to Markus Schmall
+  and Dave Jones for the example files.
+- Finally fixed Imploder stuff to work 100% correctly. The new
+  method is a bit slower, but doesn't waste any memory any longer.
+  The length calculation of the old one was based on a rough guess,
+  now it's counted byte by byte. Corrupted data is detected now and
+  won't lead to a big crash any longer. The new code also recognizes
+  if a hunk was originally data or code.
+- Added support for Imploder Overlay files. These have been only
+  recognized, but not decrunched. Now the new length calculation
+  made it easy to finally implement that stuff. Thanks to Axel
+  Folley for all the example files.
+- Added new version of xfdDecrunch.
+
+XFD 1.09 [xfdmaster.library 36.1]
+- Oops! XPK slave set password length to 0. This caused some
+  trouble when decrunching XPK encrypted files. I forgot to
+  set MaxSpecialLen to -1 as XPK has unlimited password lengths.
+  Thanks to the guy (sorry, forgot your name) who called me.
+- Fixed xfdTestHunkStructure[New]() and xfdRelocate().
+  Those two calls now only support hunk types that may really
+  exist in load files and no longer any weird linker stuff.
+  Added full support for hunk_reloc32short ($3f7/$3fc).
+- Added xfdTestHunkStructureFlags() with XFDTHB_NOOVERLAYS
+  to force an error if a file is overlayed.
+- Added xfdStripHunks() as an easy possibility to remove
+  hunk_name, hunk_symbol and/or hunk_debug from files.
+- Extended xfdSlave and xfdMasterBase structures.
+  Internal slaves have an ID now and can be replaced by
+  external slaves. Minimum buffer size to recognize a
+  crunched file can be specified for every slave now.
+  The largest buffer size is stored in xfdMasterBase and
+  can be used as buffer size for recognition purposes.
+  Thanks to Dave Jones and the other guy (see above) for
+  the inspiration.
+- Added new versions of xfdDecrunch and xfdLibInfo.
+- Moved external Chryseis slave inside library.
+- Added new version of xfdList.
+- Fixed defines in xfdmaster.h from $XYZ to 0xXYZ.
+- Added external decrunchers: AXIS, LOB and SF written by
+  A. Van Helsing/X-TraDe. Thanks to Holger Wessling for
+  sending them to me.
+- Fixed ProPack slave. Recognizes another executable header
+  now and doesn't crash with several hunk_bss any more.
+  Thanks to Markus Schmall for reporting the problem.
+- Fixed StoneCracker 4.04 slave. Forgot to support empty
+  code and data hunks as old compilers produce them.
+  Thanks to Dave Jones for the example file.
+- Added StoneCracker 4.03 Data slave and replaced SC 4.04
+  decrunch code by the optimized version from 'Cozine'.
+- Added QuickPowerPacker 1.0 slave.
+  Thanks to Dave again for sending this stuff.
+- Added xfdAllocObject() and xfdFreeObject() as a replacement
+  for Alloc#?Info() and Free#?Info().
+- Added xfdRecogLinker() and xfdUnlink() to support so-called
+  4EB9-Linkers and their clones.
+- Fixed problem with some PowerPacker 4.0 files. It might have
+  happened in one special case that one byte of the processed
+  reloc hunk was overwritten before it was reprocessed.
+  Using a one-byte prefetch mechanism now fixes this bug.
+- Added xfdm_MinLinkerSize field in xfdMasterBase structure.
+- Added recognition for 4EB9, 4EF9, UFO and XLink linkers to
+  the internal linker brain.
+- Added unlink code for 4EB9, 4EF9, UFO and XLink linkers.
+- Fixed another problem with PowerPacker 4.0 files. If hunks
+  are located in chipmem, PP sets the qualifier in the hunk
+  header AND in the hunks themselves. OS 2.0+ doesn't like
+  this behaviour very much and crashes immediately. The flag
+  will therefore be deleted in the hunks now.
+  Thanks to Axel Folley for sending me an example file.
+- Fixed problem with SoundTracker songs. Some clever game
+  coders use the same identifier (PACK) for their files, but
+  certainly another algorithm. I use an enhanced recognition
+  now that checks the uncrunched length for valid song sizes.
+  Thanks again to Axel Folley for all the example files.
+- Added the tool xfdUnlink to the package. This is just a
+  simple interface for unlinking linked files.
+- Added second type of 4EB9 linker and fixed recognition
+  for UFO linker.
+- Fixed Imploder decrunch code to support modified files too.
+  Some guys tried to prevent XFD and also the Imploder itself
+  from unpacking files by changing a data to a code hunk.
+
+XFD 1.08 [xfdmaster.library 35.1]
+- Added new feature to xfdmaster.library (now version 35):
+  Crunchers that require a 16/32 bit key for decrunching are
+  supported now. Only neccessary for ProPack (RNC) at the
+  moment.
+- Added new versions of xfdDecrunch and xfdLibInfo that
+  support the new feature.
+- Added full support for ProPack, formerly called RNC.
+  Now also decrunches executables and key-locked data files.
+  Moved the external decruncher inside the library.
+- Added support for TetraPack 1.1.
+- Added support for HQC Compressor 1.00.
+- Added external decrunchers for LZWH and GraftGold.
+- Added support for TSK Cruncher, LightPack 1.5 and
+  SoundTracker Cruncher 1.0 Exe/Data files.
+- Added new tool to the package: HackProPack. This makes it
+  possible to decrunch key-locked ProPack data files.
+- Re-added Kickstart 1.2/1.3 support to xfdDecrunch.
+  Hope everybody is happy now, so am I.
+- Added support for segment decrunching to the following
+  slaves: DragPack 1.0, StoneCracker 4.00/4.01/4.04,
+  CrunchMania Normal/Library/Simple, TNM Cruncher 1.1.
+- Revised XPK external decruncher and moved it inside
+  xfdmaster.library.
+- Moved PMC external decruncher inside the library.
+- Debugged arp.library stuff in xfdDecrunch, xfdList
+  and HackProPack. Some arp routines behave different from
+  dos v37, but it wasn't documented anywhere.
+- Added segment support to IAM Packer 1.0 and PackIt 1.0.
+
+XFD 1.07 [xfdmaster.library 34.1]
+- Added new sublibs for SSUR, TPWM and TSM crunchers.
+  Thanks to WEPL for sending them.
+- Added RNC2 support to the RNC external decruncher.
+  Thanks to WEPL again for sending me the sourcecode.
+
+XFD 1.06 [xfdmaster.library 34.1]
+- Increased library version to 34 because of new features.
+  The V34 library is fully downward compatible to V33 libraries.
+- Rewritten xfdGetErrorText() function with lots of new error codes.
+- Added xfdTestHunkStructureNew() routine that returns detailed
+  error codes.
+- Added xfdRelocate() routine for better segment list support.
+- Extended xfdSegmentInfo structure for relocation mode support.
+- Overworked autodocs for more detailed information.
+- Overworked whole 'C' support stuff (includes, protos, pragmas).
+- Updated Assembler support files.
+- Added external decruncher for PMC files.
+- Added support for recognition and decrunching of segments
+  to the following slaves:
+  - PowerPacker 2.3 command files (all modes)
+  - PowerPacker 3.0 command files (all modes)
+  - PowerPacker 4.0 command files (all modes)
+- Added new version of xfdLibInfo with extended information.
+- Added external decrunchers for RNC and FIRE files. Thanks to
+  Dexter&BartMan/Abyss for sending me this stuff.
+- Added ATN! support to xfdmaster.library. Dexter/Abyss sent me
+  an external for this one, but it's just a FImp clone, so I
+  added it to the internals.
+
+XFD 1.05 [xfdmaster.library 33.6]
+- Added decrunch support for StoneCracker 4.04 executables.
+- Added external decruncher for XPK files.
+
+XFD 1.04 [xfdmaster.library 33.4]
+- Added 'C' includes, protos, pragmas. Thanks to Anders Melchiorsen
+  for typing all this stuff. Thanks to Brice Allenbrand too. He also
+  typed some 'C' stuff, but Anders was 3 days faster. Sorry!
+- Removed arp.library from the package as everybody has it anyway.
+- Added decrunch support for StoneCracker 4.04 data & address files.
+
+XFD 1.03 [xfdmaster.library 33.3]
+- Added new version of xfdDecrunch with extended features.
+
+XFD 1.02 [xfdmaster.library 33.3]
+- Did astonishing speed optimization to CrunchMania decruncher. All
+  files with lots of relocs will decrunch about 30 times faster. Thanks
+  to Markus Schmall who sent me a file (GadToolsBox with over 8000 [!]
+  reloc entries) that took 90 seconds (!) before that code cleanup and
+  3 seconds afterwards. Actually he thought XFD would crash, but who
+  waits 90 seconds ??? ;-)
+- Added Chryseis 0.9 decruncher. This one is implemented as external
+  decruncher including sourcecode as an example on how to code that
+  kind of thing.
+- Added File Imploder (FImp) decruncher.
+- Added new version of xfdDecrunch with lots of new features.
+
+XFD 1.01 [xfdmaster.library 33.2]
+- Added asm includes, autodocs and fd files.
+- Final fixes in password code.
+- Added new versions of xfdDecrunch and xfdLibInfo.
+- Added support for external decrunchers.
+
+XFD 1.00 [xfdmaster.library 33.1]
+- First public release.

@@ -1,0 +1,82 @@
+Short:    powerpacker.library 37.8 & PPLoadSeg 020+
+Author:   kev@kevsamiga.clubamiga.co.uk ( Kev Harrison )
+Uploader: kev@kevsamiga.clubamiga.co.uk
+Type:     util/libs
+replaces: util/libs/pplib020.lha
+
+Powerpacker.library 37.8
+------------------------
+This is an optimised version of powerpacker.library based on Nico Francois'
+original v36.10, which is the highest version that has been released by
+Nico Francois.
+
+This version only works on machines with at least a 68020 or greater processor.
+
+removed lots of reloc entries, making the executable shorter.
+
+As Nico hasn't updated powerpacker for several years, and has given reqtools
+to someone else, Is it safe to say, that he's left the Amiga.
+
+History:
+~~~~~~~~
+
+37.0 06.11.96 - Initial release.
+
+37.1 07.11.96 - Removed enforcer hit in the decrunch routine.
+
+37.2 22.12.96 - Rewrote the decrunch colour identification routine.
+                Corrected the version & revision fields of the lib base.
+                Now, the no-flash decrunch type uses the NO-OP hardware
+                register instead of a 
+
+37.3 27.12.96 - PPErrorMessage was broken in the last three versions
+                and returned nonsense results, which caused some
+                applications to behave randomly.
+
+                *Please Note*
+                PPErrorMessage() should only be called if there was
+                a non-zero return code from PPLoadData()
+                For some reason GadToolsBox (And some others) were
+                calling PPErrorMessage() even when everything went ok!
+
+                Speeded up the PPDecrypt function a little.
+
+37.3 11.01.97 - Shit. I messed up the archive, and included an old version
+                of the library in the last distribution.
+                Because of this, I rerelease v37.3 - Sorry about that!
+                Thanks to Kevin Fairhurst for being the only one to spot it!
+
+37.4 04.03.97 - Made small changed to source.
+                Recompiled with V40 includes.
+
+37.5 26.3.97 -  Recompiled with PhxAss. More optimisations.
+                Corrected the year field in the version string.
+
+37.6 12.4.97 -  Recompiled Library (Bumped rev field)
+                Added PPLoadSeg020 v39.0
+
+37.7 08.7.97 -  Very Small speedup in PPCrunchDest()
+                Even smaller speedup in PPDecrunch()
+                Enabled ALL of phxass optimisations
+
+-------------------------------------------------------------------------------------------
+
+37.8 23.7.01 -  Removal of patching exec.library Freemem() originally
+                done in the past for backwards compatability with old files.
+
+                Chances are no one is still using WB 1.3 and old Amiga's anymore, and
+                it's a bit pointless as the library has been 020+ for 4 years anyway.
+
+                This also automagically fixes interference with more recent programs like
+                PoolMem and MuGuardianAngel which need to take over the exec.library
+                Freemem() vector and the library's patching can interfere with the work
+                these kind of programs are trying to do.
+
+                - found missing constant definition reference in 37.7 code ( fixed )
+
+                Recompiled with latest PhxAss 4.40
+
+                Don't forget to also get the newest reqtools.library 39.1 ( AROS Backport )
+                which is required by powerpacker, as it's been ported to C, and had the enforcer
+                hits fixed 8-)
+

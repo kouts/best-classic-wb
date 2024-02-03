@@ -1,0 +1,733 @@
+@DATABASE 0048
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 5. Il menu Pennello"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}5.         Il menu Pennello@{UB}
+
+Le sezioni @{"3.1.1" LINK PPaintCD:H/7/2/4/0017/Main 42} ("Pennelli predefiniti e personali") e @{"3.1.6" LINK PPaintCD:H/7/2/4/0017/Main 1200}
+("Definizione pennello") introducono alcuni concetti generali sui pennelli
+e sul loro uso. Questo capitolo spiega in modo dettagliato tutte le
+operazioni relative ai pennelli: lettura e memorizzazione, modo di
+disegno, modifiche alla tavolozza dei colori, elaborazioni grafiche e
+regolazione dell'impugnatura.
+
+L'utilizzo di gran parte delle funzioni qui descritte presuppone la
+precedente creazione o lettura di un pennello personale. Inoltre, quando
+il pennello in uso non è un pennello personale, ma uno predefinito, molte
+voci di menu vengono automaticamente disabilitate (sezione @{"1.9.6" LINK PPaintCD:H/7/2/4/0002/Main 769},
+"Menu").
+
+
+@{B}5.1        Leggere pennello@{UB}
+
+Questa funzione è simile alla funzione "Leggere immagine" (sezione @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11}),
+eccetto per il fatto che i dati grafici coinvolti vengono copiati nel
+pennello attuale. Nella maggior parte dei formati gestiti da Personal
+Paint non c'è distinzione tra file immagine e file pennello. Alcuni
+programmi possono memorizzare, o meno, informazioni aggiuntive in un file
+grafico (come la posizione dell'impugnatura o il modo schermo). Ciò
+comunque non limita la portabilità del file. Qualsiasi file contenente
+dati grafici può essere letto da Personal Paint sia come immagine sia come
+pennello.
+
+Quando il programma legge un pennello, il formato dell'ambiente attuale
+(modo video, colori, dimensioni, ecc.) non viene modificato, come invece
+accade nella lettura di immagini. Per questo motivo può accadere che il
+pennello appaia distorto (alto il doppio, o la metà, ecc.) o con colori
+non corretti.
+
+Se il pennello ha colori diversi da quelli dell'immagine attuale, è
+possibile copiare i colori del pennello nella tavolozza dell'immagine
+(sezione @{"8.1.7" LINK PPaintCD:H/7/2/4/0016/Main 314}) o viceversa (sezione @{"5.9.1" LINK Main 227}). La prima soluzione ha senso
+solo se l'immagine possiede un numero di colori almeno uguale a quelli del
+pennello. In caso contrario, bisogna prima modificare il formato
+dell'immagine per incrementarne il numero di colori (sezione @{"4.5.3" LINK PPaintCD:H/7/2/4/0049/Main 1261}). In
+alternativa, Personal Paint dispone di un sofisticato metodo per la
+gestione di immagini con differenti colori: la funzione di fusione dei
+colori (sezione @{"8.6" LINK PPaintCD:H/7/2/4/0016/Main 528}).
+
+Il fatto che un pennello possa avere più colori dell'immagine attuale può
+risultare molto utile. I calcolatori Amiga con set di chip originali o
+ECS, ad esempio, non sono in grado di visualizzare 256 colori
+contemporaneamente. Anche questi sistemi, tuttavia, possono elaborare,
+memorizzare e stampare un pennello a 256 colori, senza alcuna perdita di
+dati. La funzione "Pennello/Troncare/Parte nascosta" (sezione @{"5.13.4" LINK Main 587}) si
+rivela utile per eliminare le parti indesiderate di un pennello molto
+ampio. Quando lo schermo attuale ha un numero di colori inferiore a quelli
+del pennello, solo i primi piani di bit di quest'ultimo sono visibili.
+Solitamente tali condizioni pregiudicano l'aspetto del pennello (questo
+sembra avere colori del tutto errati). Internamente, comunque, Personal
+Paint continua ad elaborare correttamente i dati originali del pennello,
+fino a un massimo di otto piani di bit (256 colori).
+
+Quando la funzione "Copiare colori immagine" (sezione @{"5.9.8" LINK Main 335}) viene
+applicata al pennello, i colori dell'immagine diventano anche quelli del
+pennello. Normalmente, infatti, il pennello mantiene i propri colori in
+una tavolozza separata (pur essendo visualizzato con i colori dello
+schermo attuale).
+
+
+@{B}5.2        Scrivere pennello@{UB}
+
+Questa funzione permette di memorizzare il pennello attuale in un file,
+allo stesso modo in cui la funzione "Scrivere immagine" consente di
+memorizzare l'immagine corrente. In un secondo momento il file può essere
+letto sia come pennello che come immagine.
+
+Selezionando il formato di memorizzazione IFF-ILBM, nel file vengono
+inserite anche le informazioni riguardanti la posizione di impugnatura e
+il tipo di trasparenza del pennello.
+
+La scrittura di pennelli ricavati da immagini a tutto schermo,
+contrapposta alla memorizzazione di intere immagini, permette di
+risparmiare spazio sul supporto di memorizzazione. I file "UIColors"
+(sezione @{"1.14" LINK PPaintCD:H/7/2/4/0002/Main 1520}), ad esempio, vanno preferibilmente memorizzati come
+pennelli, soprattutto se si utilizza un supporto dalla limitata capacità,
+come il disco programma di Personal Paint.
+
+I file "UIColors" sono un particolare esempio di file grafici: essi
+andrebbero scritti come pennelli, se è necessario risparmiare spazio su
+disco, ma letti come immagini, allo scopo di selezionare automaticamente
+modo video e colori appropriati. Questi file dovrebbero essere sempre
+memorizzati in formato IFF-ILBM: solo questo formato, infatti, permette di
+memorizzare informazioni sul modo video da utilizzare. Se il risparmio di
+spazio su disco ha grande priorità, i file "UIColors" possono anche essere
+memorizzati come semplici tavolozze (sezione @{"8.1.2" LINK PPaintCD:H/7/2/4/0016/Main 74}).
+
+
+@{B}5.3        Stampare pennello@{UB}
+
+Questa funzione permette di stampare il pennello attuale, in maniera
+simile alla funzione "Stampare immagine", descritta nella sezione @{"4.3" LINK PPaintCD:H/7/2/4/0049/Main 254}.
+
+Se si dispone di un calcolatore Amiga non basato su architettura grafica
+avanzata, le immagini con un numero di colori (piani di bit) superiore a
+quelli gestibili dal sistema possono essere stampate solo se caricate come
+pennelli. La lettura e la stampa di tali disegni come immagini
+provocherebbe infatti una notevole perdita di qualità (comunque
+attenuabile, grazie alle funzioni avanzate di Personal Paint), in quanto
+le immagini verrebbero adattate ai formati di schermo disponibili.
+
+Per stampare il pennello viene usata la proporzione dell'ambiente attuale.
+Se il pennello è stato ritagliato da un ambiente con un rapporto di
+visualizzazione differente, la stampa può risultare distorta (riproducendo
+la distorsione del pennello nello schermo - sezione @{"5.1" LINK Main 17}). A volte
+l'aspetto di un'immagine può essere migliorato impostando un appropriato
+modo video (sezione @{"4.5" LINK PPaintCD:H/7/2/4/0049/Main 1127}) prima della stampa. Ad esempio, un'immagine GIF
+di 320 × 200 punti può apparire "schiacciata", se stampata in un ambiente
+a bassa risoluzione PAL 320 × 200; più appropriate proporzioni si
+ottengono, invece, stampando da uno schermo NTSC di analogo formato.
+
+
+@{B}5.4        Copiare finestra@{UB}
+
+Questo comando è molto simile a "Copiare schermo" (sezione @{"4.4" LINK PPaintCD:H/7/2/4/0049/Main 1089}), con la
+differenza che consente all'utente di catturare una sola finestra,
+memorizzandola nel pennello corrente. Le finestre sono elencate
+raggruppate per schermo. Il numero prima del nome della finestra indica lo
+schermo cui la finestra appartiene.
+
+L'opzione "Attivare finestra" assicura che la finestra da catturare sia
+tanto attiva (le finestre non attive possono avere colori diversi, specie
+sulla barra del titolo) quanto completamente visibile. In caso contrario,
+le parti coperte di finestre a "rinfresco semplice" (simple refresh) non
+possono essere catturate, poiché devono essere prima ridisegnate dal
+programma che le ha aperte.
+
+
+@{B}5.5        Elaborare pennello@{UB}
+
+Questo comando applica le funzioni di elaborazione dell'immagine di
+Personal Paint al pennello attuale, con risultati analoghi a quelli
+descritti per l'elaborazione delle immagini nella sezione @{"3.1.4" LINK PPaintCD:H/7/2/4/0017/Main 633}.
+
+Quando un filtro "Sparso", "Riunito" o "Floyd-Steinberg" viene applicato
+al pennello, la tavolozza dei colori dell'ambiente attuale viene copiata
+nella tavolozza del pennello. L'immagine di quest'ultimo, infatti, viene
+retinata dai filtri in questione utilizzando i colori attuali di sfondo e
+primo piano.
+
+
+@{B}5.6        Ripristinare pennello@{UB}
+
+Questo comando annulla l'ultima modifica apportata al pennello (compresa
+un'operazione di lettura), ripristinando il suo aspetto precedente.
+
+Se un'operazione della stessa classe (ad esempio, ridimensionamento,
+rotazione, modifica della trasparenza, ecc.) è stata applicata più volte
+consecutivamente, il pennello viene riportato all'aspetto antecedente la
+prima trasformazione.
+
+
+@{B}5.7        Liberare pennello@{UB}
+
+Questa funzione cancella il pennello in uso e libera la memoria da esso
+occupata. Non essendo tale operazione annullabile con la funzione
+"Ripristinare pennello", il programma fa precedere l'effettiva
+cancellazione da un opportuno messaggio di avvertimento.
+
+
+@{B}5.8        Modo di disegno@{UB}
+
+Quando si opera con pennelli personali è possibile selezionare diversi
+modi di disegno. A ciascuno di questi modi corrisponde un particolare
+effetto di disegno quando il pennello viene applicato sull'immagine (con i
+pulsanti del mouse). Ogni impostazione viene indicata da un differente
+simbolo nella barra del titolo.
+
+Quando si disegna con il pulsante destro del mouse, il programma usa il
+colore attuale di sfondo per tutto il pennello, a meno che non sia
+diversamente specificato.
+
+
+@{B}5.8.1      Trasparenza@{UB}
+
+Nel modo "Trasparenza", il pennello personale viene applicato all'immagine
+con i propri colori. Le aree del pennello che risultano trasparenti non
+modificano l'immagine. Normalmente, le aree trasparenti corrispondono alle
+aree colorate con il colore di sfondo attivo al momento della definizione
+del pennello. Le sezioni da @{"5.9.5" LINK Main 281} a @{"5.9.7" LINK Main 313} e la sezione @{"9.14.3" LINK PPaintCD:H/7/2/4/0047/Main 963} spiegano
+come modificare le zone di trasparenza del pennello.
+
+
+@{B}5.8.2      Colore@{UB}
+
+Selezionando tale modalità, le zone non trasparenti del pennello applicano
+all'immagine il colore attuale di primo piano o di sfondo (in base al
+pulsante del mouse utilizzato).
+
+
+@{B}5.8.3      Solido@{UB}
+
+Questo modo è simile al modo "Trasparenza" (vengono usati i colori del
+pennello): in questo caso, però, le informazioni relative alla trasparenza
+vengono ignorate e il pennello viene copiato, in ogni sua parte,
+sull'immagine.
+
+
+@{B}5.8.4      HBrite@{UB}
+
+Nei modi video "Extra Half Brite" (sezione @{"4.5" LINK PPaintCD:H/7/2/4/0049/Main 1127}) la tavolozza di schermo
+(64 colori) è divisa in due metà: i colori della prima possono essere
+liberamente impostati, quelli della seconda sono invece una riproduzione
+dei primi con luminosità dimezzata. Utilizzando tali schermi, può essere
+particolarmente utile alternare rapidamente lo stato a "luminosità
+normale" e quello a "luminosità dimezzata" di ogni pixel.
+
+Il modo "HBrite", come il modo "Colore", opera omogeneamente sui soli
+punti non trasparenti del pennello. Disegnando con il pulsante sinistro
+del mouse, tutti i punti dell'immagine sotto il pennello vengono
+trasformati nel loro equivalente HBrite (colore più scuro). Utilizzando
+invece il pulsante destro, si attivano i colori più luminosi della
+tavolozza.
+
+
+@{B}5.9        Colori del pennello@{UB}
+
+Tutte le funzioni associate a questa voce menu servono a modificare i
+colori e la trasparenza del pennello.
+
+
+@{B}5.9.1      Ricalcolare colori@{UB}
+
+Quando si legge un pennello, o lo si importa da un ambiente con una
+tavolozza particolare, può essere necessario riprodurne l'aspetto
+originario utilizzando i colori dell'ambiente attuale. A differenza della
+funzione di fusione colori (sezione @{"8.6" LINK PPaintCD:H/7/2/4/0016/Main 528}), che confronta, combina e
+mescola i colori di tutte le immagini e i pennelli coinvolti, la presente
+funzione modifica solo i colori del pennello selezionato (la tavolozza di
+schermo resta inalterata).
+
+Questa funzione opera scegliendo, di volta in volta, i colori
+dell'immagine che più si avvicinano ai colori originali del pennello. Se
+le opzioni "Retinatura" e "Floyd-Steinberg" sono attivate (sezione @{"9.8" LINK PPaintCD:H/7/2/4/0047/Main 414}),
+l'operazione di ricalcolo viene integrata da tali tecniche. In seguito al
+ricalcolo, il numero di colori del pennello è uguale al numero di colori
+dell'ambiente attuale.
+
+
+@{B}5.9.2      Invertire colori@{UB}
+
+Questo comando inverte i colori del pennello, selezionando, per ogni
+pixel, il valore complementare nella tavolozza colori. La funzione può, ad
+esempio, consentire a un programmatore di riprodurre l'aspetto di un
+oggetto evidenziato per complemento (tecnica grafica ampiamente usata dal
+sistema operativo per i gadget, le icone, ecc.).
+
+
+@{B}5.9.3      Primo piano in sfondo@{UB}
+
+Questa funzione modifica l'immagine del pennello utilizzando le
+impostazioni correnti di colore di sfondo e primo piano: tutti i pixel del
+primo colore vengono, infatti, trasformati in pixel del secondo colore. In
+questo modo è possibile operare con precisione su determinate aree
+colorate del pennello.
+
+Nella manipolazione di immagini, analoghi risultati possono essere
+ottenuti mascherando opportunamente (sezione @{"8.2.3" LINK PPaintCD:H/7/2/4/0016/Main 404}) i colori da non
+coinvolgere e utilizzando lo strumento "Rettangolo pieno" (sezione
+@{"3.1.2.6" LINK PPaintCD:H/7/2/4/0017/Main 325}) per ricolorare le zone interessate.
+
+
+@{B}5.9.4      Scambiare sfondo e primo piano@{UB}
+
+Questo comando trasforma il pennello, applicando il colore di sfondo ai
+pixel del colore di primo piano, e viceversa.
+
+Una possibile applicazione di questa funzione è, ad esempio, la
+conversione delle icone disegnate per i sistemi operativi 1.x: queste,
+infatti, vanno opportunamente ricolorate per essere usate negli schermi
+Workbench più recenti. A tale scopo, i colori di primo piano e di fondo
+vanno rispettivamente impostati al secondo e al terzo colore della
+tavolozza.
+
+
+@{B}5.9.5      Rifare trasparenza@{UB}
+
+Ciascun pennello può avere aree trasparenti che non modificano l'immagine
+durante le operazioni di disegno. Le aree trasparenti sono definite da uno
+speciale piano di bit che può identificare un particolare colore (ad
+esempio il colore di sfondo) o contenere una forma specifica. Nel formato
+file IFF-ILBM questo piano di bit viene letto e memorizzato insieme agli
+altri dati del pennello.
+
+Secondo le impostazioni predefinite, questa funzione aggiorna il suddetto
+piano di bit, rendendo trasparenti tutti i pixel contraddistinti dal
+colore di sfondo attuale.
+
+L'attivazione dell'opzione "Trasparenza di sfondo" (sezione @{"9.14.3" LINK PPaintCD:H/7/2/4/0047/Main 963})
+determina se, all'atto della definizione di un pennello, la trasparenza
+debba essere impostata su tutte le aree del colore di sfondo o solo su
+quelle, sempre di tale colore, che circondano il pennello. La funzione
+"Rifare trasparenza" permette di applicare il tipo di trasparenza corrente
+ad un pennello precedentemente definito.
+
+
+@{B}5.9.6      Riempire trasparenza@{UB}
+
+Questa funzione permette di eseguire un'operazione di riempimento che
+rende opaca o trasparente un'area del pennello (ad esempio un gruppo di
+punti aventi lo stesso colore), a partire dal punto di impugnatura. Tale
+posizione può essere opportunamente definita come spiegato nella sezione
+@{"5.15" LINK Main 658}. Se l'area interessata è trasparente, essa viene resa opaca, e
+viceversa. L'immagine del pennello non subisce cambiamenti: viene
+modificato solo il piano di bit che definisce la trasparenza.
+
+
+@{B}5.9.7      Trasparenza successiva@{UB}
+
+Come spiegato in precedenza, a ogni pennello è associato un piano di bit
+che ne definisce le aree di trasparenza e di opacità. Si è anche detto che
+Personal Paint permette di definire e usare, contemporaneamente, fino a
+nove pennelli diversi. Quando due o più pennelli hanno uguale dimensione,
+è possibile copiare il piano di trasparenza di un pennello in quello di un
+altro.
+
+Questo comando applica al pennello in uso il piano di trasparenza del
+pennello successivo. In questo processo, i pennelli non definiti vengono
+ignorati. Se necessario, Personal Paint esegue la ricerca scandendo tutti
+i pennelli e iniziando nuovamente dal primo pennello, quando raggiunge
+l'ultimo della lista.
+
+Disegnando e definendo un pennello a due colori della dimensione
+appropriata, è possibile creare manualmente un piano di trasparenza da
+usare per un dato pennello. Tale procedura consente una precisione più
+elevata rispetto a quella fornita dalle normali funzioni di manipolazione
+della trasparenza.
+
+
+@{B}5.9.8      Copiare colori da immagine@{UB}
+
+Quando un pennello viene letto da file o importato da un ambiente con una
+particolare tavolozza, esso mantiene i suoi colori originali, pur se
+visualizzato con quelli dell'ambiente attuale. Questo comando permette di
+copiare la tavolozza dell'immagine in quella interna del pennello.
+
+
+@{B}5.10       Archivio (Clipboard)@{UB}
+
+Il sistema operativo di Amiga dispone di un canale standard per lo scambio
+di dati tra applicazioni (principalmente testo e grafica), detto
+"archivio". Il contenuto dell'archivio è pubblico: i dati in esso
+memorizzati possono, infatti, essere letti e scritti da qualsiasi
+programma.
+
+Grazie all'archivio di Amiga è possibile, ad esempio, trascinare un'icona
+del Workbench sulla finestra del programma IconEdit, passarla a Personal
+Paint, modificarla, ritrasferirla ad IconEdit e con questo, infine,
+memorizzarla.
+
+Se Personal Paint non è in grado di aprire il dispositivo archivio di
+Amiga (file "clipboard.device" nell'unità logica "DEVS"), le funzioni che
+utilizzano questo dispositivo non saranno operative.
+
+Alcuni programmi possono accedere in maniera errata all'archivio di
+sistema, bloccandone così l'accesso. È quanto accade, ad esempio, se un
+editor di testi pretende che l'archivio contenga solo testo, oppure se un
+programma non legge l'archivio fino alla fine, terminando impropriamente
+la procedura di accesso.
+La funzione "Pennello/Archivio/Svuotare" permette, tra l'altro, di
+risolvere simili problemi.
+
+
+@{B}5.10.1     Leggere pennello@{UB}
+
+Questo comando scandisce il contenuto dell'archivio alla ricerca di dati
+grafici. Se viene trovata un'immagine, questa viene copiata nel pennello
+attuale. I dati originali contenuti nell'archivio non vengono rimossi.
+
+
+@{B}5.10.2     Scrivere pennello@{UB}
+
+Questa funzione memorizza una copia del pennello attuale nell'archivio:
+tali dati divengono pubblici e possono essere prelevati, in qualsiasi
+momento, da altri programmi (o dallo stesso Personal Paint). I dati
+precedentemente contenuti nell'archivio vengono sostituiti dall'immagine
+del pennello.
+
+
+@{B}5.10.3     Svuotare archivio@{UB}
+
+Questo comando rimuove i dati contenuti nell'archivio di sistema, senza
+tener conto del loro tipo (grafica, testo, ecc.). Tale operazione può
+essere utile quando la quantità di memoria disponibile è minima,
+specialmente se nell'archivio è memorizzato un pennello di grandi
+dimensioni, del quale non si ha più bisogno.
+
+
+@{B}5.11       Ridimensionare pennello@{UB}
+
+Le funzioni descritte nelle sottosezioni che seguono modificano la
+dimensione del pennello attuale, sia esso un pennello predefinito o un
+pennello personale. L'immagine del pennello viene adattata alle nuove
+dimensioni.
+
+La sezione @{"9.13.3" LINK PPaintCD:H/7/2/4/0047/Main 833} spiega in che modo l'opzione "Rimodellamento con media"
+influisce su questo tipo di operazioni.
+
+
+@{B}5.11.1     Dimensione libera@{UB}
+
+Questa funzione permette di adattare il pennello a qualsiasi dimensione
+utilizzando il mouse. Selezionando tale funzione, il puntatore del mouse
+assume l'aspetto del simbolo "Ridimensionamento pennello", per indicare
+che tale modo è attivo.
+
+Il ridimensionamento si effettua con un clic del pulsante sinistro e,
+mantenendo premuto il pulsante, muovendo il mouse fino a ottenere le
+dimensioni volute. L'angolo del pennello in alto a sinistra rimane
+"ancorato" allo schermo, mentre l'angolo basso a destra segue i movimenti
+del mouse, modificando le dimensioni e l'aspetto del pennello. Rilasciando
+il pulsante del mouse, le nuove dimensioni del pennello vengono
+confermate.
+
+
+@{B}5.11.2     Rimpicciolire pennello@{UB}
+
+Ogni volta che viene impartito questo comando, il pennello viene
+rimpicciolito di una singola unità grafica (il più piccolo passo
+possibile), mantenendo il rapporto di visualizzazione (proporzioni X/Y)
+corretto.
+
+
+@{B}5.11.3     Ingrandire pennello@{UB}
+
+Questa funzione è l'inverso della precedente ("Rimpicciolire pennello"):
+ogni volta che viene applicata rende il pennello leggermente più grande,
+mantenendo le corrette proporzioni tra la dimensione orizzontale e quella
+verticale.
+
+
+@{B}5.11.4     Dimezzare@{UB}
+
+Questo comando permette di dimezzare il pennello. L'ampiezza e l'altezza
+dello stesso vengono dimezzate: la superficie totale del pennello viene
+ridotta ad un quarto di quella originaria.
+
+
+@{B}5.11.5     Metà orizzontale@{UB}
+
+Contrariamente alla funzione precedente ("Dimezzare"), questa funzione
+riduce della metà la larghezza del pennello, mentre l'altezza rimane
+immutata.
+
+
+@{B}5.11.6     Metà verticale@{UB}
+
+Questa funzione "schiaccia" l'immagine del pennello. La larghezza non
+subisce modifiche, mentre l'altezza viene dimezzata.
+
+
+@{B}5.11.7     Raddoppiare dimensioni pennello@{UB}
+
+Questo comando permette di raddoppiare entrambe le dimensioni del
+pennello. Il pennello risultante sarà costituito da un numero di pixel
+quadruplo rispetto al pennello originale.
+
+
+@{B}5.11.8     Doppio orizzontale@{UB}
+
+Questa funzione permette di "allargare" l'immagine del pennello,
+raddoppiandone la larghezza e mantenendo invariata l'altezza.
+
+
+@{B}5.11.9     Doppio verticale@{UB}
+
+Contrariamente alla funzione precedente, questa funzione permette di
+raddoppiare l'altezza del pennello, mantenendo invariata la larghezza
+originale.
+
+
+@{B}5.12       Ruotare pennello@{UB}
+
+Le funzioni di seguito descritte permettono di eseguire varie operazioni
+di rotazione del pennello.
+
+
+@{B}5.12.1     Ruotare liberamente@{UB}
+
+Questo comando blocca l'angolo inferiore sinistro del pennello finché
+rimane premuto il pulsante sinistro del mouse e, grazie al movimento del
+mouse, consente di ruotare il pennello. Per ragioni di velocità, mentre
+viene definito l'angolo di rotazione può essere visualizzato solo il bordo
+del pennello, anziché l'immagine intera.
+
+
+@{B}5.12.2     Ruotare di 90 gradi@{UB}
+
+Questa funzione ruota il pennello di 90 gradi in senso orario. Le
+dimensioni orizzontale e verticale vengono scambiate. Se il pennello è
+quadrato (cioè se l'altezza è uguale alla larghezza, in punti) le
+dimensioni non cambiano.
+
+L'impugnatura del pennello viene riposizionata in base alla rotazione. Se
+la funzione viene eseguita quattro (o un multiplo di quattro) volte sullo
+stesso pennello, il pennello risultante sarà identico a quello originale.
+
+
+@{B}5.12.3     Capovolgere orizzontale@{UB}
+
+Anche per i pennelli esiste una serie di funzioni di capovolgimento come
+quelle già descritte nella sezione @{"4.7" LINK PPaintCD:H/7/2/4/0049/Main 1329} e relative all'intera immagine.
+
+Questa funzione trasforma l'immagine del pennello nel suo equivalente
+speculare. Le colonne di punti, da sinistra a destra, originariamente
+costituenti l'immagine del pennello, vengono riordinate in senso inverso
+(da destra a sinistra).
+
+
+@{B}5.12.4     Capovolgere verticale@{UB}
+
+Questa funzione, analogamente a "Capovolgere orizzontale", modifica
+l'immagine del pennello. Quest'ultimo viene capovolto sotto sopra ogni
+volta che si seleziona la funzione.
+
+Gli effetti di questa funzione possono essere annullati applicando la
+funzione un numero pari di volte allo stesso pennello. Questo vale anche
+per la funzione "Capovolgere orizzontale".
+
+
+@{B}5.12.5     Inclinare pennello@{UB}
+
+Questo comando può essere considerato una combinazione tra le funzioni
+"Dimensione libera" e "Ruotare pennello". La funzione "Inclinare pennello"
+permette di modificare con precisione le dimensioni, l'inclinazione e la
+rotazione del pennello. Anche in questo caso il movimento del mouse, con
+il pulsante sinistro premuto, @{I}trascina@{UI} l'angolo inferiore destro del
+pennello. Spostando orizzontalmente il mouse, il bordo superiore del
+pennello rimane fisso; quando invece il mouse viene mosso verticalmente, è
+il lato sinistro del pennello a rimanere ancorato. Movimenti combinati del
+mouse producono risultati intermedi, quasi come se il pennello fosse un
+sottile foglio di materiale elastico. Come molti altri strumenti di
+elaborazione grafica, anche questa funzione è molto più semplice da vedere
+e usare, piuttosto che da spiegare.
+
+La pressione del tasto <Shift> durante l'uso di questa funzione vincola i
+movimenti del mouse lungo l'asse orizzontale o verticale, in base alla
+direzione del primo movimento del mouse dopo la pressione del tasto
+<Shift>.
+
+
+@{B}5.13       Troncare pennello@{UB}
+
+Le funzioni associate a questa voce menu permettono di esaminare e
+ottimizzare la quantità di memoria occupata da un pennello.
+
+
+@{B}5.13.1     Informazioni@{UB}
+
+Il requester visualizzato da questa funzione contiene informazioni sulle
+dimensioni e sul numero di piani di bit del pennello attuale; sono anche
+indicate le dimensioni minime e il numero di piani effettivamente
+necessari a contenere i dati significativi del pennello.
+
+Tali informazioni sono utili per verificare se alcuni piani di bit non
+sono necessari (un pennello può, ad esempio, usare solo alcuni dei primi
+colori della tavolozza) e se, sui bordi del pennello, vi sono zone
+trasparenti che possono essere eliminate. Se per i dati grafici viene
+utilizzato un numero di piani di bit maggiore del necessario, o se alle
+zone esterne di questi piani corrispondono aree di trasparenza, è
+possibile ricorrere alle funzioni di seguito descritte per risparmiare
+memoria.
+
+
+@{B}5.13.2     Estremità@{UB}
+
+Questo comando elimina eventuali bande esterne del pennello costituite da
+soli punti trasparenti. Ad operazione effettuata, il punto di impugnatura
+viene posizionato al centro del pennello risultante.
+
+
+@{B}5.13.3     Piani@{UB}
+
+Questa funzione rimuove gli ultimi piani di bit inutilizzati del pennello
+attuale. Se, ad esempio, il pennello non utilizza nessun colore della
+seconda metà della tavolozza, l'ultimo piano di bit viene eliminato.
+
+La tavolozza del pennello risultante perde le informazioni relative ai
+colori non utilizzati.
+
+
+@{B}5.13.4     Parte nascosta@{UB}
+
+Questo comando rimuove tutte le parti del pennello attualmente non
+visibili (nascoste, ad esempio, dalla barra del titolo, dalla barra degli
+strumenti, dalle estremità dello schermo o dell'area d'ingrandimento).
+
+Se, ad esempio, si desidera stampare solo la parte centrale di un pennello
+a 256 colori e più grande dello schermo, la posizione di impugnatura va
+fissata al centro del pennello (sezione @{"5.15.4" LINK Main 701}), quindi lo stesso va
+spostato verso un angolo dello schermo, così da nasconderne le parti
+indesiderate. Tali parti possono, a questo punto, essere troncate
+utilizzando la combinazione di tasti <Alt>+<l> (abbreviazione predefinita
+di questa funzione). Ciò che rimane del pennello può ora essere spostato
+verso l'angolo opposto dello schermo, per ripetere l'operazione sugli
+altri due lati. Il pennello risultante (equivalente alla zona centrale del
+pennello di partenza) può, infine, essere stampato.
+
+A causa dell'interazione visiva necessaria per muovere il mouse e
+selezionare le parti da tagliare, questo comando va eseguito solo
+attraverso abbreviazione da tastiera. Il movimento del puntatore del mouse
+per selezionare direttamente la voce menu potrebbe, infatti, portare a
+risultati non prevedibili.
+
+
+@{B}5.14       Contorno@{UB}
+
+Le funzioni di seguito descritte usano il colore di primo piano per creare
+effetti di bordatura attorno alle aree non trasparenti del pennello. Gli
+effetti tridimensionali riproducono la presenza di una fonte di
+illuminazione in alto a sinistra rispetto al pennello, che proietta ombre
+in basso a destra.
+
+
+@{B}5.14.1     Semplice@{UB}
+
+Questa funzione crea un bordo semplice attorno al pennello, usando il
+colore di primo piano. Le estremità a spigolo non vengono evidenziate dal
+bordo.
+
+
+@{B}5.14.2     Squadrato@{UB}
+
+Questo effetto è simile al contorno semplice, ma produce anche la
+spigolatura dei margini.
+
+
+@{B}5.14.3     Ombreggiato@{UB}
+
+Questa funzione produce un contorno simile a quello semplice, ma ai
+margini destro e inferiore viene applicato un bordo dallo spessore doppio
+rispetto al normale.
+
+
+@{B}5.14.4     Tridimensionale@{UB}
+
+Questo effetto crea un bordo del colore di fondo sui lati alto e sinistro
+del pennello e del colore di primo piano sui margini inferiore e destro.
+Tale operazione permette di creare illusioni di profondità. Selezionando,
+infatti, una giusta combinazione di colori chiari e scuri, il pennello
+risultante apparirà come un oggetto a rilievo. Se, invece, il colore di
+fondo è scuro e il colore di primo piano è chiaro, il pennello sembrerà
+affossato.
+
+
+@{B}5.14.5     Tagliare contorno@{UB}
+
+Questo comando elimina il contorno esterno del pennello (un bordo spesso
+un pixel). Tecnicamente, la funzione opera invertendo temporaneamente il
+piano di trasparenza e utilizzando lo stesso per cancellare i pixel.
+
+
+@{B}5.15       Impugnatura@{UB}
+
+L'impugnatura del pennello è la posizione collegata al puntatore del
+mouse. Essa può essere spostata liberamente (e fissata anche esternamente
+al pennello). La possibilità di cambiare il punto di impugnatura si rivela
+particolarmente utile operando con pennelli molto grandi.
+
+Nell'ambito del formato file IFF-ILBM, la posizione di impugnatura viene
+memorizzata (e letta) insieme agli altri dati del pennello.
+
+Alcune funzioni (come la rotazione del pennello, il ridimensionamento,
+ecc.) possono modificare automaticamente la posizione dell'impugnatura.
+
+
+@{B}5.15.1     Libera@{UB}
+
+Questa funzione permette di fissare in qualsiasi punto la posizione di
+impugnatura del pennello. Dopo averla selezionata, è necessario premere il
+pulsante sinistro del mouse e, mantenendolo premuto, spostare il puntatore
+sul pennello (temporaneamente ancorato allo schermo); l'operazione va
+terminata rilasciando il pulsante quando il puntatore è nella posizione
+desiderata.
+
+La procedura appena descritta, in combinazione con la funzione "Riempire
+trasparenza" (sezione @{"5.9.6" LINK Main 302}), permette di selezionare le parti del
+pennello da rendere trasparenti o opache.
+
+
+@{B}5.15.2     Alto-sinistra@{UB}
+
+Questo comando sposta l'impugnatura del pennello nell'angolo in alto a
+sinistra del rettangolo che lo contiene.
+
+Questa è l'unica posizione di impugnatura che non viene modificata dalle
+operazioni di ridimensionamento del pennello.
+
+
+@{B}5.15.3     Alto-destra@{UB}
+
+Questa opzione associa la posizione di impugnatura all'angolo superiore
+destro del pennello.
+
+
+@{B}5.15.4     Centro@{UB}
+
+La posizione d'impugnatura viene posizionata al centro del pennello. Se il
+centro si trova tra due punti, l'impugnatura viene associata al punto più
+basso di due punti sulla stessa colonna o al punto più a destra di due
+punti orizzontalmente adiacenti.
+
+Questa è l'impugnatura predefinita (iniziale) di Personal Paint (viene
+assegnata ai pennelli definiti nel programma e a quelli letti da file che
+non contengono informazioni sulla posizione di impugnatura).
+
+
+@{B}5.15.5     Basso-sinistra@{UB}
+
+Questa opzione posiziona l'impugnatura nell'angolo inferiore sinistro del
+pennello.
+
+
+@{B}5.15.6     Basso-destra@{UB}
+
+Questa opzione associa la posizione di impugnatura all'angolo inferiore
+destro del pennello.
+
+@ENDNODE

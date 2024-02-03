@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE>ITD * Zapisywanie obrazu na dyskietkę</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: itd.html 1.6 2013/11/25 22:13:32 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>ITD * Zapisywanie obrazu na dyskietkę</h3>
+Narzędzie do zapisywania obrazów dyskietek ponownie na urządzenia bazujące na
+dyskietkach.
+<h4>Instalacja</h4>
+ITD jest zawarty jedynie w archiwum <tt>DEV</tt>, a nie w <TT>USR</tt>.
+<br>Skopuj go do C: lub w podobne miejsce.
+<h4>Opcje</h4>
+<table>
+<tr><td colspan=2>
+<tt>File/A,Device,Format/S,BS=BlockSize/N,ASync/S,ForceOverwriteLargeDevice/S</tt>
+</td></tr><tr><td valign=top>
+<tt>File/A</tt>
+</td><td>
+nazwa pliku zawierającego obraz dyskietki do zapisania na urządzeniu
+</td></tr><tr><td valign=top>
+<tt>Device</tt>
+</td><td>
+urządzenie, na którym ITD ma zapisać obraz dyskietki
+<br>domyślnie &quot;DF0:&quot;
+<br>przykład &quot;RAD:&quot;
+</td></tr><tr><td valign=top nowrap>
+<tt>Format/S</tt>&nbsp;&nbsp;
+</td><td>
+jeśli ta opcja zostanie podana, dyskietka zostanie sformatowana, dla większości
+urządzeń to ustawienie nie ma znaczenia
+</td></tr><tr><td valign=top>
+<tt>BlockSize/N</tt>
+</td><td>
+ilość danych odczytywanych i zapisywanych w każdym cyklu, domyślną wielkością jest
+wielkość ścieżki (BlocksPerTrack*SizeBlock)<br>
+podczas działania na większych nośnikach wydajność może poprawić używanie 
+większego rozmiaru bloku, ale należy pamiętać, że niektóre urządzenia nie
+działają poprawnie z rozmiarem bloku większym od 130,560 ($1fe00),
+lub nawet 65,024 ($fe00)
+</td></tr><tr><td valign=top>
+<tt>ASync/S</tt>
+</td><td>
+jeśli ta opcja jest włączona ITD będzie zapisywać dane na urządzenie docelowe
+asynchronicznie<br>
+nie należy używać tej opcji, jeśli plik źródłowy i urządzenie docelowe są
+umiejscowione na tym samym fizycznym urządzeniu, ponieważ spowoduje to
+spowolnienie operacji<br>
+jeśli przynajmniej jedno z urządzeń (źródłowe lub docelowe) obsługuje kanały DMA
+znacząco przyspieszy to wydajność kopiowania
+</td></tr><tr><td valign=top>
+<tt>ForceOverwriteLargeDevice/S</tt>
+</td><td>
+Domyślnie ITD nie odczytuje danych z plików oraz nie zapisuje na urządzeniach
+o większej pojemności niż 2,000,000 bajtów. Włączenie tej opcji powoduje działanie
+na plikach i urządzeniach dowolnej wielkości.
+</td></tr>
+</table>
+<h4>Kod zwrotny</h4>
+Gdy operacja zakończy się powodzeniem ustawiany jest na 0, w przeciwnym razie
+na 20.
+<h4>Informacje dodatkowe</h4>
+ITD może zapisywać na wszystkich urządzeniach podobnych do
+urządzeń obsługiwanych przez trackdisk.device. Aby zapobiec problemom (np.
+uszkodzeniu Twojego dysku twardego) aktualnie nie zapisuje danych na
+urządzenia większe niż 2000000 bajtów, za wyjątkiem włączenia opcji
+&quot;ForceOverwriteLargeDevice/S&quot;. Jeśli operajca zapisu wykroczy poza
+granicę 4GB, zostanie wykorzystane polecenie &quot;TrackDisk64&quot;.<br>
+NIE jest przeprowadzana weryfikacja.<br>
+Jeśli obraz jest mniejszy niż pojemność określonego przez Ciebie urządzenia,
+zostanie wyświetlony komunikat ostrzegający Cię o tym fakcie, a ITD nie zmieni
+pozostałych ścieżek, ale w tym przypadku zaokrągli wielkość do pełnego bloku
+i wyczyści pozostałe miejsce. Jeśli obraz jest większy niż pojemność określonego
+urządzenia także zostaniesz o tym poinformowany, a ITD zapisze tyle danych, ile
+da radę zmieścić na nośniku w tym urządzeniu.
+</BODY>
+</HTML>

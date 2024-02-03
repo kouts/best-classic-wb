@@ -1,0 +1,1491 @@
+@DATABASE 0049
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 4. Das Projekt-Menü"
+@TOC PPaintCD:H/7/1/4/OO00/Main
+
+@{B}4.         Das Projekt-Menü@{UB}
+
+In diesem Kapitel werden die über das "Projekt"-Menü zu erreichenden
+Funktionen von Personal Paint beschrieben. Das Menü enthält alle Befehle
+zum Laden, Manipulieren und Speichern von Bildern und zusätzlich Befehle
+zur Definition von Bild- und Bildschirmgröße, zum Anzeigen der verfügbaren
+und der verbrauchten Speichermenge und zum Verlassen des Programmes.
+
+
+@{B}4.1        Bild Laden@{UB}
+
+Mit dieser Funktion wird das im Dateiauswahlfenster ausgewählte Bild
+geladen. Dabei wird ggf. der Bildschirmmodus geändert.
+
+Nähere Informationen zum Dateiauswahlfenster siehe Abschnitt @{"3.4" LINK PPaintCD:H/7/1/4/0017/Main 1409}. Evtl.
+auftretende Fehlermeldungen siehe Anhang @{"A" LINK PPaintCD:H/7/1/4/0045/Main 1}. Probleme mit Datenträgern
+und deren Lösung siehe Abschnitt @{"11.2" LINK PPaintCD:H/7/1/4/0046/Main 67}.
+
+Beim Laden eines Bildes überprüft Personal Paint automatisch das
+Dateiformat (IFF, PNG, PCX, usw.) und führt die entsprechende
+Konvertierung durch. Dabei erfordern unterschiedliche Bildgrößen und
+-auflösungen evtl. ein anderes als das aktuelle Bildschirmformat. So
+sollte ein Bild der Auflösung 640 mal 480 Punkte eher auf einem Bildschirm
+mit der Auflösung HiRes-Interlace dargestellt werden als auf einem
+normalen LoRes-Bildschirm ohne Interlace. Evtl. stellt das verwendete
+Amiga-Modell auch noch vorteilhaftere Bildschirmauflösungen zur Verfügung.
+Die von Amiga-Programmen erzeugten Bilder im IFF-Format enthalten
+üblicherweise genaue Informationen über den zur Darstellung des Bildes
+erforderlichen Bildschirmmodus. Leider enthalten andere Bildformate diese
+Informationen nicht, so daß Personal Paint hier den Bildschirmmodus
+aufgrund der Bildgröße bestimmen muß.
+
+Spezielle Farquantisierungs- und reduzierungsalgorithmen auf dem neuesten
+Stand der Entwicklung werden dazu verwendet, das Laden von 24-Bit-Bildern
+zu ermöglichen und diese in 256 Farben umzuwandeln. Die Qualität des
+Ergebnisses läßt den Unterschied zu 24-Bit oft kaum erkennen. Die
+Farbreduzierung verläuft grundsätzlich qualitativ (siehe Abschnitt @{"9.7" LINK PPaintCD:H/7/1/4/0047/Main 344}).
+Die 24-Bit-Prozeduren berücksichtigen auch die aktuell eingestellte Option
+für die Farbneuberechnung (siehe Abschnitt @{"9.8" LINK PPaintCD:H/7/1/4/0047/Main 396}).
+
+24/48-Bit PNG, IFF24, PCX24, JPEG, Photo CD, HAM und HAM8 werden vom
+Programm grundsätzlich als 24-Bit-Bilder verarbeitet. Außerdem kann
+Personal Paint auch die ab Version 3 der Amiga-Systemsoftware
+unterstützten DataType-Lademodule verarbeiten.
+
+Sobald Personal Paint einen Unterschied zwischen dem aktuellen und einem
+vorteilhafteren Bildschirmmodus feststellt, wird das Auswahlfenster zur
+Bestimmung des Bildschirmformates aufgerufen. In der Voreinstellung ist
+zunächst immer das erste Symbol aktiviert. Wenn die Option "Weiter"
+ausgewählt wird, ohne den Zustand der beiden "Format"-Symbole zu ändern,
+wird der Ladevorgang fortgesetzt und ein Bildschirm wird im neuen
+Bildschirmmodus geöffnet. Durch Aktivierung des zweiten Symbols werden
+aktuelles Bildschirmformat, Farbanzahl und Bildgröße beibehalten. Das Bild
+wird nur teilweise geladen, falls es die Breiten- oder Größenwerte des
+aktuellen Bildformates überschreitet. Individuelle Kombinationen von Bild-
+und Bildschirmformaten werden folgendermaßen erzeugt: Zunächst Bild und
+Bildformat auswählen (Abschnitt @{"4.5" LINK Main 1030}), dann das Bild ohne das empfohlene
+neue Format laden. Nun ist es mit der Option "Strecken" möglich, das Bild
+an das neue, aktuelle Bildformat anzugleichen (mehr zu dieser Funktion in
+den Abschnitten @{"4.5" LINK Main 1030} und @{"9.13.3" LINK PPaintCD:H/7/1/4/0047/Main 814}). Mit der Funktion "Abbruch" kann der
+Ladevorgang abgebrochen werden, wobei das vorher angezeigte Bild erhalten
+bleibt.
+
+Amiga-Betriebssysteme der Version 2.0 und höher erlauben die Auswahl der
+zu verwendenden Bildschirmmodi. Die gewünschten Anzeigemodule sollten
+aktiviert werden, indem das dazugehörige Workbench-Piktogramm in das
+Systemverzeichnis "Wbstartup" (Version 2.0) oder "Devs/Monitors" (Version
+2.1 und 3.@{I}x@{UI}) kopiert wird. Andernfalls könnten Personal Paint diese Modi
+nicht benutzen. Anderseits sollten Bildschirmmodi, die nicht von der
+Anzeigehardware unterstützt werden, auch nicht aktiviert werden. Mehr zum
+Thema Bildschirmmodi und Videoausgabegeräte in Abschnitt @{"11.4" LINK PPaintCD:H/7/1/4/0046/Main 321}.
+
+Bei aktivierter "Preview"-Option im Dialogfenster für das Bildformat
+können 24-Bit Bilder in ihrem ursprünglichen Modus angezeigt und
+betrachtet werden. Während das entsprechende 24-Bit- bzw. HAM-Bild
+dargestellt wird, fährt Personal Paint im Hintergrund mit der
+Farbquantisierung und -neuberechnung fort. Währenddessen kann mit einem
+Druck auf die Leertaste oder die rechte Maustaste zwischen dem
+Hauptbildschirm und dem 24-Bit-Bildschirm umgeschaltet werden. Ein Druck
+auf <Esc> oder die linke Maustaste, während der 24-Bit-Bildschirm
+dargestellt wird, bewirkt, daß dieser geschlossen wird. Die
+professionelleren Einstellungen (siehe @{"9.7" LINK PPaintCD:H/7/1/4/0047/Main 344} und @{"9.8" LINK PPaintCD:H/7/1/4/0047/Main 396}) führen zu einer
+vergleichsweise niedrigeren Arbeitsgeschwindigkeit bei der Farbreduzierung
+und Darstellung von 24-Bit-Bildern, während ein auf nur 16 Farben
+begrenztes Fehlerverteilungsraster diese erheblich steigern kann.
+
+Beim Laden eines Bildes wird dessen Farbpalette grundsätzlich mitgeladen,
+wobei gewähltes Format oder die Streckoption keine Rolle spielen. Wenn der
+eingestellte Bildschirmmodus weniger Farben unterstützt als das Bild
+besitzt, wird eine Farbenreduzierung durchgeführt (siehe Abschnitte @{"8.7" LINK PPaintCD:H/7/1/4/0016/Main 546}
+und @{"9.7" LINK PPaintCD:H/7/1/4/0047/Main 344}). Diese leistungsfähige Funktion ermöglicht das Laden und
+Darstellen photorealistischer Bilder auf jedem Amiga, auch wenn nur 16
+Farben zur Verfügung stehen. Den verschiedenen verfügbaren Arten der
+Farbenreduzierung ist ein eigener Abschnitt (@{"9.7" LINK PPaintCD:H/7/1/4/0047/Main 344}) gewidmet, ebenso dem
+Thema Fehlerverteilung (@{"9.8" LINK PPaintCD:H/7/1/4/0047/Main 396}). Mehr zu den Themen Bildschirmmodi und Farbe
+siehe Abschnitt @{"4.5" LINK Main 1030}. Wie globale Änderungen an der Palette eines Bildes
+vorgenommen werden können (z. B. Einstellung von Kontrast, Helligkeit,
+usw.), ist Abschnitt @{"8.1.4" LINK PPaintCD:H/7/1/4/0016/Main 256} zu entnehmen.
+
+Wenn eine Datei Daten abhängig von einer Farbmaske enthält (siehe
+Schablone, Abschnitt @{"8.2" LINK PPaintCD:H/7/1/4/0016/Main 341}), werden diese ebenfalls geladen und bei der
+Bilddarstellung berücksichtigt. Dieser Vorgang beschränkt sich
+ausschließlich auf IFF-Grafiken.
+
+Wenn das Bildformat sich vom Einzelbildformat der aktuellen Animation
+unterscheidet, öffnet sich ein Dialogfenster, in dem der Benutzer
+auswählen kann, ob der die Größe des Einzelbildes oder der Animation
+ändern möchte.
+
+Für den Fall, daß vor dem Laden einer verschlüsselten Datei kein
+Verschlüsselungswert festgelegt wurde, erscheint ein Fenster zum Eingeben
+dieses Wertes. Ein falscher Wert führt zum Abbruch des Ladevorgangs. In
+diesem Fall ist vor einem erneuten Ladeversuch der korrekte Schlüssel
+einzugeben (Abschnitt @{"9.4" LINK PPaintCD:H/7/1/4/0047/Main 255}).
+
+Versionen 2.1 und höher des Amiga-Betriebssystems unterstützen - für das
+Anwendungsprogramm transparent - auch Disketten im MS-DOS Format.
+Vorausgesetzt, daß die "PC" DOSDrivers (oder vergleichbare Programme von
+Drittanbietern) installiert sind, kann Personal Paint auch Bilddateien von
+PC mit MS-DOS Betriebssystem (oder Apple Macintosh, die ebenfalls
+Disketten im MS-DOS Format lesen und schreiben können) verarbeiten.
+
+
+@{B}4.2        Bild Speichern@{UB}
+
+Diese Funktion dient zum Speichern des angezeigten Bildes. Zum Festlegen
+oder Auswählen des gewünschten Dateinamens und -formates wird das
+Dateiauswahlfenster angezeigt.
+
+Das Dateiauswahlfenster der Funktion "Bild speichern" verfügt über
+zusätzliche Symbol-Optionen zur Auswahl des gewünschten Bildformates. Bei
+"IFF ILBM" (von engl. "Interchange File Format - InterLeaved BitMap")
+handelt es sich um das Amiga-Standardformat. Das "GIF"-Format erzielt eine
+bessere Datenkompression (d. h. kleinere Dateien) und gilt bei Mailboxen
+und auf PC-kompatiblen Systemen als Standard. Einfache Malprogramme für PC
+und Scannersoftware bedienen sich häufig des PCX-Formates. Das
+verschlüsselte "Encrypted" Format kann zur Sicherung "privater" Bilder vor
+Ladeversuchen Dritter geschützt werden. Zur Einbindung in eigene
+Amigaprogramme kann auch das Format C-Quelltext angewählt werden.
+
+Aktive Farbmasken (Abschnitt @{"8.2" LINK PPaintCD:H/7/1/4/0016/Main 341}) werden beim IFF-ILBM-Format
+grundsätzlich mit abgespeichert.
+
+GIF, ILBM und andere Formate verfügen möglicherweise über 24 Bit breite
+Farbpaletten. Um bestmögliche Qualität zu erzielen, verarbeitet Personal
+Paint Farben intern grundsätzlich unter Verwendung von 24 Bit
+("Echtfarben"), was optimale Ergebnisse bei Bildverarbeitung,
+Fehlerverteilung (z. B. Floyd-Steinberg), Farbenreduzierung oder
+Formatkonvertierungen sicherstellt. Farben werden dabei erst dann auf die
+nächstmögliche Amiga-Farbtiefe gerundet (12 Bits, d. h. je 4 Bits für den
+Rot-, Blau- und Grünanteil bei Amigas mit dem Standard-Grafikchipsatz),
+wenn Sie in die Palette der aktiven Umgebung kopiert werden. Wenn ein Bild
+von einem Format in ein anders konvertiert werden soll, welches feinere
+Palettenabstufungen besitzt als die beste verfügbare Amiga-Auflösung, so
+sollte dies zunächst als Pinsel geladen und dann im neuen Format
+abgespeichert werden. In der Voreinstellung werden Paletten und Bitplanes
+von geladenen Pinseln nicht verändert.
+
+Bei Personal Paint können intern verschiedene PCX-Unterformate verwendet
+werden, um höchstmögliche Kompatibilität mit PC-Systemen zu gewährleisten,
+dabei werden zweifarbige Bilder als CGA-Monochrom-Dateien gespeichert. In
+diesem Format werden einige Laderoutinen von PC-Programmen evtl. Farbe 0
+als schwarz und Farbe 1 als weiß interpretieren. Um dies zu vermeiden,
+sollten diese beiden Farben in der Personal Paint-Palette vor der
+Farbanpassung (Abschnitt @{"8.1" LINK PPaintCD:H/7/1/4/0016/Main 16}) und dem Abspeichern geändert werden. Bilder
+mit 4 oder 16 Farben werden als EGA/VGA Dateien mit 16 Farben
+abgespeichert, wobei ggf. leere Bitplanes hinzugefügt werden. Bilder mit
+mehr Farben werden als VGA-Dateien mit 256 Farben abgespeichert.
+
+Verschlüsselte Bilder werden durch einen Verschlüsselungswert modifiziert
+und können ohne Eingabe dieses Wertes nicht mehr geladen werden. Der
+Verschlüsselungswert kann in dem in Abschnitt @{"9.4" LINK PPaintCD:H/7/1/4/0047/Main 255} beschriebenen
+Eingabefenster eingetragen werden. Dieses Fenster wird automatisch
+aufgerufen, sobald ein verschlüsseltes Bild geladen werden soll und noch
+kein Verschlüsselungswert angegeben wurde oder die Eingabe mit der Option
+"Abbruch" beendet wurde. Andernfalls wird der vorher eingetragene Wert als
+gültig angenommen.
+
+Beim o. g. Verschlüsselungswert handelt es sich keinesfalls um ein
+einfaches Passwort, sondern um eine tiefgreifende Modifikation der
+Bilddaten. Es ist daher ausgeschlossen, das verschlüsselte Bild ohne den
+gültigen Schlüssel mit irgendeinem Programm sichtbar zu machen. Der
+geschützte Verschlüsselungscode von Cloanto (verschlüsselt komprimierte
+Daten) garantiert höchste Datensicherheit.
+
+Es ist sicherlich möglich, daß eine nicht autorisierte Person den
+richtigen Schlüssel errät oder die wahrscheinlichsten Tastenkombinationen
+ausprobiert, bis die richtige gefunden ist. Auch leistungsfähige Computer
+können zum Ausprobieren aller möglichen Tastenkombinationen eingesetzt
+werden, was hunderte von Jahren, aber auch sehr viel kürzer dauern kann.
+Um solche Risiken zu verringern, sollten einige Vorsichtsmaßnahmen
+beachtet werden. So sollte die verwendete Kombination niemals
+aufgeschrieben werden. Sinnvoll ist auch das Mischen von Buchstaben,
+Zahlen und anderen Tasten als Schlüssel. Namen und Datumsangaben hingegen
+sind ungeeignet.
+
+Der folgende Hinweis richtet sich hauptsächlich an Programmierer.
+C-Quelltext Dateien enthalten eine eingebettete DrawImage()-kompatible
+Bildstruktur und Datenfelder mit Farbpalettendaten in Formaten, die sich
+sowohl für LoadRGB4() als auch für LoadRGB32() eignen. Nicht benutzte
+Bitplanes werden nicht als Daten ausgegeben, sondern in den entsprechenden
+PlanePick und PlaneOnOff Feldern gekennzeichnet. Der Datentyp des
+Bilddatenfeldes ist als "UWORD chip" definiert. Das "chip" Schlüsselwort
+wird von einigen Compilern verwendet, um sicherzustellen, daß die Daten
+zur Laufzeit ins Chip-RAM geladen werden. Es muß ggf. gelöscht oder in
+einen anderen Namen geändert werden (z. B. "__chip").
+
+Falls Personal Paint oder das Amiga-Betriebssystem beim Abspeichern eines
+Bildes ein Problem registrieren, wird dies durch bestimmte Meldungen
+ausgedrückt, die in Anhang @{"A" LINK PPaintCD:H/7/1/4/0045/Main 1} aufgelistet sind. Der Umgang mit
+möglicherweise bei einem Schreibvorgang auftretenden Fehlern wird in
+Abschnitt @{"11.2" LINK PPaintCD:H/7/1/4/0046/Main 67} erläutert.
+
+Mehr zum Thema Dateiauswahlfenster und Einstellung der
+Workbenchpiktogramme siehe Abschnitte @{"3.4" LINK PPaintCD:H/7/1/4/0017/Main 1409} und @{"9.10" LINK PPaintCD:H/7/1/4/0047/Main 590}.
+
+
+@{B}4.3        Bild Drucken@{UB}
+
+Das bei der Anwahl dieser Menüoption erscheinende Hauptfenster erlaubt den
+Zugriff auf die Druckereinstellungen von Personal Paint. Das Programm kann
+entweder auf jeden in den Amiga-"Preferences" verfügbaren Drucker ausgeben
+oder im eigenen PostScriptmodus drucken. Die beiden Modi verfügen jeweils
+über verschiedene Gruppen von Optionen, auch das Papierformat (das im
+übrigen vom Bildformat abweichen kann), ist hier einzustellen.
+
+Neben den Preferences- und PostScriptmodi unterstützt Personal Paint auch
+die direkte Druckausgabe über das Studio Printserverprogramm. Benutzer von
+Studio und CanonStudion (Version 2 und höher) haben daher die Möglichkeit,
+direkt aus Personal Paint heraus zu drucken.
+
+Wenn das Modus-Blättersymbol auf die Option Studio eingestellt ist, wird
+jeder Druckvorgang an den Druckerspooler von Studio geschickt, wodurch
+sich das Warten auf das Ende der Druckausgabe erübrigt. Die Bilddaten
+werden vielmehr in einer temporären Datei gespeichert, die vom Programm
+Studio auf den Drucker ausgegeben wird. Temporäre Dateien von Personal
+Paint werden grundsätzlich auf dem Laufwerk zwischengelagert, auf dem noch
+am meisten Platz ist, wobei nur die in den Einstellungen für den
+virtuellen Speicher (Abschnitt @{"9.3.1" LINK PPaintCD:H/7/1/4/0047/Main 146}) angegebenen zur Verfügung stehen.
+
+Der Server (Message Port) von Personal Paint trägt den Namen
+"PPaint_Studio". Dieser wird möglicherweise vom Programm Studio z. B. zum
+Abspeichern einer Konfiguration verlangt.
+
+Vor dem Ausdruck eines Bildes (üblicherweise nach der Neuinstallation des
+Systems oder eines neuen Druckers) muß der für den verwendeten Drucker
+passende Druckertreiber eingestellt werden. Einige gebräuchliche
+Drucker/Druckertreiberkombinationen sind in Anhang @{"D" LINK PPaintCD:H/7/1/4/2163/Main 1} aufgelistet. Die
+Optionen "Printer" und "PrinterGFX" (Printer Graphics) des Amiga
+entsprechen den meisten Parametern von Personal Paint mit der gleichen
+Bezeichnung und Personal Paint teilt die entsprechenden Daten mit den
+Systemvoreinstellungen. Der PostScriptmodus des Programms erfordert nicht
+die System- PostScriptmodule (Versionen 2.1 und höher), sondern arbeitet
+korrekt mit allen Amiga-Druckertreibern zusammen.
+
+Personal Paint liest zuerst die Druckervoreinstellungen des Systems ein,
+um seine internen Voreinstellungen vorzunehmen, bei Änderung der
+Systemvoreinstellungen werden inkompatible Werte angepaßt. Danach werden
+evtl. vorgenommene Änderungen nicht in die Amiga-Systemvoreinstellungen
+zurückkopiert. Jede der beiden Bildumgebungen von Personal Paint kann über
+eigene, unabhängige Druckereinstellungen verfügen.
+
+Die drei oberen Symbole im Haupt-Druckfenster dienen zum Aufruf der
+Auswahlfenster für Seitenlayout, System- (Preferences)
+Druckereinstellungen und die PostScripteinstellungen. Das "Modus"-Symbol
+hat eine wichtige Funktion: Es bestimmt, ob Personal Paint zum Ausdruck
+die aktuellen Systemdruckertreiber (PRT:) oder das PostScriptmodul
+verwenden soll. Das "Kopien"-Symbol legt die Anzahl der auszudruckenden,
+identischen Exemplare des Bildes fest.
+
+Farbkorrekturverfahren bei Ausgabe im PostScriptmodus werden in Abschnitt
+@{"4.3.3.11.1" LINK Main 880} näher erläutert. Das in Abschnitt @{"8.1.4" LINK PPaintCD:H/7/1/4/0016/Main 256} beschriebene
+Dialogfenster (Farbpalette einstellen) kann bei allen Druckern dazu
+verwendet werden, Parameter wie Kontrast und Helligkeit zu verändern oder
+Farbkorrekturen durchzuführen.
+
+Zusätzlich zu den normalen Symbolen "Weiter" und "Abbruch" kann
+"Verlassen" gewählt werden, um das Auswahlfenster ohne Einleitung eines
+Druckvorgangs zu schließen; alle vorgenommenen Einstellungen werden dabei
+jedoch bestätigt. "Abbruch" führt zum Anhalten des Druckvorgangs und zur
+Rücknahme aller vorgenommenen Änderungen. Bei Auswahl von "Weiter" wird
+das Bild gedruckt.
+
+Ein laufender Druckvorgang kann durch das Anklicken des "Stop"-Symbols
+abgebrochen werden. Die Wirkung tritt jedoch evtl. nicht sofort ein, da
+sich noch Bilddaten im Druckerspeicher befinden können. Wenn der
+Druckvorgang augenblicklich abgebrochen werden soll, muß der Drucker
+deaktiviert, d. h. auf Pause oder "Off-Line" geschaltet werden, was über
+das Bedienfeld des Gerätes erfolgt. Der Drucker bleibt dann so lange
+inaktiv, bis er wieder aktivert wird ("On-Line"). Da der Druckerspeicher
+aber in einem solchen Fall meist nicht geleert wird, druckt das Gerät nach
+der Aktivierung weiter. Einige Drucker erlauben das Löschen des
+Druckerspeicherinhaltes über das Bedienfeld, während bei anderen Modellen
+ein Ausschalten erforderlich ist.
+
+Bei deaktiviertem Drucker erscheint nach einer Pause von einigen Sekunden
+ein Fenster mit einer Fehlermeldung des Systems. Durch Anklicken des
+rechten Symbols kann dem Rechner dann mitgeteilt werden, daß der
+Druckvorgang endgültig abgebrochen werden soll. Ein Mausklick auf das
+linke Symbol setzt den Druckvorgang fort.
+
+Mehr zum Thema Drucker in Abschnitt @{"11.3" LINK PPaintCD:H/7/1/4/0046/Main 162} und Anhang @{"A" LINK PPaintCD:H/7/1/4/0045/Main 1}.
+
+
+@{B}4.3.1      Seitenlayout@{UB}
+
+Diese Optionen dienen zur Festlegung von Seitenformat, Positionierung,
+Größe und Größenverhältnis des Bildes auf der Seite.
+
+
+@{B}4.3.1.1    Maßeinheit@{UB}
+
+Das "Maßeinheit"-Symbol wird zum Durchblättern der Maßeinheiten verwendet,
+in denen Personal Paint die Abstände auf einer Seite berechnet. Während
+die Bedeutungen von Zoll und Zentimetern wohl unmißverständlich sind,
+existiert keine allgemeingültige Definition für einen "Punkt". Personal
+Paint bedient sich des PostScript-Punktes, dessen Größe 1/72 Zoll, d. h.
+0,353 mm, beträgt (zum Vergleich: 1 Pica-Punkt = 0,351 mm, 1 Didot-Punkt =
+0,376 mm). 1 Zoll entspricht ca. 2,54 mm,  1 cm = 0,3937 Zoll. Intern
+werden Entfernungen zum Erreichen höchstmöglicher Genauigkeit in
+Mikrometern berechnet.
+
+
+@{B}4.3.1.2    Papierformat und Seitengröße@{UB}
+
+Das "Format"-Symbol wird zum Durchblättern verschiedener, vorgegebener
+Papierformate verwendet. Die Option "Individuell" zeigt an, daß die vom
+Benutzer in den Feldern für die Papiergröße festgelegten Werte benutzt
+werden. Im PostScriptmodus übernimmt Personal Paint die Größenwerte des
+eingelegten Papiers möglicherweise direkt vom Drucker, so daß die
+Formateinstellungen überschrieben werden.
+
+
+@{B}4.3.1.3    Automatische Zentrierung und manuell eingestellte Ränder@{UB}
+
+Die zwei "Zentrieren"-Optionen ermöglichen die automatische Zentrierung
+des Bildes entlang der Horizontal- oder Vertikalachse, wobei das Bild
+zwischen symmetrisch gleichen Rändern positioniert wird. Ist diese Option
+ausgeschaltet, so werden die Werte für linken und oberen Rand verwendet.
+
+
+@{B}4.3.1.4    Druckformat@{UB}
+
+Die manuelle Festlegung der Bildgröße kann mit Hilfe der "Größe"-Symbole
+entweder in der voreingestellten Maßeinheit oder in Drucker-, bzw.
+Videobildpunkten erfolgen. Voreingestellt ist hier die Option
+"Automatisch", d. h. Personal Paint versucht, beim Ausdruck die
+Größenverhältnisse des Bildes auf dem Monitor zu reproduzieren. Das Bild
+wird nur dann verkleinert, wenn es nicht zwischen die benutzerdefinierten
+Seitenränder paßt (aber auch hier werden die Originalproportionen
+beibehalten). Die Angabe für "Papier %" repräsentiert einen zur
+Seitengröße proportionalen Wert. "Einheiten" entsprechen den festgelegten
+Maßeinheiten. "Pixel" steht für die in Druckerpunkten ausgedrückten
+Dimensionen. Bei Auswahl von "Faktor" werden die Maße der Bildpunkte mit
+dem angegebenen Wert multipliziert.
+
+Wenn einer der beiden Werte für Breite oder Höhe, einer der Prozentwerte
+oder einer der Multiplikatoren des Bildes auf null gesetzt wird, errechnet
+Personal Paint die Bildgröße mit Hilfe des jeweiligen Wertes >0 und der
+ursprünglichen Bildgröße. Für den Fall, daß beide Werte null betragen,
+wird das Bild so breit wie durch Ränder und Seitenformat möglich gedruckt;
+die Höhe wird so berechnet, daß die Proportionen des Bildes erhalten
+bleiben.
+
+Das manuelle Einstellen beider Werte (d. h. von Höhe und Breite) kann zu
+einer verzerrten Bildschirmdarstellung des Bildes führen, falls die
+korrekten Werte für Bildschirm- und Druckerausgabe nicht bekannt sind.
+
+
+@{B}4.3.1.5    Querformat@{UB}
+
+Ist diese Option aktiviert, wird das Bild um 90° gedreht.
+
+
+@{B}4.3.2      Systemdrucker@{UB}
+
+Ein Großteil der hier aufgeführten Optionen stimmt mit Ihren Gegenstücken
+in den Amiga-"Preferences" überein, die zur Auswahl des für den benutzten
+Drucker passenden Treibers dienen. Die Optionen in diesem Auswahlfenster
+sind für die PostScriptausgabe von Personal Paint unerheblich.
+
+
+@{B}4.3.2.1    Raster@{UB}
+
+So wie Bilder auf dem Bildschirm sich aus winzigen Bildpunkten
+zusammensetzen, besteht ein gedrucktes Bild aus kleinen Farbpunkten. Der
+Begriff der Schattierung (engl.: Dithering) bezeichnet ein spezielles
+Druckverfahren, mit dem verschiedenfarbige Punkte so angeordnet werden,
+daß für das Auge des Betrachters der Eindruck einer einzigen Farbe
+entsteht. Dies erlaubt das Erstellen von Ausdrucken, die viel mehr Farben
+zu haben scheinen als die drei oder vier Tintenpatronen eines Druckers
+üblicherweise erzeugen  können.
+
+Ein Beispiel: Ein schwarzer Punkt auf dem Bildschirm wird auch vom Drucker
+als schwarzer Punkt reproduziert. Geht man jedoch von einem lilafarbenen
+Punkt aus, so muß der Drucker diesen Punkt in vielen Fällen aus gelben,
+magentafarbenen und cyanfarbenen Punkten erzeugen. Im Falle von Graustufen
+werden vom Drucker unterschiedliche Raster aus schwarzen Punkten gedruckt,
+um den Eindruck unterschielicher Grautöne zu erwecken.
+
+Personal Paint stellt Ihnen verschiedene Schattierungsmöglichkeiten zur
+Verfügung. Wenn die Option "Geordnet" aktiviert ist, werden
+Farbintensitäten durch ein regelmäßiges Punktraster wiedergegeben, das am
+ehesten mit dem Muster eines Schachbrettes vergleichbar ist. Dabei können
+die Punkte zwar unterschiedlich gefärbt sein, besitzen aber alle die
+gleiche Dichte und werden in geraden Linien und Spalten gedruckt. Dieses
+Verfahren ist auch gleichzeitig die System-Voreinstellung.
+
+Beim sog. "Halbton"-Verfahren werden unterschiedliche Farbintensitäten
+durch Variationen in Größe und Form der Punkte wiedergegeben, es handelt
+sich hierbei um eine besonders für Zeitungs- und Zeitschriftendruck
+eingesetzte Technik, die erst auf Druckern mit einer Auflösung von über
+150 DPI zur Geltung kommt.
+
+Das bekannte "Floyd-Steinberg"-Verfahren basiert auf einem komplexeren
+Fehlerverteilungsalgorithmus als die o. g. Techniken. Dabei wird die
+Intensität jedes Bildpunktes auf die ihn umschließenden Bildpunkte sowie
+die Nachbarbildpunkte übertragen. Diese Option überschreibt die
+Glätten-Option (falls angewählt) und führt zu einem gegenüber den anderen
+Schattierungsoptionen vergleichsweise langsamen Ausdruck.
+
+Unter Verwendung neuester Erkenntnisse in der Programmierung wurden
+modernste Fehlerverteilungsalgorithmen eingesetzt, um höchste Qualität
+beim Ausdruck mit 24-Bit zu erreichen. Voreingestellt ist geordnete
+Fehlerverteilung, da hier eine gute Qualität bei annehmbarer
+Geschwindigkeit erzielt wird (dispersed 16x16 Matrix - weitere technische
+Informationen dazu in Abschnitt @{"3.1.4.2" LINK PPaintCD:H/7/1/4/0017/Main 668}). Halbton-Fehlerverteilung
+(halftone dithering) eignet sich eher für Bilder, die hauptsächlich über
+stark gesättigte Farben verfügen. Die besten Ergebnisse lassen sich immer
+noch mit dem Floyd-Steinberg-Verfahren erzielen, allerdings auf Kosten
+einer erhöhten Rechenzeit.
+
+
+@{B}4.3.2.2    Skalieren@{UB}
+
+Dieser Begriff bezieht sich auf die Änderung der Größenverhältnisse eines
+Bildes. Die Option "Bruchzahlen" ergibt eine normale Skalierung.
+
+Die Auswahl von "Faktor" stellt sicher, daß jeder Bildpunkt auf dem
+Ausdruck als gerade Anzahl von Farbpunkten dargestellt wird. So kann z. B.
+ein Bild, welches auf dem Bildschirm Ausmaße von 320 mal 200 Bildpunkten
+hat, nur in einer Breite ausgedruckt werden, die ein ganzes Vielfaches von
+320 beträgt (320, 640, 960, usw.) und in einer Breite, die ein ganzes
+Vielfaches von 200 beträgt (200, 400, 600, usw.) Diese Option erweist sich
+besonders beim Ausdruck dünner horizontaler oder vertikaler Linien (wie
+bei einem Gitter) als nützlich.
+
+Die wirkliche Größe des Ausdrucks wird grundsätzlich durch in den
+Druckereinstellungen festgelegte Bildgröße bestimmt (Abschnitt @{"4.3.1.4" LINK Main 342}).
+Die Größe wird dann nach oben oder unten auf die nächstmöglichen
+Vielfachen von Höhe und Breite des Bildes skaliert.
+
+Die Option "Faktor" kann in einigen Fällen die Einstellung "Querformat"
+(Abschnitt @{"4.3.1.5" LINK Main 370}) überschreiben und damit zu einem leicht verzerrten
+Bild führen. Sie eignet sich aber gut zum Ausdruck von Bitmapschriften, da
+deren Qualität dann nicht (wie beim Skalieren mit Bruchzahlen) durch
+Verzerrung vermindert wird. Bei eingeschalteter "Faktor"-Option kann die
+Größe des ausgedruckten Bildes evtl. leicht von der gewünschten Größe
+abweichen.
+
+
+@{B}4.3.2.3    Bild@{UB}
+
+Wenn bei dieser Einstellung "Positiv" gewählt wird, verbleiben die
+Bildeinstellungen etwa so, wie das Bild auf dem Bildschirm zu sehen ist.
+Erst bei Aktivierung von "Negativ" wird das Bild invertiert, d. h., was
+auf dem Bildschirm schwarz dargestellt wird, erscheint auf dem Ausdruck
+weiß, und umgekehrt. Dieser Effekt ähnelt dem eines photographischen
+Negativs.
+
+
+@{B}4.3.2.4    Farbgebung@{UB}
+
+Mit dieser Option wird festgelegt, wie verschiedene Farben oder Graustufen
+ausgedruckt werden sollen. Nicht jeder Drucker unterstützt alle
+verfügbaren Einstellungen.
+
+Bei "Schwarz/Weiß" werden alle Farben nur als entweder Schwarz oder Weiß
+wiedergegeben. Ab welcher Grenze eine Farbe schon als Schwarz oder noch
+als Weiß gedruckt wird, kann mit der Option "Schwellwert" bestimmt werden.
+Bei Auswahl von "Schwarz/Weiß" ist die Option "Schattierung" grundsätzlich
+ohne Funktion.
+
+"Grauskala 1" druckt die Bildfarben als unterschiedliche Graustufen aus.
+"Grauskala 2" unterstützt lediglich 4 Graustufen und dient daher zum
+Ausdruck von Bildern, die auf dem A2024 Monitor erstellt wurden.
+
+Die Option "Farbe" ist nur bei Verwendung eines Farbdruckers sinnvoll. Bei
+dieser Einstellung werden Farben im weitesten Sinne so gedruckt, wie Sie
+auf dem Bildschirm erscheinen.
+
+Personal Paint ermöglicht den Ausdruck in 24-Bit (über 16 Millionen
+Farben) und umgeht daher die traditionelle Beschränkung von 4096 Farben
+und 16 Graustufen des Amiga printer.device (der PostScript-Modus von
+Personal Paint war schon immer 24-Bit-fähig). Die 24-Bit-Modi können im
+Blättersymbol für die Farbgebung unter "24-Bit-Farbe" und "8-Bit-Grau"
+angewählt werden.
+
+Beim Ausdruck in 24-Bit werden besondere Fehlerverteilungsroutinen
+verwendet, um Zwischenfarbtöne aus der beschränkten Anzahl von
+Primärfarben des Druckers zu erzielen (mehr dazu in Abschnitt @{"4.3.2.1" LINK Main 383}).
+Es gibt auch einige Drucker, die in "Echtfarbe" ausgeben können, was die
+Erzeugung von Fehlerverteilungsrastern durch das Programm überflüssig
+werden läßt. So verfügt der Thermosublimationsdrucker "Fargo Primera"
+beispielsweise über einen eigenen 24-Bit-Druckertreiber. In einem solchen
+Fall kann die normale Druckvorrichtung der Systemsoftware benutzt werden.
+
+Auch beim Ausdruck in 24-Bit muß der korrekte Amiga-Druckertreiber
+eingestellt werden (im Verzeichnis Prefs unter Printer). Eine Ausnahme
+bildet lediglich der PostScript-Modus von Personal Paint).
+
+Weitere Einstellungen zur Verbesserung der Druckqualität können mit den
+Einstellern zur Gammakorrektur und im Dialogfenster für
+Farbkorrektur/Unbuntaufbau (siehe Abschnitt @{"4.3.2.8" LINK Main 588}) getroffen werden,
+welches sich durch Anklicken der Option Farbkorrektur/Einstellungen
+öffnen läßt.
+
+Die Fehlerverteilungs- und Farbkorrekturroutinen von Personal Paint wurden
+dazu entwickelt, den Drucker direkt anzusprechen. Einige der auf dem Markt
+befindlichen "24-Bit"-Druckerhilfsprogramme können dazu dienen, den
+normalen Druckertreiber zu ersetzen. Diese Programme können von einer
+Anwendung nicht auf direktem Wege 24-Bit-Daten empfangen (zumindest nicht
+bis Version 3.2 der Amiga-Systemsoftware) und sollten daher auch nicht
+zusammen mit den 24-Bit-Druckmodi von Personal Paint eingesetzt werden,
+solange nicht deren Optionen zur Farbkorrektur ausgeschaltet sind.
+Andernfalls kann es dazu kommen, daß verschiedene Fehlerverteilungsraster
+und Farbkorrekturverfahren sich gegenseitig stören und damit sehr
+schlechte Druckergebnisse erzielen.
+
+Einige Amiga-Modelle verlieren durch DMA-Restriktionen bei der Anzeige von
+256 Farben sehr stark an Geschwindigkeit. Dieser Effekt kann (auch bei der
+Arbeit mit Personal Paint) gemindert werden, indem z. B. eine Workbench
+mit nur 4 Farben in den Vordergrund geschaltet wird.
+
+Zum Erzielen optimaler Ergebnisse im 24-Bit-Modus wird empfohlen, die
+höchste durch den entsprechenden Druckertreiber unterstützte Dichte
+einzustellen (siehe Abschnitt @{"4.3.2.6" LINK Main 565}). Besonders für die im Lieferumfang
+von Personal Paint enthaltenen Druckertreiber für den HP DeskJet gilt, daß
+die Fehlerverteilung (engl. dithering) auf Floyd-Steinberg eingestellt
+werden sollte, der Schwellwert (engl. threshold) auf 1 (schaltet die
+Begrenzung durch den Treiber aus) und die Dichte (engl. density) auf 7
+(maximale Dichte). Diese Einstellungen verringern zwar die
+Druckgeschwindigkeit, sorgen aber für höchste Ausgabequalität. Bei ihrer
+Verwendung ist es üblicherweise nicht notwendig, noch Änderungen an den
+Farbkorrekturtabellen von Personal Paint vorzunehmen. Außerdem wird die
+Verwendung von Spezialpapier für Tintenstrahldrucker oder Farbkopierer
+empfohlen, um beste Ergebnisse zu erzielen.
+
+
+@{B}4.3.2.5    Schwellwert@{UB}
+
+Im "Schwarz/Weiß"-Modus wird die hellste Farbe des Bildes vermutlich als
+Weiß, die dunkelste als Schwarz ausgegeben. Dazwischen liegende Farben
+liegen entweder in der schwarzen oder der weißen Hälfte, je nach
+Einstellung des Schwellwertes. Wenn z. B. die Einstellung für den Ausdruck
+"Positiv" gewählt wird und der "Schwellwert" niedrig ist (um den Wert 2),
+wird ausschließlich die dunkelste Farbe auf dem Bildschirm Schwarz
+gedruckt, alles andere Weiß. Daraus folgt, daß ein Heraufsetzen des
+Schwellwertes die Anzahl der schwarz gedruckten Farben erhöht. Wird jedoch
+die Bildeinstellung auf "Negativ" gestellt, erhält man den umgekehrten
+Effekt: Ein niedriger Schwellwert führt zum Ausdruck der dunkelsten Farben
+als weiß und umgekehrt.
+
+
+@{B}4.3.2.6    Dichte@{UB}
+
+Mit dem "Dichte"-Symbol wird die Druckdichte, d. h. die Anzahl der auf
+einem Quadratzoll gedruckten Punkte, bestimmt. Dabei gilt: a) Je geringer
+die Dichte, desto schneller der Ausdruck (auf Druckern mit mehreren
+einstellbaren Druckdichten) und b) Je höher die Dichte, desto mehr Punkte
+werden zum Erzeugen des Bildes verwendet und desto schärfer wird der
+Ausdruck.
+
+Nicht jeder Drucker unterstützt diese Option; weitere Informationen zu
+Druckertreibern siehe Anhang @{"D" LINK PPaintCD:H/7/1/4/2163/Main 1}.
+
+
+@{B}4.3.2.7    Glätten@{UB}
+
+Beim Drucken horizontaler Linien entsteht häufig ein unerwünschter
+"Treppeneffekt". Durch das Einschalten der Funktion "Glätten" versucht der
+Amiga, diese "Treppenbildung" durch Kantenglättung zu reduzieren und den
+Eindruck einer geraden Linie zu erzeugen. Die Funktion eignet sich
+besonders für Bilder, die geometrisch geformte Körper oder Text enthalten,
+allerdings nimmt die für den Ausdruck benötigte Zeit stark zu.
+
+
+@{B}4.3.2.8    Farbkorrektur@{UB}
+
+"Farbkorrektur" versucht, die auf dem Bildschirm dargestellten Farben an
+die des Druckers anzugleichen. Sie kann auf Rot, Grün oder Blau oder auf
+eine Kombination dieser Farben angewendet werden, dazu sind die mit R
+(Rot), G (Grün) und/oder B (Blau) bezeichneten Symbole entsprechend
+anzuklicken.
+
+Eine Farbkorrektur führt immer zu einer Verringerung der zu druckenden
+Farben. Während bei ausgeschalteter Farbkorrektur alle Farben auf dem
+Bildschirm auch auf einem entsprechenden Farbdrucker ausgegeben werden
+können, führt bei einer Palette von 4096 Farben (wie bei Amigas mit
+normalem Chipset) die Korrektur jeder einzelnen Farbe zum Verlust von 308
+Schattierungen dieser Farbe. Dieser Effekt kann durch zweimaliges Drucken
+des gleichen Bildes sichtbar gemacht werden, wobei im ersten Fall die
+Farbkorrektur auszuschalten ist. Wird nun der zweite Ausdruck mit
+eingeschalteter Farbkorrektur durchgeführt, sollten die Schattierungen des
+zweiten Bildes - verglichen mit dem ersten Bild - eher der Darstellung des
+Bildes auf dem Monitor entsprechen.
+
+Im 24-Bit-Druckmodus kann das "Einstellen"-Symbol angeklickt werden, um
+die Gammakorrektur und die Einstellungen für den Unbuntaufbau zu
+optimieren. Mehr zum Thema "Drucken mit farbiger Tinte" finden Sie in
+Abschnitt @{"4.3.3.11" LINK Main 853} (Farbseparation), während der Abschnitt @{"4.3.3.11.1" LINK Main 880}
+(Farbkorrektur und Unbuntaufbau) das Prinzip des Unbuntaufbaus erläutert,
+dessen Eigenschaften beim Ausdruck in 24-Bit im wesentlichen denen bei der
+PostScript-Ausgabe von Personal Paint entsprechen.
+
+Personal Paint ist in der Lage, jede Farbkomponente (d. h. Cyan, Magenta,
+Gelb oder Schwarz) einzeln zu korrigieren. Das Blättersymbol für die
+Komponente dient zum Umschalten zwischen den einzelnen Korrekturtabellen.
+
+Durch Anklicken der Kurve läßt sich die Darstellung invertieren. In der
+Voreinstellung werden Werte für geringe Farbdichte in links unten
+angezeigt, da dies die traditionelle und von der Druckindustrie verwendete
+Methode ist.
+
+Die Regler für Helligkeit und Kontrast werden in Abschnitt @{"8.1.4" LINK PPaintCD:H/7/1/4/0016/Main 256} des
+Handbuches ("Palette einstellen") beschrieben.
+
+Verschmierte Tinte und sich überlappende Punkte bewirken, daß der Drucker
+die vom Computer empfangenen Daten nicht linear verarbeitet. Dieser Effekt
+kann mit Hilfe der Funktion für die Gammakorrektur korrigiert werden.
+Gammawerte kleiner als 1 hellen das Bild auf, solche größer als 1 führen
+zu einem dunkleren Ausdruck. Es ist zu beachten, daß eine sorgfältig
+eingestellte Gammakurve die Qualität des Ausdrucks drastisch verbessern
+und den Verlust von Informationen (so überhaupt vorhanden) mindern kann.
+
+Die Programm-Voreinstellungen können so gewählt werden, daß die
+Bildschirmdarstellung in etwa dem späteren Druckergebnis entspricht. Um
+die entsprechenden Werte so einzustellen, daß sie zu einem bestimmten Bild
+passen, kann es nötig werden, zunächst einmal kleine, "problematische"
+Bildbereiche unter Verwendung der "Pinsel drucken"-Funktion auszugeben.
+
+
+@{B}4.3.2.9    Seitenvorschub@{UB}
+
+Bei eingeschalteter "Seitenvorschub"-Option wird nach dem Ausdrucken eines
+Bildes grundsätzlich der Befehl (FF) zum Seitenvorschub an den Drucker
+geschickt. Bei vielen Druckern führt dies dazu, daß zunächst das Bild
+gedruckt und dann die Seite ausgeworfen wird. Bei anderen Druckern (z. B.
+bei Nadeldruckern mit vollautomatischem Einzelblatteinzug) sorgt dieser
+Befehl dafür, daß die aktuelle Seite ausgeworfen und ein neues Blatt vom
+Stapel eingezogen wird. Bei Verwendung von Endlospapier positioniert der
+Seitenvorschubbefehl den Druckkopf am eingestellten Anfang des folgenden
+Blattes (oder Formulars oder Aufklebers).
+
+Wenn diese Option eingeschaltet ist und die Seitenlänge (@{"4.3.1.2" LINK Main 324}) ein
+ganzes Vielfaches von 1/6 oder 1/8 Zoll ist (dies sind die beiden vom
+Amiga-"printer.device" unterstützten vertikalen Verschiebungswerte),
+versucht Personal Paint auch, die Formularlänge des Druckers zu
+programmieren. Dies dient besonders zum Ausdruck mehrerer Kopien von
+nicht-standardmäßigen Formularen, wie z. B. Aufklebern.
+
+
+@{B}4.3.3      PostScript@{UB}
+
+Dieses Auswahlfenster enthält alle für den PostScriptdruck relevanten
+Einstellungen. Diese Art der Ausgabe wird bei speziellen
+PostScriptdruckern, Satzbelichtern oder anderen Bildverarbeitungsgeräten
+verwendet. Drucker ohne PostScriptfähigkeit sind nicht in der Lage,
+PostScriptdaten direkt zu verarbeiten. Falls Sie dennoch auf einem solchen
+Drucker PostScriptdaten ausgeben müssen (oder möchten), müssen diese
+zuerst an einen der für den Amiga erhältlichen
+Software-PostScriptinterpreter geschickt und von diesem verarbeitet
+werden.
+
+Zum erreichen höchstmöglicher Geschwindigkeit werden bei Personal Paint
+Farb- und Level 2-PostScript-Extensionen verwendet. Kompatibilität besteht
+aber auch zu Level 1-Systemen, wobei die gleichen Funktionen emuliert
+werden. Optimierung und Prüfung des PostScriptcodes von Personal Paint
+wurde mit Hilfe eines NEC Colormate PS vorgenommen, den die Firma NEC
+freundlicherweise zur Verfügung stellte.
+
+
+@{B}4.3.3.1    Bild@{UB}
+
+Die "Positiv/Negativ"-Einstellung entspricht vollständig der in Abschnitt
+@{"4.3.2.3" LINK Main 462} beschriebenen Systemeinstellung. Die Einstellung Spiegeln führt
+zu einer spiegelbildlichen Abbildung des auf dem Bildschirm dargestellten
+Bildes. Sie erweist sich z. B. beim Einbrennen von mit einem Laserdrucker
+ausgegebenen Grafiken in Teller als nützlich, da hier anstatt von Folien
+häufig dickere und weniger transparente Papierbögen verwendet werden.
+
+
+@{B}4.3.3.2    Dots per Inch (Punkte pro Zoll), DPI@{UB}
+
+Viele Ausgabegeräte verfügen über eine programmierbare Auflösung (die Zahl
+der Punkte pro Zoll, engl. "Dots per Inch", DPI). So kann z. B. beim IBM
+LaserPrinter 4029 oder beim HP LaserJet 4 zwischen 300 und 600 DPI gewählt
+werden (je nach verfügbarer Speichermenge). Andere Drucker arbeiten mit
+300/600 DPI, 400/800 DPI oder noch höheren Auflösungen. Sog.
+"Satzbelichter" sind in der Lage, Auflösungen von mehr als 1000 DPI
+auszugeben (z. B. 1016, 1200, 1270, 2400, 2540 oder 3048 DPI).
+
+Durch Wahl eines DPI-Wertes von 0 wird automatisch die Voreinstellung des
+Druckers verwendet, was sich besonders dann als sinnvoll erweist, wenn die
+mögliche Auflösung des Ausgabegerätes nicht bekannt ist. Sobald der
+DPI-Wert auf 0 gesetzt ist, aber die Bildgröße (Seitenlayout, Abschnitt
+@{"4.3.1.4" LINK Main 342}) in Bildpunkten oder ganzen Vielfachen angegeben wurde, wird von
+einer Voreinstellung von 300 DPI ausgegangen.
+
+
+@{B}4.3.3.3    Lines per Inch (Linien pro Zoll), LPI@{UB}
+
+Diese Einstellung wird besonders dann immer sehr wichtig, wenn
+verschiedene Farbschattierungen unter Verwendung von Halbtönen gedruckt
+werden sollen (Abschnitte @{"4.3.2.1" LINK Main 383} und @{"4.3.3.4" LINK Main 740}), da Sie die Anzahl der
+Halbtonzellen pro Zoll festlegt. Dabei gilt: Je höher die Anzahl der
+Zellen pro Zoll, desto kleiner muß eine einzelne Zelle sein. Kleinere
+Zellen können der feineren Darstellung von Einzelheiten dienen, aber auch
+grobkörnige Farbübergänge verursachen. Im Gegensatz dazu produzieren
+größere Zellen weicher erscheinende Farbübergänge (da mehr Kombinationen
+von ein/aus Punkten innerhalb der Zelle möglich sind), die allerdings auf
+Kosten der Detaildarstellung gehen. Grundsätzlich gilt: Je höher die
+Auflösung (DPI), desto höher kann auch der LPI-Wert gesetzt werden, ohne
+große Kompromisse bezüglich der Farb- oder Graustufenanzahl eingehen zu
+müssen. Beispiel: Bei 300 DPI (oder beim Drucken auf grobes
+Zeitungspapier)  könnte ein Wert von 75 LPI als angemessen gelten. Bei 600
+DPI kann er auf 100 LPI angehoben werden, bei 1270 DPI auf 150 LPI. Aber
+selbst bei einem hohen Wert wie 1270 DPI könnte, wenn sehr weiche
+Farbverläufe erzielt werden müssen, ein Wert von 85 LPI sinnvoll sein.
+Wenn ein Druckprojekt für einen Drucker vorbereitet wird, kann die Auswahl
+zu hoher Werte im Extremfall die maximale Genauigkeit der Druckmaschine
+übersteigen (ca. 200 LPI bei Offsetdruck auf hochwertigstem Papier - hier
+sind 150 LPI eine angemessene Grenze). Beim Experimentieren mit
+verschiedenen "Spot"-Funktionen (Abschnitt @{"4.3.3.4" LINK Main 740}) und anderen
+Spezialeffekten haben besonders sich Werte von 15 - 20 LPI als interessant
+erwiesen. Bei einem Wert von 0 werden die Voreinstellungen des
+Ausgabegerätes benutzt.
+
+
+@{B}4.3.3.4    Spot@{UB}
+
+Bestimmte Druckverfahren wie Laserdruck, Offsetdruck und auch viele andere
+weisen eine gemeinsame Einschränkung auf: Sie können keine Graustufen
+drucken. Es gibt nur zwei Zustände: Entweder befindet sich an einem
+festgelegten Punkt Farbe/Tinte oder nicht. Der Eindruck einer Graufärbung
+wird durch die Anordnung schwarzer (oder andersfarbiger) Punkte in einem
+bestimmten Muster erzeugt. Dabei gilt: Je größer und dichter die Punkte,
+desto dunkler wirkt der entsprechende Bereich. Das Punktmuster (d. h. die
+Halbtonzelle) kann verschiedene Formen aufweisen: Runde Punkte,
+elliptische Punkte, Linien, Sterne, usw. Verschiedene Zellformen führen so
+zu mehr oder weniger linearen Übergängen von Hell nach Dunkel. So werden
+elliptische Punkte z. B. häufig zum Erzeugen hochqualitativer Mitteltöne
+eingesetzt.
+
+Die allerersten PostScript-Normalpapierdrucker konnten nur einfache, runde
+Punkte drucken (Personal Paint OldDot), für dunklere Farben wurden
+entsprechend größere Punkte ausgegeben. Die nachfolgende Gerätegeneration
+benutzte die runde Form nur für Grauwerte bis 50%, für dunklere Farben
+wurden die Punkte von den Ecken her aufgebaut (Personal Paint NewDot) und
+nicht mehr von der Mitte her.
+
+Mit dem "Spot"-Parameter von Personal Paint lassen sich unterschiedliche
+Zellformen erzeugen. Es ist unserer Ansicht nach sinnvoll, mit den
+unterschiedlichen Zellformen zu experimentieren, da eine eingehende
+Beschreibung der zahllosen Möglichkeiten kaum möglich ist. Um die
+Unterschiede deutlich zu machen, sollten LPI zunächst auf einen Wert um 15
+gesetzt werden. Dazu ist ein Bild zu wählen, das über möglichst viele
+Farben oder Graustufen verfügt.
+
+Durch Veränderung des Rasterwinkels (Abschnitt @{"4.3.3.11.2" LINK Main 932}) können die
+Zellformen gedreht werden. Bei Verwendung runder Punkte führt dies nur zu
+unmerklichen Veränderungen, bei Anwahl eines Linienbildschirms jedoch sind
+starke Unterschiede sichtbar.
+
+Auch bei Farbseparationen können verschiedene Zellformen zu verschiedenen
+Ergebnissen führen, da das Zusammenspiel von LPI-Wert und Rasterwinkel in
+direktem Zusammenhang mit unerwünschten Nebenwirkungen wie Moiré-Effekten
+steht.
+
+
+@{B}4.3.3.5    Ausgabe@{UB}
+
+Mit Hilfe des "Ausgabe"-Parameters kann die Ausgabe an PRT:, SER:, PAR:
+oder DISK geleitet werden. PRT: führt zum Umlenken der Personal Paint
+Druckerausgabe an den in den Systemvoreinstellungen festgelegten Drucker
+(der z. B. an einer von mehreren seriellen Schnittstellen angeschlossen
+sein kann). SER und PAR stehen für die voreingestellten seriellen und
+parallelen Schnittstellen. Die beiden letztgenannten Schnittstellen sind
+zwar in vielen Fällen mit PRT funktional identisch, aber häufig sehr viel
+schneller, da der Druckertreiber umgangen wird. DISK zeigt an, daß die
+Druckausgabe in eine Datei umgeleitet wird. In diesem Fall erscheint ein
+Dateiauswahlfenster, in dem der Name der Druckdatei bestimmt werden kann.
+Wenn die erzeugte PostScriptdatei auf eine im MS-DOS Format vorliegende
+Diskette gespeichert wird (dazu sind Programme wie "CrossDOS", "DOS-2-DOS"
+oder die ab Version 2.1 im Betriebssystem implementierten "PC" DOSDrivers
+nötig), kann Sie direkt von den meisten Druckern und PC-Benutzern
+verarbeitet werden.
+
+
+@{B}4.3.3.6    Encapsulated PostScript (EPS)@{UB}
+
+Beim sog. "Encapsulated PostScript" Format (EPS) handelt es sich um einen
+weitverbreiteten Standard zum Import von PostScriptdateien in verschiedene
+Anwendungen. So kann z. B. ein im EPS-Format vorliegendes Bild in eine
+Vielzahl von Programmen auf verschiedenen Computersystemen übernommen
+werden. Das Bild wird dann exakt so ausgedruckt (d. h. mit den gleichen
+Werten für LPI, usw.) wie mit Personal Paint. Auf einigen Ausgabegeräten
+muß der DPI-Wert auf null gesetzt werden (Druckervoreinstellung), bevor
+eine EPS-Datei ausgegeben wird.
+
+
+
+@{B}4.3.3.7    Beschnittmarken@{UB}
+
+Beschnittmarken (sog. "Crops") sind dünne Linien, die genau den Rand des
+Bildes markieren und damit das Schneiden des Papierblattes erheblich
+vereinfachen. Bei aktivierter "Beschnittmarken"-Option oder beim
+Durchführen von Farbseparationen werden auch Paßmarken erzeugt, die der
+präsizen manuellen Ausrichtung verschieden gefärbter Farbausdrucke
+dienen.
+
+
+@{B}4.3.3.8    Manueller Einzug@{UB}
+
+Wenn diese Option ausgewählt ist, versucht Personal Paint, den manuellen
+Papiereinzug des Druckers zu aktivieren. Andernfalls wird der
+voreingestellte Einzug verwendet.
+
+
+@{B}4.3.3.9    Kompression@{UB}
+
+PostScriptdateien können eine beachtliche Größe annehmen. Das führt dazu,
+daß Sie häufig nicht mehr auf eine Diskette passen oder daß die serielle
+Übertragung an einen Drucker mehrere Minuten dauern kann. Die
+Komprimierungsoption von Personal Paint ist in der Lage, die Größe der
+PostScriptdateien um über 70% zu reduzieren, wobei die Effizienz mit der
+Größe der Datei (z. B. bei hochauflösenden Grafiken oder Farbseparationen)
+zunimmt. Wenn der Datenübertragungskanal (z. B. eine serielle Verbindung)
+nicht den Haupt-"Flaschenhals" darstellt, kann die Kompression der Daten
+zur einer Verlangsamung der Datenverarbeitung auf der Druckerseite führen.
+Dies gilt besonders auf Geräten mit PostScript Level 1.
+
+
+@{B}4.3.3.10   Prozeß@{UB}
+
+Mit der "Prozeß"-Option wird einer der verfügbaren PostScript-Ausgabemodi
+ausgewählt: "Grau" (S/W Drucker), "Farbe" (Farbdrucker), "CMY" und "CMYK"
+(Farbseparationen). Bei "Grau" und "Farbe" wird ein Bild jeweils auf eine
+Seite ausgegeben, bei "CMY"- und "CMYK"-Ausgabe erscheint jede
+Farbkomponente auf einer separaten Seite.
+
+
+@{B}4.3.3.11   Farbseparation@{UB}
+
+Die Versalien in "CMY" und "CMYK" ergeben sich aus Cyan, Magenta, Yellow
+und blacK (für black (=schwarz) kann nicht dessen Anfangsbuchstabe B
+verwendet werden, da man ihn mit Blue (=blau) verwechseln könnte).
+Pigmente von Cyan, Magenta und Yellow (=gelb) werden von Druckern
+gemischt, um daraus alle anderen Farbtöne zu erzeugen. Dieser Vorgang wird
+auch als subtraktive Farbmischung bezeichnet. Das Gegenstück ist die
+additive Farbmischung, bei der die Farbpalette durch Anteile von Rot, Grün
+und Blau zusammengemischt wird: Ein Farbpigment hat die Eigenschaft, Licht
+in seiner Komplementärfarbe vollständig zu absorbieren. So arbeiten z. B.
+Fernsehgeräte und Malprogramme zur Erzeugung von Farben nach dem
+RGB-Prinzip, Drucker verwenden CMY. CMY und CMYK Farbseparationen werden
+zur Herstellung von Filmen benötigt, von denen dann Druckplatten gebrannt
+werden. Jede Druckplatte wird dann zum Druck einer Primärfarbe benutzt.
+Indem diese dann präzise übereinandergedruckt werden, entsteht das fertige
+Bild auf dem Papier. (Die Symbole mit den Bezeichnungen C, M, Y und K
+dienen dazu, die Ausgabe einer oder mehrerer Primärfarben optional zu
+unterdrücken.)
+
+Dieser Prozeß wirft im allegemeinen zwei Probleme auf: Das erste besteht
+darin, daß "echte" Farbe beim Mischen keine optimalen Ergebnisse liefert;
+das zweite besteht in der Notwendigkeit, die einzelnen Farbausgaben
+wirklich präzise übereinander auszurichten. Dies wird verlangt, ist aber
+in der Realität häufig nur schwierig zu erzielen.
+
+
+@{B}4.3.3.11.1 Farbkorrektur und Unbuntaufbau@{UB}
+
+Theoretisch kann mit Hilfe verschiedener Kombinationen aus Cyan, Magenta
+und Gelb jede beliebige Farbe erzeugt werden. Die verfügbaren Farben
+enthalten jedoch leider Unreinheiten, die dazu führen, daß mehr als nur
+eine einzige Farbe absorbiert wird. So sollte z. B. ein Gemisch gleicher
+Anteile von Cyan, Magenta und Gelb ein Ergebnis im Bereich eines hellen
+Graus bis hin zu Schwarz erzielen. In Wirklichkeit wird aber oft ein
+bräunlicher Ton erzeugt. Dies ist einer der Gründe, aus denen oft Schwarz
+als vierte Farbe eingesetzt wird (z. B. bei Tintenstrahldruckern),
+außerdem ist schwarze Tinte kostengünstiger als andersfarbige. Ein
+weiterer Vorteil von schwarzer Tinte liegt im geringeren Verbrauch, da ja
+zur Erzeugung von Schwarz alle anderen Farben zusammengemischt werden
+müßten. Außerdem gilt: Je mehr Farbe aufgetragen wird, desto länger ist
+die Trocknungszeit und damit die Dauer bis zum Beginn des folgenden
+Druckdurchgangs.
+
+Schwarze Farbe kann immer dann eingesetzt werden, wenn alle drei anderen
+Farben zusammen gedruckt werden sollen. So kann z. B. eine Mischung aus
+25% Cyan, 30% Magenta und 45% Gelb auch aus 25% Schwarz, 5% Magenta und
+15% Gelb erzeugt werden. Der "UCRK" Parameter legt die Höhe des
+Schwarzanteils fest, der von den Cyan-, Magenta- und Gelbanteilen
+abgezogen und als separate schwarze Komponente gedruckt werden soll.
+Beispiel: Ein Wert von 100% bedeutet, daß der Schwarzanteil dem kleinsten
+gemeinsamen Anteil der anderen drei Farben entspricht (genau wie die
+Maximal/Minimalwerte im vorherigen Beispiel). Bei der praktischen
+Anwendung erweist sich das vollständige Ersetzen des Schwarzanteils als
+wenig sinnvoll, da die Ausrichtung sehr schwierig wird (um durchgehend
+schwarze Bereiche erscheint häufig eine dünne weiße Linie). üblicherweise
+werden nur bis 50% des Schwarzanteils der übrigen Farben durch Schwarz
+ersetzt.
+
+Der "GCR"-Parameter zum Ersetzen von Grauanteilen (von engl.: "Gray
+Component Removal") ermöglicht das Hinzufügen oder Subtrahieren von
+Schwarz zu/von der Menge Schwarz, die durch die "Unbuntaufbau" Funktion
+ersetzt wird. Ein Wert von 100% läßt die Menge unverändert; 150% fügen 50%
+schwarze Farbe hinzu; 0% führen dazu, daß kein "echtes" Schwarz gedruckt
+wird (dies entspricht der De-Aktivierung von K in der Farbenspalte).
+
+Gelbe Druckerfarbe kommt "reinem" Gelb sehr nahe und wird daher auch als
+"rein" bezeichnet. Magentafarbene Farbe hingegen erscheint als durch Gelb
+verunreinigt, entsprechend dazu wirkt Cyan, als sei es mit Magenta und
+einem geringen Gelbanteil versetzt. Die Parameter "UCRM" und "UCRY"
+funktionieren ähnlich wie "UCRK", nur daß Magentaanteile von Cyan und
+Gelbanteile von Magenta entfernt werden.
+
+Die sinnvolle Auswahl von Unbuntaufbau und Ersetzen von Grauanteilen hängt
+in hohem Maße von den spezifischen Eigenschaften des Ausgabegerätes und
+den verwendeten Materialien ab. Hersteller von Farbdruckern stellen ihre
+Geräte üblicherweise ab Werk sehr sorgfältig auf die passenden Werte ein.
+
+
+@{B}4.3.3.11.2 Der Moiré-Effekt@{UB}
+
+Die zur Ausrichtung eines Bildes zusätzlich gedruckten Beschnittmarken und
+Paßmarken sind in vielen Fällen ungenügend, um präzise Positionierung zu
+garantieren. In den meisten Fällen ist die mechanische Präzision der
+Maschinen und der verwendeten Materialien das schwächste Glied in der
+Kette des Druckprozesses.
+
+Das Phänomen des @{I}Moiré-Effektes@{UI} besteht aus einem einem mit bloßem Auge
+sichtbaren Störraster, welches an den Schnittpunkten von zwei (oder mehr)
+Linien auftritt. Dieser Effekt ist häufig z. B. im Fernsehen zu
+betrachten, wenn Personen dargestellt werden, die feingestreifte Kleidung
+mit stark kontrastierenden Farben tragen; in diesen Fällen wirkt das
+Streifenmuster auf der Kleidung unscharf, bzw. gestört. Bei der digitalen
+Typographie tritt das Problem auf, wenn ein schon im Halbtonverfahren
+erzeugtes Bild gescannt wird. Beim Farbdruck ist es üblicherweise auf
+Interferenzen zwischen den verschiedenen Halbtonebenen zurückzuführen. Da
+es unrealistisch erscheint, eine perfekte Übereinstimmung von
+übereinanderliegenden Halbtonebenenmit gleichem Rasterwinkel anzustreben,
+wird eine andere Lösung benutzt: Jede der Ebenen wird relativ zu den
+anderen in einem bestimmten Winkel rotiert, was zu einem sehr engen
+Moirémuster führt. Bei ausreichender Höhe der Auflösung sind die Raster
+aus einer gewissen Entfernung kaum sichtbar (wie es auch bei
+Halbtonpunkten der Fall ist).
+
+Personal Paint erlaubt eine individuelle Einstellung der einzelnen
+Rasterwinkel. Beim S/W (Grau-) Ausdruck wird dabei nur der Winkel von
+Schwarz (K) benutzt. Dieser hat im Normalfall einen Wert von 45°, der vom
+menschlichen Auge als am wenigsten auffällig empfunden wird. Gelb ist die
+hellste und am wenigsten störende Farbe, daher beträgt ihr Winkel meist 0°
+oder 90°. Cyan und Magenta werden häufig in einem relativen Winkel von 30°
+zu Schwarz gedruckt, (der beim Druck von drei Farben größtmögliche
+Winkel), was zu einem relativen Winkel von nur 15° zu Gelb führt. Da es
+sich bei Cyan auch um eine "dunkle" Farbe handelt, wird es oft auch mit
+45° gedruckt, bei einem Schwarz-Winkel von 15°. Halbtöne setzen sich
+üblicherweise aus einem Quadratgitter zusammen, daher stehen zur
+Zusammensetzung der 4 Halbtonebenen nur 90° zur Verfügung, 0° sind das
+gleiche wie 90°, 15° entsprechen 105°, usw.
+
+Zur Minimierung des Moiré-Effektes sind einige Regeln zu beachten, die
+meisten sind allerdings so komplex, daß sie den Rahmen dieses Handbuches
+sprengen würden. Grundsätzlich jedoch gilt: Je geringer der erforderliche
+LPI-Wert oder je höher die Druckdichte (DPI), desto mehr sinnvolle Winkel
+stehen zur Verfügung und desto geringer ist die Gefahr, daß durch ungenaue
+Ausrichtung ein störender Moiré-Effekt entsteht. Außerdem sorgen höhere
+LPI- und DPI-Werte dafür, daß kleinere Moiré-Muster noch weniger sichtbar
+werden. Gleiche Werte für LPI, DPI und Rasterwinkel sind nicht immer
+erstrebenswert. Im Gegenteil, bessere und unkritischere Kombinationen der
+einzelnen Ebenen werden oft durch verschiedene Frequenzwerte für die
+verschiedenen Farben erzielt. Unterschiede in den Rasterwinkeln, die unter
+15° liegen (oder in einigen Fällen sogar unter 20°), sind zu vermeiden, da
+sie zu starken, gitterförmigen Moirémustern führen.
+
+Hier einige gebräuchliche Rasterwinkelkombinationen für C, M, Y, K: 75,
+15, 0, 45; 75, 15, 90, 45; 105, 75, 90, 45; 15, 75, 0, 45; 30, 60, 0, 15.
+Die Qualität der Ausgabe hängt dabei auch von der Verwendung verschiedener
+LPI-Einstellungen ab. Mit steigendem LPI-Wert nimmt die Zahl der zur
+Verfügung stehenden Rasterwinkel ab und das Moiréproblem nimmt zu.
+
+Bei Wahl eines Rasterwinkels von über 360° werden die Voreinstellungen des
+Druckers benutzt.
+
+
+@{B}4.4        Bildschirm Laden@{UB}
+
+Mit Personal Paint können von anderen Programmen erzeugte
+Amiga-Bildschirme geladen und wie ein normales Bild modifiziert werden.
+Die Funktion "Bildschirm Laden" kopiert die ausgewählte Bildschirmgrafik
+in die aktuelle Umgebung. Der von dem anderen Programm benutzte
+Ausgangsbildschirm bleibt unverändert.
+
+Das mit dieser Funktion aufgerufene Fenster ähnelt einem normalen
+Dateiauswahlfenster, das die Namen aller verfügbaren Bildschirme enthält,
+sofern die entsprechenden Programme ihren Bildschirmen einen eigenen Namen
+geben. Ist dies nicht der Fall, zeigt Personal Paint weitere Informationen
+zur Farbtiefe des entsprechenden Bildschirms an. Zum Laden eines
+Bildschirms ist dessen Name zweimal anzuklicken oder auszuwählen und dann
+mit "Weiter" zu bestätigen. Es gibt auch Fälle, in denen ein Bildschirm
+geladen werden soll, während gerade ein bestimmtes Fenster geöffnet, ein
+Symbol angewählt oder ein Menü angezeigt wird. Diese Funktionen können
+aber aus verschiedenen Gründen nicht angewählt werden, wenn gerade das
+"Bildschirm laden"-Dateiauswahlfenster von Personal Paint benutzt wird.
+Daher verfügt Personal Paint über eine Alternative zum Laden des
+gewünschten Bildschirms: Durch das gleichzeitige Drücken von <Ctrl>+<linke
+Alt> auf der linken Seite der Tastatur wird der vorderste Bildschirm
+"eingefroren" und geladen. Aufblitzen des Bildschirms und ein akustisches
+Signal bestätigen den Ladevorgang.
+
+Im Animationsmodus besteht die Möglichkeit, mehrere Bildschirme
+nacheinander automatisch zu laden. Nach dem Laden eines Bildschirms
+(entweder mit <Ctrl>+<linke Alt> oder einen Druck auf "Weiter") fügt
+Personal Paint automatisch ein neues Einzelbild für die Animation an, und
+verbleibt im aktuellen Modus zum Laden von Bildschirmen. Dies ermöglicht
+es dem Benutzer, z. B. eine erklärende Animation aufzuzeichnen oder
+mehrere Dialogfenster oder Menüs zur Produktion eines Handbuchs zu
+speichern, ohne ständig zwischen den Programmen hin- und herzuschalten.
+
+
+@{B}4.5        Bild- und Bildschirmformat@{UB}
+
+Personal kennt keine Begrenzung der Bildgröße, d. h. ein Bild kann so groß
+sein, wie der Blitter des Amiga und der verfügbare Speicher es zulassen.
+Ebenso ist die Anzahl der unabhängig voneinander darstellbaren Farben nur
+durch den Typ des Grafikchipsatzes beschränkt, mit dem der verwendete
+Amiga ausgerüstet ist. Der Original-Grafikchipsatz und der ECS-Chipsatz
+können lediglich bis zu 64 von einander unabhängige Farben darstellen
+(HalfBrite-Modus, bei früheren Amiga 1000-Modellen nicht verfügbar). Bei
+Amiga mit AA-Chipsatz ("Advanced Architecture") kann Personal Paint in den
+meisten Bildschirmmodi bis zu 256 Farben darstellen. Jede der beiden
+Umgebungen von Personal Paint kann über einen eigenen Bildschirmmodus und
+eine eigene Bildgröße verfügen.
+
+Außer den normalen Amiga-Grafikchips kann Personal Paint auch auf
+Grafikkarten betrieben werden, sofern diese sich an die Konventionen der
+Amiga Display Database halten und vom Blitter angesprochen werden können.
+Auch hier gelten nur die oben erwähnten Einschränkungen für Größe und
+Farbenanzahl.
+
+Ein mit Personal Paint bearbeitetes Bild kann größere Ausmaße besitzen als
+der aktuelle Bildschirm, der dann nur einen Teil des Bildes darstellt. Wie
+man überformatige Bilder bewegt und scrollt, wird in Abschnitt @{"3.2" LINK PPaintCD:H/7/1/4/0017/Main 1358} näher
+erläutert. Der Bildschirmmodus beschränkt lediglich die Anzahl der
+Bitplanes (d. h. der gleichzeitig darstellbaren Farben). Aber: Ein Bild
+darf nicht über mehr Farben verfügen, als dargestellt werden können. Wie
+man mit solchen Bildern umgeht, ist Abschnitt @{"4.1" LINK Main 10} zu entnehmen. Pinsel
+bilden die Ausnahme dieser Regel: So kann z. B. ein Pinsel mit 256 Farben
+auch auf Amiga-Modellen der ersten Generation geladen werden. Dies kann
+zwar zu einer fehlerhaften Farbdarstellung führen, Funktionen wie
+Größenveränderung, Drehen, usw. sind jedoch möglich. Auch das Drucken und
+Speichern des Pinsels ist problemlos durchzuführen.
+
+Das Auswahlfenster enthält die Namen aller verfügbaren Bildschirmmodi, die
+Personal Paint der Amiga Display Database entnehmen kann. Nun kann jeder
+Bildschirmmodus mit einem Mausklick ausgewählt werden.
+
+Die meisten Bildschirmmodi sind auch in einer Interlace-Variante
+verfügbar, auf Amigas mit AA (=Advanced Architecture), d. h. Amigas ab
+Betriebssystemversion 3.0 oft auch noch in einer @{I}DoubleScan@{UI}-Variante mit
+doppelter Zeilenzahl.
+
+Im Interlace-Modus steht ihnen die doppelte Zahl an Bildschirmzeilen zur
+Verfügung. Wenn Sie nicht die Möglichkeit haben, DoubleScan einzuschalten
+(auf AA-Amiga wie dem A4000 oder dem A1200 sind dies die Modi, denen das
+Präfix "db" voransteht) oder Sie nicht über einen sog. @{I}Flickerfixer@{UI}
+verfügen, wird die Interlace-Option zu einem verstärkten
+Bildschirmflimmern führen. Dies liegt daran, daß die normalen
+Amiga-Grafikchips die doppelte Zeilenanzahl nicht innerhalb eines
+Video-Refreshs darstellen können; stattdessen werden abwechselnd gerade
+und ungerade Zeilen dargestellt.
+
+Flickerfixerkarten (dazu gehört auch der @{I}Display Enhancer@{UI} A2320 von
+Commodore), der DoubleScan-Modus des AA-Chipsatzes und andere
+Bildschirmmodi mit hoher Bandbreite erfordern einen entsprechenden Monitor
+(Multiscan, Multisync, VGA, usw.), um adäquat dargestellt werden zu
+können, allerdings sind der Flickerfixer und der Display Enhancer bei
+Verwendung bestimmter Bildschirmmodi zu deaktivieren. Mehr zum Thema
+Bildschirmmodi in Abschnitt @{"4.1" LINK Main 10} (Bild Laden).
+
+Ein Interlacebildschirm benötigt etwa doppelt soviel Grafikspeicher
+(Chip-RAM) wie ein normaler Bildschirm. In Abschnitt @{"1.3" LINK PPaintCD:H/7/1/4/0002/Main 69} wird
+beschrieben, wie die zum Öffnen eines Bildschirms benötigte Speichermenge
+berechnet werden kann. Höhere Bildschirmauflösungen führen allerdings
+nicht nur zur einer Vergrößerung der benötigten Speichermenge, sie tragen
+auch zu einer erheblichen Verringerung der Arbeitsgeschwindigkeit bei.
+
+Das "Lock Display Mode"-Feld gleich rechts von dem Feld mit dem aktuellen
+Bildschirmmodus verhindert, daß die Bild laden-Funktion in einen anderen
+Modus umschaltet oder die Einstellung der Autoscroll-Funktion
+modifiziert.
+
+Durch die Aktivierung dieser Funktion zusammen mit Autoscroll ist es
+möglich, eine Reihe von Bildern verschiedener Formate nacheinander zu
+laden, ohne dabei auf Probleme mit Multiscan-Monitoren zu stoßen (z. B.
+ein kurzes Flimmern).
+
+Wenn alle drei der folgenden Bedingungen erfüllt sind, wird nun ein
+optimierter Algorithmus für die Funktion "Farben mit Größe ändern"
+angewendet. Durch diesen lassen sich zusätzliche, neue Farben für eine
+verbesserte Kantenglättung berechnen, was ingesamt zu einem optimierten
+Gesamteindruck des Bildes beiträgt.
+
+   - Eingeschaltete Option "Farben mit Größe ändern"
+   - Verringerung der Bildgröße
+   - Erhöhung der Farbenanzahl
+
+Falls wegen Speichermangels ein Bildschirm nicht geöffnet werden kann,
+versucht Personal Paint zunächst, den Bildschirm ohne Overscan zu öffnen.
+Sollte dies ebenfalls fehlschlagen, wird die Darstellung eines kleinen 320
+mal 200 Punkte großen Bildschirms in geringer Auflösung angestrebt. Für
+den unwahrscheinlichen Fall, daß auch dies nicht möglich sein sollte, ist
+entweder beschädigter oder sehr stark fragmentierter Speicher anzunehmen.
+Personal Paint versucht dann, soviel Speicher für sich zu gewinnen wie
+möglich, indem der Workbenchbildschirm geschlossen wird, die Undo-Puffer
+geleert und Pinsel gelöscht werden, usw.
+
+
+@{B}4.5.1      Overscan@{UB}
+
+Die meisten Bildschirmmodi lassen sich auch im sog. @{I}Overscan@{UI}-Modus
+betreiben. Dies bedeutet, daß die Anzeige um einen Bereich erweitert wird,
+der normalerweise nicht sichtbar ist, den sog. @{I}Overscanbereich@{UI}. Dieser
+Bereich ist in verschiedenen Größen verfügbar: Text, Grafik (Standard),
+Extrem (größter, offiziell von "Intuition" unterstützter Bereich, bei
+älteren Betriebssystemversionen auch Maximum genannt) und Maximum (größter
+von der Hardware unterstützter Bereich, früher Video). Die genauen
+Dimensionen des Overscanbereichs können mit dem Programm Overscan
+Preferences (Betriebssystemversion 2.0 und höher) eingestellt werden.
+
+Nicht alle Monitore können den zusätzlich verfügbaren Bereich auch
+darstellen. Unter Betriebssystemversionen vor Version 2.0 gehört die
+Overscanoption nicht zum Betriebssystemumfang und kann daher
+unvorhergesehene Ergebnisse liefern.
+
+Wenn die Bildschirmgröße die des Overscan-Bereiches überschreitet, ist es
+oft nützlich, den Bildschirmabstand fein einstellen zu können. Dazu ist
+die <Ctrl>-Taste zusammen mit der linken Maustaste zu drücken, damit der
+Bildschirm analog zur Mausbewegung verschoben werden kann.
+
+
+@{B}4.5.2      Bild- und Bildschirmgröße@{UB}
+
+Breite und Höhe des Bildschirms geben den aktuellen Bildschirm- und
+Overscanmodus wieder, wobei die angezeigten numerischen Werte manuell
+ediert werden können. Die Möglichkeit, einen solchen, individuellen
+Bildschirm zu erstellen, bildet einen neuen Overscanmodus mit der
+Bezeichnung "Custom Overscan".
+
+Die Bildgröße kann unabhängig von der aktuellen Bildschirmgröße
+eingestellt werden. Die beiden Pfeil-Symbole rechts von den Symbolen für
+Bildschirm- und Bildgröße können dazu verwendet werden, die Bildgröße der
+Bildschirmgröße anzupassen und umgekehrt.
+
+Sobald ein Bildformat bestätigt wird, erscheint ein Dialogfenster mit der
+Frage, ob die Größe des aktuellen Bildes beibehalten oder dem neuen Format
+angeglichen werden soll. Ist letzteres der Fall, so kann eine Streckoption
+ausgewählt werden, um das Bild auf die neue Größe zu strecken oder zu
+stauchen (ansonsten würden Teile des Bildes abgeschnitten). Falls nötig,
+wird auch automatisch eine Farbenreduzierung durchgeführt.
+
+
+@{B}4.5.3      Farbanzahl@{UB}
+
+Das Farbsymbol dient zur Bestimmung der Farbanzahl des ausgewählten
+Bildschirms, wobei zwei Farben den Minimalwert darstellen. Die maximal
+verfügbare Farbanzahl hängt vom Bildschirmmodus und vom verwendeten
+Grafikchipset ab. Original- und ECS-Chipset können auf einem
+LoRes-Bildschirm (320 Bildpunkte breit) bis zu 32 Farben darstellen (64 im
+Extra-Halfbrite-Modus), auf einem HiRes-Bildschirm (ca. 640 Bildpunkte
+breit) noch 16, und in den Productivity- (VGA-) Modi und im A2024-Modus
+noch 4 Farben. Die meisten dieser Begrenzungen wurden durch das AA-
+(=Advanced Architecture-) Chipset auf 256 Farben angehoben.
+
+
+@{B}4.5.4      Autoscroll@{UB}
+
+Die von Versionen der Amiga-Systemsoftware ab 2.0 unterstützte
+Autoscroll-Funktion ermöglicht ein automatisches Verschieben des Bildes
+auf dem Bildschirm, falls dieses das Bildschirmformat überschreitet. Der
+Verschiebevorgang setzt ein, sobald der Mauszeiger die Grenzen des
+Bildschirms erreicht. Es ist zu beachten, daß einige der für den Amiga
+erhältlichen Grafikkarten das Einschalten dieser Option erfordern, um
+einen Bildschirm einer bestimmten Größe öffnen zu können. In einigen
+Overscan-Modi wird die Autoscroll-Funktion evtl. nicht korrekt von der
+Systemsoftware unterstützt. Bei ausgeschalteter Titelleiste (siehe
+Abschnitt @{"3.3" LINK PPaintCD:H/7/1/4/0017/Main 1388}) können die Menüs angezeigt werden, wenn gleichzeitig mit
+dem Druck der rechten Maustaste die <Ctrl>-Taste gedrückt wird.
+
+
+@{B}4.5.5      Retargetable Graphics (RTG)@{UB}
+
+Einige Grafikkarten speichern die Grafikdaten in einem Bereich des
+Hauptspeichers, auf den der Amiga-Blitter nicht zugreifen kann. Andere
+Erweiterungskarten verwenden eine interne Kopie der Bilddaten, die vom
+Bildschirmtreiber automatisch aktualisiert wird, sobald sie verändert
+werden. Veränderungen, die der Blitter am Bild vornimmt, werden leider
+nicht unter allen Umständen erkannt.
+
+Personal Paint verwendet immer dann den Blitter, wenn dies auf normalen
+Amigas zu einer Steigerung der Leistung verhilft. Die Aktivierung der
+RTG-Option verhindert jedoch jede Blitterfunktion, die  evtl. von der
+Grafikkarte unerkannt bleiben oder mit deren  RAM-Allokierungsmechanismus
+in Konflikt geraten könnte. Im Auto-Modus ermittelt Personal Paint
+selbsttätig, ob RTG erforderlich ist und nimmt die entsprechenden
+Einstellungen vor. In Ermangelung eines einheitlichen Verfahrens besteht
+leider die Möglichkeit, daß dieses Prinzip nicht mit allen Grafikkarten
+zusammenarbeitet. Daher sollten bei Verwendung einer neuen Grafikkarte
+zunächst alle verfügbaren Videomodi ausprobiert werden.
+
+
+@{B}4.6        Bildverarbeitung@{UB}
+
+Diese Funktion ist mit dem in Abschnitt @{"3.1.4" LINK PPaintCD:H/7/1/4/0017/Main 600} beschriebenen
+Bildverarbeitungswerkzeug identisch, allerdings wirkt sie sich hier auf
+das gesamte Bild aus.
+
+Die Abgrenzung des zu modifizierenden Teils des sichbaren
+Bildschirmbereiches wird mit Hilfe der "Grafikmaske"-Option (Abschnitt
+@{"9.13.2" LINK PPaintCD:H/7/1/4/0047/Main 803}) vorgenommen.
+
+Ein laufender Bildbearbeitungsvorgang kann durch Drücken einer beliebigen
+Taste abgebrochen werden. Drücken des Undo-Symbols stellt den
+ursprünglichen Zustand des Bildes wieder her.
+
+
+@{B}4.7        Bild kippen@{UB}
+
+Diese Funktion entspricht der Spiegelfunktion für Pinsel (Abschnitt
+@{"5.12.3" LINK PPaintCD:H/7/1/4/0048/Main 524}), wirkt sich aber auf das gesamte Bild aus (oder auf einen mit der
+"Grafikmaske"-Option, Abschnitt @{"9.13.2" LINK PPaintCD:H/7/1/4/0047/Main 803}, festgelegten Bereich).
+
+
+@{B}4.7.1      Horizontal@{UB}
+
+Produziert ein Spiegelbild des Originals.
+
+
+@{B}4.7.2      Vertikal@{UB}
+
+Stellt das Bild auf den Kopf.
+
+
+@{B}4.8        Zweiter Bildschirm@{UB}
+
+Personal Paint unterstützt zwei voneinander unabhängige Arbeitsumgebungen,
+die sogar über unterschiedliche Auflösungen und Bildgrößen verfügen
+dürfen. Eine Ziffer in der Titelleiste direkt vor dem Namen des aktuell
+angezeigten Bildes zeigt die Nummer der dargestellten Umgebung an
+(entweder 1 oder 2).
+
+Beim Programmstart wird zunächst einmal Speicher für nur eine Umgebung
+reserviert. Die zweite Umgebung wird erst dann aktiviert, wenn sie zum
+ersten Mal in Anspruch genommen wird.
+
+
+@{B}4.8.1      Wechseln zu@{UB}
+
+Mit diesem Befehl wird auf die andere Umgebung umgeschaltet. Falls diese
+noch nicht erstellt wurde, geschieht dies nun automatisch.
+
+
+@{B}4.8.2      Diese Seite Kopieren@{UB}
+
+Mit diesem Befehl werden aktuelles Bildschirm- und Bildformat, Daten und
+Einstellungen in die andere Umgebung kopiert. Wenn sich in der anderen
+Umgebung noch ein nicht abgespeichertes Bild befindet, wird zunächst eine
+Sicherheitsabfrage durchgeführt. Ein Wechsel in die andere Umgebung findet
+nicht statt.
+
+
+@{B}4.8.3      Animation kopieren@{UB}
+
+Mit diesem Befehl kann eine Animation von einer Arbeitsumgebung in die
+andere kopiert werden. Daraufhin erscheinen möglicherweise die bekannten
+Optionen für die Größenänderung sowie eine Überschreibwarnung.
+
+
+@{B}4.8.4      Im Vordergrund mischen@{UB}
+
+Mit diesem Befehl wird das Bild der jeweils anderen Umgebung über das
+aktuelle Bild gelegt, wobei Bildpunkte des Quellbildes in Hintergrundfarbe
+transparent dargestellt werden. Dies bedeutet, daß ausschließlich
+Bildpunkte, die nicht der Hintergrundfarbe der anderen Umgebung
+entsprechen, in die aktuelle Umgebung kopiert werden.
+
+Wenn die beiden Umgebungen verschiedene Farbpaletten und/oder Größen
+besitzen, wird die Palette des Quellbildes neu berechnet, farbenreduziert
+und/oder gestreckt, bevor es über das aktuelle Bild gelegt wird.
+
+
+@{B}4.8.5      Im Hintergrund mischen@{UB}
+
+Mit diesem Befehl wird ein Hintergrund hinter das aktuelle Bild gelegt. Er
+ähnelt der "Im Vordergrund mischen" Funktion, kopiert aber das Bild der
+anderen Umgebung in die aktuelle. Daher sind auch nur die Bildpunkte
+betroffen, die den Hintergrund des aktuellen Bildes (d. h. des Zielbildes)
+bilden.
+
+
+@{B}4.8.6      Aktuelles Bild löschen@{UB}
+
+Mit diesem Befehl wird der von der aktuellen Umgebung benötigte Speicher
+gelöscht. Dies ist nur dann möglich, wenn zwei Umgebungen geöffnet sind,
+da sonst das Programm verlassen werden müßte.
+
+Andere Maßnahmen zur Freigabe von Speicher: Auswahl eines anderen
+Bildschirmmodusses (Abschnitt @{"4.5" LINK Main 1030}), Löschen nicht mehr benötigter Pinsel
+(Abschnitt @{"5.7" LINK PPaintCD:H/7/1/4/0048/Main 167}), Löschen der Schablone (Abschnitt @{"8.2.7" LINK PPaintCD:H/7/1/4/0016/Main 462}) und Schließen
+des Workbenchbildschirms (Abschnitt @{"9.15" LINK PPaintCD:H/7/1/4/0047/Main 961}).
+
+
+@{B}4.9        Bild anzeigen@{UB}
+
+Mit dieser Funktion wird das aktuelle Bild vollständig angezeigt, d. h.
+soweit verkleinert, daß es auf den aktuellen Bildschirm paßt. Elemente wie
+die Titelleiste und die Werkzeugleiste werden ausgeblendet.
+
+Durch Drücken einer Taste von Tastatur oder Maus wird wieder in den
+normalen Modus zurückgeschaltet.
+
+
+@{B}4.10       Information@{UB}
+
+@{B}4.10.1     Projektinformation@{UB}
+
+Dieses Dialogfenster enhält Informationen über das aktuelle Bild oder die
+aktuelle Animationen. Außerdem ermöglicht es dem Benutzer die Eingabe
+eines Kommentars, der zusammen mit der entsprechenden Datei gespeichert
+werden kann.
+
+Der Inhalt der Felder Autor, Copyright und Bemerkung wird normalerweise
+bei Verwendung der Dateitypen IFF (ILBM, ANIM, usw.), PNG und GIF
+innerhalb der Datei selbst gespeichert, andernfalls als Amiga-Filenote.
+Bleiben alle Felder leer, so werden mit der Datei keine
+Zusatzinformationen gespeichert. In diesem Fall wird eine bestehende
+Amiga-Filenote gelöscht, und es werden keine Erweiterungschunks (IFF, PNG
+oder GIF) mitgespeichert.
+
+Das Feld für Bemerkungen könnte sich z. B. für die Angabe von Daten wie
+der Adresse des Autors, oder einer Beschreibung der bei der Bilderstellung
+verwendeten Techniken eignen.
+
+
+@{B}4.10.2     Speicherbelegung@{UB}
+
+Diese Funktion ruft ein Fenster auf, in dem die verfügbare Speichermenge
+angezeigt wird.
+
+Das Fenster enthält verschiedene Zahlen, deren Wert vor der Aktivierung
+der Speicherbelegungsfunktion ermittelt wird. Daraus folgt, daß die zum
+Öffnen des Fensters benötigte Speichermenge nicht von der dargestellten
+Speichermenge subtrahiert wurde. Alle Zahlen werden in Byte angegeben.
+Mehr zum Thema Speicher in den Abschnitten @{"1.3" LINK PPaintCD:H/7/1/4/0002/Main 69} und @{"4.8.6" LINK Main 1310}.
+
+Der von einer Animation benötigte Speicher wird in dem betreffenden
+Umgebungsfeld angezeigt. Animationen benötigen zusätzlich noch Speicher
+für Screenpuffer, die im Puffer-Feld angezeigt werden.
+
+Zur Freigabe von RAM, bzw. zum Löschen von dessen Inhalt in
+speicherkritischen Situationen stehen drei verschiedene Funktionen zur
+Verfügung:
+
+Bei der Auswahl von @{I}Freigeben@{UI} verschiebt Personal Paint soviele RAM-Daten
+wie möglich (Chip, Fast und virtuellen Speicher im RAM) auf Disk. Dies
+erweist sich besonders dann als sinnvoll, wenn in einer unerwartet
+speicherkritischen Situation noch andere Software gestartet werden soll.
+
+@{I}Alles freigeben@{UI} geht noch einen Schritt weiter und sollte daher auch nur
+im äußersten Fall angewendet werden: Es löscht alle noch aktiven Puffer
+(z. B. den für die Anzeige eines Pinsels als Bild statt als Umriß) und
+schließt evtl. auch die Workbench.
+
+@{I}Undo-Puffer löschen@{UI} löscht alle gerade im Undo-/Redo-Puffer gespeicherten
+Informationen. Dies entspricht dem Tastaturkurzbefehl <Ctrl-u> im normalen
+Malmodus.
+
+
+@{B}4.10.2.1   Systemspeicher@{UB}
+
+Der obere Bereich des Fensters enthält 9 Werte, die in drei Zeilen und
+drei Spalten angeordnet sind. Die drei Zeilen sind mit "Chip", "Fast" und
+"Gesamt" bezeichnet, die drei Spalten mit "Belegt", "Frei" und "Größter".
+
+"Chip" steht für das sog. @{I}Chip RAM@{UI}. Dies ist derjenige Teil des
+Systemspeichers, auf den von den Amiga-spezifischen Spezialchips
+zugegriffen werden kann. Diese Chips werden z. B. für die Verarbeitung von
+Grafikdaten, wie den Inhalten von Bildschirmen und Fenstern, eingesetzt.
+Wenn nicht genügend Chip RAM vorhanden ist, können bestimmte Funktionen
+(wie z.B das Öffnen eines Fensters) nicht mehr durchgeführt werden. Unter
+Maßnahmen zum Freigeben von Chip RAM fallen z. B. das Löschen der
+aktuellen Umgebung (Abschnitt @{"4.8.6" LINK Main 1310}), zweimaliges Löschen eines Bildes
+(Abschnitt @{"3.1.9" LINK PPaintCD:H/7/1/4/0017/Main 1267}), die Auswahl eines Bildschirmmodusses mit weniger
+Farben und/oder Auflösung (Abschnitte @{"1.3" LINK PPaintCD:H/7/1/4/0002/Main 69} und @{"4.5" LINK Main 1030}), das Löschen von
+Pinseln (Abschnitt @{"5.7" LINK PPaintCD:H/7/1/4/0048/Main 167}) oder der Schablone (Abschnitt @{"8.2.7" LINK PPaintCD:H/7/1/4/0016/Main 462}) und das
+Schließen des Workbenchbildschirms (Abschnitt @{"9.15" LINK PPaintCD:H/7/1/4/0047/Main 961}).
+
+Der übrige Speicher wird auch als "Fast RAM" bezeichnet und liegt
+außerhalb des von den Spezialchips adressierbaren Bereiches. Er wird
+deshalb als "Fast" (=schnell) bezeichnet, weil die Spezialbausteine nicht
+auf ihn zugreifen können und der Mikroprozessor daher nicht abwarten muß,
+bis ein Spezialchip seine Arbeit in einem bestimmten Speicherbereich des
+Chip RAM beendet hat.
+
+Beim Speicher des Amiga wird also nur zwischen Chip- oder Fast-
+unterschieden, so daß die Summe der beiden die maximale Speichergröße
+ergibt. Die Zeile mit der Bezeichnung "Gesamt" enthält die Summen der
+Spalten für die Chip und Fast RAM Belegung.
+
+Für jede der drei Zeilen (Speichertypen) existiert eine eigene Spalte:
+"Belegt", "Frei" und "Größter". Der erste Wert in der Zeile gibt an,
+wieviel des jeweiligen Speichertyps bereits verbraucht ist. Der zweite
+Wert steht für die Menge, die dem Amiga-Betriebssystem oder Anwendungen
+noch zur Verfügung steht. Der dritte Wert zeigt die Größe des größten noch
+verfügbaren Speicherblocks an.
+
+Das "Größter" Feld bedarf einer weiterführenden Erklärung. Der noch freie
+Speicher ist üblicherweise in viele unzusammenhängende Segmente
+aufgeteilt. So können z. B. 200 kilobyte freier Speicher aus einem
+zusammenhängenden Segment von 140 kilobyte, einem weiteren von 50 kilobyte
+und einem dritten von 10 kilobyte Größe bestehen. Wenn ein Programm nun
+einen zusammenhängenden Block von 200 kilobyte Größe anfordert, können die
+verfügbaren drei Bereiche nicht zu einem einzigen zusammengefaßt werden,
+da die dazwischenliegenden Bereiche bereits von anderen Programmen benutzt
+werden. Möglicherweise werden zukünftige Betriebssysteme für den Amiga
+(zur Drucklegung dieses Buches noch nicht verfügbar) in der Lage sein, die
+eben beschriebene Operation auszuführen. Zur Zeit jedoch ist die einzige
+Lösung für dieses Problem die Freigabe unbenötigter Ressourcen, wie
+Libraries, Devices, usw.
+
+In einer Multitaskingumgebung wie beim Amiga ist es selbstverständlich
+auch möglich, daß parallel laufende Programme Speicher für sich
+reservieren und wieder freigeben. Die in der Tabelle angezeigten Werte
+können also immer nur als Momentanaufnahme gelten.
+
+
+@{B}4.10.2.2   Programmspeicher@{UB}
+
+Der untere Teil des Fensters enthält Informationen im Hinblick auf die
+momentan von den beiden Umgebungen (Bildspeicher), den maximal neun
+Pinseln (und zusätzlich dem Wiederherstellungspuffer für einen Pinsel) und
+anderen Puffern (Undo-Funktion, Schablonenbitplane, Puffer für Linien- und
+Bereichsmuster) verbrauchte Speichermenge.
+
+Die angezeigte Menge berücksichtigt nicht die vom Programm oder dessen
+Bildschirmen und Fenstern verbrauchte Speichermenge.
+
+Das "Gesamt"-Feld summiert die Werte im unteren Bereich des Fensters.
+Diese Summe ist bei der Darstellung des System-Gesamtspeichers im oberen
+Bereich des Fensters bereits berücksichtigt.
+
+
+@{B}4.11       Verlassen@{UB}
+
+Mit diesem Befehl kann Personal Paint beendet werden. Wenn nötig,
+erscheint ein Fenster mit einer Liste der noch nicht gespeicherten Daten.
+Der Befehl zum Verlassen des Programms kann nun durch Anklicken von
+"Weiter" oder "Abbruch" entweder bestätigt oder rückgängig gemacht werden.
+Bei Bestätigung wird das Programm verlassen, d. h. der Bildschirm wird
+geschlossen, und alle vom Programm beanspruchten Speicherbereiche und
+Systemresourcen werden wieder freigegeben.
+
+Es gilt als gute Angewohnheit, vor dem Ausschalten des Computers oder
+Auslösen eines Resets mit <Ctrl>+<Amiga>+<Amiga> immer zuerst alle
+Programme zu schließen. Dies gilt umsomehr, wenn ein Rechner mit
+Programmen arbeitet, die virtuellen Speicher zur Verfügung stellen, d. h.
+bestimmte, nicht benötigte Speicherbereiche auf einem physikalischen
+Massenspeicher wie einer Fest- oder Wechselplatte auslagern. Wenn in
+diesem Fall nicht alle Anwendungen vor dem Ausschalten des Rechners
+korrekt geschlossen werden, kann dies zum Verlust wichtiger Daten oder zum
+unnötigen Verbleiben der Auslagerungsdatei auf der Platte führen.
+
+@ENDNODE

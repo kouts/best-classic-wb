@@ -1,0 +1,997 @@
+@DATABASE 0047
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 9. Das Voreinstellungen-Menü"
+@TOC PPaintCD:H/7/1/4/OO00/Main
+
+@{B}9.         Das Voreinstellungen-Menü@{UB}
+
+Alle in diesem Kapitel beschriebenen Funktionen dienen zur Veränderung der
+Programm- und Umgebungsparameter (-einstellungen). Erstere betreffen das
+gesamte Programm, letztere können für jedes der beiden Bilder
+unterschiedlich sein (Abschnitt @{"4.8" LINK PPaintCD:H/7/1/4/0049/Main 1253}).
+
+
+@{B}9.1        Voreinstellungen laden@{UB}
+
+Die meisten Einstellungen von Personal Paint lassen sich in einer Datei
+abspeichern. Dazu gehören solche, die in anderen Menüs oder Dialogfenstern
+ausgewählt worden sind (Druckoptionen, Bildschirm- und Bildgröße, usw.)
+
+Zum Laden der gewünschten Datei wird das schon in Abschnitt @{"3.4" LINK PPaintCD:H/7/1/4/0017/Main 1409}
+behandelte Standard-Dateiauswahlfenster verwendet. Standardmäßig werden
+Parameter im Verzeichnis "PPaint_Prefs" des logischen Gerätes "PPaint:"
+gespeichert.
+
+Wie schon in den Abschnitten @{"1.14" LINK PPaintCD:H/7/1/4/0002/Main 1428} und @{"4.8" LINK PPaintCD:H/7/1/4/0049/Main 1253} beschrieben, verfügt Personal
+Paint über zwei unabhängige Umgebungen, von denen jede eine eigene Gruppe
+von (meist bildspezifischen) Einstellungen besitzt. Im Gegensatz dazu
+werden die Programmeinstellungen für beide Umgebungen verwendet. Wenn also
+eine Parameterdatei geladen wird, beeinflußt diese die in beiden
+Umgebungen verwendeten Programmeinstellungen, aber nur die
+Umgebungseinstellungen der aktuellen Umgebung. Wenn in einer einzigen
+Parameterdatei einige Umgebungseinstellungen vorhanden sind, die in beiden
+Umgebungen benutzt werden sollen, so muß diese Datei zweimal (einmal für
+jede Umgebung) geladen werden. Grundeinstellungen für die beiden
+Umgebungen befinden sich in den Dateien "Startup_1.Set", "Startup_2.Set"
+und "Startup_A.Set" im Verzeichnis "PPaint:PPaint_Prefs". Beim
+Programmstart versucht Personal Paint automatisch, diese Dateien zu laden.
+Die Datei "Startup_A.Set" wird grundsätzlich bei der Diskkonfiguration
+(Abschnitt @{"1.12" LINK PPaintCD:H/7/1/4/0002/Main 1241}) angelegt und enthält einige Programmeinstellungen.
+
+Eine Parameterdatei kann Einstellungen für die Benutzeroberfläche, für
+Seiten- und Druckerdaten eines bestimmten Druckertyps, für den
+Bildschirmmodus oder auch lediglich einen Verweis auf eine bestimmte
+Palette enthalten (wenn in einer der "Startup"-Dateien eine Palette
+enthalten ist, wird diese zur Standardpalette gemacht).
+
+Bei Personal Paint ist die Anzahl der in einer Parameterdatei enthaltenen
+Einstellungen weder nach oben noch nach unten begrenzt. Wenn die geladene
+Datei nur einige Zuweisungen enthält, werden nur die dadurch betroffenen
+Einstellungen modifiziert. Andere Programm- oder Umgebungsparameter
+bleiben unverändert.
+
+Es ist häufig sinnvoll, nur einen ausgewählten Teil der in einer
+Parameterdatei enthaltenen Einstellungen zu verwenden. Wenn eine Datei z.
+B. Definitionen für Bildfarben, Lautstärke, Seitenlayout und
+Bildbearbeitungsfunktionen enthält, aber nur die letzten beiden geladen
+werden sollen, müssen die Parameter zunächst einmal "gefiltert" werden.
+Nachdem die Datei über das Dateiauswahlfenster angewählt und geladen
+wurde, erscheint aus diesem Grunde ein zweites Dialogfenster, in dem die
+gewünschten Parameter ausgewählt oder gelöscht werden können.
+
+Das Dialogfenster enthält eine normale Dateiliste, in der alle Zeilen der
+geladenen Datei aufgeführt sind. Ein Häkchen vor jeder Zeile zeigt an, ob
+diese (und die in ihr enthaltenen Parameter) aktiviert werden sollen oder
+nicht. Die Parameter in Zeilen, denen ein Häkchen voransteht, werden
+verändert. Durch wiederholtes Anklicken des Häkchensymbols wird dieses
+ein- oder ausgeschaltet. Die Symbole mit der Aufschrift "Alle" und "Keine"
+können zur Aktivierung/Deaktivierung aller Parameter auf einmal benutzt
+werden.
+
+Es werden nur diejenigen Parameter gelesen, die in einer Zeile stehen, der
+ein Häkchen vorangestellt ist; alle anderen Einstellungen werden
+ignoriert. Dies erlaubt, nur ausgewählte Einstellungen einer Datei zu
+laden, ohne dabei zwangsläufig andere zu beeinflussen.
+
+Eine Parameterdatei darf sowohl Leerzeilen als auch Kommentarzeilen (mit
+vorangestelltem Semikolon ";") enthalten. Diese werden vom Programm
+grundsätzlich ignoriert.
+
+Wenn beim Laden der gewünschten Parameterdatei ein Fehler auftreten sollte
+oder das Anwenden der neuen Einstellungen aus bestimmten Gründen nicht
+möglich ist (z. B. nicht genug Chip RAM für die gewünschte
+Bildschirmauflösung), so werden alle Parameter ignoriert und es wird
+stattdessen eine Fehlermeldung ausgegeben. Syntaxfehler sind bei einer von
+Personal Paint erstellten Datei eher unwahrscheinlich, können aber bei von
+Hand erstellten Dateien durchaus vorkommen. Die möglichen Fehlermeldungen
+erläutert Anhang @{"A" LINK PPaintCD:H/7/1/4/0045/Main 1}.
+
+
+@{B}9.2        Voreinstellungen speichern@{UB}
+
+Hierbei handelt es sich um das Gegenteil von "Voreinstellungen laden". Die
+Einstellungen für Programm und aktuelle Umgebung können in einer Datei
+gespeichert und bei Bedarf später wieder geladen werden.
+
+Zunächst wird ein Dateiauswahlfenster angezeigt, das der Auswahl der zu
+speichernden Parameter dient. Standardmäßig sind in der Datei alle
+Programm- und Umgebungseinstellungen enthalten. Wie in Abschnitt @{"9.1" LINK Main 9}
+erläutert, können die Häkchensymbole auf der linken Seite durch einen
+Mausklick auf die Zeile ein- oder ausgeschaltet werden. Es werden nur
+diejenigen Parameter in die Datei geschrieben, die mit einem Häkchen
+versehen sind.
+
+Grundsätzlich gilt: Alle Einstellungen, die für den Zweck der zu
+speichernden Parameterdatei keine Bedeutung haben, sind zu deaktivieren.
+So sollte eine Datei, die hauptsächlich zum Laden von interessanten
+Bildbearbeitungsfunktionen dient, beispielsweise keine zusätzlichen
+Drucker-, oder Audioeinstellungen enthalten. Dies erleichtert die spätere
+Verwendung dieser Dateien für andere Projekte beträchtlich.
+
+Bei der Erstellung einer "Startup"-Datei genügt es, nur eine der beiden
+Dateien mit den Programmeinstellungen zu versehen (normalerweise
+"Startup_1"). Beim Laden von Personal Paint werden die Startdateien
+(soweit vorhanden) in dieser Reihenfolge gelesen: "Startup_A", "Startup_2"
+und "Startup_1". Sollte es einmal vorkommen, daß eine Einstellung zweimal
+(unterschiedlich) definiert ist, wird die zuletzt gelesene übernommen.
+
+Wo und unter welchem Namen die Datei abgespeichert werden soll, wird mit
+dem Standard-Dateiauswahlfenster (Abschnitt @{"3.4" LINK PPaintCD:H/7/1/4/0017/Main 1409}) bestimmt. Wie in
+Abschnitt @{"9.9.4" LINK Main 546} bemerkt, kann eine Fehlermeldung ausgegeben werden, wenn
+mit der neuen Datei eine alte gleichen Namens überschrieben würde.
+
+Eine Parameterdatei liegt grundsätzlich im normalen ASCII-Format vor. Wenn
+Personal Paint eine solche Datei abspeichert, wird - der besseren
+Lesbarkeit halber - nur eine Mindestanzahl von Kommentaren, Leerzeichen
+und Leerzeilen verwendet. Kommentare, zusätzliche Leerzeichen und
+Leerzeilen werden entfernt, wenn eine Parameterdatei mit Personal Paint
+geladen und später wieder gespeichert wird, die mit einer Textverarbeitung
+oder einem Texteditor erstellt wurde. Kleinbuchstaben in Variablennamen
+werden in Großbuchstaben umgewandelt.
+
+Bei der manuellen Erstellung einer Parameterdatei sind einige Syntaxregeln
+zu beachten. So muß jede Datei mit der Zeile "PPAINT SETTINGS" beginnen.
+Optionalen Kommentaren von maximal einer Zeile Länge muß ein Semikolon
+voranstehen. Als Trennzeichen sind sowohl horizontale Tabulatorzeichen als
+auch Leerzeichen (ASCII Dezimalcodes 9 und 32) erlaubt. Nützliche
+Informationen sind sowohl in den vorhandenen Parameterdateien als auch in
+Anhang @{"C" LINK PPaintCD:H/7/1/4/0044/Main 1} zu finden.
+
+
+@{B}9.3        Speicherverwaltung
+@{UB}
+Wenn Ihr Rechner mit einer unbegrenzten Speichermenge ausgestattet wäre,
+würde dieses Dialogfenster vermutlich seine Existenzberechtigung
+verlieren. Tatsache ist jedoch, daß RAM ein wertvolles Gut darstellt,
+dessen optimale Nutzung häufig zu Kompromissen zwingt. In diesem
+Dialogfenster läßt sich Personal Paint den unterschiedlichen
+Konfigurationen und Erfordernissen des Benutzers anpassen.
+
+
+@{B}9.3.1      Virtueller Speicher@{UB}
+
+Das Einstellfenster für den virtuellen Speicher erreichen Sie über das
+"Voreinstellungen"-Menü. Hier läßt sich einstellen, ob virtueller Speicher
+im RAM und/oder auf Disk verwendet erzeugt werden soll und wieviel
+Speicher Personal Paint auf den betreffenden Laufwerken in jedem Fall noch
+freilassen soll. Beachten Sie, daß die voreingestellten Werte im
+Normalfall nicht verändert werden müssen. Außerdem ist es eine sinnvolle
+Gewohnheit, Laufwerke nicht bis zum letzten Bit mit virtuellem Speicher zu
+beschreiben.
+
+Für virtuellen Speicher stehen zwei Laufwerkstypen zur Verfügung: RAM und
+Disk (d. h. Fest- oder Wechselplatte). Das RAM ist üblicherweise erheblich
+schneller (aber knapper bemessen), während besonders die schnelleren
+Festplattentypen einen guten Kompromiß zwischen Speicherplatz und
+Geschwindigkeit darstellen. Selbst ein virtueller Speicher auf Diskette
+hat jedoch seine Berechtigung: Jede Operation, die zwangsweise auf
+virtuellen Speicher angewiesen ist, würde ohne dessen Vorhandensein
+unweigerlich fehlschlagen. Es ist daher gut, daß diese Funktion immer
+vorhanden ist - selbst bei kleinen Systemen.
+
+Personal Paint versucht zunächst immer, das vorhandene RAM auszunutzen.
+Obwohl der RAM-Speicherpfad (und das Laufwerk, z. B. "RAM", "RAD" oder
+"VD0") benutzerdefinierbar sind, geht das Programm davon aus, daß Fast RAM
+zur Verfügung steht; in verschiedenen Fällen ist dies auch unbedingt
+erforderlich, allerdings hängt das exakte Verhalten vom verwendeten
+RAM-Laufwerk ab: "RAM" erfordert Fast RAM, "RAD" dagegen nicht (da dessen
+Größe nicht, wie bei anderen Laufwerken, dynamisch ist). Andernfalls wird
+der virtuelle Speicher auf Disk erzeugt.
+
+Virtueller Speicher wird immer nur dann verwendet, wenn
+"Speicherknappheit" auftritt. In einem solchen Fall wird ein
+"Aufräumprozeß" gestartet, um nur die aktuellsten Daten im Chip RAM zu
+halten und die weniger oft benötigten auf Disk auszulagern (sofern diese
+im Fast RAM keinen Platz mehr finden). Sobald ein im virtuellen Speicher
+abgelegtes Objekt dann wieder benötigt wird, lagert Personal Paint es
+wieder ins Chip RAM aus.
+
+Personal Paint speichert Elemente im virtuellen Speicher in speziellen
+Dateien, die gelöscht werden, sobald sie nicht mehr benötigt werden oder
+wenn das Programm verlassen wird. Diese Dateien werden durch das Suffix
+".vmem" gekennzeichnet. Sollte der Rechner einmal aus irgendeinem Grunde
+neu gestartet werden, während Personal Paint noch läuft (z. B. wegen eines
+Stromausfalls oder Absturzes), werden diese Dateien beim nächsten
+Programmstart gelöscht. Solche Speicherdateien können durchaus nur sehr
+klein sein, aber auch problemlos eine Größe von mehreren hundert Kbyte
+oder Mbyte erreichen (wenn dies nicht der Fall wäre, hätte virtueller
+Speicher ja ohnehin kaum eine Berechtigung).
+
+Bei der Auswahl des Speichergerätes für den virtuellen Speicher geht
+Personal Paint davon aus, daß RAM immer schneller ist als irgendeine Disk
+im System und virtueller Speicher nicht für Objekte benutzt wird, die
+erneut verwendet werden sollen (zumindest werden diese Objekte bevorzugt
+im RAM statt auf Disk abgelegt). Zusammenfassend läßt sich sagen, daß das
+Programm versucht, die kombinierte Verwendung aller Ressourcen des Systems
+zu optimieren, um auf die häufiger benutzten Objekte möglichst schnell
+zugreifen zu können.
+
+Obwohl virtueller Speicher besonders zur Senkung des Chip RAM-Verbrauchs
+dienen kann, verarbeitet er auch die normalerweise im Fast RAM
+gespeicherten Objekte (z. B. Einzelbilder einer Animation, die vor oder
+hinter dem aktuellen liegen). So befindet sich auch der Undo-Puffer des
+Storyboards im virtuellen Speicher; daraus folgt, daß bei ausgeschaltetem
+oder zu geringem virtuellen Speicher eine Veränderung am Storyboard nicht
+widerrufen werden kann.
+
+Grundsätzlich gilt, daß der Computer mit virtuellem Festplattenspeicher
+nicht so "frei atmet" wie mit virtuellem Speicher im Fast RAM. Daher ist
+es außer in Fällen, in denen die Festplatte fast immer ganz voll ist und
+trotzdem noch von Zeit zu Zeit große Dateien verarbeitet werden müssen,
+meist sinnvoll, im RAM mehr Speicher zuzuweisen als auf der Festplatte.
+Bei einem bezüglich seiner Geschwindigkeit stark Ram-abhängigen
+Multiaskingsystem wie dem Amiga kann es oft sinnvoller sein, RAM
+freizugeben, als freien Speicher auf der Festplatte zu schaffen.
+
+
+@{B}9.3.2      Undo-Stufen@{UB}
+
+Der Puffer für die einzelnen Undo-Stufen zeichnet alle Veränderungen auf,
+die am aktuellen Bild und an dessen Farbpalette vorgenommen worden sind.
+Obwohl Personal Paint dabei recht "intelligent" vorgeht, kann dieser
+Vorgang sehr viel Speicher benötigen. Darüber hinaus besteht normalerweise
+auch keine Notwendigkeit, übermäßig weit zurückliegende Arbeitsschritte zu
+speichern.
+
+Die maximale Anzahl von zu speichernden Veränderungen und die maximal für
+den Undo-Puffer verfügbare Speichermenge lassen sich mit Hilfe zweier
+Programmparameter einstellen. Sobald die festgelegten Grenzen
+überschritten werden, löscht Personal Paint die am weitesten
+zurückliegenden Zustände.
+
+Unabhängig von diesen Einstellungen versucht Personal Paint grundsätzlich,
+zumindest die letzte Undo-/Redo-Aktion zu speichern.
+
+
+@{B}9.3.3      Schließen des Workbench-Bildschirms@{UB}
+
+In bestimmten extrem speicherkritischen Situationen versucht Personal
+Paint möglicherweise, den Workbench-Bildschirm zu schließen, um dringend
+benötigten RAM-Speicher freizumachen (Chip oder Fast, abhängig von den
+Speichererfordernissen und dem aktuellen Anzeigetyp). Obwohl normalerweise
+nichts gegen dieses Verfahren spricht, kann Personal Paint so programmiert
+werden, daß der Workbench-Bildschirm nicht automatisch geschlossen wird.
+
+Einmal geschlossen, läßt sich der Workbench-Bildschirm jederzeit manuell
+wieder öffnen (Abschnitt @{"9.15" LINK Main 961}). Darüber hinaus wird er automatisch wieder
+geöffnet, sobald Personal Paint verlassen wird.
+
+
+@{B}9.4        Schlüssel ändern@{UB}
+
+Die Bedeutung und Verwendung des Verschlüsselungswertes in bezug auf das
+Laden und Speichern von Bildern sind in den Abschnitten @{"4.1" LINK PPaintCD:H/7/1/4/0049/Main 10} und @{"4.2" LINK PPaintCD:H/7/1/4/0049/Main 124}
+beschrieben.
+
+Dieses Dialogfenter dient zum Einstellen und Verändern des
+Verschlüsselungswertes. Der zuletzt eingetragene Schlüssel bleibt solange
+(verschlüsselt) gespeichert, bis ein neuer festgelegt oder Personal Paint
+beendet wird. Außerdem wird der Verschlüsselungswert immer dann gelöscht,
+wenn das Dialogfenster zum Eingeben des Wertes aufgerufen wird. Dieses
+Dialogfenster kann sowohl zum Eingeben eines neuen Verschlüsselungswertes
+als auch zum schnellen Löschen eines alten verwendet werden.
+
+In der Eingabezeile des Dialogfensters sind immer nur zwei Zeichen
+gleichzeitig sichtbar, was verhindert, daß eine Person schon bei
+flüchtigem Hinsehen den vollständigen Verschlüsselungswert ablesen kann.
+Außerdem werden Groß- und Kleinbuchstaben unterschiedlich behandelt (d. h.
+"Schlüssel" ist nicht gleich "schlüssel"). Die maximale Länge des
+Verschlüsselungswertes beträgt 49 Zeichen.
+
+Wenn unmittelbar nach dem Aufruf des Dialogfensters das "Weiter"- Symbol
+angeklickt wird, wird kein Verschlüsselungswert im Speicher des Computers
+abgelegt. Da kein "Abbruch"-Symbol existiert, kann ein vorher
+eingetragener Schlüssel nicht wiederverwendet werden. Ausnahme: Er wird
+erneut in die Eingabezeile eingetragen.
+
+Sobald ein Verschlüsselungswert eingetragen worden ist, erscheint ein
+zweites Dialogfenster, welches zur erneuten Eingabe des Wertes auffordert.
+Dadurch wird verhindert, daß ein Bild mit einem unerwünschten (weil
+unbeabsichtigt falsch geschriebenen) Verschlüsselungswert abgespeichert
+wird und dann später mit dem vermeintlich korrekten Wert nicht mehr
+geladen werden kann. Unterscheidet sich der Kontrollwert vom zuerst
+eingegebenen, so wird eine Fehlermeldung ausgegeben.
+
+Die Textverarbeitung Personal Write aus dem Hause Cloanto genießt unter
+anderem auch wegen der eingebauten Verschlüsselungsfunktion Anerkennung
+und wird vielerorts zum Schutz privater Informationen und wichtiger
+Verschlußsachen verwendet. Die Kombination der Verschlüsselungsfunktion
+von Personal Paint mit einem der neuen Amiga-Modelle (die durch ihre
+256-Farben-Bildschirmmodi über fast fotorealistische Grafikfähigkeiten
+verfügen) und einem preiswerten Farbscanner kann nun den gleichen Schutz
+für Bilder bieten. Vertrauliche Sofortbilder, Dokumente und andere
+Verschlußsachen können nun nach der digitalen Verschlüsselung vernichtet
+oder an einem sehr sicheren Platz untergebracht werden.
+
+
+@{B}9.5        Tonausgabe@{UB}
+
+Die Tonausgabe von Personal Paint besteht aus den verschiedenen
+Tonsignalen, die bei der Auswahl unterschiedlicher Funktionen ausgegeben
+werden und erfolgt in Stereo. Dies bedeutet, daß alle Tonsignale auf den
+beiden Tonkanälen mehr oder weniger unterschiedlich dargestellt werden.
+
+Die Lautstärke von Fehler- und Aktionstonsignalen kann mit Hilfe zweier
+Schieberegler eingestellt werden. Die Aktionstonsignale werden ausgegeben,
+sobald eine Taste gedrückt oder ein Symbol, bzw. ein Menüpunkt, ausgewählt
+wird. Bei allen anderen Tonsignalen handelt es sich um Fehler- (oder
+Warn-) Signale.
+
+Die Zahl rechts vom entsprechenden Schieberegler zeigt die aktuelle
+Lautstärke an. Diese kann im Bereich von 0 bis 64 liegen. Standardmäßig
+werden Fehlertonsignale lauter ausgegeben als die übrigen Signale.
+
+Wie in den Abschnitten @{"1.11" LINK PPaintCD:H/7/1/4/0002/Main 1168} ("Laden von Personal Paint") und @{"1.13" LINK PPaintCD:H/7/1/4/0002/Main 1361}
+("Installation von Personal Paint") erläutert, funktioniert die Tonausgabe
+nur dann, wenn Personal Paint das Modul "CloantoAudio" aktivieren konnte.
+Wenn die Option für die akustischen Rückmeldungen nicht aktiviert wurde
+und kein anderes Programm das Audiomodul benutzt, verbraucht
+"CloantoAudio" kein RAM.
+
+
+@{B}9.6        Koordinaten@{UB}
+
+Mit Hilfe dieser Optionen wird die Anzeige der Mauszeigerkoordinaten in
+der Titelleiste aktiviert. Der Ursprung (entweder 0:0 oder 1:1, abhängig
+vom gewählten Untermenüpunkt) liegt immer in der linken oberen
+Bildschirmecke.
+
+Absolute Koordinaten (d. h. "normale" Werte, von der linken oberen
+Bildschirmecke aus betrachtet) sind durch einen doppelten Pfeil
+gekennzeichnet, wohingegen relativen ein einfacher Pfeil vorangestellt
+ist. Dieser gibt außerdem die Richtung des Zeigers vom Ursprung aus (z. B.
+bei der Definition eines Pinsel) an.
+
+Jede der beiden Umgebungen kann mit eigenen Koordinateneinstellungen
+versehen werden.
+
+
+@{B}9.7        Farbenreduzierung@{UB}
+
+Unter diesen Begriff versteht man einen Vorgang, bei dem ein Bild in ein
+zweites verwandelt wird, welches über eine Palette mit weniger Farben
+verfügt. Dazu muß entschieden werden, wie die Farben des Originals am
+besten mit der neuen Palette darzustellen sind. Durch die Neuverteilung
+von Farben mit Hilfe von Verfahren wie Rasterung und Fehlerverteilung
+(Abschnitt @{"9.8" LINK Main 396}) kann in vielen Fällen die Standardpalette von Personal
+Paint zur Nachbildung der Originalfarben eingesetzt werden. Trotzdem
+werden durch geschickte Auswahl von Farben der Originalpalette meist
+bessere Ergebnisse erzielt. Die zur Verfügung stehenden Optionen werden in
+den folgenden Unterabschnitten erläutert.
+
+Nach der Auswahl der neuen Farben kann das Erscheinungsbild des
+farbenreduzierten Bildes durch ein passendes Verfahren zur
+Farbneuverteilung (Abschnitt @{"9.8" LINK Main 396}) vielfach noch verbessert werden.
+Kompatibilität von Farbpaletten, Farbenreduzierung und Farbneuverteilung
+bei Amiga-Modellen mit Advanced Architecture- (AA-) Chipset werden in
+Abschnitt @{"11.4" LINK PPaintCD:H/7/1/4/0046/Main 321} diskutiert.
+
+
+@{B}9.7.1      Quantitativ@{UB}
+
+Bei der Entscheidung, welche Farben der Originalpalette auch für das neue
+Bild verwendet werden sollten, wird bei diesem Farbauswahlverfahren
+denjenigen Farben der Vorzug gegeben, die am häufigsten vorkommen. Dazu
+wird eine neue Palette erstellt, die ausschließlich die im Originalbild am
+meisten vorkommenden Farben enthält, d. h. die neuen Farben sind eine
+Untergruppe der Originalfarben.
+
+Dieses Verfahren eignet sich besonders für Bilder, die viele verschiedene
+Schattierungen der gleichen Farbe besitzen (Abschnitt @{"8.1.3.2" LINK PPaintCD:H/7/1/4/0016/Main 137}), wie
+Graustufenbilder oder solche, die auf einer Rasterung zweier Farben
+basieren (wie es z. B. bei vielen Banknoten der Fall ist).
+
+
+@{B}9.7.2      Qualitativ@{UB}
+
+Die qualitative Methode zur Farbenreduzierung legt mehr Gewicht auf
+diejenigen Farben, für die in der Palette kein ähnlicher Farbton vorhanden
+ist (und die daher unter Verwendung anderer Farben nur ungenügend
+darstellbar wären). Dieses Verfahren versucht, die Farbenvielfalt zu
+erhalten, dabei aber den Verlust von Farbtoninformationen zu begrenzen.
+
+Die Anwendung dieses Verfahrens kann die Erzeugung verschiedener, vorher
+noch nicht vorhandener Farbtöne zur Folge haben, die das Ergebnis eines
+Mischvorgangs mehrer Farben der Originalfarbe in eine Zielfarbe sind.
+
+Die qualitative Methode eignet sich besonders für Bilder mit vielen
+unterschiedlichen Farben, wie digitalisierte Fotos oder Computergrafiken.
+
+
+@{B}9.8        Farbneuberechnung@{UB}
+
+Hierbei handelt es sich um einen Prozeß, der bei der Berechnung eines
+farbigen Bereiches in einer neuen Umgebung (in der die Originalfarbe evtl.
+fehlt) stattfindet. Die einfachste Lösung wäre in diesem Fall, die der
+Originalfarbe am nächsten liegende Farbe zu benutzen. Andere Techniken
+kombinieren die vorhandenen Farben auf verschiedene Arten, um die
+Originalfarben nachzubilden.
+
+Das Programm kann nach einer Farbenreduzierung automatisch eine
+Farbneuberechnung durchführen, wenn ein Bild geladen oder farbenreduziert
+wird. Dabei wird die vom Farbenreduzierungsalgorithmus erzeugte Palette
+durch das Verfahren zur Farbneuberechnung nicht beeinflußt. Daraus folgt,
+daß das gleiche Bild, auch wenn es mit Hilfe verschiedener Methoden neu
+berechnet wurde, immer die gleiche Farbpalette besitzt. Dies kann sich
+besonders dann als nützlich erweisen, wenn verschiedene Bilder mit der
+gleichen Ausgangspalette (aber evtl. auf verschiedene Art und Weise neu
+berechnet) auf der gleichen Seite kombiniert werden sollen.
+
+
+@{B}9.8.1      Einfach@{UB}
+
+Dies ist das einfachste (und schnellste) Verfahren zur Neuberechnung.
+Dort, wo in der neuen Umgebung keine Farbe zur Repräsentation einer alten
+vorhanden ist, wird die nächstliegende, existierende Farbe verwendet. Die
+vorhandenen Bildpunkte werden lediglich mit einer anderen Farbe versehen
+(wenn nötig). Die Anordnung der Bildpunkte wird nicht verändert, auch wenn
+dadurch Punkte verlorengehen sollten (was der Fall ist, wenn
+nebeneinanderliegende Bildpunkte, die ursprünglich verschiedene Farben
+besaßen, nach der Neuberechnung die gleiche Farbe haben).
+
+Diese Methode eignet sich hervorragend zur Betrachtung von
+256-Farben-Bildern auf Systemen, die eine so große Anzahl von Farben nicht
+gleichzeitig darstellen können. Betrachtet man dieses Verfahren unter dem
+Aspekt der Qualität, so kann es z. B. dazu eingesetzt werden, ohnehin
+schon "künstliche" Farben (wie bei Balkendiagrammen, Histogrammen, usw.)
+neu zu berechnen.
+
+
+@{B}9.8.2      Dithering@{UB}
+
+Diese Option arbeit fast genauso schnell wie eine einfache
+Farbneuberechnung, erzielt aber Ergebnisse, die fast an die Qualität von
+Floyd-Steinberg heranreichen.
+
+Der Begriff des @{I}Dithering@{UI} weist auf ein Verfahren hin, bei dem bestimmte
+Farben (z. B. Orange) durch ein Mischraster aus anderen Farben (z. B. Rot
+und Gelb) ersetzt werden. Eine Einführung zum Thema Dithering und Drucken
+enthält Abschnitt @{"4.3.2.1" LINK PPaintCD:H/7/1/4/0049/Main 383}.
+
+Dieses Verfahren eignet sich besonders zur Neuberechnung von Bildern, die
+größere Bereiche der gleichen Farbe und einfache Farb- oder Grauübergänge
+enthalten. Da das menschliche Auge sehr gute Fähigkeiten zur Erkennung
+gleichmäßiger Punktraster besitzt, sieht das Bild aus einige Entfernung
+subjektiv besser aus.
+
+Da regelmäßige Punktraster verwendet werden, lassen sich mit dieser Option
+bearbeitete Bilder beim Abspeichern in den gängigsten Dateiformaten sehr
+gut komprimieren.
+
+
+@{B}9.8.3      Floyd-Steinberg@{UB}
+
+Beim sog. @{I}Floyd-Steinberg@{UI}-Verfahren handelt es sich um ein
+leistungsfähigeres Verfahren zur Rasterung, welches qualitativ
+hochwertigere Ergebnisse liefert. Dabei werden bestimmte Techniken zur
+Fehlerverteilung angewendet, bei denen Bildpunkte unterschiedlicher Farben
+so angeordnet werden, daß das menschliche Auge kein erkennbares Raster
+wahrnimmt.
+
+Floyd-Steinberg kann üblicherweise mehr Farben und weichere Übergänge
+darstellen als andere Methoden zur Neuberechnung von Farben. Leider
+schlägt sich dies häufig in einer stark verlängerten Rechenzeit nieder.
+
+Die Leistungsfähigkeit dieses Verfahrens läßt sich anhand eines Beispiels
+verdeutlichen: Es ist interessant, zu beobachten, daß ein 256-Farben-Bild
+(320 x 200 Bildpunkte) in hoher Auflösung (640 x 400) mit 16 Farben unter
+Verwendung des Floyd-Steinberg-Verfahrens häufig besser aussieht als mit
+64 Farben (320 x 200) und einem anderen Neuberechnungsverfahren.
+
+
+@{B}9.8.4      Beste Qualität@{UB}
+
+Diese Option aktiviert eine Auswahl professioneller Methoden zur
+Farbneuberechnung. Diese sind zwar langsamer als die voreingestellten
+Werte, doch sie beruhen auf modernste Fehlerverteilungsalgorithmen, die
+normalerweise nur im professionellen Bereich üblich sind.
+
+Ist diese Option nicht aktiviert, kann weitere Geschwindigkeit
+hinzugewonnen werden, wenn die Speicherkapazität es zuläßt (bis zu 148
+Kbytes können beansprucht werden).
+
+
+@{B}9.9        Dateiauswahlfenster@{UB}
+
+Mit dieser Gruppe von Parametern lassen sich einige Aspekte des
+Dateiauswahlfensters (Abschnitt @{"3.4" LINK PPaintCD:H/7/1/4/0017/Main 1409}) einstellen. Dabei ist jedem
+Parameter ein Menüunterpunkt zugeordnet, der mit der Maus aktiviert oder
+deaktiviert werden kann (Abschnitt @{"1.9.6" LINK PPaintCD:H/7/1/4/0002/Main 735}, "Menüs"). Die einzelnen
+Parameter werden in den folgenden Unterabschnitten genauer beschrieben.
+
+
+@{B}9.9.1      Volle Pfadlänge@{UB}
+
+Dieser Parameter legt fest, ob der Inhalt der "Pfad"-Eingabezeile des
+Dateiauswahlfensters vom Programm verändert werden kann.
+
+Wenn diese Option eingeschaltet ist (standardmäßig ist dies der Fall),
+wandelt Personal Paint Gerätenamen (z. B. "df0:") in Datenträgernamen (z.
+B. "PPaint_2") um. Dadurch wird der Zugriff auf Dateien erleichtert, die
+sich auf Disks oder anderen Medien befinden, die von einem Laufwerk in ein
+anderes gelegt werden können. Außerdem werden logische Gerätenamen (wie
+"PPaint") in den gesamten Pfadnamen umgewandelt (z. B.
+"Work:Grafik/PPaint"), dem sie vorher zugewiesen worden sind. Dadurch wird
+das Auffinden einer Datei erheblich vereinfacht. Die Dateiliste des
+Dateiauswahlfensters kann mit Hilfe dieser Option effektiver gespeichert
+werden, da mehrfaches Vorkommen der gleichen Liste automatisch erkannt
+wird.
+
+Solange diese Option ausgeschaltet ist, wird der Inhalt der "Pfad"-
+Eingabezeile vom Programm nicht modifiziert. Dies ist dann sinnvoll, wenn
+aus einem bestimmten Grund logische Gerätenamen verwendet werden, z. B.
+bei Verwendung einer Konfiguration, die nicht mit der vorgegebenen
+Installation identisch ist oder beim Speichern eines Pfades in einer
+Parameterdatei, die auch auf einem anderen Computer benutzt werden soll.
+Ein vollständiger Pfad, wie "Work:Grafik/PPaint" mag vielleicht für einen
+Computer korrekt sein, könnte aber auf anderen Rechnerkonfigurationen (bei
+denen sich Personal Paint in anderen Verzeichnissen befindet) zu
+unvorhergesehenen Ergebnissen führen. In einem solchen Fall sind logische
+Gerätenamen zu verwenden. Die Arbeit mit logischen Geräten wird in den
+Abschnitten @{"1.12" LINK PPaintCD:H/7/1/4/0002/Main 1241} ("Umgebungsvariablen und Standardverzeichnisse"), sowie
+@{"10.1" LINK PPaintCD:H/7/1/4/0015/Main 7} ("AskAssign") erläutert.
+
+
+@{B}9.9.2      Verzeichnisse oben@{UB}
+
+Mit dieser Option wird festgelegt, ob die Verzeichnisnamen am Anfang oder
+am Ende der Dateiliste des Dateiauswahlfensters angezeigt werden sollen.
+Standardmäßig erscheinen die Dateinamen oben und die Verzeichnisnamen
+unten.
+
+
+@{B}9.9.3      Nach Datum ordnen@{UB}
+
+Dateien können entweder nach Namen (lexikografische Reihenfolge) oder nach
+dem Datum der letzten Änderung aufgelistet werden. Damit letztere Option
+korrekt funktioniert, muß die Systemuhr des Computers ständig die aktuelle
+Zeit anzeigen.
+
+
+@{B}9.9.4      Doppelklick@{UB}
+
+Wenn diese Option aktiv ist, können die in der Dateiliste aufgeführten
+Namen durch einen Doppelklick mit der linken Maustaste ausgewählt werden.
+Daraufhin verschwindet das Dateiauswahlfenster, als sei das
+"Weiter"-Symbol gedrückt worden. Die Geschwindigkeit, mit der der
+Doppelklick auszuführen ist, kann in den "Preferences" des Amiga
+eingestellt werden. Dieser Vorgang wird im Handbuch zum Amiga erläutert.
+
+Ist diese Option ausgeschaltet, können die Dateinamen weiterhin mit der
+Maus ausgewählt werden, allerdings wird ein Doppelklick nicht gesondert
+interpretiert.
+
+
+@{B}9.9.5      Sicherheitsabfrage@{UB}
+
+Dieser Parameter betrifft nur diejenigen Dateiauswahlfenster, die zur
+Festlegung des Namens einer abzuspeichernden Datei dienen. Sollte dieser
+Parameter gesetzt sein, wird ein zweites Dialogfenster angezeigt, falls
+die Datei schon existiert und durch die folgende Operation überschrieben
+würde.
+
+Das Dialogfenster enthält zwei Aktionssymbole: "Weiter" und "Abbruch". Bei
+Auswahl von "Abbruch" wird die Funktion abgebrochen und die Datei wird
+nicht geschrieben.
+
+
+@{B}9.9.6      System (ASL)@{UB}
+
+Im Dateiauswahlfenster-Menü haben Sie die Möglichkeit, das normale
+Dateiauswahlfenster von Personal Paint durch ein ASL-kompatibles (z. B.
+Magic File Requester) zu ersetzen.
+
+Nach dem ASL-Dateiauswahlfenster kann ein zweites Dialogfenster
+erscheinen, in dem Sie das voreingestellte Dateiformat beim Speichern
+eines Bildes festlegen können. Sofern der Bildname nicht bereits auf das
+Format schließen läßt, wird das hier spezifizierte Format verwendet.
+Folgende Suffixe werden von Personal Paint automatisch erkannt: ".c",
+".png", ".iff", ".ilbm", ".lbm",".gif" und ".pcx". Ein Beispiel: Das Bild
+"Clown.png" würde automatisch im PNG-Format gespeichert, aber beim Sichern
+einer Grafik mit dem Namen "Blume.pic" oder einfach nur "Bild" würde ein
+Dialogfenster zur Auswahl des gewünschten Formates erscheinen.
+
+
+@{B}9.10       Piktogramme@{UB}
+
+Wenn Personal Paint eine Datei speichert, kann optional ein
+Workbenchpiktogramm (Abschnitt @{"1.9.5" LINK PPaintCD:H/7/1/4/0002/Main 709}) erzeugt und mitgespeichert werden.
+Bei einem Piktogramm handelt es sich um ein auf der Workbench
+dargestelltes Symbol, welches eine bestimmte Datei grafisch repräsentiert.
+Mit Hilfe von Piktogrammen können die zugehörigen Dateien (oder
+Verzeichnisse) unter Verwendung der Maus ausgewählt, geladen, umbenannt,
+kopiert oder gelöscht werden.
+
+Piktogramme haben einen - wenn auch kleinen - Nachteil: Sie enthalten
+Grafikdaten, die ihrerseits eine geringe Menge Speicher verbrauchen. Die
+von Personal Paint für Bilddateien benutzten Standardpiktogramme
+verbrauchen weniger als 488 Bytes. Für die technisch Interessierten: Dies
+bedeutet, daß ein Personal Paint-Piktogramm nur einen einzigen Sektor des
+Amiga-Dateisystems verbraucht (auf einem Sektor des alten (OFS)
+Amiga-Dateisystems können 488 Bytes gespeichert werden) plus einen
+weiteren für den Eintrag im Inhaltsverzeichnis. Auf eine einzige 880
+kbyte-Diskette passen also über 800 Piktogramme.
+
+Die Personal Paint-Piktogramme enthalten in den "Default Tool"- und "Tool
+Types"- Feldern zusätzliche Informationen. Sie geben z. B. bei einem
+Doppelklick auf das Piktogramm dem Betriebssystem an, wo das zum Erstellen
+verwendete Hauptprogramm zu finden ist und enthalten weitere Informationen
+(z. B. über das Dateiformat, die Bildgröße, usw.), die durch Auswahl des
+entsprechenden Piktogramms (einmal anklicken) und nachfolgendes Auswählen
+des Menüpunktes Information (oder auf einigen Systemen auch Info) ediert
+werden können. Die standardmäßig gespeicherten Informationen können durch
+Modifikation der im Verzeichnis "PPaint_Icons" gespeicherten Piktogramme
+ediert werden.
+
+
+@{B}9.10.1     Nein@{UB}
+
+Wenn der Speicherplatz knapp ist oder Piktogramme nie benutzt werden
+sollen, dient diese Option zum Abspeichern von Bildern ohne dazugehörige
+Piktogramme.
+
+
+@{B}9.10.2     Ja (Standard)@{UB}
+
+Diese Option veranlaßt Personal Paint dazu, Bilder mit den
+Standardpiktogrammen des Programms abzuspeichern. Dabei werden
+verschiedene Arten von Piktogrammsymbolen benutzt, um zwischen den
+einzelnen vom Programm gespeicherten Dateiarten (Bilder, Pinsel,
+Einstellungen, usw.) zu unterscheiden. Diese Piktogramme werden im
+Verzeichnis "PPaint_Icons" entsprechend den aktuellen Workbenchfarben
+gespeichert (1.3 oder 2.0 Farben), wo sie mit einem Programm wie z. B.
+IconEdit (von der Amiga-Workbench) modifiziert werden können.
+
+
+@{B}9.10.3     Ja (Bild)@{UB}
+
+Auch diese Funktion benutzt die Standardpiktogramme, eine Ausnahme bilden
+lediglich Bilder und Pinsel, bei denen als Piktogramm eine verkleinerte
+Darstellung des Originals erstellt wird. Dabei wird die Bildgröße
+verändert, falls das Bild oder der Pinsel der Größe eines normalen
+Piktogramms und den Anzeigeverhältnissen der Workbench angepaßt werden
+muß. Zur Neuberechnung der Abbildung nach dem Floyd-Steinberg-Verfahren
+werden die Workbenchfarben verwendet.
+
+Neuere Versionen des Amiga-Betriebssystems lassen die Spezifikation der
+auf der Workbench darstellbaren Anzahl von Farben zu. Diese Fähigkeit wird
+von Personal Paint unterstützt, was bei bis zu 256 Farben oft
+beeindruckende Ergebnisse liefert. Es kann jedoch folgendes Problem
+auftreten: Nur die ersten und die letzten vier Farben der Workbenchpalette
+bleiben ständig konstant. Die verbleibenden Farben können für
+betriebssystemspezifische Prozesse (wie die Darstellung von Bildern oder
+eines anderen Workbenchhintergrundes) verändert werden. Da die Fähigkeit
+zur Verarbeitung von 256 Farben nicht unter allen Umständen sinnvoll
+einzusetzen ist, werden von Personal Paint nur dann mehr als acht
+Workbenchfarben benutzt, wenn beim Speichern des Piktogramms (d. h.
+gleich, nachdem die Verlaufsanzeige beim Speichern des Bildes abgelaufen
+ist) gleichzeitig die <Shift>-Taste gedrückt wird.
+
+Außerdem ist zu beachten, daß die Benutzer verschiedener Amiga-Systeme
+häufig auch unterschiedliche Einstellungen für Workbenchfarben und
+Anzeigearten (z. B. Interlace/Non-Interlace) einsetzen, was dazu führen
+kann, daß auf dem einen System erstellte Piktogramme auf einem anderen
+System unterschiedlich dargestellt werden.
+
+
+@{B}9.10.4     Ja (NewIcons)@{UB}
+
+Diese Option ähnelt der vorgehenden (Bild), eignet sich aber für eine auf
+"NewIcons" basierende Workbench-Umgebung. In der NewIcons-Spezifikation
+ist festgelegt, wie sich Piktogramme erstellen lassen, die über mehr
+Farben verfügen als die der Workbench. Beachten Sie bitte, daß NewIcons
+nur dann auf der Workbench dargestellt werden können, wenn die
+entsprechenden frei verteilbaren Erweiterungsdateien installiert wurden.
+
+Standardmäßig werden im NewIcons-Format vorliegende Piktogramme von
+Personal Paint unter Verwendung einer normalen Palette mit 16 Farben
+gespeichert. Die so erzeugten Bilder zur Benutzung auf der Workbench sind
+für die NewIcons-Referenzpalette optimiert und besonders dann sehr
+effizient, wenn mehrere Piktogramme gleichzeitig angezeigt werden, da die
+Notwendigkeit einer Farbneuberechnung entfällt und Palettenkonflikte
+vermieden werden. Unter bestimmten Voraussetzungen (z. B. in Verbindung
+mit Workbench-Screens in 16 Mio. Farben) kann es wünschenswert sein, jedes
+Icon möglichst genau wie das Orginalbild und dessen Palette abzubilden.
+Personal Paint bietet daher die Möglichkeit, durch Gedrückthalten der
+<Shift>-Taste, während das Piktogramm gespeichert wird (d. h. gleich
+nachdem die Statusanzeige für die Speicherung des Bildes geschlossen
+worden ist), Piktogramme mit bis zu 256 Farben zu erzeugen.
+
+
+@{B}9.10.5     Original@{UB}
+
+Workbenchpiktogramme werden mit dieser Option nie erstellt. Überschreibt
+Personal Paint eine Datei, die bereits ein Piktogramm besitzt, wird dieses
+nicht modifiziert. Nur die "Tool Types"-Felder werden der neuen Version
+entsprechend verändert. Besonders für Formatkonvertierungen ist dies sehr
+hilfreich.
+
+
+@{B}9.11       Sprache@{UB}
+
+Die meisten Versionen von Personal Paint verfügen über die Möglichkeit,
+die Benutzeroberfläche in verschiedenen Sprachen darzustellen. Der
+Menüpunkt Sprache besitzt für jede verfügbare Sprache einen eigenen
+Unterpunkt. Mit dieser Option kann die Sprache für alle Menüs, Symbole und
+Programmtexte festgelegt werden.
+
+Die Standardsprache wird normalerweise bei der Konfiguration der
+Programmdiskette (Abschnitt @{"1.12" LINK PPaintCD:H/7/1/4/0002/Main 1241}) in der Datei "Startup_A" festgelegt.
+Individuelle Einstellungen in den Dateien "Startup_1" oder "Startup_2"
+können die Standardsprache jedoch überschreiben.
+
+Mehr zu den Texten der Benutzeroberfläche nach Auswahl eines Menüpunktes
+unter Sprache in Abschnitt @{"1.14" LINK PPaintCD:H/7/1/4/0002/Main 1428}. Wenn die Datei nach dem letzten
+Programmstart von Personal Paint verändert wurde, läßt sie sich erneut
+anwählen. Falls sich einige Texte bei einer einfachen Längenüberprüfung
+als zu lang herausstellen, wird eine Fehlermeldung ausgegeben.
+
+
+@{B}9.12       Bildschirm@{UB}
+
+@{B}9.12.1     Werkzeugleiste@{UB}
+
+Wie auch in Abschnitt @{"3.1" LINK PPaintCD:H/7/1/4/0017/Main 11} erläutert, kann die Werkzeugleiste ausgeblendet
+werden, um den sichtbaren Bereich zu vergrößern. Dabei bleiben alle
+Werkzeuge über die ihnen zugeordneten Tastaturkurzbefehle (Anhang @{"B" LINK PPaintCD:H/7/1/4/00Z2/Main 1})
+weiterhin erreichbar. Erneutes Auswählen dieser Option blendet die
+Werzeugleiste wieder ein.
+
+
+@{B}9.12.2     Titelleiste@{UB}
+
+Ähnlich wie die Werkzeugleiste, kann auch die Titelleiste (Menüleiste)
+ausgeblendet werden. Die Menüs sind weiterhin erreichbar, indem der
+Mauszeiger über die erste Bildschirmzeile bewegt und die rechte Maustaste
+gedrückt wird.
+
+Wie in Abschnitt @{"3.2" LINK PPaintCD:H/7/1/4/0017/Main 1358} genauer beschrieben, kann der Mauszeiger in einigen
+der Overscan-Bildschirmmodi nicht in den normalerweise von der Titelleiste
+verdeckten Bereich bewegt werden. Auch wenn der System-Mauszeiger sich
+scheinbar nicht in diesen Bereich verschieben läßt, werden Mausbewegungen
+von Personal Paint intern korrekt verarbeitet. Der pinselförmige
+Mauszeiger des Programms wird auch an der richtigen Position dargestellt.
+
+
+@{B}9.12.3     Pull-Down-Blättersymbole@{UB}
+
+Bei den herkömmlichen Amiga-Blättersymbolen (Abschnitt @{"1.9.4.1" LINK PPaintCD:H/7/1/4/0002/Main 635}) werden
+nicht alle Optionen gleichzeitig dargestellt, vielmehr kann der Benutzer
+die verfügbaren  Auswahlmöglichkeiten lediglich nacheinander
+durchschalten. Um die Blättersymbole in "richtige" Menüs zu verwandeln,
+die bei ihrer Aktivierung auf- oder herunterklappen, wurden Hilfsprogramme
+wie z. B. "CycleToMenu" entwickelt.
+
+Personal Paint ist häufig gezwungen, die zur Darstellung von
+Funktionselementen verwendeten Farben in bereits geöffneten Dialogfenstern
+zu ändern, was aber leider sowohl von den standardmäßigen
+Amiga-Blättersymbolen als auch von Erweiterungen wie "CycleToMenu" nicht
+unterstützt wird. Diese Menüoption bewirkt, daß Personal Paint
+Blättersymbole mit der Funktionalität von "CycletoMenu" erzeugt, d. h. es
+wird bei der Auswahl des Symbols mit der Maus unterhalb der angeklickten
+Option ein Menü mit weiteren Optionen geöffnet. Wenn Sie das kleine Feld
+auf der linken Seite des Blättersymbols anklicken, bleibt die
+(ursprüngliche) Funktion des einzelnen "Durchblätterns" erhalten.
+Anklicken des Textbereichs hingegen führt zum Öffnen eines Auswahlmenüs.
+
+
+@{B}9.12.4     Pop-Up-Blättersymbole@{UB}
+
+Pop-Up-Menüs sind den oben beschriebenen, den Blättersymbolen zugeordneten
+Pull-Down-Menüs recht ähnlich, werden aber im Gegensatz zu diesen nicht
+heruntergeklappt, sondern über dem aktuellen Auswahlpunkt zentriert
+geöffnet.
+
+
+@{B}9.13       Grafik@{UB}
+
+@{B}9.13.1     Magnetgitter@{UB}
+
+Wenn die Option Magnetgitter aktiv ist, kann ein Objekt immer nur so
+positioniert oder in seiner Größe verändert werden, daß es an den
+nächstliegenden Schnittpunkten eines (gedachten) "magnetischen" Gitters
+ausgerichtet wird. Die genaue Einstellung dieses Gitters und der Abstand
+der Linien kann durch das auswählen der Magnetgitterfunktion mit der
+rechten Maustaste modifiziert werden. Es wird dann ein Dialogfenster
+dargestellt, in dem sich der gewünschte Wert (in Pixeln) einstellen läßt.
+
+Der "Abstand"-Wert dient zur Feinausrichtung des Gitters an jeder der
+beiden Achsen und sollte zwischen 0 und (Schrittweite -1) liegen. Auch die
+Eingabe einer Pixel-Position mit dem Ursprung 0:0 ist möglich, wobei die
+Koordinaten automatisch dem gültigen Wert angepaßt werden und diese
+Position dann zu einem der "magnetischen" Punkte wird.
+
+Jede der beiden Umgebungen kann über eine eigene Gittereinstellung
+verfügen.
+
+
+@{B}9.13.2     Grafikmaske@{UB}
+
+Standardmäßig wirken sich alle grafischen Operationen auch auf Bereiche
+außerhalb des sichtbaren Bildschirms aus. So führt z. B. das Füllen einer
+blauen Fläche mit weißer Farbe auch zur Einfärbung derjenigen Bereiche,
+die sich außerhalb des Bildschirmbereichs befinden.
+
+Wenn diese Option aktiviert ist, werden die Effekte sämtlicher Mal- und
+Bildbearbeitungsfunktionen auf den sichtbaren Bildschirmbereich begrenzt.
+
+
+@{B}9.13.3     Farben mit Größe ändern@{UB}
+
+Alle Funktionen, durch die ein Bild in seinen Ausmaßen verringert wird,
+können einen Verlust von Daten bewirken. Die meisten Funktionen dieser
+Kategorie bewirken die Größenveränderung von Pinseln und das Strecken von
+Bildern auf ein anderes Format.
+
+Da die Größe der Punkte, aus denen ein Bild besteht, direkt vom
+Ausgabegerät anhängt und daher nicht verändert werden kann, wird beim
+Verkleinern ihre Anzahl reduziert. So reduziert z. B. das Halbieren eines
+Pinsels (Abschnitt @{"5.11.4" LINK PPaintCD:H/7/1/4/0048/Main 443}) die Anzahl der Bildpunkte auf etwa ein Viertel
+des Originalpinsels. Selbst für einen Menschen ist es in diesem Fall
+schwer, zu entscheiden, welche Punkte "geopfert" werden sollen.
+
+Wenn diese Option einegeschaltet ist, erfolgt die Berechnung der
+Bildpunkte für das Zielbild unter Berücksichtigung der "geopferten"
+Bildpunkte und eine Gruppe aus z. B. zwei roten und zwei gelben Punkten
+kann zu einem einzigen orangen Bildpunkt zusammengefaßt werden. An Grenzen
+zwischen zwei stark kontrastierenden Farben wird dieser Effekt auch als
+"Anti-Aliasing" oder "Kantenglättung"  bezeichnet.
+
+Die besten Ergebnisse werden erzielt, wenn verschiedene Farben, deren
+Farbton (Abschnitt @{"8.1.3.2" LINK PPaintCD:H/7/1/4/0016/Main 137}) dem des Originalbildes ähnelt, auch im
+Zielbild vorhanden sind. So können beispielsweise beim Verkleinern eines
+S/W-Bildes (oder von Text) sehr gute Ergebnisse erzielt werden, wenn die
+Palette des Zielbildes viele Graustufen enthält.
+
+Die Änderung der Größe in Abhängigkeit von der Farbanzahl stellt einen
+sehr viel komplexeren Vorgang dar als eine normale Größenveränderung und
+stellt daher auch größere Ansprüche an Rechenzeit und -leistung.
+
+
+@{B}9.13.4     Fließende Bewegung@{UB}
+
+Normalerweise werden Signale über Mausbewegungen, die nicht in Echtzeit
+verarbeitet werden können, vom Betriebssystem des Amiga ignoriert. Ist
+diese Option aktiv, sorgt Personal Paint dafür, daß diese Signale
+stattdessen gespeichert werden, um zu ermöglichen, daß Funktionen - wie z.
+B. diejenige zum Freihandzeichnen - die Mausbewegungen ohne Datenverlust
+verarbeiten können. Dies ist besonders nützlich beim Arbeiten an
+Bildschirmen mit hoher Auflösung.
+
+
+@{B}9.13.5     Pixel 1:1@{UB}
+
+Diese Option zwingt Personal Paint, die von der Amiga Display Database
+angegebene Information über das Verhältnis von Höhe zu Breite nicht zu
+berücksichtigen und alle Malfunktionen so auszuführen, als seien die
+Bildpunkte exakt quadratisch (Verhältnis 1:1). Dies ist immer dann
+hilfreich, wenn der aktuelle Bildschirmmodus "fast quadratische"
+Bildpunkte verwendet, die durch das Verändern der Monitor-Einstellungen
+leicht angepaßt werden können. Ist diese Option aktiviert, werden Kreise,
+Vierecke und andere mit Personal Paint erstellte Figuren in einem
+Verhältnis von genau 1:1 (in Bildpunkten gemessen) erstellt, auch wenn die
+Amiga Display Database etwas anderes mitteilt.
+
+
+@{B}9.13.6     15 kHz Video@{UB}
+
+Diese Option sollte ausgeschaltet werden, wenn der mit dem Computer
+verbundene Monitor nicht in der Lage ist, bestimmte Videofrequenzen
+unterhalb von 31 kHz anzuzeigen.
+
+Zur Erläuterung: Die ersten Amiga-Modelle konnten lediglich ein 15
+kHz-Videosignal liefern, welches zwar zu speziell dafür vorgesehenen
+Monitoren und auch Fernsehgeräten kompatibel war, aber keinen Betrieb der
+gängigen Computermonitore (wie z. B. für VGA, SVGA oder Mac) erlaubte. Die
+neueren Geräte (mit ECS- oder AGA-Grafikchipsatz) und Grafikkarten von
+Drittanbietern sind jedoch technisch in der Lage, auch Videomodi mit
+Frequenzen von 31 kHz und höher auszugeben, was einen Betrieb mit normalen
+Monitoren erlaubt, die dem Industriestandard entsprechen. Die
+dazugehörigen Bildschirmmodi lassen sich dann unter Verwendung der
+entsprechenden Monitordateien (siehe Abschnitt @{"9.4" LINK Main 255}) zu der Liste
+verfügbarer Modi hinzuaddieren. Leider können einige der 15 kHz-Modi nicht
+dauerhaft deaktiviert werden, da sie bei bestimmten Amiga-Modellen bereits
+beim Rechnerstart durch den ROM-Code aktiviert werden. Wenn die "15 kHz"
+Option ausgeschaltet ist, erkennt Personal Paint diese Modi nicht als
+verfügbar.
+
+
+@{B}9.13.7     Amiga Blitter@{UB}
+
+Um bestimmte zeitkritische Vorgänge zu beschleunigen, verwendet Personal
+Paint standardmäßig die sog. "Blitter"-Funktionalität des im Amiga
+eingebauten Agnus-Chips. Die aktuelleren Amiga-Modelle verfügen jedoch
+teilweise über CPUs (z. B. Motorola 68060 oder PowerPC 603), deren
+Leistungsfähigkeit über die des eingebauten Amiga-Blitters weit
+hinausgeht, und es gibt mittlerweile sogar Amiga-kompatible Computer (wie
+den DraCo), die nicht über einen Hardware-Blitter verfügen und dessen
+Funktionalität lediglich durch Softwareemulation nachbilden.
+
+Die in Personal Paint zur Ausführung solch komplexer Funktionen
+verwendeten Prozeduren liegen als Bestandteile externer Libraries vor, von
+denen zwei (eine zur Verwendung des Amiga-Blitters, und eine zur
+Verwendung der CPU) bereits im Lieferumfang des Programms enthalten sind.
+Dabei ist zu beachten, daß die erstgenannte Library ausschließlich auf
+echten Amiga-Computern und 100% dazu kompatiblen Systemen lauffähig ist.
+Die zweite wurde zur Verwendung mit Amiga-kompatiblen Systemen entwickelt,
+bei denen der Blitter entweder fehlt oder langsamer arbeitet als die CPU.
+Normalerweise wird zunächst die Standard-Library verwendet. Erst, wenn
+diese Option ausgeschaltet wird oder Personal Paint ein System ohne
+Blitter ermittelt (was aus technischen Gründen nicht immer möglich ist),
+wird die zweite Library zur Grafikausgabe verwendet.
+
+Wie diese Option vor dem Programmstart festgelegt werden kann, wird in den
+Abschnitten @{"9.1" LINK Main 9} und @{"C.1" LINK PPaintCD:H/7/1/4/0044/Main 20} (Programmeinstellung BLITLIBS) erläutert.
+
+
+@{B}9.14       Transparenz@{UB}
+
+Durch die Änderung des Zustandes dieser Funktion wird die Transparenz
+schon vorher definierter Pinsel nicht verändert. Die Transparenzbitplane
+des aktuellen individuellen Pinsels kann mit der Funktion "Neue
+Transparenz" (Abschnitt @{"5.9.5" LINK PPaintCD:H/7/1/4/0048/Main 284}) für den neuen Modus aktualisiert werden.
+Andere Verfahren zur Festlegung transparenter Bereiche werden in den
+Abschnitten @{"5.8.1" LINK PPaintCD:H/7/1/4/0048/Main 186}, @{"5.9.6" LINK PPaintCD:H/7/1/4/0048/Main 307} und @{"5.9.7" LINK PPaintCD:H/7/1/4/0048/Main 318} behandelt.
+
+Pinsel, die aus einer Datei geladen werden, erhalten ihre Transparenz
+grundsätzlich aus der dazugehörigen Transparenzinformation im
+IFF-ILBM-Format. Wenn die Datei diese Daten nicht enthält, wird der
+aktuelle Transparenzmodus verwendet.
+
+
+@{B}9.14.1     Keine@{UB}
+
+Diese Option ermöglicht es, bei der Definition eines Pinsels die aktuelle
+Hintergrundfarbe zu ignorieren. Mit dieser Einstellung erhalten im
+Rechteckmodus definierte Pinsel keine Transparenz (d. h. in
+IFF-ILBM-Dateien ist das NO_TRANSP-Bit gesetzt), während im Freihandmodus
+der gesamte Bereich außerhalb der Markierung als transparent behandelt
+wird.
+
+
+@{B}9.14.2     Hintergrund-Farbe@{UB}
+
+Wenn diese Option gesetzt ist, werden beim Definieren eines individuellen
+Pinsels alle Bereiche in der Hintergrundfarbe als transparent markiert.
+
+
+@{B}9.14.3     Umschließen@{UB}
+
+Wenn die "Umschließen"-Option gesetzt ist, werden nur diejenigen Bereiche
+in Hintergrundfarbe als transparent markiert, die den Pinsel umgeben.
+Teile des Pinsels, die von anderen Farben umgeben sind, werden nicht
+transparent. Dies wirkt wie ein "umschließen" des Pinselobjektes.
+
+
+@{B}9.15       Workbench@{UB}
+
+Personal Paint erlaubt das manuelle Öffnen und Schließen des
+Workbenchbildschirms (der üblicherweise vom Amiga-Betriebssystem zur
+Darstellung von Disk-Piktogrammen, Shell- und Konsolenfenstern und von
+Bildschirmen anderer Programme verwendet wird).
+
+Beim Schließen eines Workbenchbildschirms mit vier Farben und einer Größe
+von 640 x 256 Punkten werden mehr als 40 kbyte RAM freigegeben. Wenn der
+verwendete Computer über weniger als 1 Mbyte Chip RAM verfügt, versucht
+Personal Paint automatisch, den Workbenchbildschirm zu schließen.
+
+Da der Workbenchbildschirm öffentlich ist, kann er auch von anderen
+Programmen benutzt werden. Dies kann beim Schließen der Workbench zu
+Problemen führen, da zuerst alle anderen Fenster auf der Workbench
+geschlossen werden müssen. Dabei werden Fenster, die zur Anzeige des
+Inhalts von Massenspeichern und Verzeichnissen dienen, durch die Workbench
+selbst geschlossen. Andere Programme (einschließlich der
+Amiga-Systemsoftware) müssen vor dem Schließen des Bildschirms
+grundsätzlich beendet werden.
+
+Wenn diese Option bei geschlossenem Workbenchbildschirm aktiviert wird,
+versucht Personal Paint, den Workbenchbildschirm wieder zu öffnen.
+Vorausgesetzt, daß genug Chip RAM zur Verfügung steht, werden dann der
+Bildschirm und die dazugehörigen Fenster wieder geöffnet.
+
+
+@ENDNODE

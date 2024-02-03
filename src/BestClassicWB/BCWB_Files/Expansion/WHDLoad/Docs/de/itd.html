@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+<title>ITD * Zurückschreiben von Diskettenabbildern</title>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: itd.html 1.5 2013/11/25 22:13:32 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>ITD * Zurückschreiben von Diskettenabbildern</h3>
+Ein Programm um Diskettenabbilder wieder zurück auf ein disk-basierendes Gerät zu schreiben.
+<h4>Installation</h4>
+ITD ist nur im <tt>DEV</tt>, nicht im <TT>USR</tt> Archiv enthalten.
+<br>Kopiere das Programm nach C: oder einem ähnlichen Platz.
+<h4>Optionen</h4>
+<table>
+<tr><td colspan=2>
+<tt>File/A,Device,Format/S,BS=BlockSize/N,ASync/S,ForceOverwriteLargeDevice/S</tt>
+</td></tr><tr><td valign=top>
+<tt>File/A</tt>
+</td><td>
+Name der Datei des Diskettenabbildes welches zurück geschrieben werden soll
+</td></tr><tr><td valign=top>
+<tt>Device</tt>
+</td><td>
+das Gerät auf welches das Abbild geschrieben werden soll
+<br>voreingestellt "DF0:"
+<br>Beispiel "RAD:"
+</td></tr><tr><td valign=top nowrap>
+<tt>Format/S</tt>
+</td><td>
+Schalter der bewirkt, dass das Gerät beim Zurückschreiben formatiert wird,
+bei den meisten Geräten macht dies keinen Unterschied
+</td></tr><tr><td valign=top>
+<tt>BlockSize/N</tt>
+</td><td>
+die Datenmenge die in jedem Schreibzyklus mit einem mal geschrieben wird,
+voreingestellt ist die Größe eines Tracks (BlocksPerTrack*SizeBlock)<br>
+bei größeren Geräten kann eventuell mit einer angehobenen Blockgröße eine
+Geschwindigkeitssteigerung erreicht werden, allerdings sollte beachtet werden,
+dass einige Geräte mit Blockgrößen über 130.560 ($1fe00) oder auch 65.024
+($fe00) nicht korrekt arbeiten
+</td></tr><tr><td valign=top>
+<tt>ASync/S</tt>
+</td><td>
+wenn aktiviert schreibt ITD asychron auf das Zielgerät<br>
+sollte nicht verwendet werden, wenn sich Quelldatei und Zielgerät auf demselben
+physikalischen Gerät befinden, da sich dann die Verarbeitung verlangsamen wird
+<br>
+falls zumindest entweder die Quelldatei oder das Zielgerät DMA unterstützen
+sollte sich das Kopieren signifikant beschleunigen
+</td></tr><tr><td valign=top>
+<tt>ForceOverwriteLargeDevice/S</tt>
+</td><td>
+Normalerweise liest/schreibt ITD nicht von Dateien oder auf Geräte die größer
+als 2.000.000 bytes groß sind. Mittels dieses Schalters wird diese Beschränkung
+aufgehoben und ITD arbeitet mit Objekten jeglicher Größe.
+</td></tr>
+</table>
+<h4>Rückgabewert</h4>
+Bei Erfolg wird 0 zurückgegeben, ansonsten 20.
+<h4>Hintergrundinformationen</h4>
+ITD kann Daten auf jedes disk-basierende Gerät schreiben. Um Probleme zu
+vermeiden (z.B. die Festplatte aus Versehen zu formatieren) schreibt es nicht
+auf Geräte die größer als 2.000.000 Bytes sind, ausser die Option
+ForceOverwriteLargeDevice/S wird angegeben. Wenn die Schreiboperation die 4 GiB
+Grenze überschreitet verwendet ITD TrackDisk64 Kommandos.
+<br>Es wird keine Überprüfung der geschriebenen Daten durchgeführt.
+<br>Wenn das zu schreibende Abbild kleiner als das Gerät ist wird eine Warnung
+ausgegeben. ITD verändert den verbleibenden Teil des Gerätes in solch einem
+Fall nicht, allerdings wird der letzte geschriebene Block mit Nullen aufgefüllt
+falls er aufgrund der Gesamtgröße unvollständig wäre. Wenn das Abbild größer
+ist wird ebenfalls eine Warnung angezeigt und ITD schreibt soviel Daten wie
+Platz auf dem Gerät ist.
+</BODY>
+</HTML>

@@ -1,0 +1,391 @@
+@database TIFF.guide
+@$VER: TIFF.guide 1.07 (9.5.96)
+@WORDWRAP
+
+
+@NODE Main "TIFF DataType Guide 1.07 Copyright © 1993-96 Bert Wynants"
+
+     Table of Contents:
+
+     Welcome to the @{b}TIFF datatype@{ub} AmigaGuide®. Select any of the following topics:
+
+     @{" Introduction         " LINK Introduction}
+     @{" System requirements  " LINK Requirements}
+     @{" Installation         " LINK Installation}
+     @{" Usage                " LINK Usage}
+     @{" About the program    " LINK About}
+     @{" About the author     " LINK Author}
+     @{" Known Bugs           " LINK Bugs}
+     @{" Program History      " LINK History}
+
+@endnode
+
+
+
+@node Introduction "TIFF DataType Documentation - Introduction"
+
+Introduction
+************
+
+Starting with OS Release 3 the Amiga has the concept of `datatypes', which allow reading and viewing files of different types and formats. MultiView utilizes these datatypes and displays any file for which you have a data types class installed. Already supplied on your Workbench disk is the ILBM datatype for loading regular IFF-ILBM pictures.
+
+Using this TIFF datatype you can enhance the functionality of MultiView and other datatypes-aware applications.
+
+TIFF Files (@{b}T@{ub}ag @{b}I@{ub}mage @{b}F@{ub}ile @{b}F@{ub}ormat) are files commonly used in the graphic computer world (Mac, Sun, NeXT, IBM)
+
+this TIFF Datatype is compatible with the 6.0 specs of TIFF.
+
+supported TIFF:
+ -multiple image TIFF
+ -Uncompressed, LZW, Packbits and CCITT group 3 compressions.
+ -1,2,3,4,5,6,7,8,24,32 Bit
+ -Line-art, gray, palette images, 24 bit color RGB, 32 Bit color CMYK.
+
+@endnode
+
+
+@node Requirements "TIFF DataType Documentation - Requirements"
+
+Requirements
+************
+
+To use datatypes, you need Amiga OS Release 3. Older versions will not be
+sufficient.
+
+You should have 2 megabytes main memory.
+
+The installation script requires the Commodore Installer utility. It is not included.
+
+Should you have any trouble running the TIFF Datatype on your machine, please @{"write to me" LINK Author} with the full specifications of your machine, that is KickStart version, model, expansion boards etc...
+
+@endnode
+
+@node Installation "TIFF DataType Documentation - Installation"
+
+Installation
+************
+
+In order to get the TIFF datatype installed properly, you should use the supplied installation script. If you do not have the Commodore Installer you will have to install the datatype manually. Install it the same way the Installer would do it.
+
+Manual installation is disrecommended.
+@endnode
+
+@NODE About  "TIFF DataType Documentation - About the program"
+@TOC Main
+
+Current version 43.2
+
+This program is freeware, this means that you can copy it freely as long as you don't ask any more money for it than a nominal fee for copying. If you want to distribute this program you should keep this document with it. This program cannot be used for commercial purposes without written permission from the @{"author" LINK Author}.
+
+The TIFF Datatype has proven to be stable in everyday use. The author is not responsible for any loss of data, damages to software or hardware that may result directly or indirectly from the use of this program. The author reserves the right to make changes to the software or documentation without notice.
+
+The TIFF Datatype was written in C and compiled using SAS/C 6.56.
+
+None of the files of the TIFF Datatype package may be modified. Crunching or achieving is allowed only if none of the TIFF files get modified by it.
+
+@ENDNODE
+
+@NODE Usage "How to use it"
+@TOC Main
+If the TIFF datatype is installed and activated, usage is straight forward. Every program that can work with picture datatypes can open TIFF files also.
+
+The Preference Editor
+*********************
+
+This editor is used to set some options of the TIFF datatype and should be installed in the systems Prefs Folder.
+
+The options are also available by using  @{"DTPrefs 2.0" LINK DTPrefs} of higher.
+
+The options:
+
+     @{" Dithering         " LINK dither}
+     @{" Gray Image        " LINK grayimage}
+     @{" Color Image       " LINK colorimage}
+     @{" Multi Image       " LINK multiimage}
+     @{" System Conversion " LINK SystemConversion}
+@ENDNODE
+
+@NODE DTPrefs "dither options"
+@{b}DTpref@{ub} is a preferences editor for DataTypes.
+
+You can configure  @{b}DTpref@{ub} with ToolTypes.
+
+@{fg highlight}DT@{fg text}
+@{fg highlight}DT=@{fg text}@{i}DTname@{ui},@{i}Filename@{ui}
+Where @{i}DTname@{ui} the name of the DataType is, and @{i}Filename@{ui} the name of the file is, which will be used to load the DataType.
+The @{i}Filename@{ui} must be in the same directory, where @{b}DTpref@{ub} is, or the complete path must be given.
+
+For the TIFF dataType add:
+  DT=tiff.datatype,Image.tiff
+
+
+The @{b}DTpref@{ub} package was written by @{b}Swen K. Stullich/UFT@{ub}
+
+Contact through E-Mail (preferred way):
+
+ @{b}Swen@Trashcan.mcnet.de@{ub}
+
+Contact through normal mail:
+
+ @{b}Swen K. Stullich
+ Am Schölkegraben 14a
+ 38826 Salzgitter
+
+ Germany@{ub}
+
+@ENDNODE
+
+@NODE dither "dither options"
+@TOC Usage
+
+@{b}Dithering@{ub}
+
+The dithering algorithm used in the datatype is called error diffusion. It is a method to make images look good on devices with less colors than the image really contains. It does this by remembering the error on a pixel and spreading that error over the next pixels.
+
+@{i}No Dithering@{ui}
+Dithering is disabled.
+
+@{i}Simple@{ui}
+Just a simple and fast one dimensional dithering.
+
+@{i}Floyd & Steinberg@{ui}
+Good and fast 2-dimensional dithering.
+
+@{i}Jarvis, Judice & Ninke@{ui}
+Slow dithering spreading error over 3 lines.
+
+@{i}Stucki@{ui}
+Slow dithering spreading error over 3 lines.
+
+@{i}Stevenson & Arce@{ui}
+Slow dithering spreading error over 5 lines.
+
+@ENDNODE
+
+@NODE grayimage "Gray Image Conversion Options"
+@TOC Usage
+
+@{b}Gray Image@{ub}
+
+Normal gray TIFF files are 4, or 8 bit deep (variations are possible, however not common).
+
+@{i}Convert To Line-Art@{ui}
+The image will be converted to a line-art image using
+the selected @{"dithering" LINK dither} algorithm.
+
+@{i}Limit depth to 2 bit@{ui}
+If the TIFF image has more then 2 bits it will be
+converted to a 2 bit image using the selected @{"dithering" LINK dither}
+algorithm.
+
+@{i}Limit depth to 4 bit@{ui}
+If the TIFF image has more then 4 bits it will be
+converted to a 4 bit image using the selected @{"dithering" LINK dither}
+algorithm.
+
+@{i}Full image Depth@{ui}
+The depth of the image is as specified in the file.
+
+@ENDNODE
+
+@NODE colorimage "Color Image Conversion Options"
+@TOC Usage
+
+@{b}Color Image@{ub}
+
+Normal palette TIFF files are 1,2,4 or 8 bit deep.
+Normal RGB color TIFF files are 24 bit deep.
+Normal CMYK color TIFF files are 32 bit deep.
+(variations are possible, however not common)
+
+@{i}Convert To Gray@{ui}
+The image will be converted to gray with a depth as
+specified in the @{"Gray Image" LINK grayimage} options.
+
+@{i}Limit depth to 3 bit@{ui}
+If the color TIFF image has more then 3 bits it will be
+converted to a 3 bit image using the selected @{"dithering" LINK dither}
+algorithm. This is 1 bit red, 1 bit green, 1 bit blue.
+
+@{i}Limit depth to 6 bit@{ui}
+If the color TIFF image has more then 6 bits it will be
+converted to a 6 bit image using the selected @{"dithering" LINK dither}
+algorithm. This is 2 bit red, 2 bit green, 2 bit blue.
+
+@{i}Limit depth to 8 bit@{ui}
+If the color TIFF image has more then 8 bits it will be
+converted to a 8 bit image using the selected @{"dithering" LINK dither}
+algorithm. This is 3 bit red, 3 bit green, 2 bit blue.
+
+@{i}Full image Depth@{ui}
+The depth of the image is as specified in the file.
+
+@ENDNODE
+
+@NODE multiimage "Multi Image Options"
+@TOC Usage
+
+@{b}Multi Image@{ub}
+
+TIFF files can contain several images. Especially NeXT TIFF files.
+This option lets you set what should happen with such files.
+
+A TIFF file can also contain some masks. This datatype ignores them
+since they are not meant to be viewed. If you do like to view them use
+@{"TIFFView" LINK IntroducingTV}.
+
+
+@{i}First Image@{ui}
+Don't look for more images in the file. Just take the first one...
+
+@{i}Best Image@{ui}
+Let the datatype decide what the best image is.
+
+This means color rules over gray and gray rules over lineart images.
+
+@{i}All Images@{ui}
+Let the picture.datatype get all images and decide what the best image is.
+@ENDNODE
+
+@NODE SystemConversion "System Conversion Options"
+@TOC Usage
+This datatype has some highly optimized chunky to planar assembler code, which is faster like the standard build in conversion routines. However if something patches WritePixelLine8, the system can become faster as the build in one. In that case check this check box.
+@ENDNODE
+
+@NODE Author "TIFF DataType Documentation - About the Author"
+@TOC Main
+
+If you have suggestions or remarks about this program, or if you find any bugs, please let me know.
+
+When sending in bug reports, please state exactly under what circumstances the bug occurred, what equipment was used and what happened. If possible also try to give me enough information to reproduce the bug. It is very difficult to find bugs when you don't know exactly what happened.
+
+  Write to the following address:
+
+   email    : bert.wynants@innet.be
+
+   Fido     :  2:292/603.76 (Bert Wynants)
+
+   SnailMail: Wynants Bert
+              Hogeheide 6
+              B-2260 Heultje-Westerlo
+              Belgium - Europe
+
+@ENDNODE
+
+@node Bugs "TIFF DataType Documentation - Known Bugs"
+@TOC Main
+
+Known Bugs
+**********
+
+This datatype has problems reading 3 bit-TIFF files from BME, a program of Softlogik (belongs to the Pagestream 3h-distribution).
+
+They claim a highly compatible TIFF file, but a 3 bit Palette TIFF file is not standard according to the TIFF specification. Please don't use this mode in BME but save those images as 4 bit images.
+@endnode
+
+@NODE IntroducingTV "Introducing TIFFView"
+@TOC Bugs
+This is a utility to @{b}read@{ub}, @{b}view@{ub} and @{b}print@{ub} @{"TIFF" LINK TIFF}, @{"MacPaint" LINK MacPaint}, @{"GIF" LINK GIF} & @{"IFF" LINK IFF}, @{"JPEG" LINK JPEG} or any image you have a DataType for, and to @{b}write@{ub} them back as @{"TIFF" LINK TIFF}, @{"JPEG" LINK JPEG} or @{"IFF" LINK IFF} files.
+
+This is also one of @{"my" LINK Author} programs.
+@ENDNODE
+
+@NODE TIFF "TIFF Files"
+@TOC IntroducingTV
+TIFF Files (Tag Image File Format) are files commonly used in the graphic computer world (Mac, Sun, NeXT, IBM)
+
+@{b}TIFFView@{ub} is compatible with the 6.0 specs of TIFF.
+
+supported TIFF:
+ -multiple image TIFF
+ -1,2,3,4,5,6,7,8,24,32 Bit
+ -Line-art, gray, palette images, 24 bit color RGB, 32 Bit color CMYK.
+@ENDNODE
+
+@NODE MacPaint "MacPaint Files"
+@TOC IntroducingTV
+MacPaint Files are that old files used on Macintosh. I included this format because some clip-art libraries still use this format...
+@ENDNODE
+
+@NODE GIF "GIF Files"
+@TOC IntroducingTV
+GIF Files (Graphics Interchange Format(c)) are files that are commonly used in the BBS and IBM World it is however limited to 256 colors.
+
+supported GIF:  GIF87a & GIF89a
+ -multiple image GIF files
+ -1,2,3,4,5,6,7,8 Bit interlaced & non interlaced files
+ -Line-art, gray, palette images.
+@ENDNODE
+
+@NODE IFF "IFF Files"
+@TOC IntroducingTV
+IFF Files (Interchange File Format) are files that are commonly used in the Amiga World.
+
+supported IFF:
+ -1,2,3,4,5,6,7,8 Bit
+ -Line-art, gray, palette images.
+@ENDNODE
+
+@NODE JPEG "JPEG Files"
+@TOC IntroducingTV
+JPEG (pronounced "jay-peg") is a standardized compression method for full-color and gray-scale images. JPEG is designed to handle "real-world" scenes, for example scanned photographs. Cartoons, line drawings, and other non-realistic images are not JPEG's strong suit; on that sort of material you may get poor image quality and/or little compression.
+
+JPEG is lossy, meaning that the output image is not necessarily identical to the input image. Hence you should not use JPEG if you have to have identical output bits. However, on typical real-world images, very good compression levels can be obtained with no visible change, and amazingly high compression is possible if you can tolerate a low-quality image. You can trade off image quality against file size by adjusting the compressor's "quality" setting.
+@ENDNODE
+
+
+@node History "TIFF DataType Documentation - History"
+
+History
+*******
+
+Version 40.1
+    -initial release.
+
+Version 40.2
+    -fixed AllocBitMap BMF_DISPLAYABLE (thanks Gunther Nikl for reporting)
+    -Added preference editor, this allows several options to be set
+      for the datatype.
+
+Version 40.3
+    -fixed bug in preference editor. it saves the settings OK but displays them
+      incorrect on reopening (thanks Stanley Tomshinsky and Mark A. Gotz for reporting)
+    -Added a proper icon for the preference editor (see in prefs drawer for a Magic WB version).
+    -Small fix in installer script.
+    -If the requested Public Screen is not available it falls back to the default Public Screen.
+    -Added german catalog (thanks to Lars Eilebrecht and Dieter Stolte).
+
+Version 40.5
+    -Added CCITT reading
+    -Added system converion checkbox
+    -key equivalents work now for cycle gadgets
+    -huge speed increase for conversion to planes and for dithering
+    -Added Italian catalog (thanks to Piergiorgio Ghezzo).
+    -Fixed saving prefs in case there is no Datatypes drawer in env: or envarc:
+           (thanks Ralph Schmidt for reporting).
+    -Better support for multi image files
+    -Added german Guide (thanks to Michael Gollmick).
+    -Added french catalog (thanks to Julien Wilk).
+
+Version 40.6
+    -polski catalog added (thanks to Marcin Orîowski)
+    -spanish catalog added (thanks to Dámaso D. Estévez)
+    -added support for DTPrefs 2.0 by Swen K. Stullich (Swen@Trashcan.mcnet.de)
+
+Version 43.1
+    -added DTA_ErrorLevel support
+    -added DTA_ErrorNumber support
+    -enabled support for V43 picture datatype
+
+Version 43.2
+    -Svenska catalog added (thanks to Thomas Andersson)
+    -Norsk catalog added (thanks to Anders Bakkevold)
+    -Fixed catalog for Español (thanks to Dámaso D. Estévez)
+    -DTPrefs Save by accident saved ENV: file twice...
+    -Fixed Conversion of Color to Gray where last image pixel was a mess...
+    -Fixed Conversion of Gray to LineArt for 4 bit images (Crash!)...
+    -Fixed More Conversion modes for non 8 bit images
+    -Added support for objectviewer of DTPrefs
+
+@endnode
+ 

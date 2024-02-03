@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+<TITLE>Frequently Asked Questions (FAQ)</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: faq.html 1.6 2015/12/23 22:35:27 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Frequently Asked Questions (FAQ)</h3>
+<table>
+<tr><td valign=top><i>
+Question:
+</i></td><td><b>
+Ok, I got the installer and there are problems with either the installation or
+the start. I am sure I have done everything correctly so far. What now?
+</b></td></tr><tr><td valign=top><i>
+Answer:
+</i></td><td>
+Such misbehavior may be due to a number of reasons:
+<ul>
+<li>missing/wrong Tooltypes<br> Some fixes won't run properly (or at all) if
+you do not set the correct tooltypes for your system. Read the documentation
+to find out which tooltypes are supported. Example Tooltypes which may help
+are NoCache, NoVBRMove, NoAutoVec, PAL/NTSC, NoMMU.
+<li>readme file that comes with the install package<br>This often explains
+some specific problems, keys or tooltypes that have to be set.
+<li>wrong WHDLoad version<br> Most Installs need the latest version of WHDLoad
+and will not run with a older one. The golden rule is to always have the
+latest version installed.
+<li>your machine is incompatible<br> Especially a 68040/060 CPU or some
+turboboards/other hardware may cause problems. Try to turn off all extra
+hardware and try to start the install again.
+<li>unsupported version<br> Many commercial games have been sold in more than
+one version (full price release/budget re-release/coverdisk release, PAL/NTSC
+version,...). Of course an install can only work if it has been written
+especially for a special version of a game. If you have a different version of
+the same game, it won't work. In that case, the only way to use the install is
+to contact the author of the install and ask him to support your version. In
+most cases the author will help you and patch your version of the game, too,
+within a few days.
+<li>old version of the install<br> As soon as a bug is discovered and removed,
+the new version of the fix is made available at the WHDLoad website. Always
+get the latest version of the install. Please note that the latest version is
+not always the one in Aminet. Some patches are not released on Aminet at all,
+and many are released with a few weeks delay!
+<li>you discovered a bug<br> Although all fixes are tested before release, a
+bug might have escaped unnoticed. If you think you have discovered a bug,
+write a detailed report of your problem to the author of the patch. For this,
+use the bug report form. Try to report your problem as accurately as possible.
+If we aren't informed about bugs we can't correct them. Note: The ONLY correct
+place for problems/bug reports is the bug report form and not
+comp.sys.amiga.games or any forum because not every developer reads them.
+</ul>
+</td></tr>
+<tr><td valign=top><i>
+Question:
+</i></td><td><b>
+I have a game but I don't find an installer for it.
+</b></td></tr><tr><td valign=top><i>
+Answer:
+</i></td><td>
+Make a list of your wishes. You may also include games which are already
+installable on HD on their own (copyable files and/or an installer supplied
+with the game itself) which have problems (even with simple degrading problems
+or no quit).
+Keep in mind that a person is only able to patch about 25 games per year.
+Indicate with a priority which are your favourites (eg ! and +) and dislikes
+(-), and check yourself which games already have HD installs.
+</td></tr>
+<tr><td valign=top><i>
+Question:
+</i></td><td><b>
+Is it possible to use WHDLoad to install a demo/game which uses the
+operating system ?
+</b></td></tr><tr><td valign=top><i>
+Answer:
+</i></td><td>
+In general it is not possible for a demo/game running inside WHDLoad to access
+OS stuff outside, from where WHDLoad has been started. You as the writer of the
+required Slave program have to patch all accesses to the OS. Either you disable
+such accesses or you have to emulate them appropriately. For the emulation the
+so-called KickEmu packages exist. They are available for different Kickstart versions
+(eg. 'Sources/whdload/kick13.s'). By using an image of a real kickstart, they
+create a full OS-environment inside the WHDLoad memory. There is a extra ReadMe
+file concerning: 'Sources/whdload/kick.readme'.
+</td></tr>
+<tr><td valign=top><i>
+Question:
+</i></td><td><b>
+If WHDLoad uses the MMU (option <a href="opt.html#NoMMU">NoMMU/S</a> is not
+set and on a 68030 option <a href="opt.html#MMU">MMU/S</a> is set there are
+short errors in the graphics and/or in the music (e.g. Beast2). A bug ?
+</b></td></tr><tr><td valign=top><i>
+Answer:
+</i></td><td>
+This occurs during loading. The reason is that WHDLoad must switch off the
+interrupts during loading for a short period if the MMU is used. This behavior
+cannot be changed.
+</td></tr>
+<tr><td valign=top><i>
+Question:
+</i></td><td><b>
+When I try to use the NTSC tooltype WHDLoad shows an Guru.
+</b></td></tr><tr><td valign=top><i>
+Answer:
+</i></td><td>
+There is an bug in MCP 1.30 in the ScreenManager which causes WHDLoad
+OpenScreenTags call to crash. Disable the ScreenManager in MCP to aid.
+</td></tr>
+<tr><td valign=top><i>
+Question:
+</i></td><td><b>
+When run games they are running quicker than normal (Music sounds strange) and
+the bottom of the display is missing. I have tried both PAL &amp; NTSC tooltypes but nothing helps.
+</b></td></tr><tr><td valign=top><i>
+Answer:
+</i></td><td>
+If you are using the Voodoo monitor driver, turn off the "FakeNativeModes" in the tooltypes
+of the monitor drive.
+</td></tr>
+</table>
+</BODY>
+</HTML>

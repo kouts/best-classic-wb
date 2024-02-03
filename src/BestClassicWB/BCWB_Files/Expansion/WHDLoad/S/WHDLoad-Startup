@@ -1,0 +1,43 @@
+.key Switch1/S,Arg1/K,ArgX/M
+.bra {
+.ket }
+;
+; example script to be used with WHDLoad option ExecuteStartup
+; arguments can be specified using WHDLoad option ExecuteArgs
+; - stop all software which can cause interrupts with external hardware
+; - optionally free memory to allow WHDLoad better PreLoad
+; - adapt emulation parameters
+;
+
+; check for arguments via ExecuteArgs
+;echo "Switch1={Switch1} Arg1={Arg1} ArgX={ArgX}
+
+; pause smbfs-shares
+; requires smbfs 1.182 and mounted from CLI with option SETENV
+If EXISTS ENV:smbfs-process
+  List ENV:smbfs-process/#? LFORMAT="Break ${ENV:smbfs-process/%s} D" TO=T:smbfs-pause
+  Execute T:smbfs-pause
+  Delete T:smbfs-pause QUIET
+EndIf
+
+; stop the IP-stack via ARexx
+;C:rx offline.rexx
+
+; stop Genesis with a X-Surf card
+;AmiTCP:bin/offline x-surf0
+
+; stop Roadshow
+;C:NetShutdown
+
+; stop wireless connection
+;Set WirelessManagerPID `Status COM=C:WirelessManager`
+;If VAL $WirelessManagerPID GT 0
+;  Break $WirelessManagerPID
+;EndIf
+
+; stop Poseidon USB-stack
+;C:AddUSBHardware REMOVE ALL
+
+; set compatible speed and disable JIT for UAE
+;uae-configuration cpu_speed real cachesize 0
+

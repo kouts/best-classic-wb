@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE>Network functions</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: net.html 1.1 2015/04/19 21:04:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>L'accès au réseau</h3>
+
+WHDLoad est capable d'utiliser un accès au réseau pour vérifier s'il existe une
+nouvelle version de WHDLoad et du fichier Slave spécifié. Toutes les activitées
+du réseau sont effectuées en utilisant le protocole HTTP. L'option globale
+<a href="opt.html#Proxy">Proxy/S</a> peut être utilisée pour diriger tout le
+traffic du réseau à travers un serveur proxy. Pour accéder à un proxy qui
+requiert une authentification, un utilisateur/motdepasse peut être définit avec
+l'option <a href="opt.html#Proxy">Proxy/S</a>. WHDLoad supporte seulement un type
+d'authentification de base.
+
+<br>Si aucun accès au réseau par WHDLoad n'est souhaité, toutes les activitées
+peuvent être coupées avec l'option globale <a href="opt.html#NoNetwork">NoNetwork/S</a>.
+
+<h3>Vérification d'une mise à jour de WHDLoad et du Slave</h3>
+
+En utilisant une requête au site Web de WHDLoad, on vérifira si une nouvelle
+version de WHDLoad ou du programme installé (Slave) est disponible.
+
+<br>Cette vérification sera faite seulement si <a href="opt.html#SplashDelay">la fenêtre de démarrage
+</a> est ouverte car l'information sera affichée
+dans celle-ci.
+
+<p>Pour la vérification de la mise à jour de WHDLoad, la version actuelle de
+celui-ci sera envoyée. Si une nouvelle version existe, la fenêtre de démarrage affichera
+la version et la date de sortie de la version la plus récente de WHDLoad. De plus,
+un bouton 'Update WHDLoad' sera ajouté à cette fenêtre. Si vous avez installé
+<a href="http://sourceforge.net/projects/openurllib/">openurl.library</a>, en pressant
+le bouton, votre navigateur Web s'ouvrira et pointera directement sur la page web de WHDLoad,
+sinon l'URL de la page Web de WHDLoad sera simplement affichée. Si l'option
+<a href="opt.html#Expert">Expert/S</a> est activée, la vérification de la mise à jour de WHDLoad
+vous informera aussi des nouvelles versions bêta de WHDLoad.
+
+<p>Pour effectuer la vérification de la mise à jour du Slave, WHDLoad calcule la
+signature SHA-256  du fichier Slave qui est envoyé au site Web WHDLoad. Il contient une base de données
+de tous les fichiers Slave disponibles. Si un nouvel Install/Slave existe, la fenêtre de démarrage
+affichera la date de sortie de la version la plus récente de l'install.
+Un bouton supplémentaire "Mise à jour du Slave" est ajouté à la fenêtre
+d'accueil. Si vous avez installé <a href="http://sourceforge.net/projects/openurllib/">openurl.library</a>,
+en appuyant sur le bouton,  vous  ouvrirez votre navigateur Web configuré pointant vers la page
+WHDLoad  de cette installation. Dans le cas contraire, l'URL de la page d'installation WHDLoad sera affichée.
+
+<p>Si une nouvelle version de WHDLoad ou du Slave existe, un bouton supplémentaire
+"Démarrer"  est  ajouté  à la fenêtre d'accueil. Celle-ci ne se fermera pas
+automatiquement afin d'attirer l'attention sur la mise à jour possible. La fenêtre
+peut néanmoins être fermée comme d'habitude en utilisant la souris, Espace, Retour ou
+Esc.
+
+<p>Si <a href="http://sourceforge.net/projects/openurllib/">openurl.library</a> est utilisé
+et que le bouton 'Mise à jour' est pressé, WHDLoad  exécutera la commande <a
+href="opt.html#ExecuteCleanup">ExecuteCleanup/K</a> pour réactiver ensuite la commande
+<a href="opt.html#ExecuteStartup">ExecuteStartup/K</a> habituellement utilisée pour désactiver une pile IP.
+Cela  peut  échouer s'il n'y a pas suffisamment de mémoire libre lors du lancement du navigateur Web,
+car l'option <a href="opt.html#Preload">Preload/S</a> a alloué la majeure partie de la
+mémoire. Donc, en cas de mémoire insuffisante, le bouton 'Mise à jour' n'est pas fonctionnel.
+
+
+</BODY>
+</HTML>

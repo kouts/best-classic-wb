@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<TITLE>WHDLoadCD32</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: cd32.html 1.4 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>WHDLoadCD32</h3>
+
+WHDLoadCD32 est une version spéciale de WHDLoad, conçue pour être utilisée sur la console de jeu CD&sup3;&sup2;.
+Elle a été optimisée pour ce hardware et fonctionnera uniquement sur une simple CD&sup3;&sup2;, non
+sur une CD&sup3;&sup2; étendue. Elle ne marchera non plus sur SX-32 ou toute autre machine.
+
+<p>Voici les différences avec la version normale de WHDLoad:
+<ul>
+
+<li>aucun fichier clé (keyfile) n'ait requis. Les CDs contenant WHDLoadCD32 peuvent être distribués
+librement
+
+<li>le CPU 68020 est seulement supporté, ceci veut dire que le MMU n'est non plus pas supporté
+
+<li>la mémoire rapide (fast memory) n'est pas supportée
+
+<li>aucun fichier n'a d'accès en écriture (pas de savegames, de highscores, ni de coredumps). Un CD est d'habitude read-only
+
+<li>beaucoup d'options ont été enlevées. Elles ne sont pas utiles sur une CD&sup3;&sup2;. Ceci à l'avantage
+de rendre l'exécutable plus petit et d'utiliser moins de mémoire. Voir le chapitre <a href="opt.html">Usage et
+Options</a> pour savoir qu'elles sont les options disponibles
+
+<li>les fonctions "resload" suivantes ne sont pas intégrées. Si elles sont utilisées,
+WHDLoad quittera avec le code de retour TDREASON_ILLEGALARGS:
+
+<ul>
+<li><a href="../autodoc.html#resload_DiskLoadDev">resload_DiskLoadDev</a>
+<li><a href="../autodoc.html#resload_ProtectRead">resload_ProtectRead</a>
+<li><a href="../autodoc.html#resload_ProtectReadWrite">resload_ProtectReadWrite</a>
+<li><a href="../autodoc.html#resload_ProtectWrite">resload_ProtectWrite</a>
+<li><a href="../autodoc.html#resload_ProtectRemove">resload_ProtectRemove</a>
+<li><a href="../autodoc.html#resload_ProtectSMC">resload_ProtectSMC</a>
+<li><a href="../autodoc.html#resload_Log">resload_Log</a>
+</ul>
+
+<li>les fonctions "resload" suivantes sont factices, elles ne feront strictement rien. Le code de retour
+dira toujours que l'opération est réussie:
+
+<ul>
+<li><a href="../autodoc.html#resload_SaveFile">resload_SaveFile</a>
+<li><a href="../autodoc.html#resload_SaveFileOffset">resload_SaveFileOffset</a>
+<li><a href="../autodoc.html#resload_DeleteFile">resload_DeleteFile</a>
+</ul>
+
+<li>il n'y a pas de support pour les <a href="freezer.html">freezers/monitors</a>
+
+<li>il n'y a aucune vérification interne pour insuffisance de mémoire de la pile, d'après mes tests, la valeur
+par défaut de 4096 octets devrait être suffisante pour WHDLoadCD32
+
+</ul>
+
+<h3>Astuces pour utiliser WHDLoadCD32 sur une CD&sup3;&sup2;</h3>
+
+Le problème principal sur une CD&sup3;&sup2; est que la mémoire est limitée.
+Il n'y a que 2 MB de mémoire graphique disponible. L'objectif est d'avoir le maximum
+de mémoire libre pour WHDLoad et spécialement pour l'option PreLoad. Pour cela, assurez-vous
+qu'aucun autre programme ne tourne pendant que WHDLoadCD32 ne se lance.
+
+<ul>
+
+<li>Si un install permet de choisir entre les diskimages ou les fichiers, utilisez
+les fichiers. Car les fichiers de petites tailles peuvent trouver un emplacement
+en mémoire plus facilement que les gros fichiers.
+
+<li>Si un install vous donne la possibilité de compresser les fichiers en utilisant
+les logiciels Propack ou FImp, utilisez-la  et compressez tous les fichiers
+(l'algorithme RNC1 donne le meilleur ratio de compression). De plus, moins de mémoire
+ne sera requise pour l'option PreLoad et il n'y aura presque aucun délai lors
+du chargement.
+
+<li>Utilisez AllocMemReverse (ou un programme similaire) avant de lancer WHDLoadCD32.
+AllocMemReverse est un petit programme inclus dans l'archive de développement de WHDLoad.
+Il modifie la fonction AllocMem de la librairie "exec" pour utiliser en premier
+de la mémoire avec l'attribut MEM_REVERSE. La mémoire
+sera allouée à partir du sommet de la mémoire libre vers le bas et non par défaut, du bas
+vers le sommet. Ceci a pour effet de garder la mémoire inférieure libre.
+WHDLoad a besoin de la mémoire commençant à l'adresse 0, le début de la chipmem. Toute la
+mémoire inférireure a besoin d'être permutée. Pour cela, de la mémoire supplémentaire
+est requise pour sauvegarder cette mémoire. Plus la mémoire inférieure est utilisée moins
+il n'y aura de mémoire disponible pour le programme installé et pour l'option PreLoad.
+
+<li>Utilisez toujours l'option <a href="opt.html#Data">Data</a>. PreLoad ne connait pas
+à l'avance les fichiers qui seront chargés par le programmme donc il charge tous les
+fichiers qu'il trouve. Afin d'éviter que des fichiers inutiles ne soient chargés en mémoire,
+créez un tiroir qui contiendra seulement les fichiers nécessaires. Effacez tous les fichiers
+obsolètes tels que #?.info, #?.Slave, ReadMe, Manual, .... Ensuite lancez WHDLoadCD32 avec
+le Slave et le tiroir Data comme argument, par exemple <tt>WHDLoadCD32 :Slaves/XYZ.Slave
+Data=:Data/XYZ PreLoad</tt>. Il n'y a pas besoin de changer le répertoire courant.
+
+<li>Ne compressez pas les fichiers avec le logiciel XPK. La décompression XPK a besoin
+de plus de mémoire car les libraries XPK doivent être en mémoire, le décompresseur lui-
+même utilise aussi de la mémoire et la décompression la fragmente.
+
+</ul>
+</BODY>
+</HTML>

@@ -1,0 +1,658 @@
+@DATABASE 0048
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 5. The Brush Menu"
+@TOC PPaintCD:H/7/0/4/OO00/Main
+
+@{B}5.         The Brush Menu@{UB}
+
+Sections @{"3.1.1" LINK PPaintCD:H/7/0/4/0017/Main 38} ("Default and Custom Brushes") and @{"3.1.6" LINK PPaintCD:H/7/0/4/0017/Main 1027} ("Define Brush")
+introduce some general concepts about the brush and how it can be used.
+This chapter explains in detail all the functions which can be applied to
+the brush to load it, save it, set the drawing mode, apply color changes,
+transform it or change the position of the handle.
+
+A custom brush must be defined before most of the functions explained in
+this chapter can be used. Several menu items are automatically disabled
+(section @{"1.9.6" LINK PPaintCD:H/7/0/4/0002/Main 669} "Menus") when the current brush is not a custom brush.
+
+
+@{B}5.1        Load Brush@{UB}
+
+This function is similar to Load Image (section @{"4.1" LINK PPaintCD:H/7/0/4/0049/Main 11}), except that it
+loads the selected picture into the current brush. In most file formats
+supported by Personal Paint, there is no distinction between image and
+brush files. Some programs may or may not store additional information
+into the picture file (e.g. brush handle position or screen mode
+information), but this does not make the file less portable. Any picture
+can be loaded either as an image or a brush.
+
+Loading a picture as a brush does not automatically change the screen mode
+(size, colors, interlace mode, etc.) Conversely, loading a picture as an
+image adapts the screen mode to represent the image better, but also
+limits the number of bitplanes to the maximum allowed by the Amiga system
+being used.
+
+The screen format and colors are not changed when a brush is loaded. This
+may cause the brush to appear distorted (twice as wide or as tall as
+usual, etc.) over the underlying image, or with "random" colors.
+
+If the brush has different colors from the current image, it is possible
+to apply the colors of the brush to the image palette (section @{"8.1.7" LINK PPaintCD:H/7/0/4/0016/Main 273}), or
+vice versa (section @{"5.9.1" LINK Main 204}). The former will only work if the image has at
+least as many colors as the brush. Otherwise, the image format can be
+changed manually to increase the maximum number of colors which can be
+displayed (section @{"4.5.3" LINK PPaintCD:H/7/0/4/0049/Main 1015}). Personal Paint offers a more "intelligent" way
+of dealing with images having different colors: the Color Merge function
+(section @{"8.6" LINK PPaintCD:H/7/0/4/0016/Main 456}).
+
+The fact that a brush can have more colors than the current image may be
+very useful. For example, Original and Enhanced Architecture Amigas cannot
+display 256-colors at the same time. Even on these systems, however, a
+256-color brush can be processed, saved and printed without loss of data.
+The Chop Hidden Brush function (section @{"5.13.4" LINK Main 529}) is most useful for
+cutting undesired parts of a very large brush. On screen, only as many
+bitplanes as are supported by the system are displayed. This generally
+gives an incorrect display of the brush (something which looks like "all
+colors wrong"). Internally, however, Personal Paint continues to process
+the original brush data, in up to eight bitplanes.
+
+When the Copy Image Palette function (section @{"5.9.8" LINK Main 298}) is applied to the
+brush, the image colors also become those of the brush. Otherwise, the
+brush retains its original colors in a separate color map (even if it has
+to be displayed using the current screen colors).
+
+
+@{B}5.2        Save Brush@{UB}
+
+This function saves the current brush in exactly the same way that Save
+Image stores an image. The brush can later be reloaded as a brush or an
+image.
+
+If the IFF-ILBM format is selected to save the image, additional
+information on the brush handle position and transparency is saved.
+
+Saving parts which are smaller than the screen as brushes, rather than
+with the entire page which contains them, saves disk space. The "UIColors"
+files (section @{"1.14" LINK PPaintCD:H/7/0/4/0002/Main 1323}), for example, are better saved as brushes if they
+are stored on a limited capacity storage device like Personal Paint's
+program disk.
+
+"UIColors" files are an example of a particular "tricky" file: they should
+be saved as brushes if it is necessary to save disk space, but it is
+easier to load them as images, in order to use the correct screen mode and
+colors immediately. These files should always be saved in the IFF-ILBM
+format, which for both images and pictures stores information regarding
+the appropriate Amiga screen mode. Actually, if saving storage space has
+the highest priority, the "UIColors" files could be saved as simple
+palettes (section @{"8.1.2" LINK PPaintCD:H/7/0/4/0016/Main 62}) as well.
+
+
+@{B}5.3        Print Brush@{UB}
+
+This function prints the current brush, in a similar way as the Print
+Image function which is described in section @{"4.3" LINK PPaintCD:H/7/0/4/0049/Main 201}.
+
+On Amigas employing chip sets prior to the AA release, images which have
+more colors (bitplanes) than are supported by the system can only be
+printed as brushes. Loading and printing such a picture as an image would
+result in a loss of quality (which may be very small, using the advanced
+options of Personal Paint), because the picture has to be adapted to the
+best available Amiga screen format.
+
+The ratio of the current environment is used to print the brush. This may
+result in the picture being distorted (just as it appears on the screen -
+section @{"5.1" LINK Main 14}), if the brush is taken from an environment having a
+different display ratio. The appearance of an image can often be improved
+by selecting the appropriate screen mode (section @{"4.5" LINK PPaintCD:H/7/0/4/0049/Main 901}) before printing
+it. For example, a GIF image measuring 320 by 200 pixels may appear
+"squeezed" if printed from a low resolution 320 by 200 PAL-mode
+environment, while it might look better if printed from an NTSC screen
+with the same resolution.
+
+
+@{B}5.4        Grab Window@{UB}
+
+This command is very similar to Grab Screen (section @{"4.4" LINK PPaintCD:H/7/0/4/0049/Main 870}), only that it
+allows the user to grab a single window, storing it in the current brush.
+Windows are listed grouped by screen. A number before the window name
+indicates the screen group to which the window belongs.
+
+The Activate Window option makes sure that the window to be grabbed is
+both active (inactive windows may have different colors, especially on the
+title bar) and completely visible (otherwise covered parts of "simple
+refresh" windows cannot be grabbed, as they first have to be rebuilt by
+the program which opened them).
+
+
+@{B}5.5        Process Brush@{UB}
+
+This command applies Personal Paint's image processing functions to the
+current brush, as is described for images in section @{"3.1.4" LINK PPaintCD:H/7/0/4/0017/Main 521}.
+
+When a Dispersed, Clustered or F-S Type filter is applied to the brush,
+the color palette of the current environment is copied to the brush
+palette, since these dithering techniques employ the current foreground
+and background colors to simulate different color shades.
+
+
+@{B}5.6        Restore Brush@{UB}
+
+This command undoes the last transformation applied to the brush
+(including a load operation), restoring its original appearance.
+
+If an operation of the same class has been consecutively applied several
+times (e.g. a resize, rotation, transparency change, etc.), the brush is
+restored to the appearance it had before the first of such transformations
+was applied.
+
+
+@{B}5.7        Free Brush@{UB}
+
+This function clears the current brush and frees all the associated memory
+resources. Since it cannot be reversed by Restore Brush, a warning message
+asks for confirmation.
+
+
+@{B}5.8        Paint Mode@{UB}
+
+Different paint modes can be applied when using custom brushes. Each mode
+yields different results when a brush is pasted onto the image with the
+mouse. A different symbol on the title bar is associated with each
+setting.
+
+Unless otherwise specified, the current background color is used for the
+entire brush when the right mouse button is used for painting.
+
+
+@{B}5.8.1      Matte@{UB}
+
+In this mode, brushes are painted with their own colors. Areas defined as
+transparent are not copied. By default, these areas are associated to
+background colored areas when the brush is defined. Sections @{"5.9.5" LINK Main 251} to
+@{"5.9.7" LINK Main 279}, and @{"9.14.3" LINK PPaintCD:H/7/0/4/0047/Main 855} explain how to further specify the areas which should
+be considered transparent.
+
+
+@{B}5.8.2      Color@{UB}
+
+In this mode, the entire brush (except its transparent parts) is pasted in
+the current foreground or background color (depending on which mouse
+button is used.)
+
+
+@{B}5.8.3      Replace@{UB}
+
+Like Matte, this mode paints with the individual colors of the brush. The
+brush transparency information is ignored.
+
+
+@{B}5.8.4      HBrite@{UB}
+
+When Painting in Extra Half Brite screen mode (section @{"4.5" LINK PPaintCD:H/7/0/4/0049/Main 901}), where 32
+colors can be freely set and the other 32 are darker shades of the first
+32, it is particularly useful to alternate quickly between the two
+associated states of a pixel.
+
+This mode is similar to Color, in that all non-transparent brush pixels
+are treated in the same way. If the left mouse button is used for
+painting, all image pixels under the brush are turned to their darker
+HBrite color. Painting with the right button activates the lighter color
+of each pair instead.
+
+
+@{B}5.9        Color@{UB}
+
+All items in this menu are used to apply color and transparency changes to
+the brush.
+
+
+@{B}5.9.1      Remap@{UB}
+
+When a brush is loaded or imported from an environment having a different
+color palette, it may become necessary to render the original brush as
+accurately as possible without disturbing the colors of the current image.
+While Color Merge (section @{"8.6" LINK PPaintCD:H/7/0/4/0016/Main 456}) compares, changes, combines and mixes all
+colors of all pictures involved, Remap only changes the current brush.
+
+Remap chooses the colors in the image palette which most closely resemble
+the original colors of the brush. Dithering and error diffusion are
+applied to the brush if the corresponding options have been activated
+(section @{"9.8" LINK PPaintCD:H/7/0/4/0047/Main 366}). After a remap, the brush has the same number of bitplanes
+as the current screen.
+
+
+@{B}5.9.2      Complement@{UB}
+
+This command exchanges the colors of the brush by selecting for each color
+position in the palette the complement of the binary number associated to
+that position. This may be useful, for example, for programmers to see how
+an image might look with Intuition's complement highlighting (which is
+used for gadgets, icons, etc.)
+
+
+@{B}5.9.3      Change Background to Foreground@{UB}
+
+This function sets all background-colored pixels in the brush to the
+foreground color. It provides a very selective way of changing only
+certain colors in the brush.
+
+When working on images rather than brushes, similar area-oriented results
+can be obtained by masking the color which is not to be changed (section
+@{"8.2.3" LINK PPaintCD:H/7/0/4/0016/Main 349}) and then painting a filled rectangle (section @{"3.1.2.6" LINK PPaintCD:H/7/0/4/0017/Main 278}) over the
+desired area.
+
+
+@{B}5.9.4      Swap Background and Foreground@{UB}
+
+This command exchanges the brush's background colored pixels with those in
+the foreground color, and vice versa.
+
+This function can be used, for example, to recolor Workbench icon images
+originally designed for 1.@{I}x@{UI} operating systems for use in newer versions.
+To do this, the foreground and background colors should be set to the
+second and third color in the palette, respectively.
+
+
+@{B}5.9.5      New Transparency@{UB}
+
+Each brush may have transparent areas which do not affect underlying parts
+of an image when pasting. The transparent area is defined by an additional
+bitplane which may either be associated to a particular color (e.g. the
+background color), or have a custom defined shape. This bitplane is loaded
+and saved with the brush in the IFF-ILBM file format.
+
+By default, this command redefines the transparent area, making it equal
+to the parts having the current background color.
+
+The setting of the Backfill Transparency option (section @{"9.14.3" LINK PPaintCD:H/7/0/4/0047/Main 855})
+determines whether, upon definition of a brush, its transparency is to be
+equal to the background color, or to the single-colored area which
+surrounds the brush. The New Transparency option makes it possible to
+apply the new transparency to an already defined brush.
+
+
+@{B}5.9.6      Flood Transparency@{UB}
+
+The position of the brush handle, which can be set as explained in section
+@{"5.15" LINK Main 592}, is used as the starting point of a "flood fill" operation which
+makes the selected area (i.e. group of pixels having the same color)
+transparent. The brush image itself is not modified: only the bitmap which
+defines the transparency is modified. Conversely, if the selected area is
+already transparent, it is made opaque again.
+
+
+@{B}5.9.7      Next Transparency@{UB}
+
+As explained before, each brush has an associated bitplane which describes
+the areas to be considered transparent or opaque. Personal Paint allows
+the user to define and use up to nine different brushes at the same time.
+If the brushes have the same size, the transparency plane of one brush can
+be used for another brush.
+
+This command applies the transparency plane of the next brush to the
+current one. In this process, empty brushes are skipped. If necessary,
+Personal Paint searches through all brushes, starting again with brush
+number one after reaching the last one.
+
+By painting and defining a two-color brush with the appropriate size, it
+is possible to manually create a transparency plane to be used for another
+brush with higher precision than can be achieved with the normal
+background and fill transparency modes.
+
+
+@{B}5.9.8      Copy Image Palette@{UB}
+
+When a brush is loaded or imported from an environment having different
+colors from the current one, it conserves its original color palette even
+if it has to be displayed in the current environment colors. This command
+resets the brush's internal palette and makes it the same as the current
+environment palette.
+
+
+@{B}5.10       Clipboard@{UB}
+
+The Amiga operating system provides for a standard way of exchanging data
+(mainly text and graphics) between one application and another, called the
+Clipboard. The content of the Clipboard is public, i.e. the data in it can
+be read and written by any program.
+
+Thanks to the Amiga Clipboard, for example, the user can drag a Workbench
+icon on IconEdit, pass it to Personal Paint, edit it and go back and use
+IconEdit again to save the the new image as an icon.
+
+If Personal Paint cannot open the Amiga Clipboard device
+("clipboard.device" file in the system "devs" drawer), the functions which
+depend on it will not work.
+
+Some incorrectly written programs may lock the Clipboard under certain
+circumstances. This may happen, for example, with text editors that expect
+the Clipboard to contain only text, or software that does not read the
+Clipboard up to its end, and therefore does not release the resource for
+use by other programs. The Empty Clipboard function can be used to prevent
+similar problems where they are known.
+
+
+@{B}5.10.1     Read Brush@{UB}
+
+This command searches the Clipboard for graphical data. If a picture is
+found, it is copied to the current brush. The original data is not removed
+from the Clipboard.
+
+
+@{B}5.10.2     Write Brush@{UB}
+
+This function places a copy of the current brush to the Clipboard, where
+it can be used by other programs (as well as by Personal Paint). Any data
+previously contained in the Clipboard will be replaced by the new
+picture.
+
+
+@{B}5.10.3     Empty@{UB}
+
+This command clears the entire contents of the Amiga Clipboard, regardless
+of its type (graphics, text, etc.) This is useful in low memory
+conditions, especially if a very large brush which does not need to be
+used any more is still stored in the Clipboard.
+
+
+@{B}5.11       Resize@{UB}
+
+The functions described in the following subsections modify the size of
+the current brush, which can be either a program default brush, or a
+custom (user defined) brush. The brush is stretched to the new size.
+
+Section @{"9.13.3" LINK PPaintCD:H/7/0/4/0047/Main 734} explains how the Color Average Resize option affects brush
+resizing.
+
+
+@{B}5.11.1     Stretch@{UB}
+
+This function stretches the brush to any size indicated with the mouse.
+When this function is selected, the mouse pointer changes to the stretch
+symbol to indicate that the brush stretch mode is active.
+
+When the left mouse button is held down, the upper left corner of the
+brush remains "anchored", while the lower right corner reflects mouse
+movements, changing the size and shape of the brush. The new size can be
+specified by clicking the left mouse button, moving the mouse and
+releasing the button.
+
+If <Shift> is held down, the brush can only be resized in accordance with
+its original aspect ratio. This means that the image can be resized
+smoothly, but not distorted (i.e. made taller or wider).
+
+
+@{B}5.11.2     Smaller@{UB}
+
+This command makes the brush smaller by the smallest possible step,
+maintaining the correct display ratio (i.e. X/Y proportions).
+
+
+@{B}5.11.3     Bigger@{UB}
+
+As with Smaller, this function makes the brush slightly bigger.
+
+
+@{B}5.11.4     Halve@{UB}
+
+This function halves the brush. The width and the height are halved,
+therefore the total brush surface is reduced to a quarter of the original
+brush.
+
+
+@{B}5.11.5     Halve Horizontal@{UB}
+
+This function is a subset of Halve. Only the width is halved, while the
+height is left unchanged.
+
+
+@{B}5.11.6     Halve Vertical@{UB}
+
+This function "flattens" the brush. The width is not varied, but the brush
+height is halved.
+
+
+@{B}5.11.7     Double@{UB}
+
+This function doubles both the horizontal and vertical brush dimensions.
+The resulting brush will have four times as many dots as the original
+brush.
+
+
+@{B}5.11.8     Double Horizontal@{UB}
+
+This function is a subset of Double. The brush is doubled only
+horizontally. While the width is doubled, the height remains the same.
+
+
+@{B}5.11.9     Double Vertical@{UB}
+
+This function is a subset of Double. The brush is doubled only vertically.
+While the height is doubled, the width remains the same as that of the
+original brush.
+
+
+@{B}5.12       Rotate@{UB}
+
+These functions perform various rotation operations on the brush.
+
+
+@{B}5.12.1     Any Angle@{UB}
+
+This command locks the lower left corner of the brush as soon as the left
+mouse button is pressed, and allows the entire brush to be rotated by
+moving the mouse pointer around. For speed reasons, an outline of the
+brush may be displayed while the rotation angle is defined.
+
+
+@{B}5.12.2     90 Degrees@{UB}
+
+This function rotates the brush clockwise by 90 degrees. The horizontal
+and vertical dimensions of the brush are reversed. If the brush is square
+(i.e. if it is as wide as it is tall, in dots) the dimensions do not
+change.
+
+The brush handle is repositioned in accordance with the rotation. If the
+function is executed four (or a multiple of four) times on the same brush,
+the resulting brush will be identical to the original brush.
+
+
+@{B}5.12.3     Horizontal Flip@{UB}
+
+The same flip functions already described in section @{"4.7" LINK PPaintCD:H/7/0/4/0049/Main 1071}, which modify
+the content of the entire image, also exist for brushes.
+
+This function transforms the image contained in the brush into its
+"mirror" image. The columns of dots, from the left to the right, which
+originally made up the brush image, are re-arranged in reversed order
+(from the right to the left).
+
+
+@{B}5.12.4     Vertical Flip@{UB}
+
+This function, like Horizontal Flip, modifies the brush image. The brush
+is turned upside-down each time the function is selected.
+
+The effect of this function can be undone by repeating the function an
+even number of times on the same brush. This is also true for Horizontal
+Flip.
+
+
+@{B}5.12.5     Shear@{UB}
+
+This command is similar to a combination of Stretch and Rotate. It can be
+used to freely apply different levels of distortion to the brush. As in
+these former modes, the lower right corner of the brush can be freely
+moved while the left mouse button is held down. If the mouse is moved
+horizontally, the top of the brush remains still, while its left part
+remains anchored if the mouse is moved vertically. Combined mouse moves
+produce intermediate results. It's a bit like pulling a thin sheet made of
+rubber. Like many other image processing tools, this one is easier to see
+and use than it is to explain.
+
+Holding <Shift> down restricts the mouse to moving along the axis in which
+it is moved first.
+
+
+@{B}5.13       Chop@{UB}
+
+The items in this menu are used to examine and optimize the amount of
+memory used to store a brush.
+
+
+@{B}5.13.1     Info@{UB}
+
+This requester displays information about the size and quantity of
+bitplanes actually used for the current brush, and the minimum size and
+number of bitplanes which could store the same brush without any loss of
+data.
+
+This information is useful for checking whether some bitplanes are not
+even needed (for example, a brush may use only some of the very first
+image colors) and whether there are external transparent zones which could
+be removed. If more bitplanes than necessary are used, or if border parts
+of those bitplanes are used to store transparent data, memory can be saved
+with the other functions in this menu.
+
+
+@{B}5.13.2     Edges@{UB}
+
+This command cuts ("chops") all strips on the borders of the brush which
+contain only transparent pixels.
+
+
+@{B}5.13.3     Planes@{UB}
+
+This function removes the last unused bitplanes of the current brush. For
+example, if the second half of colors in the brush palette is never used,
+the last bitplane is removed.
+
+The resulting brush palette will lose the information relative to the
+unused colors.
+
+
+@{B}5.13.4     Hidden@{UB}
+
+This command removes all parts of the brush which are not visible (e.g.
+hidden by the title bar, tool bar or beyond the limits of the screen or
+those of the magnification window).
+
+For example, to print only the central part of a 256-color brush which is
+larger than the screen, the brush handle would be placed at the center of
+the brush (section @{"5.15.4" LINK Main 630}). Then, the brush would be moved towards a
+corner of the screen and this command would be executed by typing its
+keyboard shortcut. The remaining part of the brush could then be moved to
+the opposite part of the screen, where the other edges could be cut.
+Finally, the desired central rectangle could be printed.
+
+Due to the visual interaction required to move the mouse and select the
+parts to be cut, this command should only be executed through its
+associated keyboard shortcut. Moving the mouse pointer to select the menu
+might cause unpredictable results.
+
+
+@{B}5.14       Outline@{UB}
+
+These functions create different outline effects around non-transparent
+parts of brush, using the current foreground color. For three-dimensional
+effects, the light source is assumed to be on the top left of the brush,
+with shadows cast to the lower right.
+
+
+@{B}5.14.1     Simple@{UB}
+
+This command draws a simple border around the brush, using the foreground
+color. No outline is added around corners.
+
+
+@{B}5.14.2     Square@{UB}
+
+This effect is similar to the Simple one, but produces sharper edges.
+
+
+@{B}5.14.3     Shadowed@{UB}
+
+This function is similar to Simple, but applies a border twice as thick as
+normal to the bottom and right edges of the brush.
+
+
+@{B}5.14.4     3-D@{UB}
+
+This effect adds a border in the current background color around the top
+and left of the brush, and uses the foreground color for the outline
+around the bottom and right edges. If a combination of light and dark
+colors is selected, the resulting brush will look like a raised object.
+Conversely, if the background color is dark and the foreground color is
+light, the brush will appear recessed.
+
+
+@{B}5.14.5     Trim@{UB}
+
+This command removes the outermost circle of pixels around the brush (i.e.
+an outline 1 pixel thick). Technically, this is accomplished by
+temporarily inverting the transparency plane and using it to delete the
+pixels.
+
+
+@{B}5.15       Handle@{UB}
+
+The handle of the brush is the position which is linked to the mouse
+pointer. It can be positioned anywhere (and may even be outside the
+brush). This is especially useful when working with large brushes.
+
+The position of the brush handle is stored and loaded with the brush data
+when using the IFF-ILBM file format.
+
+Some functions may automatically reposition the handle (e.g. brush
+rotation, resizing, etc.)
+
+
+@{B}5.15.1     Custom@{UB}
+
+This option allows the user to freely define the brush handle position by
+clicking on the left mouse button, moving the mouse over the brush (which
+is temporarily anchored to the screen) and releasing the button when the
+pointer is over the desired position.
+
+This command, combined with Flood Transparency (section @{"5.9.6" LINK Main 269}), can be
+used to select the parts to be made transparent by "flood filling".
+
+
+@{B}5.15.2     Upper Left@{UB}
+
+This option places the brush handle on the top left corner of the brush.
+
+This brush position is the only one which is guaranteed not to be moved by
+a brush resizing operation.
+
+
+@{B}5.15.3     Upper Right@{UB}
+
+This option links the brush handle with the top right corner of the
+rectangle which contains the brush.
+
+
+@{B}5.15.4     Center@{UB}
+
+The brush handle position is placed at the center of the brush. If the
+center falls between two dots, the lowest of two dots on the same column,
+or the rightmost of two horizontally adjacent dots is selected.
+
+This is the default initial brush handle position of Personal Paint.
+
+
+@{B}5.15.5     Lower Left@{UB}
+
+This option places the handle at the lower left corner of the brush.
+
+
+@{B}5.15.6     Lower Right@{UB}
+
+This option links the brush handle with the lower right corner of the
+brush rectangle.
+
+@ENDNODE

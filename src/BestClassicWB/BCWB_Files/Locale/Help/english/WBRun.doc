@@ -1,0 +1,53 @@
+
+                                  WBRun.doc
+
+
+    A RunBack style program which use parm.library.  Runs programs
+    in  WB  mode  from any CLI.  Programs are fully detached.  The
+    program you run must support WB startup.
+
+    Usage:
+
+        WBRun Prog [args] [STACK size] [PRI pri] [DELAY sec] [SYNC]
+
+    if you type:
+
+        WBRun ?
+
+    you will get this command template
+
+        Prog/A,Args/M,STACK/K/N,PRI/K/N,DELAY/K/N,SYNC/S:
+
+    that is to say, Prog must be specified, and other args are optionnal.
+
+    Stack will overide icon stack if specified, so use with great care.
+    Pri is 0 by default.
+    Delay  is  in seconds.  WBRun will wait this delay once prog is loaded
+    and run, and can be used to prevent disk trashing in script files.
+    When you set the SYNC flag, WBRun will wait for program to finish
+    before return. This may be usefull in scripts, especialy in ParM.
+
+    Example:
+
+        ITEM ADPro RUN Assign ADPRO: Work:ADPro ; WBRun SYNC ADPRO:ADPro ; Assign ADPRO:
+
+        This will make it possible to run ADPro in WB mode even with
+        commands runned in SHELL mode before and after.
+        If you didn't understand, this item creates the ADPRO: assign,
+        runs ADPro in WB mode, and then cancels the assign.
+
+    WBRun is pure and can be made resident.
+
+History:
+
+    1.0:    1st version for both 1.3 & 2.0+
+    2.0:    Special 2.0 version.
+    2.1:    Added SYNC option.
+    2.2:    Last release was marked as V1.22
+            and was not working!
+            This is fixed.
+
+    Authors: Sylvain Rougier, Pierre Carrette.
+
+    Enjoy.
+

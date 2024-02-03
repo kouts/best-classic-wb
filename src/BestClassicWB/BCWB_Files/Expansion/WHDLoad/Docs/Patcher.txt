@@ -1,0 +1,110 @@
+-------------------------------------------------------------------------------
+Description for THE PATCHER,
+written by Egon, now maintained by Harry.
+-------------------------------------------------------------------------------
+
+What is it?
+THE PATCHER is an utility to patch your originals to work on higher
+processors and/or AGA or to help to install them on your hd.
+
+
+How does it work?
+Simply start it, choose your game by clicking on the selection requester
+and press Patch! . Then insert a COPY of your original (unless your
+original is EXPRESSLY demanded).
+Even if only one parameter is displayed you have to select it first.
+
+
+Which advantages has it?
+Easily addition of parameters due to the module-concept. It works like
+the soundplayers of Delitracker. If you get a new parameter without
+install, just copy it to the PARAMETER/-directory of THE PATCHER.
+But for most parameters should exist an installscript so you dont have
+to do anything.
+For programmers: Mighty interface to OS-functions. Look at the developers
+description.
+
+
+System requirements:
+Kick1.3 or higher. Ruby_8 font. The parameters may not be crunched,
+except with an installed XPK-system.
+
+
+Contents:
+The package contains THE PATCHER-mainprogram, the compareprogram
+MAKECOMPTAB, some examples of parameters (as binary) and this readme.
+The developers package contains additionally some more parameters (as
+source and binary), the compareprogram makecomptab as source and binary,
+the patcher-sourcecode and the developers readme.
+These packages are freeware, you shouldnt change this text or the
+mainprogram and keep it completely, but feel free to add parameters.
+
+
+Command line parameters:
+Unless otherwise specified, source- and destinationdrive will be
+DF0: (affects only some parameters, which converts NON-DOS disks).
+DOS disks will always be converted in that drive where they are
+inserted.
+
+Parameter	Example		Description
+-s<device>	-sDF3:		Set source drive (for NDOS disks)
+-d<device>	-dRAD:		Set destination drive
+				The specified drive must be already present.
+-p<drive:path/parametername>    Execute The Patcher as pseudo-commandline-
+				version, eg for using it in hd-install-
+				scripts.
+
+
+Comment to "Error in parameter execution":
+This means nearly everytime a reading/saving error and may have the following
+reasons:
+-If it accesses the source disk rather shortly: Other game version
+-If it stops after reading a lot from the source disk: Disk error on your
+ original disk :(
+-Not enough space on the destinationdrive
+-Bad sector on the destination drive (rather seldom, also you should get a
+ system requester about such thing)
+
+
+History:
+V1.00	First working version. Release date 20-07-1994.
+V1.01	Harry took over. Minor fixes. Commandline-option -p added.
+	(09-may-1997)
+V1.02	Some things added (PTB_FSSM*PTR, inhibiting/enabling drives).
+	(02-jun-1997)
+V1.03	Versionstring added (requested by Bert Jahn). Possibility to
+	evaluate a CRC16 implemented. (09-jun-1997)
+V1.04	Errormessage added if no parameter is selected and Patch! clicked.
+	I dont want to have mails about that anymore. Docs a bit revised.
+	(17-jun-1997)
+V1.05	Function to display information added. Bug in makecomptab for
+	files exceeding 1 MB corrected. Examples reworked. (12-jan-1998)
+V1.06	bug when using PCH_FILENAME without PCH_DISKNAME fixed (Wepl)
+
+
+And last but not least a bit of music is needed to entertain me while patching
+(just a choice, a list of my 150 cds would be a bit long...). The list is
+unordered and in no way a ranking list:
+Grave Digger 		Wargames			(Heavy Metal)
+Incubus			Beyond the Unknown		(Death Metal)
+Heather Nova		Oyster				(Rock)
+Zarah Leander		Kann denn Liebe Sünde sein?	(German gramophone
+							music of ~ 1930 :)) )
+Bruce Springsteen	The River			(Rock)
+Paddy goes to Holyhead	Ready for Paddy?		(Irish Folk)
+Philip Boa &...		Hair
+Army of Lovers		Glory, Glamour and Gold		(Very nice fun-music)
+Helloween		Walls of Jericho		(Heavy Metal)
+Unleashed		Across the open sea		(Death metal)
+Tiamat			Wildhoney			(Melodic Black Metal)
+Amorphis		Tales from the 1000 lakes	(Melodic Metal)
+Eloy			Dawn				(Art Rock)
+Uriah Heep		Very best of (compiled by Arcade) (Rock)
+Alice Cooper		Trash				(Metal)
+Anne Clark		Pressure Points			(Dark Wave?)
+Chris Hülsbeck		Turrican Soundtrack
+Winter			Into darkness			(Gothic)
+And of course a lot of computer music, eg from Beast1 (Whittaker), various
+from Chris Hülsbeck, from Hybris, from Wings of Death (Hippel), Onslaught
+and Dragon Wars (Maniacs of Noise), some from Dr. Awesome and many of
+unknown authors.

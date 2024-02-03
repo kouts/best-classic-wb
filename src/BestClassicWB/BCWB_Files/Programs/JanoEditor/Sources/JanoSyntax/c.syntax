@@ -1,0 +1,35 @@
+# C language syntax highlighting file for JanoSyntax
+# Written by T.Pierron, 30 march 2002
+
+case sensitive
+
+type char int long unsigned signed short const static extern
+type volatile void BOOL BYTE UBYTE WORD UWORD LONG ULONG APTR
+type BPTR STRPTR TEXT struct union typedef
+
+keyword if else while do for switch goto break continue
+keyword return sizeof
+
+# Objects that shouldn't be used anymore
+error SHORT USHORT CPTR
+
+constant TRUE FALSE NULL \d+(.\d*)?
+
+# String definition
+begin constant \"
+special \\n \\t \\r \\b \\"
+error \\e
+end \"
+
+# Standard C comment
+begin comment /\*
+error TODO
+end \*/
+
+# C++ Comment style
+begin comment //
+end
+
+directive #include #define #ifdef #ifndef #if #else #elif #endif
+directive #undef
+

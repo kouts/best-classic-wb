@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>CRC16 * Berechnung von CRC16 Pr&uuml;fsummen</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: crc16.html 1.5 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>CRC16 * Berechnung von CRC16 Pr&uuml;fsummen</h3>
+Dieses Programm berechnet die CRC-16 Pr&uuml;fsumme &uuml;ber den Teil einer Datei
+(oder &uuml;ber die gesamte Datei). Dies kann zum Beispiel in Installationsskripten
+verwendet werden, um zwischen verschiedenen Versionen zu unterscheiden und in
+Abh&auml;ngingkeit davon unterschiedliche Slaves oder &auml;hnliches zu installieren.
+Der Wert der zur&uuml;ckgegeben wird, ist derselbe, den die Funktion <a href="../autodoc.html#resload_CRC16">resload_CRC16</a>
+berechnet. Dies mag w&auml;hrend der Slave-Entwicklung hilfreich sein.
+<h4>Installation</h4>
+kopiere das Programm nach C: oder einem &auml;hnlichen Platz.
+<h4>Optionen</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,OFFSET/K/N,LENGTH/K/N</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+die Datei von der die Pr&uuml;fsumme berechnet werden soll
+<br>Beispiel "S:Startup-Sequence"
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>OFFSET/K/N</tt>&nbsp;&nbsp;
+</td><td>
+Anfangsadresse in der Datei
+<br>voreingestellt ist der Anfang der Datei
+<br>Beispiel "OFFSET=11264" w&auml;re der Anfang des Tracks 2 eines Standard Diskettenabbildes
+</td></tr>
+<tr><td valign=top>
+<tt>LENGTH/K/N</tt>
+</td><td>
+Gr&ouml;&szlig;e des Bereiches &uuml;ber den die Pr&uuml;fsumme berechnet werden soll
+<br>voreingestellt ist das Ende der Datei
+<br>Beispiel "LENGTH=1024"
+</td></tr>
+</table>
+<h4>R&uuml;ckgabewert</h4>
+Die Pr&uuml;fsumme wird als Exit Code des Programmes zur&uuml;ckgegeben.
+</BODY>
+</HTML>

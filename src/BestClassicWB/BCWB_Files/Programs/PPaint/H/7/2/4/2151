@@ -1,0 +1,525 @@
+@DATABASE 2151
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 6. Il menu Animazione"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}6.         Il menu Animazione@{UB}
+
+Un'animazione, come il nome suggerisce, è simile a un film o a un cartone
+animato ottenuto fotografando una serie di disegni (detti "fotogrammi").
+Personal Paint dispone di esclusive e potenti funzioni di animazione e
+permette di manipolare con facilità fotogrammi o gruppi di fotogrammi
+grazie al quadro "Storyboard". Il programma sfrutta a fondo, più di ogni
+altro, lo standard di memorizzazione ANIM, consentendo di ottenere una
+migliore compressione dei file e dando quindi maggior spazio alla
+creatività. È possibile usare più di una tavolozza colori per diversi
+gruppi di fotogrammi e programmare con precisione il tempo di apparizione
+di ogni singolo fotogramma. È anche possibile ridimensionare, tagliare o
+modellare un'intera animazione, come se fosse una semplice immagine.
+L'animazione a cui si lavora non occupa RAM Chip, in quanto Personal Paint
+memorizza i fotogrammi in memoria Fast. Il programma è anche in grado di
+visualizzare animazioni direttamente da disco.
+
+Personal Paint legge e scrive animazioni nei seguenti formati: ANIM5,
+ANIM7-S, ANIM7-L, ANIM8-S, ANIM8-L e formato ibrido (basato su una
+combinazione dei precedenti).
+
+Personal Paint dispone dell'esclusivo formato di memorizzazione "Auto
+ANIM" che, per ogni fotogramma, individua la migliore tecnica di
+compressione (ANIM5, ANIM7, ecc.). Rispetto ai file ANIM5 puri, i file
+ibridi possono risultare più compatti del 5-10%, pur restando totalmente
+compatibili con le specifiche ANIM.
+
+Il formato ANIM8 è un'evoluzione dell'ANIM5, proprio come l'ANIM7
+(quest'ultimo è tuttavia considerato più efficiente). Rispetto all'ANIM5,
+entrambi i formati possono offrire una maggiore velocità di lettura.
+
+Le animazioni create con Personal Paint possono essere visualizzate da
+altri prodotti commerciali e da noti programmi di pubblico dominio, come
+"Viewtek" (che riconosce il formato ANIM7 a partire dalla versione 1.04) e
+"RTAP" (Real Time Anim Player), entrambi in grado di gestire tavolozze
+multiple e temporizzazione differenziata dei fotogrammi.
+
+Centinaia e centinaia dei file-animazione esistenti potrebbero essere resi
+più corti semplicemente leggendoli e riscrivendoli con Personal Paint.
+Questo è possibile grazie alle esclusive procedure che si occupano di
+ottimizzare la compressione dei piani di bit dei fotogrammi. I file
+generati possono essere letti e interpretati anche dai meno recenti
+programmi di visualizzazione ANIM5.
+
+Le animazioni possono essere ulteriormente ottimizzate. Molti programmi
+inseriscono fotogrammi "di temporizzazione" all'unico scopo di mostrare
+una data immagine per un certo periodo di tempo. Tutti i gruppi di
+fotogrammi identici possono essere riuniti in un unico fotogramma con
+un'appropriata temporizzazione. Personal Paint dispone di una funzione che
+svolge esattamente questo compito.
+
+Ad esempio, il file con la famosa animazione "AmyWalks_2" di Eric W.
+Schwartz è lungo 341.276 byte. Una volta riscritto da Personal Paint
+(sempre in formato ANIM5 e senza eliminazione di fotogrammi), il file è 45
+Kbyte più corto.
+
+Il noto cartone animato "Doggie's_Inferno" occupa in origine 153.576 byte
+per un totale di 317 fotogrammi. In aggiunta alla compressione
+inefficiente, 248 di questi fotogrammi sono identici ad altri e servono
+esclusivamente come temporizzatori. Con Personal Paint questo non è più
+necessario. Eliminando questi fotogrammi e riscrivendo l'animazione, la
+lunghezza del file si riduce a soli 84.782 byte: quasi la metà di quella
+originaria.
+
+Se un animazione ha graduali transizioni di colori ("fade-in" e
+"fade-out"), non è necessario utilizzare estese tavolozze colori: ciascun
+fotogramma o gruppo di fotogrammi può avere una propria tavolozza. Lo
+storyboard dispone di una funzione per applicare transizioni di colori ad
+una sequenza di fotogrammi.
+
+Personal Paint può leggere, elaborare e visualizzare animazioni in
+qualsiasi modo video indicizzato (basato su tavolozza colori): tra questi,
+tutti i modi video dei chip-set Amiga e delle schede grafiche RTG.
+Nell'uso di queste ultime è importante tener presente che il modo video
+selezionato deve poter gestire una tecnica chiamata @{I}double-buffering@{UI}. I
+driver video della scheda grafica RTG devono poter gestire il
+double-buffering tramite le funzioni della libreria Intuition (ciò
+normalmente richiede la versione 3.0 del sistema operativo). Il
+double-buffering è una tecnica disponibile su tutti i calcolatori Amiga e
+in tutte le versioni del sistema operativo. Occorre notare che le
+dimensioni del fotogramma non devono eccedere le dimensioni massime dello
+schermo (questo può comunque essere in modo underscan, overscan e
+autotraslazione): in caso contrario, l'animazione può essere editata, ma
+non è garantita una visualizzazione fluida. La funzione "Animare da file"
+è in grado di gestire ulteriori modi video (ad es. HAM e HAM8).
+
+Quale formato di memorizzazione scegliere? Il formato ANIM5 è il più
+adottato e diffuso tra i vari formati animazione di Amiga e offre anche il
+miglior livello di compressione. Il formato ANIM7 si basa su procedure
+ottimizzate per la visualizzazione, direttamente da file, di animazioni
+con grandi quantità di dati (ad es. quelle che fanno uso dei modi video
+AGA). Una volta lette in memoria, le animazioni vengono gestite in un
+formato comune, a prescindere da quello del file di origine. Ad ogni modo,
+se un'animazione a 256 colori deve essere visualizzata da file, può
+risultare molto più veloce e scorrevole se memorizzata in formato ANIM7.
+Riguardo al formato ANIM7, occorre notare che se da una parte offre una
+velocità di animazione da file maggiore rispetto al formato ANIM5,
+dall'altra non è altrettanto efficiente nella compressione dei dati, né
+altrettanto standard (alcuni programmi di animazione non sono in grado di
+gestirlo). Vi sono due varianti del formato ANIM7: ANIM7-S (basato su
+short-word) e ANIM7-L (basato su long-word). Quest'ultimo offre una
+velocità di animazione ancora maggiore su alcuni calcolatori, pur
+comportando un inferiore livello di compressione dei dati.
+
+
+@{B}6.1        Leggere animazione@{UB}
+
+Questa funzione legge un'animazione da file. Se l'ambiente attuale
+contiene un'animazione di formato uguale a quello dell'animazione
+selezionata, viene visualizzato un quadro che consente di scegliere come
+leggere i nuovi fotogrammi.
+
+Le possibili operazioni in questo caso sono:
+
+@{I}Leggere nuova@{UI}: cancella l'animazione corrente e legge la nuova;
+
+@{I}Aggiungere@{UI}: aggiunge i nuovi fotogrammi alla fine dell'animazione
+corrente;
+
+@{I}Inserire prima@{UI}: inserisce i nuovi fotogrammi prima del fotogramma
+selezionato con il gadget proporzionale in basso nel quadro;
+
+@{I}Inserire dopo@{UI}: operazione analoga a "inserire prima", i nuovi fotogrammi
+vengono però inseriti dopo il fotogramma indicato;
+
+@{I}Sovrascrivere@{UI}: i nuovi fotogrammi sovrascrivono quelli esistenti, a
+partire dal fotogramma specificato; i fotogrammi che eccedono la lunghezza
+dell'animazione corrente vengono aggiunti in coda.
+
+I fotogrammi vengono visualizzati man mano che vengono letti. Premendo il
+tasto <Esc> si interrompe la lettura dell'animazione (i fotogrammi già
+letti non vengono persi).
+
+
+@{B}6.2        Scrivere animazione@{UB}
+
+Dopo il quadro di selezione file, un ulteriore quadro consente di
+scegliere il formato del file (tra quelli prima descritti) e se
+memorizzare l'intera animazione o parte di essa.
+
+È consigliabile scrivere un'animazione solo se l'attuale modo video
+gestisce il double-buffering, tecnica richiesta per visualizzare
+l'animazione in modo fluido. Molti programmi non sono in grado di
+visualizzare animazioni che richiedono modi video privi di
+double-buffering. Personal Paint memorizza, assieme all'animazione, le
+opportune informazioni sul modo video (come richiesto dallo standard
+ANIM).
+
+L'opzione "Ottimizzazione ANIM completa" è normalmente attivata, e nella
+maggior parte dei casi non occorre disattivarla. Alcuni obsoleti programmi
+di animazione non sono in grado di gestire particolari tecniche di
+compressione che han sempre fatto parte dello standard ANIM. Disabilitando
+questa opzione, Personal Paint non effettua alcune ottimizzazioni che
+normalmente accrescono il livello di compressione, ma che possono
+confondere i programmi di cui sopra. Questa opzione è stata aggiunta solo
+per garantire una piena compatibilità con tutti i visualizzatori di
+animazioni (anche quelli meno recenti) e il suo uso sarà probabilmente
+limitato agli utenti più esperti. In pratica è più probabile trovare un
+programma di animazione che non gestisca le tavolozze multiple e la
+temporizzazione dei fotogrammi (caratteristiche non legate a questa
+opzione), piuttosto che uno che non riconosca correttamente alcune
+tecniche di compressione (ad es. identici dati-differenza di due o più
+piani compattati in un'unico riferimento).
+
+
+@{B}6.3        Animare da file@{UB}
+
+Personal Paint può visualizzare, direttamente da file, le più complesse
+animazioni anche su calcolatori dotati della configurazione base di
+memoria. Questa funzione si rivela utile anche per vedere un'animazione
+prima di leggerla. L'uso di questa funzione non compromette il contenuto
+dell'ambiente attuale (immagine, animazione, ecc.).
+
+Alcune animazioni possono richiedere una grande quantità di calcoli e, su
+alcuni calcolatori, la velocità di successione dei fotogrammi potrebbe
+esserne compromessa. Se l'hardware o il software non sono in grado di
+sostenere la mole di questi calcoli, può essere utile memorizzare
+l'animazione in uno dei formati ANIM-7 anziché ANIM-5, come spiegato
+nell'introduzione all'animazione.
+
+Se vi è memoria sufficiente, questa funzione utilizza temporaneamente la
+memoria virtuale per trasferire l'animazione nell'unità RAM (se questa è
+abilitata). Ciò permette di visualizzare l'animazione più velocemente ed
+evita inutili sollecitazioni delle periferiche di memorizzazione quando si
+usa il calcolatore per la visualizzazione continua di un'animazione.
+
+La breve attesa iniziale dovuta al caricamento dell'animazione in RAM può
+essere evitata disattivando la memoria virtuale RAM (sezione @{"9.3.1" LINK PPaintCD:H/7/2/4/0047/Main 150}).
+Questo può essere particolarmente utile quando si visualizzano più
+animazioni in un programma ARexx.
+
+Questa funzione visualizza ripetutamente l'animazione fino a quando si
+preme il tasto <Esc> o si schiaccia un pulsante del mouse.
+
+
+@{B}6.4        Lo Storyboard@{UB}
+
+Lo storyboard è un potente e intuitivo strumento per l'editazione di
+animazioni. In questo quadro tutti i fotogrammi vengono visualizzati in
+formato ridotto, da sinistra a destra, dall'alto in basso, così come
+appaiono nell'animazione.
+
+Se il quadro non è in grado di mostrare tutti i fotogrammi, la barra di
+scorrimento sulla destra permette di spostarsi lungo l'animazione. Sia il
+quadro che i fotogrammi possono essere ridimensionati. Il quadro dispone
+di un gadget di ridimensionamento nell'angolo in basso a destra, mentre il
+formato di rappresentazione dei fotogrammi può essere modificato
+schiacciando il pulsante destro del mouse e spostando quest'ultimo fino ad
+ottenere la dimensione desiderata. Queste informazioni possono essere
+memorizzate nei file parametri del programma.
+
+Il numero al di sotto di ogni fotogramma indica la sua posizione
+all'interno dell'animazione. Durante ogni operazione un processo parallelo
+crea, visualizza e mantiene aggiornate le riproduzioni dei fotogrammi. Se
+le differenze tra i fotogrammi sono minime, può essere utile selezionare
+un formato di visualizzazione maggiore.
+
+La presenza di tre puntini al di sotto di un fotogramma indica che a
+questo è associata una tavolozza colori diversa da quella corrente.
+Selezionando un fotogramma con un doppio click, questo diviene il
+fotogramma corrente (e la sua tavolozza viene utilizzata). Nelle
+animazioni con tavolozze multiple, qualità e velocità di visualizzazione
+crescono se la tavolozza del fotogramma attuale è uguale a quella dei
+fotogrammi nello storyboard.
+
+È possibile "selezionare" uno o più fotogrammi schiacciando il pulsante
+sinistro del mouse e trascinando il puntatore sui fotogrammi. I fotogrammi
+selezionati sono evidenziati da un bordo chiaro e costituiscono il
+"sorgente" o l'obiettivo delle operazioni di editazione. L'attuale
+selezione può essere estesa tenendo premuto un tasto <Shift> e facendo
+click su un fotogramma. Il cursore posto tra due fotogrammi indica il
+punto di inserimento attuale; questo cursore è posizionabile con il mouse.
+Un doppio click su un fotogramma fa apparire lo a tutto schermo nella
+finestra principale).
+
+La parte alta del quadro contiene una serie di gadget, molti dei quali
+hanno un equivalente nel quadro di definizione colori (sezione @{"8.1.3" LINK PPaintCD:H/7/2/4/0016/Main 93}),
+mentre altri attivano funzioni di editazione specifiche.
+
+I primi due gadget permettono di aggiungere o inserire nuovi fotogrammi.
+Il numero nel gadget testo indica quanti fotogrammi devono essere
+inseriti, mentre il punto di inserimento è evidenziato dal cursore.
+L'inserimento viene effettuato selezionando il gadget "Aggiungere".
+
+Il successivo gadget consente di eliminare i fotogrammi selezionati.
+
+A destra del gadget "Eliminare" si trova il gadget "Inserire". Esso agisce
+sui fotogrammi selezionati e, non appena si riposiziona il cursore con il
+mouse, inserisce una copia degli stessi nel nuovo punto di inserimento (al
+di fuori del campo di selezione). I fotogrammi "sorgente" rimangono
+intatti. Per spostare un gruppo di fotogrammi da un punto all'altro
+occorre effettuare di seguito le operazioni di inserimento ed
+eliminazione.
+
+Il successivo gadget è quello di copia, che permette di sovrascrive uno o
+più fotogrammi. I fotogrammi "sorgente" sono quelli inizialmente
+selezionati, quelli "destinazione", invece, vanno selezionati con il mouse
+di seguito al gadget "Copia". Al termine di questa seconda selezione il
+sorgente viene copiato sulla destinazione. Se il sorgente contiene un
+numero di fotogrammi inferiore alla destinazione, i fotogrammi sorgente
+vengono ripetuti ciclicamente. Sia il sorgente che la destinazione
+possono, ovviamente, essere un singolo fotogramma.
+
+"Copiare tavolozza" opera in modo analogo a "Copiare", ma copia solo le
+tavolozze colori dei fotogrammi selezionati.
+
+Proprio come nel quadro "Definizione colori", vi sono due gadget per la
+sfumatura di colori ("Creare scala RGB e HSV", sezione @{"8.1.3.6" LINK PPaintCD:H/7/2/4/0016/Main 229}): questi
+applicano tavolozze di colori intermedie ai fotogrammi compresi tra il
+primo e l'ultimo della selezione corrente.
+
+Il gadget "Ripristinare" annulla gli effetti di tutte le operazioni,
+portando l'animazione allo stato in cui era all'apertura dello storyboard.
+Perché questa funzione (come il gadget "Annullare", in basso nel quadro)
+possa operare, è necessario che la memoria virtuale sia attiva (ulteriori
+informazioni nella sezione sulla memoria virtuale).
+
+Agendo sul gadget "Nascondere quadro" (e tenendo premuto il pulsante
+sinistro del mouse) si nasconde temporaneamente lo storyboard: in questo
+modo è possibile vedere per intero il fotogramma corrente.
+
+Il gadget testo "Tempo" indica il valore di temporizzazione associato al
+fotogramma selezionato (o al primo di un campo di fotogrammi). Questo
+valore, la cui unità di misura è il "tick" (1/60 di secondo), indica
+quanto tempo il fotogramma deve essere visualizzato prima che appaia il
+successivo. Per assegnare un nuovo valore è sufficiente digitarlo nel
+gadget testo e premere <Return>. Il nuovo valore viene assegnato a tutti i
+fotogrammi correntemente selezionati.
+
+
+@{B}6.5        Liberare animazione@{UB}
+
+Questo comando libera l'animazione corrente. L'ambiente attuale passa dal
+modo animazione al modo immagine. Il comando va impartito prima di leggere
+un'immagine, a meno che l'immagine debba sostituire il fotogramma
+attuale.
+
+
+@{B}6.6        Fotogramma@{UB}
+
+@{B}6.6.1      Selezionare fotogramma@{UB}
+
+Queste sottovoci menu consentono di passare velocemente al fotogramma
+precedente o successivo, o ad un altro qualsiasi usando la numerazione
+progressiva dei fotogrammi. Le selezioni abbreviate da tastiera associate
+a questi comandi possono essere attivate anche quando si sta usando uno
+strumento di disegno. Ad esempio, è possibile continuare a usare lo stesso
+strumento di disegno da un fotogramma al successivo (selezionando
+quest'ultimo con il tasto <2>), senza rilasciare affatto il pulsante del
+mouse.
+
+
+@{B}6.6.2      Aggiungere fotogramma@{UB}
+
+Il comando "Aggiungere fotogramma" inserisce una copia del fotogramma
+attuale subito dopo quest'ultimo. Il nuovo fotogramma diventa quello
+corrente. È possibile ottenere interessanti effetti alternando, ad
+esempio, "Aggiungere fotogramma" con varie elaborazioni dell'immagine: si
+otterranno sfocature progressive, casualizzazioni graduali e altre
+distorsioni.
+
+Se l'ambiente attuale non contiene un'animazione, al primo comando
+"Aggiungere fotogramma" l'immagine attuale viene trasformata in
+un'animazione con un solo fotogramma. Una semplice immagine non viene
+considerata come un'animazione con un solo fotogramma.
+
+
+@{B}6.6.3      Ottimizzare fotogrammi@{UB}
+
+La funzione "Ottimizzare fotogrammi" analizza l'animazione corrente alla
+ricerca di fotogrammi identici: questi di solito vengono usati in altri
+programmi di animazione per prolungare il tempo di apparizione di una data
+immagine (l'introduzione sull'animazione contiene maggiori dettagli in
+merito). Questi fotogrammi vengono fusi in un solo fotogramma il cui
+valore di temporizzazione è uguale alla somma delle temporizzazioni dei
+fotogrammi originari. L'animazione risultante è visualmente identica
+all'originale, tranne per il fatto che, una volta memorizzata su file,
+potrà occupare molto meno spazio.
+
+
+@{B}6.7        Animare@{UB}
+
+Di solito, l'animazione attuale viene visualizzata dall'inizio alla fine
+(in ciascuno dei modi: "Normale", "Una volta" e "Avanti-indietro"). Il
+quadro per la selezione del campo di animazione permette di scegliere un
+campo di fotogrammi da visualizzare nei modi "Una volta" e
+"Avanti-indietro".
+
+Il modo "Normale" visualizza l'animazione dal primo all'ultimo fotogramma;
+dopo quest'ultimo, l'animazione viene ripetuta. Questo ciclo continua fino
+a quando si preme un tasto o un pulsante del mouse. Il modo "Una volta"
+mostra l'animazione (o una parte, se richiesto) una sola volta, mentre
+"Avanti-indietro" va avanti e indietro dal primo all'ultimo fotogramma e
+viceversa. Nella creazione di un'animazione, la possibilità di specificare
+una campo di animazione è indispensabile per controllare velocemente il
+risultato delle ultime modifiche (nei modi "Una volta" e
+"Avanti-indietro"), mentre l'animazione "Normale" può essere usata per
+avere una visione globale dell'animazione.
+
+Quando l'animazione viene visualizzata, è sempre possibile usare le
+selezioni abbreviate di Amiga per ciclare gli schermi (<Amiga
+sinistro>+<N>/<M>) o usare il mouse per spostare su e giù lo schermo del
+programma (<Amiga sinistro>+<Trascinamento del mouse>, o altra
+combinazione specificata nella Preference "IControl").
+
+
+@{B}6.8        Pennelli animati@{UB}
+
+I pennelli animati (o "anim-brush") sono pennelli costituiti da più di un
+fotogramma. Ogni volta che il pennello viene applicato sull'immagine, esso
+avanza automaticamente al fotogramma successivo. È possibile modificare
+opportunamente il criterio di avanzamento dei fotogrammi (sezione @{"6.8.3" LINK Main 409}).
+Se il tasto <Caps Lock> è premuto quando il pennello viene applicato
+all'immagine, tutti i fotogrammi, nel campo di avanzamento specificato,
+vengono applicati a fotogrammi successivi dell'animazione. In questa
+operazione può essere utile posizionare il pennello con precisione, usando
+le selezioni abbreviate di sistema: <Amiga>+<Tasti cursore> per
+posizionare e <Amiga>+<Alt destro/sinistro> per simulare un pulsante del
+mouse.
+
+Gli anim-brush possono essere copiati o tagliati da un'animazione, proprio
+come i pennelli normali. In modo animazione, lo strumento "Definire
+pennello" (sezione @{"3.1.6" LINK PPaintCD:H/7/2/4/0017/Main 1200}) offre specifiche impostazioni per la
+definizione di anim-brush.
+
+Come nelle animazioni a pieno schermo, ciascun fotogramma può avere una
+propria tavolozza colori. Tutti i fotogrammi hanno una stessa dimensione e
+numero di colori. Molti dei comandi di manipolazione dei pennelli (come
+"Ridimensionare" e "Ruotare") possono essere applicati agli anim-brush.
+
+Gli anim-brush Amiga utilizzano un formato file (una variante dell'ANIM-5)
+diverso da quello usato per le animazioni. Personal Paint adotta questo
+formato.
+
+
+@{B}6.8.1      Leggere anim-brush@{UB}
+
+Questo comando legge un anim-brush come pennello corrente. Il file oggetto
+dell'operazione deve essere in formato anim-brush Amiga.
+
+
+@{B}6.8.2      Scrivere anim-brush@{UB}
+
+Questo comando memorizza l'anim-brush corrente. Il formato di
+memorizzazione utilizzato è una variante del formato ANIM-5 (ANIM-5-XOR
+con un valore di @{I}interleave@{UI} 1, più un chunk "DPAN").
+
+
+@{B}6.8.3      Parametri anim-brush@{UB}
+
+Ogni volta che il pennello viene applicato all'immagine, viene selezionato
+un nuovo fotogramma. Questo guadro permette di modificare i parametri di
+avanzamento dell'anim-brush corrente. È ad esempio possibile utilizzare i
+soli fotogrammi pari, o quelli dispari, o portare la sequenza di
+avanzamento ad un numero specifico di fotogrammi.
+
+Il primo campo indica il numero complessivo di fotogrammi.
+
+I gadget stringa "Campo" permettono di regolare il primo e l'ultimo
+fotogramma del campo di avanzamento.
+
+Il campo "Durata" è di solito uguale al numero di fotogrammi del campo
+selezionato, ma può essere modificato per coprire un determinato numero di
+fotogrammi. Se, ad esempio, si desidera utilizzare un anim-brush di 20
+fotogrammi in una sequenza di animazione di soli 10 fotogrammi, sarà
+sufficiente impostare il parametro "Durata" a 10 e l'anim-brush avanzerà a
+fotogrammi alterni. Viceversa, un valore di 40 farebbe utilizzare due
+volte ciascun fotogramma.
+
+I parametri "Posizione" e "Fotogramma" indicano la posizione del primo
+fotogramma da utilizzare. Quando il parametro "Durata" è uguale al numero
+di fotogrammi del campo attuale, i valori "Posizione" e "Fotogramma" sono
+equivalenti. In caso contrario, il parametro "Posizione" indica la prima
+(attuale) posizione nella sequenza di avanzamento e il parametro
+"Fotogramma" rappresenta il fotogramma corrispondente (utilizzato
+all'uscita dal quadro).
+
+Ad esempio, dato un campo di 20 fotogrammi, dal fotogramma 4 al fotogramma
+23, e un parametro "Durata" di 40, il valore "Posizione" 24 corrisponderà
+al fotogramma 15 (24 viene diviso per 2 in quanto ogni fotogramma è
+utilizzato due volte; il risultante valore 12 viene incrementato di 3,
+visto che il punto di partenza è 4).
+
+Il parametro "Direzione" può essere impostato a: "Avanti", "Indietro",
+"Avanti-indietro" o "Pausa". Nel modo "Avanti-indietro" il pennello cicla
+avanti e indietro, mentre in modo "Pausa" l'avanzamento viene bloccato.
+
+
+@{B}6.8.4      Fotogramma precedente/successivo@{UB}
+
+Questi comandi selezionano il fotogramma precedente o successivo (secondo
+le regole di avanzamento specificate dai parametri anim-brush).
+
+
+@{B}6.8.5      Liberare anim-brush@{UB}
+
+Questo comando libera la memoria occupata dall'anim-brush attuale,
+trasformando quest'ultimo (e il fotogramma corrente) in un normale
+pennello.
+
+
+@{B}6.9        L'animazione e le altre funzioni del programma@{UB}
+
+Selezionando lo strumento "Cancellare" (barra strumenti, sezione @{"3.1.9" LINK PPaintCD:H/7/2/4/0017/Main 1314})
+con il pulsante destro del mouse, appare il quadro "Cancellare
+fotogrammi". Questo permette di cancellare (senza eliminare) uno o più
+fotogrammi.
+
+Il quadro "Formato immagine e schermo" (sezione @{"4.5" LINK PPaintCD:H/7/2/4/0049/Main 1127}) può essere usato per
+modificare il formato dell'animazione. Proprio come le immagini, le
+animazioni possono essere ridimensionate, tagliate, ridotte nei colori,
+ecc.
+
+Quando si riduce il numero di colori di un'animazione, Personal Paint può
+associare tavolozze colori diverse ai vari fotogrammi, anche se
+l'animazione di partenza usa un'unica tavolozza. Questo è dovuto al fatto
+che nei vari fotogrammi possono trovarsi diverse quantità di alcuni
+colori, ai quali la procedura di riduzione assegna priorità diverse
+(sezione @{"9.7" LINK PPaintCD:H/7/2/4/0047/Main 363}). Questo è il modo più efficiente di convertire i singoli
+fotogrammi, tuttavia può essere fastidioso vedere uno sfondo o un oggetto
+comune a più fotogrammi cambiare colore da una fotogramma all'altro. Per
+costringere il programma ad usare un'unica tavolozza colori (basata su
+quella del fotogramma attuale) per l'intera animazione, è sufficiente
+tener premuto uno dei tasti <Shift> alla chiusura del quadro "Nuovo
+formato animazione" (questo viene seguito dal quadro indicatore dello
+stato di avanzamento). In questo modo il processo di conversione risulta
+anche più veloce (la riduzione colori viene effettuato solo una volta).
+Come conferma dell'attivazione del modo "tavolozza singola", la
+conversione viene introdotta dall'indicatore dello stato di avanzamento di
+"Conteggio pixel".
+
+Quando si riduce il formato di un'immagine senza rimodellarla, essa viene
+"tagliata" a partire dall'attuale posizione in alto a sinistra nello
+schermo fino all'angolo in basso a destra (solo se il nuovo formato è
+uguale a quello dello schermo). Anche le animazioni possono essere
+tagliate a partire da una coordinata diversa da 0:0. Innanzitutto bisogna
+regolare le dimensioni di schermo secondo il nuovo formato (senza
+modificare le dimensioni dell'immagine). Usando i tasti cursore bisogna
+quindi fare in modo che lo schermo delimiti esattamente l'area di
+fotogramma che si desidera preservare; solo a questo punto si può rendere
+il formato dell'immagine uguale a quello dello schermo.
+
+La funzione "Leggere immagine" (sezione @{"4.1" LINK PPaintCD:H/7/2/4/0049/Main 11}) normalmente legge l'immagine
+selezionata sostituendola al fotogramma corrente. Se non si desidera più
+operare in modo animazione, occorre impartire il comando "Liberare
+animazione" prima di leggere l'immagine.
+
+Il comando "Copiare animazione" (sezione @{"4.8.3" LINK PPaintCD:H/7/2/4/0049/Main 1376}) permette di copiare
+un'intera animazione nell'ambiente alternativo.
+
+Quando si usa il quadro "Definizione colori" (sezione @{"8.1.3" LINK PPaintCD:H/7/2/4/0016/Main 93}) per
+modificare i colori della tavolozza (o qualsiasi altro comando di
+manipolazione dei colori), vengono modificati solo i colori del fotogramma
+corrente.
+
+@ENDNODE

@@ -1,0 +1,733 @@
+@DATABASE "Default"
+@NODE "main" "TrackSaver Guide"
+@TOC "main"
+Short:    Create or write back image files (ADF) from any disk
+Uploader: thomas-rapp@web.de (Thomas Rapp)
+Author:   thomas-rapp@web.de (Thomas Rapp)
+Type:     disk/misc
+Kurz:     Image-Dateien von beliebigen Disks anfertigen oder zurückschreiben
+Version:  2.5
+
+     Deutsch                                          English
+
+    @{" Funktionen                " LINK "d_intro"}                    @{" Features                  " LINK "e_intro"}
+    @{" Installation              " LINK "d_install"}                    @{" Installation              " LINK "e_install"}
+    @{" Shell Parameter           " LINK "d_shell"}                    @{" Shell Usage               " LINK "e_shell"}
+    @{" Grafische Oberfläche      " LINK "d_gui"}                    @{" GUI Description           " LINK "e_gui"}
+    @{" Zusätzliche Funktionen    " LINK "d_menu"}                    @{" Additional functions      " LINK "e_menu"}
+    @{" Erweiterte Optionen       " LINK "d_options"}                    @{" Advanced options          " LINK "e_options"}
+    @{" Erweiterter Neustart      " LINK "d_restart"}                    @{" Extended restart          " LINK "e_restart"}
+    @{" Mehrere Disks verarbeiten " LINK "d_multi"}                    @{" Process multiple disks    " LINK "e_multi"}
+    @{" Einfache Skin-Funktion    " LINK "d_skin"}                    @{" Basic skin function       " LINK "e_skin"}
+    @{" Einschränkungen / Fehler  " LINK "d_bugs"}                    @{" Restrictions / Bugs       " LINK "e_bugs"}
+    @{" Geschichte                " LINK "d_history"}                    @{" History                   " LINK "e_history"}
+
+
+Thanks go to
+------------
+
+ -  Angelo Theodorou <encelo@amiworld.it> for the italian catalog
+ -  Diego CR <dcr.amiga@wanadoo.es> for the spanish catalog
+ -  Márton Dósa <dm_@freemail.hu> for the Hungarian catalog
+ -  Wojciech Pasiecznik <voydial@wp.pl> for the Polish catalog
+ -  Eric Luczyszyn <eric.luczyszyn@freesbee.fr> for the French catalog
+
+The code for creating custom ADFs was taken from Rawread, written by
+Toni Wilen <twilen@arabuusimiehet.com>
+
+@ENDNODE
+@NODE "e_intro" "TrackSaver Guide english"
+@TOC "main"
+
+Features
+========
+
+ -  runs on all Kickstart and Workbench versions from 1.2 to 4.0.
+ -  can create Image files (also known as ADF or HDF) from any floppy disk or 
+    harddisk partition
+ -  can write Image files back to disk
+ -  can be used from CLI or Workbench
+ -  can compress / decompress image files with GZIP
+ -  can be used as simple front end for DMS
+ -  German and English AmigaGuide included
+ -  can create custom ADFs from copyprotected disks (experimental)
+ -  can restart the operation if the Amiga freezes when reading from an old HDD.
+ -  catalog description file for creating your own translations
+
+@ENDNODE
+@NODE "e_install" "TrackSaver Guide english"
+@TOC "main"
+
+Requirements
+============
+
+Kick / WB 1.3
+
+- more than 512 kb of memory
+
+- Run and EndCLI have to be in C:
+
+- if you want to use different languages make sure to have the following
+  lines in s:startup-sequence:
+
+   makedir ram:env
+   assign env: ram:env
+   setenv language <your language>
+
+  replace <your language> by the native name of your language, e.g.
+  deutsch or english.
+
+
+All Kick / WB versions
+
+- PIPE: has to be mounted
+
+- if you want to compress images with GZIP or DMS, make sure that GZIP and
+  DMS are somewhere in your command path, e.g. c:
+
+
+Installation
+============
+
+Either copy the entire directory to where you want or only copy the
+executable to where you want and copy the catalog files to the LOCALE:
+directory.
+
+The Translation directory is not needed.  Here you find files for creating
+new language catalogs.
+
+@ENDNODE
+@NODE "e_shell" "TrackSaver Guide english"
+@TOC "main"
+
+Shell Usage
+===========
+
+action       READ  : read disk and create image file
+             WRITE : read image file an write or format disk
+
+drive        The name of the DOS device to access (for example DF0:)
+
+file         name of the image file
+
+FORMAT       Format the disk instead of writing. Can be used to overwrite
+             unformatted disks or to MSDOS-format Amiga-formatted disks.
+             Format is twice es fast as write because it does not verify.
+
+VERIFY       Read back the data which was written and verify if it is 
+             correct. Needs twice as much memory for buffers and is     
+             only half as fast as without.
+
+GZIP         Use GZIP to compress/decompress images. Filename extension
+             (ADF/ADZ) is not checked.
+
+DMS          Use DMS to compress/decompress images. Filename extension
+             (ADF/DMS) is not checked.
+
+RAW          Enable custom ADF support. 
+
+             Currently custom ADFs can only be created but not be written
+             back to disk. Also custom ADFs cannot be compressed with GZIP
+             on the fly because Rawread needs to seek though the output file.
+
+FULL         create an image of the entire HDD rather than only one partition.
+             This corresponds to the "RDB mode" in WinUAE.
+
+INFO         show geometry data of the selected partition for use in WinUAE
+
+
+Examples: tsgui read df0: ram:mydisk.adf
+          tsgui write df0: ram:mydisk2.adf format
+          tsgui read df0: ram:mydisk3.adz gzip
+          tsgui read df0: ram:mygame.adf raw
+
+
+Start without parameters or from Workbench opens the GUI.
+
+@ENDNODE
+@NODE "e_gui" "TrackSaver Guide english"
+@TOC "main"
+
+GUI Description
+===============
+
+Not quite difficult:
+
+- first choose the device you want to process from the list. Some info 
+  (driver, size) is displayed in the text area.
+
+- then choose an image file that you want to process.  Click on the
+  requester button to get a file requester.  Alternatively you can drag
+  the icon of a file into the TSgui window (Kick 2.0+ only).
+
+- optionaly you can choose to compress the image file with GZIP or DMS
+  by choosing it from the cycle button.  The cycle menu only shows those
+  compression types which are available (e.g. if the GZIP program was not
+  found, GZIP is not shown in the list).
+
+- the file name is adjusted automatically whenever you choose a new device
+  or change compression mode. So make sure the file name still matches your
+  needs before proceeding.
+
+- In the same manner the compression type changes automatically whenever you
+  change the file name.
+
+- now click on "Disk -> File" is you want to create a new image file from the
+  disk contents or click on "File -> Disk" if you have an image file and want
+  to create a readable disk from it.
+
+- With the "Preferences" button you can open the Preferences window. You have
+  the following choices:
+
+   - File name for suppressed output
+
+     This is usually NIL:. You can enter a CON: window for debugging purposes.
+
+   - Pipe prefix
+
+     Enter the beginning of the PIPE filename that TSgui uses for communicating
+     with DOS commands (GZIP). A unique number will be added to this prefix.
+     You can choose to use a different PIPE device here. Default is PIPI:tsgui
+
+   - Output window for DOS commands
+
+     Enter the name of a CON: Window to show the output of DOS commands that
+     are called by TSgui. This window is mainly used for interaction with
+     DMS. If you want to run DMS silently, enter NIL: here. But then you
+     don't get any error messages.
+
+   - Wait until the window is closed
+
+     Check this if you want the DOS window to remain opened until you close it.
+
+   - Path to the GZIP executable
+
+     If you have installed GZIP somewhere where TSgui cannot find it, enter the
+     complete path here. Default is GZIP, which means search the DOS path.
+
+   - Path to the DMS executable
+
+     Same as GZIP but for DMS.
+
+   - File for restart data
+
+     If you fear to invalidate your boot partition, change the path here.
+     This is only used if extended restart is enabled (see advanced functions
+     in the menu section).
+
+   - Default path for image files.
+
+     If you have a special path where you store all your ADF or HDF files, you
+     can enter it as default here.
+
+
+- With the "Create custom ADF" check box you can enable custom ADF support.
+  The check box is only available when a floppy drive was choosen before.
+
+  Currently custom ADFs can only be created but not be written back to disk.
+  Also custom ADFs cannot be compressed on the fly because Rawread needs to
+  seek through the output file.
+
+  When reading in raw mode the multitasking is switched off so you might
+  not be able to reach the abort button. You can hold down the left mouse
+  button instead.
+
+  Sometimes rawread aborts reading by itself when it cannot read a track.
+  If it is the last track that cannot be read, the resulting ADF may
+  nevertheless be usable. Just try it out.
+
+- The "Full HDD image" button lets you create an image of an entire hard
+  disk with partition table (RDB) and all partitions.  This corresponds to
+  the "RDB mode" in WinUAE.
+
+- After creating a HDF you might want to choose "Partition information"
+  from the menu, because you need these values when using the HDF with 
+  WinUAE.
+
+@ENDNODE
+@NODE "e_menu" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Additional Functions
+====================
+
+From the Project menu you can select the following functions:
+
+@{B}About@{UB}
+
+   Shows copyright and version information
+
+
+@{B}Partition info@{UB}
+
+   Shows values needed to use a partition HDF in WinUAE (Surfaces, Sectors,
+   Reserved, Block size).
+
+
+@{B}Create mount list@{UB}
+
+   Creates a mountlist entry for the selected device.
+
+
+@{B}Select raw device@{UB}
+
+   Lets you choose a device and unit for a complete HDD image.  Use this
+   for example if you want to write a full HDD image to a harddrive which
+   does not have partitions yet.
+
+
+@{B}Save RDB to file@{UB}
+
+   Lets you backup the partition table of a harddrive.
+
+
+@{B}Restore RDB from file@{UB}
+
+   Used to restore the aforementioned backup.  Use the "select raw device"
+   menu option if you cannot select a partition of the HDD to be restored
+   to.
+
+
+@{B}Save ROM to file@{UB}
+
+   Saves the Kickstart ROM to a file for use in WinUAE.
+
+
+
+The Language menu lets you change the GUI language.  The default language
+is taken from the environment variable Language.  On Workbench 2.1 or later
+this variable is set automatically by the Locale preferences.  On earlier
+versions you can set the default language by adding a line like this to
+s:startup-sequence:
+
+setenv language deutsch
+
+Replace "deutsch" by the native name of your preferred language.
+
+
+@ENDNODE
+@NODE "e_options" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Advanced Options
+================
+
+@{B}@{UB}
+
+@ENDNODE
+@NODE "e_restart" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Extended Restart
+================
+
+
+@ENDNODE
+@NODE "e_multi" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Process Multiple Disks
+======================
+
+
+@ENDNODE
+@NODE "e_skin" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Basic skin functions
+====================
+
+
+
+@ENDNODE
+@NODE "e_bugs" "TrackSaver Guide english"
+@TOC "main"
+
+Restrictions / Bugs
+===================
+
+ -  TSgui will hang whenever the GZIP execution fails or the Pipe is broken.
+
+@ENDNODE
+@NODE "e_history" "TrackSaver Guide english"
+@TOC "main"
+
+History
+=======
+
+1.1        - First Aminet release
+
+1.2        - Font sensitive GUI
+
+1.3        - GZIP support added
+
+1.4        - Prepared GUI for Rawread mode but does not work yet
+           - Added AmigaGuide documentation
+           - Should work properly with OS2.1 now
+
+1.5        - Rawread mode for creating custom ADFs.
+
+1.6        - Preferences window
+
+1.7        - locale.library no longer needed
+
+1.8        - long file and device names
+           - drag & drop support
+           - quit menu
+
+2.1        - completely rewritten so that it works on Kick 1.3 now
+           - support for full HDD images (HDF with "RDB mode")
+           - support for DMS compression
+           - optional verify option
+           - automatic file name creation
+
+2.2        - added partition info menu (needed for adding HDFs to WinUAE)
+           - gui improved to work on 2-color screens
+           - bad blocks are cleared in output file
+           - added "remaining time" display to progress window
+           - memory leak fixed
+
+2.5        - added advanced options menu
+           - added extended restart
+           - added block map
+           - added basic skin functions
+           - fixed some GUI issues
+
+ToDo
+====
+
+ -  Perhaps ZIP and RAR support is possible either with xadmaster.library.
+ -  Automatically split files >4GB
+ -  on-the-fly skin changes
+
+@ENDNODE
+@NODE "d_intro" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Funktionen
+==========
+
+ -  läuft auf allen Kickstart- und Workbench-Versionen von 1.2 bis 4.0
+ -  erzeugt Image-Dateien (auch bekannt als ADF oder HDF) von jeder Diskette 
+    oder Festplatten-Partition
+ -  kann Image-Dateien wieder zurückschreiben
+ -  kann vom CLI oder von der Workbench gestartet werden
+ -  Kann Image-Dateien mit GZIP komprimieren oder dekomprimieren
+ -  Kann als einfache Benutzeroberfläche für DMS benutzt werden
+ -  deutsche und englische Anleitung (AmigaGuide) enthalten
+ -  kann angepasste ADFs von kopiergeschützten Disketten erzeugen
+    (experimentell)
+ -  kann die Ausführung fortsetzen, wenn der Amiga sich beim Lesen einer alten
+    Festplatte aufhängt.
+ -  .cd-Datei, um eigene Übersetzungen anzufertigen
+
+@ENDNODE
+@NODE "d_install" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Vorraussetzungen
+================
+
+Kick / WB 1.3
+
+- mehr als 512 kb Speicher
+
+- "Run" und "EndCLI" müssen sich in C: befinden
+
+- wenn du andere Sprachen benutzen möchtest, stelle Sicher, dass die
+  folgenden Zeilen in der S:Startup-Sequence enthalten sind:
+
+   makedir ram:env
+   assign env: ram:env
+   setenv language <deine Sprache>
+
+ Ersetze <deine Sprache> durch den einheimischen Namen deiner Sprache,
+ z.B. "deutsch" oder "english".
+
+
+Alle Kick / WB-Versionsn
+
+- PIPE: muss angemeldet sein
+
+- wenn die Image-Dateien mit GZIP oder DMS komprimiert werden sollen,
+  stelle sicher, dass sich GZIP und DMS im Kommandopfad befinden, z.B.
+  in C:
+
+
+Installation
+============
+
+Entweder kopiere das komplette Verzeichnis wohin du möchtest, oder kopiere
+nur das Programm wohin du möchtest und die Catalog-Dateien in das
+LOCALE:-Verzeichnis.
+
+Das Translation-Verzeichnis wird nicht benötigt. Es enthält Dateien, um
+neue Sprach-Kataloge zu erstellen.
+
+@ENDNODE
+@NODE "d_shell" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Shell Parameter
+===============
+
+
+action       READ  : Disk lesen und Image-Datei erstellen
+             WRITE : Image-Datei lesn und Disk beschreiben oder formatieren
+
+drive        Der Name des Laufwerks, auf das zugegriffen werdne soll (z.B. DF0:)
+
+file         Name der Image-Datei
+
+FORMAT       Disk beim schreiben Formatieren. Damit kann man unformatierte
+             Disketten beschreiben oder mit dem Amiga formatierte Disks im
+             MSDOS-Format beschreiben. Format ist doppelt so schnell wie
+             normales Schreiben, da die Daten nicht verifiziert werden.
+
+VERIFY       Liest die geschriebenen Daten nochmal ein und prüft, ob sie
+             korrekt sind. Benötigt zweimal soviel Speicher für Puffer und
+             ist nur halb so schnell wie ohne.
+
+GZIP         GZIP benutzen, um Image-Dateien zu de-/komprimieren. Die
+             Datei-Erweiterung (ADF/ADZ) wird nicht überprüft.
+
+DMS          DMS benutzen, um Image-Dateien zu de-/komprimieren. Die
+             Datei-Erweiterung (ADF/DMS) wird nicht überprüft.
+
+RAM          Erstellt angepasste ADF-Dateien.
+
+             Angepasste ADF-Dateien können nur gelesen, aber nicht
+             geschrieben werden. Außerdem können angepasste ADF-Dateien
+             nicht mit GZIPÜ komprimiert werden, weil Rawread in der
+             Datei hin- und herspringen muss.
+
+FULL         erstellt ein Abbild der kompletten Festplatte anstatt nur
+             einer Partition.  Dies entspricht dem "RDB-Modus" in WinUAE.
+
+INFO         Geometriedaten der Partition zur Benutzung mit WinUAE anzeigen
+
+
+Beispiele: tsgui read df0: ram:meinediskette.adf
+           tsgui write df0: ram:meinediskette2.adf format
+           tsgui read df0: ram:meinediskette3.adz gzip
+           tsgui read df0: ram:meinspiel.adf raw
+
+Wenn das Programm ohne Parameter oder von der Workbench gestartet wird,
+öffnet sich die grafische Oberfläche.
+
+@ENDNODE
+@NODE "d_gui" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Grafische Oberfläche
+====================
+
+Nicht schwer zu bedienen:
+
+- zuerst musst du ein Laufwerk aus der Liste auswählen. Einige Infos (Treiber,
+  Größe) werden in dem Textfeld angezeigt.
+
+- dann wähle eine Image-Datei, die du benutzen möchtest.  Klicke auf den
+  Requester-Knopf, um einen Datei-Requester zu öffnen. Du kannst auch das
+  Icon einer Datei in das TSgui-Fenster ziehen (ab Kick 2.0).
+
+- optional kannst du auswählen, ob die Datei mit GZIP oder DMS komprimiert
+  werden soll, indem du es aus mit Auswahl-Box auswählst. Die Box bietet nur
+  die Kompressionstypen an, die verfügbar sind (z.B.wenn das GZIP-Programm
+  nicht gefunden wurde, erscheint GZIP nicht in der Liste).
+
+- der Dateiname wird automatisch angepasst, wenn du ein neues Laufwerk oder
+  eine andere Kompressionsmethode auswählst. Prüfe also, ob der Dateiname
+  noch stimmt, bevor du fortfährst
+
+- auf die gleiche Weise wird die Kompressionsmethode automatisch geändert,
+  wenn du den Dateinamen ändest.
+ 
+- jetzt klicke auf "Disk -> Datei", wenn du eine neue Image-Datei mit dem Inhalt
+  der Diskette erzeugen möchtest, oder auf "Datei -> Disk", wenn du eine Image-
+  Datei hast und daraus eine lesbare Diskette machen möchtest.
+
+- Mit dem Knopf "Einstellungen" wird das Einstellungs-Fenster geöffnet. Hier hast
+  du die folgenden Möglichkeiten:
+
+   - Dateiname für unterdrückte Ausgaben
+
+     Dies ist normalerweise NIL:. Für Debugging-Zwecke kannst du hier den Namen
+     eines CON-Fensters eingeben.
+
+   - Pipe Prefix
+
+     Gib hier den Anfang des PIPE-Dateinamens an, den TSgui für die Kommunikation
+     mit GZIP benutzt. Der Name wird mit einer eindeutigen Nummer ergänzt.
+     Mit dieser Einstellung kannst du einen anderen PIPE-Treiber wählen.
+     Standardeinstellung ist PIPE:tsgui
+
+   - Ausgabefenster für DOS-Kommandos
+
+     Gib hier den Namen eines CON:  Fensters ein, in das alle Ausgaben von
+     DOS-Kommandos umgeleitet werden, die von TSgui aufgerufen werden.
+     Dieses Fenster wird hauptsächlich zur Interaktion mit DMS benutzt.
+     Wenn du möchtest, dass DMS still im Hintergrund läuft, setzte dies auf
+     NIL:. Aber dann bekommst du auch keine Fehlermeldungen von DMS mehr.
+
+   - Warten bis Fenster geschlossen wird
+
+     Aktiviere dies, wenn das DOS-Fenster geöffnet bleiben soll, bis du es
+     schließt.
+
+   - Pfad zum Programm GZIP
+
+     Wenn du GZIP an einer Stelle installiert hast, wo TSgui es nicht finden
+     kann, gib hier den kompletten Pfad ein. Standardeinstellung ist GZIP,
+     was bedeutet, durchsuche den DOS pfad.
+
+   - Pfad zum Programm DMS
+
+     Das selbe wie GZIP, nur für DMS.
+
+   - Datei für Neustart-Daten
+
+     Wenn du fürchtest, dass bei einem Absturz deine Bootpartition validiert
+     werden muss, kannst du hier einen anderen Pfad wählen.
+     Dies ist nur notwendig, wenn der erweiterte Neustart aktiviert ist (siehe
+     erweiterte Funktionen im Abschnitt über das Menü).
+
+   - Standardpfad für Image-Dateien
+
+     Wenn du einen speziellen Pfad hast, in dem du alle deine ADF- oder HDF-
+     Dateien speicherst, dann kannst du ihn hier als Standard angeben.
+
+
+- Mit der Auswahl-Box "Angepasste ADFs erzeugen" kanst du den Rawread-Modus
+  aktivieren. Die Box ist nur verfügbar, wenn vorher ein Diskettenlaufwerk
+  ausgewählt wurde.
+
+  Im Moment können angepasste ADFs nur erzeugt, aber nicht auf Diskette
+  zurückgeschrieben werden. Außerdem können angepasste ADFs nicht "im Flug"
+  mit GZIP komprimiert werden, weil Rawread durch die Ausgabedatei springen
+  muss.
+
+  Während des Lesens im Rawread-Modus wird das Multitasking ausgeschaltet.
+  Deshalb ist es u.U. unmöglich, den Abbruch-Knopf zu erreichen. Du kannst
+  stattdessen einfach den linken Mausknopf gedrückt halten.
+
+  Manchmal bricht Rawread von selbst die Verarbeitung ab, wenn es eine Spur
+  nicht lesen kann. Wenn es die letzte Spur ist, die nicht gelesen werden
+  konnte, ist das erzeugte ADF vielleicht trotzdem nutzbar. Probier es
+  einfach aus.
+
+- Der Knopf "Komplette Festplatte" erlaubt es, eine Kopie der ganzen
+  Festplatte mit Partitionstabelle (RDB) und allen Partitionen zu machen,
+  anstatt nur einer Partition. Dies entspricht dem "RDB-Modus" bei WinUAE.
+
+- Nachdem du ein HDF erstellt hast, solltest du "Partitionsinformationen"
+  aus dem Menü wählen. Diese Informationen werden benötigt, um das HDF mit
+  WinUAE zu benutzen.
+
+@ENDNODE
+@NODE "d_menu" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Zusätzliche Funktionen
+======================
+
+
+@ENDNODE
+@NODE "d_options" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Erweiterte Optionen
+===================
+
+
+@ENDNODE
+@NODE "d_restart" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Erweiterter Neustart
+====================
+
+
+@ENDNODE
+@NODE "d_multi" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Mehrere Disks verarbeiten
+=========================
+
+
+@ENDNODE
+@NODE "d_skin" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Einfache Skin-Funktion
+======================
+
+
+
+@ENDNODE
+@NODE "d_bugs" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Einschränkungen / Fehler
+========================
+
+ -  TSgui wird sich immer aufhängen, wenn die Ausführung von GZIP fehlschlägt
+    oder die Pipe abbricht.
+
+@ENDNODE
+@NODE "d_history" "TrackSaver Guide deutsch"
+@TOC "main"
+
+Geschichte
+==========
+
+1.1        - Erste Aminet-Version
+
+1.2        - Zeichsatzunabhängige Oberfläche
+
+1.3        - GZIP Unterstützung eingebaut
+
+1.4        - Oberfläche auf Rawread-Modus vorbereitet, funktioniert jedoch noch nicht.
+           - AmigaGuide Dokumentation erstellt
+           - Sollte jetzt auch unter OS2.1 arbeiten
+
+1.5        - Rawread-Modus um angepasste ADFs zu erzeugen
+
+1.6        - Einstellungs-Fenster
+
+1.7        - locale.library nicht mehr zwingend notwendig
+
+1.8        - lange Datei- und Gerätenamen
+           - Drag & Drop - Support
+           - Menü zum Beenden
+
+2.1        - komplett neugeschrieben, damit es auf Kick 1.3 läuft.
+           - Unterstütztung von kompletten Festplattenkopien (HDF im
+             "RDB-Modus")
+           - Unterstützung von DMS-Komprimierung
+           - Optionales Überprüfen beim Schreiben
+           - automatische Dateinamenerstellung
+
+2.2        - Menü mit Partitionsinformationen hinzugefügt
+           - Die GUI läuft jetzt besser auf einem zweifarbigen Screen
+           - Blocks mit Lesefehlern werden mit Nullbytes gefüllt
+           - "Verbleibende Zeit" zur Fortschrittsanzeige hinzugefügt
+           - Speicherleck behoben
+
+2.5        - Menü mit erweiterten Optionen hinzugefügt
+           - Erweiterten Neustart hinzugefügt
+           - Block-Karte hinzugefügt
+           - Einfache Skin-Funktion hinzugefügt
+           - einige kleinere Fehler in der GUI repariert
+
+
+Offene Punkte
+=============
+
+ -  ZIP und RAR support ist vielleicht auch möglich, mit der xadmaster.library.
+ -  Dateien größer als 4GB automatisch in mehrere aufteilen
+ -  Bei vollständigen Festplattenkopien die tatsächliche Geometrie der
+    Festplatte benutzen, anstatt nur den partitionierten Bereich
+
+@ENDNODE

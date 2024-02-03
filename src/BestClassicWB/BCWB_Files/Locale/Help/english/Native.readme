@@ -1,0 +1,146 @@
+Short:    Native chip set driver for P96
+Uploader: thorfdbg@mailbox.alumni.tu-berlin.de (Thomas Richter)
+Author:   thorfdbg@mailbox.alumni.tu-berlin.de (Thomas Richter)
+Type:     driver/moni
+Version:  40.5
+Requires: AmigaOs 3.1, 68020 or better, a recent version of P96
+Architecture: m68k-amigaos
+
+-----------------------------------------------------------------------------
+
+Changes since release 40.4:
+
+While 40.4 replaced the blitter functions correctly, the version did not
+automatically relocate any offscreen bitmaps to FastRAM, though probably
+many people expected this to happen. So this version includes this
+functionality as well.
+
+-----------------------------------------------------------------------------
+
+What is the purpose of this program:
+
+This program provides blitter replacement functions on systems without
+a graphics card by means of corresponding CPU blitter functions of the
+P96 core library. That is, it redirects the blitter functions to the
+CPU, bypassing the native blitter. As such, it provides the same
+functionality as FBlit, except that the blitter is emulated through
+P96 - which is hopefully more robust.
+
+No graphics card is needed, but a recent version of P96 has to be
+installed as well. Configuration of the native graphic modes is still
+through the workbench monitor drivers in DEVS:Monitors. There are no
+P96 specific monitor drivers needed beyond this program. Blitter
+emulation is immediate.
+
+While the functionality of this program is best described as "a video
+driver for the native chipset for P96", it is actually quite
+primitive.  All it does is to set the environment variable
+"Picasso96/DisableAmigaBlitter" to "Yes", and load the "rtg.library",
+which is the core library of P96. This is sufficient to enable the CPU
+replacement functionalities. The rtg.library does not require a
+graphics card for this. As such, the same functionality can also be
+realized manually, i.e. by loading the rtg.library by some other
+means, and configuring environment variables appropriately.
+
+
+-----------------------------------------------------------------------------
+
+Installation:
+
+Install P96. You may select a graphics card for installation as well
+if you like, but any such driver is not needed. After installation of
+P96, just remove the Picasso96 driver from DEVS:Monitors if you do not
+have a graphics card.
+
+Drag the icon included in this distribution into DEVS:Monitors and ensure
+that it is loaded during the startup-sequence. For the standard system
+setup, this will happen automatically.
+
+You do not need any other programs or any further configuration.
+
+If the blitter replacement functions do not work, make sure you installed
+an up-to-date version of P96.
+
+-----------------------------------------------------------------------------
+
+                         The THOR-Software Licence (v2, 24th June 1998)
+
+
+This License applies to the computer programs known as the "Native" 
+and its sources. The "Program", below, refers to such program. The
+"Archive" refers to the package of distribution, as prepared by the author
+of the Program, Thomas Richter. Each licensee is addressed as "you".
+
+
+
+The Program and the data in the archive are freely distributable
+under the restrictions stated below, but are also Copyright (c)
+Thomas Richter.
+
+Distribution of the Program, the Archive and the data in the Archive by a
+commercial organization without written permission from the author to any
+third party is prohibited if any payment is made in connection with such
+distribution, whether directly (as in payment for a copy of the Program) or
+indirectly (as in payment for some service related to the Program, or
+payment for some product or service that includes a copy of the Program
+"without charge"; these are only examples, and not an exhaustive enumeration
+of prohibited activities).
+
+
+However, the following methods of distribution
+involving payment shall not in and of themselves be a violation of this
+restriction:
+
+
+(i) Posting the Program on a public access information storage and
+retrieval service for which a fee is received for retrieving information
+(such as an on-line service), provided that the fee is not
+content-dependent (i.e., the fee would be the same for retrieving the same
+volume of information consisting of random data).
+
+
+(ii) Distributing the Program on a CD-ROM, provided that
+
+a) the Archive is reproduced entirely and verbatim on such CD-ROM, including
+especially this licence agreement;
+
+b) the CD-ROM is made available to the public for a nominal fee only,
+
+c) a copy of the CD is made available to the author for free except for
+shipment costs, and
+
+d) provided further that all information on such CD-ROM is redistributable
+for non-commercial purposes without charge.
+
+
+Redistribution of a modified version of the Archive, the Program or the
+contents of the Archive is prohibited in any way, by any organization,
+regardless whether commercial or non-commercial. Everything must be kept
+together, in original and unmodified form.
+
+
+
+
+Limitations.
+
+
+THE PROGRAM IS PROVIDED TO YOU "AS IS", WITHOUT WARRANTY. THERE IS NO
+WARRANTY FOR THE PROGRAM, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. THE ENTIRE
+RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD
+THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY
+SERVICING, REPAIR OR CORRECTION.
+
+
+IF YOU DO NOT ACCEPT THIS LICENCE, YOU MUST DELETE THE PROGRAM, THE ARCHIVE
+AND ALL DATA OF THIS ARCHIVE FROM YOUR STORAGE SYSTEM. YOU ACCEPT THIS
+LICENCE BY USING OR REDISTRIBUTING THE PROGRAM.
+
+
+                                                        Thomas Richter
+
+-----------------------------------------------------------------------------
+
+So long,
+	Thomas			(January 2019)

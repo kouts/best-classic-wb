@@ -1,0 +1,1077 @@
+@database Boards.guide
+@width 80
+@wordwrap
+@Node Main "Boards.library: Table of contents"
+                                       @{B}boards.library V 3.42@{UB} 
+	
+                                              Authors:
+
+                                    Marcus Gerards (04-Feb-2018)
+                                     Thomas Barth (14-Dec-2001)
+                                      Torsten Bach (22-Nov-98)
+                                email: marcus.gerards@gmail.com
+        
+                                      @{B}-- TABLE OF CONTENTS --@{UB}
+
+    1. @{" Introduction & History " link Introduction}.................................. what is it good for? 
+
+	
+    2. Installation & Usage 
+       2.1 @{" Quick start  " link users}............................... a kickstart for the impatient
+	   
+       2.2 @{" ShowBoards " link ShowBoards}............................... a tool for using boards.library
+             2.2.1 @{" General usage " link ShowBoards_main} ....................................... a must-read
+             2.2.2 @{" Tutorial: startup-sequence " link ShowBoards_tutorial}......... advanced usage - recommended!
+			 
+       2.3 Developer information
+             2.3.1 @{" Hardware " link hardware}.............. you're developing an expansion? Read this!
+             2.3.2 @{" Software " link developers}...............................information for the coders
+			  
+    3. Miscellaneous	
+       3.1 @{" Contact " link Address}.................. found a new or unknown board? Write me an email!
+	
+       3.2 @{" Credits " link Credits}............................................ people I need to thank
+	
+       3.3 @{" Copyright " link Copyright}..................................................... legal stuff
+       
+       3.4 @{" ToDo " link todo}.......................................................... the future?
+	
+	
+    4.   Appendix
+       I.   @{" Example source (C) " link Source}          
+       II.  @{" Changelog          " link Changelog}
+@EndNode
+@Node Introduction "Boards.library: Introduction  & History"
+
+@{B}Introduction @{UB}
+
+This library decodes manufacturer IDs and product IDs of Amiga hardware. 
+So - in short - it'll show you what stuff there is inside your machine 
+and who made it. 
+
+Some users might use boards.library just once after building or expanding 
+their machines. However, you can use the included @{"ShowBoards" link ShowBoards 0} tool not only
+to list your expansions once in a while, but also to check for the presence
+of a specific board. You then might trigger different operations, depending on
+whether the the expansion is active or not. This might be useful, if you want
+to deploy the same AmigaOS installation across different hardware 
+configurations or just check, if it's running on WinUAE or a real Amiga.
+
+boards.library is supported by other tools which provide information 
+about your system, like "Report+" by James Jacobs or "WhichAmiga" by Harry 
+Sintonen (both can be found on Aminet). If you use packages which include 
+boards.library, then you'll have to make sure that your latest boards.library 
+is not replaced by an older version shipped with the aforementioned tools.
+
+
+@{U}@{B}History @{UB}@{UU}
+
+The boards.library for Amiga classic systems was initially developed by 
+Torsten Bach and then maintained by Thomas Barth from 1998 on. His last release 
+dated back to December 2001. Jens Schoenfeld obtained the sources in 
+December 2012 and gave them to me for further development. 
+
+There is more to it, of course. But hey, the past is the past. 
+So say we all. ;-)
+
+@EndNode
+
+@Node Users "Boards.library: For end users"
+
+@{B}@{U}Quickstart@{UU}@{UB}
+
+Automatic installation:
+
+Start the included installer and follow the instructions.
+
+
+Manual installation:
+
+Just copy "boards.library" to libs:, "showboards" to c: or where ever you like.
+Users of Kickstart 1.x must install the file "showboards_kick1.x" manually,
+instead of "showboards".
+
+
+After installation:
+
+Run "showboards" - there are some options, as "showboards ?" might tell you.
+Well, at least for OS > V36. If you have a PCI busboard or Amithlon, you 
+should have Benjamin Vernoux's openpci.library in libs:, which is included in 
+this archive as well. 
+
+In case "showboards" still uses an older version of boards.library, you'll have 
+to call "avail flush" from shell or reboot your machine. 
+
+Now that's just basic functionality - @{"read on" link ShowBoards}.
+
+@{B}NOTE: @{UB}
+
+If you're using Enforcer or similar tools, you'll observe some "hits" while 
+using boards.library > V3.0. @{B}This is normal@{UB}; to detect some 
+non-autoconfig hardware like the ACA turboboard series, the library has to peek
+(and sometimes even poke) into registers which machines without those expansion 
+do not have. If you don't need to check for those boards, add the option 
+"NOCUSTOM" to showboards and the hits will be gone. @{B}Alternatively, you may
+set the environment-variable "BOARDS_CUSTOMCHECK" to "0"@{UB}, which will disable
+the checks permanently (or let the installer handle this for you). 
+
+
+@EndNode
+
+
+@Node ShowBoards "Boards.library: ShowBoards"
+
+@{B}@{U}ShowBoards@{UU}@{UB}
+
+
+ShowBoards is a small tool which uses the boards.library. It lists all
+connected expansion boards, shows names (if possible), addresses , sizes, 
+manufacturer IDs, product IDs, flags, types and serial numbers. It can 
+also be used to check for the presence of a specific board.
+
+This chapter offers both a description of the general @{"usage" link Showboards_main 0} and a little 
+@{"tutorial" link Showboards_tutorial 0} demonstrating possible applications for daily usage. 
+@EndNode
+
+@Node ShowBoards_main "Boards.library: ShowBoards - general usage"
+
+@{B}@{U}ShowBoards - general usage@{UU}@{UB}
+
+@{B}From CLI/shell@{UB}
+
+"showboards ?" will display the command's template (for Kickstart >= V36):
+
+@{B}USAGE: ShowBoards B=BRIEF/S,V=VERBOSE/S,S=SERIAL/S,E=EXPERT/S,MID=MANID/K/N,PID=PRODID/K/N,PCI/S,NC=NOCUSTOM/S,A=ALLKNOWN/S,N=NOPAUSE/S@{UB}
+
+@{B}OPTIONS:@{UB}
+	
+    B=BRIEF:    condensed output with minimal information
+    
+    V=VERBOSE:  decode flag & type information. Set this to learn more about 
+                your boards!
+    
+    E=EXPERT:   show boards' expansion ROM data. For Toni. ;-) 
+	
+    S=SERIAL:   display serial number (decimal/hex)
+	
+    MID=MANID:  Manufacturer's ID of a specific board (decimal value)
+
+    PID=PRODID:	Product ID of a specific board (decimal value)
+	
+    PCI:        set bus type to PCI. Only needed while searching for a 
+                specific PCI-board in combination with options PRODID and 
+                MANID. 
+	
+    NC=NOCUSTOM:disable (only) those detection routines which are causing 
+                enforcer hits by poking/peeking into nonstandard adresses.
+
+    A=ALLKNOWN: displays a (long) list of all expansions known to 
+                boards.library.
+                
+    N=NOPAUSE:  This option will disable the "Wait for keypress"-pause which 
+                occurs if the output won't fit the shell window.  
+			
+		NOTE: The list contains a small number of products for reference
+		only, which cannot (and never will be) detected by the library, 
+		e.g. certain keyboard-adapters.	IDs > 240 are usually not real; 
+		they are fake ids needed by the library to rewrite board data 
+		according to serial numbers (this is not true for PCI cards). 
+		While you can use them to check for a certain revision of a card, 
+		a plain showboards-call will always display the real id.
+	
+		This option can be combined with option MANID to search for a 
+		specific manufacturer's products.
+
+
+@{B}EXAMPLES:@{UB}
+
+	"showboards s"		    	: shows all boards currently present in 
+					  the system including their serial numbers 
+
+	"showboards mid=2121 pid=1" 	: checks if "Ethernet Card" by "Hydra Systems"
+				      	  is present in the system. Returns "0" if 
+					  the board has been found, and "5" if not
+	"showboards allknown mid=8512"	: shows all boards of manufacturer "Phase5"
+					  known to boards.library. 
+
+@{B}NOTE:@{UB}
+
+The option "ALLKNOWN" generates a lot of output. Since V2.1, the output will
+be paused until you press a key if it exceeds the shell window. 
+If you want to browse the result in a more comfortable way, redirect the 
+output to a text file and use a text-viewer like "more" or "multiview", e.g.:
+	
+	showboards allknown > ram:boards.txt
+	more ram:boards.txt
+
+or use the PIPE: - consult your AmigaDOS manual (always a must-read).
+
+@{B}BATCH FILE USAGE:@{UB}
+	
+You could e.g. execute different startup-sequences depending on whether a
+certain board is present/active in your system. 
+
+If you're interested in utilizing showboards and boards.library in batch 
+scripts, like startup-sequence or user-startup, check out the little
+tutorial @{"here" link Showboards_tutorial 0} .	
+
+@{B}NOTICE:@{UB}
+			
+If you run showboards and detect entries introduced by a 'unknown' instead of a
+name, you should send @{"me" link Address 0} a description of the missing board 
+asap with the following information:
+
+    - ManufacturerID   Manufacturer name    SerialNumber
+    - ProductID        Product name
+
+    e.g.    Manufacturer    #2167    Village Tronic
+            Product         #24      Picasso IV
+            Serial          #0
+ 
+Remember: You can display the serial number by calling "showboards s".
+
+I really appreciate your support!
+
+
+@{B}From Workbench@{UB}
+
+Just set the predefined tooltypes in the icon information window (they work 
+like their CLI counterparts, see above) and start it with a doubleclick. 
+
+
+@EndNode
+@Node showboards_tutorial "Boards.library: ShowBoards - Tutorial: startup-sequence"
+
+@{B}@{U}ShowBoards - startup-sequence tutorial@{UU}@{UB}
+
+
+This little tutorial will describe how boards.library can be utilized every day
+ - in your startup-sequence.
+
+"showboards" offers (among others) the following parameters:
+
+	MID=MANID: Manufacturer ID (decimal)
+
+	PID=PRODID: Product ID (decimal)
+
+You can check if a certain board is inside your machine and active as well by 
+combining these two parameters:
+
+	showboards mid=2121 pid=1
+
+This call will check, if an "AmigaNET" ethernet-board by "Hydra Systems" is 
+inside your machine. You'll see an according message in your shell, but you'll 
+also get a return value which can be used by scripts to check for a board. That
+value is either "0" (found) or "5" (not found).
+
+A more complex example:
+
+	showboards mid=4626 pid=70  > nil:
+	 
+	if warn
+		echo "CPU card disabled - booting m68k installation"
+		assign sys: System_68k:
+		assign c: System68k:c
+		assign libs: System68k:libs
+		assign l: System68k:l
+		assign ENVARC: System68k:prefs/env-archive
+		assign s: System68k:s
+		execute s:startup-sequence
+	else
+		echo "CPU card is active - continue booting"
+	endif
+
+Now we check, if an ACA 620 is present. If the card is found, startup-sequence
+will continue. Otherwise all system folders will be assigned to partition named
+"System68k:" and booting will continue there. This prevents the machine from 
+crashing because of 68020 versions of libraries or applications, if the card is 
+switched off/removed and the computer just has a plain 68000 left. 
+
+You could also specifically check for an "ACA 620 Rev. 2", you'd have to use 
+"pid=242" in this case.
+
+How do we find IDs of cards we don't own? Well, the library could help us here 
+as well:
+
+	showboards allknown
+
+Now we get a long list of all boards known to boards.library, including the IDs
+we need. Beware: Some IDs are only included for reference and will never be 
+detectable. IDs > 240 are usually not real; they are fake ids needed by the 
+library to rewrite board data according to serial numbers. While you can use them 
+to check for a certain revision of a card, a plain showboards-call will always 
+display the real id.
+
+If you don't like to browse the long list, use something like this:
+
+	showboards allknown > ram:boards.txt
+	search ram:boards.txt "individual"
+
+Or use the PIPE:-device (check your AmigaDOS manual). You'll get the 
+manufacturer-ID of IComp as a result and could now display all of IComp's 
+products with:
+
+	showboards manid=4626
+
+And now we have the ID of the ACA.
+
+In theory, you could build AmigaOS installations running on any machine using 
+showboards. Decide for yourself, if this will be useful. At least you'll be 
+able to distinguish between WinUAE and real machines easily.
+
+@EndNode
+
+@Node hardware "Boards.library: For hardware developers"
+
+@{U}@{B}Information for hardware developers@{UB}@{UU}
+
+Long gone are the golden days of the Amiga computer. However, there are still 
+hobbyists and even businesses who are actively developing hardware expansions.
+
+Let's say you're one of them and you want to have your piece of hardware 
+included into boards.library. You'll need the following:
+
+ - a manufacturer identification number: 
+ 
+    Could only be issued by Commodore(RIP) or AmigaInc (forget it). If you 
+    haven't got one, contact Hyperion (http://hyperion-entertainment.biz/). 
+    It's free and they usually react within days.
+	
+ - a product identification number (a decimal in the range 1 - 240), chosen by
+   yourself.
+ 
+ - a product identification string - that's basically how you want to name 
+   your expansion. You have 48 characters available.
+ 
+ Now we have two cases:
+ 
+ - your board does support autoconfig[tm]. You're done.
+ 
+ - your board does not support autoconfig[tm]. In this case, boards.library 
+   will need a piece of code to detect your hardware. Contact me for further 
+   information.
+    
+Collect all the information above and write me an @{"email" link Address 0}.
+
+
+
+@{U}@{B}Questions & Answers:@{UB}@{UU} 
+
+ Q: my board is supporting autoconfig, but I don't have a manufacturer's ID; 
+    so I selected one for myself.
+ 
+ A: I don't support that. Contact Hyperion and get your own ID.
+
+----- 
+ 
+ Q: my board ist based on some other card and I have to use its product ID
+    to ensure it's going to be identified by the driver of the original. 
+    Could boards.library distingiush between my board and the original anyway?
+
+ A: yes - by using the autoconfig-entry "serial number". Program the CPLD / GAL
+    / PAL / ROM / whatever of your board with a unique serial number, while 
+	"unique" means the following:
+	 - the number is different from the original board's number
+	 - the number is different from any other clone's number in existence
+	 - all your boards must use the same serial number.
+	 - include that serial number in your EMail to me.
+	
+	boards.library will then be able to replace the original board's description
+	with that of your own.
+	
+-----
+
+ Q: I've created a new version / revision of my board and don't want to waste a
+    new product ID for it.
+
+ A: assign a new serial number to the revised board (see above)
+ 
+-----
+
+ Q: I've been using another developer's ID in the past (happenend frequently in 
+    the dark times between the various Commodore/Escom bankrupties). Now I have
+    my own ID and want my old products to be detected as mine.
+ 
+ A: boards.library can handle this case. Just contact me.
+ 
+-----
+
+ Q: that's all very complicated, isn't it?
+ 
+ A: well, feel free to @{"ask" link Address 0}. :-)
+
+@EndNode
+
+@Node Developers "Boards.library: For software developers"
+
+@{U}@{B}Information for software developers@{UU}@{UB}
+
+@{B}Introduction@{UB} 
+
+This part of the guide describes basic funtionalities only. Have a look into 
+the accompanying Includes & Autodocs for more information on this topic.
+
+
+@{B}Functions@{UB} 
+
+1.    GetBoardNameNew()
+------------------------------------------------------------------------------
+
+If you want to get the name of a special expansion board, you can pass the 
+manufacturer ID and product ID directly to GetBoardNameNew() by setting the 
+pointer of the ConfigDev parameter to NULL. The Bus parameter must be set to
+SB_BUS_PCI for PCI-cards or SB_BUS_NATIVE for everything else.
+
+If you want to get the name of all expansion boards or of a special expansion
+board, you have to get a ConfigDev structure first. Pass this structure to 
+GetBoardNameNew(), then. 
+
+@{B}NOTE:@{UB}
+
+You won't benefit from the custom detection routines of boards.library, if
+your software just browses system's configDev and passes the entries to 
+GetBoardNameNew(), since the non-autoconfig boards don't have a configDev entry.
+Make use of the library's AllocBoardInfo() and NextBoardInfo() to obtain a
+BoardInfo-structure (see below). It contains all the information you need for
+autoconfig & non-autoconfig boards (even a pointer to either system's configDev 
+or a faked one in case of non-autoconfig boards).
+
+
+2.    NextBoardInfo()
+------------------------------------------------------------------------------
+
+First, you'll have to call AllocBoardInfo() to allocate a BoardInfo-structure. 
+The format of the strings contained in the structure can be changed by some 
+flags. Next, you can use NextBoardInfo() to fill the BoardInfo-structure with
+the boards' data. All information is available in ASCII. Check the autodocs 
+and includes for further documentation.
+
+If you don't need the BoardInfo-structure anymore, you'll have to
+deallocate it with FreeBoardInfo().
+
+@{B}Example @{UB} 
+
+I have included a small @{"example source" link Source}, written in C. 
+
+@EndNode
+
+@Node Address "Boards.library: address"
+
+@{U}@{B}Contact / E-Mail@{UB}@{UU}
+
+  You can reach me via:
+
+    @{B}marcus.gerards@googlemail.com@{UB}
+	
+  Please send bug-reports, board descriptions, etc. And if you like this little
+  piece of software, send me the output of showboards running on your machine,
+  be it a screenshot, a redirected textfile or a photo taken of your 1084. ;-)
+    
+@EndNode
+
+@Node Credits "Boards.library: Credits"
+
+@{B}@{U} Thanks & Acknowledgements go to:@{UU}@{UB}
+
+- Torsten Bach and Thomas Barth for creating and maintaining boards.library
+
+- Jens Schoenfeld for the source, 
+
+- Mikhail Malyshev for suggestions, the installer and the wonderful icon
+
+- Marco Malz for the showboards-icon
+
+- Michael Boehmer for some insights 
+
+- Toni Wilen for suggestions, help, data and his great work on WinUAE
+
+- ELBOX for some data
+
+- Oliver Achten for ACA 6xx/12xx detection routine
+
+- Harry Sintonen for the WhichAmiga sources
+
+- Dennis Spyra & Marios Filos for ACA detection testing
+
+- Andre Pfeiffer, Thomas Rapp, Frank Wille for code feedback & support
+
+- James Jacobs for sharing code and advice
+
+- Benjamin Vernoux for openpci.library (see http://bvernoux.free.fr/DevPCI.php)
+
+- Tobias Seiler for PicassoIV module documentation 
+
+- Thomas Richter for his CSI-read source & help
+
+- Robert Miranda & Jasmin68k for reporting bugs
+
+- everyone who reported a board, gave feedback or helped somehow
+
+and to the nice and crazy people of a1k.org for bringing me back to the Amiga.
+
+
+And now just try it out. Feedback is greatly appreciated. :-)
+
+Marcus Gerards
+
+
+@EndNode
+@Node Copyright "Boards.library: Copyright"
+
+@{B}@{U}DISCLAIMER / COPYRIGHT@{UU}@{UB}
+
+This software and is maintained by Marcus Gerards. You are not allowed to 
+modify the program and documentation in any way. 
+
+
+@{B}@{U}DISTRIBUTION@{UU}@{UB}
+
+This package is @{i}FREEWARE. @{ui}That means you are allowed to redistribute
+this package as long as you match the following items:
+
+- You are allowed to add the boards.library to your own archives without the 
+  complete package, This is restricted to non-commercial purposes. 
+
+- This package may be freely distributed  via  BBSs, InterNet/UseNet,
+  software  libraries, and other similar electronic channels.
+
+- Services that charge extra for file transfers may
+  NOT distribute it.
+
+- You are allowed to bundle boards.library with magazine cover-CDs as long as 
+  you publish the whole package.
+
+- You are allowed to use the boards.library in a commercial product, but only 
+  with my permission.
+
+
+@{B}@{U}DISCLAIMER@{UB}@{UU}
+
+  THERE IS NO LIABILITY TO THIS PROGRAM-PACKAGE,IN REFERENCE TO THE
+  ASSERTED LAWS. THE COPYRIGHT OWNERS, AND/OR A  THIRD PARTY, PLACE
+  THIS PROGRAM PACKAGE AT YOUR DISPOSAL "AS  IS" (EXCEPT WHERE THIS
+  IS FIXED ANYWHERE ELSE IN A WRITTEN WAY) WITHOUT ANY GUARANTEE IN
+  ANY  FORM (INDIRECT OR DIRECT FORM). THE FULL RISK OF QUALITY AND
+  FUNCTIONALITY  OF THIS PROGRAM IS AT YOUR OWN. IF THE PROGRAM HAS
+  A BUG, YOU HAVE TO PAY  ALL COSTS  OF THE NECESSARY SERVICE-WORKS
+  AND REPAIRS FOR YOURSELF.
+
+  UNDER  NO  CIRCUMSTANCES,  THE  COPYRIGHT OWNERS OR A THIRD PARTY 
+  DISTRIBUTING THIS PROGRAM PACKAGE, AS ALLOWED, JUST  BEFORE,  CAN
+  NOT  BE  HELD  RESPONSIBLE  FOR  ANY  DAMAGE CAUSED IN ANY USUAL,
+  SPECIAL, OR ACCIDENTAL WAY OR BY THE PROGRAM PACKAGE (SURROUNDING
+  BUT NOT RESTRICTED ARE THE LOSS OF DATA OR NOTCORRECTLY DISPLAYED
+  DATA OR LOSSES CAUSED BY YOU OR A THIRD PARTY OR BY A FAULTY WORK
+  OF THIS PROGRAM PACKAGE  WITH  OTHER PROGRAMS), ALSO IF THE OWNER
+  OR A THIRD PARTY HAS BEEN POINTED AT SUCH POSSIBILITIES OF DAMAGE.
+
+@EndNode
+
+@Node todo "Boards.library: to do"
+
+@{U}@{B}Next things to do:@{UB}@{UU}
+
+- Detection of Indivision-cards
+- PCMCIA support
+- clockport support
+- better CPU (board) detection 
+
+@EndNode
+
+@Node Source "Boards.library: example source (C)"
+
+@{B}NOTE: Feel free to modify the example below into an "Amiga-C" version by 
+      replacing "printf" with "Printf" calls, etc.@{UB}
+	  
+
+/* 
+ *	boards.library example source
+ *	
+ *	a very basic version of "ShowBoards"  
+ */
+
+#include <exec/types.h>
+#include <exec/exec.h>
+#include <exec/execbase.h>
+#include <proto/exec.h>
+#include <libraries/boards.h>
+#include <proto/boards.h>
+#include <stdio.h>	
+#include <string.h>
+
+struct Library *BoardsBase;
+struct BoardInfo *BoardInfo;
+ULONG boards; 
+ULONG configdev;
+struct BoardInfo *BoardInfo;
+
+int i = 0; // a counter
+
+void main(void)  {
+       
+    BoardsBase = (struct Library *) OpenLibrary("boards.library",0L);   // Open the library
+    if (BoardsBase != NULL)  // boards.library open?
+    {
+        if (boards = AllocBoardInfo(NULL)); // boards found?
+        {
+          // Fetch the boards
+            
+            BoardInfo = (struct BoardInfo *) boards;
+            
+            i = 0; // Boardcounter
+            
+            // Output Board data while boards found            
+            while(configdev =  NextBoardInfo((struct BoardInfo *) boards, (struct ConfigDev *) configdev)) {
+               printf("\\n");
+               printf("Board %2d:  %-26s \nMade by :  %-51s\n", i+1, BoardInfo->bi_ProdName,BoardInfo->bi_ManuName);
+               printf("\\nBoard ID: %-26s Manufacturer ID: %s\n", BoardInfo->bi_ProdID,BoardInfo->bi_ManuID);
+               printf("Address:  %-26s Size: %-26s\\n", BoardInfo->bi_ExAddress,BoardInfo->bi_ExSize);
+               printf("Type:     %-26s Flags: %-26s\\n", BoardInfo->bi_er_type,BoardInfo->bi_cd_flags);
+               printf("Serial: %s\\n\\n",BoardInfo->bi_er_serial);
+               i++;
+            }
+	        printf("\\n");
+
+            if (i == 1) {
+                printf("1 board found.");
+            }
+            else if (i == 0) {
+                printf("No boards found in your system");
+            }
+            else {
+                printf("\\n%d boards found.\\n\\n", i);
+            }
+            FreeBoardInfo((struct BoardInfo *) boards);  // Free the resources
+        }
+    } 
+    else
+    {
+        printf("Cannot open boards.library!\\n");
+    }
+    if (BoardsBase != NULL) CloseLibrary((struct Library *)BoardsBase);  // Close the lib 
+}
+
+
+@EndNode
+
+
+@Node Changelog "boards.library: Changelog"
+
+@{U}@{B}Changelog@{UB}@{UU}
+@{B}V3.42:@{UB}
+
+- boards.library
+	+ added Wicher 500i by Artur "7-bit" Gadawski
+	+ added BigRam 2630 by IComp
+	+ added ACA1233n in 020-mode
+	+ added ACA1233n Rev 1. in 030 and 020 mode
+	+ added ATL HDI Ultrasound video capture card
+	+ fixed a bug that led to PicassoIV modules 
+	  inheriting other expansion's serial number 
+	  (thanks go to Jasmin68k for reporting)
+	+ fixed a really stupid bug which falsely triggered the
+	  serial rewrite routine in rare cases
+	  (thanks go to Robert Miranda for putting me on the 
+	   right track) 
+	+ added recognition for ConneXion network cards 
+	  running in A2065 emulation mode 
+	  (feedback needed, thanks go to analogkid & Scrat)
+	+ changed IDs for Zorro IDE/LAN/Clockport card by
+	  buggs/Matze/Scrat 
+    
+  	
+- showboards (V2.15)
+	+  fixed a bug that would show some Zorro II cards as 
+	   Zorro III and vice versa
+	+  Kick 1.x machines no longer crash 
+	   (you still need to use showboards 1.x, though)
+	+  ProductID is now displayed correctly as byte-sized
+
+- 661 boards (including variants) known
+
+
+@{B}V3.35:@{UB}
+
+- boards.library
+	+ changed version number scheme (3.35 > 3.16 > 3.3 now )
+    + fixed OpenPCI-support (broken since 3.3)
+   	+ added Matze's IDE controller by A1k.org
+	+ added VA2000 by MNT Media and Technology
+	 + added VA2000 RTG Card (Zorro III)
+     + added VA2000 RTG Card (Zorro II)
+    + changed "Furia 32bit" to "Furia 020"
+    + added "Furia 030" by Boris Krizma
+    + added "Scrats/Matzes LAN-Card" to A1k.org
+    + added "Matzes Clockport" to A1k.org
+    + truncated some Elbox product names with more than 48 chars
+    + fixed ACA500 showing up twice when combined with ACA12xx
+	
+- showboards (V2.12)
+	+  some fixes
+
+- 654 boards (including variants) known
+
+
+@{B}V3.3:@{UB}
+
+- boards.library
+	+ lib now skips custom recognition routines if Draco or Amithlon machine detected
+	+ introduced ENV-Var (BOARDS_CUSTOMCHECK) 
+	  setting it to 0 will permanently disable custom detection routines
+	+ added VillageTronic / PicassoIV module detection (custom detection routine)
+	 + PicassoIV ECS Flickerfixer 
+	 + PicassoIV AGA Flickerfixer 
+	 + Pablo II video module
+     + Picasso IV Video Capture
+     + Paloma TV tuner (PAL) 
+	 + added Concierto sound card
+	+ added IComp ACA500, ACA1221 & ACA1221EC (custom detection routine)
+	+ added IComp ACA500+
+	+ added IComp ACA1233n
+	+ added FPGAArcade (formerly registered as Minimig)
+	+ added Jochheim Tuning Access 32 Memory expansion
+	+ added E3B Prisma Megamix
+	+ E3B ZorRam is now also Bigram+ (same ID)
+	+ added UAE bootrom I/O
+	+ added Z3SDRam RAM Expansion by Tim Tashpulatov
+	+ added dm9k Network Card by Tim Tashpulatov
+	+ added ZEUS turbocard by KyroFlux Ltd.
+	+ added Matze's IDE controller by A1k.org
+	+ added Minimig expansions by Rok Krajnc
+	 + added Minimig Z2 FastRAM
+     + added Minimig Z3 FastRAM
+     + added Minimig Z3 EthernetCard
+     + added Minimig Z3 GraphicsCard
+     + added Minimig Z3 SoundCard
+	+ serial rewrite for E3B ICY & Kyroflux ZEUS
+	
+- showboards (V2.1)
+	+ new modes "VERBOSE" and "EXPERT" provide a lot more
+	  human/geek-readable information about your boards
+	+ output exceeding window height is paused until next keypress (N=NOPAUSE to disable) 
+	+ can now be run from Workbench 
+	+ supports most CLI-arguments as tooltypes when launched via icon  
+
+- 647 boards (including variants) known
+
+
+@{B}V3.16:@{UB}
+
+- boards.library
+	+ rewrote/added some code to detect board variants
+	+ dynamic renaming of Protein_1 boards on the basis of individual serials
+	+ changed ManID & ProdIDs of A1k.org
+	+ changed ManID $1111 to "Various Developers"
+	+ added ACA500 detection
+	+ added ACA500 revision detection (static for now, but including prototypes)
+	+ fixed serial rewrite call for ACA500
+	+ added ACA revisions
+	+ added "ACA12xx on ACA500"-detection
+	+ added Voodoo 4 / corrected Voodoo 5
+	+ added X-Surf 100 logic revisions
+	+ fixed/ added BSC AT-Bus 508/2008 IDE Controller
+	+ added A1k.org 4MB 32bit SRAM for 68030TK by Matthias "Matze" Heinrichs
+	+ added A1k.org 68030TK by Matthias "Matze" Heinrichs
+	+ added A1k.org IDE controller for 68030TK by Matthias "Matze" Heinrichs
+	+ added A1k.org Nova-Thylacine Rev.1 by crasbe & ACT Australia
+	+ added A1k.org Nova-Thylacine Rev.2 by crasbe & ACT Australia
+	+ added A1k.org BoardsLAB by Marcus "bubbob42" Gerards
+	+ added Elbox MEDIATOR 3000Di Zorro III/PCI busboard
+	+ reworked some code
+
+- showboards
+	+ some cosmetic changes
+	
+- 621 boards (including variants) known
+
+
+@{B}V3.12:@{UB}
+
+- boards.library
+	+ Picasso II can now be distinguished from Picasso II+ via serial rewrite
+		(thanks go to Toni Wilen)
+	+ added A608 memory expansion (clone) - A1K.org community
+	+ added Protein_1 by botfixer and crasbe - A1K.org community
+	+ added FM801-AU / Xwave QS3000A - ForteMedia 
+	+ added FM801-AU / Xwave QS3000A Gameport - ForteMedia 
+	+ added AHA-2940/2940W Fast/Fast-Wide SCSI - Adaptec 
+	+ added PDC40775 / SATA 300 TX2plus incl. IDE - Promise Technology
+	+ added SiI 3112 [SATALink/SATARaid] SATA Controller - Silicon Image
+	+ added Minimig Sound Card - Z2 - Jakub "Yaqube" Bednarski
+	+ added Minimig USB/Ethernet Card - Z3 - Jakub "Yaqube" Bednarski
+	+ added Minimig RTG Card - Z2 - Jakub "Yaqube" Bednarski
+
+- 608 boards (including variants) known
+
+
+@{B}V3.1:@{UB}
+
+- boards.library
+	+ fixed a nasty bug in the "serial replacement" code which led to a crash 
+	  on machines equipped with a X-Surf card 
+	  (thanks go to Thomas Klein for reporting!)
+	+ added the upcoming "X-Surf 100" by IComp
+	+ fixed entry for "ACT Elektronik"
+	+ added G-REX PCI busboard
+	+ added ESS Technology ES1969 / Solo-1 PCI AudioDrive family
+	+ included openpci.library (with kind permission of Benjamin Vernoux)
+	
+- showboards
+	+ fixed showboards_kick1.x not working with the library's 3.x release 
+	+ fixed broken "ratings" - retest your machines. :-)
+	
+- 596 boards (including variants) known
+
+
+@{B}V3.0:@{UB}
+
+- boards.library
+	+ this release prepares boards.library for non-autoconfig hardware
+	+ added detection code for ACA 6xx/12xx 
+	  (based on sources by Oliver Achten)
+		+ added all ACA 6xx/12xx-boards by IComp
+	+ added support for PCI via openpci.library (by Benjamin Vernoux)
+		+ added 3dfx Voodoo Banshee/3/4/5
+		+ added S3 Virge / Trio cards 
+		+ added Permedia2-based cards
+		+ added ATI Radeon (Mobility) 9000/9200 (pro) 
+		+ added Forte Media FM-801 based cards
+		+ added Brooktree-based TV-cards
+		+ added Ensoniq audio cards
+		+ added Soundblaster 128 /Audigy / Live!
+		+ added RealTek 8139 A/B/C--based cards
+		+ added NEC USB Controller (Spider I/II)
+		+ added Adaptec AHA-2940AU / AHA-2940U/UW/D SCSI controllers
+	+ added Gayle checking (source by Harry Sintonen)
+	
+- developers: 
+	+ new function GetBoardNameNew() to accommodate the library to WORD-sized 
+	  ProductIDs (PCI)
+	+ BoardInfo->bi_ProdID now points to a 6-byte string (incl. NULL-byte)
+	+ new parameters SB_BUS_NATIVE & SB_BUS_PCI for GetBoardNameNew()
+	+ new parameter SB_DISABLE_CUSTOMCHECK for AllocBoardInfo()
+	+ updated include-files & autodocs
+	
+- showboards
+	+ fixed Enforcer-hit in argv/argc processing, thanks to Stellan Pistoor
+	  for reporting!
+	+ new option "NOCUSTOM" to prevent checking for non-autoconfig-boards
+	+ new option "PCI" to search the database for PCI boards 
+	+ created showboards_kick1.x for Kickstart  1.x users (Kick 1.x support 
+	  was broken in V2.70)
+	+ added a SysInfo-style "rating" - enjoy ;-)
+	
+- documentation:
+	+ lots of restructuring / rewriting & cleanup
+	+ added "showboards in startup-sequence" (step-by-step tutorial) 
+	+ added information for hardware developers
+
+- 593 boards (including variants) known
+
+@{B}V2.70:@{UB}
+
+- fixed GoldenGate II (manufacturer entry was missing)
+- rechecked, reworked or completed 25 entries by comparing boards.library with 
+  James Jacobs' excellent "ReportPlus+" (you can find it on Aminet)
+- added B. Krizma and his "Furia" Accelerators
+- added Mini-Thylacine by Georg Braun
+- expanded "showboards"-command:
+   + you can now utilize it in batch scripts, e.g. execute different 
+     startup-sequences depending on whether a certain board has been found 
+   + the option "allknown" is back and displays all boards known to the library
+- 528 boards (including variants) known
+
+@{B}V2.66 (new Aminet release):@{UB}
+
+- added GBAPII+ (new Picasso II clone for GBA1000 machines)
+- added T. Stenzel and his upcoming "PyRamIDE" expansion for CD32
+- reworked documentation, added code example
+
+@{B}V2.65 (public beta):@{UB}
+
+- added "Ambience Creation Technology" and their "Thylacine USB Controller"
+- "showboards s" now displays both decimal and hexadecimal serial numbers
+
+@{B}V2.64 (public beta):@{UB}
+
+- fixed a nasty bug in the serial rewrite routine, which was the reason
+  why X-Surf cards were displayed as DENEB clockports
+
+@{B}V2.63 (public beta):@{UB}
+
+- added Georg Braun's products
+
+@{B}V2.62 (public beta):@{UB}
+
+- new maintainer
+- added new boards (well, that was obvious, wasn't it?)
+
+   + Elbox releases since 2001
+   + IComp releases since 2001
+   + E3B products
+   + WinUAE boards
+
+- completely rewritten enclosed "showboards"-utility
+- "showboards" now also supports Kickstart 1.x
+- modified boards.library to support Kickstart 1.x
+- refined board detection via product-ID and serial-number (see below)
+- removed ShowboardsMUI (for now)
+- revision bump (sic!)
+
+
+New ProductID and Serial detection (*please read*):
+
+This feature is the only real enhancement of the current release. It comes in 
+two flavours:
+
+1) During the quite turbulent history of the Amiga, developers were not always 
+able to obtain a unique manufacturer ID from Commodore or its successors, so 
+they used the IDs of other manufacturers instead. boards.library is now able to 
+display the names of the real manufacturers in such cases. You can watch this 
+if you own an early E3B-board, like the Highway USB-Card. (Contact me if you 
+have information about similar cases!)
+
+2) The data structure for each autoconfig board provides a space for serial 
+number information. However, that space does not contain real serial numbers in
+most cases, but has been used by manufacturers to store information about 
+different revisions of their product, type of flash chip used, etc. 
+
+Example: 
+
+The ACA620 processor board for the A600 by Individual Computers currently 
+exists in two revisions. Revision 1 has stability problems and can only be 
+identified by the serial number. boards.library will provide a warning 
+message to Rev.1 users, containing contact details for the update process. 
+
+
+
+-------------------------------------------------------------------------------
+
+History of the releases by Barth & Bach:
+
+
+V 2.32 / 2.32a @{UB}
+        · added new board and manufacturer (431 boards known)      
+
+@{B}V 2.31 / 2.31a @{UB}
+         . librarystructure changed
+         . errors corrected
+
+@{B}V 2.30 / 2.30a @{UB}
+        · added new board (430 boards known)
+        · new ShowBoardsMUI-Catalog added
+          (thanks to Dósa Márton)
+
+@{B}V 2.29 / 2.29a @{UB}
+        . librarystructure changed
+        . some products and manufacturers corrected
+          (thanks to Gerd Frank)
+        . only 428 boards, because producers uses the same 
+          id´s fore more than one product.  
+
+@{B}V 2.28 / 2.28a @{UB}
+        · added new board (430 boards known)
+
+@{B}V 2.27 / 2.27a @{UB}
+        · some errors corrected
+        . 2.27a without é characters, replaces with e
+       
+@{B}V 2.26 @{UB}
+        · added new board (428 boards known)
+
+@{B}V 2.25 @{UB}
+        · added new board (426 boards known)
+ 
+@{B}V 2.24 @{UB}
+        · added new board (421 boards known)
+        · new ShowBoardsMUI-Catalog added
+          (thanks to Joni ´Jompsa´ Halme)
+
+@{B}V 2.23 @{UB}
+        · added new boards (419 boards known)
+        · new Showboards added
+
+@{B}V 2.20 @{UB}
+        · added new boards (388 boards known)
+
+@{B}V 2.19 @{UB}
+        · added new boards (386 boards known)
+
+@{B}V 2.18 @{UB}
+        · added new boards (379 boards known)
+        · new Catalogs added
+
+@{B}V 2.17 @{UB}
+        · added new boards (375 boards known)
+
+        · new Includes (thanx to Dirk Stoecker)
+
+@{B}V 2.16 @{UB}
+        · added new boards (370 boards known)
+
+@{B}V 2.15 @{UB}
+        · added new boards (365 boards known)
+        · some ShowBoardsMUI-Catalogs added
+
+@{B}V 2.14 @{UB}
+        · added new boards (361 boards known)
+        · new Showboards added
+
+@{B}V 2.13 @{UB}
+        · added new boards (357 boards known)
+        · i have changed my EMail
+
+@{B}V 2.12 @{UB}
+        · added new boards (355 boards known)
+
+@{B}V 2.11 @{UB}
+        · added new boards (346 boards known)
+
+@{B}V 2.10 @{UB}
+        · added new boards (317 boards known)
+        · new ShowBoardsMUI (MUI 3.7 fix, Locale)
+
+@{B}V 2.9 @{UB}
+        · added new boards (314 boards known)
+
+@{B}V 2.8 @{UB}
+        · added new boards (309 boards known)
+        · added E-Modules
+
+@{B}V 2.7 @{UB}
+        · added new boards (300 boards known)
+        · new ShowBoardsMUI
+
+@{B}V 2.6 @{UB}
+        · added new boards (293 boards known)
+        · added ShowBoardsMUI
+
+@{B}V 2.5 @{UB}
+        · added new boards (279 boards known)
+
+@{B}V 2.4 @{UB}
+        · added new boards (247 boards known)
+        · added C-Includes
+        · Showboards littlebit changed
+
+@{B}V 2.3 @{UB}
+        · added new boards (216 boards known)
+
+@{B}V 2.2 @{UB}
+        · added new boards (209 boards known)
+
+@{B}V 2.1 @{UB}
+        · added new boards
+
+@{B}V 2.0 @{UB}
+        · added new boards
+        · added new Offsets
+        · minor bug fixed (GetBoardName TRUE<->FALSE )
+        · Guide+Developer files rewritten
+
+@{B}V 1.0 @{UB}    · First release
+        · Knows 150+ boards
+         
+@EndNode
+
+

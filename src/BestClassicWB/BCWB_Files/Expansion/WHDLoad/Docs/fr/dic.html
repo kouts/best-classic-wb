@@ -1,0 +1,98 @@
+<HTML>
+<HEAD>
+<TITLE>Le cr&eacute;ateur d'images disque</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: dic.html 1.6 2013/11/25 22:13:32 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>DIC * Le cr&eacute;ateur d'images disque</h3>
+<p>DIC est un outil qui permet de cr&eacute;er une image fichier &agrave; partir d'une disquette. DIC lit le contenu de la disquette sur le device associ&eacute; (ex:
+"trackdisk.device" pour DF0:) et &eacute;crit les donn&eacute;es dans un fichier du r&eacute;pertoire courant. Le nom de l'image cr&eacute;&eacute;e sera "Disk.1", o&ugrave; "1" est le num&eacute;ro du disque lu. Le num&eacute;ro du disque sera incr&eacute;ment&eacute; apr&egrave;s chaque lecture. Avec l'option <tt>Name</tt>, il est possible de donner un nom diff&eacute;rent au fichier.</p>
+<p>DIC peut aussi lire &agrave; partir d'autres devices comme RAD:, PC0: or DS0: et les disques haute densit&eacute;.</p>
+<p>Si une piste de la disquette ne peut pas &ecirc;tre lue correctement et que DIC a &eacute;t&eacute; d&eacute;marr&eacute; sur un terminal interactif (ex: CON:), il demande s'il doit ignorer la piste d&eacute;fectueuse ou essayer de la relire. Sur des terminaux non interactifs, elles seront toutes ignor&eacute;es par d&eacute;faut.<br>Pour ces pistes-l&agrave;,
+la zone correspondante de l'image est remplie avec le motif
+"<tt>TDIC</tt>". Il est ainsi possible de retrouver l'erreur plus tard.</p>
+<p>DIC peut &eacute;galement lire des disques partiellement en utilisant l'option <tt>SIZE/K/N</tt>.
+Si cette option est utilis&eacute;e, DIC n'&eacute;crit pas les donn&eacute;es apr&egrave;s la taille sp&eacute;cifi&eacute;e. Cela peut s'av&eacute;rer utile si les derni&egrave;res pistes ne sont pas utilis&eacute;es.</p>
+<p>Il est possible de sauter des pistes en utilisant l'option <tt>SKIPTRACK/K/N</tt>.
+Cela est tr&egrave;s utile pour cr&eacute;er des images dont les disques poss&egrave;dent une protection (ex: Copylock RN sur piste 1).</p>
+<p>Si l'option <tt>PEDANTIC/S</tt> est positionn&eacute;e, DIC quitte imm&eacute;diatement s'il rencontre une piste illisible.</p>
+<p>DIC peut &ecirc;tre interrompu &agrave; tout moment avec Ctrl-C.</p>
+<h4>Installation</h4>
+Le copier dans C: ou un r&eacute;pertoire similaire
+<h4>Utilisation</h4>
+<p>Pour utiliser DIC interactivement:
+<ul>
+<li>ouvrir un Shell
+<li>aller dans le r&eacute;pertoire o&ugrave; les images doivent &ecirc;tre stock&eacute;es
+<li>taper "DIC" suivi de RETURN
+<li>ins&eacute;rer les disques et suivre les instructions donn&eacute;es par DIC
+<li>apr&egrave;s que le dernier disque ait &eacute;t&eacute; lu, interrompre DIC avec Ctrl-C
+</ul>
+Pour utiliser DIC dans un script d'installation, utiliser les options
+<tt>FD=FIRSTDISK/K/N</tt>, <tt>LD=LASTDISK/K/N</tt> et
+<tt>PEDANTIC/S</tt>. Pour les disques avec des protections physiques utiliser
+<tt>SKIPTRACK/K/N</tt>. Si possible, c'est vraiment sympa d'utiliser <tt>SIZE/K</tt>
+pour &eacute;conomiser de l'espace disque &agrave; travers le monde ;-).
+<h4>Options</h4>
+<table>
+<tr><td colspan=2>
+<tt>DEVICE,NAME,SKIPTRACK/K,SIZE/K,FD=FIRSTDISK/K/N,LD=LASTDISK/K/N,PEDANTIC/S</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>DEVICE</tt>
+</td><td>
+le device &agrave; partir duquel DIC lit les disques
+<br>par d&eacute;faut "DF0:"
+<br>exemple "RAD:"
+</td></tr>
+<tr><td valign=top>
+<tt>NAME</tt>
+</td><td>
+nom du fichier &agrave; cr&eacute;er, si pr&eacute;cis&eacute;, DIC ne nomme pas l'image "Disk.1" et ainsi de suite, mais utilise le nom sp&eacute;cifi&eacute;. Cette option positionne <tt>FIRSTDISK/K/N</tt> et <tt>LASTDISK/K/N</tt> &agrave; 1, ce qui signifie qu'un seul disque sera lu.
+</td></tr>
+<tr><td valign=top>
+<tt>SKIPTRACK/K/N</tt>
+</td><td>
+les pistes sp&eacute;cifi&eacute;es ne sont pas lues, la zone de l'image disque correspondante est remplie du motif "<tt>TDIC</tt>", la table suivante montre des exemples pour illustrer la souplesse de la syntaxe pour sauter les pistes
+  <table>
+  <tr><td>liste</td><td>pistes concern&eacute;es</td></tr>
+  <tr><td>1-5</td><td>1,2,3,4,5</td></tr>
+  <tr><td>2,90</td><td>2,90</td></tr>
+  <tr><td>2*2</td><td>2,4,...,156,158</td></tr>
+  <tr><td>10-20*5</td><td>10,15,20</td></tr>
+  <tr><td>1-5,7,99-104*2</td><td>1,2,3,4,5,7,99,101,103</td></tr>
+  </table>
+</td></tr>
+<tr><td valign=top>
+<tt>SIZE/K</tt>
+</td><td>
+la taille de l'image &agrave; cr&eacute;er, utile s'il y a une zone inutilis&eacute;e &agrave; la fin du disque, si la taille est sup&eacute;rieure &agrave; la taille de l'image physique, elle est ignor&eacute;e.
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>FD=FIRSTDISK/K/N</tt>&nbsp;&nbsp;
+</td><td>
+num&eacute;ro du premier disque
+<br>par d&eacute;faut "FD=1"
+<br>exemple "FD=0"
+</td></tr>
+<tr><td valign=top>
+<tt>LD=LASTDISK/K/N</tt>
+</td><td>
+num&eacute;ro du dernier disque
+<br>par d&eacute;faut "LD=999999"
+<br>exemple "LD=3"
+</td></tr>
+<tr><td valign=top>
+<tt>PEDANTIC/S</tt>
+</td><td>
+Si demand&eacute;, DIC peut quitter imm&eacute;diatement si une piste ne peut pas &ecirc;tre lue. A utiliser dans les scripts d'installation.
+</td></tr>
+</table>
+<h4>Code de retour</h4>
+Le code de retour est mis &agrave; 0 si tous les disques de <tt>FD</tt> &agrave; <tt>LD</tt>
+ont &eacute;t&eacute; lus avec succ&egrave;s. Sinon, DIC retourne 10.
+</BODY>
+</HTML>

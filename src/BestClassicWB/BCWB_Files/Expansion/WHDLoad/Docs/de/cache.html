@@ -1,0 +1,212 @@
+<HTML>
+<HEAD>
+<TITLE>CPU Cache Verwaltung</TITLE>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: cache.html 1.9 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>CPU Cache Überblick</h3>
+Um die Leistung zu steigern verfügen einige der CPU's der 68k Familie
+über die Fähigkeit Speicherzugriffe zwischenzuspeichern.
+<br>Zur Referenzierung der Caches werden immer logische Adressen,
+inklusive des "Function Code" verwendet. Das heißt unter anderem, dass
+Zugriffe im User Mode und Supervisor Mode unterschiedliche Cache-Einträge
+erzeugen (für genaue Informationen hierzu sollten die Motorola Prozessor Handbücher
+konsultiert werden).
+<p>Folgend ein Überblick über die Fähigkeiten 68k CPU's:
+<ul><li>68000
+keine
+<li>68010<ul>
+<li>Instruction Prefetch
+<br>zwei Wörter prefetch, ein Wort Dekodierregister
+<li>Loop Mode
+
+<br>wird aktiviert, wenn eine Ein-Wort-Instruktion auf eine DBcc-Instruktion
+folgt die eine Scheife auf die vorhergehende Instruktion bildet, in diesem Fall
+erfolgen keine Leseoperationen für die Instruktionen mehr bis zum Ende der
+Schleife
+
+</ul><li>68020<ul>
+<li>Instruction Prefetch
+<br>ein Langwort
+<li>Instruction Cache
+<br>16 Zeilen á 16 Bytes = 256 Bytes
+<br>kann Eingeschalten oder Eingefroren werden mittels CACR
+</ul><li>68030<ul>
+<li>Instruction Prefetch
+<br>ein Langwort
+<li>Instruction Cache
+<br>16 Zeilen á 16 Bytes = 256 Bytes
+<br>kann Eingeschalten oder Eingefroren werden mittels CACR
+
+<br>bei aktiviertem Burst-Modus wird immer eine komplette Zeile gelesen, wenn
+dies die Hardware unterstützt
+
+<li>Data Cache
+<br>16 Zeilen á 16 Bytes = 256 Bytes
+<br>kann Eingeschalten oder Eingefroren werden mittels CACR
+<br>immer WriteThrough
+
+<br>wählbarer Write Allocation Modus der dafür sorgt, dass bei Schreibzugriffen
+auch entsprechende Einträge für User/Supervisor ungültig gesetzt werden
+
+<br>bei aktiviertem Burst-Modus wird immer eine komplette Zeile gelesen, wenn
+dies die Hardware unterstützt
+
+</ul><li>68040<ul>
+<li>Instruction Prefetch
+<br>ein Langwort
+<li>Instruction Cache
+<br>256 Zeilen á 16 Bytes = 4096 Bytes
+<br>kann Eingeschalten werden mittels CACR
+<li>Data Cache
+<br>256 Zeilen á 16 Bytes = 4096 Bytes
+<br>kann Eingeschalten werden mittels CACR
+<br>wählbarer Mode CopyBack/WriteThrough mittels MMU
+</ul><li>68060<ul>
+<li>Instruction Prefetch
+<br>ein Langwort
+<li>Instruction Cache
+<br>512 Zeilen á 16 Bytes = 8192 Bytes
+<br>kann Eingeschalten, Eingefroren und auf halbe Größe eingestellt werden mittels CACR
+<li>Branch Cache
+<br>kann Eingeschalten werden mittels CACR
+<br>wird von den Einstellungen der MMU nicht beeinflusst!
+<li>Superscalar Dispatch
+<br>kann Eingeschalten werden mittels CACR
+<li>Data Cache
+<br>512 Zeilen á 16 Bytes = 8192 Bytes
+<br>kann Eingeschalten, Eingefroren und auf halbe Größe eingestellt werden mittels CACR
+<br>wählbarer Mode CopyBack/WriteThrough mittels MMU
+<li>Push Buffer
+<br>kann Eingeschalten werden mittels PCR
+<li>Store Buffer
+<br>kann Eingeschalten werden mittels CACR
+<br>Kacheln dürfen nicht NonCachable Serialized (precise) sein
+</ul></ul>
+<h4><a name="cache">Cache Verwaltung in WHDLoad</a></h4>
+Es ist äußerst wichtig zu verstehen, dass das Verhalten der Caches von 68030..68060
+mit dem Cache Control Register (CACR) <b>und</b> der MMU gesteuert werden!
+<br>Mittels des CACR werden die Caches global ein- oder ausgeschaltet.
+Mithilfe der MMU werden einzelne Kacheln (4 KByte unter WHDLoad) markiert
+wie diese zu cachen sind.
+<br>Auf dem 68030 können Kacheln Cacheable oder NotCacheable sein.
+Auf 68040/68060 können sie cachable WriteThrough, cachable CopyBack, NonCachable
+(imprecise) oder NonCachable Serialized (precise) sein.
+<p>Wenn die MMU von WHDLoad nicht benutzt wird, erfolgt die Steuerung seitens WHDLoad ausschließlich
+mittels des CACR.
+
+<h4>Voreingestellte Cache Konfiguration</h4> Voreingestellt ist, dass die
+Speicherbereiche von WHDLoad, dem Slave und von ExpMem als cacheable CopyBack
+markiert sind. Der Bereich BaseMem ist markiert als NonCachable und der Data
+und Instruction Cache sind im CACR eingeschaltet. Dadurch läuft das Programm
+welches sich in BaseMem befindet ohne Caches, aber WHDLoad, der Slave und
+ExpMem laufen mit Caches für beste Geschwindigkeit. Wenn die MMU von WHDLoad
+nicht verwendet wird, führt das dazu, dass beide Caches ausgeschaltet werden
+weil ohne MMU nicht die Möglichkeit besteht für verschiedene Speicherbereiche
+unterschiedliche Cache Einstellungen zu verwenden. Somit führt die Einstellung
+eines Speicherbereiches als NonCacheable dazu, dass alle Caches ausgeschaltet
+werden müssen.
+
+<h4>Cache Einstellungen durch den Programmierer</h4>
+Es gibt zwei resload Funktionen zur Kontrolle der Caches: <A
+HREF="../autodoc.html#resload_SetCACR">resload_SetCACR</a> und <A
+HREF="../autodoc.html#resload_SetCPU">resload_SetCPU</a>. Die Funktion <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a>
+ist die historisch ältere Funktion und kann vollständig durch <a href="../autodoc.html#resload_SetCPU">resload_SetCPU</a> ersetzt
+werden (intern wandelt WHDLoad die Funktionen ineinander um). Trotzdem wird die Verwendung
+von <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> empfohlen für alle, die nicht absolut alles über Caches und deren
+Verhalten im Amiga System wissen. Mit der Funktion <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> kann der
+Instruction und Data Cache seperat ein- und ausgeschaltet werden. Dabei wird nur die Möglichkeit
+den BaseMem Bereiches zu cachen beeinflusst.
+<h4>Cache Einstellungen durch den Benutzer</h4>
+Wenn der Programmierer saubere Arbeit geleistet hat, dann ist für den
+Benutzer nichts zu tun. Die bestmöglichen Einstellungen sind dann bereits
+im Slave vorgenommen worden.
+<br>Trotzdem mag es Gründe geben, manuell in das Cache Setup einzugreifen.
+Einerseits um eine Install zum Funktionieren zu bewegen, weil sie zu schnell läuft
+(z.B. Fehler in der Grafik) und andererseits um ein installiertes Programm
+zu beschleunigen.
+<p>Um Probleme mit einer Install zu Beheben oder zu Mindern kann die Option <a
+href="opt.html#NoCache">NoCache</a> verwendet werden. Diese Option deaktiviert
+alle Caches und markiert den gesamten Speicher als NonCachable Serialized (precise).
+Zu beachten ist, dass ein Amiga mit 32-Bit Chip-Memory oder schnellerem
+Prozessor immer noch schneller sein wird als ein originaler A500.
+<p>Um ein installiertes Programm zu beschleunigen, können Optionen gesetzt werden
+die Caches aktivieren. Dies überschreibt in jedem Fall die Einstellungen die im
+Slave vorgenommen werden. Auf einem 68020 kann die Option
+<a href="opt.html#Cache">Cache</a> verwendet werden. Auf einem 68030 auch die Option
+<a href="opt.html#DCache">DCache</a>, welche die Option Cache mit einschließt. Auf einem
+68060 sind noch mehr Optionen möglich: <a href="opt.html#BranchCache">BranchCache</a>,
+<a href="opt.html#StoreBuffer">StoreBuffer</a> und
+<a href="opt.html#SuperScalar">SuperScalar</a>. Die Option <a
+href="opt.html#ChipNoCache">ChipNoCache/S</a> kann ebenfalls die Geschwindigkeit
+auf einem 68040 oder 68060 verbessern, siehe nächster Abschnitt.
+<a name="chipmem"></a><h4>Cachemöglichkeiten im Chip-Memory</h4>
+Die Möglichkeit Speicherbereiche zu cachen wird nicht nur durch die CPU (CACR)
+und die Einstellungen durch die MMU festgelegt, sondern kann auch durch externe
+Hardware beeinflusst werden. Die CPU signalisiert bei einem Speicherzugriff am
+Bus ob dieser gecached werden soll. Eine externe Hardware kann während des Buszugriffs
+signalisieren, dass dieser Speicherzugriff nicht gecached werden darf.
+<br>Der Mechanismus, dass Hardware der CPU signalisiert, dass bestimmte Speicherbereiche
+nicht gecached werden sollen, ist meines Wissens auf allen Amigas oder Beschleunigerkarten
+mit einer CPU >= 68030 (wegen dem Data Cache) implementiert. Davon betroffen ist das
+gesamte Chip-Memory und der IO-Bereich (CIA/Custom/RTC), welcher bei Datenzugriffen nicht
+gecached werden darf. Dies ist notwendig um Inkonsistenzen, z.B. wegen DMA-Aktivitäten,
+zu vermeiden.
+<br>Die Reaktion der CPU auf einen Zugriff der gecached werden soll, aber von der Hardware
+als NonCacheable markiert wird, ist von CPU zu CPU unterschiedlich. Auf einem 68030
+hat dies keinen Einfluss auf die Geschwindigkeit, der Zugriff wird dann einfach nicht gecached.
+Auf einem 68040 laufen Lesezugriffe mit normaler Geschwindigkeit ab. Schreibzugriffe
+(CopyBack) dagegen werden abgebrochen und im Modus 'nicht zu cachen' neu gestartet. Dies
+resultiert in einem ca. 5-fach langsameren Speicherzugriff (abhänging von Hardware und
+Taktfrequenz der CPU) im Vergleich zu einem von vornherein nicht gecached Zugriff.
+Auf einem 68060 werden sowohl Lese- als auch Schreibzugriffe abgebrochen und neugestartet.
+Lesezugriffe werden dadurch ca. 3 mal langsamer und Schreibzugriffe etwa 5 mal.
+<br>Das beschriebene Verhalten bezieht sich auf Datenzugriffe. Zugriffe auf
+Instruktionen sind davon gewöhnlich nicht betroffen, sie sind auch im Chip-Memory cacheable.
+Allerdings gibt es einige Beschleunigerkarten (mutmaßlich mit fehlerhaftem Hardwaredesign)
+die auch das Cachen von Instruktionen im Chip-Memory nicht erlauben. Auf solcher Hardware
+sollte die Option <a href="opt.html#ChipNoCache">ChipNoCache/S</a> verwendet werden um
+eine Verminderung der Ablaufgeschwindigkeit um etwa den Faktor 2 bei versuchten Cache
+Zugriffen zu vermeiden.
+
+<br>Um das Verhalten auf gegebener Hardware zu testen kann der
+<i>Speed.Slave</i>, welcher sich im Verzeichnis <tt>src/memory-speed</tt> des
+Developer-Archives befindet, verwendet werden.
+
+<h4>Burst-Modus</h4>
+
+Der Burst-Modus beim 68030 veranlasst die CPU wenn sich ein Eintrag nicht im
+Cache befindet (Cache miss) immer eine gesamte Zeile (16 Bytes) auf einmal aus
+dem Speicher zu lesen und im Cache zu platzieren auch wenn zum Beispiel nur ein
+Langwort benötigt wird. Der Burst-Modus muss dabei von der Hardware unterstützt
+werden. Wenn dies nicht der Fall ist wird ein normaler Zugriff durchgeführt,
+ohne dass dies einen Geschwindigkeitsnachteil bringt. Der Burst-Modus kann
+getrennt für den Daten-Cache und den Instruktions-Cache eingeschalten werden.
+Da ein Burst-Zugriff länger dauert als ein einzelner Zugriff führt der
+Burst-Modus nur zu einer Geschwindigkeitssteigerung, wenn auch die meisten
+anderen Daten der gelesenen Cache-Zeile benötigt werden bevor die Cache-Zeile
+wieder verworfen wurde. Für den Instruktions-Cache bringt der Burst-Modus in
+aller Regel eine Geschwindigkeitssteigerung. Für den Daten-Cache meistens nur
+wenn eine Vielzahl sequentiell fortlaufender Datenzugriffe erfolgen. WHDLoad
+aktiert den Instruktions-Burst automatisch wenn der Instruktions-Cache
+eingeschalten wird beginnend mit WHDLoad Version 18.0. Der Daten-Burst wird von
+WHDLoad nicht aktiviert.
+
+<h4>Write Allocation</h4>
+Die Write Allocation kontrolliert die Cache Behandlung auf dem 68030, wenn ein
+Cache Miss bei einem Schreibzugriff auftritt. Die Write Allocation muss eingeschalten
+werden, wenn Teile des installierten Programmes im User Mode laufen. Wenn das installierte
+Programm ausschließlich im Supervisor Mode läuft, kann die Write Allocation ausgeschaltet werden.
+Dies mag einen kleinen Geschwindigkeitsvorteil bringen.
+<h4>Branch Cache</h4>
+<p>Der Branch Cache ist nur im 68060 vorhanden. Er ist ein Cache nur für Sprungbefehle.
+Im Unterschied zum Instruction Cache wird er nicht vom MMU Setup beeinflusst!
+Dies bedeutet, dass auch wenn die entsprechende Speicherkachel als Non Cacheable
+markiert ist, Sprungbefehle gecached werden, wenn der Branch Cache aktiviert ist.</p>
+<hr>Für weitere und genauere Informationen sollten die Motorola Prozessor Handbücher
+konsultiert werden. Bezüglich Korrekturen oder Ergänzungen bitte mich <a href="mailto:wepl@whdload.de">kontaktieren</a>.
+</BODY>
+</HTML>

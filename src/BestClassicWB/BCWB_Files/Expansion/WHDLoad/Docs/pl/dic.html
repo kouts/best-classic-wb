@@ -1,0 +1,129 @@
+<HTML>
+<HEAD>
+<TITLE>DIC * Tworzenie obrazów dyskietek</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: dic.html 1.5 2004/04/07 20:15:18 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>DIC * Tworzenie obrazów dyskietek</h3>
+<p>DIC jest narzędziem do tworzenia plików obrazu dyskietek. DIC
+odczytuje zawartość dyskietki poprzez odpowiedni sterownik (np.
+&quot;trackdisk.device&quot; dla DF0:) i zapisuje dane do pliku w
+aktualnym katalogu. Utworzony plik zostanie nazwany &quot;Disk.1&quot;,
+gdzie &quot;1&quot; jest numerem odczytanej dyskietki. Numer dyskietki
+zostaje zwiększony po odczytaniu każdej dyskietki. Używając opcji <tt>Name</tt>
+można podać inną nazwę tworzonych plików obrazów dyskietek.</P>
+<p>DIC może również odczytywać dane z innych urządzeń jak RAD:, PC0:
+lub DS0: oraz z dyskietek o wysokiej gęstości zapisu.</p>
+<p>Jeśli ścieżka z dyskietki nie może zostać odczytana poprawnie, a
+DIC został uruchomiony z interaktywnego terminala (np. CON:), zapyta on,
+czy ma pominąć uszkodzoną ścieżkę, czy też spróbować odczytać ją
+ponownie. Przy nieinteraktywnym terminalu ścieżki te zostaną domyślnie
+pominięte.
+<br>Obszary w plikach obrazu dyskietek odpowiadające pominiętym
+ścieżkom zostaną wypełnione wzorcem &quot;<tt>TDIC</tt>&quot;.
+Dzięki temu będzie można później zidentyfikować błędy odczytu.</p>
+<p>DIC może również odczytywać dyskietki częściowo używając opcji <tt>SIZE/K/N</tt>.
+Powoduje to, że DIC pomija dane po przekroczeniu określonego rozmiaru
+pliku. Może to być przydatne, gdy ostatnie ścieżki dyskietki są
+nieużywane.</p>
+<p>Ścieżki mogą być pomijane przy użyciu opcji <tt>SKIPTRACK/K/N</tt>.
+Jest to bardzo użyteczne przy tworzeniu obrazów dyskietek
+zawierających zabezpieczenie przed kopiowaniem (np. RN-Copylocks na
+ścieżce 1.).</p>
+<p>Jeśli zostanie podana opcja <tt>PEDANTIC/S</tt>, DIC skończy pracę
+od razu, gdy tylko pojawi się jakaś nieodczytywalna ścieżka.</p>
+<p>Praca programu DIC może być przerwana w dowolnym momencie poprzez
+naciśnięcie kombinacji klawiszy Ctrl-C.</p>
+<h4>Instalacja</h4>
+skopiuj program do katalogu C: lub w podobne piejsce
+<h4>Użycie</h4>
+<p>Aby użyć programu DIC w trybie interaktywnym:
+<ul>
+<li>otwórz okno shella
+<li>wejdź do katalogu, w którym chcesz przechowywać obrazy dyskietek
+<li>wpisz &quot;DIC&quot; i naciśnij klawisz RETURN
+<li>teraz wkładaj dyskietki i postępuj zgodnie z instrukcjami podawanymi przez program DIC
+<li>po odczytaniu ostatniej dyskietki, przerwij pracę programu DIC naciskając kombinację klawiszy Ctrl-C
+</ul>
+Aby wykorzystać program DIC w skrypcie instalacyjnym, użyj opcji
+<tt>FD=FIRSTDISK/K/N</tt>, <tt>LD=LASTDISK/K/N</tt> oraz
+<tt>PEDANTIC/S</tt>. W przypadku dyskietek z zabezpieczeniem przed kopiowaniem
+naniesionym na powierzchnię dysku, użyj opcji <tt>SKIPTRACK/K/N</tt>.
+Jeśli jest to możliwe, miło by było, gdybyś użył opcji <tt>SIZE/K</tt>,
+aby zaoszczędzić miejsca na całym świecie ;-).
+<h4>Opcje</h4>
+<table>
+<tr><td colspan=2>
+<tt>DEVICE,NAME,SKIPTRACK/K,SIZE/K,FD=FIRSTDISK/K/N,LD=LASTDISK/K/N,PEDANTIC/S</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>DEVICE</tt>
+</td><td>
+napęd, z którego DIC będzie odczytywał dyskietki
+<br>domyślnie &quot;DF0:&quot;
+<br>przykład &quot;RAD:&quot;
+</td></tr>
+<tr><td valign=top>
+<tt>NAME</tt>
+</td><td>
+nazwa pliku tworzonych obrazów dyskietek; jeśli zostanie podana, DIC
+nie będzie nazywał obrazów nazwami &quot;Disk.1&quot; i tak dalej, ale
+użyje podanej nazwy. Opcja ta ustawia parametry <tt>FIRSTDISK/K/N</tt>
+i <tt>LASTDISK/K/N</tt> na 1, co oznacza, iż zostanie odczytana tylko
+jedna dyskietka.
+</td></tr>
+<tr><td valign=top>
+<tt>SKIPTRACK/K/N</tt>
+</td><td>
+określone ścieżki nie zostaną odczytane, a odpowiednie obszary w pliku
+z obrazem dyskietki zostaną wypełnione wzorcem &quot;<tt>TDIC</tt>&quot;,
+poniższa tabela pokazuje przykłady ilustrujące możliwości określenia
+ścieżek
+  <table>
+  <tr><td>parametr</td><td>wpływa na ścieżki</td></tr>
+  <tr><td>1-5</td><td>1,2,3,4,5</td></tr>
+  <tr><td>2,90</td><td>2,90</td></tr>
+  <tr><td>2*2</td><td>2,4,...,156,158</td></tr>
+  <tr><td>10-20*5</td><td>10,15,20</td></tr>
+  <tr><td>1-5,7,99-104*2</td><td>1,2,3,4,5,7,99,101,103</td></tr>
+  </table>
+</td></tr>
+<tr><td valign=top>
+<tt>SIZE/K</tt>
+</td><td>
+wielkość pliku obrazu dyskietki do utworzenia (przydatne, gdy obszar pod
+koniec dyskietki jest nieużywany) jeśli podany rozmiar jest większy,
+niż fizyczna wielkość pliku obrazu dyskietki, parametr ten jest
+ignorowany
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>FD=FIRSTDISK/K/N</tt>&nbsp;&nbsp;
+</td><td>
+numer pierwszej dyskietki
+<br>domyślnie &quot;FD=1&quot;
+<br>przykład &quot;FD=0&quot;
+</td></tr>
+<tr><td valign=top>
+<tt>LD=LASTDISK/K/N</tt>
+</td><td>
+numer ostatniej dyskietki
+domyślnie &quot;LD=999999&quot;
+<br>przykład &quot;LD=3&quot;
+</td></tr>
+<tr><td valign=top>
+<tt>PEDANTIC/S</tt>
+</td><td>
+jeśli zostanie podana ta opcja, DIC skończy działanie natychmiast, gdy
+tylko nie będzie mógł odczytać ścieżki; opcja ta powinna być używana w
+skryptach instalacyjnych
+</td></tr>
+</table>
+<h4>Kod zwrotny</h4>
+Kod zwrotny jest ustawiany na 0, gdy wszystkie dyskietki od
+<tt>FD</tt> aż do <tt>LD</tt> zostaną odczytane pomyślnie.
+W przeciwnym razie jest zwracana wartość 10
+</BODY>
+</HTML>

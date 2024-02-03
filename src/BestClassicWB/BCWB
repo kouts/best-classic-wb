@@ -1,0 +1,79 @@
+; $VER: BestClassicWB v.2.0.0 by samplist
+
+ECHO ""
+ECHO " BestClassicWB is a simple AmigaDOS script that will add"
+ECHO " various enhancements to a clean AmigaOS 3.2 installation."
+ECHO " Please back up all your data before continuing!"
+ECHO ""
+ECHO ""
+ECHO " Do you want to start the installation now?"
+ASK " Type       Y (Yes)    or    N (No)       (Default = N)"
+IF NOT WARN
+  ECHO ""
+  ECHO " Program terminated upon user request."
+  WAIT 5 sec
+  QUIT
+ENDIF
+
+ECHO ""
+ECHO "Please wait a few minutes..."
+ECHO ""
+
+; Rename SYS Volume name to OS3.2
+SET VolumeLabel `WHICH SYS:`
+RELABEL $VolumeLabel OS3.2
+
+; Backup Startup files
+RENAME >NIL: SYS:S/Startup-Sequence SYS:S/Startup-Sequence.bak
+RENAME >NIL: SYS:S/user-startup SYS:S/user-startup.bak
+
+; Backup icon.library
+RENAME >NIL: SYS:Libs/icon.library SYS:Libs/icon.library.bak
+
+; Backup DataTypes
+RENAME >NIL: SYS:Classes/DataTypes/ilbm.datatype SYS:Storage/DataTypes/ilbm.datatype
+RENAME >NIL: SYS:Classes/DataTypes/jpeg.datatype SYS:Storage/DataTypes/jpeg.datatype
+
+; Delete DataTypes
+DELETE SYS:Devs/DataTypes/JPEG FORCE
+DELETE SYS:Devs/DataTypes/JPEG.info FORCE
+
+; Delete protected files (not needed for OS3.2+)
+; DELETE SYS:Libs/icon.library FORCE
+; DELETE SYS:Classes/DataTypes/jfif.datatype FORCE
+
+; Move MenuTools
+COPY SYS:WBStartup/MenuTools TO SYS:Tools/Commodities/MenuTools
+COPY SYS:WBStartup/MenuTools.info TO SYS:Tools/Commodities/MenuTools.info
+DELETE SYS:WBStartup/MenuTools
+DELETE SYS:WBStartup/MenuTools.info
+
+; Move ClickToFront to WBStartup
+COPY SYS:Tools/Commodities/ClickToFront TO SYS:WBStartup/ClickToFront
+COPY SYS:Tools/Commodities/ClickToFront.info TO SYS:WBStartup/ClickToFront.info
+DELETE SYS:Tools/Commodities/ClickToFront
+DELETE SYS:Tools/Commodities/ClickToFront.info
+
+; Copy Installer to C:
+COPY SYS:System/Installer TO SYS:C/Installer CLONE
+
+; Copy all BCWB files
+COPY "BCWB_Files" TO SYS: ALL BUF 10
+
+; Protect files from deletion (not needed for OS3.2)
+; PROTECT SYS:Libs/icon.library +p
+
+; Copy readme file
+COPY BCWB.readme.txt TO SYS:Locale/Help
+COPY BCWB.readme.txt.info TO SYS:Locale/Help
+
+; End of script.
+
+ECHO ""
+ECHO ""
+ECHO "Installation complete."
+ECHO "Reboot your Amiga, and enjoy!"
+ECHO ""
+ECHO "Goodbye"
+WAIT 5 sec
+QUIT

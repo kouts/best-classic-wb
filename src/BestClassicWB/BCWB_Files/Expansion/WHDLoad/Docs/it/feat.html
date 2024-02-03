@@ -1,0 +1,31 @@
+<HTML>
+<HEAD>
+<TITLE>Caratteristiche</TITLE>
+<meta name="DC.Language" content="it">
+<meta http-equiv="content-language" content="it">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: feat.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Caratteristiche di WHDLoad</h3>
+<ul>
+<li>avviabile da CLI o da Workbench
+<li><a href="mmu.html">memoria protetta</a> utilizzando la MMU (se disponibile)
+<li>ritorno al OS assolutamente pulito (dipende dallo Slave)
+<li>possibilità di utilizzo di "immagini disco" e/o normali file
+<li>possibilità di <a href="opt.html#SavePath">scrivere</a> i file in un'altra parte del file system,
+per tenere i salvataggi separati
+<li>dimensione variabile della memoria Chip per il programma installato da $2000 fino a $200000
+<li>dimensione della memoria Fast illimitata per il programma installato
+<li>allocazione intelligente della memoria Chip, parzialmente assoluta e parzialmente indipendente
+<li>cache dei file e delle immagini disco all'<a href="opt.html#Preload">avvio</a> e dinamicamente mentre sono in esecuzione
+ (LRU)
+<li>decompressione automatica di file e immagini disco tramite XPK
+<li>decompressione automatica dei file se lo Slave lo supporta (RNC/IMP/TPWM/CRM)
+<li>emulazione di MOVE SR,ea dallo User-Mode (modalità utente) su 68010+
+<li>emulazione delle istruzioni integer non supportate dal 68060
+<li>supporto avanzato per il debugging, (<a href="dump.html#memory">memory dump</a>, <a href="dump.html#register">register dump</a>, <a href="dump.html#filelog">logging dell'accesso ai file</a>, <a href="snoop.html">logging dell'accesso ai registri Custom</a>)
+<li>a prova di Enforcer/Cyberguard e VMM se la opzione <a href="opt.html#NoVBRMove">NoVBRMove/S</a> non viene utilizzata
+</ul>
+</BODY>
+</HTML>

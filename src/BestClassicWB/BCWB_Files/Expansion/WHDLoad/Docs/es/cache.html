@@ -1,0 +1,190 @@
+<HTML>
+<HEAD>
+<TITLE>Gestion de la Cache de la CPU</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: cache.html 1.7 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>Vista General de la Caché de la CPU</h3>
+Para mejorar el rendimiento algunas CPU's de la familia 68k tienen la
+posibilidad de guardar accesos a memoria en una caché.
+<br>La información en Caché siempre es referida usando direcciones lógicas,
+incluyendo el código de la función que realiza el acceso. Esto significa que
+los accesos en Modo Usuario y Modo Supervisor crearan diferentes entradas en
+la Caché (por favor consulte la documentación de Motorola para mas información).
+<p>siguiendo con la vista general acerca de las capacidades de uso de Caché en
+las CPU's 68k:
+<ul><li>68000
+ninguna
+<li>68010<ul>
+<li>Pre-captura de Instrucciones (Instruction Prefetch)
+<br>pre-captura de dos palabras, registro de decodificación de una palabra
+<li>Modo de Ciclo (Loop Mode)
+<br>se entra en este modo cuando una instrucción de una palabra es seguida
+por un DBcc en un ciclo con la instrucción previa, no ocurrirán mas capturas
+de instrucciones hasta que el ciclo termine
+</ul><li>68020<ul>
+<li>Pre-captura de Instrucciones (Instruction Prefetch)
+<br>una palabra larga
+<li>Caché de Instrucciones
+<br>16 líneas de 16 bytes = 256 bytes
+<br>puede ser activado o congelado usando el CACR
+</ul><li>68030<ul>
+<li>Pre-captura de Instrucciones (Instruction Prefetch)
+<br>una palabra larga
+<li>Caché de Instructiones
+<br>16 líneas de 16 bytes = 256 bytes
+<br>puede ser activado o congelado usando el CACR
+<br>el modo acelerado (Burst) fuerza que se lean todas las líneas de la caché
+de una sola vez si el hardware lo soporta
+<li>Caché de Datos
+<br>16 líneas de 16 bytes = 256 bytes
+<br>puede ser activado o congelado usando el CACR
+<br>siempre con WriteThrough
+<br>modo Write Allocation seleccionable para forzar que se invaliden las operaciones
+de escritura y otras entradas de modo usuario/supervisor
+<br>el modo acelerado (Burst) fuerza que se lean todas las líneas de la caché
+de una sola vez si el hardware lo soporta
+</ul><li>68040<ul>
+<li>Pre-captura de Instrucciones (Instruction Prefetch)
+<br>una palabra larga
+<li>Caché de Instrucciones
+<br>256 líneas de 16 bytes = 4096 bytes
+<br>puede ser activado usando el CACR
+<li>Caché de Datos
+<br>256 líneas de 16 bytes = 4096 bytes
+<br>puede ser activado usando el CACR
+<br>modos CopyBack/WriteThrough seleccionables usando la MMU
+</ul><li>68060<ul>
+<li>Pre-captura de Instrucciones (Instruction Prefetch)
+<br>una palabra larga
+<li>Caché de Instrucciones
+<br>512 líneas de 16 bytes = 8192 bytes
+<br>puede ser activado, congelado y reducido a la mitad usando el CACR
+<li>Caché de Ramificaciones (Branch Cache)
+<br>puede ser activado usando el CACR
+<br>no es afectado por la configuración de la MMU!
+<li>Superscalar Dispatch
+<br>puede ser activado usando el CACR
+<li>Caché de Datos
+<br>512 líneas de 16 bytes = 8192 bytes
+<br>puede ser activado, congelado y reducido a la mitad usando el CACR
+<br>modos CopyBack/WriteThrough seleccionables usando la MMU
+<li>Buffer para Push
+<br>puede ser desactivado usando el PCR
+<li>Buffer de Almacenamiento (Store Buffer)
+<br>puede ser activado usando el CACR
+<br>Las paginas deben ser NoCacheables Serializadas (preciso).
+</ul></ul>
+<h4><a name="cache">Gestión de la Caché en WHDLoad</a></h4>
+La primer cosa importante es comprender que las caches en los 68030..68060
+son controladas por el Registro de Control de Caché (Cache Control Register, CACR)
+<b>y</b> la Unidad de Gestión de Memoria (Memory Managment Unit, MMU)!
+<br>En el CACR los caches pueden ser activados o desactivados en forma global.
+Usando las Paginas individuales de la MMU (4 KByte con WHDLoad) se marcara como
+deben ser cacheadas.
+<br>En el 68030 una pagina de memoria puede ser Cacheable o NoCacheable. En un
+68040/68060 puede ser cacheable con WriteThrough, cacheable con CopyBack,
+NoCacheable (impreciso) o NoCacheable Serializada (preciso).
+<p>Si la MMU no esta siendo usada por WHDLoad, el mismo controla solamente el CACR.
+<h4>Configuración de la Caché por Defecto</h4>
+Por defecto, las áreas de WHDLoad, el Esclavo y ExpMem son marcadas como
+cacheables con CopyBack. El área BaseMem se marca como NoCacheable, y las
+Caches de Datos e Instrucciones son activadas en el CACR. Por lo tanto los
+programas ubicados en el área BaseMem se ejecutan sin Caches, pero WHDLoad, el Esclavo y la ExpMem
+usan las Caches para mejor rendimiento. Si la MMU no es utilizada por WHDLoad esta configuración
+resulta en la desactivación de ambos Caches dado que sin la MMU una configuración diferente
+para diferentes regiones de memoria no puede ser implementada y por lo tanto si se marca una región
+como NonCacheable deben desactivarse todos los Caches.
+
+<h4>Control de la Caché por el Programador</h4>
+Existon dos funciones resload para controlar las Caches: <A HREF="../autodoc.html#resload_SetCACR">resload_SetCACR</a>
+y <A HREF="../autodoc.html#resload_SetCPU">resload_SetCPU</a>. La <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> es la
+rutina históricamente mas vieja y puede ser reemplazada completamente por <a href="../autodoc.html#resload_SetCPU">resload_SetCPU</a>
+(WHDLoad mapea internamente los argumentos de <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> y llama a <a href="../autodoc.html#resload_SetCPU">resload_SetCPU</a>).
+De todas formas el uso de <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> se recomienda para todas aquellas personas
+que no lo conocen todo acerca de las Caches y su comportamiento en un sistema Amiga. Usando
+<a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> las caches de instrucciones y datos pueden ser activadas o desactivadas
+separadamente. <a href="../autodoc.html#resload_SetCACR">resload_SetCACR</a> solamente afecta a la capacidad de cachear el área BaseMem.
+<h4>Control de la Caché por el Usuario</h4>
+Si el programador ha hecho un buen trabajo el usuario no debe hacer nada relacionado
+con las Caches debido a que toda la configuración requerida ha sido hecha por el Esclavo.
+<br>Sin embargo puede haber dos razonas para cambiar manualmente la configuración de la Caché.
+Primero, para hacer que un instalador funcione cuando tiene problemas debido a que se
+ejecuta demasiado rápido (por ej. creando errores en la salida grafica) y segundo
+para hacer que un programa instalado se ejecute mas rápidamente.
+<p>Para hacer que un programa que ocasiona una caída del sistema funcione la opción <a
+href="opt.html#NoCache">NoCache</a> puede ser usada. Esta opción desactiva todas
+las caches y marca toda la memoria como NoCacheable Serializada (preciso). Si la
+máquina tiene Memoria Chip de 32 bits aun será mas rápida que una A500 original.
+<p>Para hacer que un programa instalado se ejecute mas rápidamente se pueden configurar
+algunas opciones que habilitaran las Caches. Esta configuración sobreescribirá la del
+Esclavo. En el 68020 la opción <a href="opt.html#Cache">Cache</a> puede configurarse.
+En un 68030 también la opción <a href="opt.html#DCache">DCache</a> puede utilizarse, que incluye
+también la opción Cache. En un 68060 hay algunas opciones mas: <a href="opt.html#BranchCache">BranchCache</a>,
+<a href="opt.html#StoreBuffer">StoreBuffer</a> y
+<a href="opt.html#SuperScalar">SuperScalar</a>. La opción <a
+href="opt.html#ChipNoCache">ChipNoCache/S</a> puede mejorar el rendimiento en
+68040 y 68060, ver debajo.
+<a name="chipmem"></a><h4>Posibilidad de Cachear la Memoria Chip</h4>
+La posibilidad de cachearla puede hacerse no solamente por medio de la CPU (CACR) y la
+configuración de la MMU sino también mediante hardware externo. La CPU envía una señal al bus
+si intenta cachear una dirección. Y un hardware externo puede enviar una señal a
+la CPU (luego de que una dirección ha sido colocada en el bus de direcciones durante un
+acceso a memoria) indicando que una dirección no debe ser cacheada.
+<br>El mecanismo por el cual el hardware envía la señal a la CPU indicando si la
+memoria es cacheable o no es utilizado en todas (hasta donde yo se) las Amigas y las
+tarjetas de CPU conteniendo CPU's >= 68030 (debido a que tienen una caché de datos).
+Toda la Memoria Chip y el Espacio de E/S (CIA/Custom/RTC) que no debe ser cacheado
+por la caché de datos se ve afectado. Esto es necesario para evitar inconsistencias
+en la caché, por ejemplo debidas a actividad DMA.
+<br>La reacción de la CPU ante un rechazo del hardware sobre el cacheado de un acceso
+varia entre las diferentes CPU's. En el 68030 no hay ningún impacto en el rendimiento
+del acceso, los datos simplemente no son cacheados. En el 68040 los accesos de lectura
+se realizaran a la máxima velocidad pero los accesos de escritura (CopyBack) serán
+cancelados y reiniciados sin cachear lo cual resultara en un acceso aproximadamente
+5 veces mas lento (dependiendo del hardware y la velocidad de la CPU) comparado
+con un acceso sin cachear. En el 68060 las operaciones de lectura y escritura
+serán canceladas y reiniciadas. Los accesos de lectura serán aproximadamente
+3 veces mas lentos y los de escritura aproximadamente 5 veces mas lentos.
+<br>Los problemas mencionados están relacionados con el acceso a datos. Los accesos
+a instrucciones usualmente no son afectados y son cacheables incluso dentro de la
+Memoria Chip. Existen algunos (probablemente fallidos) componentes de hardware
+que no permiten que las instrucciones se cacheen en Memoria Chip. En este tipo
+de hardware la opción <a href="opt.html#ChipNoCache">ChipNoCache/S</a> debe ser usada para evitar
+un enlentecimiento mayor en la velocidad de ejecución debido a que los accesos a
+instrucciones serán alrededor de 2 veces mas lentos.
+<br>Este comportamiento puede verificarse ejecutando el <i>Speed.Slave</i> ubicado
+en el directorio <yy>src/memory-speed</tt> del archivo para desarrolladores.
+<h4>Modo Acelerado (Burst)</h4> El Modo Acelerado (Burst) del 68030 instruye a la CPU
+para siempre leer una línea completa de la caché (16 octetos) si ocurre una falla de
+localización en caché en lugar de solo leer la palabra larga que se solicitó.
+El Modo Acelerado debe ser soportado por el equipo, en caso contrario no se realiza
+la operación en Modo Acelerado sin penalización a la velocidad. El Modo Acelerado puede
+ser activado por separado para las cachés de instrucciones y de datos. Dado que un acceso
+en Modo Acelerado toma más tiempo que un acceso simple el Modo Acelerado solo brinda una
+ventaja en el rendimiento si la mayoría de las entradas en la línea de la caché son
+también utilizadas antes que la línea de caché se descarte. Para el caso de la caché de
+instrucciones el Modo Acelerado en general mejora el rendimiento. Para la caché de datos
+solamente cuando ocurren lecturas de ubicaciones de memoria consecutivas. WHDLoad activa el
+Modo Acelerado junto con el uso de la caché de instrucciones a partir de la versión 18.0.
+El Modo Acelerado de datos no es activado por WHDLoad.
+<h4>Alocación de Escritura (Write Allocation)</h4>
+La Alocación de Escritura controla la gestión de la caché en el 68030 cuando ocurre
+una pérdida de caché durante una operación de escritura. La Alocación de Escritura debe ser
+activada cuando partes del programa instalado se ejecuten en Modo Usuario. Si el programa
+instalado se ejecuta solamente en Modo Supervisor la Alocación de Escritura puede ser
+desactivada, lo cual brindara una mínima ventaja en el rendimiento.
+<h4>Caché de Ramificaciones (Branch Cache)</h4>
+<p>La Caché de Ramificaciones solamente esta disponible en el 68060. Es una especie de
+caché de instrucciones para instrucciones de ramificación. Pero en diferencia con
+la caché de instrucciones no se ve afectada por la configuración de la MMU! Esto significa
+que aun cuando la Pagina de memoria apropiada sea marcada como No Cacheable, las instrucciones
+de ramificación serán cacheadas si la Caché de Ramificaciones esta activada.</p>
+<hr>Lea el Manual de Usuario de Microprocesadores Motorola para mayor información.
+Si Ud. tiene correcciones o adiciones a esta pagina por favor <A
+HREF="mailto:wepl@whdload.de">contacteme</A>.
+</BODY>
+</HTML>

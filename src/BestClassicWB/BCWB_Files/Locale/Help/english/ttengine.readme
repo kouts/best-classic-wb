@@ -1,0 +1,81 @@
+short:         TrueType text rendering engine (v 7.2)
+uploader:      krashan@teleinfo.pb.bialystok.pl
+author:        krashan@teleinfo.pb.bialystok.pl
+type:          util/libs
+architecture:  m68k-amigaos >= 3.0; ppc-morphos >= 1.3;
+version:       7.2 (22.12.2005)
+
+
+The library is fast, AmigaOS friendly TrueType render engine. It has
+nothing to do with Amiga outline font system. This system has a lot of
+limitations which make it useless for high speed and quality text
+output. If someone wants an integration of TrueType with AmigaOS
+bullet.library like outline font system, should consider using
+ttf.library. Ttengine.library opens TrueType font by itself and renders
+high quality glyphs directly into any RastPort.
+
+The render engine of the library is based on FreeType2 project
+(http://www.freetype.org). This version of ttengine.library uses 2.1.3
+FreeType build.
+
+See http://amiga.pl/ttengine for news, downloads, online autodoc and
+programming tutorial.
+ 
+CHANGES (last three versions)
+
+v 7.2 (22.12.2005)
+   - Final version of direct rendering callback for BGRA32 screenmode.
+   - Added handling of fonts with MS Symbol names encoding (Marlett).
+   - Fixed possible hits in the database parser.
+
+
+v 7.1 (15.03.2005)
+
+   - Native AmigaOS 4 version compiled by Andreas Falkenhahn.
+   - Mask and render buffers are now allocated for every RastPort, no more
+     global. It fixes problems with multiple processes accessing TTEngine
+     simultaneously (trashes instead of text).
+
+v 7.0 (12.01.2005)
+
+   - Realtime font preview in the font requester.
+   - Introduced new metrics mode designed for text-oriented applications,
+     especially using JAM2 drawmode. Mode is turned on by specifying
+     TT_DiskFontMetrics, TRUE in TT_SetAttrs(). In this mode filled JAM2 area
+     has always height equal to TT_FontHeight (which is a sum of
+     TT_FontMaxTop and TT_FontMaxBottom). Horizontally JAM2 area is set
+     to cursor advance (it creates continuous filling even if TT_Text is called
+     char-by-char).
+   - New metrics attributes: TT_FontHeight (sum of TT_FontMaxTop and
+     TT_FontMaxBottom), TT_FontBaseline (alias for TT_FontMaxTop) and
+     TT_FontWidth (cursor advance, only for monospaced fonts).
+   - TTEngine now distincts monospaced fonts. TT_FontFixedWidth can be specified
+     for TT_OpenFont(), function will fail on proportional font. The attribute
+     is also gettable with TT_GetAttrs(). TTRQ_FixedWidthOnly attribute may be
+     passed to TT_Request() to filter proportional fonts out.
+   - TTEManager 1.2: cache size and global gamma settings. Fixed font window
+     refresh deadlock under MorphOS.
+   - New API functions: TT_ObtainFamilyListA(), TT_FreeFamilyList.
+
+FEATURES
+
+The library expands FreeType functionality making usage of TrueType
+fonts easy and comfortable. Below you can find key features:
+
+   - renders whole strings (not single glyphs) with kerning.
+   - antialiasing to any (not neccesarily uniform color) background.
+   - user adjustable gamma correction.
+   - optional text transparency.
+   - system compatible output to any (including planar) RastPort.
+   - supports JAM1. JAM2, INVERSVID, COMPLEMENT RastPort modes.
+   - supports 8-bit to Unicode mapping with "ENV:ttfcodepage" table
+     compatible with ttf.library.
+   - allows for direct 16/32-bit Unicode string rendering.
+   - supports ISO-8859 and UTF-8 text encodings.
+   - easy to use, graphics.library like API.
+   - efficient system-wide glyph cache system.
+   - font database system allows flexible font files storage and
+     advanced faces classification.
+
+
+

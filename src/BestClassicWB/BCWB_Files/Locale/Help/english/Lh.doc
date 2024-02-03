@@ -1,0 +1,393 @@
+===========================================================================
+================================= Lh v1.8 =================================
+===========================================================================
+        A data compression system for the Commodore Amiga computer
+           written by Holger P. Krekel and Olaf 'Olsen' Barthel
+                  © Copyright 1990, all rights reserved.
+
+============================== What is `Lh'? ==============================
+===========================================================================
+Do  you  know LhArc?  If you do, you will probably remember the compression
+ratio  (astonishing!)  and  the  time  required  for  data  compression and
+decompression (a lot!).
+   It  took  us  more than three months to create an MC680x0 version of the
+data compression / decompression routines (we have `baptized' the resulting
+package  "Lh").   Special  stress  has been put on two features:  speed and
+efficiency.   Lh  is much faster than any other implementation of the LhArc
+data  compression  /  decompression routines and generates about 2% smaller
+data files.  Unfortunately, the data files are incompatible with the output
+produced  by  the  standard  LhArc  routines,  i.e.   data  files cannot be
+exchanged between both implementations.
+
+============================ Performance of Lh ============================
+===========================================================================
+The  following  tables  give a brief overview on the performance of Lh.  We
+compared  Lh  to  the following popular data compression programs:  LhArcA,
+The  Imploder  & PowerPacker.  `Compression' and `Decompression' denote the
+time  required  to execute the approriate action.  The duration is given in
+minutes.
+
+1. Picture, 320x256, (32 colours), hand-drawn, 1 pixel = 1 byte
+---------------------------------------------------------------
+Input length in bytes: 81920
+
+             Output Compression Decompression
+Lh           11838  01:56       00:01
+LhArcA       11849  02:04       00:10
+The Imploder 13076  01:41       00:01
+PowerPacker  14868  00:30       00:01
+
+2. Picture, 320x256, (32 colours), hand-drawn, bitplanes
+--------------------------------------------------------
+Input length in bytes: 51200
+
+             Output Compression Decompression
+Lh           13870  01:27       00:02
+LhArcA       14041  02:40       00:10
+The Imploder 15342  02:40       00:01
+PowerPacker  15840  00:27       00:01
+
+3. Picture, 640x400, (16 colours), sampled, 1 pixel = 1 byte
+------------------------------------------------------------
+Input length in bytes: 256000
+
+             Output Compression Decompression
+Lh           76428  03:01       00:06
+LhArcA       77970  04:05       00:38
+The Imploder 93152  09:12       00:08
+PowerPacker  90728  02:20       00:08
+
+4. Picture, 640x400, (16 colours), sampled, bitplanes
+-----------------------------------------------------
+Input length in bytes: 128000
+
+             Output Compression Decompression
+Lh           81886  01:02       00:09
+LhArcA       81580  01:42       00:44
+The Imploder 93152  09:12       00:02
+PowerPacker  86956  01:52       00:06
+
+5. Executable file, Amiga-hunk format
+-------------------------------------
+Input length in bytes: 130964
+
+             Output Compression Decompression
+Lh           71330  01:07       00:08
+LhArcA       77970  01:48       00:34
+The Imploder 73172  08:23       00:03
+PowerPacker  74208  01:40       00:06
+
+6. ASCII file
+-------------
+Input length in bytes: 81627
+
+             Output Compression Decompression
+Lh           32596  00:35       00:04
+LhArcA       33091  00:54       00:17
+The Imploder 37166  03:50       00:02
+PowerPacker  38700  00:39       00:03
+
+============================ Supplied material ============================
+===========================================================================
+                This package includes the following files:
+
+      Lh.doc ......... The file you are currently reading.
+
+      lh.library ..... Amiga shared-reentrant runtime library containing
+                       compression / decompression and auxilary routines.
+      lhglue.lib ..... Library glue routines (blink/ln format).
+      LhGlue.LZH ..... Library glue source codes.
+      lhlib.h ........ Library support header file.
+      lh_lib.fd ...... Library function definitions.
+
+      Decode.bin ..... Decompression routines in raw binary format.
+
+      LhDecode ....... Demonstration data decompression tool.
+      LhDecode.c ..... Source code for the above.
+      LhEncode ....... Demonstration data compression tool.
+      LhEncode.c ..... Source code for the above.
+      MakeFile ....... Script file to create the demonstration tools.
+      PreInclude.c ... Global definitions and includes (to be precompiled).
+
+================================== Usage ==================================
+===========================================================================
+As  shown above, Lh is based on two files:  the library which contains both
+the  compression  and  the  decompression  routines  as  well  as  auxilary
+routines.   Decode.bin  has been included for assembly language programmers
+who  want  to take advantage of Lh in standalone applications which are not
+to require the library.
+   In order to use the routines, your application has to open lh.library by
+calling  OpenLibrary.   The current library revision supports four standard
+functions which are described below:
+
+                                     *
+
+CreateBuffer - Allocate auxilary buffers required by the compression and
+               decompression routines.
+
+Usage: LhBuffer = CreateBuffer(OnlyDecode)
+          D0                       D0
+
+   This function call allocates and initializes an LhBuffer structure to be
+passed to the data compression / decompression routines.  In respect to the
+library  routine to call with the buffer structure, `OnlyDecode' can be set
+to  TRUE  if  a  small  buffer  (4500  bytes  in  the  current  revision of
+lh.library) is required for data decompression.  Pass FALSE to CreateBuffer
+to  allocate  a  larger  buffer  (40000  bytes  in  the  current release of
+lh.library)  suitable both for data compression and decompression.  A value
+of NULL (= 0) is returned if the memory allocation fails.
+
+                                     *
+
+DeleteBuffer - Free auxilary buffers allocate by CreateBuffer
+
+Usage: DeleteBuffer(LhBuffer)
+                       A0
+
+   Passing  an  LhBuffer  structure previously allocated by CreateBuffer to
+this routine will free all associated resources.
+
+                                     *
+
+LhEncode - Perform adaptive Lempel-Ziv-Huffman data compression
+
+Usage: Size = LhEncode(LhBuffer)
+        D0                A0
+
+   The  real  data  compression  is  handled  by this routine.  The calling
+parameter  is an LhBuffer structure as initialized by CreateBuffer.  It has
+the following format:
+
+        struct LhBuffer
+        {
+        /* 0*/  APTR  lh_Src;
+        /* 4*/  ULONG lh_SrcSize;
+
+        /* 8*/  APTR  lh_Dst;
+        /*12*/  ULONG lh_DstSize;
+
+        /*16*/  APTR  lh_Aux;
+        /*20*/  APTR  lh_AuxSize;
+
+        /*24*/  ULONG lh_Reserved;
+        };
+
+lh_Src ........ Points to the beginning of the memory region to compress.
+lh_SrcSize .... Denotes the size of the source memory region.
+
+lh_Dst ........ Points to the beginning of the memory region  to  send  the
+                compressed data to.
+
+                NOTE: 1) lh_Src and lh_Dst _M_U_S_T_ _N_O_T_ overlap!
+
+                      2) The size of the memory region pointed to by lh_Dst
+                         MUST  be  1/8  larger  than  the  size  stored  in
+                         lh_SrcSize!
+
+lh_DstSize .... Size of the memory region to send the compressed data to.
+
+lh_Aux,
+lh_AuxSize .... Private data, DO NOT TOUCH!
+
+lh_Reserved ... Currently unused, leave it zero.
+
+   The  size  of  the compressed data will both be stored in lh_DstSize and
+returned  in  D0.   In  its worst case, the compressed data will become 1/8
+longer  than the source data which is the reason why the destination memory
+region has to be exactly 1/8 larger than the source region.  If you fail to
+add this safety-distance innocent memory may be overridden!
+   This  function  call  returns  zero  (=  0)  if the LhBuffer hasn't been
+initialized correctly or the buffer allocated by CreateBuffer is too small.
+
+                                     *
+
+LhDecode - Perform adaptive Lempel-Ziv-Huffman data decompression
+
+Usage: Size = LhDecode(LhBuffer)
+        D0                A0
+
+The  real  data  decompression  is  handled  by  this routine.  The calling
+parameter  is  an  LhBuffer  structure  as  initialized by CreateBuffer and
+listed below:
+
+        struct LhBuffer
+        {
+        /* 0*/  APTR  lh_Src;
+        /* 4*/  ULONG lh_SrcSize;
+
+        /* 8*/  APTR  lh_Dst;
+        /*12*/  ULONG lh_DstSize;
+
+        /*16*/  APTR  lh_Aux;
+        /*20*/  APTR  lh_AuxSize;
+
+        /*24*/  ULONG lh_Reserved;
+        };
+
+lh_Src ........ Points to the beginning of the memory region to decompress.
+lh_SrcSize .... Denotes the size of the source memory region.
+
+lh_Dst ........ Points to the beginning of the memory region to send the
+                decompressed data to.
+
+                NOTE: The size of the memory region pointed  to  by  lh_Dst
+                      MUST be larger than or equal  to  the  original  size
+                      of the data before compression.
+
+lh_DstSize .... Size of the memory region to send the decompressed data to.
+
+lh_Aux,
+lh_AuxSize .... Private data, DO NOT TOUCH!
+
+lh_Reserved ... Currently unused, leave it zero.
+
+   The  size of the decompressed data will both be stored in lh_DstSize and
+returned in D0.
+   This  function  call  returns  zero  (=  0)  if the LhBuffer hasn't been
+initialized correctly.
+
+                                     *
+
+   Do not allocate an LhBuffer of your own and do not peek or poke into the
+private  fields  following  the  public  portion of the LhBuffer structure!
+Future  library  versions  may  support  more  structure  tags  or  require
+less/more memory for data compression / decompression.
+   As  far  as  error  checking  is  possible  within  the library, illegal
+arguments  (such  as passing NULL to a library function or leaving parts of
+the  LhBuffer structure uninitialized) are rejected.  Bear the notes on the
+lh_Dst  memory  region  in  mind  to  avoid  unexpected  results and system
+crashes!
+   Due  to  limitations in the tree structure built by the data compression
+routine  more  than 65535 equal bytes in a row can - but need not - lead to
+problems.   The  same  difficulties  arise with the original LhArc program.
+The  most  imminent tree construction error to be found in the original 'C'
+program has been fixed in Lh.
+   As  a  rule of thumb, the longer the data compression takes, the smaller
+the resulting compressed data file will become.
+
+   Examples  how  to  access  the lh.library routines from 'C' are supplied
+through  `LhEncode.c'  and  `LhDecode.c'.  Both programs have been compiled
+using  the  Manx Aztec 'C' Compiler version 5.0d and require arp.library to
+run.  Feel free to send us assembly language demonstration programs.
+
+========================== How to use Decode.bin ==========================
+===========================================================================
+The Decode.bin data file was added to support standalone applications which
+are  not to require the library to perform data decompression.  The file is
+a raw dump of the assembly language decompression routine which can also be
+found  in the library (i.e.  it obeys the Amiga library calling conventions
+in  preserving  all  registers  except  for  d0/d1  and a0/a1).  Result and
+calling  parameter  are the same as with LhDecode.  Note that you will have
+to  initialize  the auxilary decompression buffer on your own.  The pointer
+to  the  buffer  immediately  follows  lh_DstSize and must be at least 4500
+bytes  in  size.   The  single  decompression  routine does not require the
+Reserved long word.
+   Since   the   decompression   routine  uses  pc-relative  adressing  and
+pc-relative  branches  only  it  can  be  freely relocated and moved to any
+memory location.  The raw code will work fine on any MC680x0 based computer
+system (Apple MacIntosh, NeXT, SUN workstations, Atari ST/TT, etc.).
+   Here's the beef, an example assembly fragment follows:
+
+   ; This is just an example, don't expect too much!
+
+   ; Decode - Decode data previously encoded by LhEncode
+
+   ; Inputs:  d0 - size of source region
+   ;          a0 - pointer to source region
+   ;          a1 - pointer to destination region
+   ;          a2 - pointer to beginning of auxilary buffer (4500 bytes)
+   ;
+   ; Outputs: d0 - size of destination region (after decompression)
+
+   ; Note:    Previous contents of d0/d1, a0/a1 must be considered
+   ;          gone.
+
+   Decode: clr.l   -(sp)         ; Size of auxilary buffer (unused)
+           pea     (a2)          ; Auxilary buffer
+
+           clr.l   -(sp)         ; Size of destination buffer (unused)
+           pea     (a1)          ; lh_Dst
+
+           move.l  d0,-(sp)      ; lh_SrcSize
+           pea     (a0)          ; lh_Src
+
+           lea     (sp),a0       ; At this point we have created a
+                                 ; properly initialized LhBuffer-
+                                 ; sized structure right on the stack.
+
+           lea     DecodeDump,a1 ; DecodeDump is the starting address
+                                 ; of Decode.bin (can be located
+                                 ; anywhere).
+
+           jsr     (a1)          ; Decompress data...
+
+           lea     6*4(sp),sp    ; Restore previous stack pointer
+
+           rts                   ; and return
+
+   While the library code includes a couple of sanity checks the Decode.bin
+raw  code  is  the  bare-bone decompression routine only.  You will have to
+make  sure  that  the values you are calling the routine with make sense to
+avoid undefined behaviour.
+   Think  twice  before  using  the  raw  code instead of the library.  The
+library  code  can be shared by a number of applications while the raw code
+cannot.
+
+================================= Credits =================================
+===========================================================================
+The  original  Lzhuf.c  adaptive  Huffman compression code was developed by
+Haruyasu Yoshizaki, thanks a lot for placing it in the public domain.
+
+============= Shareware fee & how to become a registered user =============
+===========================================================================
+A good amount of time and work was required to create Lh and the associated
+utilities.   Needless  to say, we didn't do it just for fun.  Include Lh in
+any  program  which  has  need  of  it  but  don't  forget  us!  Any humble
+contribution  of  at  least,  say  15$  US  or  DM  20,-  will  insure your
+registration  (i.e.   you will receive Lh updates as they become available)
+and  encourage  us  to  continue working on Lh (we know that Lh can be made
+faster  and more efficient with a bit of extra work, but time - we both are
+students of Medical Informatics at Hildesheim, Germany - does currently not
+permit us to make severe enhancements).
+
+  Please keep the following in mind if you include Lh in your program(s):
+
+Public domain program - No need to register Lh with us as  long as  you  do
+                        not intend to make money with your program.
+
+Shareware program     - Register Lh with us once to distribute an unlimited
+                        number of copies of your program.
+
+Commercial program    - Lh will need to be licensed for each copy  of  your
+                        program.
+
+Lh was written by Holger P.  Krekel & Olaf 'Olsen' Barthel.  Copyright 1990
+by  Holger  P.   Krekel  &  Olaf  'Olsen'  Barthel.   Shareware, all rights
+reserved.   No  guarantee of any kind is made that the program(s) described
+in  this  document  are  100%  reliable.  You use this material on your own
+risk.
+
+                Send suggestions and registration fees to:
+
+                           Olaf 'Olsen' Barthel
+                             Brabeckstrasse 35
+                            D-3000 Hannover 71
+
+                        Federal Republic of Germany
+
+
+=============== Revision history (most recent change first) ===============
+===========================================================================
+
+V1.8    Bumped the minimum sequence length LhEncode starts to compress to 2
+        bytes which makes compression both faster and more efficient.
+
+V1.7    First public release.
+
+V1.0-   Not released.
+
+                                  *
+
+             Do only its possibilities make it an Amiga?
+
+                        WHERE IS THE MAGIC ???

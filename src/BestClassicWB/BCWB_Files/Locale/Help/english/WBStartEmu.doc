@@ -1,0 +1,84 @@
+		        WBStartEmu
+		© 1999-2001 by Stephan Rupprecht
+		    All rights reserved.
+ 
+
+COPYRIGHT AND DISCLAIMER
+ WBStartEmu is copyrighted 1999-2001 by Stephan Rupprecht. 
+ All rights reserved. This program is freeware, so no financial
+ donations required. Redistribution allowed if the package is 
+ left unchanged. The author is not responsible for any damage 
+ caused by the use or misuse of this documentation and/or the 
+ program(s) it describes.
+
+
+REQUIREMENTS
+ Any Amiga® (compatible) computer with at least OS3.5 and
+ 68020+ cpu.
+
+
+DESCRIPTION
+ Starting with workbench.library v45, tools like wbstart.library
+ (by Stefan Becker) are no longer necessary to start a program as if
+ it were started from workbench. Because of this I wrote an emu-
+ lation of wbstart.library which uses the v45 API to invoke workbench
+ programs.
+ 
+
+KNOWN BUGS
+ The original wbstart.library allows you to set the stacksize and
+ priority of the program to start. This isn't supported by the
+ emulation because of a (current) limitation of workbench.library.
+ But it shouldn't be a problem as wb obtains the required information
+ from the program icon.
+ 
+ Not a bug but a feature: As a side-effect you can open drawers with
+ this emulation, too.
+ 
+ Because of a bug of workbench.library v44, workbench.library v45 is
+ required to use this library.
+ 
+ The workbench emulation of DirOpus is INCOMPLETE, so WBStartEmu
+ doesn't work with DO.
+
+
+INSTALLATION
+ Copy wbstart.library to your libs: drawer and wbstart-handler to L:
+
+
+HISTORY
+ 44.0	first public release
+ 44.1	Ooops! when copying the struct WBArg, the pointer wasn't 
+ 	increased thus when passing multiple args the same 
+ 	argument was passed to the program multiple times.
+ 	Stupid me, I also forgot to add the TAG_DONE tag to the
+ 	taglist :(
+ 44.2	Fixed a very bad bug in the LibExpunge code (referencing
+ 	to already freed memory). Thanks to Forbid/Permit that this
+ 	bug never caused any problems ;) Special thanks to Thomas
+ 	Richter who discovered this bug.
+ 45.0	because of a bug of wb.library, os3.9/workbench.library
+ 	is now required to use this library.
+ 45.1	changed path handling a bit, this hopefully fixes the
+ 	problem that some programs couldn't be started anymore
+ 	when this library was used.
+ 45.1a	added l:wbstart-handler replacement, which uses 
+ 	wbstart.library.
+
+
+AUTHOR
+
+ Please send bug reports and ideas to:
+
+	Stephan Rupprecht
+	Apfeldweg 1
+	D44359 Dortmund
+	Germany
+
+ Send emails to
+
+	info@stephan-rupprecht.de
+	
+ WWW
+ 	
+ 	http://stephan-rupprecht.de

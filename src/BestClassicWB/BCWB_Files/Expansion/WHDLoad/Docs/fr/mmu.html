@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<TITLE>WHDLoad et le MMU</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: mmu.html 1.7 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>WHDLoad et l'unit&eacute; de gestion m&eacute;moire (MMU)</h3>
+Le MMU se trouve sur les processeurs de la famille des 68000 suivants:
+MC68030, MC68040, MC68060. Il existe des versions EC de ces processeurs qui
+ont un MMU dont certaines fonctions sont inopérantes. Par exemple, sur les Amiga standards A4000/030, ceux-ci
+poss&egrave;dent seulement un MC68EC030 CPU. Sur les 3&egrave;me parties de cartes
+acc&eacute;l&eacute;ratrices, ceci varie, renseignez-vous aupr&egrave;s de la documentation
+pour en savoir plus. A notre connaissance, tous les 68040/68060
+construits dans les Amigas ont tous un MMU.  Car le burstmode et le
+port Zorro III ont besoin d'un MMU pour reloger les m&eacute;moires entr&eacute;es-sorties.
+La diff&eacute;rence entre un CPU (avec MMU) et une version EC ne peut se faire par
+software. Par cons&eacute;quent, l'utilisateur doit configurer lui-m&ecirc;me
+WHDLoad avec l'<a href="#usercontrol">option ad&eacute;quate</a>.
+<br> Pour les MC68020, il existe un MMU externe appel&eacute; MC68851, pour l'instant
+il n'est pas support&eacute; par WHDLoad.
+<h4>Carat&eacute;ristiques du MMU et son utilisation dans WHDLoad</h4>
+Le but principal du MMU est de traduire les adresses logiques en
+adresses physiques. Ceci est requis pour la m&eacute;moire virtuelle et pour s&eacute;parer
+l'espace d'adressage.
+Une autre caract&eacute;ristique est de sp&eacute;cifier des propri&eacute;t&eacute;s comme
+le mode "Supervisor Only", protection contre l'&eacute;criture et le mode "Cache"
+pour chaque adresse m&eacute;moire physique, configurés sur une page de base. WHDLoad utilise une taille de
+4096 octets pour une page. WHDLoad ne transforme pas les adresses
+logiques en adresses physiques. Mais il utilise le MMU pour
+<a href="#mem">la protection de m&eacute;moire</a>, <a href="cache.html">la gestion des caches du CPU</a>
+et d'autres caract&eacute;ristiques (<a href="snoop.html">Snooping</a>, <A
+HREF="../autodoc.html">resload_Protect#?</a>).
+<h4><a name="mem">Protection de la m&eacute;moire dans WHDLoad</a></h4>
+Au d&eacute;but, WHDLoad scanne la liste de la m&eacute;moire et construit un arbre de traduction (translation tree)
+qui incluera toutes les m&eacute;moires accessibles. Il marque les adresses de m&eacute;moires
+suivantes comme valides et accessibles : $0...BaseMem (en utilisant les informations
+du Slave), $dff000...$dff200 (canaux DMA), $bfd000...$bff000 (registres CIA)
+et la m&eacute;moire utilis&eacute;e par le Slave et WHDLoad. Si un d&eacute;bugger est trouv&eacute; dans
+la m&eacute;moire, celle-ci sera valide. Toutes les autres m&eacute;moires seront not&eacute;es comme
+invalide, et donc chaque acc&egrave;s dans ces m&eacute;moires (en lecture ou &eacute;criture)
+produira un "Access Fault Exception" qui quittera avec un message d'erreur appropri&eacute;
+cr&eacute;&eacute; par WHDLoad.
+<h4><a name="usercontrol">Contr&ocirc;le du MMU dans WHDLoad par l'utilisateur</a></h4>
+Il y 3 modes diff&eacute;rents o&ugrave; WHDLoad affecte un MMU existant.
+<ol>
+<li><b>ignore MMU</b>:<br>
+Dans ce mode, WHDLoad ne change aucun registre du MMU. Ceci peut &ecirc;tre
+utile si vous avez un programme qui modifie le MMU et que vous voulez
+que le fonctionnement du programme reste intact (par exemple un debuggeur
+comme TK).
+<br>
+Attention: parce que WHDLoad ne contr&ocirc;le plus le MMU lui-m&ecirc;me, certains
+probl&egrave;mes peuvent arriver. Ces probl&egrave;mes peuvent causer des effondrements du syst&egrave;me
+et d'autres dysfonctionnements impr&eacute;visibles.
+Voici une liste des risques qui existent:
+<ul>
+<li>Si Enforcer/CyberGuard ont &eacute;t&eacute; ex&eacute;cut&eacute;s ou un programme similaire, ceux-ci
+bloqueront ou effronderont le syst&egrave;me, car WHDLoad cr&eacute;era un nombre important de
+"Hits" chaque fois qu'il activera et d&eacute;sactivera l'OS. Ces "Hits" ne sont pas des
+bugs de WHDLoad mais des op&eacute;rations normales.
+<li>Les nouvelles versions de la 68060.library (&agrave; partir de la v41.1) transf&egrave;rent
+la m&eacute;moire $0-$1000 (la 1&egrave;re page) en m&eacute;moire Fast en utilisant le MMU, avec
+le mode "ignore MMU", cette adresse reste intacte, si le programme install&eacute;
+essaye d'utiliser cette m&eacute;moire pour n'importe quelle op&eacute;ration via les canaux DMA (par
+exemple une copper-liste dans cette m&eacute;moire), le r&eacute;sultat sera impr&eacute;visible,
+parce que le CPU lira ou &eacute;crira dans la m&eacute;moire Fast alors que la vraie m&eacute;moire
+Chip contiendra des donn&eacute;es al&eacute;atoires.
+<li>Si le MMU actif utilise la m&eacute;moire (exception handler, translation tree,...)
+dans la BaseMem du programme install&eacute;, tout peut s'effrondr&eacute;, car la BaseMem
+sera &eacute;cras&eacute;e pendant l'ex&eacute;cution du programme install&eacute;.
+<li>En g&eacute;n&eacute;ral, chaque programme qui change les fonctions de base du syst&egrave;me
+(en utilisant le MMU) peut &ecirc;tre en conflit avec WHDLoad ...
+<br>
+</ul>
+<li><b>disable MMU</b>:<br>
+Dans ce mode, cette fonction n'est seulement possible qu'avec un 68030, le MMU
+sera inactif, aucune carat&eacute;ristique du MMU ne sera disponible.
+<li><b>use MMU</b>:<br>
+Dans ce mode, WHDLoad prend le contr&ocirc;le total du MMU et r&eacute;alise la protection
+de la m&eacute;moire et la gestion des caches du CPU comme expliqu&eacute; ci-dessus.
+</ol>
+Pour un 68030, le mode par d&eacute;faut est <i>disable MMU</i>. Pour un 68040 ou 68060,
+par defaut, ce sera <i>use MMU</i>. Il y a 2 options pour contr&ocirc;ler le MMU. <a
+href="opt.html#MMU">MMU/S</a> active le MMU et doit &ecirc;tre utilis&eacute; sur des syst&egrave;mes
+68030 pour activer le fontionnement du MMU. <a
+href="opt.html#NoMMU">NoMMU/S</a> d&eacute;sactive le MMU.
+<center><p><cite>An Enforcer hit is an Enforcer hit, period.</cite> (Michael Sinz)</p></center>
+</BODY>
+</HTML>

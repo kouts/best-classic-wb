@@ -1,0 +1,128 @@
+Short:    V1.19 CLI tool to manipulate icon data
+Uploader: stoecker@amigaworld.com (Dirk Stoecker)
+Author:   stoecker@amigaworld.com (Dirk Stoecker)
+Type:     util/wb
+Version:  1.19
+Kurz:     CLI Programm zum Aendern von Icon-Daten
+
+ProcessIcon needs OS 37 (2.0) or later OS versions!
+
+Usage:
+  ProcessIcon ICON/A,REFICON,VIEW/S,OPT=OPTIMIZE/S,US=UNSNAP/S,REMAP/S
+  SHOWTYPE/S,NI2CI/S,MWB2CI/S,II2CI/S,MAKECI/S,
+
+  SBP=SETBITPLANES/N,SDT=SETDEFTOOL,SIT=SETICONTYPE,SSS=SETSTACKSIZE/N,
+  ST1=SETTRANSPARENT1/N,ST2=SETTRANSPARENT2/N,SXP=SETXPOS/N,SYP=SETYPOS/N,
+  
+  KCI=KILLCOLORICON/S,KDD=KILLDRAWERDATA/S,KDT=KILLDEFTOOL/S,
+  KII=KILLICONIMAGE/S,KNI=KILLNEWICON/S,KSS=KILLSTACKSIZE/S,
+  KTT=KILLTOOLTYPES/S,
+  
+  CDD=COPYDRAWERDATA/S,CDT=COPYDEFTOOL/S,CII=COPYICONIMAGE/S,
+  CIT=COPYICONTYPE/S,CNI=COPYNEWICON/S,CSS=COPYSTACKSIZE/S,
+  CTT=COPYTOOLTYPES/S:
+
+A lot of options :-) When you need some more, please contact me. It is
+most time really easy to implement them!
+
+ICON     The icon you want to manipulate. When it does not exist, it is
+         created (works only, when at least a drawer or file of that name
+         exists.).
+REFICON  Reference icon for copy options.
+VIEW     Show some information about ICON. Any other options are disabled by
+         this one.
+OPT      Remove useless stuff in ICON (f.e. DrawerData for Project-Icons).
+UNSNAP   Removes position information of ICON. This can be done with
+         Workbench menu as well.
+REMAP	 Switches fore- and background color when only 1 bitplane or
+         color 2 and 3 (black and white) for 2 and more bitplanes. This is
+         to support those old OS1.3 style icons still appearing sometimes.
+SHOWTYPE Only show icon type and name in one line. Any other options are
+         disabled by this one.
+
+NI2CI	 Converts NewIcon images to OS3.5 icon data.
+MWB2CI	 Converts MagicWB icons to OS3.5 icons with correct palette.
+II2CI	 Convert standard icons to OS3.5 icon data. Useful for later
+	 modification.
+MAKECI	 This equals II2CI for old style icons and "NI2CI KNI" for new icons.
+	 For icons with NewIcon and OS3.5 data it means "KNI". It is useful
+	 to add KII and OPT keyword to reduce size.
+
+SBP Set number of bitplanes. Reducing number of bitplanes may make older
+    icons look better.
+SDT Set default tool of ICON.
+SIT Set type of ICON. Allowed types are: "Disk", "Drawer", "Tool",
+    "Project", "Garbage", "Device", "Kick" and "AppIcon".
+SSS Set the stack size to any value.
+ST1 Set transparent color 1 of OS3.5 data (-1 == no transparency)
+ST2 Set transparent color 2 of OS3.5 data (-1 == no transparency)
+SXP Set left position of ICON.
+SYP Set upper position of ICON.
+
+KCI Kills OS3.5 color icon data.
+KDD Kill DrawerData in ICON. This does delete drawer data for tool and
+    project icons. For drawers and disks the data is not deleted, but
+    replaced by default data.
+KDT Delete default tool in ICON.
+KII Replace icon image with that 5x5 box used by NewIcons. This option
+    also sets bitplanes to 3, so you cannot use SBP option.
+KNI Delete NewIcon images from ICON.
+KSS Set Stacksize in ICON to 0 (this is default and used as size 4096).
+KTT Remove ToolTypes from ICON, but leave NewIcon image intact.
+
+CCI Copy OS3.5 color icon data from REFICON to ICON.
+CDD Copy DrawerData from REFICON to ICON. This size, position and view
+    state of a drawer window (not of the icon). Only useful for drawers.
+CDT Copy default tool from REFICON to ICON. Only useful for Project icons.
+CII Copy the image (or maybe two images) from REFICON to ICON. This
+    also affects the icon position. The position is changed in a way,
+    so that the icon text appears at same position as before.
+CIT Copy the icon type from REFICON to ICON.
+CNI Copy NewIcon image from REFICON to ICON.
+CSS Copy Stacksize form REFICON to ICON.
+CTT Copy ToolTypes from REFICON to ICON (but ignore NewIcon image stuff).
+
+Beginning with version 1.13 the program no longer treats NewIcon data as
+ToolTypes! CTT and KTT only affect the tooltypes and CNI and KNI only
+affect the NewIcon image data (which are in real tooltypes as well).
+Since version 1.14 OS3.5 icons are handled correctly.
+
+Some notes:
+  Starting with OS3.5, stacksizes below 4096 are always raised to value 4096.
+  This also affects KSS-Option.
+
+  If the copy arguments are used and there is no such data in REFICON, the
+  argument equals the function of kill arguments (replace by nothing).
+
+  If an icon contains both NewIcon and OS3.5 stuff, after modifications the
+  OS3.5 stuff disappears.
+
+  All the CI options need OS3.5 running.
+
+! Using this tool with OS3.5 icons without running OS3.5 destroys the color
+! image information of the icons. Also OS3.5 icons cannot be detected without
+! running OS 3.5.
+
+I myself use option CII to replace various text, guide or drawer icons with
+my default icons without losing icon positions and DrawerData. This is done
+by a click on a DirWork button. (For DirOpus users it should be easy as
+well).
+
+Please report me bugs, comments, suggestions and problems. If possible
+write a little mail if you use the program sometimes. If there are some
+Enforcer hits or other problems report them as good as possible.
+
+Use it as you want, but WITHOUT ANY WARRANTY!
+
+Please contact me:
+
+************************************************************************
+* snail-mail:                  * e-mail:                               *
+*   Dirk Stoecker              *   stoecker@amigaworld.com             *
+*   Geschwister-Scholl-Str. 10 *   dstoecker@gmx.de                    *
+*   01877 Bischofswerda        * world wide web:                       *
+*   GERMANY                    *   http://home.pages.de/~Gremlin/      *
+* phone:                       * pgp key:                              *
+*   GERMANY +49 (0)3594/706666 *   get with finger or from WWW pages   *
+************************************************************************
+

@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE>Monitores del Sistema / Congelador</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: freezer.html 1.5 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</head>
+<BODY>
+<h3>Monitores del Sistema / Congelador</h3>
+Hay gran cantidad de congeladores puramente por software ahí afuera. El uso de estas herramientas puede ser
+de gran ayuda durante el desarrollo y detección de errores en los Esclavos y los programas instalados.
+WHDLoad soporta directamente HRTmon y ThrillKill. Si desea tener soporte directo para otro congelador,
+contácteme e intentaré incluir soporte para el mismo.
+Durante el arranque de WHDLoad este intentará comprobar si alguno de los monitores soportados
+está activo. Si se encuentra alguno, WHDLoad hará algunas cosas especiales. Si la MMU esta siendo usada por WHDLoad
+este declarará la memoria usada por el monitor como válida y cacheable WriteThrough. Durante la ejecución de
+la demo/el juego se reenviarán todas las excepciones NMI al vector NMI salvado desde la tabla de vectores
+del monitor. Adicionalmente, si el VBR es desplazado por WHDLoad (<a href="opt.html#NoVBRMove">NoVBRMove/S</a> no
+esta configurada y la CPU es como mínimo un 68010) este comparará la <a href="opt.html#FreezeKey">FreezeKey</a> con
+el valor actual del teclado en cada interrupción. Si las teclas pulsadas coinciden, WHDLoad tomará en cuenta el teclado, transformando el marco de la pila a un marco de pila de NMI y entrando en el monitor a través
+de su gestor de NMI.
+<h4>HRTmon</h4>
+La detección en memoria debería ser segura especialmente con versiones recientes del monitor
+dado que se ha agregado una nueva firma al monitor.
+Tenga cuidado si la MMU esta siendo usada por WHDLoad: no acceda a memoria fuera de BaseMem/ExpMem desde HRTmon.
+Esto ocasionará un cierre del programa debido a que HRTmon no puede manejar la Excepción de Falla de Acceso
+(Access Fault Exception) resultante.
+<p>En HRTmonPrefs Ud. debe seleccionar la casilla 'No VBR move', de lo contrario no podrá ingresar
+al monitor mientras WHDLoad se esta ejecutando.
+<p>Luego de retornar desde HRTmon al programa ejecutándose bajo WHDLoad Ud. puede notar una pantalla
+gráfica incorrecta. Esto se debe a que HRTmon sobreescribe algunos registros Custom. Se puede evitar esto
+indicándole a HRTmon el valor correcto, por ej. use <tt>'e $100 $5200'</tt> para una pantalla de
+32 colores antes de retornar.
+
+<p>El HRTmon inbuído dentro de WinUAE solo puede ser detectado si HRTmon ha sido
+activado previamente al menos una vez (presionando la tecla PgUp). Este es el caso dado
+que hasta la primer activación no se configura el vector NMI utilizado por WHDLoad para
+encontrar el monitor.
+
+<p>Hay versiones más nuevas de HRTmon que agregan comandos especiales cuando se utilizan
+bajo WHDLoad. Por ejemplo se pueden cargar/guardar archivos y usar las funciones
+<a href="prot.html">resload_Protect#?</a> desde HRTmon. Estas versiones se pueden bajar
+de la <a href="http://www.whdload.de/whdload/Tools/">página de WHDLoad</a>.
+
+<h4>ThrillKill</h4>
+No hay ninguna firma utilizable en el congelador, por lo tanto se usan algunas comparaciones en el código.
+Por lo tanto la detección no funcionará con otras versiones.
+</BODY>
+</HTML>

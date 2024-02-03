@@ -1,0 +1,105 @@
+@DATABASE 0015
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 10. Other Utilities"
+@TOC PPaintCD:H/7/0/4/OO00/Main
+
+@{B}10.        Other Utilities@{UB}
+
+Personal Paint comes with different utility programs and data files
+designed to work in the same environment in which the main program is
+used. This chapter describes some utilities stored in the "PPaint_Tools"
+drawer of the program disk.
+
+
+@{B}10.1       AskAssign@{UB}
+
+As explained in section @{"1.11" LINK PPaintCD:H/7/0/4/0002/Main 1074} ("Environment Variables and Standard
+Drawers") it may sometimes be necessary to use the AmigaDOS Assign command
+to assign logical names. The AskAssign program, which comes with the
+Personal Paint package, can also be accessed with the mouse from the
+Workbench environment, rather than the Amiga Shell or CLI. AskAssign is
+also used by the InstallPPaint procedure.
+
+Section @{"1.13.1" LINK PPaintCD:H/7/0/4/0002/Main 1310} ("Automatic Installation: The InstallPPaint Program")
+explains how to create drawers and select the directory (or volume) to
+which a logical name is to be assigned. When called by InstallPPaint,
+AskAssign is used to specify the position where the Personal Paint
+environment is to be installed. If AskAssign is executed as a stand-alone
+program (by double-clicking its Workbench icon with the mouse), an Amiga
+logical device name (like "PPaint" or "FONTS") may be assigned. The
+logical device name can be modified by editing the ASKNAME field in the
+Tool Types string gadget of the Workbench Information window. To do this,
+the Workbench Information menu must be selected while the AskAssign icon
+is highlighted (i.e. after a mouse selection). The texts displayed in the
+file requester may be modified by editing the other fields which can be
+displayed in the Tool Types string gadget. By default, the version of
+AskAssign which comes with Personal Paint is configured to assign the
+"FONTS" logical device name, if executed from the Workbench.
+
+
+@{B}10.2       ColorText@{UB}
+
+As explained in section @{"3.1.3.2" LINK PPaintCD:H/7/0/4/0017/Main 398}, Personal Paint supports text editing
+using color fonts. Some multi-color fonts are also enclosed with the
+program. Amiga operating systems starting from version 2.0 support colored
+fonts directly. On previous versions, the ColorText utility must be used
+in order to integrate color font handling capabilities into the system
+software. ColorText was developed by Inter/Active Softworks, the creators
+of the original ColorFont format.
+
+On operating systems previous to version 2.0, ColorText can be enabled
+with a double-click on its workbench icon. Starting from version 2.0,
+there is no need to use ColorText to use color fonts.
+
+
+@{B}10.3       HP DeskJet Drivers@{UB}
+
+New HP DeskJet drivers (result of the joint development efforts of Cloanto
+and Commodore), are included on the program disk. These are the first
+versions of the drivers without the famous RLE compression bug. The 550C
+driver uses black ink in addition to cyan, magenta and yellow, and is not
+bound by the previous 10 inch size-limit. It also features improved cyan
+balancing code, compared to drivers previously released by Commodore.
+
+The DeskJet drivers use the Threshold value to activate a driver-local
+correction table. Using Personal Paint's 24-bit printing with these
+DeskJet drivers, Threshold should remain set to 1 (= no correction), and
+Density values of 4, 5 or 6 (which activate depletion combined with
+different levels of shingling) are generally not required. A value of 7
+only activates shingling, which improves print quality.
+
+Several users have asked whether the enhanced HP DeskJet drivers supplied
+with Personal Paint support 600×300 dpi graphics output. It appears that
+some owners of DeskJet 560C and DeskJet 520 were misled by incomplete
+information. The advertised "600×300" printing capabilities of these
+models are mainly a result of RET (Resolution Enhancement Technology)
+applied to the 300×300 dpi print data. The printers cannot produce 600×300
+dpi color graphics, and there is no documented command to send black &
+white graphics to the printer in 600×300 dpi.
+
+
+@{B}10.4       Fonts@{UB}
+
+Personal Paint comes with several color fonts and a font named
+"Personal.font". All fonts can be installed by the installation
+procedures.
+
+Personal Paint and the Personal Fonts Maker Color Extensions normally
+share the same Personal font for their user interface. The font itself has
+been upgraded a few times. On a system where different versions of these
+programs are installed, it may happen that one of the programs expects an
+older version of the font to be available. While minor changes are usually
+backwards compatible, if any characters appear to be incorrectly displayed
+it is sufficient to remove the font from the system FONTS: directory. All
+versions of Personal Paint and PFM2 also search for the font in their
+local directories, where the font is copied during automatic
+installation.
+
+If Topaz 8 is used for the Workbench icon texts, Personal 8 should be
+considered as a more readable replacement.
+
+@ENDNODE

@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>Reloc * Relokacja plików wykonywalnych</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: reloc.html 1.5 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Reloc * Relokacja plików wykonywalnych</h3>
+Małe narzędzie do relokacji standardowych plików wykonywalnych AmigaDOS-u w
+absolutne adresy i zapis ich jako zwykłe pliki z danymi wymagne przez
+wcześniejsze wersje WHDLoada. Począwszy od wersji 8.0 funkcja
+<a href="../autodoc.html#resload_Relocate">resload_Relocate</a> zastępuje działanie Reloc.
+<h4>Instalacja</h4>
+Reloc znajduje się w wersji <tt>DEV</tt> WHDLoad. Należy:
+<br>skopiować program do C: lub podobnego miejsca
+<h4>Opcje</h4>
+<table>
+<tr>
+<td colspan=2><tt>INPUTFILE/A,OUTPUTFILE,ADR/K,QUIET/S</tt></td></tr>
+<tr>
+<td valign=top nowrap><tt>INPUTFILE/A</tt>&nbsp;&nbsp;</td>
+<td>plik wykonywalny, który ma być relokowany, musi zostać podany</td>
+</tr>
+<tr>
+<td valign=top><tt>OUTPUTFILE</tt></td>
+<td>nazwa pliku do zapisania, jeżeli nie zostanie podana, plik źródłowy zostanie nadpisany</td>
+</tr>
+<tr>
+<td valign=top><tt>ADR/K</tt></td>
+<td>adres początkowy dla relokowanego pliku, jeżeli nie zostanie podany, zostanie wykorzystany
+adres $400, można używać prostych wyrażeń jak &quot;$5000&quot; = &quot;20480&quot; = &quot; -$Ff +-33+ 19512+$4e8&quot; (prefix &quot;$&quot; dla liczb szesnastkowych, obsługiwane operatory &quot;+&quot;
+i &quot;-&quot;, dla operacji jednoargumentowych jak i dwuargumentowych)</td>
+</tr>
+<tr>
+<td valign=top><tt>QUIET/S</tt></td>
+<td>wyłącza wszystkie komunikaty, za wyjątkiem komunikatów o błędach, włączenie zalecane w przypadku połączenia
+programu z programem instalacyjnym</td>
+</tr>
+</table>
+<h4>Kod zwrotny</h4>
+Kod zwrotny jest ustawiony na 0 jeżeli wszystko się powiodło lub na 10, gdy wystąpił błąd.
+<h4>Podstawa</h4>
+Hunki z pliku wykonywalnego są kopiowane z zachowaniem kolejności. Hunki BSS-HUNK są poszerzane do prawdziwych
+rozmiarów. Nieobsługiwane są hunki wprowadzone w AmigaDOS 2.0 (np. RELOC32_SHORT).
+</BODY>
+</HTML>

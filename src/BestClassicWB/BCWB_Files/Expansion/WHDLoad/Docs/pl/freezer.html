@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE>Monitory systemu / programy zatrzymujące działanie innych programów</TITLE>
+<meta name="DC.Language" content="pl">
+<meta http-equiv="content-language" content="pl">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-2">
+<!-- $Id: freezer.html 1.7 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Monitory systemu / programy zatrzymujące działanie innych programów</h3>
+
+Istnieje wiele programów zatrzymujących działanie innych programów.
+Wykorzystanie tych programów może być bardzo pomocne w trakcie prac nad
+rozwojem i testowaniem plików .slave oraz zainstalowanych programów. WHDLoad
+bezpośrednio wspólpracuje z HRTMon i ThrillKill. Jeśli potrzebujesz wsparcia
+dla innego oprogramowania, możesz się ze mną skontaktować, a ja spróbuję dodać obsługę dla Twojego
+monitora systemu. Przy uruchomieniu WHDLoad sprawdza, czy jest aktywny jeden z
+obsługiwanych monitorów systemu. Jeśli takowy znajdzie, uruchomi dodatkowe
+procedury. Jeśli MMU jest używane przez WHDLoad, zadeklaruje pamięć używaną
+przez monitor jako obowiązującą buforowalną w trybie WriteThrough.
+W trakcie działania gry/programu demonstracyjnego będzie przekazywał wszystkie
+wyjątki NMI do wektora NMI zapisywanego z tabeli wektorów monitora. Dodatkowo,
+jeśli VBR jest przeniesiony przez WHDLoad (opcja <a href="opt.html#NoVBRMove">NoVBRMove/S</a>
+nie jest włączona, a komputer jest wyposażony w procesor co najmniej 68010)
+porówna <a href="opt.html#FreezeKey">FreezeKey</a> z aktualną wartością
+z klawiatury przy każdym wywołanym przerwaniu.
+Jeśli klawisze się zgadzają, WHDLoad rozpozna klawiaturę, następnie przekształci
+ramkę stosu na ramkę stosu NMI i przejdzie do monitora poprzez jego handler
+NMI.
+
+<h4>HRTMon</h4>
+Wykrycie w pamięci powinno być bezpieczne szczególnie z nowymi wersjami monitorów,
+powodującymi dodawanie nowych podpisów do monitorów. Myślę, iż WHDLoad będzie
+działał również z przyszłymi wersjami. Bądź ostrożny, gdy MMU jest
+wykorzystywane przez WHDLoad: nie próbuj odwoływać się z poziomu HRTMon do pamięci
+spoza obszaru BaseMem/ExpMem. Spowoduje to zawieszenie systemu, gdyż HRTMon nie
+obsługuje wyniku wyjątku błędu dostępu (<i>Access Fault Exception</i>).
+
+<p>W programie HRTMonPrefs musisz zanzaczyć pole 'No VBR move', w przeciwnym
+razie nie będziesz mógł uruchomić programu HRTMon w trakcie pracy pakietu
+WHDLoad.
+
+<p>Po powrocie z HRTMon do programu uruchomionego pod systeme WHDLoad możesz
+zaobserwować niepoprawne wyświetlanie grafiki. Jest to spowodowane nadpisywaniem
+przez HRTMon niektórych wartości rejestrów procesora. Możesz to obejść podając
+programowi HRTMon odpowiednie wartości, np. użyj <tt>'e $100 $5200'</tt> dla
+trybu wyświetlania w 32 kolorach przed powrotem do programu uruchomionego pod
+kontrolą pakietu WHDLoad.
+
+<p>HRTMon wbudowany w WinUAE może być wykryty jedynie wtedy, gdy zostanie wcześniej
+aktywowany przynajmniej raz (poprzez naciśnięcie klawisza PgUp). Jest to spowodowane
+faktem, że wektor NMI nie jest jest ustawiony przed pierwszą aktywacją monitora, a jest
+on wymagany przez WHDLoad do jego zlokalizowania.
+
+<p>Istnieją nowsze wersje programu HRTmon, które dodają specjalne polecenia
+podczas uruchamiania pod kontrolą WHDLoad. Możesz wczytywać/zapisywać pliki
+i używać funkcji <a href="prot.html">resload_Protect#?</a> z poziomu HRTmon.
+Te wersje dostępne są na <a href="http://www.whdload.de/whdload/Tools/">stronie
+WHDLoad</a>.
+
+<h4>ThrillKill</h4>
+Nie ma żadnej użytecznej sygnatury w tym programie zatrzymującym działanie
+innych programów, więc jest wykorzystywane
+porównywanie fragmentów kodu. Dlatego też detekcja nie zadziała z innymi
+wersjami.
+</BODY>
+</HTML>

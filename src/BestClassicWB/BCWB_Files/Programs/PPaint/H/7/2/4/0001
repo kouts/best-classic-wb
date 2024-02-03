@@ -1,0 +1,145 @@
+@DATABASE 0001
+@(C) "Copyright © 1992-1997 Cloanto Italia srl"
+@REM Cloanto Personal Paint 7 CD-ROM
+@FONT topaz.font 8
+@WIDTH 74
+
+@NODE Main "Personal Paint 7 - 7. Il menu Testo"
+@TOC PPaintCD:H/7/2/4/OO00/Main
+
+@{B}7.         Il menu Testo@{UB}
+
+Personal Paint è dotato di un editor di testi che consente di scrivere
+nell'area di lavoro. Le voci menu descritte in questo capitolo sono
+accessibili durante una sessione di editazione; questa va attivata
+selezionando lo strumento "Testo" e scegliendo una posizione nell'immagine
+con un clic del pulsante sinistro del mouse. La sezione @{"3.1.3" LINK PPaintCD:H/7/2/4/0017/Main 421} descrive le
+funzioni basilari di editazione e la procedura di selezione dei font.
+
+
+@{B}7.1        Inserire blocco@{UB}
+
+L'archivio di sistema viene usato da numerosi programmi di video
+scrittura, editor di testi e funzioni di sistema. Questo comando
+inserisce, nella posizione del cursore, il testo memorizzato
+nell'archivio, come se fosse digitato da tastiera. Personal Paint è in
+grado di interpretare correttamente le sequenze di controllo ANSI-SGR
+inserite nel testo, per effettuare variazioni di stile e di colore.
+
+La sezione @{"5.10" LINK PPaintCD:H/7/2/4/0048/Main 343} contiene ulteriori informazioni sull'archivio di sistema.
+La descrizione che segue, relativa alle sequenze di controllo SGR, è di
+carattere tecnico ed è rivolta agli utenti che desiderano utilizzare un
+editor esterno per comporre testi di una certa complessità.
+
+Le sequenze SGR sono codici di controllo introdotti dai caratteri ESC +
+'[' (o dal singolo codice CSI, valore decimale 155) e terminanti con una
+'m' minuscola. Ad esempio, la sequenza SGR31 equivale a:
+ESC+'['+'3'+'1'+'m' ('3' e '1' sono caratteri ASCII stampabili). Le
+sequenze di controllo possono essere seguite dal normale testo o da altre
+sequenza SGR. Ecco un elenco delle sequenze SGR più usate:
+
+   da SGR30 a SGR39: impostazione colore del testo
+   da SGR40 a SGR49: impostazione colore di fondo
+   SGR0: ripristino testo tondo
+   SGR1: inizio testo neretto
+   SGR22: fine testo neretto
+   SGR3: inizio testo corsivo
+   SGR23: fine testo corsivo
+   SGR4: inizio testo sottolineato
+   SGR24: fine testo sottolineato
+
+
+@{B}7.2        Colore successivo@{UB}
+
+Questo comando seleziona il colore della palette successivo all'attuale
+colore di primo piano. Il nuovo colore viene utilizzato per tutto il testo
+successivamente inserito, a prescindere dalla posizione del testo e dal
+colore dei caratteri circostanti.
+
+Per cambiare il colore di intere righe di testo occorre utilizzare la
+funzione "Modificare a fine riga/Colore" (sezione @{"7.4.1" LINK Main 70}).
+
+
+@{B}7.3        Colore precedente@{UB}
+
+Questa funzione è analoga alla precedente, ma seleziona il colore
+precedente nella tavolozza. Entrambi i comandi sono equivalenti alle
+abbreviazioni (tasti predefiniti <[> e <]> ) per la selezione del colore
+precedente e quello scuccessivo, nel modo disegno. Tuttavia, impartire in
+modo editazione questi comandi "monotasto" equivarrebbe ad inserire
+caratteri grafici, anziché eseguire le funzioni associate.
+
+
+@{B}7.4        Modificare a fine riga@{UB}
+
+I comandi associati a questa voce menu consentono di modificare il testo
+compreso tra la posizione attuale del cursore e la fine della riga.
+
+
+@{B}7.4.1      Colore@{UB}
+
+Questa funzione applica il colore di primo piano al testo.
+
+
+@{B}7.4.2      Stile@{UB}
+
+Lo stile corrente (ad esempio corsivo o neretto) viene applicato al testo
+tra la posizione del cursore e la fine della riga. Lo stile deve essere
+selezionato prima di eseguire questo comando.
+
+
+@{B}7.4.3      Maiuscole@{UB}
+
+Questa funzione converte tutti i caratteri alfabetici tra il cursore e la
+fine della riga nelle corrispondenti lettere maiuscole.
+
+
+@{B}7.4.4      Minuscole@{UB}
+
+Questo comando converte il gruppo di caratteri nell'equivalente
+minuscolo.
+
+
+@{B}7.4.5      Cancellare@{UB}
+
+I caratteri compresi tra il cursore e la fine della riga vengono
+cancellati.
+
+
+@{B}7.5        Stile carattere@{UB}
+
+Questa serie di sottovoci menu permette di selezionare lo stile di
+scrittura desiderato (tondo, @{I}corsivo@{UI}, @{B}neretto@{UB} o @{U}sottolineato@{UU}). Il nuovo
+stile viene applicato a tutto il testo scritto successivamente alla
+selezione. Le sottovoci associate allo stile corrente sono evidenziate,
+sulla sinistra, da un segno di visto. È anche possibile combinare più
+varianti di stile per produrre effetti come il @{B}@{I}@{U}corsivo neretto
+sottolineato@{UB}@{UI}@{UU}.
+
+Lo stile del testo già scritto può essere modificato con la funzione
+"Modificare a fine riga/Stile" (sezione @{"7.4.2" LINK Main 75}).
+
+Quando si seleziona un nuovo stile, Personal Paint cerca, in primo luogo,
+una versione del font attuale con gli attributi richiesti; se tale
+variante non esiste, il programma chiede al sistema di generare
+algoritmicamente il nuovo stile.
+
+Le sezioni @{"3.1.4" LINK PPaintCD:H/7/2/4/0017/Main 633} e @{"5.14" LINK PPaintCD:H/7/2/4/0048/Main 611} spiegano come applicare altri effetti (come
+bordi e sfumature) al testo.
+
+
+@{B}7.6        Allineamento@{UB}
+
+L'allineamento del testo (sinistra, centro o destra) può essere impostato
+e modificato in ogni momento. Questi comandi modificano l'allineamento di
+tutto il testo scritto nell'attuale sessione di editazione.
+
+Poiché Personal Paint non utilizza margini espliciti per delimitare l'area
+di editazione, il testo viene allineato o centrato lungo la linea
+verticale che passa sul punto di inizio dell'editazione. L'intero testo
+(assieme alla linea di riferimento associata) può essere spostato
+"trascinandolo" con il pulsante destro del mouse. La disposizione del
+testo può essere modificata con estrema semplicità, combinando le
+modifiche dell'allineamento con nuove posizioni nell'immagine.
+
+@ENDNODE

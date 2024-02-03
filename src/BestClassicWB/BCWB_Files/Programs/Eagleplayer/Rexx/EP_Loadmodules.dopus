@@ -1,0 +1,75 @@
+/* Eagleplayer-DOpus-Steuerung
+   (c) 1993-96 DEFECT
+
+ - spielt übergebene Song(s) und testet darauf,ob wirklich was übergeben wurde
+
+ - lädt gegebenenfalls Eagleplayer (Pfad richtig anpassen,siehe unten !)
+
+ - in Opus als "Executable" ("AmigaDOS") einbinden, asynchron starten ! (siehe
+   Handbuch), folgende Kommandozeile:  rx rexx:EP_Loadmodule.dopus {s}
+
+*/
+
+options results
+
+if pos('rexx_EP',SHOW('Ports')) = 0 then
+ do
+
+  Waittime = 60		/* 1 min Wartezeit, bei Bedarf ändern */
+
+			/* Eagle laden , Pfad bei Bedarf ändern !!!!!! */
+  address COMMAND 'run >nil: EP:Eagleplayer'
+
+  testflag=0
+  time ('R')
+
+  address 'DOPUS.1'		/* address 'DOPUS.1' */
+  toptext 'Attempting to Load Eagleplayer.'
+
+  do while (testflag=0) & (time('E') < Waittime)
+   if (pos('rexx_EP',SHOW('Ports')) ~= 0) then testflag =1
+  end
+
+  if pos('rexx_EP',SHOW('Ports')) ~= 0 then
+    toptext 'Eagleplayer loaded'
+   else
+    do
+     toptext 'Couldn`t load Eagleplayer!'
+     exit
+    end
+end
+
+address 'DOPUS.1'		/* address 'DOPUS.1' */
+status 3
+ac=result
+status 13 ac
+dirname=result
+sels=""
+
+getselectedall '/'
+selected = RESULT
+if selected~="RESULT" then do
+
+ DO WHILE selected~=""
+  PARSE VAR selected name '/' selected
+  sels=sels||'"'||Dirname||'/'||name||'" '
+ END
+
+ if sels~= "" then do
+    address 'DOPUS.1'		/* address 'DOPUS.1' */
+    toptext 'Eagleplayer: Attempting to Load Song(s).'
+    address 'rexx_EP'
+    Loadmodule sels
+    aha=result
+    address 'DOPUS.1'		/* address 'DOPUS.1' */
+    toptext 'Eagleplayer: '||aha
+ end
+end
+
+else
+  do
+    address 'DOPUS.1'		/* address 'DOPUS.1' */
+    toptext 'Eagleplayer: No Module selected.'
+  end
+
+exit

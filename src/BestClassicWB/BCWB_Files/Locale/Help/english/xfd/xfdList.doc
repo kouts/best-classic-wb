@@ -1,0 +1,69 @@
+NAME
+	xfdList 1.04
+
+SYNOPSIS
+	xfdList FILE,ALL/S,NE=NOEXTERN/S
+
+DESCRIPTION
+	xfdList examines files and prints the names of the
+	packers/linkers. It requires either Kickstart V37+
+	or the arp.library together with older OS releases.
+
+	FILE specifies the file/drawer that should be examined.
+	Wildcards of any kind are supported.
+	If FILE is not specified, the current directory will
+	be examined.
+
+	xfdList only examines one directory level. With ALL,
+	it goes as deep as possible.
+
+	NOEXTERN prohibits the use of external slaves for
+	recognition purposes.
+
+EXAMPLES
+	Shell> xfdList DH0:C/#?
+		Examines the contents of DH0:C.
+
+	Shell> xfdList DF0:#?/#?.(library|device) ALL
+		Examines any drawer deeper than level one
+		on DF0: for filenames ending with .library
+		or .device.
+
+HISTORY
+	xfdList 1.04
+	- No more Enforcer hits when called without arguments
+
+	xfdList 1.03
+	- Added option NOEXTERN.
+
+	xfdList 1.02
+	- Fixed xfdFreeObject() call. Some bytes have not been
+	  released correctly. Thanks to WEPL for the hint.
+	- Fixed problems with empty files. They have been
+	  reported with the status of the last file. Thanks
+	  again to WEPL for the report.
+	- Fixed problem with single '*' wildcard. This was not
+	  interpreted as '#?', but as the current Shell window.
+	  This actually is a DOS problem, but replacing a '*'
+	  internally with '#?' fixes the problems. Thanks to
+	  Holger Wessling for the hint.
+
+	xfdList 1.01
+	- xfdm_MinBufferSize of xfdmaster.library v36+ is used
+	  to determine the size of the recog buffer.
+	- Added recognition code for linkers.
+
+	xfdList 1.00a
+	- Debugged some arp.library stuff.
+
+	xfdList 1.00
+	- First public release.
+
+COPYRIGHT
+	xfdList is freely distributable for noncommercial use.
+
+AUTHOR
+	Georg Hörmann
+	Martinswinkelstraße 16c
+	82467 Garmisch-Partenkirchen
+	Germany

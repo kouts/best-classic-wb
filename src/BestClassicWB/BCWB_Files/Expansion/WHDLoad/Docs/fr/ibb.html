@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<TITLE>Installation de secteurs de boot</TITLE>
+<meta name="DC.Language" content="fr">
+<meta http-equiv="content-language" content="fr">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: ibb.html 1.4 2004/04/07 20:02:00 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>InstallBB * Installation de secteurs de boot</h3>
+InstallBB lit ou &eacute;crit des secteurs de boot &agrave; partir ou sur un disque. Les secteurs de boot sont g&eacute;r&eacute;s comme des ex&eacute;cutables. En &eacute;criture, il pr&eacute;serve le syst&egrave;me de fichiers du disque destination en lisant le secteur de boot et en fusionnant l'identifiant (<tt>DOS0</tt>,
+<tt>DOS1</tt> ...) avec le nouveau. Le checksum du secteur de boot est calcul&eacute; automatiquement.
+<h4>Installation</h4>
+InstallBB est uniquement contenu dans l'archive <tt>DEVELOPPEUR</tt>, pas dans l'archive <TT>UTILISATEUR</tt>.
+<br>Le copier dans C: ou un r&eacute;pertoire similaire
+<h4>Options</h4>
+<table>
+<tr><td colspan=2>
+<tt>PROGRAM/A,UNIT/K/N,WRITE/S</tt>
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>PROGRAM/A</tt>&nbsp;&nbsp;
+</td><td>
+le fichier ex&eacute;cutable qui doit &ecirc;tre lu ou &eacute;crit, doit &ecirc;tre sp&eacute;cifi&eacute;
+</td></tr>
+<tr><td valign=top>
+<tt>UNIT/K/N</tt>
+</td><td>
+le num&eacute;ro du lecteur de disquette
+<br>par d&eacute;faut: 0 (DF0:)
+</td></tr>
+<tr><td valign=top>
+<tt>WRITE/S</tt>
+</td><td>
+Si non positionn&eacute;, le secteur de boot est lu a partir du disque et sauv&eacute; dans le fichier. Si positionn&eacute;, le programme sp&eacute;cifi&eacute; est &eacute;crit sur la disquette.
+</td></tr>
+</table>
+</BODY>
+</HTML>

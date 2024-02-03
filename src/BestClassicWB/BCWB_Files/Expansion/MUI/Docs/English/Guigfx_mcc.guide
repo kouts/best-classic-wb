@@ -1,0 +1,140 @@
+@database "Guigfx_mcc.guide"
+@$VER: 19.2
+@author "Matthias Bethke"
+
+@Node Main "Guigfx_mcc"
+
+          @{b}-----====@{ub}****@{b}====-----@{ub}
+                @{fg shine}Guigfx.MCC@{fg text}
+          @{b}-----====@{ub}****@{b}====-----@{ub}
+
+
+               @{"  Overview  " LINK "OVERVIEW"}
+               @{"Requirements" LINK "REQUIREMENTS"}
+               @{"  History   " LINK "HISTORY"}
+               @{"   To do    " LINK "TODO"}
+               @{"   Author   " LINK "AUTHOR"}
+               @{"   Thanks   " LINK "AUTHOR"}
+@EndNode
+@Node OVERVIEW "Overview"
+Guigfx.mcc is a public custom class for @{"MUI" LINK "MUI"} (Magic User Interface)
+by Stefan Stuntz. It is a subclass of areaclass and can display, remap and scale
+images in various formats. Currently supported are:
+
+  - all file formats recognized by picture.datatype
+  - intuition images
+  - graphics bitmaps
+  - guigfx.library picture objects
+
+Optionally it does aspect-correction for strange pixel aspect
+ratios in images (like old 640x256 "medres" pictures) or
+display modes with uneven ratios.
+
+As an end user, you won't have much to do with this class, just drop it
+into MUI:Libs/MUI, or rather use the supplied installer script to do this.
+As a programmer, you should refer to the AutoDoc to see how to use it in
+your programs.
+@EndNode
+@Node REQUIREMENTS "Requirements"
+
+Guigfx.mcc requires:
+        - AmigaOS 3.0 or higher (anybody without it these days?)
+        - MUI 3.8 (might run with earlier versions, but I didn't see a need
+          to test this)
+        - guigfx.library and render.library (included, for the full
+          distribution see Aminet:dev/misc)
+@EndNode
+@Node HISTORY "History"
+History:
+v19.2           - New: MUIA_Version/MUIA_Revision attributes (thanks Allan
+                  for reminding me! :))
+                - proper Amiga-ish version number
+                - Aminet release
+v0.5            - Bugfix: Conversion function for MUIA_Guigfx_BitmapInfo
+                  was lacking a GGFX_PixelFormat tag.
+                - New: MUIA_Guigfx_BitmapInfo may now use the same
+                  special values for auto-generated palettes as
+                  MUIA_Guigfx_ImageInfo. Documentation for this was wrong
+                  anyway (see MUIP_Guigfx_BitMapInfo in Guigfx_mcc.h!),
+                  and although MUIV_Guigfx_WBPalette is probably quite
+                  useless for bitmaps, it's more consistent that way.
+                - Documentation mentioned the old MUIA_Guigfx_Bitmap tag
+                  in some places, and MUIA_Guigfx_Transparency was
+                  documented as BOOL although it's ULONG. Fixed.
+V0.4            - Fixed transparency bug in MUIM_Draw() (background wasn't
+                  always redrawn)
+                - Fixed palette format for MUIA_Guigfx_ImageInfo, colors
+                  are now correctly used
+V0.3            - Aspect correction works, whole thing seems a bit more
+                  stable. Recompiled without debug output so it doesn't
+                  crawl without Sushi as did V0.2 :)
+V0.2            - Renamed MUIA_Guigfx_Bitmap to MUIA_Guigfx_BitmapInfo
+                - Renamed Guigfx_BitmapInfo to MUIP_Guigfx_BitmapInfo,
+                  same for Guigfx_ImageInfo
+V0.1            - first version
+@EndNode
+@node TODO "To do"
+
+        - write a demo that doesn't suck that much
+        - dithering/remapping preferences via an MCP class
+        - probably fix some bugs...
+        - @{"ideas" LINIK "AUTHOR"}, anyone?
+@EndNode
+@Node AUTHOR "Author"
+
+@{b}@{u}Author@{ub}@{uu}
+
+email: Matthias.Bethke@gmx.net
+
+smail: Matthias Bethke
+       Haagstr. 5
+       91054 Erlangen
+       Germany
+
+Homepage:      http://www.linguistik.uni-erlangen.de/~msbethke
+Software page: http://www.linguistik.uni-erlangen.de/~msbethke/software.html
+@EndNode
+@Node THANKS "Thank you!"
+@{b}@{u}Thanks go to:@{ub}@{uu}
+
+        - Stefan Stuntz for @{"MUI" LINK MUI}
+        - Timm S. Müller for guigfx.library and a lot of help with using it
+        - Allan Odgaard for some suggestions
+        - all bugreporters for constructive criticism
+        - Star Sounds Orchestra, XIS, Hallucinogen, Acid Junkies and the
+          Green Nuns of the Revolution for incredible sounds
+        - Cristina for all her love
+@endnode
+@EndNode
+@node MUI "MagicUserInterface"
+
+
+                          This application uses
+
+                        MUI - MagicUserInterface
+
+                (c) Copyright 1993/94 by Stefan Stuntz
+
+
+ MUI is a system to generate and maintain graphical user interfaces. With
+ the  aid  of  a  preferences program, the user of an application has the
+     ability to customize the outfit according to his personal taste.
+
+ MUI is distributed as shareware. To obtain a complete package containing
+ lots of examples and more information about registration please look for
+ a  file  called  "muiXXusr.lha"  (XX means the latest version number) on
+          your local bulletin boards or on public domain disks.
+
+           If you want to register directly, feel free to send
+
+
+                          DM 30.-  or  US$ 20.-
+
+                                    to
+
+                              Stefan Stuntz
+                         Eduard-Spranger-Straße 7
+                              80935 München
+                                 GERMANY
+
+@endnode

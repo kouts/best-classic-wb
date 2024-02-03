@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<title>Häufig gestellte Fragen (FAQ)</title>
+<meta name="DC.Language" content="de">
+<meta http-equiv="content-language" content="de">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: faq.html 1.8 2015/12/23 22:35:27 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>Häufig gestellte Fragen (FAQ)</h3>
+<table>
+<tr><td valign=top><i>
+Frage:
+</i></td><td><b>
+Nun gut, ich habe den Installer, aber da gibt es Probleme entweder mit der
+Installation oder mit dem Starten des Spiels. Ich bin sicher, dass ich soweit
+alles richtig gemacht habe. Was nun?
+</b></td></tr><tr><td valign=top><i>
+Antwort:
+</i></td><td>
+Das mag verschiedene Ursachen haben:
+<ul>
+
+<li>fehlende oder falsche Tooltypes<br>Einige Fixes funktionieren nicht
+ordentlich (oder gar nicht) sofern nicht die richtigen Tooltypes für dein
+System gesetzt sind. Lies die Dokumentation um herauszufinden welche Tooltypes
+unterstützt werden. Beispiele für möglicherweise helfende Tooltypes sind
+NoCache, NoVBRMove, NoAutoVec, PAL/NTSC und NoMMU.
+
+<li>ReadMe welches im Installpaket enthalten ist<br>Dieses erklärt oftmals
+Besonderheiten und potentielle Probleme und Informationen bezüglich Tooltypes
+die gesetzt sein müssen.
+
+<li>falsche WHDLoad Version<br>Viele Installpakete benötigen die aktuellste
+Version von WHDLoad oder haben Probleme mit älteren. Sinnvoll ist es immer die
+aktuellste Version installiert zu haben.
+
+<li>dein System ist nicht kompatibel<br>Insbesondere Systeme mit 68040/060 CPU,
+bestimmte Turbokarten oder andere Hardware kann Probleme verursachen. Versuche
+alle zusätzliche Hardware auszuschalten.
+
+<li>nicht unterstützte Version<br>Viele kommerzielle Spiele wurden in mehr als
+einer Version veröffentlicht (Vollpreis, Billigedition, Heftzeitung, PAL/NTSC,
+...). Die Installation kann aber nur mit einer Version funktionieren, für die
+sie geschrieben wurde. Wenn du eine andere Version desselben Spieles hast wird
+es nicht funktionieren. In diesem Fall solltest du den Autor des
+Installationspaketes informieren und ihn fragen, ob er deine Version mit
+unterstützen könnte. In den meisten Fällen wird dir der Autor helfen und die
+Installation entsprechend anpassen.
+
+<li>veraltete Version des Installationspaketes<br>Sobald Fehler in einer
+Installation entdeckt und behoben wurden, wird eine neue Version der
+Installation auf der WHDLoad Webseite veröffentlicht. Logischerweise sollte
+immer die aktuellste Version verwendet werden. Die letzte Version ist nicht
+immer auf dem Aminet. Manche Fixe werden gar nicht auf dem Aminet
+veröffentlicht oder erst Wochen später!
+
+<li>du hast einen Fehler ausfindig gemacht<br>Obwohl alle Fixes vor der
+Veröffentlichung getestet werden, kann es durchaus sein, dass Fehler übersehen
+wurden. Wenn du denkst, dass du einen Fehler entdeckt hast, schreibe einen
+detaillierten Bericht an den Autor des Installationspaketes. Dazu benutze das
+Fehlerberichtformular auf der WHDLoad Webseite. Versuche dein Problem so genau
+wie möglich zu schildern. Wenn die Autoren nicht über Fehler informiert werden,
+können sie diese auch nicht beheben. Nimm bitte zur Kenntnis: der EINZIGE
+richtige Platz für Problem/Fehlerberichte ist das Fehlerberichtformular auf der
+WHDLoad Webseite und nicht comp.sys.amiga.games oder vergleichbare
+Diskussionsforen, da diese nicht von den Autoren gelesen werden.
+
+</ul>
+</td></tr>
+<tr><td valign=top><i>
+Frage:
+</i></td><td><b>
+Ich habe ein Spiel, aber ich kann kein Installationspaket dafür finden.
+</b></td></tr><tr><td valign=top><i>
+Antwort:
+</i></td><td>
+Mache eine Liste mit deinen Wünschen. Du kannst auch Spiele mit aufnehmen, welche bereits von sich aus installierbar sind (kopierbare Dateien oder/und mit beigelegten Installer), aber Probleme (Degrading/kein Ausgang) haben. Behalte im Kopf, dass eine Person normalerweise nicht mehr als 25 Spiele pro Jahr schafft. Kennzeichne auch mit einer Priorität deine Favoriten (z.B. mit ! und +) und weniger interessante Sachen (-) und prüfe für welche Spiele bereits ein Installationspaket existiert.
+</td></tr>
+<tr><td valign=top><i>
+Frage:
+</i></td><td><b>
+Ist es möglich mit WHDLoad Spiele oder Demos zu installieren die das Betriebssystem benutzen?
+</b></td></tr><tr><td valign=top><i>
+Antwort:
+</i></td><td>
+Es ist generell für ein Spiel/Demo welches innerhalb von WHDLoad ausgeführt wird nicht möglich, auf das Betriebssystem zuzugreifen. Der Entwickler des erforderlichen Slave Programmes hat die Aufgabe alle Zugriffe auf das Betriebssystem zu modifizieren. Entweder diese Zugriffe werden entfernt oder sie müssen in geeigneter Art und Weise emuliert werden. Für die Emulation existiert ein so genanntes KickEmu Paket. Dies ist verfügbar für verschiedene Kickstart Versionen (z.B. 'Sources/whdload/kick13.s'). Unter Verwendung eines Abbildes eines realen Kickstart stellt es eine volle Betriebssystemumgebung innerhalb von WHDLoad bereit. Es gibt dazu eine entsprechende Dokumentation: 'Sources/whdload/kick.readme'.
+</td></tr>
+<tr><td valign=top><i>
+Frage:
+</i></td><td><b>
+Wenn WHDLoad die MMU verwendet (Option <a href="opt.html#NoMMU">NoMMU/S</a> ist nicht gesetzt und auf einem 68030 ist die Option <a href="opt.html#MMU">MMU/S</a> gesetzt) treten kleine Fehler in der Grafik und/oder Musik auf (z.B. "Shadow of the Beast 2"). Ist dies ein Fehler?
+</b></td></tr><tr><td valign=top><i>
+Antwort:
+</i></td><td>
+Dies kann während des Ladens auftreten. Die Ursache dafür ist, dass WHDLoad für eine kurze Zeit die Interrupts ausschalten muss, wenn die MMU verwendet wird. Dieses Verhalten kann leider nicht geändert werden.
+</td></tr>
+<tr><td valign=top><i>
+Frage:
+</i></td><td><b>
+Wenn ich den NTSC Tooltype verwende stürzt WHDLoad mit einem Guru ab.
+</b></td></tr><tr><td valign=top><i>
+Antwort:
+</i></td><td>
+Es gibt einen Fehler im ScreenManager in MCP 1.30, welcher den OpenScreenTags Aufruf von WHDLoad zum Absturz bringt. Entweder eine berichtigte Version von MCP verwenden oder den ScreenManager in MCP deaktivieren.
+</td></tr>
+<tr><td valign=top><i>
+Frage:
+</i></td><td><b>
+Wenn ich Spiele mit WHDLoad starte laufen sie schneller als normal (die Musik hört sich seltsam an) und der unterste Teil des Bildschirmes fehlt. Ich habe die NTSC und PAL Optionen ausprobiert, aber diese helfen nichts.
+</b></td></tr><tr><td valign=top><i>
+Antwort:
+</i></td><td>
+Wenn du einen Voodoo Monitortreiber verwendest schalte die "FakeNativeModes" in den Tooltypes des Monitortreibers aus.
+</td></tr>
+</table>
+</BODY>
+</HTML>

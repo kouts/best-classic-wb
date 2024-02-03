@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE>Funciones de Red</TITLE>
+<meta name="DC.Language" content="es">
+<meta http-equiv="content-language" content="es">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: net.html 1.1 2015/04/19 21:04:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+
+<h3>Generalidades sobre el acceso a redes</h3>
+
+WHDLoad puede utilizar el acceso a red para verificar si existe una nueva
+versión de WHDLoad y el fichero Esclavo especificado. Toda la actividad de red
+se realiza utilizando el protocolo HTTP. La opción global <a href="opt.html#Proxy">Proxy/S</a>
+puede utilizarse para enrutar todo el tráfico de red a través de un servidor proxy.
+Para acceder a un proxy que requiera autenticación puede especificarse usuario/contraseña
+usando la opción <a href="opt.html#Proxy">Proxy/S</a>. WHDLoad solamente soporta el
+tipo de autenticación "basic".
+
+<br>Si se desea que WHDLoad no acceda a la red, puede desactivarse toda la actividad
+de redes con la opción global <a href="opt.html#NoNetwork">NoNetwork/S</a>.
+
+<h3>Verificación de actualización de WHDLoad y Esclavo</h3>
+
+Se utilizará una solicitud al sitio web de WHDLoad para verificar si existe una versión
+más nueva de WHLoad o el programa instalado (Esclavo) ha sido publicada.
+
+<br>La verificación se realiza solamente si la <a href="opt.html#SplashDelay">ventana emergente</a>
+está abierta dado que la información resultante se muestra en la misma.
+
+<p>Para realizar la verificación de actualización de WHDLoad se enviará la
+versión de WHDLoad en uso. Si existe una nueva versión de WHDLoad la ventana
+emergente mostrará el número de versión y la fecha de publicación de la
+versión más actual de WHDLoad.
+Adicionalmente, se mostrará un botón 'Actualizar WHDLoad' en la ventana emergente.
+Si Ud. ha instalado la librería <a
+href="http://sourceforge.net/projects/openurllib/">openurl.library</a> al presionar
+el botón se abrirá el navegador web configurado en su sistema apuntando a la página
+inicial de WHDLoad. Si la librería openurl.library no está disponible se mostrará un
+cuadro de diálogo con el URL de la página inicial de WHDLoad. Si está configurada
+la opción <a href="opt.html#Expert">Expert/S</a> la verificación de actualización
+tambien incluirá información sobre nuevas versiones beta de WHDLoad.
+
+<p>Para realizar la verificación de actualización del Esclavo WHDLoad calcula la
+firma digital SHA-256 del fichero Esclavo la cual se envía al sitio web de
+WHDLoad. Allí hay una base de datos de todos los ficheros Esclavos publicados. Si
+existe una versión más nueva del Instalador/Esclavo la ventana emergente mostrará
+la fecha de publicación del Instalador más actualizado publicado. Adicionalmente un
+botón 'Actualizar Esclavo' se agregará a la ventana emergente.
+Si Ud. ha instalado la librería <a
+href="http://sourceforge.net/projects/openurllib/">openurl.library</a> al presionar
+el botón se abrirá el navegador web configurado en su sistema apuntando a la página
+de WHDLoad para ese instalador. Si la librería openurl.library no está disponible se mostrará un
+cuadro de diálogo con el URL de la página de WHDLoad del instalador.
+
+<p>Si existe una versión más nueva de WHDLoad o el Esclavo se agregará un botón 'Iniciar'
+adicional a la ventana emergente y la ventana no se cerrará automáticamente para poner
+énfasis en la posibilidad de realizar la actualización. La ventana podrá ser cerrada de
+la forma habitual utilizando el ratón, la barra espaciadora, la tecla Enter o la tecla Esc.
+
+<p>Si se utiliza la librería <a href="http://sourceforge.net/projects/openurllib/">openurl.library</a>
+y se presionar el botón 'Actualizar' WHDLoad ejecutará el comando <a href="opt.html#ExecuteCleanup">ExecuteCleanup/K</a>
+para reactivar la pila IP que usualmente ha sido desactivada por el comando <a href="opt.html#ExecuteStartup">ExecuteStartup/K</a>.
+Este proceso puede fallar si no hay suficiente memoria libre para el inicio del navegador web
+si la función <a href="opt.html#Preload">Preload/S</a> ocupado la mayor parte de la memoria.
+Por lo tanto en situaciones con poca memoria el botón 'Actualizar' puede no ser utilizable.
+
+</BODY>
+</HTML>

@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE>System Monitors / Freezer</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: freezer.html 1.6 2014/12/04 23:37:38 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>System Monitors / Freezer</h3>
+
+There are a lot of pure software freezers out there. The usage of such tools
+may be of great help during the development and debugging of Slaves and the
+installed programs. WHDLoad directly supports HRTmon and ThrillKill. If you
+want direct support for an other one, you can contact me and I will try to
+include support for it. During startup WHDLoad checks if one of the supported
+monitors are active. If one is found WHDLoad will do some special stuff. If the
+MMU is used by WHDLoad it will declare the memory used by the monitor as valid
+and WriteThrough cacheable. While the game/demo runs it will forward all NMI
+exceptions to the NMI vector saved from the monitors vector table. Additional,
+if the VBR is moved by WHDLoad (<a href="opt.html#NoVBRMove">NoVBRMove/S</a> is
+not set and the cpu is at least a 68010) it will compare the <a
+href="opt.html#FreezeKey">FreezeKey</a> with the actual keyboard value at each
+interrupt. If the keys match WHDLoad will acknowledge the keyboard, transform
+the stackframe to a NMI stackframe and enter the monitor via his NMI handler.
+
+<h4>HRTmon</h4>
+
+The detection in memory should be safe especially with newer versions of the
+monitor cause a new signature was added to the monitor. Be careful if the MMU
+is used by WHDLoad: don't access memory outside BaseMem/ExpMem from HRTmon. It
+will crash because HRTmon cannot handle the resulting Access Fault Exception.
+
+<p>In the HRTmonPrefs you must check the 'No VBR move' box, otherwise you will
+not be able to enter the monitor while WHDLoad is running.
+
+<p>After returning from an activated HRTmon to the program running under WHDLoad
+you may note a incorrect graphic display. This is because HRTmon overwrites some
+Custom register. You can work around this by telling HRTmon the correct value,
+e.g. use <tt>'e $100 $5200'</tt> for a 32 color screen before return.
+
+<p>The HRTmon built into WinUAE can only be detected if HRTmon has been
+previousy activated at least one time (press key PgUp). This is the case
+because not until the first activation the NMI vector will be set which is
+required by WHDLoad to locate the monitor.
+
+<p>There are newer releases of HRTmon which add special commands when running
+under WHDLoad. So you can load/save files and use the <a
+href="prot.html">resload_Protect#?</a> functions from within HRTmon. These
+releases are downloadable from the <a
+href="http://www.whdload.de/whdload/Tools/">WHDLoad page</a>.
+
+<h4>ThrillKill</h4>
+
+There is no useable signature in the freezer, so some code compares are used.
+Therefore the detection only works with known releases.
+
+</BODY>
+</HTML>

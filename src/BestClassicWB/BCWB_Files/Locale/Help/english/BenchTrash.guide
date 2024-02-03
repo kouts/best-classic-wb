@@ -1,0 +1,1533 @@
+@DATABASE "BenchTrash"
+@$VER: BenchTrash.guide 1.32 (27.11.99)
+@(C) THOR Software
+@SMARTWRAP
+@AUTHOR Thomas Richter
+@INDEX INDEX
+@NODE MAIN "BenchTrash Guide"
+                        BenchTrash Guide
+
+Guide Version 1.32                     BenchTrash Version 1.50
+
+
+
+
+Table of Contents
+
+
+I.      @{"The Licence" link Licence}
+
+                Read This First!
+
+
+II.     @{"What is it: Overview" link Overview}
+
+                What it does...
+
+
+III.    @{"Installation" link Install}
+
+                How to install BenchTrash.
+
+
+IV.     @{"Configuration" link Config}
+
+                Setup BenchTrash.
+
+
+V.      @{"The configuration window" link Window}
+
+                Change the configuration on-line.
+
+
+VI.     @{"Common problems" link Trouble}
+
+                If things don't work...
+
+
+VII.    @{"Thanks" link thanx}
+
+                Special "thank you"'s go to...
+
+
+VIII.   @{"History" link history}
+
+                What happened before...
+
+
+
+        © THOR-Software
+
+        Thomas Richter
+
+        Rühmkorffstraße 10A
+
+
+
+        12209 Berlin
+
+
+        Germany
+
+
+
+EMail:  thor\@einstein.math.tu-berlin.de
+
+WWW:    http://www.math.tu-berlin.de/~thor/thor/index.html
+
+
+BenchTrash is FREEWARE and copyrighted © 1993-1999 by
+Thomas Richter. No commercial use without perimission of the
+author. Read the @{"licence" link Licence}!
+
+
+ZIP is a trademark of Iomega corp.
+
+
+DPaint is a trademark of the Electronic Arts (EA) corp.
+
+@ENDNODE
+@NODE Licence "The THOR-Software Licence"
+                         The THOR-Software Licence (v2, 24th June 1998)
+
+
+This License applies to the computer programs known as "BenchTrash" and
+the "BenchTrash.guide". The "Program", below, refers to such program. The
+"Archive" refers to the package of distribution, as prepared by the author
+of the Program, Thomas Richter. Each licensee is addressed as "you".
+
+
+
+The Program and the data in the archive are freely distributable
+under the restrictions stated below, but are also Copyright (c)
+Thomas Richter.
+
+Distribution of the Program, the Archive and the data in the Archive by a
+commercial organization without written permission from the author to any
+third party is prohibited if any payment is made in connection with such
+distribution, whether directly (as in payment for a copy of the Program) or
+indirectly (as in payment for some service related to the Program, or
+payment for some product or service that includes a copy of the Program
+"without charge"; these are only examples, and not an exhaustive enumeration
+of prohibited activities).
+
+
+However, the following methods of distribution
+involving payment shall not in and of themselves be a violation of this
+restriction:
+
+
+(i) Posting the Program on a public access information storage and
+retrieval service for which a fee is received for retrieving information
+(such as an on-line service), provided that the fee is not
+content-dependent (i.e., the fee would be the same for retrieving the same
+volume of information consisting of random data).
+
+
+(ii) Distributing the Program on a CD-ROM, provided that
+
+a) the Archive is reproduced entirely and verbatim on such CD-ROM, including
+especially this licence agreement;
+
+b) the CD-ROM is made available to the public for a nominal fee only,
+
+c) a copy of the CD is made available to the author for free except for
+shipment costs, and
+
+d) provided further that all information on such CD-ROM is redistributable
+for non-commercial purposes without charge.
+
+
+Redistribution of a modified version of the Archive, the Program or the
+contents of the Archive is prohibited in any way, by any organization,
+regardless whether commercial or non-commercial. Everything must be kept
+together, in original and unmodified form.
+
+
+
+
+Limitations.
+
+
+THE PROGRAM IS PROVIDED TO YOU "AS IS", WITHOUT WARRANTY. THERE IS NO
+WARRANTY FOR THE PROGRAM, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. THE ENTIRE
+RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU. SHOULD
+THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY
+SERVICING, REPAIR OR CORRECTION.
+
+
+IF YOU DO NOT ACCEPT THIS LICENCE, YOU MUST DELETE THE PROGRAM, THE ARCHIVE
+AND ALL DATA OF THIS ARCHIVE FROM YOUR STORAGE SYSTEM. YOU ACCEPT THIS
+LICENCE BY USING OR REDISTRIBUTING THE PROGRAM.
+
+
+                                                        Thomas Richter
+
+@ENDNODE
+@NODE Overview "About BenchTrash"
+"BenchTrash" is a workbench application that creates a global "Trashcan"
+icon on the workbench screen. Icons dropped over it will be either deleted
+on request, or are moved to the "Trashcan" drawer on the disk they are
+located on.
+
+
+Additional, BenchTrash tries to eject a disk if its icon is dropped over it.
+
+
+To say it in one word: BenchTrash is a Mac-like implementation of a
+trashcan.
+
+
+The icon, its position and the eject procedures can be freely choosen to
+match your personal taste and hardware.
+
+
+It displays a nice "progress bar" on request, and can execute a CLI program
+if the deletion process has finished.
+
+
+Even more options have been added to the 1.20 and 1.22 releases, and some
+of the options have changed with 1.30, read the
+@{"configuration section" link Config}.
+
+
+Last but not least:     IT'S FREE! (But please read the @{"licence" link licence}!)
+
+@ENDNODE
+@NODE Install "Installing BenchTrash"
+The installation procedure is quite simple: Just run the supplied installer
+script and follow the instructions.
+
+
+Anyways, you may also want to install by hand: Drag the "BenchTrash" icon in
+your "WBStartup" drawer of your startup volume, and copy the guide, i.e.
+THIS file, wherever you like.
+
+
+
+You may also want to install a translation of the BenchTrash to your native
+language. The localization file "BenchTrash.catalog" must be copied from the
+appropriate drawer to the drawer of the same name in "LOCALE:Catalogs/",
+i.e. "Deutsch/BenchTrash.catalog" has to go to
+"LOCALE:Catalogs/Deutsch/BenchTrash.catalog" etc.
+
+
+More translations are always welcome, contact @{"me" link me}.
+
+
+After installatation, you should @{"configure" link Config} BenchTrash.
+
+@ENDNODE
+@NODE me "Contacting the Author"
+Here's my EMail address:
+
+        thor\@einstein.math.tu-berlin.de
+
+        Thomas Richter
+
+
+You may also want to visit my web page, latest versions of all my programs
+(plus more) are available there:
+
+WWW:    http://www.math.tu-berlin.de/~thor/thor/index.html
+
+
+The selection is quickly expanding, check in monthly!
+
+@ENDNODE
+@NODE Config "Configuring BenchTrash"
+The BenchTrash configuration is done by the ToolTypes in its icon. Click it
+once and select "Information..." from the workbench icon menu to change
+them.
+
+
+BenchTrash can be invoked from the @{"shell" link Shell} as well, basically
+taking the same arguments. Unlike older versions, 1.22 and newer versions
+don't fail if started again, they change their settings. Additionally,
+BenchTrash can be used to delete files "safely" from the shell once it is
+running. More on that the @{"shell" link Shell} section.
+
+
+Here is the meaning of all supported ToolTypes, together with their
+defaults (marked with a "*"). Some settings are "rigid", i.e. can't be
+changed once BenchTrash is already loaded.
+
+____________________________________________________________________________
+
+
+        NAME=                                                   (rigid)
+
+                Select the title of the icon to appear under the trashcan.
+This defaults to "BenchTrash".
+
+@{B}Note: The description of this tooltype was mixed with the new "ICON"
+tooltype - sorry about the mess. "NAME" itself was broken, too....@{UB}
+
+____________________________________________________________________________
+
+
+        ICON=                                                   (rigid)
+
+                Select the path of the icon to use on the workbench screen.
+This is the default trashcan icon if you ommit this tooltype.
+
+@{B}WARNING: THIS IS DIFFERENT TO PREVIOUS VERSIONS.@{UB}
+
+If you like a different one, give its path here (no ".info" is needed).
+
+____________________________________________________________________________
+
+
+        FULLICON=                                               (rigid)
+
+                The path to an icon for a "full" trashcan. If given,
+BenchTrash displays this icon alternatively if it detects a full trashcan,
+and the icon given by the ICON tooltype for an empty trashcan. BenchTrash
+checks the state of the trashcan(s) every time it gets activated, i.e.
+either an icon gets dropped into it, or you double-click on it.
+
+If this argument is not available, BenchTrash will use the image given by
+"ICON" and will not try to adjust its icon.
+
+
+@{B}WARNING@{UB}: The FULLICON argument is not without its quirks. First, if
+the trashcan mode is set to DELETE, BenchTrash will never display the "full"
+icon. If the mode is MIXED or LOCAL, BenchTrash will check the "Trashcan"
+directories of the available volumes and adjust the icon if required.
+However, this check will not be performed if disks are inserted or removed,
+or if you drop an icon directly into the trashcan drawer of a volume or
+cleanup the trashcan manually. BenchTrash is simply not able to detect these
+changes and hence won't be able to adjust its icon if this happens.
+If the mode is GLOBAL, BenchTrash checks the global trashcan directory for
+the state information. One of the problems when exchanging the icon is that
+the position of the icon is not available and BenchTrash might not be able
+to display the new icon at the same position as the old one, i.e. the icon
+may jump. This is the failure of the Workbench, there's nothing I can do
+against it.
+
+____________________________________________________________________________
+
+
+        NEWTRASHICON=
+
+                Select the icon to be used if BenchTrash has to create a new
+Trashcan drawer. (NEW FEATURE) This is, by default, the workbench default
+trashcan icon. If you want a different icon, give its path here, without
+".info".
+
+____________________________________________________________________________
+
+
+        ICONX=                                                  (rigid)
+
+                This ToolType takes a number as argument, and selects the
+the horizontal position where BenchTrash should be placed. By default, this
+will be on the left side of your workbench screen.
+
+
+        ICONY=                                                  (rigid)
+
+                Selects the vertical position (height) where the BenchTrash
+icon will appear. By default, this will be the bottom of your workbench
+screen.
+
+____________________________________________________________________________
+
+
+        MODE=deletemode         (can be DELETE(*),MIXED,LOCAL,GLOBAL)
+
+                Selects what to do with icons dropped on top of the
+BenchTrash:
+
+
+- If MODE=DELETE, they get deleted - asking the user first, of course.
+
+
+- For MODE=LOCAL, these files get moved to the local trashcan of the
+volume they are stored on. BenchTrash will ask you to create a trashcan on
+that volume if it's missing. You've to empty these trashcans manually from
+time to time, probably using the workbench menu.
+
+
+- MODE=MIXED is a mixture of both modes: Files are moved to the trashcan if
+present, but deleted otherwise. Files that are already IN the trashcan are
+also removed. Here, again, the user is asked first for confirmation, but
+only for those files that get deleted.
+
+
+- MODE=GLOBAL selects a global trashcan directory where all "trashed"
+files get stored. This directory can be cleaned up automatically from time
+to time by BenchTrash. It is "SYS:Trashcan" by default, but the trashcan
+drawer can be changed, of course.
+
+
+BE WARNED: By selecting this option, your harddisk gets FULLER by deleting
+items! Make sure enough room is available.
+
+
+Another warning: BenchTrash invents unique names if you try to move a file
+or a drawer into the global trashcan that already exists there. BenchTrash
+adds an underscore and a number, starting with one, to get a unique name.
+This is, by deleting two files named "Calc", you'll end up with "Calc" and
+"Calc_1" in the trash directory. The next "Calc" deleted will be renamed to
+"Calc_2" and so on.
+
+____________________________________________________________________________
+
+
+        CLEANUP=on
+
+                If enabled, BenchTrash will look into the global trashcan
+drawer on startup and will delete files that are older than a certain amount
+of days. THIS WORKS ONLY for the drawer that was specified as global "trash
+dump", not for the trashcan directories of individual volumes.
+
+
+        CLEANUP=off                             (*)
+
+                Do not touch the global trashcan. If you select
+"SYS:Trashcan", which is also the default, you can use the workbench menu to
+empty the trashcan.
+
+____________________________________________________________________________
+
+
+        COPYFIRST=on
+
+                This selects the style how BenchTrash copies files to the
+global trashcan, if this feature is enabled at all. If COPYFIRST is enabled,
+the complete set of data is copied first, and then, in a second step, the
+data is erased from its original place. This is safest because no data loss
+can occure, but your HD must be big enough to store the complete set
+of files AT LEAST TWICE. It might also defragmentate your HD somewhat, but
+an unexpected failure while copying the files won't affect the data because
+the original is still kept.
+
+
+        COPYFIRST=off                           (*)
+
+                The default. BenchTrash will delete the copied files
+immediately, hence leaving more space on the HD. While this is quicker and
+needs less storage, it is also less safe because an error condition while
+deleting the files will end in one piece of the data in the trashcan and the
+not yet copied part at the original place. It is then up to you to restore
+the original data sets.
+
+
+Remember, this setting makes only sense if GLOBAL is set to TRUE as well.
+
+____________________________________________________________________________
+
+
+        CLEANUPDELAY=
+
+                Specify the delay in seconds between launching BenchTrash
+and cleaning the global trashcan, if this option is enabled at all - See
+"CLEANUP" above. This delay defaults to ten seconds.
+
+        The cleanup task is running at priority -1, so tries to stay
+friendly in the background. It requires an exclusive access to the
+trashcan directory, so you can avoid or delay the deletion process simply by
+opening the trashcan drawer. BenchTrash will then come back every minute to
+check whether it is now able to clean up this directory.
+
+
+____________________________________________________________________________
+
+
+        MAXAGE=
+
+                If CLEANUP is set to "on", this is the maximal age in days
+of the files to be kept in the global trashcan directory. Files older than
+the amount given by MAXAGE are erased as part of the startup process of
+BenchTrash. BenchTrash WILL NOT check the global directory later on, this is
+only done ONCE each time you boot the computer.
+
+This setting defaults to seven days.
+
+____________________________________________________________________________
+
+
+        CENTER=on
+
+                If set to "on", BenchTrash will center its setup window on
+the workbench screen instead of placing it in the upper left corner.
+
+
+        CENTER=off                              (*)
+
+____________________________________________________________________________
+
+
+        PROGRESSBAR=on
+
+                Display a progress bar about how far BenchTrash got with
+deleting your files. An "Abort" button is present, too, to cancel the
+process. Closing the window with the status bar aborts the deletion also.
+
+
+
+        PROGRESSBAR=off                         (*)
+
+                The old style default without this window.
+
+____________________________________________________________________________
+
+
+        DONOTASK=on
+
+                If enabled, the "confirmation" requester is suppressed and
+the files are always deleted. THIS MIGHT BE QUITE DANGEROUS!
+
+
+        DONOTASK=off                            (*)
+
+                The default: Show a requester.
+
+____________________________________________________________________________
+
+
+        SILENTDROP=
+
+
+                If DONOTASK equals off, this specifies the number of files
+or directories up to which BenchTrash will not show a confirmation requester
+and will delete the files silently. E.g. if this is set to "2", more than
+two files must be dropped on the BenchTrash to get the confirmation
+requester, less files will be deleted without asking first.
+
+The default for this option is "0", i.e. show the requester regardless of
+the number of files.
+
+This option has no effect if DONOTASK is set to "on".
+
+____________________________________________________________________________
+
+
+        NOACTIVATE=on
+
+                Tell BenchTrash not to activate its progress bar on open.
+
+
+        NOACTIVATE=off                          (*)
+
+                The default: activate it.
+
+
+____________________________________________________________________________
+
+
+        DONECMD=
+
+                A standard Amiga Shell command line should go here as an argument. This
+command will be executed every time BenchTrash finished its work. Please, NO
+DOUBLE QUOTES here!
+
+____________________________________________________________________________
+
+
+        TRASHDIR=
+
+                A FULL path to the directory to be used as global trashcan,
+if the GLOBAL MODE is selected. Defaults to "SYS:Trashcan".
+
+
+____________________________________________________________________________
+
+
+        LOCALTRASHDIR=
+
+                A path relative to a volume, to be used as local trashcan of
+that volume. Defaults to "Trashcan". This directory must lie in the root
+directory of all volumes and will be used as "ordinary" trashcan directory
+if you didn't select the GLOBAL mode.
+
+____________________________________________________________________________
+
+
+        TRASHPATTERN=
+
+                A file pattern BenchTrash will use to scan for local
+trashcans if no directory named "LOCALTRASHDIR" is available. If this
+tooltype is available and BenchTrash operates either in the local or the
+mixed mode and the "LOCALTRASHDIR" is not available, it will check all
+directories that match this pattern. If a directory is found that comes with
+a valid "Trashcan" type icon, this directory is used as replacement.
+However, since the disk must be scanned for this operation, it will be
+usually much slower.
+
+____________________________________________________________________________
+
+
+        NEWICONS=                                               (rigid)
+
+                If set to "ON", BenchTrash will try to use the "newicon"
+library to display the trashcan image in its window.
+
+____________________________________________________________________________
+
+
+        EJECT drv=                                              (rigid)
+
+                This one is unique and selects a command line to invoke if a
+volume of a given device should be ejected. To give examples:
+
+
+        @{I}EJECT DF0=EjectDisk df0:@{UI}
+
+
+will call the "EjectDisk" program whenever a disk in the first drive must be
+ejected. BenchTrash cannot do this ejection itself, since there is no
+standard way to do it!
+
+
+Starting with release 1.08, DiskSafe can also recognize ejectable drives
+by the exec device and unit number. Insert a slash "/" instead of a equal
+sign and give the exec device name behind it, replace "device" by the unit
+number.
+
+The example above is *almost* (if you don't use the MultiFileSystem)
+equivalent to:
+
+
+        @{I}EJECT trackdisk.0/EjectDisk df0:@{UI}
+
+
+Note again that the "device" string is not added - this is done by
+BenchTrash.
+
+
+A very common usage is to eject a IOMega "ZIP" floppy with Oliver Hitz's
+ZipTools or ZJTools (can be found on Aminet as "ZipTool.lha"):
+
+
+        @{I}EJECT ZIP=ZipTool >NIL: EJECT ZIP:@{UI}
+
+
+Please note that you must give the name of the DEVICE, not of volumes, i.e.
+"DH0" instead of "Workbench" or "SYS".
+
+
+If your SCSI device driver is called "oktagon.device" and the ZIP is set to
+SCSI unit 6, the line above is *almost* equivalent to:
+
+
+        @{I}EJECT oktagon.6/ZipTool >NIL: EJECT ZIP:@{UI}
+
+
+(The *almost* is related to the fact that you may have in principle two
+dos device drivers mounted on the same piece of hardware - also you
+shouldn't do this!)
+
+
+Wildcards have been introduced to BenchTrash release 1.12. It is now also
+possible to match complete classes of devices. Here one example:
+
+
+        @{I}EJECT DF?=EjectDisk %S:@{UI}
+
+
+The "?" is a standard AmigaDOS pattern, a place holder for a single
+character. Hence all device names of three characters starting with "df"
+will get the same ejection command. The "%S" in the last line is replaced by
+the full device name without a colon (":"). If, for example, you drag the
+disk "df0:" into the BenchTrash, the command beeing executed will be:
+
+
+        @{I}EjectDisk df0:@{UI}
+
+
+Another example using exec devices:
+
+
+        @{I}EJECT #?scsi.#?/SCSIEject %S %N@{UI}
+
+
+All exec device names ending with "scsi" will match, i.e. "scsi.device" or
+"gvpscsi.device". Since the unit ID is replaced by the pattern "#?", the
+unit of the device does not matter.
+
+
+The "%S" is replaced by the exec device name, hence "scsi.device" or
+"gvpscsi.device", the "%N" is replaced by the unit number as an ASCII
+string.
+
+
+@{B}REMARKS@{UB}:
+
+
+If you need the percent sign itself in the ejection command for whatever
+reason, escape it with another percent sign, i.e. the pattern "%%" is
+replaced by "%":
+
+
+        @{I}EJECT foo.1/Foo%%Eject %N@{UI}
+
+
+will match unit one of the "foo.device". The ejection command for the
+"foo.device" is called "Foo%Eject". Rather strange name, what do you think?
+
+
+
+The device name and the unit number of exec devices are matched separately,
+so a pattern like
+
+
+        @{I}EJECT #?0/FooEject %S %N@{UI}
+
+
+won't match all devices and units ending with zero (units 0, 10, 20...). Use
+two patterns instead:
+
+
+        @{I}EJECT #?.#?0/FooEject %S %N@{UI}
+
+
+...should do it.
+
+
+Remember that a ".device" is always appended to the first pattern, so the
+example above won't match things like "foo.library", although the pattern is
+just the "match all" wildcard.
+
+@ENDNODE
+@NODE Shell "Shell Arguments"
+The command line arguments are very similar to the workbench
+@{"tooltypes" link config}, but depending on whether another copy of
+BenchTrash is already running, the command template is a bit different.
+
+
+@{B}Warning: The command line syntax has changed a bit for 1.36.@{UB}
+
+
+If started for the first time, BenchTrash takes the following arguments:
+
+@{CODE}
+
+BenchTrash      NAME,ICON,NEWTRASHICON,ICONX/N,ICONY/N
+                MODE/K,CLEANUP/K,COPYFIRST/K
+                CLEANUPDELAY/N,MAXAGE/N
+                HELP/S,CENTER/K,PROGRESSBAR/K,
+                DONOTASK/K,SILENTDROP/N,NOACTIVATE/K
+                DONECMD,TRASHDIR,LOCALTRASHDIR,EJECT/M
+
+@{BODY}
+
+If another copy is already running, the command template looks like this:
+
+@{CODE}
+
+BenchTrash      NAME,ICON,NEWTRASHICON,ICONX/N,ICONY/N
+                MODE/K,CLEANUP/K,COPYFIRST/K
+                CLEANUPDELAY/N,MAXAGE/N
+                HELP/S,CENTER/K,PROGRESSBAR/K,
+                DONOTASK/K,SILENTDROP/N,NOACTIVATE/K
+                DONECMD,TRASHDIR,LOCALTRASHDIR,DELETE/K/M,RUNCLEANUP/S
+
+@{BODY}
+
+____________________________________________________________________________
+
+
+NAME    (rigid)
+
+Specify the title to use for the trashcan. Defaults to "BenchTrash".
+
+@{B}The documentation of this option was wrong in the 1.07 guide. Sorry
+about the mess...@{UB}
+
+____________________________________________________________________________
+
+
+ICON    (rigid)
+
+The pathname of the icon to use for the benchtrash. Defaults to the system's
+default trashcan icon. (NEW FOR 1.22, no longer the SYS:Trashcan icon)
+
+____________________________________________________________________________
+
+
+NEWTRASHICON
+
+The path name of the icon of new trashcans that BenchTrash might create.
+Defaults to the system default icon.
+
+____________________________________________________________________________
+
+
+ICONX   (rigid)
+
+Selects the left position of the trashcan icon. Defaults to the left edge of
+the workbench screen.
+
+
+ICONY   (rigid)
+
+Specifies the top edge of the icon. Defaults to the bottom of the workbench
+screen.
+
+____________________________________________________________________________
+
+
+MODE
+
+Selects the trashcan mode of operation. Can be either DELETE,MIXED,LOCAL or
+GLOBAL.
+
+
+- DELETE deletes all files dropped into the BenchTrash.
+
+- MIXED deletes them only if there isn't a trashcan drawer available or
+the files are already in the trashcan.
+
+- LOCAL moves them into the trashcan of the volume.
+
+- GLOBAL uses the global trashcan drawer for storing trash.
+
+____________________________________________________________________________
+
+
+CLEANUP                         (boolean switch, argument must be ON or OFF)
+
+Clean the global trashcan on startup. See also CLEANUPDELAY and MAXAGE.
+
+
+@{B}The syntax of this keyword has changed a bit. You've to specify
+either ON or OFF as argument to enable or disable this feature.@{UB}
+
+____________________________________________________________________________
+
+
+COPYFIRST                       (boolean switch, argument must be ON or OFF)
+
+If selected, copy the complete set of data first, delete it afterwards. This
+wastes some room on your HD, but is safer.
+
+
+@{B}The syntax has changed for release 1.36. You must provide a boolean
+argument to this keyword, i.e. COPYFIRST=ON or COPYFIRST=OFF.@{UB}
+
+____________________________________________________________________________
+
+
+CLEANUPDELAY
+
+Delay in seconds after the startup until BenchTrash starts to clean the
+global trashcan. Defaults to ten seconds.
+
+____________________________________________________________________________
+
+
+MAXAGE
+
+Maximal age in days of the files in the global trashcan. Defaults to one
+week.
+
+____________________________________________________________________________
+
+
+HELP
+
+Prints a short overview about the available options.
+
+____________________________________________________________________________
+
+
+CENTER                          (boolean switch, argument must be ON or OFF)
+
+If present, BenchTrash will center its @{"setup window" link Window} and the
+progress bar within the the workbench screen instead of putting it at the
+left top corner.
+
+____________________________________________________________________________
+
+
+PROGRESSBAR                     (boolean switch, argument must be ON or OFF)
+
+Build a window with a progress bar showing the status of the deletion
+process. An "Abort" button is present there as well, to cancel the
+operation.
+
+
+@{B}The syntax changed. This keyword takes now a boolean argument!@{UB}
+
+____________________________________________________________________________
+
+
+DONOTASK                        (boolean switch, argument must be ON or OFF)
+
+Do not show the "confirm" requester, delete dropped files immediately. Be
+careful, THIS MIGHT BE QUITE DANGEROUS!
+
+
+@{B}Again, the syntax has changed. You MUST provide either ON or OFF.@{UB}
+
+____________________________________________________________________________
+
+
+SILIENTDROP
+
+If DONOTASK is "off", specifies the maximal number of files or
+directories for which BenchTrash will not show a confirmation requester but
+will delete the files immediately. Defaults to "0".
+
+____________________________________________________________________________
+
+
+NOACTIVATE                      (boolean switch, argument must be ON or OFF)
+
+Do not activate the progress bar if set to "ON". The default is "OFF", which
+activates the progress bar.
+
+
+____________________________________________________________________________
+
+
+DONECMD
+
+Enter as argument a command line to be executed by BenchTrash after having
+finished its job, i.e. deleted everything. For the shell argument, THIS LINE
+MUST BE ENCLOSED in double quotes.
+
+
+___________________________________________________________________________
+
+
+TRASHDIR
+
+The full path to the global trashcan directory. Only used if MODE=GLOBAL.
+
+
+____________________________________________________________________________
+
+
+LOCALTRASHDIR
+
+A path relative to the root of each volume, used as "ordinary" trashcan.
+Only used if MODE is set to LOCAL or MIXED.
+
+___________________________________________________________________________
+
+
+EJECT           (startup only)
+
+Selects multiple ejection scripts. One argument looks like the following:
+
+<DeviceName>:<EjectionScript>
+
+i.e. to eject a ZIP disk, assuming the zip filing system is named ZIP,
+enter:
+
+
+@{I}EJECT ZIP:C:ZipTool >NIL: EJECT ZIP:@{UI}
+
+
+The redirection to NIL: isn't really necessary, but suppresses an anoying
+window.
+
+
+If you want to eject exec - device based, replace the colon by a slash "/"
+and replace the dos device name by the exec device driver, with the unit
+number substituted for "device". The example above in the second notation
+would look like the following:
+
+
+@{I}EJECT oktagon.6/C:ZipTool >NIL: EJECT ZIP:@{UI}
+
+
+assuming your ZIP is connected to a SCSI controller called "oktagon.device"
+and has the unit number (=SCSI ID) 6.
+
+
+Patterns are also possible, in the same way as in the
+@{"tooltypes" link Config}.
+
+____________________________________________________________________________
+
+
+DELETE          (running only)
+
+This argument takes several file names or patterns as arguments and treats
+these files together with their icons (!) as if they were dropped on top of
+the BenchTrash icon. Thence, this is a "safe" way of deleting files from the
+CLI. Whatever your flag settings used to be, BenchTrash will act in quite
+the same way as from the workbench, i.e. will present a confirmation
+requester, a progress bar, might move or delete the files in quite the same
+way.
+
+@{B}WARNING@{UB}: This operation is asynchroniously, i.e. launched once and
+stays in background. The BenchTrash command will return immediately to the
+shell, without waiting for the completion. If you want a synchronisation,
+run BenchTrash AGAIN, without any DELETE arguments.
+
+____________________________________________________________________________
+
+
+RUNCLEANUP      (running only)
+
+
+Forces a clean up of the global trashcan drawer. All files older than MAXAGE
+will be removed. This DOES NOT touch any other trashcan drawers.
+
+
+@{B}WARNING@{UB}: This operation is again asynchroniously.
+
+____________________________________________________________________________
+
+
+@ENDNODE
+@NODE Window "The configuration window"
+If you click on the BenchTrash icon TWICE, BenchTrash opens its
+configuration window. Most settings can be made from here, as well.
+
+____________________________________________________________________________
+
+
+"Trashcan Mode"
+
+
+This selects the trashcan operation mode, i.e. what to do with the trash.
+The buttons below select one of the following possibilities:
+
+
+- Delete All Files:     Like it says, everything dropped in the BenchTrash
+gets erased.
+
+
+- Mixed Mode:           The files get usually stored in the trashcan of the
+volume they belong to, but get deleted if that drawer isn't available. They
+are also deleted if they are already in the trashcan.
+
+
+- Volume Trashcan:      Store the files in the local volume trashcan
+directory. Create one if necessary.
+
+
+- Global Trashcan:      Use a global trashcan directory (most likely on your
+HD) to store the trash.
+
+____________________________________________________________________________
+
+
+"Cleanup Now!"
+
+
+Empties the global trashcan manually. All files older than "MAXAGE" are
+erased. This works even if the "Global Trashcan" or CLEANUP option is
+disabled. It does NOT affect any other trashcan files. Read also the
+@{"configuration" link Config} section.
+
+____________________________________________________________________________
+
+
+"Progress Bar"
+
+
+Presents that neat progress bar you all like if a deletion process is
+running.
+
+____________________________________________________________________________
+
+
+"Confirmation Requester"
+
+
+Asks the user for reconfirmation if icons are dropped and the auto-delete
+option is turned on.
+
+____________________________________________________________________________
+
+
+"Copy First, Delete Later"
+
+
+Selects the mode how files are moved to the global trashcan. If enabled, the
+complete set is copied first, and is removed later. This takes more disk
+space, but is safer.
+
+____________________________________________________________________________
+
+
+"Select"
+
+
+Shows a file requester, used to select the global trashcan directory. The
+string gadget to the right can be used to enter that name manually as well.
+
+____________________________________________________________________________
+
+
+"Save"
+
+
+Closes the window and saves all changes made to the BenchTrash icon. Thus,
+you'll get the new settings all the time and don't have to modify the tool
+types manually. A BenchTrash icon must be present for that option to work!
+
+____________________________________________________________________________
+
+
+"Use"
+
+
+Accept the changes, but don't save them. The old settings become active
+again the next time BenchTrash gets started.
+
+____________________________________________________________________________
+
+
+"Cancel"
+
+
+Close the configuration window and ignore the changes.
+
+____________________________________________________________________________
+
+
+"Quit"
+
+
+Quits this fine program. What do you need this button for?
+
+____________________________________________________________________________
+
+@ENDNODE
+@NODE Trouble "Common problems with BenchTrash"
+I) Instead of removing an icon, BenchTrash's config window pops up.
+
+____________________________________________________________________________
+
+This is in fact not a bug in BenchTrash, but in the workbench. Whenever you
+attempt to delete a drawer icon without the related directory (e.g. you
+deleted the directory with the shell and forgot to delete the icon as well)
+the workbench will fail to get a lock to that directory and will, instead,
+call BenchTrash with zero arguments - which is normally used to indicate a
+double click on the icon. Sorry about this "feature", but I am not
+responsible for it.
+
+
+
+II) Sometimes when I try to remove a directory, I get the error message
+"Error 202 : object is in use"
+
+___________________________________________________________________________
+
+This usually indicates that some other program is keeping a lock on that
+object. This happens every time you want to delete a directory which is
+"opened" by some other program. If you try to erase the home directory of a
+running program, like the DPaint drawer if DPaint is running, you'll get
+this error message. You have to quit this program first before trying again.
+
+
+If this still fails, an assign might be set to a drawer you want to erase.
+For example, BenchTrash will fail to remove the "Devs" drawer, since it is
+assigned to "DEVS:". If you REALLY wamt to remove the drawer, remove the
+assign first with
+
+
+assign <assignname>: remove
+
+
+Be careful! Some programs might need this assign, better consult the manual.
+By the way: You can get a list of all assigns with the "assign" command
+called without any arguments.
+
+
+
+If this STILL FAILS, you might get upset! Some ugly program have failed to
+free a locked directory. This happens more often than you might believe...
+GFABASIC, for example, is famous for this FEATURE. Probably you should
+contact the author of the faulty program (or even better erase the program,
+probably using BenchTrash. Seems to be the best which can be done with
+GFABASIC ;-).
+
+
+
+III) What does the failure message "Volume lacks a trashcan" mean?
+
+___________________________________________________________________________
+
+If you selected the @{"Volume Trashcan" link Config} mode, BenchTrash tries
+to move dropped files to the "Trashcan" drawer of the volume.
+
+If this volume, however, does not have a "Trashcan" directory, BenchTrash
+complains about being unable to move the trash to there.
+
+
+BenchTrash offers you, starting with 1.22, to create the trashcan
+directory and icon if this happens.
+
+
+@{B}How to prevent the requester@{UB}:
+
+
+a)      Answer it with "Ok". BenchTrash will create the missing directory
+and icon for you, it won't show up again for this volume.
+
+
+b)      Always create volumes with a trashcan on it, i.e. do not disable the
+creation of the trashcan icon in the format requester.
+
+
+c)      Use a different @{"trashcan mode" link Config} mode if you don't
+want to create trashcans. (My personal favourite is the
+@{"Delete All Files" link Config} mode since I always know when I want to
+remove stuff -I am used to UNIX: If it's gone, it's gone!)
+
+
+Something special must be said about the "Ram Disk". This one comes always
+without a trashcan since the data is lost anyways when you reboot. To make
+BenchTrash working with it, create a nice icon for the trashcan on the RAM
+disk and save it to your system partition, probably like:
+
+@{CODE}
+@{I}
+copy RAM:Trashcan.info to SYS:System/TrashcanInfo
+@{UI}
+@{BODY}
+
+and add later on the following lines to your startup sequence:
+
+@{CODE}
+@{I}
+makedir RAM:Trashcan
+copy SYS:System/TrashcanInfo to RAM:Trashcan.info
+@{UI}
+@{BODY}
+
+to create the icon and the drawer. However, DO NOT FORGET that all data
+thrown away on the RAM goes to this drawer and is lost whenever you have to
+reboot.
+
+
+
+
+IV) I get an error message, "Disk Full" when droping icons.
+
+____________________________________________________________________________
+
+Several reasons:
+
+
+a) You selected the "Global Trashcan" option and the volume the global
+trashcan is located on is full, so maybe your HD. Open the configuration
+window by clicking the BenchTrash icon twice and clean it up manually, by
+pressing the "Cleanup Now!" button. If this doesn't help, you've to erase
+some files by hand.
+
+
+b) The disk is really full. BenchTrash can't operate on a disk with zero
+free blocks, the problem is the workbench. There is no way of telling the
+workbench that the location of a specific icon has moved. Instead, it must
+be copied first and the obsolete copy must be deleted later. While it is
+possible to change the order of these operations, hence preventing this
+error, the chosen order is definitely safer because one copy of the icon is
+guaranteed to exist.
+
+If this happens, you've to erase some files manually.
+
+
+
+V) Some icons without ".info" files don't move if I drop them.
+
+____________________________________________________________________________
+
+That is, sorry to say, a bug in the workbench. The workbench doesn't allow
+file names longer than 30 characters, but the DOS does. So long file names
+might exist, even though no icon is allowed to be associated with them.
+There is no way to tell the workbench these files have moved since the OS
+returns an error code if I try to.
+
+
+Starting with Os 3.5, the maximal file name length is configurable.
+BenchTrash respects now this limit and adjusts itself accordingly.
+
+@ENDNODE
+@NODE thanx "Thank you, folks"
+Special thanks go to....
+
+
+        Oliver Hitz
+
+        for his implementation of "ZipTool".
+
+
+
+        Iomega corp. for their ZIP 100. Nice work, but please support Amiga!
+
+
+
+        Raphael Pilarczyk for a lot of useful remarks. The release 1.07 is
+due to him, more work will follow.
+
+
+        Miki Sawicki for reporting a bug in 1.07. I removed it, plus an
+enforcer hit, and added the new style exec device ejection.
+
+
+        Steve Clack for the useful idea of implementing this progress bar.
+
+
+        Eric Sauvageau for the idea about the "DoneCmd" option.
+
+
+        Miloslaw Smyk and Ron Goertz for more ideas.
+
+
+        Dimitris Panokostas for his greek translation.
+
+        Antti Westerlund the finnish translation.
+
+        Lars Renstrøm for the swedish translation.
+
+        Claudio Pucci for the italian translation.
+
+        Julien Wilk for the french translation.
+
+        Kurt Drange for the norsk translation.
+
+        Jesus Reyes Martinez for the spanish translation. And sorry for
+misspelling your name....
+
+        Vit Sindlar for the czech translation, and for reporting a bug.
+
+
+        Peter Hans van den Muijzenberg for a really big bunch of great
+ideas. The 1.22 is due to him. Thanks a lot!
+
+
+        Niall Porter for detecting a bug in release 1.20. It's fixed now,
+I'm sorry, but this release was done in a rush.
+
+
+        Burkhard Breuer for reporting about the trouble with drawers held
+open by the workbench, and a lot of additional ideas, remarks and hints.
+
+
+        Jonas Hulten for the idea about the "Mixed Mode". It's implemented
+now! And thanks for his bug report!
+
+
+        Pieter Roodnat for the idea with the TRASHPATTERN. It's now
+implemented.
+
+
+        Philippe-André Bourdin for remarking that ejection doesn't work
+with audio CD's. This is fixed now.
+
+
+Special thanks does NOT go to...
+
+
+        Commodore Amiga for their \@^&%! - computer (adverb censored). This
+ugly thing still fails to work correctly. Now my Chip Mem starts to get
+"creative" (bits start flipping). It's a CREATIVE computer, you know... )-:
+
+@ENDNODE
+@NODE history "The history of BenchTrash"
+Version 1.06:           First AmiNet release
+
+Version 1.07:           Added Font-Sensitive GUI and CENTER tooltype.
+
+
+Version 1.08:           Added ICON tooltype and exec device support of
+ejectable media. Removed a (stupid) enforcer hit in the ejection procedure
+(Sigh).
+
+
+Version 1.09:           Added the progress bar window and the related
+options. The BenchTrash setup window might have messed up the flags, but I'm
+not sure about it. At least, the bug has been removed. Added a workaround
+for a "feature" of the icon.library. Thanks Steve!
+
+
+Version 1.10:           The progress bar counted sometimes incorrectly. This
+has been fixed now.
+
+
+Version 1.11:           Removed a dump typo, and added a file count to the
+progress bar. The DONECMD option has been added on request by Eric
+Sauvageau.
+
+
+Version 1.12:           Added the DONOTASK flag and a pattern background for
+the BenchTrash progressbar. Pattern matching was introduced to the ejection
+support.
+
+
+Version 1.13:           Added a checkmark to the menu to enable/disable the
+confirmation requester.
+
+
+Version 1.14:           Added a frame around the file name to be deleted.
+Added a tiny delay to give the WB a chance to free its locks. Added an
+explicit mask setting for the text in the progress bar.
+
+
+Version 1.20:           A public "Sneak Preview" of the new "BenchTrash",
+presenting the "Global Trashcan" feature. It was requested by so many people
+that I forgot all the names. I'll try to add them to the next version of
+this guide (or just remind me, O.K.). Another bug was removed - the 1.14 did
+not free its segment when shut down. Sigh.
+
+
+Version 1.21:           An internal bug fix of 1.20. Sigh.
+
+
+Version 1.22:           Added a lot of nice features. BenchTrash can be
+re-started from the CLI or the Workbench to change its settings or to delete
+files. BenchTrash offers also to create a trashcan on a volume if it is
+missing. Fixed also a "feature" of 1.21.
+
+
+Version 1.23:           Added an optional delay for slow devices. BenchTrash
+attempts now to close all open drawers before deleting them. Thanks to
+Burkhard Breuer for reporting.
+
+
+Version 1.24:           BenchTrash tries now only to close the workbench
+windows if this is really required and works, hence, a bit faster. Added the
+LOCALTRASHDIR option to make BenchTrash fully localizeable.
+
+
+Version 1.30:           The GUI changed a lot, added the ability to save
+the preferences. Added a fourth trashcan operation mode, the MIXED MODE.
+Files get usually stored in the local trashcan, but get deleted if this one
+is missing.
+
+
+Version 1.31:           Fixed a stupid bug in the argument parser. The
+MODE keyword did not work properly.
+
+
+Version 1.32:           Fixed a minor problem in the mixed mode. The
+confirmation requester showed up even if the delete process has to be
+aborted. Found also two other bugs, thanks to Jonas!
+
+
+Version 1.33:           Huh, just another bugfix. Thanks again to Jonas!
+
+
+Version 1.34:           Changed a bit the delete/examine order to make life
+a bit easier for the filing system. Shouldn't actually make any difference.
+
+
+Version 1.35:           Fixed a stupid typo that broke the "Cancel" gadget.
+One byte was wrong... Thanks to Vit Sindlar for the report.
+
+
+Version 1.36:           Changed the shell command line option a bit, doesn't
+change the parameters any more unless specified explicitly. Added DOpus
+support (RMB menu).
+
+
+Version 1.37:           Added the NOACTIVATE option, fixed a bug in the
+DOpus support that broke the DELETE argument.
+
+
+Version 1.38:           Rewrote parts of the trashcan cleanup code which is
+now a bit more filing system friendly. Made the ejection logic a bit more
+orthogonal, should reject non-standard FFS entries now.
+
+
+Version 1.39:           Rewrote another part of the "global" mode support
+routines, required for a workaround of an MuFS bug. Urgh.
+
+
+Version 1.40:           Changed a bit the gadget layout. The "Quit" gadget
+was moved to a different position, allowing larger gadgets the standard
+"Save" "Use" "Cancel" triple at the bottom. Added a close gadget and the
+key-shortcut "Esc" for closing the window.
+
+
+Version 1.41:           Made the trashcan directory selection requester now
+a "Save Mode" requester to be able to create new directories. Added
+work-arounds for slow drives and possible conflicts with the workbench.
+Changed some of the requesters to include a "Retry" gadget for the case you
+want to make files and directories "deletable" on the fly by hand.
+
+
+Version 1.42:           Fixed one requester that appears if the volume that
+should be ejected is not available.
+
+
+Version 1.43:           Added the TRASHPATTERN tooltype to make BenchTrash
+scanning for trashcans itself. Fixed a bug in one requester asking to create
+a new trashcan.
+
+
+Version 1.44:           Added the FULLICON tooltype and the mechanism of
+showing either an empty or a full trashcan image.
+
+
+Version 1.45:           Added the NEWICONS tooltype to enable NewIcons
+support.
+
+
+Version 1.46:           Enhanced the ejection mechanism for non-filing
+device icons. If the icon label starts with the correct device name, and is
+separated with a colon ":", BenchTrash *might* be able to eject the device
+correctly.
+
+
+Version 1.50:           Added the "SILENTDROP" option to disable the
+confirmation requester if only few files are to be deleted. Added Os 3.5
+color icon support. Added Os 3.5 snapshot and unsnapshot support. Added Os
+3.5 "Information" support. If Os 3.5 is available and BenchTrash is in its
+"global" mode, double clicking on its icon or selecting "Open" from the icon
+menu will pop up the global trashcan directory. If Os 3.5 is available,
+BenchTrash will now be able to retain its position correctly if the icon is
+adjusted. If Os 3.5 is loaded, "manual" NewIcons support is disabled for
+compatibility reasons. Instead, BenchTrash will use the new functions of the
+icon.library to support NewIcons and color icons. Starting with Os 3.5, the
+maximal file length is configurable, and BenchTrash is able to read this
+configuration and to adjust itself. The workbench 3.5 menu item "Empty
+trash" is now available for BenchTrash as well and runs the cleanup process.
+
+
+@ENDNODE
+@NODE INDEX "Index"
+@{CODE}
+
+        A...
+
+        @{"About BenchTrash" link OVERVIEW}
+
+        B...
+
+        @{"BenchTrash Guide" link MAIN}
+
+        C...
+
+        @{"Common problems with BenchTrash" link TROUBLE}
+        @{"Configuring BenchTrash" link CONFIG}
+        @{"Configuration window" link WINDOW}
+        @{"Contacting the Author" link ME}
+
+        H...
+
+        @{"History of BenchTrash" link HISTORY}
+
+        I...
+
+        @{"Installing BenchTrash" link INSTALL}
+
+        L...
+
+        @{"The THOR-Software Licence" link LICENCE}
+
+        S...
+
+        @{"Shell Arguments" link SHELL}
+
+        T...
+
+        @{"Thank you, folks" link THANX}
+        @{"The THOR-Software Licence" link LICENCE}
+
+
+@{BODY}
+@ENDNODE
+

@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>CRC16 * Calcuate CRC16 Checksum</TITLE>
+<meta name="DC.Language" content="en">
+<meta http-equiv="content-language" content="en">
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<!-- $Id: crc16.html 1.4 2009/02/05 20:38:15 wepl Exp wepl $ -->
+</HEAD>
+<BODY>
+<h3>CRC16 * Calcuate CRC16 Checksum </h3>
+This program calculates the CRC-16 of a specified portion of a file (or the
+whole file). The idea is basically to be used in installation scripts that
+need to identify which version of a file they are working with to install
+different Slaves etc.
+The value it returns is the same as the CRC-16 calculated by <a href="../autodoc.html#resload_CRC16">resload_CRC16</a>
+which might be handy as well during Slave development.
+<h4>Installation</h4>
+copy it to C: or a similar place
+<h4>Options</h4>
+<table>
+<tr><td colspan=2>
+<tt>FILE/A,OFFSET/K/N,LENGTH/K/N</tt>
+</td></tr>
+<tr><td valign=top>
+<tt>FILE/A</tt>
+</td><td>
+file to calculate checksum from
+<br>example "S:Startup-Sequence"
+</td></tr>
+<tr><td valign=top nowrap>
+<tt>OFFSET/K/N</tt>&nbsp;&nbsp;
+</td><td>
+start offset in file
+<br>default beginning of file
+<br>example "OFFSET=11264" to start at track 2 of standard disk image
+</td></tr>
+<tr><td valign=top>
+<tt>LENGTH/K/N</tt>
+</td><td>
+amount of bytes to calculate the crc on
+<br>default end of file
+<br>example "LENGTH=1024"
+</td></tr>
+</table>
+<h4>Return code</h4>
+The CRC16 is returned as the exit code of the program.
+</BODY>
+</HTML>
