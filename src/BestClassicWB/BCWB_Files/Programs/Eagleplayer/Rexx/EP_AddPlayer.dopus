@@ -1,6 +1,19 @@
-/* EaglePlayer - Lade den angegebene Player rein */
+/* Eagleplayer control for DOPUS 4
+   (c) 1993-97 DEFECT Softworks
+   adds a replayer to the current list
 
-parse arg playername
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_AddPlayer.dopus {p} --arg--
+
+   where --arg-- is the name of the replayer to load
+
+   Flags:   none required
+
+*/
+
+parse arg opusport playername
 
 address 'rexx_EP'
 
@@ -8,6 +21,6 @@ options results
 
 addplayer playername
 
-address 'DOPUS.1'
+address value opusport
 toptext 'Eagleplayer: '||result
 end

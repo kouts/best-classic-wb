@@ -1,0 +1,40 @@
+/* Eagleplayer control for DOPUS 4
+   (c) 1993-97 DEFECT Softworks
+   switches to previous subsong in module
+
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_PrevSubSong.dopus {p}
+
+   Flags:   none required
+
+*/
+parse arg opusport
+options results
+
+address 'rexx_EP'
+status m pnr
+nummer=result
+if nummer == "RESULT" then
+ do
+  address value opusport
+  toptext "Eagleplayer: no module loaded"
+  exit 0
+ end
+ else
+  do
+   status p nummer sub
+    if result == "no" then
+     do
+      address value opusport
+      toptext "Eagleplayer: no Subsongs available!"
+     end
+     else
+      do
+	   prevsong
+	   song=result
+	   address value opusport
+	   toptext "Eagleplayer: "||song
+      end
+  end

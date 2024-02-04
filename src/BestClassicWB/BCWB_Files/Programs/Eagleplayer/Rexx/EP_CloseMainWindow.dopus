@@ -1,18 +1,27 @@
 /* Eagleplayeransteuerung über Diropus
-   (c) 1993-96 DEFECT
-   schließt Eagleplayer Mainwindow
+   (c) 1993-97 DEFECT Softworks
+   closes Eagleplayer`s main window
+
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_CloseMainWindow.dopus {p}
+
+   Flags:   none required
 */
+
+parse arg opusport
 
 options results
 if (pos('rexx_EP',SHOW('Ports')) = 0) then 
  do
-  address 'DOPUS.1'
+  address value opusport
   toptext 'No Eagleplayer found'
   exit
  end
 address 'rexx_EP'
 CX_POPUP NO
 AHA=result
-address 'DOPUS.1'
+address value opusport
 toptext 'Eagleplayer: '||AHA
 exit

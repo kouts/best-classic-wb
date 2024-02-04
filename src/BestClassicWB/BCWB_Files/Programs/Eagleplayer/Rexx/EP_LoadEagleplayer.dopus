@@ -1,27 +1,32 @@
-/* Eagleplayeransteuerung über Diropus
-   (c) 1992-96 DEFECT Inc.r
-   ' = (alt)(ä)
-   Lädt Eagleplayer, falls nicht schon aktiv
+/* Eagleplayer control using DOPUS 4
+   (c) 1992-97 DEFECT Softworks
+
+   starts Eagleplayer if not active yet
+
+   usage:
+   [Arexx] Eagleplayer2:rexx/EP_LoadEagleplayer.dopus {p}
 */
-
-Waittime = 60						/* 1 min Wartezeit */
-
 options results
+
+parse arg opusport
+
+Waittime = 60						/* 1 min wait */
+
 if pos('rexx_EP',SHOW('Ports')) ~= 0 then
  do
-  address 'DOPUS.1'
+  address value opusport
   toptext 'Eagleplayer already in Memory!'
  exit
  end
 
- /* Eagleplayer laden , nötigenfalls Pfad ändern !!!!! */
+ /* Eagleplayer laden */
 
- address COMMAND 'run >nil: EP:Eagleplayer'
+ address COMMAND 'run >nil: Eagleplayer2:Eagleplayer'
 
 testflag=0
 time ('R')
 
-address 'DOPUS.1'
+address value opusport
 toptext 'Waiting for Eagleplayer'
 
 do while (testflag=0) & (time('E') < Waittime)

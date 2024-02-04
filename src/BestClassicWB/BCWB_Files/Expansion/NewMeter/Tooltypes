@@ -1,0 +1,304 @@
+PORTNAME=NewMeter
+	Allows to change the port name used to avoid multiple instances. By
+	specifying a different port name you can run more than one instance
+	of NewMeter. Note that all instances run independently and each 
+	instance collects all of the system information. This might cause
+	unwanted overhead.
+
+DELAY=3
+	Wait this number of seconds before the window opens. Use this if your
+	Workbench background picture loads slowly.
+
+XPOS=-2
+	Horizontal position of the window. Use negative values to specify a
+	position relative to the right border of the screen.
+
+YPOS=20
+	Vertical position of the window. Use negative values to specify a
+	position relative to the bottom border of the screen.
+
+FONT=helvetica/11
+	Specify font face and size. Note: the program does not run if the font
+	cannot be opened.
+	You can append one or more soft styles to the font specs:
+	/b = bold
+	/i = italic
+	/u = underlined
+
+HEADER=%D, %t
+	The format of the header. See below for possible format specifiers.
+	Default is date and time.
+	Set it to empty to remove the header completely.
+
+HEADERPOS=RIGHT
+	Position of the header relative to the gauges: LEFT, RIGHT or CENTER.
+	Has no meaning if the header is wider than the gauges.
+
+HEADERALIGN=CENTER
+	Alignment of the several rows of the header relative to each other:
+	LEFT, RIGHT or CENTER. Has no meaning if the header has only one line.
+
+FOOTER=
+	Same as HEADER but appears below the level meters.
+	Default is empty (no footer).
+
+FOOTERPOS=RIGHT
+FOOTERALIGN=CENTER
+	Same as HEADERPOS resp. HEADERALIGN but for the footer.
+
+BACKCOLOR=-
+	Color for the background of the bar levels. Use hexadecimal RRGGBB values
+	or - for transparent background.
+
+SHINECOLOR=EEEEEE
+	Color for the light 3D borders. Use hexadecimal RRGGBB values.
+
+SHADOWCOLOR=222222
+	Color for the dark 3D borders. Use hexadecimal RRGGBB values.
+
+TEXTCOLOR=FFFFFF
+	Color for the label text. Use hexadecimal RRGGBB values.
+
+VALUECOLOR=FFFFFF
+	Color for the bar level text. Use hexadecimal RRGGBB values.
+
+CPUCOLOR=0000FF
+	Color for the CPU bar. Use hexadecimal RRGGBB values.
+
+CHIPCOLOR=EE0000
+	Color for the Chip RAM bar. Use hexadecimal RRGGBB values.
+
+FASTCOLOR=EE7700
+	Color for the Fast RAM bar. Use hexadecimal RRGGBB values.
+
+RTGCOLOR=228888
+	Color for the RTG memory bars. Use hexadecimal RRGGBB values.
+
+ZZTEMPCOLOR=00AA00
+	Color for the zz9000 temperature bar. Use hexadecimal RRGGBB values.
+
+SENSORCOLOR=000000
+	Color for i2c sensor bars. Use hexadecimal RRGGBB values.
+
+DOSCOLOR=008800
+	Color for the DOS volume bars. Use hexadecimal RRGGBB values.
+
+CPUGRAPH
+	Show CPU usage history as a graph.
+
+NOCPU
+	Hide the CPU bar.
+
+NOPPC
+	Hide the PowerPC CPU bar.
+
+NOCHIP
+	Hide the Chip RAM bar.
+
+NOFAST
+	Hide the Fast RAM bar.
+
+Note: if both Chip and Fast are hidden, a bar for the total amount of RAM
+      appears. If you don't want any RAM display, use the NORAM tooltype.
+
+NORTG
+	Hide the RTG memory bar.
+
+NORAM
+	Hide all RAM bars.
+
+NOMEM
+	alias of NORAM
+
+NOTEMP
+	Hide the zz9000 temperature bar.
+
+NOSENSORS
+	Hide all i2c sensor bars.
+
+NOVOLUME=pattern
+	List volumes which should not be shown separated by commas. You can use
+	volume names as well as device names. Each name may contain DOS wildcards.
+	For example NOVOLUME=RAM,Data,DF? will hide the Ram Disk, a volume named
+	Data and all floppy drives. Comparison is not case sensitive.
+
+NOVOL=pattern
+	alias of NOVOLUME
+	If you specify both, the names of both will be added to the list of hidden
+	volumes.
+
+RTGLABEL=
+	Override the board name of the RTG card. If no label is given (= default)
+	the name of the board is taken from Picasso96.
+	Note: if you have multiple gfx cards you will get multiple lines with this
+	label and are no longer able to distinquish which board is which.
+
+WINDOW
+	On OS 3.5 and above the program runs as an app icon by default. Add this
+	tooltype to run as a window like in OS 3.1 and below.
+
+BACKDROP
+	Open NewMeter behind all other windows. 
+	Note: if you use this, Workbench has to run as backdrop, too. Otherwise
+	NewMeter will be hidden behind the Workbench window.
+
+UPDATE=2
+	Skip these number of seconds when updating the volume bars.
+
+IDLETASK
+	Add an idle task to get more accurate CPU usage information. Note that
+	this prevents the CPU from going into sleep / energy saving mode.
+
+TEXTSTYLE=SHADOW
+	Determine the style of the text.  Possible values are PLAIN, SHADOW or
+	OUTLINE. Default is SHADOW.
+
+NOLEVELFRAME
+	Do not draw an embossed frame around the level bars
+
+LEVEL3D
+	Draw an embossed frame around the filled area of the level bars
+
+WINDOWCOLOR=-
+	Fill the window with this color. Use hexadecimal RRGGBB values or -
+	for no filling (transparent window).
+
+TRANSPARENCY=50
+	If you make the window visible by WINDOWCOLOR you can make it partially 
+	transparent by setting this to a non-zero percentage (between 1 and 99).
+	This requires an RTG screen with 32768 colors or more. It is ignored
+	otherwise.
+
+TRANSPARENTCLUT
+	Apply partial transparency also to CLUT screens (palette based, 256 colors
+	or less). This requires a very fast CPU. WinUAE with JIT is recommended.
+
+BORDER=8
+	If you make the window visible by WINDOWCOLOR you can define how much
+	larger than the level bars the window should be. If you set this to 8
+	or higher the window gets rounded edges.
+
+WIFIDEVICE=Devs:Networks/prism2.device
+WIFIUNIT=0
+    Device name and unit of the SANA-II driver prepresenting the WIFI device.
+    Leave WIFIDEVICE empty to remove the WIFI gauge.
+
+WIFILABEL=WIFI Signal
+    Label of the WIFI gauge. Default is WIFI Signal.
+
+WIFICOLOR=000000
+    Color of the WIFI bar. Use hexadecimal RRGGBB values.
+
+ENVGAUGE=
+	Adds a custom gauge whose value is read from an ENV variable. There can
+	be any number of these.
+
+	Format: VARNAME/A,LABEL,MINVAL/N,MAXVAL/N,DECIMALS/N,UNIT,COLOR,FAHRENHEIT/S,CELSIUS/S,CMD/S,FIRST/K/N,LEN/K/N,UPDATE=INTERVAL/K/N
+		VARNAME: the name of the environment variable
+		LABEL: the label shown left to the gauge. If none is given, the
+		       variable name is used
+		MINVAL: the minimum value, representing an empty gauge
+		MINVAL: the maximum value, representing a full gauge
+		DECIMALS: the number of decimal places. These need to be included in
+		          MINVAL and MAXVAL without the decimal point. So for example
+		          if you want to show a temperature between -20 and 125 degrees
+		          with two decimal places, you have to specify
+		          MINVAL=-2000,MAXVAL=12500,DECIMALS=2
+		UNIT: the unit shown next to the number. For example °C.
+		COLOR: the color for the bar. Use hexadecimal RRGGBB values.
+		FAHRENHEIT: if set, the value will be converted from degrees Celsius to Fahrenheit
+		CELSIUS:    if set, the value will be converted from degrees Fahrenheit to Celsius
+		Note: this will be done regardless of what the value is before or if it even is a temperature.
+		      If you set both, the value will be converted forth and back and you won't see a difference.
+		      You have to set the unit to °F resp °C, too. This is not done automatically.
+		      MINVAL and MAXVAL have to correspond to the new unit, not to the one read from the sensor.
+
+		CMD:   if this switch is set then the string in VARNAME is not taken as a variable name but as
+		       a command line which is executed in a DOS shell and the output is taken as the value for
+		       this gauge.
+		FIRST: start parsing the output at this position. If not given, parsing starts at the first
+		       place (like FIRST=1).
+		LEN:   stop parsing the output after this number of characters. If not given, parsing stops
+		       at the first non-numeric character.
+
+        UPDATE or INTERVAL:
+               Pause between retrievals of the value in seconds. Defaults to 1.
+
+I2CSENSOR=
+	Allows to override the value range, label and unit of an I2C sensor. There
+	can be any number of these.
+
+	Format: FILTER,TYPE/K,MIN/N,MAX/N,DEC=DECIMALS/N,NAME,UNIT,COLOR,FAHRENHEIT/S,CELSIUS/S
+		FILTER: an AmigaDOS pattern which is compared to the label and unit
+		        of the sensor as given by i2csensor.library. Used to select
+		        the kind of sensor to be overridden.
+		TYPE:   type of sensor, one of VOLTAGE, CURRENT, TEMP, FAN, PRESSURE,
+		        RTC, POWER, HUMIDITY or MISC. If both TYPE and FILTER are set,
+		        both must match.
+		MIN, MAX, DEC: 
+		        the new value range for the gauge. See ENVGAUGE for details.
+		NAME:   the new label for this sensor.
+		UNIT:   the new unit for this sensor.
+		COLOR:  the new color for this sensor. Use hexadecimal RRGGBB values.
+		FAHRENHEIT, CELSIUS:
+		        convert the value from one unit to the other. See ENVGAUGE for details
+		        and notes.
+
+	Example: I2CSENSOR=V12 0 1200 2 UNIT=V
+
+		If the unit or name of a sensor is given as V12 by i2csensor.library,
+		the range of the gauge is changed to 0 to 12 with two decimals and a
+		new unit of V.
+
+
+SHORTDATE=%d-%b-%y
+	Defines how the %d placeholder is substituted in the header and footer.
+
+LONGDATE=%A, %e %B %Y
+	Defines how the %D placeholder is substituted in the header and footer.
+
+ALTTIME=%I:%M %p
+	Defines how the %a placeholder is substituted in the header and footer.
+
+See http://amigadev.elowar.com/read/ADCD_2.1/Includes_and_Autodocs_3._guide/node0456.html
+for possible format specifiers.
+
+
+
+Placeholders in header and footer template:
+
+  *n or \n   new line
+
+  %t    hh:mm
+  %T    hh:mm:ss
+  %a    hh:mm am/pm
+
+  %d    dd-mmm-yy
+  %D    weekday, dd month yyyy
+
+  %r    123,456,789     all free memory
+  %R    117.7 MB
+
+  %c    1,234,567       free Chip memory
+  %C    1.2 MB
+
+  %f    123,456,789     free Fast memory
+  %F    117.7 MB
+
+  %v    46.143          Kickstart version 
+  %V    3.1.4           OS version
+
+  %s    640 x 480 x 24  Screen dimensions
+  %m    PAL:HighRes     Screen mode
+
+  %p    68020           68k CPU type
+  %u    68882           68k FPU type
+
+  %P    604e            PPC CPU type
+  %M    266             PPC CPU speed in MHz
+
+  %w    file name of workbench pattern
+  %W    full path and file name of workbench pattern
+
+  %{varname}  insert the value of env-variable varname
+

@@ -40,6 +40,7 @@
 		Class *backfill_class;
 		BOOL click;
 		BOOL needs_layout;
+		BOOL mouse_over;
 		};
 
 /*----------------------------------------------------------------------------*/
@@ -162,6 +163,8 @@
 
 	if (data->needs_layout)
 		DoMethod ((Object *)o,GM_LAYOUT,msg->gpr_GInfo,TRUE);
+
+	SetAttrs (o->GadgetRender,WBDOCK_Hover,data->mouse_over,TAG_END);
 
 	DoSuperMethodA (cl,(Object *)o,(Msg)msg);	// erase background and draw frame
 
@@ -295,12 +298,6 @@
 			}
 		}
 
-/*	if (msg->ops_GInfo)
-		{
-		do_render (o,msg->ops_GInfo,GREDRAW_REDRAW);
-		retval = 0;
-		}
-*/
 	return (retval);
 	}
 
@@ -364,6 +361,21 @@
 	}
 
 /*----------------------------------------------------------------------------*/
+/* WBDOCK_MOUSEOVER and MOUSEOUT methods                                      */
+/*----------------------------------------------------------------------------*/
+
+	static ULONG example_mouse (Class *cl,struct Gadget *o,struct gpRender *msg,BOOL over)
+
+	{
+	struct example_data *data = INST_DATA(cl,o);
+
+	data->mouse_over = over;
+
+	msg->MethodID = GM_RENDER;
+	return (DoMethodA ((APTR)o,(Msg)msg));
+	}
+
+/*----------------------------------------------------------------------------*/
 /* BOOPSI dispatcher                                                          */
 /*----------------------------------------------------------------------------*/
 
@@ -417,6 +429,14 @@
 
 	case WBDOCK_DROPICON:
 		retval = example_dropicon (cl,o,(struct wbdockDropIcon *)msg);
+		break;
+
+	case WBDOCK_MOUSEOVER:
+		retval = example_mouse (cl,o,(struct gpRender *)msg,TRUE);
+		break;
+
+	case WBDOCK_MOUSEOUT:
+		retval = example_mouse (cl,o,(struct gpRender *)msg,FALSE);
 		break;
 
 	default:

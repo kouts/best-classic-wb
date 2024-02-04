@@ -1,0 +1,35 @@
+/* Eagleplayer control for DOPUS 4
+   (c) 1993-97 DEFECT Softworks
+   switches between play and pause
+
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_PlayPause.dopus {p}
+
+   Flags:   none required
+
+*/
+parse arg opusport
+
+options results
+
+if pos('rexx_EP',SHOW('Ports')) = 0 then do
+ address value opusport
+ toptext 'Eagleplayer-Port not found'
+ exit 0
+ end
+address 'rexx_EP'
+
+status g ply
+if result=="yes" then do
+  play 0
+  address value opusport
+  toptext 'Eagleplayer: Pause Playing'
+ end
+ else do
+  play 1
+  address value opusport
+  toptext 'Eagleplayer: Start Playing'
+ end
+exit

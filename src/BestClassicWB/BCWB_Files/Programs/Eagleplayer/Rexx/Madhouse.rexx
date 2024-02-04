@@ -8,7 +8,7 @@ address 'rexx_EP'
 
 status g ply
 
-if results=yes then exit
+if result=yes then exit
 
 LoadModule filename
 aha=result
