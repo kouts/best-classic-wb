@@ -1,0 +1,34 @@
+/* Eagleplayer control using Diropus4
+   (c) 1993-1997 DEFECT Softworks
+   makes Eagleplayer open on a different public screen
+
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_PubScreenARG.dopus {p} --arg--
+   
+    where '--arg--' is the name of the public screen to open on
+
+   Flags:   none required
+
+   Example: Eagleplayer2:Rexx/EP_PubScreenARG.dopus {p} DOPUS.1
+*/
+options results
+
+parse arg opusport aha
+
+if (pos('rexx_EP',SHOW('Ports')) = 0) then 
+ do
+  address value opusport
+  toptext 'No Eagleplayer found !'
+  exit
+ end
+
+address 'rexx_EP'
+pubscreen aha
+aha=result
+
+address value opusport
+toptext 'Eagleplayer: '||aha
+
+exit

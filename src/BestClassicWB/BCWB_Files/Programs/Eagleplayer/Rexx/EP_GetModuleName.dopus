@@ -1,12 +1,21 @@
-/* Eagleplayersteuerung über Diropus
-   (c) 1992-96 DEFECT Inc.
+/* Eagleplayer control using Diropus4
+   (c) 1992-97 DEFECT Softworks
 
-   Gibt aktuellen Modulenamen zurück
+   returns current module name
+
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_GetModuleName.dopus {p}
+
+   Flags:   none required
 */
+parse arg opusport
+
 options results
 
 if pos('rexx_EP',SHOW('Ports')) = 0 then do
- address 'DOPUS.1'
+ address value opusport
  toptext 'Eagleplayerport not found!'
  exit 0
  end
@@ -22,12 +31,12 @@ if aha="yes" then
    num = result
    'status p 'num' nam'
    player = result
-   address 'DOPUS.1'
+   address value opusport
    toptext 'Eagleplayer:  Player: '||player||'  Module: '||name
   end
  else
   do
-   address 'DOPUS.1'
+   address value opusport
    toptext 'Eagleplayer: No Module playing!'
   end
 exit

@@ -1,0 +1,43 @@
+/* Eagleplayer control for DOPUS 4
+   (c) 1993-97 DEFECT Softworks
+   switches to next pattern in current module
+
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_NextPatt.dopus {p}
+
+   Flags:   none required
+
+*/
+parse arg opusport
+
+options results
+
+address 'rexx_EP'
+ status m pnr
+ num = result
+ if num "RESULT" then
+  do
+   address value opusport
+   toptext 'Eagleplayer: no module loaded'
+   exit 0
+  end
+  else
+  do
+   status p num jmp
+   player = result
+   if player=="yes" then
+    do
+     nextpatt
+     aha=result
+     address value opusport
+     toptext 'Eagleplayer: '||aha
+    end
+    else
+     do
+      address value opusport
+      toptext 'Eagleplayer: Patternjump Impossible'
+     end
+  end
+exit

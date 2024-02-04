@@ -1,0 +1,36 @@
+/* Eagleplayeransteuerung über Diropus
+   (c) 1993-1997 Defect Softworks
+   
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_NextModule.dopus {p}
+
+   Flags:   none required
+
+ 
+*/
+parse arg opusport
+
+options results
+
+if pos('rexx_EP',SHOW('Ports')) = 0 then do
+
+ address value opusport
+
+ toptext 'Eagleplayer-Port not found'
+
+ exit 0
+
+ end
+
+address 'rexx_EP'
+
+nextModule
+aha=result
+
+address value opusport
+
+toptext 'Eagleplayer: '||aha
+
+exit

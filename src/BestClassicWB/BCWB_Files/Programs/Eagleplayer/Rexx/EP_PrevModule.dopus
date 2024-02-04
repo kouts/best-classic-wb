@@ -1,0 +1,35 @@
+/* Eagleplayer control for DOPUS 4
+   (c) 1993-97 DEFECT Softworks
+   switches to previous module in current list/directory/archive
+
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_PrevModule.dopus {p}
+
+   Flags:   none required
+
+*/
+parse arg opusport
+
+options results
+
+if pos('rexx_EP',SHOW('Ports')) = 0 then do
+
+ address value opusport
+
+ toptext 'Eagleplayer-Port not found'
+
+ exit 0
+
+ end
+
+address 'rexx_EP'
+
+PrevModule
+aha=result
+
+address value opusport
+toptext 'Eagleplayer: '||aha
+
+exit

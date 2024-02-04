@@ -1,4 +1,4 @@
-Short:    V2.05, comprehensive sound replayer
+Short:    V2.06, comprehensive sound replayer
 Author:   Jan Blumenthal & Henryk Richter
 Uploader: henryk.richter@gmx.net
 Type: mus/play
@@ -8,54 +8,82 @@ Type: mus/play
  music formats. It is highly modular, such that even the main user
  interface is one of the plugins.
 
- Demo video https://youtu.be/Kmzu6kFOuHg
+ Short demo video: https://youtu.be/EVl6edI7zm4
 
  CHANGES since last release (read the documentation/history for more details)
-  - fixed Eagleplayer to work on 68000 again (some plugins are still 68020+)
-  - mixed sound output completely rewritten:
-    - AHI support
-    - 8 Bit Amplifier is now considerably faster (even works on 68000)
-    - unified 14 Bit Paula, Toccata and AHI codebase
-      - choice between normal nearest neighbor mixing and polyphase sinc 
-        filtered resampling (68040/40, 68060 or Vampire required)
-      - built-in click reduction algorithm
-    - TRUE HIGH FIDELITY SOUND IN 14 Bit Paula MODE by means of a filter
-      (highboost) which compensates for the Amiga reconstruction lowpass,
-      enabling a near flat frequency response in a range of up to 18 kHz
-      (tuned for 28 kHz and 44 kHz mixing rates)
-  - FFT-Analyzer: 
-    - faster 
-    - less artifacts (skip internal mixing if mixing Amplifiers are active,
-      apply Kaiser window to FFT inputs, higher dynamic range in spectrogram
-      mode)
-  - optional minimal mode for BifatGUI: reduced number of controls
-  - included EMPYGui24 and EagleAMPGui in the Aminet distribution
-  - ID3v2 support for MP3 (includes workaround for initialization issue in
-    mpega.library)
-  - Dirlistviewer/BifatGUI: direct mouse wheel support (without the need for
-    freewheel)
 
+ Short version: better looks and significantly better sound 
 
+ Detailed version: 
+  - some more 68000 related fixes (some plugins are still 68020+)
+  - 14 Bit Amplifier: significant audio quality improvements
+    - automatic limitation to 28 kHz sampling rate on OCS and when
+      non doublescan display modes are detected
+    - way better defaults for the 14 bit table for uncalibrated systems
+      (previous default was closer to 13.5 Bit - like AHI)
+    - fixed 14 bit table for calibrated setups: the C. Buchner 
+      quantization approach was wrong, resulting in unnecessary artifacts
+    - fixed transition delay from one song to another
+    - added optional noise shaping for 16-14 bit conversion (060 or faster)
+    - adjusted default volume for filtered mixing modes
+    - support for stereo 14 bit calibration
+    - Amiga1200 autodetection with appropriate adjustment for the "highboost"
+      equalization filter (A600 and A1200 have a different audio filter 
+      compared to the other Amiga models)
+  - FFT Analyzer 
+    - whole new set of new display modes in High and True color P96 RTG 
+      (using AMMX acceleration, if detected/available )
+    - internal sine/cosine table instead of math libs due to
+      broken mathtrans/mathffp libraries
+  - MPEG Audio (i.e. .mp2/.mp3)
+    - automatically select freqdiv=2 in 8 Bit output mode
+      (i.e. when neither of 14 Bit/Pamela/AHI/Toccata Amplifier are active)
+    - preliminary UTF-16 support for Moduleinfo and ID3TagV2
+  - Moduleinfo
+    - update to latest version
+  - Playerloader
+    - 68000 fixes and sanity checks for some tests to avoid
+      enforcer hits (e.g. tronic)
+    - renamed some eagleplayers for more resilience against
+      broken unarchiver tools (replacing spaces with underscores in 
+      filenames)
+    - better check for MP3 files with certain ID3v2 header versions
+    - AIFF file detection improvements (AIFC)
+  - Patternscroll
+    - P96 RTG support: colorful and faster scrolling, color bars in 16/24 bit
+  - Protracker
+    - fixes for some tightly looping modules in cases where "song end" 
+      detection is disabled (thanks to Gerben van K. for the report)
+    - fix for some broken Protracker modules which work with VBlank timing
+      only
+  - AIFF
+    - ADPCM support added (standard IMA4, Tavenard's ADP4)
+  - Manager
+    - fixed some Enforcer hits
+  - Pamela Amplifier
+    - 16 Bit audio output plugin for Vampire V4
+  - QuillUI
+    - truecolor user interface for big screens (>800x600) as homage to
+      a certain movie series
+  - TFMX_Pro player by Don Adan included
 
  NOTES
   - not much beta testing, please notify me about encountered issues
+    (Thanks to Gerben at this point for his relentless testing.)
   - read the documentation about how to get the best possible performance 
     and/or sound quality (TL;DR: use 8/14 Bit Amplifiers without extra
     soundcard, use Toccata Amplifier for soundcards with Toccata driver 
-    or emulation, use AHI on _fast_ Amigas with other soundcards)
+    or emulation, use AHI on _fast_ Amigas with other soundcards as last
+    resort)
   - by default, Eagleplayer will rely on file naming schemes to decide which
     external replayer to load (Eagleplayer.batch), so if it reports an
     unknown module type, it might be necessary to add the name pattern to
     the batch file
   - the Catalogs haven´t been updated. Some dialogs are outdated and the
     one or other term is English only. Sorry.
-  - The installer has been removed for this release. You can just unpack the
-    Archive somewhere to your harddrive and run EP. I`d suggest to
-    have reqtools,AHI,XPK, guigfx-/render.library, mpega.library and
-    asyncio.library installed.
+
 
  FEATURE LIST (absolutely incomplete)
-
 
   general
   
@@ -93,6 +121,7 @@ Type: mus/play
   - music-fadein and fadeout
   
   - plays from fastram
+
 
   system
   
@@ -140,20 +169,20 @@ Type: mus/play
     directly using the pulldown-menu
 
  
-  custom
+  misc 
   
   - random module selection directly at startup
   
   - features the fastest FFT spectrum analyzer ever optimized for
     68040/68060 processors. it supports lots of stunning diplay modes.
   
-  - doublebuffering-function for continuous replay of modules by immediate
+  - double buffering function for continuous replay of modules by immediate
     loading of the next module
   
   - the instruments of a soundmodule can directly be replayed and saved in
     various formats (RAW, IFF, AIFF, WAVE)
 
-  - can save most protracker-clones in protracker format
+  - can save/export most protracker-clones in protracker format
   
   - supports module ripping, which can be either directed to an interface
     to ExoticRipper, or to an own ripper.
@@ -173,8 +202,8 @@ Type: mus/play
 
   - an Amiga with 68000 CPU (68040/60 recommended for full feature set)
   - OS 2.04
-  - 0.5 MB ChipRam and 1 MB Fastram
-  - around 2.5 MB Harddsik space
+  - 0.5 MB ChipRam and 1.5 MB Fastram
+  - around 6.5 MB Harddsik space
 
 
 
@@ -186,9 +215,14 @@ Type: mus/play
  INSTALLATION:
  
   Just depack the archive to your harddisk and run Eagleplayer from there.
+  Beware of broken default settings in some unpacker tools. It has been reported
+  that some unpackers replace spaces in filenames by underscores.
+
+  An installer is provided with EP2.06 that will install EP and recommended
+  libraries.
 
   MP3 playback requires mpega.library & asyncio.library
-  EmpyGUI(24) requires guigfx.library & render.library
+  EmpyGUI, EagleAMPGui and QuillUI require guigfx.library & render.library
 
 
  CONTACT:

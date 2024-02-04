@@ -1,6 +1,8 @@
-/* EaglePlayer - main Window schlieﬂen */
+/* EaglePlayer - close main window
+   (C) 1993-1997 Defect Softworks
+*/
 
 address 'rexx_EP'
 
-Closemainwindow
+cx_popup no
 

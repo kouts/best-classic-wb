@@ -1,0 +1,32 @@
+/* Eagleplayer control for DOPUS 4
+   (c) 1993-97 DEFECT Softworks
+   (de)activates Iconify mode
+
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_Iconify.dopus {p} --arg--
+
+   where --arg-- maybe "Yes" or "No"
+
+   Flags:   none required
+
+*/
+
+parse arg opusport Zustand
+
+if zustand="" then zustand=-1
+
+options results
+if (pos('rexx_EP',SHOW('Ports')) = 0) then 
+ do
+  address value opusport
+  toptext 'No Eagleplayer found'
+  exit
+ end
+address 'rexx_EP'
+iconify zustand
+AHA=result
+address value opusport
+toptext 'Eagleplayer: '||AHA
+exit

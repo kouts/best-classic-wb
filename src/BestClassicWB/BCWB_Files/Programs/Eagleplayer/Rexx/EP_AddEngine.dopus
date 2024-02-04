@@ -1,13 +1,24 @@
-/* EaglePlayer - Lade angegebenes Engine hinein */
+/* EaglePlayer - start required engine 
 
-parse arg enginename
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_AddEngine.dopus {p} --arg--
+
+   where --arg-- is the name of the Engine to start
+
+   Flags:   none required
+
+*/
+
+parse arg dopusport enginename
 
 address 'rexx_EP'
 
 options results
 
-engine enginename
+ascengine enginename 1
 
-address 'DOPUS.1'
+address value dopusport
 toptext 'Eagleplayer: '||result
 end

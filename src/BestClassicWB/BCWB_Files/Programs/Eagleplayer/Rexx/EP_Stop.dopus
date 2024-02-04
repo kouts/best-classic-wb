@@ -1,0 +1,44 @@
+/* Eagleplayer control for DOPUS 4
+   (c) 1993-97 DEFECT Softworks
+   stops playing
+
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_Stop.dopus {p}
+
+   Flags:   none required
+
+*/
+parse arg opusport
+if (pos('rexx_EP',SHOW('Ports')) = 0) then 
+ do
+  address value opusport
+  toptext 'No Eagleplayer found'
+  exit
+ end
+
+address 'rexx_EP'
+
+options results
+
+status G fil
+
+if result == "no" then do
+	address value opusport
+	toptext "Eagleplayer: No Module loaded !"
+end
+else do
+ status g ply
+ aha =result
+ if aha == "no" then do
+	address value opusport
+	toptext "Eagleplayer: I don`t play!"
+ end
+ else
+  do
+	Stop
+	address value opusport
+	toptext "Eagleplayer: Playing now stopped!"
+  end
+end

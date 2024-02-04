@@ -1,0 +1,25 @@
+/* Eagleplayer control for DOPUS 4
+   (c) 1993-97 DEFECT Softworks
+   remote-terminate Eagleplayer
+
+   ------------------------------------------------------------------------
+   Call as:
+   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   [ARexx]  Eagleplayer2:Rexx/EP_Quit.dopus {p}
+
+   Flags:   none required
+
+*/
+parse arg opusport
+
+if (pos('rexx_EP',SHOW('Ports')) = 0) then 
+ do
+  address value opusport
+  toptext 'Eagleplayer not found'
+  exit
+ end
+address 'rexx_EP'
+quit
+address value opusport
+toptext 'Eagleplayer quitted'
+exit

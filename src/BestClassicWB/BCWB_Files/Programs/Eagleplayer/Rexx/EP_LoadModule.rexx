@@ -1,4 +1,8 @@
-/* EaglePlayer - angegebenes Module laden & abspielen */
+/* EaglePlayer - LOAD required module and play it
+
+   alternative: 
+   call 'Eagleplayer loadmodule="..."' from shell 
+*/
 
 parse arg filename
 

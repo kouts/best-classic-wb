@@ -1,4 +1,8 @@
-/* EaglePlayer - Lade angegebenes Engine hinein */
+/* EaglePlayer - start specified engine
+
+   Syntax: rx EP_AddEngine.rexx Enginename
+
+*/
 
 parse arg enginename
 
@@ -6,7 +10,7 @@ address 'rexx_EP'
 
 options results
 
-adduserprg enginename
+ascengine enginename 1
 
 say 'Eagleplayer: '||result
 end
