@@ -87,6 +87,8 @@ case GM_DOMAIN:          return ("GM_DOMAIN");
 
 case WBDOCK_TICK:        return ("WBDOCK_TICK");
 case WBDOCK_DROPICON:    return ("WBDOCK_DROPICON");
+case WBDOCK_MOUSEOVER:   return ("WBDOCK_MOUSEOVER");
+case WBDOCK_MOUSEOUT:    return ("WBDOCK_MOUSEOUT");
 
 default:
 	RawDoFmt ("%08lx",&id,(APTR)putchproc,buffer);

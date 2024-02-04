@@ -5,9 +5,10 @@
 
   Welcome to WBDock2!
 
-  @{" Installation   " link Install}
-  @{" Options        " link Options}
-  @{" ARexx Commands " link ARexx}
+  @{" Installation      " link Install}
+  @{" Options           " link Options}
+  @{" ARexx Commands    " link ARexx}
+  @{" Special Functions " link Special}
 
 @endnode
 
@@ -22,7 +23,7 @@
         - move wbdock.config to somewhere else
         - add the path to wbdock.config to WBDock's tooltypes.
 
-    @{B}Method 2@{UB}
+    @{B}Method 2@{UB} (recommended)
         - move WBDock anywhere on your harddisk
         - move wbdock.config to WBStartup
         - rename wbdock.config to WBDOCK
@@ -31,6 +32,21 @@
     With method 2 the name of the config file becomes the name of the
     ARexx port. This way you can have multiple docks. Settings will also
     be saved to the icon of the config file rather than the WBDock tool.
+
+
+
+    To get the best experience with the LCARS style you should install
+    one of the included LCARSGTJ fonts. To install the fonts copy the 
+    contents of the Fonts directory to your system's Fonts directory.
+
+    For a quick test you can also do
+
+      Assign Fonts: wbdock/Fonts ADD
+
+    To get the fonts working you also need ttf.library.
+    See http://aminet.net/search?query=ttflib
+
+    The fonts have been taken from https://www.gtjlcars.de/
 
 @endnode
 
@@ -55,11 +71,24 @@
          R - right
         The default is B (centered in the bottom of the screen)
 
+        There is one special mechanism: if the position value begins
+        with rel- then the rest of the string is used as ARexx port
+        name of another WBDock instance. The new instance will use the
+        GETPOS command to inquire the position of the other instance
+        and open its window relative to that one. Using this you can
+        implement sub-docks of some sort.
+
+        Example: rel-WBDOCK
+
     DISTANCE/K/N
         Number of pixels the dock should keep from the border.
         If you use the menu to set this it is either 0 or 5.
         Put custom values into the tooltypes or command line.
         Default is 0.
+
+    VERTDIST/K/N
+        Relative offset to the position given by POS along the border
+        it is attached to.
 
     STYLE/K
         One of
@@ -77,8 +106,17 @@
     NOTEXT/S
         Do not show text in the dock.
 
+    NOICON/S
+        Do not show icons in the dock.
+
+    NOBORDER/S
+        Do not draw a border around the dock.
+
     ND=NODRAGBAR/S
         Do not show a drag bar.
+
+    ICONDIST/K/N
+        Additional space around each icon.
 
     STICKY/S
         Keep the menu open without holding the right mouse button.
@@ -87,9 +125,21 @@
         The path and file name of the background pattern for the 
         AmiDock style.
 
+        If the file cannot be found, the background will be filled
+        with the Workbench background color.
+
+        If you leave the drawer name empty and use #rrggbb as file name
+        then rrggbb will be used as hexadecimal red/green/blue values.
+        For example #0000ff is blue.
+
+        If you leave both drawer and file name empty, the background
+        will be pseudo-transparent, i.e. it uses what was behind the 
+        window when it opened as background.
+
     DRAGBAR
         The path and file name of the background pattern of the dragbar 
-        of the AmiDock style.
+        of the AmiDock style. If the file cannot be found, it uses the
+        background specified by PATTERN.
 
     TEXTURE/K
         The path and file name of the platter pattern of the funny style. 
@@ -128,6 +178,12 @@
         Set it to 0 if the brush does not have a visible frame.
         Default is 2.
 
+    DOCKEDGES/K
+        For the MagicWB style defines a picture files which is displayed
+        at the edges of the dock. One half of the picture is used for the 
+        left resp. top edge and the other half for the right resp. bottom
+        edge.
+
     BEVEL/S
         Draw a bevel around the MagicWB dock.
 
@@ -136,6 +192,10 @@
 
     CLIWINDOW/K
         The console window which opens if a program is run in CLI mode.
+
+    NODOPUS/S
+        Do not use dopus.library to run WB icons, even if everything else
+        fails.
 
     PUBSCREEN/K
         The name of the public screen the dock should open on.
@@ -152,10 +212,31 @@
     NOBLINK/S
         Disable icon flashing after a click
 
-    SMARTREFRESH/S
+    SMART=SMARTREFRESH/S
         Changes the refresh mode of the dock window to SMART_REFRESH.
         Needs a bit more Chip RAM but flickers less.
-        
+
+    LIMIT/N/K
+        Limits the number of icons in one row of the dock. This allows
+        to create multi-row docks even if the number of icons would fit
+        in one row.
+
+    CLOSEINACTIVE/S
+        Exits the program when the dock window becomes inactive.
+        This might be useful with the sub dock function.
+        See @{"Special Functions" link Special}.
+
+    AUTOHIDE/K/N
+        Automatically hide the dock when the mouse pointer is not
+        over it.
+        The value determines how far the window moves in one step.
+        A value of one means the window just pops up or disappears
+        immediately. With a value of 2 the window moves one half of the
+        remaining way each step. A value of three is one third and so
+        on.
+        The default is 3. If you activate the option from the menu,
+        the default is used. If you want a different value you have
+        to edit it in the tooltypes.
 
 @endnode
 
@@ -193,5 +274,47 @@
         given.
         If no second icon is given the icon will be added at the end of the
         list.
+
+    GETPOS
+        Return the current position and size of the WBDock window as well
+        as of the icon which was clicked. The values are returned in the 
+        variable RESULT as decimal numbers seperated by blanks. If no icon
+        was clicked yet only the values of the window are contained in the
+        string.
+
+@endnode
+
+
+@node Special "Special Functions"
+
+  @{B}Special Functions@{UB}
+
+
+  Mountable Devices
+
+     If you add an icon to the dock which has the default tool Mount
+     (for example from Devs/DosDrivers), the icon will be especially
+     handled.
+     If the device has already been mounted, the context menu will get
+     two new items: Eject and Unmount. Eject will try to open the disk
+     tray (for example of a CD drive). If the tray is already open it 
+     will try to close it. The Unmount item will send an ACTION_DIE 
+     packet to the file system so that it unmounts itself.
+     Additionally, if you left-click the icon it will not try to mount
+     it again but rather open the drawer window if the Workbench version
+     supports it.
+
+
+  Sub Docks
+
+     It's not really an implementation of sub docks but sort of. If 
+     you add a WBDock config file to the dock, a click on it opens
+     the other dock. This was always possible. The new function
+     allows the new dock to open relative to the parent dock. Use the 
+     new rel-PORTNAME position value in the tooltypes of the sub dock.
+
+     If the sub dock has the CLOSEINACTIVE option set, the sub dock
+     acts a bit like a menu, i.e. it closes when you click on an icon
+     or beside the window.
 
 @endnode
