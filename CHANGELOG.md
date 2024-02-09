@@ -1,3 +1,11 @@
+## [2.1.9](https://github.com/kouts/best-classic-wb/compare/v2.1.8...v2.1.9) (2024-02-09)
+
+
+### Bug Fixes
+
+* added ClearRAM script ([3ddf2f8](https://github.com/kouts/best-classic-wb/commit/3ddf2f89e829565a952beaa6284fc2e0df097ce0))
+* updated SnoopDos to v3.11 ([0df4bb1](https://github.com/kouts/best-classic-wb/commit/0df4bb1b6001f2a0693d28f79e6ad52b38012086))
+
 ## [2.1.8](https://github.com/kouts/best-classic-wb/compare/v2.1.7...v2.1.8) (2024-02-04)
 
 
