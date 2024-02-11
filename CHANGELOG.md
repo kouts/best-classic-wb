@@ -1,3 +1,11 @@
+## [2.1.10](https://github.com/kouts/best-classic-wb/compare/v2.1.9...v2.1.10) (2024-02-11)
+
+
+### Bug Fixes
+
+* fixed NewMeter from requesting the prsim2.device ([d19bbf2](https://github.com/kouts/best-classic-wb/commit/d19bbf279442fcce1594223467c193a33e7a6019))
+* updated BenchTrash to v1.76 ([3b09ac7](https://github.com/kouts/best-classic-wb/commit/3b09ac7609cad060317f65acf80e558a56b94e81))
+
 ## [2.1.9](https://github.com/kouts/best-classic-wb/compare/v2.1.8...v2.1.9) (2024-02-09)
 
 
