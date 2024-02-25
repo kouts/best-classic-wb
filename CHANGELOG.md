@@ -1,3 +1,12 @@
+## [2.1.11](https://github.com/kouts/best-classic-wb/compare/v2.1.10...v2.1.11) (2024-02-25)
+
+
+### Bug Fixes
+
+* added CopyIcon ([944daf6](https://github.com/kouts/best-classic-wb/commit/944daf6ba96f2070cffdaca58ee2454a55fc04d3))
+* updated iGame to v2.4.6 ([ac307ef](https://github.com/kouts/best-classic-wb/commit/ac307ef030d1a183217e672ac7c4e91b5d0d562f))
+* updated ViNCed to v3.106.1 ([cb4b4f9](https://github.com/kouts/best-classic-wb/commit/cb4b4f9f329f945b2ea68354e7a449f1f47b1628))
+
 ## [2.1.10](https://github.com/kouts/best-classic-wb/compare/v2.1.9...v2.1.10) (2024-02-11)
 
 
