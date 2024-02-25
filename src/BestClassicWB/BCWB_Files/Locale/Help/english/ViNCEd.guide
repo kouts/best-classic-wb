@@ -1,6 +1,6 @@
 @DATABASE VNC
-@$VER: ViNCEd.guide 41.35 (29.5.2021)
-@(C) THOR-Software 1997,1998,1999,2000,2001,2020,2021
+@$VER: ViNCEd.guide 41.39 (17.2.2022)
+@(C) THOR-Software 1997,1998,1999,2000,2001,2020,2021,2022
 @AUTHOR Thomas "the Judge" Richter
 @SMARTWRAP
 @INDEX Index
@@ -18,11 +18,11 @@
         \\  /        |     |      \\ |   \\      --   |          |      |
          \\/       __|__  _|_      \\|    \\_____/    |_______|   \\____/|
 
-                                                Version 3.100
+                                                Version 3.104
 ____________________________________________________________________________
 
 
-ViNCEd - Guide  41.35                                      ViNCEd 3.100
+ViNCEd - Guide  41.39                                      ViNCEd 3.104
 
 
 
@@ -16509,7 +16509,8 @@ project would have been impossible without your work:
 
 The Italian translation team:
 
-Stefano Guidetti, Marco De Vitis, Maurizio Lotauro and Andrea Monni.
+Stefano Guidetti, Marco De Vitis, Maurizio Lotauro and Andrea Monni,
+updated by Luca Longone in 2022.
 
 
 as well as the original translation, which was done by
@@ -16555,14 +16556,6 @@ Sorry to all the folks who reported bugs and I forgot to write your names
 down. Ooops! You're still somewhere in my EMail, but that's about 50MB of
 EMail I had to dig thru. Urgh! Uhm, just contact me again so I can add you
 here.
-
-
-
-I do NOT want to thank Commodore for my \@#%&!!! computer. (This is my 3rd
-computer, my 9th mouse, my 3rd fan, my 2nd SCSI controller, my 3rd disk
-drive, several memory problems drove me crazy, the expansion port is wrongly
-designed... Which idiot designed this crap? When I found out that commodore
-went out of business, I really ENJOYED it.)
 
 
         Thomas
@@ -17457,6 +17450,82 @@ the RAW: handler instead of replacing it by ViNCEd. This was fixed in 3.99.
 invalidly accessed one of its internal variables as LONG rather than BYTE,
 causing an address fault on the 68000. Otherwise, the access was harmless.
 This was fixed in release 3.100.
+
+
+42.101: ViNCEd now delays loading the icon and workbench libraries, and
+only opens them when they are already in memory. This avoids conflicts
+during early startup if only one of the libraries is replaced by LoadModule.
+While this is potentially a user error, it may be helpful to be
+conservative. ViNCEd now re-attempts to open the libraries as soon as the
+preferences become available, i.e. whenever ENV: is created and filled.
+
+
+42.102: ViNCEd now also delays the allocation of the TmpRas and by that
+avoids any allocation of Chipmem until absolutely needed. If ViNCEd
+is used as boot console, the TmpRas memory blocked MuMove4K from
+releasing all ChipMem below 32K, and thus blocked its operation.
+Additionally, the memory management and garbadge collector of ViNCEd
+is all new and should perform better. The dynamic line and buffer
+structures require now 8 bytes less per line.
+Also forgot to include the C prototypes for the vnc.library.
+
+
+42.103: While there are not many observable changes, the internal structure
+of ViNCEd changed a lot, in preparation for a future major release. From the
+user perspective, the following things changed:
+
+- The knob size of the horizontal scroll gadget is now computed from the
+taken scroll space, and no longer from the maximum      available space.
+
+- Also, the computation of the vertical knob size was incorrect in case a
+scroll region was installed into the window by means of the CSI n;m r
+sequence.
+
+- Rewrapping of the window contents with installed scroll
+region might have been off and might have positioned the cursor in the
+wrong spot upon re-wrapping of the window contents.
+
+- If cursor movement was restricted to the visible area, the cursor     could
+not move at all in printed output. This now changed such that the cursor
+can move in such areas, provided there is no user input. As soon as input
+appears, cursor movement remains constrained to the input.
+
+- Overriding the CON: mount damaged a dos.library semaphore because
+dos.library creates a mis-aligned "fake" seglist for the ROM-resident
+CON-Handler. Added a workaround, this should prevent system hangs.
+
+
+Internal changes:
+
+- ViNCed no longer relocates dedicated line pointers in its main structure
+upon garbadge collection; instead, ViNCEd uses now a handle system with
+stack-based handle allocation to ensure proper pointer relocation. This
+would allow many more "floating" line pointer in future releases.
+
+- The "word" structure no longer uses offsets from the left window edge to
+indicate the position of a word. Instead, an offset from the end of the last
+word is used. The entire line compaction/expansion was rewritten. This,
+together with the previous choice, and the prop gadget change, would enable
+arbitrary long lines in future releases of ViNCEd. Currently, the line
+length is limited by about 250 characters.
+
+- Handling of the scroll region was greatly simplified. Instead of moving
+lines around on the "visible line list" upon insertion and deletion of
+lines, the lines in the scroll region are now kept in two separate lists
+which are not touched by the typical editor screen manipulations.
+
+-As a side effect of these changes, the VNC main structure changed in some
+places.
+
+
+3.104: When marking an almost empty window with blank lines for the
+clipboard, ViNCEd may have forgotten to mark the end-of-line of some of the
+empty lines in the window. This was due to one bug in a low-level function
+iterating over lines.
+
+
+Thanks to Luca Longone, the italian catalog has been updated! Thank you for
+your contribution!
 
 
 Read also the @{"credits" link THANKS} section of this guide, to find out
