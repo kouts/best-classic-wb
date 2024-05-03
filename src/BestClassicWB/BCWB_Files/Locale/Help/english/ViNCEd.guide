@@ -1,6 +1,6 @@
 @DATABASE VNC
-@$VER: ViNCEd.guide 41.39 (17.2.2022)
-@(C) THOR-Software 1997,1998,1999,2000,2001,2020,2021,2022
+@$VER: ViNCEd.guide 41.40 (1.4.2024)
+@(C) THOR-Software 1997-2001,2020-2024
 @AUTHOR Thomas "the Judge" Richter
 @SMARTWRAP
 @INDEX Index
@@ -18,11 +18,11 @@
         \\  /        |     |      \\ |   \\      --   |          |      |
          \\/       __|__  _|_      \\|    \\_____/    |_______|   \\____/|
 
-                                                Version 3.104
+                                                Version 3.107
 ____________________________________________________________________________
 
 
-ViNCEd - Guide  41.39                                      ViNCEd 3.104
+ViNCEd - Guide  41.40                                      ViNCEd 3.107
 
 
 
@@ -17523,9 +17523,22 @@ clipboard, ViNCEd may have forgotten to mark the end-of-line of some of the
 empty lines in the window. This was due to one bug in a low-level function
 iterating over lines.
 
-
 Thanks to Luca Longone, the italian catalog has been updated! Thank you for
 your contribution!
+
+
+3.106: The overlay manager of SetVNC had a very minor defect
+that probably never affected its function, but let's have it fixed anyhow. 
+When a block mark included blanks between words that were
+compressed away, and the block mark did not start at the
+beginning of the line, printing the gap between words did
+not print the block mark correctly. This happened mostly
+when scrolling.
+
+
+3.107: The secondary result code of ACTION_SCREEN_MODE is now set correctly. 
+See the RKRM Dos for details.
+
 
 
 Read also the @{"credits" link THANKS} section of this guide, to find out
