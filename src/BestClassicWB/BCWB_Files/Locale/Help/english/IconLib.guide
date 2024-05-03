@@ -1,7 +1,7 @@
 @database 40a62710-0
 @master RamDisk:IconLib.guide
 @$VER: 1.0
-@width 117
+@width 84
 @remark Created with Heddley v1.20ß © Edd Dumbill 1994-5
 
 @node "Main" "icon.library 46.4"
@@ -41,7 +41,7 @@
 
 
 
-                 Copyright 2007-2023
+                 Copyright 2007-2024
 
                    Peter Keunecke
 @endnode
@@ -380,39 +380,39 @@
 
 @node "Changes" " Latest changes "
 
- @{fg shine}Build #581 (2023/12/20):@{fg text} 
+ @{fg shine}Build #582 (2024/03/20):@{fg text} 
 
- Added a screen check to the functions GetDiskObject()
- and GetDiskObjectNew(), which are often used by old
- programs. If the process window appears on the Active
- Screen then the color mapping will be done for that
- and not for the default GlobalScreen like Workbench.
- This can be useful if windows with icons should open
- on a second screen, not WB, i.e. SwazInfo on DOpus4.
+ Another small fix for the color mapping, when more than
+ one screen is open and an icon of a mounted disk should
+ suddenly appear on the inactive screen in the background.
+ There was a workaround for a few P96 3.x versions which
+ forced DOpus5 to map icon colors for the active screen,
+ because P96 was confused by switching screenmodes, but
+ then mounted disks showed wrong colored icons. Now disk
+ icons are an exception for this older P96 workaround.
 
- Added a workaround for a bug in Startmenu 1.30 from
- Martin R. Elsner (MRE). Without any understandable
- reason Startmenu uses IconControlA() with SetWidth to
- change the internal width of the chunky image to 10.
- That setting is ignored now for the task "Startmenu".
- This won't work for a Project-icon in WBStartup. Copy
- MRE:Executables/Startmenu with its icon to WBStartup.
- This library needs the chunky image for DirectDrawing
- the exact RGB icon colors on Hi/TrueColor screens. I
- don't know what the author really wants to set to 10,
- but changing the width without updating the image is
- quite pointless and results in an image corruption.
+ And there was an Enforcer read-hit on WB 3.0/3.1 after
+ the switching to a new screenmode when the wrong colored
+ icons were selected. The screen depth was read from the
+ old rastport bitmap. Since an icon selection will only
+ happen on the active screen, this can be corrected now,
+ although it was a harmless bug anyway.
 
- Fixed a bug in my palette optimization for ColorIcons
- when there was only 1 shared palette for both images.
- The transparent color of the 2. image wasn't updated.
- Sharing just one palette for both images is rarely a
- good idea, because mostly both images will then need
- more bits per pixel than for two smaller palettes,
- and therefore the image compression may even suffer.
-
- In the version string of #579 a space character was
- missing, confusing the AmigaOS version command a bit.
+ In order to get a correct color mapping after a screen
+ mode switching on WB 3.0/3.1 I've written the small tool
+ @{b}RefreshIcons@{ub}, which will try to reload or remap wrong
+ colored icons in all open or silent windows and also the
+ disk icons and left out icons on the Workbench screen.
+ This tool executes the "Update All" function from the
+ WB menu, then calls the UpdateWorkbench() function for
+ all the objects that were skipped and for all volumes
+ as well as all left out icons in the ".backdrop" files.
+ If disks don't have a real icon then only a DiskChange
+ can reload the deficons by sending an Inhibit command.
+ Unfortunately, a DiskChange can take quite a long time,
+ therefore the update for floppy disks waits 5 seconds.
+ The new RefreshIcons tool was added to the bonus drawer
+ together with some nice icons contributed by Mason. Thx!
 @endnode
 
 @node "Downloads" " Download links "
@@ -534,8 +534,8 @@
 
  @{fg shine}OS 3.0/3.1@{fg text} has just one @{b}limitation of workbench.library
  v39-40@{ub}, which will never reload the palette based icons
- after a screenmode change and thus the colors of disks
- cannot be remapped at all. Therefore it needs a reboot.
+ after a screenmode change automatically. You can use my
+ @{b}RefreshIcons tool@{ub} now to reload or remap all ColorIcons.
 
  Install @{b}SwazInfo@{ub} on WB 3.0/3.1 to replace WB=>IconInfo.
  If the SwazInfo Installer fails, install it manually.
@@ -783,6 +783,14 @@
  measure the time it takes to open a window with many
  icons to compare the icon loading with other setups.
  It works with WB v44+ and DOpus5 and requires Arexx.
+
+ Added @{fg shine}a workaround for a bug in Startmenu 1.30@{fg text} from
+ Martin R. Elsner (MRE). Without any understandable
+ reason Startmenu uses IconControlA() with SetWidth to
+ change the internal width of the chunky image to 10.
+ That setting is ignored now for the task "Startmenu".
+ This won't work for a Project-icon in WBStartup. @{b}Copy@{ub} 
+ @{b}MRE:Executables/Startmenu with its icon to WBStartup@{ub}.
 @endnode
 
 @node "BonusPrograms" " HAM + bonus programs "
@@ -977,7 +985,7 @@
  @{"Read the restrictions for the distribution here, too!" link "Restrictions" 0}
 
 
- @{b}Copyright 2007-2023:@{ub}
+ @{b}Copyright 2007-2024:@{ub}
 
    @{b}Peter Keunecke@{ub}
 @endnode
@@ -1338,41 +1346,41 @@
 
 @node "Aenderungen" " Letzte Änderungen "
 
- @{fg shine}Build #581 (2023/12/20):@{fg text} 
+ @{fg shine}Build #582 (2024/03/20):@{fg text} 
 
- Bei den 2 Funktionen GetDiskObject/New() wird jetzt
- geprüft, ob das Fenster des Prozesses auf dem Active-
- Screen erscheint. Falls ja, werden die Icon-Farben
- für dessen Palette gemappt und nicht per Default für
- den GlobalScreen wie die Workbench. Dies hilft dann,
- wenn Fenster mit Icons auf einem anderen Screen als
- der WB angezeigt werden, z.B. SwazInfo auf DOpus4.
+ Ein weiterer kleiner Fix für das Colormapping bei mehr
+ als einem geöffneten Bildschirm, wenn gemountete Disks
+ mit ihrem Icon plötzlich auf einem inaktiven Screen im
+ Hintergrund erscheinen sollen. Es gab einen Workaround
+ für einige P96 3.x Versionen, bei dem DOpus5 gezwungen
+ wurde, Icons für den aktiven Screen zu mappen, da P96
+ durch die Screenumschaltung verwirrt wurde (gefixt),
+ aber im Hintergrund geladene Disks hatten nun falsche
+ Farben. Disks werden jetzt vom Workaround ausgenommen.
 
- Für einen Bug in Startmenu 1.30 von Martin R. Elsner
- (MRE) wurde ein Workaround hinzugefügt. Ohne irgend-
- einen verständlichen Grund ändert Startmenu mittels
- IconControlA() und SetWidth die Breite der internen
- Chunky-Bilder auf 10. Diese Änderung durch eine Task
- "Startmenu" wird nun ignoriert. Das geht aber nicht
- mit dem Project-Icon in WBStartup. Dafür kopiert man
- MRE:Executables/Startmenu plus Icon nach WBStartup.
- Die Library braucht die Chunky-Bilder für exakte RGB
- Farben durch DirectDrawing auf Hi/TrueColor Screens.
- Ich weiß nicht, was der Autor wirklich auf 10 setzen
- wollte, aber die Breite zu ändern ohne die Bilder zu
- aktualisieren macht kaum Sinn und ergibt Grafikmüll.
+ Und es gab einen Enforcer Read-Hit auf WB 3.0/3.1 nach
+ einer Screenumschaltung, wenn ein falschfarbiges Icon
+ selektiert wurde. Die Farbtiefe wurde noch vom alten
+ Screen aus der RastPort-Bitmap gelesen. Weil Icons nur
+ auf dem aktiven Screen selektiert werden können, wird
+ dieser Fehler jetzt korrigiert, obwohl er harmlos war.
 
- Ein Fehler in der Palettenoptimierung für ColorIcons
- mit nur einer Palette für beide Bilder wurde behoben.
- Die transparente Farbe des 2. Bildes wurde nach der
- Optimierung der Palette nicht aktualisiert. Nur eine
- gemeinsame Palette zu nutzen, ist selten vorteilhaft,
- denn meistens brauchen die beiden Bilder dann mehr
- Bits pro Pixel als bei zwei kleineren Paletten und
- lassen sich folglich beide schlechter komprimieren.
-
- In der Versionsangabe von #579 fehlte ein Leerzeichen
- und verwirrte den AmigaOS Versionsbefehl ein wenig.
+ Um @{b}für die WB 3.0/3.1@{ub} nach einer Screenmodeumschaltung
+ wieder korrekte Farbzuweisungen für die ColorIcons zu
+ erhalten, habe ich das @{b}RefreshIcons Tool@{ub} geschrieben,
+ das versucht, alle Icons neu zu laden oder zu mappen,
+ die sich in geöffneten oder Silent-Fenstern befinden,
+ sowie alle Disks und ausgelagerten Icons auf der WB.
+ Das Tool führt zunächst "Alles aktualisieren" aus dem
+ WB Menü aus und ruft danach für ausgelassene Objekte
+ die Funktion UpdateWorkbench() auf, aber auch für alle
+ Volumes und ausgelagerte Icons auf der Workbench. Bei
+ Disks ohne ein echtes Icon funktioniert dies nicht,
+ weshalb dann ein DiskChange zum Laden des DefIcons mit
+ dem Befehl Inhibit ausgeführt wird. Bei Floppy-Disks
+ kann dieser Reload mit 5 Sekunden Delay lange dauern.
+ Das neue RefreshIcons Tool liegt im Bonus-Verzeichnis
+ zusammen mit einigen schönen Icons von Mason. Danke!
 @endnode
 
 @node "Bezugsquellen" " Bezugsquellen "
@@ -1496,11 +1504,11 @@
  EndIf
 
  @{fg shine}OS 3.0/3.1@{fg text} hat bei der @{b}workbench.library v39-40@{ub} nur die
- @{b}Einschränkung@{ub}, die palettenbasierten Icons nach einem
- Wechsel des Bildschirmmodus nie neu zu laden und somit
- können die Farben von Disk Icons niemals neu zugeordnet
- werden. Dafür ist dann ein Neustart erforderlich. Man
- sollte auch @{b}SwazInfo@{ub} installieren, um WB=>IconInfo zu
+ @{b}Einschränkung@{ub}, für palettenbasierte Icons nach einem
+ Wechsel des Screenmodes die Farben nie zu korrigieren.
+ Dafür kann jetzt mein @{b}RefreshIcons Tool@{ub} benutzt werden.
+
+ Man sollte auch @{b}SwazInfo@{ub} installieren, um IconInfo zu
  ersetzen. Wenn der Installer fehlschlägt, dann manuell.
 
  Der @{b}NewIcons Patch@{ub} erlaubt bei 3.1 einen transparenten
@@ -1762,6 +1770,15 @@
  Zeit misst, um ein Fenster mit vielen Icons zu öffnen.
  Es ermöglicht, die Lade-Geschwindigkeit zu vergleichen.
  Mittels Arexx funktioniert es bei WB v44+ und DOpus5.
+
+ Für einen @{fg shine}Bug in Startmenu 1.30@{fg text} von Martin R. Elsner
+ (MRE) wurde ein @{fg shine}Workaround@{fg text} hinzugefügt. Ohne irgend-
+ einen verständlichen Grund ändert Startmenu mittels
+ IconControlA() und SetWidth die Breite der internen
+ Chunky-Bilder auf 10. Diese Änderung durch eine Task
+ "Startmenu" wird nun ignoriert. Das geht aber nicht
+ mit dem Project-Icon in WBStartup. @{b}Dafür kopiert man@{ub} 
+ @{b}MRE:Executables/Startmenu plus Icon nach WBStartup@{ub}.
 @endnode
 
 @node "Bonusprogramme" " HAM + Bonusprogramme "
@@ -1966,7 +1983,7 @@
  @{"Diese Einschränkungen zur Verteilung sind zu beachten!" link "Einschraenkungen" 0} 
 
 
- @{b}Copyright 2007-2023:@{ub}
+ @{b}Copyright 2007-2024:@{ub}
 
    @{b}Peter Keunecke@{ub}
 @endnode

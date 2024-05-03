@@ -63,6 +63,11 @@ COPY "BCWB_Files" TO SYS: ALL BUF 10
 ; Protect files from deletion (not needed for OS3.2)
 ; PROTECT SYS:Libs/icon.library +p
 
+; Set the executable protection bit to files that need it
+PROTECT SYS:C/FBlit +e
+PROTECT SYS:C/FText +e
+PROTECT SYS:C/FPPrefs +e
+
 ; Copy readme file
 COPY BCWB.readme.txt TO SYS:Locale/Help
 COPY BCWB.readme.txt.info TO SYS:Locale/Help
