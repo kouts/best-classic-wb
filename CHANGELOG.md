@@ -1,3 +1,13 @@
+## [2.1.12](https://github.com/kouts/best-classic-wb/compare/v2.1.11...v2.1.12) (2024-05-03)
+
+
+### Bug Fixes
+
+* set the executable protection bit to files that need it ([b4eceb7](https://github.com/kouts/best-classic-wb/commit/b4eceb745753e8befb9abe6cd61abc04221bfc3c))
+* uncommented newmeter IDLETASK tooltype ([09d3475](https://github.com/kouts/best-classic-wb/commit/09d347513a4ae75499f5183a7bf09203944b99b8))
+* updated IconLib to v46.4.582 ([7a88004](https://github.com/kouts/best-classic-wb/commit/7a88004fd555fefa2773bd4e419cfa72ff9593c9))
+* updated ViNCed to v3.107 ([8cb5779](https://github.com/kouts/best-classic-wb/commit/8cb5779c3b8cff89d9fce8cd3329d7b6ca0da06f))
+
 ## [2.1.11](https://github.com/kouts/best-classic-wb/compare/v2.1.10...v2.1.11) (2024-02-25)
 
 
