@@ -1,12 +1,12 @@
 # Local BCWB package builds
 
-The first catalogue entries reproduce Directory Opus 4.16 and FBlit 3.79 from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
+The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, and iGame 2.4.6 from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
 
 Directory Opus takes `DirectoryOpus.CFG` and the replacement icons directly from the tracked BCWB payload. The Aminet archives supply the application, library, and class-file add-on. The catalogue records the installed spelling of accented paths as observed in 2.1.12. FBlit takes `FBlit.cfg` from the BCWB payload and records the executable protection setting on `C/FBlit` separately from the other files. Shared startup scripts and WBDock settings remain part of the BCWB system.
 
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and the Windows `tar.exe` with LhA support. Install the pinned Python dependency in a local virtual environment.
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos also needs 7-Zip on PATH or installed in the standard Windows program directory. Install the pinned Python dependency in a local virtual environment.
 
 ```powershell
 python -m venv tmp/package-venv
@@ -39,3 +39,30 @@ The installer uses `COPY CLONE` for files and `COPY ALL CLONE` for package-owned
 ```
 
 Verification checks installed paths, file contents, protection bits, and comments. Timestamps and full system startup behavior need separate tests. Use these builds locally while the release packaging format is being evaluated.
+
+## Rebuild the full 2.1.12 distribution
+
+Keep a copy of the published 2.1.12 ZIP, the vanilla AmigaOS 3.2.2.1 hardfile, and a stock-installed reference hardfile locally. The published ZIP supplies the exact path layout and ZIP metadata. The builder checks catalogue files from their pinned archives or BCWB customizations and uses the pinned checkout for remaining legacy payload files. It verifies every assembled file against the published release.
+
+```powershell
+& $python tools/update_report.py fetch-pinned --archives tmp/archives
+& $python tools/distribution.py build --stock-zip tmp/baseline/BestClassicWB-v2.1.12.zip --archives tmp/archives --output tmp/rebuilt/BestClassicWB.zip
+```
+
+The builder writes the ZIP and a `.sources.json` ledger containing each file's source and SHA-256. It preserves the stock installer so relabeling, backups, moves, removals, and protection operations follow the original sequence.
+
+In WinUAE, boot a fresh copy of the vanilla hardfile. Mount the rebuilt ZIP and an Amiga UnZip tool using a read-only host directory, extract it in the guest, and run the stock `BCWB` script from its extracted drawer. Reboot into Workbench and close WinUAE before comparing. Pass your own clean, stock-installed, and rebuilt hardfile paths.
+
+```powershell
+& $python tools/distribution.py verify-install --clean 'F:/path/to/vanilla.hdf' --stock tmp/baseline/BCWB-v2.1.12-installed.hdf --installed 'F:/path/to/rebuilt-installed.hdf' --ledger tmp/rebuilt/BestClassicWB.sources.json --report tmp/rebuilt/installed-parity.json
+```
+
+The comparison covers volume label, paths, contents, protection masks, and comments. It also traces added and changed paths back to archive inputs, BCWB checkout files, or operations on the clean system. Modification timestamps are excluded from parity because repeated stock installations produced different times.
+
+## Check upstream inputs
+
+```powershell
+& $python tools/update_report.py report --output tmp/update-report.json
+```
+
+This checks the live bytes at each pinned archive URL. For iGame it also reads the latest GitHub release and identifies the Amiga package asset. Supply `--candidates tmp/update-candidates` to save that candidate locally, with a comparison against its publisher SHA-256 when one is available. Fixed Aminet URLs report whether the pinned archive changed. Automated version discovery for those sources is still open. Review candidates explicitly before adopting any update.

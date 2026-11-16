@@ -3,7 +3,9 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path, PurePosixPath
+import shutil
 import subprocess
 import sys
 from tempfile import TemporaryDirectory
@@ -55,13 +57,35 @@ def unpack_archives(data, archive_dir, scratch):
             raise ValueError(f"Archive checksum mismatch: {source}")
         directory = scratch / filename
         directory.mkdir()
-        subprocess.run(
-            ["tar.exe", "--options", "lha:hdrcharset=ISO-8859-1", "-xf",
-             str(source), "-C", str(directory)],
-            check=True,
-        )
+        extractor = archive.get("extractor", "tar")
+        if extractor == "7zip":
+            seven_zip = shutil.which("7z.exe") or (
+                Path(os.environ.get("ProgramFiles", "C:/Program Files")) / "7-Zip" / "7z.exe"
+            )
+            command = [str(seven_zip), "x", "-y", "-bso0", "-bsp0", f"-o{directory}", str(source)]
+        elif extractor == "tar":
+            command = [
+                "tar.exe", "--options", "lha:hdrcharset=ISO-8859-1", "-xf",
+                str(source), "-C", str(directory),
+            ]
+        else:
+            raise ValueError(f"Unknown archive extractor: {extractor}")
+        subprocess.run(command, check=True)
         extracted[filename] = directory
     return extracted
+
+
+
+def verified_sources(data, archive_dir, scratch):
+    extracted = unpack_archives(data, archive_dir, scratch)
+    for entry in data["files"]:
+        archive = entry.get("archive")
+        root = REPO if archive is None else extracted[archive]
+        path = root / relative_path(entry["source"])
+        content = path.read_bytes()
+        if digest(content) != entry["sha256"]:
+            raise ValueError(f"File checksum mismatch: {path}")
+        yield entry, content
 
 
 def parents(path):
@@ -102,16 +126,7 @@ def build(data, archive_dir, output):
     ordered_dirs = sorted(directories, key=lambda path: (len(path.parts), path))
     with TemporaryDirectory(dir=output.parent) as folder:
         scratch = Path(folder)
-        extracted = unpack_archives(data, archive_dir, scratch)
-        file_data = []
-        for entry in data["files"]:
-            archive = entry.get("archive")
-            root = REPO if archive is None else extracted[archive]
-            path = root / relative_path(entry["source"])
-            content = path.read_bytes()
-            if digest(content) != entry["sha256"]:
-                raise ValueError(f"File checksum mismatch: {path}")
-            file_data.append((entry, content))
+        file_data = list(verified_sources(data, archive_dir, scratch))
 
         # Leave room for the data blocks, file headers, directories and bitmap.
         blocks = sum((len(content) + 511) // 512 for _, content in file_data)
