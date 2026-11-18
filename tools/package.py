@@ -47,33 +47,46 @@ def load_package(package):
     return data
 
 
+def extract_archive(source, directory, archive):
+    if digest(source.read_bytes()) != archive["sha256"]:
+        raise ValueError(f"Archive checksum mismatch: {source}")
+    directory.mkdir()
+    extractor = archive.get("extractor", "tar")
+    if extractor == "7zip":
+        seven_zip = shutil.which("7z.exe") or (
+            Path(os.environ.get("ProgramFiles", "C:/Program Files")) / "7-Zip" / "7z.exe"
+        )
+        command = [str(seven_zip), "x", "-y", "-bso0", "-bsp0", f"-o{directory}", str(source)]
+    elif extractor == "tar":
+        command = [
+            "tar.exe", "--options", "lha:hdrcharset=ISO-8859-1", "-xf",
+            str(source), "-C", str(directory),
+        ]
+    else:
+        raise ValueError(f"Unknown archive extractor: {extractor}")
+    subprocess.run(command, check=True)
+    return directory
+
+
 def unpack_archives(data, archive_dir, scratch):
     extracted = {}
     for filename, archive in data["archives"].items():
         if relative_path(filename).name != filename:
             raise ValueError(f"Expected an archive filename: {filename}")
-        source = archive_dir / filename
-        if digest(source.read_bytes()) != archive["sha256"]:
-            raise ValueError(f"Archive checksum mismatch: {source}")
-        directory = scratch / filename
-        directory.mkdir()
-        extractor = archive.get("extractor", "tar")
-        if extractor == "7zip":
-            seven_zip = shutil.which("7z.exe") or (
-                Path(os.environ.get("ProgramFiles", "C:/Program Files")) / "7-Zip" / "7z.exe"
-            )
-            command = [str(seven_zip), "x", "-y", "-bso0", "-bsp0", f"-o{directory}", str(source)]
-        elif extractor == "tar":
-            command = [
-                "tar.exe", "--options", "lha:hdrcharset=ISO-8859-1", "-xf",
-                str(source), "-C", str(directory),
-            ]
-        else:
-            raise ValueError(f"Unknown archive extractor: {extractor}")
-        subprocess.run(command, check=True)
-        extracted[filename] = directory
+        extracted[filename] = extract_archive(archive_dir / filename, scratch / filename, archive)
+    nested = data.get("nestedArchives", {})
+    if nested:
+        nested_scratch = scratch / "nested-archives"
+        nested_scratch.mkdir()
+        for name, archive in nested.items():
+            if relative_path(name).name != name or name in extracted:
+                raise ValueError(f"Invalid or duplicate nested archive name: {name}")
+            parent = archive["archive"]
+            if parent not in data["archives"]:
+                raise ValueError(f"Unknown outer archive for {name}: {parent}")
+            source = extracted[parent] / relative_path(archive["source"])
+            extracted[name] = extract_archive(source, nested_scratch / name, archive)
     return extracted
-
 
 
 def verified_sources(data, archive_dir, scratch):
