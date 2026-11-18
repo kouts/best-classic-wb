@@ -1,10 +1,12 @@
 # Local BCWB package builds
 
-The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4.6, DeliTracker 2.34, EaglePlayer 2.06, SongPlayer 1.62, INOVAMusic 3.1, and mpega.library 2.4 from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
+The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4.6, DeliTracker 2.34, EaglePlayer 2.06, SongPlayer 1.62, INOVAMusic 3.1, mpega.library 2.4, playsid.library 1.1, ACDPlay 1.6, and DTView2 1.5b from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
 
 Directory Opus takes `DirectoryOpus.CFG` and the replacement icons directly from the tracked BCWB payload. The Aminet archives supply the application, library, and class-file add-on. The catalogue records the installed spelling of accented paths as observed in 2.1.12. FBlit takes `FBlit.cfg` from the BCWB payload and records the executable protection setting on `C/FBlit` separately from the other files. Shared startup scripts and WBDock settings remain part of the BCWB system.
 
 SongPlayer uses the pinned Aminet 1.62 archive for 105 files and the BCWB payload for its configuration and 11 replacement icons. Its 32 drawers retain stock metadata and observed accented spellings. The `mpega` entry owns the standalone archive's 68020 integer library, which also matches EaglePlayer's bundled 68020 copy. The stock payload and installed inventory contain no `C/mpega` command. INOVAMusic 3.1 remains a checked BCWB release input while its exact upstream archive is unresolved. Shared MUI and asyncio dependencies remain separate migration work.
+
+The independent `playsid` entry takes `Libs/playsid.library` from the checked `playsid3` archive nested inside DeliTracker 2.32. DeliTracker retains its PlaySID documentation and icon. No PlaySID application or `L` handler is installed. ACDPlay uses the pinned 1.6 executable and the BCWB replacement icon, including its `scsi.device` unit 1 settings. DTView2 retains the verified BCWB 1.5b executable, icon and English help file: the current Aminet archive contains 1.7, and the exact 1.5b upstream archive remains unresolved. Shared help and system drawers are not owned by these packages.
 
 ## Build on Windows
 

@@ -1,0 +1,37 @@
+{
+  "name": "PlaySID library",
+  "version": "1.1",
+  "baseline": "2.1.12",
+  "archives": {
+    "DeliTracker232.lha": {
+      "url": "https://aminet.net/mus/play/DeliTracker232.lha",
+      "sha256": "b5410eba54afde345ab6cd2b15b5e45bf5cb37c4dc10612bee285288f7e8838c"
+    }
+  },
+  "nestedArchives": {
+    "playsid3": {
+      "archive": "DeliTracker232.lha",
+      "source": "DeliTracker_II/Bonus/playsid3.lha",
+      "sha256": "fdcae4c39300e0bcc6d6afea59b62d376d95158deef0933d3efd9c03635d017f",
+      "extractor": "tar"
+    }
+  },
+  "runtimeDependencies": [],
+  "notes": [
+    "The 27,992-byte stock library identifies playsid.library 1.1 (19.06.94) and matches the playsid3 archive nested inside DeliTracker 2.32.",
+    "This package independently owns the shared Libs/playsid.library. DeliTracker retains Programs/DeliTracker2/Docs/PlaySID.doc and its BCWB replacement icon.",
+    "No PlaySID application, L handler, library icon, preferences or startup files are installed in stock. The nested installer only copies the shared library.",
+    "DeliTracker DeliSID requires this library. The complete original nested archive remains pinned as source input."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "Libs/playsid.library",
+      "source": "PlaySID3.0/libs/playsid.library",
+      "sha256": "0789be34be4ea11f9833da67239e8d380080042c32673f4da3551ca37553a042",
+      "protection": 2,
+      "comment": "",
+      "archive": "playsid3"
+    }
+  ]
+}
