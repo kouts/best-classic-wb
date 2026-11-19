@@ -1,0 +1,97 @@
+{
+  "name": "FullPalette",
+  "version": "40.22",
+  "baseline": "2.1.12",
+  "archives": {
+    "FullPalette22.lha": {
+      "url": "https://aminet.net/util/wb/FullPalette22.lha",
+      "sha256": "4543eda6aca9e1a10ec986bc987c6e56c105ec26184254137d484b00ad358f32"
+    },
+    "BetterWB5.zip": {
+      "url": "https://raw.githubusercontent.com/henrikstengaard/betterwb-package/9a2d320d9cc4bb19c5895dc71988148010e1de0f/package/BetterWB5.zip",
+      "sha256": "00ee4327eb0fba8333ee186afb2efc7ca09df49b28893727fd7b992f74bf83bc"
+    }
+  },
+  "runtimeDependencies": [],
+  "notes": [
+    "The FullPalette editor and FPPrefs helper each identify as 40.22 and match the Aminet archive. The installer enables execute permission on C/FPPrefs and the shared Startup-sequence runs it immediately after IPrefs.",
+    "BetterWB supplies the exact preset edit and activation marker. The checked BCWB release supplies the editor icon, installed palette and icon, and the modified activation script and preset icon.",
+    "The stock distribution already starts FPPrefs from C: and carries the active editor. The legacy preset targets BetterWB paths and is retained for stock parity."
+  ],
+  "directories": [
+    {
+      "path": "Prefs/Presets/FullPalette",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "C/FPPrefs",
+      "source": "FullPalette/FPPrefs",
+      "archive": "FullPalette22.lha",
+      "sha256": "24628033dfb4722b959d57aafe6ad8abf8f9792f7eea1dee7a75f6f912eb2560",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Env-Archive/Sys/fullpalette.prefs",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/Sys/fullpalette.prefs",
+      "sha256": "7d02c522cb4d7bc9c9d3b98f82cf323d15b8fd1e2a9b0c71af5806518d0881be",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Env-Archive/Sys/fullpalette.prefs.info",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/Sys/fullpalette.prefs.info",
+      "sha256": "d250378420e12ac1615333b38818b684645e2e73c13021bec866aa4ac4e2b30e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/FullPalette",
+      "source": "FullPalette/FullPalette",
+      "archive": "FullPalette22.lha",
+      "sha256": "fa39a9eac3daf0b4aad1e6d52dd9ffff32d458ab8b1ea3ba6e6be6585b9f90ff",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/FullPalette.info",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/FullPalette.info",
+      "sha256": "4d02b65894352326dcd56f2913fa9be9db3a785d3a1037d7df039fa30863c2ab",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Presets/FullPalette/ActivateFP.edit",
+      "source": "Prefs/Presets/FullPalette/ActivateFP.edit",
+      "archive": "BetterWB5.zip",
+      "sha256": "f27ce0eff0626a5dbfed07eaacb58a71a434f3a0a505b5a5eb498fae1de18610",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Presets/FullPalette/ActivateFP.script",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Presets/FullPalette/ActivateFP.script",
+      "sha256": "93b12aa903828930f8112d936e28a95bb953a623622d16d4b113341e9ff226bd",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Presets/FullPalette/FullPalette",
+      "source": "Prefs/Presets/FullPalette/FullPalette",
+      "archive": "BetterWB5.zip",
+      "sha256": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Presets/FullPalette/FullPalette.info",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Presets/FullPalette/FullPalette.info",
+      "sha256": "ed761698a2b2d0cf31ed66d777b20df3ae6d0ec67f148b8eaa7cc98c9b0f1318",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}
