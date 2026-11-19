@@ -84,9 +84,11 @@ TSgui 2.6 beta 22 owns the Programs drawer and its adjacent icon. The publisher'
 
 TransADF 4.0.46 and UnADF 1.2 match the pinned Aminet command and documentation members. TransADF is the full build with statically linked zlib. UnADF uses xfdmaster.library for optional compressed input. Both Shell commands live in C: with documentation under Locale/Help/english. Directory Opus calls TransADF for image writes and UnADF for listing and extraction. The Directory Opus config, Workbench default icons, and shared dependencies retain their existing ownership. [TransADF archive](https://se.aminet.net/disk/misc/TransADF.lha) [UnADF archive](https://se.aminet.net/disk/misc/UnADF.lha)
 
+The `rawread` entry pins Toni Wilen's 2 December 2001 m68k build, which matches the sole installed path, `C/rawread`, by SHA-256. The Aminet readme is a separate download. The shipped Directory Opus configuration calls the command for its ADF and Raw Read actions. TSgui includes its own Rawread-derived code. [rawread archive](https://se.aminet.net/disk/bakup/rawread.lha) [Aminet readme](https://se.aminet.net/disk/bakup/rawread.readme)
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, and UnADF also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, and rawread also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
 
 Install the pinned Python dependency in a local virtual environment.
 
