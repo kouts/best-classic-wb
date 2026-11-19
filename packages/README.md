@@ -98,9 +98,13 @@ The `pccard` manifest pins Neil Cafferkey’s 5,420-byte 68k `pccard.library` 1.
 
 CardPatch 1.2 uses the Aminet command and the readme inside the archive. Stock puts the readme under `Locale/Help/english` and leaves the CardPatch and CardReset lines disabled in the shared startup sequence. [CardPatch 1.2 archive](https://se.aminet.net/util/boot/CardPatch.lha)
 
+CardReset 3.0 uses the pinned Aminet m68k command and in-archive readme. It uses card.resource ownership and the Gayle PCMCIA registers on the A600 or A1200. The shared startup sequence leaves its TICKS 50 invocation commented out. [CardReset archive](https://se.aminet.net/util/boot/CardReset.lha)
+
+EjectADF 1.0 uses the pinned Aminet Workbench startup script, ejection script and in-archive readme. The checked BCWB project icon retains the stock artwork, position and ARexx tooltypes. Workbench adds Eject ADF image to the Tools menu. The handler uses AmigaOS 3.2 DAControl and trackfile.device for selected guest-mounted ADF images. Workbench reserves Right Amiga+period for Clean Up by Column, which takes precedence over the requested shortcut on 3.2.2.1. [EjectADF archive](https://se.aminet.net/util/wb/EjectADF.lha) [Workbench shortcuts](https://wiki.amigaos.net/wiki/Using_the_keyboard_to_control_Workbench)
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard and CardPatch also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset and EjectADF also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
 
 Install the pinned Python dependency in a local virtual environment.
 
