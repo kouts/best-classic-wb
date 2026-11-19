@@ -1,0 +1,60 @@
+{
+  "name": "XEN",
+  "version": "MagicWB 2.1p bitmap set",
+  "baseline": "2.1.12",
+  "archives": {
+    "MagicWB21p.lha": {
+      "url": "https://se.aminet.net/util/wb/MagicWB21p.lha",
+      "sha256": "3ff085105abf7e1aca7d9b7189931fda7a0f282176ab8f95ccd6f55e7aa15111",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS diskfont.library and FONTS:"
+  ],
+  "notes": [
+    "Martin Huttenloher's MagicWB 2.1p archive supplies the three exact bitmap files. The checked BCWB descriptor lists the same members in a different order.",
+    "The shipped Font preferences select XEN at 11 pixels as System Default Text. Shipped Directory Opus, DeliTracker and MUI settings also reference XEN.",
+    "MUI owns its XEN image theme and presets. The shared Workbench Font preferences and per-application settings retain their existing ownership."
+  ],
+  "directories": [
+    {
+      "path": "Fonts/XEN",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Fonts/XEN.font",
+      "source": "src/BestClassicWB/BCWB_Files/Fonts/XEN.font",
+      "sha256": "ce650c9c5462a0ccf32c3d46fe09fd3ebefbd95ead823d4c23b4741c3b6fb02f",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Fonts/XEN/8",
+      "source": "MagicWB2.1p/Fonts/XEN/8",
+      "sha256": "719ed8338a99ef663e86d79cb28d15d5ec433aea2764690d3b13fa433f5a8cbd",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicWB21p.lha"
+    },
+    {
+      "path": "Fonts/XEN/9",
+      "source": "MagicWB2.1p/Fonts/XEN/9",
+      "sha256": "b22c71ed568e95da3bd930becb99867d720a5f17df2cbaa089a40dec2f96d4b8",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicWB21p.lha"
+    },
+    {
+      "path": "Fonts/XEN/11",
+      "source": "MagicWB2.1p/Fonts/XEN/11",
+      "sha256": "48aae86bb17045737a4bcb977b810ed64c99b884d82f1ec5d498d3877c736ffd",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicWB21p.lha"
+    }
+  ]
+}
