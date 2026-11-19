@@ -92,9 +92,15 @@ The `fmsdisk` entry owns `Devs/fmsdisk.device` 5.01 and the complete `Devs/Mount
 
 PFS3AIO 3.1 supplies both 68000-compatible handlers in `Expansion/PFS3AIO`. Each reports filesystem version 19.2 dated 2 October 2018. The custom build supports RDB loaders that cannot handle hunk relocations. The checked BCWB payload supplies the drawer icon. Both handlers are shipped for manual filesystem setup. [PFS3AIO archive](https://se.aminet.net/disk/misc/pfs3aio.lha)
 
+SCSIMounter 2.03 uses the Aminet 68k tool and English guide. The checked BCWB icon retains its artwork, position and tooltypes, including `DEVICE=scsi.device`, `CX_POPUP=Yes` and `CX_POPKEY=alt shift f10`. The Workbench tool is available for manual launch. [SCSIMounter 2.03 archive](https://se.aminet.net/disk/misc/SCSIMounter203.lha)
+
+The `pccard` manifest pins Neil Cafferkey’s 5,420-byte 68k `pccard.library` 1.1 from the 3c589 1.5 archive. The pccardserial 1.1 bundle carries the same binary, while the standalone pccard 2.2 release contains a different build. The installed 3c589 driver uses this library to parse PCMCIA card information. Stock cnet uses `card.resource` directly. [3c589 1.5 archive](https://se.aminet.net/driver/net/3c589.lha)
+
+CardPatch 1.2 uses the Aminet command and the readme inside the archive. Stock puts the readme under `Locale/Help/english` and leaves the CardPatch and CardReset lines disabled in the shared startup sequence. [CardPatch 1.2 archive](https://se.aminet.net/util/boot/CardPatch.lha)
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, and PFS3AIO also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard and CardPatch also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
 
 Install the pinned Python dependency in a local virtual environment.
 
