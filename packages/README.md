@@ -1,6 +1,6 @@
 # Local BCWB package builds
 
-The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4.6, DeliTracker 2.34, EaglePlayer 2.06, SongPlayer 1.62, INOVAMusic 3.1, mpega.library 2.4, playsid.library 1.1, ACDPlay 1.6, DTView2 1.5b, MUI 3.8, guigfx.library 20.0, render.library 31.0, WHDLoad 18.9, WHDLoadCD32 18.9, WBDock 2.907, PeterK IconLib 46.4.582, NewIconEmu 45.0, FText 1.7, FullPalette 40.22, TitleShadow 1.0B, ViNCEd 3.107, OpenDrawer 0.1, WBRun 2.2, and OpenURL 7.18 from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
+The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4.6, DeliTracker 2.34, EaglePlayer 2.06, SongPlayer 1.62, INOVAMusic 3.1, mpega.library 2.4, playsid.library 1.1, ACDPlay 1.6, DTView2 1.5b, MUI 3.8, guigfx.library 20.0, render.library 31.0, WHDLoad 18.9, WHDLoadCD32 18.9, WBDock 2.907, PeterK IconLib 46.4.582, NewIconEmu 45.0, FText 1.7, FullPalette 40.22, TitleShadow 1.0B, ViNCEd 3.107, OpenDrawer 0.1, WBRun 2.2, OpenURL 7.18, MagicMenu 2.35, ToolsMenu 1.10.2, and PopupMenu.library 10.8.6 from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
 
 Directory Opus takes `DirectoryOpus.CFG` and the replacement icons directly from the tracked BCWB payload. The Aminet archives supply the application, library, and class-file add-on. The catalogue records the installed spelling of accented paths as observed in 2.1.12. FBlit takes `FBlit.cfg` from the BCWB payload and records the executable protection setting on `C/FBlit` separately from the other files. The BCWB system supplies the shared startup scripts. The WBDock manifest maps the dock settings.
 
@@ -36,9 +36,15 @@ OpenURL 7.18 matches the OS3/m68k command, library and MUI preferences editor in
 
 Stock and rebuilt AmigaOS 3.2.2.1 both reject the three Shell launchers with `file is not executable`. On a disposable copy with execution enabled, OpenDrawer opened a RAM drawer and WBRun passed a local guide to MultiView. OpenURL dispatched a local HTML file to an ARexx receiver after enabling the IBrowse entry in the RAM-only profile.
 
+MagicMenu 2.35 uses the 020+/PPC fat binary and matching MagicMenuPrefs from Aminet. The installed English guide comes from the older 2.30 archive. The checked BCWB payload supplies the two icons and saved preferences, including the enabled menu patch and the Right Amiga+Space shortcut. [MagicMenu 2.35 archive](https://aminet.net/util/wb/MagicMenu_2.35.lha) [MagicMenu 2.30 archive](https://aminet.net/util/wb/MagicMenu_II.lha)
+
+ToolsMenu 1.10.2 matches the archived Aminet command and readme. The BCWB startup icon stores five Tools menu entries, including File Manager and Help. The stock installer separately moves the AmigaOS MenuTools commodity to `SYS:Tools/Commodities` and overlays its BCWB icon. [Archived ToolsMenu 1.10.2 release](https://web.archive.org/web/20210211040614id_/http://aminet.net/util/cdity/ToolsMenu.lha)
+
+The standalone PopupMenu.library 10.8.6 archive supplies the 68020 library and its readme. EaglePlayer bundles the same library bytes. SimpleFind, Directory Opus, BWin.mcc and the EagleAMPGui engines reference the shared library. MagicMenu uses its own Intuition menu patch. [PopupMenu 68020 archive](https://aminet.net/util/libs/pmlib020.lha)
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, and ViNCEd also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, and ToolsMenu also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
 
 Install the pinned Python dependency in a local virtual environment.
 
