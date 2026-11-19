@@ -1,6 +1,6 @@
 # Local BCWB package builds
 
-The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4.6, DeliTracker 2.34, EaglePlayer 2.06, SongPlayer 1.62, INOVAMusic 3.1, mpega.library 2.4, playsid.library 1.1, ACDPlay 1.6, and DTView2 1.5b from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
+The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4.6, DeliTracker 2.34, EaglePlayer 2.06, SongPlayer 1.62, INOVAMusic 3.1, mpega.library 2.4, playsid.library 1.1, ACDPlay 1.6, DTView2 1.5b, MUI 3.8, guigfx.library 20.0, and render.library 31.0 from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
 
 Directory Opus takes `DirectoryOpus.CFG` and the replacement icons directly from the tracked BCWB payload. The Aminet archives supply the application, library, and class-file add-on. The catalogue records the installed spelling of accented paths as observed in 2.1.12. FBlit takes `FBlit.cfg` from the BCWB payload and records the executable protection setting on `C/FBlit` separately from the other files. Shared startup scripts and WBDock settings remain part of the BCWB system.
 
@@ -8,9 +8,13 @@ SongPlayer uses the pinned Aminet 1.62 archive for 105 files and the BCWB payloa
 
 The independent `playsid` entry takes `Libs/playsid.library` from the checked `playsid3` archive nested inside DeliTracker 2.32. DeliTracker retains its PlaySID documentation and icon. No PlaySID application or `L` handler is installed. ACDPlay uses the pinned 1.6 executable and the BCWB replacement icon, including its `scsi.device` unit 1 settings. DTView2 retains the verified BCWB 1.5b executable, icon and English help file: the current Aminet archive contains 1.7, and the exact 1.5b upstream archive remains unresolved. Shared help and system drawers are not owned by these packages.
 
+MUI maps the installed `Expansion/MUI` tree, including its shared custom classes, and the BCWB default MUI icon in `ENVARC:Sys`. The MUI 3.8 archive supplies the stock 19.35 master library. Matching class archives supply Guigfx.mcc 19.2, HTMLtext and SpeedBar files. The checked BCWB payload supplies replacement icons, extra graphics, and classes with no verified matching archive. The system startup script supplies the MUI assignments. Per-application MUI preferences and shared system drawers remain outside these packages.
+
+The `guigfx` entry pins the NoFPU 20.0 library and its readme. The 68020 library also matches EaglePlayer's bundled copy. The `render` entry keeps the stock 68020 version 31.0 from the checked BCWB payload while the exact archive is unresolved. iGame requires MUI, TextEditor.mcc and NListview.mcc. For scaled screenshots it also uses Guigfx.mcc, guigfx.library and render.library.
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos and EaglePlayer also need 7-Zip on PATH or installed in the standard Windows program directory. Install the pinned Python dependency in a local virtual environment.
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, and MUI also need 7-Zip on PATH or installed in the standard Windows program directory. Install the pinned Python dependency in a local virtual environment.
 
 ```powershell
 python -m venv tmp/package-venv
