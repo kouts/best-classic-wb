@@ -86,9 +86,15 @@ TransADF 4.0.46 and UnADF 1.2 match the pinned Aminet command and documentation 
 
 The `rawread` entry pins Toni Wilen's 2 December 2001 m68k build, which matches the sole installed path, `C/rawread`, by SHA-256. The Aminet readme is a separate download. The shipped Directory Opus configuration calls the command for its ADF and Raw Read actions. TSgui includes its own Rawread-derived code. [rawread archive](https://se.aminet.net/disk/bakup/rawread.lha) [Aminet readme](https://se.aminet.net/disk/bakup/rawread.readme)
 
+FMSsys maps `Programs/FMSsys` and its drawer icon. Aminet supplies Legionary's ADF2FMS 1.3 and both FMS guides. Checked BCWB inputs supply the Workbench icons, Bloodwych's `MountFMS` launcher, and the `Unit0` virtual floppy. ADF2FMS opens `fmsdisk.device` directly and uses the shared `reqtools.library` for its requesters. The Directory Opus configuration retains its shipped reference to `SYS:Programs/FMSys/MountFMS`. [ADF2FMS archive](https://se.aminet.net/disk/misc/adf2fms.lha)
+
+The `fmsdisk` entry owns `Devs/fmsdisk.device` 5.01 and the complete `Devs/Mountlist`. Both match the pinned FMS archive, including the four double-density definitions for `FF0:` through `FF3:`. The FMSsys launcher assigns `FMS:` and uses `Mount` and `Format` to set up `FF0:`. [FMS archive](https://se.aminet.net/disk/misc/fmsdisk.lha)
+
+PFS3AIO 3.1 supplies both 68000-compatible handlers in `Expansion/PFS3AIO`. Each reports filesystem version 19.2 dated 2 October 2018. The custom build supports RDB loaders that cannot handle hunk relocations. The checked BCWB payload supplies the drawer icon. Both handlers are shipped for manual filesystem setup. [PFS3AIO archive](https://se.aminet.net/disk/misc/pfs3aio.lha)
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, and rawread also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, and PFS3AIO also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
 
 Install the pinned Python dependency in a local virtual environment.
 
