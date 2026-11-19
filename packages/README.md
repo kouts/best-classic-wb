@@ -1,6 +1,6 @@
 # Local BCWB package builds
 
-The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4.6, DeliTracker 2.34, EaglePlayer 2.06, SongPlayer 1.62, INOVAMusic 3.1, mpega.library 2.4, playsid.library 1.1, ACDPlay 1.6, DTView2 1.5b, MUI 3.8, guigfx.library 20.0, render.library 31.0, WHDLoad 18.9, WHDLoadCD32 18.9, and WBDock 2.907 from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
+The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4.6, DeliTracker 2.34, EaglePlayer 2.06, SongPlayer 1.62, INOVAMusic 3.1, mpega.library 2.4, playsid.library 1.1, ACDPlay 1.6, DTView2 1.5b, MUI 3.8, guigfx.library 20.0, render.library 31.0, WHDLoad 18.9, WHDLoadCD32 18.9, WBDock 2.907, PeterK IconLib 46.4.582, and NewIconEmu 45.0 from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
 
 Directory Opus takes `DirectoryOpus.CFG` and the replacement icons directly from the tracked BCWB payload. The Aminet archives supply the application, library, and class-file add-on. The catalogue records the installed spelling of accented paths as observed in 2.1.12. FBlit takes `FBlit.cfg` from the BCWB payload and records the executable protection setting on `C/FBlit` separately from the other files. The BCWB system supplies the shared startup scripts. The WBDock manifest maps the dock settings.
 
@@ -17,6 +17,10 @@ WHDLoad 18.9 build 6601 and WHDLoadCD32 18.9 build 6602 match the publisher's pi
 WBDock 2.907 maps 65 files and 19 drawers in `Expansion/WBDock2` and `WBStartup`. Both executables match the pinned publisher archive. The BCWB payload supplies the active dock list, its pattern, and the differing icons. The startup icon points to the stock dock list, whose second item targets `SYS:Programs/DOpus/DirectoryOpus`, which loads its BCWB `s/DirectoryOpus.CFG`. The French and Turkish archive member names use Latin-1. The builder accounts for 7-Zip's Windows OEM filename conversion and retains the literal installed spelling in the manifest.
 
 On AmigaOS 3.2.2.1, the stock Directory Opus executable has protection mask 2, which blocks its WBDock launch. The full rebuild preserves that mask. Enabling execute permission on a disposable rebuilt copy let the same dock item open Directory Opus with its BCWB configuration.
+
+The `iconlib` entry maps the shipped `Libs/icon.library` and `Locale/Help/english/IconLib.guide`. Peter Keunecke's release is 46.4.582. Its AmigaOS 3.2-compatible TrueColor variant identifies as `icon.library 51.4.582 (TC020)`. Both stock files match the archived release listing by size and LhA CRC-16. The original build-582 download remains unresolved, so the catalogue pins the BCWB files by SHA-256. The distribution installer backs up the target OS library as `Libs/icon.library.bak` before copying the payload. [Archived Aminet listing](https://web.archive.org/web/20240323222904/http://aminet.net/package/util/libs/IconLib_46.4)
+
+The `newicon` entry owns `Libs/newicon.library`, Stephan Rupprecht's NewIconEmu 45.0. The checked BCWB file matches the NewIconEmu on local AmigaOS 3.9 media by SHA-256. NewIconEmu exposes the NewIcons API using `icon.library`. The BCWB install adds no NewIcons startup hook or handler in `L:`. System default icons, application icons, and the shared startup scripts retain their existing ownership.
 
 ## Build on Windows
 
