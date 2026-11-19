@@ -96,10 +96,17 @@ def unpack_archives(data, archive_dir, scratch):
 
 def verified_sources(data, archive_dir, scratch):
     extracted = unpack_archives(data, archive_dir, scratch)
+    archives = data["archives"] | data.get("nestedArchives", {})
     for entry in data["files"]:
         archive = entry.get("archive")
         root = REPO if archive is None else extracted[archive]
-        path = root / relative_path(entry["source"])
+        source = relative_path(entry["source"])
+        archive_options = archives.get(archive, {})
+        if archive_options.get("extractor") == "7zip" and "memberEncoding" in archive_options:
+            # 7-Zip decodes LhA names with the Windows OEM code page.
+            encoding = archive_options["memberEncoding"]
+            source = relative_path(source.as_posix().encode(encoding).decode("oem", errors="replace"))
+        path = root / source
         content = path.read_bytes()
         if digest(content) != entry["sha256"]:
             raise ValueError(f"File checksum mismatch: {path}")

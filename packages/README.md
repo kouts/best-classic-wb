@@ -1,8 +1,8 @@
 # Local BCWB package builds
 
-The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4.6, DeliTracker 2.34, EaglePlayer 2.06, SongPlayer 1.62, INOVAMusic 3.1, mpega.library 2.4, playsid.library 1.1, ACDPlay 1.6, DTView2 1.5b, MUI 3.8, guigfx.library 20.0, render.library 31.0, WHDLoad 18.9, and WHDLoadCD32 18.9 from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
+The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4.6, DeliTracker 2.34, EaglePlayer 2.06, SongPlayer 1.62, INOVAMusic 3.1, mpega.library 2.4, playsid.library 1.1, ACDPlay 1.6, DTView2 1.5b, MUI 3.8, guigfx.library 20.0, render.library 31.0, WHDLoad 18.9, WHDLoadCD32 18.9, and WBDock 2.907 from BestClassicWB 2.1.12. Each entry maps an archive member or a BCWB source file to a path on `SYS:`, with the expected SHA-256, Amiga protection mask, and comment.
 
-Directory Opus takes `DirectoryOpus.CFG` and the replacement icons directly from the tracked BCWB payload. The Aminet archives supply the application, library, and class-file add-on. The catalogue records the installed spelling of accented paths as observed in 2.1.12. FBlit takes `FBlit.cfg` from the BCWB payload and records the executable protection setting on `C/FBlit` separately from the other files. Shared startup scripts and WBDock settings remain part of the BCWB system.
+Directory Opus takes `DirectoryOpus.CFG` and the replacement icons directly from the tracked BCWB payload. The Aminet archives supply the application, library, and class-file add-on. The catalogue records the installed spelling of accented paths as observed in 2.1.12. FBlit takes `FBlit.cfg` from the BCWB payload and records the executable protection setting on `C/FBlit` separately from the other files. The BCWB system supplies the shared startup scripts. The WBDock manifest maps the dock settings.
 
 SongPlayer uses the pinned Aminet 1.62 archive for 105 files and the BCWB payload for its configuration and 11 replacement icons. Its 32 drawers retain stock metadata and observed accented spellings. The `mpega` entry owns the standalone archive's 68020 integer library, which also matches EaglePlayer's bundled 68020 copy. The stock payload and installed inventory contain no `C/mpega` command. INOVAMusic 3.1 remains a checked BCWB release input while its exact upstream archive is unresolved. Shared MUI and asyncio dependencies remain separate migration work.
 
@@ -14,9 +14,13 @@ The `guigfx` entry pins the NoFPU 20.0 library and its readme. The 68020 library
 
 WHDLoad 18.9 build 6601 and WHDLoadCD32 18.9 build 6602 match the publisher's pinned user archive. The `whdload` manifest owns the complete `Expansion/WHDLoad` drawer, the standard loader and DIC, RawDIC and Patcher in `C:`, and the `S:` inputs. The `whdloadcd32` manifest owns the CD32 command in `C:`. The checked BCWB payload supplies the four drawer icons, three files in `S:` and `Devs/Kickstarts.info`. The reference templates under `Expansion/WHDLoad/S` match upstream.
 
+WBDock 2.907 maps 65 files and 19 drawers in `Expansion/WBDock2` and `WBStartup`. Both executables match the pinned publisher archive. The BCWB payload supplies the active dock list, its pattern, and the differing icons. The startup icon points to the stock dock list, whose second item targets `SYS:Programs/DOpus/DirectoryOpus`, which loads its BCWB `s/DirectoryOpus.CFG`. The French and Turkish archive member names use Latin-1. The builder accounts for 7-Zip's Windows OEM filename conversion and retains the literal installed spelling in the manifest.
+
+On AmigaOS 3.2.2.1, the stock Directory Opus executable has protection mask 2, which blocks its WBDock launch. The full rebuild preserves that mask. Enabling execute permission on a disposable rebuilt copy let the same dock item open Directory Opus with its BCWB configuration.
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, and MUI also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, and WBDock also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
 
 Install the pinned Python dependency in a local virtual environment.
 
