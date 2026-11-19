@@ -1,0 +1,124 @@
+{
+  "name": "ViNCEd",
+  "version": "3.107",
+  "baseline": "2.1.12",
+  "archives": {
+    "ViNCEd_3.107.lha": {
+      "url": "https://web.archive.org/web/20240509064829id_/http://sg.aminet.net/util/shell/ViNCEd.lha",
+      "sha256": "54d7d0474cdd04da81ddbad3c2a9547ccd9955770a4810888215898ab37a782f",
+      "extractor": "7zip"
+    },
+    "ViNCEd_3.95.1.lha": {
+      "url": "https://web.archive.org/web/20200916174900id_/https://aminet.net/util/shell/ViNCEd.lha",
+      "sha256": "e591fd798bddcfd9e82a946c57b8c76fdede43dbaf7ba1d63619c82b666b3a35",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [],
+  "notes": [
+    "The archived Aminet 3.107 release matches the ViNCEd library, English guide and three DOSDrivers mount files. BCWB ships SetVNC 41.50, which matches the decoded executable from the Aminet 3.95.1 release. The 3.107 archive bundles SetVNC 41.51.",
+    "The checked BCWB payload also supplies the active preferences, guide path, mount icons, SetVNC preferences icon and Shell_VNC icon. The Shell_VNC icon uses the OS CLI and a VNC: window. The shared startup sequence mounts the DOSDrivers and exposes the installed preferences through ENV:.",
+    "The standard CON: Shell icon and startup scripts belong to the system payload. The optional topaz6 font is tracked separately."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "C/SetVNC",
+      "source": "C/SetVNC.coded",
+      "archive": "ViNCEd_3.95.1.lha",
+      "sourceTransform": "setvnc-decode",
+      "sha256": "30b381e58e4c62b4886046f2c976d38bdb50a9000b68bba5f18a830e81dce8d2",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Devs/DOSDrivers/NEWCON",
+      "source": "ViNCEd/DEVS/DOSDrivers/NEWCON",
+      "archive": "ViNCEd_3.107.lha",
+      "sha256": "20af517d4101afe9dc6df32dddcd8609d0b53c25468dfe35122a81cfc6bad1bc",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Devs/DOSDrivers/NEWCON.info",
+      "source": "src/BestClassicWB/BCWB_Files/Devs/DOSDrivers/NEWCON.info",
+      "sha256": "4684a6b7bade07ea4811f6701cd3e15dc0a8935918423e6aa8eb660caa20898b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Devs/DOSDrivers/VNC",
+      "source": "ViNCEd/DEVS/DOSDrivers/VNC",
+      "archive": "ViNCEd_3.107.lha",
+      "sha256": "c7888fb8acd9dd603e454f05c39b96cf93070800b43eb4dd4364c5bf8aea3217",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Devs/DOSDrivers/VNC.info",
+      "source": "src/BestClassicWB/BCWB_Files/Devs/DOSDrivers/VNC.info",
+      "sha256": "341c10ae7e1078e5c55b9b78a6e75887fbdc1ba728e43d3cf9bfc28e4afa683e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Devs/DOSDrivers/VNR",
+      "source": "ViNCEd/DEVS/DOSDrivers/VNR",
+      "archive": "ViNCEd_3.107.lha",
+      "sha256": "be2f4dd2a435009c6c2a7560c38cb3c7d897bbe92917840a7d189b734412dc39",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Devs/DOSDrivers/VNR.info",
+      "source": "src/BestClassicWB/BCWB_Files/Devs/DOSDrivers/VNR.info",
+      "sha256": "7decb17b2d06f13e6045758126fd0dbf5e4b03ee001b3630f4eaee3f66176fe7",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/vnc.library",
+      "source": "ViNCEd/LIBS/vnc.library",
+      "archive": "ViNCEd_3.107.lha",
+      "sha256": "f7e416df05548ebd5d8cffe21eb954e36faafecd220571031b3ab19171e3018c",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Locale/Help/english/ViNCEd.guide",
+      "source": "ViNCEd/Guides/ViNCEd.guide",
+      "archive": "ViNCEd_3.107.lha",
+      "sha256": "aca6b67fbf41532a93b82e02dca0eaec11835b555a09714745e8c6a57fca035d",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Env-Archive/ViNCEd.prefs",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/ViNCEd.prefs",
+      "sha256": "63f3c32bb2a50bf26ac25e32d3a0bdda8f7190783c7e204e01efa17f0dc7942d",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Env-Archive/VNCGuide.Path",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/VNCGuide.Path",
+      "sha256": "014bf707f671bcb7830d771c3960d46f3f069109813c04493ce0a3c366b2b56d",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/SetVNC.info",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/SetVNC.info",
+      "sha256": "05b20da47b3de519ef2555a7deea7e88440a644637a843a6cba7b606375daeb4",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "System/Shell_VNC.info",
+      "source": "src/BestClassicWB/BCWB_Files/System/Shell_VNC.info",
+      "sha256": "e2870a3fe05303298e3b20b69a79659915c5cf597ec8d37821ebb0a387e77c6f",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

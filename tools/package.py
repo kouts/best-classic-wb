@@ -108,6 +108,12 @@ def verified_sources(data, archive_dir, scratch):
             source = relative_path(source.as_posix().encode(encoding).decode("oem", errors="replace"))
         path = root / source
         content = path.read_bytes()
+        transform = entry.get("sourceTransform")
+        if transform == "setvnc-decode":
+            # Match the publisher's Decode utility for SetVNC.coded.
+            content = bytes(byte ^ 0x54 for byte in content)
+        elif transform is not None:
+            raise ValueError(f"Unknown source transform for {path}: {transform}")
         if digest(content) != entry["sha256"]:
             raise ValueError(f"File checksum mismatch: {path}")
         yield entry, content

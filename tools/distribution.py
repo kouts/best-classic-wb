@@ -101,13 +101,16 @@ def catalogue_contents(archive_dir, temporary, members):
             member = members[target]
             if member in replacements:
                 raise ValueError(f"Conflicting package ownership: {member}")
-            replacements[member] = (content, {
+            source = {
                 "kind": "package",
                 "package": manifest.stem,
                 "source": entry["source"],
                 "archive": entry.get("archive"),
                 "installedPath": entry["path"],
-            })
+            }
+            if "sourceTransform" in entry:
+                source["sourceTransform"] = entry["sourceTransform"]
+            replacements[member] = (content, source)
     return replacements
 
 
