@@ -1,0 +1,3174 @@
+{
+  "name": "Personal Paint",
+  "version": "7.1c",
+  "baseline": "2.1.12",
+  "archives": {
+    "PPaint.lha": {
+      "url": "https://cdn.cloanto.com/pub/amiga/PPaint.lha",
+      "sha256": "2e20ea41001c4db0db5cd6a6505ed6c9708eea1aaccd6688e33ccd03334c51ff",
+      "extractor": "7zip"
+    },
+    "pio_icon.lha": {
+      "url": "https://aminet.net/gfx/ppaint/pio_icon.lha",
+      "sha256": "bc646c82d86cf9b315a2cf76b83fd2a2ff2fd3cb070531e0fb4d594c7b291ed5"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS and Workbench",
+    "Application-local Personal Blit, requester and image I/O libraries (included)",
+    "diskfont.library and the application-local fonts (included)",
+    "rexxsyslib.library and RexxMast for ARexx scripts",
+    "icon.library and newicon.library for the optional Personal Icon I/O module",
+    "datatypes.library and installed image datatypes for the optional DataTypes module",
+    "cybergraphics.library for optional CyberGraphX RTG support"
+  ],
+  "notes": [
+    "Cloanto's 7.1c distribution supplies the stock executable, four PPView 1.2 copies, local CPU and Agnus blitters, I/O modules, artwork, fonts, documentation and scripts. The executable embeds Cloanto_PPaint 7.1.",
+    "E. Plischke's separate Aminet pio_icon release supplies personal_icon_io.library 5.17. The stock tree's local blitters include 68000, 68020, 68030, 68040 and 68060 builds. Startup_1.set selects the Agnus and 68000 pair.",
+    "Checked BCWB sources preserve the customized Startup_1.set, replacement icons and other stock content that differs from the available releases. The application-local paths and Programs/PPaint.info are owned here. System libraries, image datatypes and startup files keep their separate ownership."
+  ],
+  "directories": [
+    {
+      "path": "Programs/PPaint",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Brushes",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Colors",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Bevel",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Brick",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Bullion",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Cast",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Chisel",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/ChiselSerif",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Chrome",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Column",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Embossed",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Glass",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/GoldExtrude",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Granite",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraBrushed",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraChiselSerif",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraGranite",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraRomanExtrude",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Marble",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/MarbleBevel",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Personal",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Wood",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/2",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/5",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/5/8",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/1",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/3",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/0",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/1",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/1",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/1",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/2",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/1",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/libs",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Pictures",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/ADPro",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/ADPro/Loaders2",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/ADPro/Savers2",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Stencils",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Programs/PPaint.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint.info",
+      "sha256": "079f24d2a96445e52f453e3ed0e9537d6f56cf88034259754cd50980f14bb29d",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Animations.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Animations.info",
+      "sha256": "c4b424a88387b21563102ff1d800294013a01b41250c8b5d035fd5ce9cca925f",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/AnimBrushes.info",
+      "sha256": "0a390f3d2b5bc81c634e7a4da49d35a45909b3c0f5d0b61e8d733f9a0c3a4f3b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/123.anbr",
+      "source": "PPaint/AnimBrushes/123.anbr",
+      "sha256": "3882da76e2035f502771dccbb18389e5c8ec8842153cbfee112c748616d129cc",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/123.anbr.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/AnimBrushes/123.anbr.info",
+      "sha256": "dca103edd14b3876e3bae908529fb0b905f9f160a8955e5e03ed237c3f20bbe3",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/AnimBrushes/AnimFonts.info",
+      "sha256": "dd78ebc008db78c0a798d008008cfca449b384d542a5002eaa11fb3be4077f3e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/AnimText.pprx",
+      "source": "PPaint/AnimBrushes/AnimFonts/AnimText.pprx",
+      "sha256": "35f2d50ca6d9f8b1cad9b5aab6971e514655da4493eef5d54dd439aa11c41837",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/AnimText.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/AnimBrushes/AnimFonts/AnimText.pprx.info",
+      "sha256": "f1b0d7e2bc9f3e033dad48d0ef4c9ea5e67cba8e76ce4caa8ba96a63f2f4c60d",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion.data",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion.data",
+      "sha256": "88b6e478eb5f0d6dfcba343366d580e3d1ce853569714a27e4a72363e765ec8e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/AnimBrushes/AnimFonts/Bullion.info",
+      "sha256": "4cde9e84d273df022d2532caa9d074c3be8c38eb601a1b2f8ec53eddbe7ccc67",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/0",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/0",
+      "sha256": "d1b9d479fb9895d153dcf23ba005f3dc497be1211e896728823f869beaa18f77",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/1",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/1",
+      "sha256": "560cb381c0c9ba688cbf65e6f321af9b60e4bdc17216563a8dc43cbef4b4b8ce",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/2",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/2",
+      "sha256": "4be2ab4a1774d87ba09868afaf65eb4f951afe0642265cba308a870e3e67aaab",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/3",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/3",
+      "sha256": "ed35509709dd8d19cdc251e5b4fa0e1418371e5dc30137334ef0d658014785c0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/4",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/4",
+      "sha256": "838762265a5d2cf0a61909e8f34dd5a54670f2dfebe47f4e03f559efc9248e41",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/5",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/5",
+      "sha256": "bba506f662a5c5349049724ccdde0e1a25d71ee0798c83b5a3cbea1ef1693696",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/6",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/6",
+      "sha256": "41813583333af8c265797304869aa1d79f8b3279a784332434b2fd4e8c3f5482",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/7",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/7",
+      "sha256": "308079cb631a217766661f5bcbeb546e8279d7380e92544e619b5d405f0c59aa",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/8",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/8",
+      "sha256": "ce358b402074f65e1f0ccd0147fa4c109871d465b041be6dcc60ba91f279fa13",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/9",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/9",
+      "sha256": "3f8388dafc67554fdcd82c2d41d7a4ac2835d0e35cb57f4704bf5c5730f4bff6",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/A",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/A",
+      "sha256": "58c7154ebccd1c3deaabb24a78f8f8252030064e2671618f8e912b8344ede2c5",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/ampersand",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/ampersand",
+      "sha256": "fbd4e71c5882895449e3d93dffa25db2357491d26e89d0437e83e3363204aaea",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/B",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/B",
+      "sha256": "2111c65332c29997b5e6e972547348bed32a50b38f257cc8d2919cb282cf9f02",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/C",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/C",
+      "sha256": "56238b3650252c80a31f20f1a6e038162e9ea5be24a1f95b03b8bd6130df8e7e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/comma",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/comma",
+      "sha256": "72dc6e6a84914ddcec1e6a129707c6bc5af238fa4c1d42d5281a4eb005bf3c19",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/D",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/D",
+      "sha256": "0bd33885e25badf19f045827a1f684637f6c60e4d4e9f0887e1392b537fc6657",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/dollar",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/dollar",
+      "sha256": "705684b4a3886d33fd1cecc3a5472c0e1878b8821c61ca587fae06209e64275f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/E",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/E",
+      "sha256": "6cb365e579c32a38dcf8a97db6688bfb8acc3802339fbe094f39fd162219fa1f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/exclam",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/exclam",
+      "sha256": "dde0284eb29205b851650bbbfa2db12b868573c7a369734a8eb2c6fecf832089",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/F",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/F",
+      "sha256": "e40bb7a8a1677aca2ea0633f5e0ac5bb6ecd7f416169fe37c72d321da2d51be4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/G",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/G",
+      "sha256": "8a3d62bf72156106c0d5dbe09356d30e1157145d4f2c8bd32990ccf4183640df",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/H",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/H",
+      "sha256": "97a78e0b93c871bb0abfed84f6be6055b67739cc177dad9717bd134de2d7fc03",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/I",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/I",
+      "sha256": "037ba0842df717888016efa2dec67a4faed183aac33d54d0066f42b3ce1f8f55",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/J",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/J",
+      "sha256": "b4dfa769c3d8065590979a23c18c8812dfebf0add50ac13b1985c8c7adac61aa",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/K",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/K",
+      "sha256": "2aa62cf72368ef342ed4ddeaeba7fbfdc8fdd52699d95365da7cebd8b1e34825",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/L",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/L",
+      "sha256": "7666a3acb4cf1b47d3e90f604b580d138e41dfe6676d75bc779117ce4046ccfa",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/M",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/M",
+      "sha256": "f0dd654c6a3b8d57c3efb5ad5316a6ce3abd4b75a03fffda4a7a3ef8da0a4bb0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/N",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/N",
+      "sha256": "ec802872733f03d26c51eb7a53629375473d4f9d319a174710102678387103f0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/O",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/O",
+      "sha256": "69953217e7e743a13f309ce3d4b5ec61f97641cbbc10f05d13615e44f231c3ba",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/P",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/P",
+      "sha256": "0e148e5da35b44a1bc3ba46b69270576dd5d9fd9d1181bc317b39332f1b1a11a",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/percent",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/percent",
+      "sha256": "352c7c41737a38d2a0f2d8ce9f4f521dc084530a94a5670056b2df6650ca44cc",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/period",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/period",
+      "sha256": "98ebf20e4d2f183f4be2873c6ab027fb2fcf87b256e1fa9455064293f1317c70",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/Q",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/Q",
+      "sha256": "da62e29ba2aa8f273b3a8189810dc981433b966ab8b97f807105d92b80ba30c6",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/question",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/question",
+      "sha256": "384364fe5280873936a449b2e91f2162c8b102e0dba6febf2496a3419f401f3f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/R",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/R",
+      "sha256": "e5f380c57341537374020f8df1b949d248159fdda50a696a2fa4677c469e890a",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/S",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/S",
+      "sha256": "9d3c998bf20c08a3d4516e12b0c8e01332e8170972c238addcb85d488ee17975",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/T",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/T",
+      "sha256": "40909e29f6fabe545a7b3fadfdd672e41f96e94fab120905061d26c9ad09aec0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/U",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/U",
+      "sha256": "695fe9c803f492104b6cd4d43c2a2b6878f9dcb87a44f0dc2a41babd634407c0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/V",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/V",
+      "sha256": "505f0bac4e9c881f6a4e6f5f78d2bf850728b66b848296ba36ce724e3b45c76a",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/W",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/W",
+      "sha256": "7ceca4120537ec30df02b96466b04716fce7ad768b2a9478bb85c2ef5d26e786",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/X",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/X",
+      "sha256": "8cada577b3107bb22c756d4728a30bb05eaa553283a45461db9b16b8156c3703",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/Y",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/Y",
+      "sha256": "170de2018818fa69230459f219558a0d2cb8d82824b6362c8588e94329a7e067",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/AnimBrushes/AnimFonts/Bullion/Z",
+      "source": "PPaint/AnimBrushes/AnimFonts/Bullion/Z",
+      "sha256": "8f5d90c5aac3339e3d34b18d25cc9447f4e4c614b3bd59e40ad1a90a79b6c0f1",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Brushes.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Brushes.info",
+      "sha256": "415661d911598c62718682845cc79469ff96619ab3fc253902db3c0d17739ef4",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Brushes/Balls_pat.bsh",
+      "source": "PPaint/Brushes/Balls_pat.bsh",
+      "sha256": "69b4fe45cc5954b496db73a1a0aeed3f9c4bbbc9bebfaf686c867ce01d732c64",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Brushes/Balls_pat.bsh.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Brushes/Balls_pat.bsh.info",
+      "sha256": "9ca3d435a6de2a94374d6c09271bcfd9109c618445dbd50c578df747527e9308",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Brushes/Lead_pat.bsh",
+      "source": "PPaint/Brushes/Lead_pat.bsh",
+      "sha256": "87ac16a576f7192669bdf79d974d1752bfd92e0b9e3d8e62e22cfbdf321f4b5e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Brushes/Lead_pat.bsh.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Brushes/Lead_pat.bsh.info",
+      "sha256": "50ac0dc52ce6caf520a4493115fe22256daee982d11e64cfddb7b33c3fc7935a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Brushes/Marble_pat.bsh",
+      "source": "PPaint/Brushes/Marble_pat.bsh",
+      "sha256": "98895f25e808f06b59a62e58a0ffa09291c5c060840f021947c516fb219c1695",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Brushes/Marble_pat.bsh.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Brushes/Marble_pat.bsh.info",
+      "sha256": "ab075c6ec07e0d2faffa7e3930b21ca94046f9148438b3c39005aeae7a6b60b2",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Brushes/PPView",
+      "source": "PPaint/Brushes/PPView",
+      "sha256": "8aa7c547807794d6d6740e9b40b51407e0f586d5e357213091d255fbb2353991",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Brushes/Sand_pat.bsh",
+      "source": "PPaint/Brushes/Sand_pat.bsh",
+      "sha256": "14f34a0b47cbccb7b65280c80cf2f48616101df6f6d9ba2c61d77bc0ea4d4321",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Brushes/Sand_pat.bsh.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Brushes/Sand_pat.bsh.info",
+      "sha256": "a1eea114a8bf4355f2dce8fe1cecc68ff3f51f890bde118fc8bf7b9b4381dce0",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/CloantoAudio",
+      "source": "PPaint/CloantoAudio",
+      "sha256": "52b74068fcae99f94d7863cdf9e6b41cc788097c9354f75cde4870365e6458ba",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Colors.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Colors.info",
+      "sha256": "b4a8490f74227de088d7dfc9ed0e5fe45f3c6e4c85338c47960c23c0b3678b4d",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Colors/Plasma.col",
+      "source": "PPaint/Colors/Plasma.col",
+      "sha256": "96431ae5c1a11589bef0003daccce28c119da9ca442c3f3768c097f9022798c4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Colors/Plasma.col.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Colors/Plasma.col.info",
+      "sha256": "62f3daf9132699c422c97f3467dc8fdc1319cf192ba2c079aa8524675c5c91b3",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Colors/RgbCmy8.col",
+      "source": "PPaint/Colors/RgbCmy8.col",
+      "sha256": "3f9b0b1fae1a954add1ac507696e1adac46d4d60c5118581c747ac5e9b7012cf",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Colors/RgbCmy8.col.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Colors/RgbCmy8.col.info",
+      "sha256": "8d09510338af35f072cbeb5bbc1045411ad1d0753026f36be77c50ed908e6d7a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Colors/Spectrum256.col",
+      "source": "PPaint/Colors/Spectrum256.col",
+      "sha256": "e98558981ff6e8842a84dcccc4f6ea261762ae4bd3514d4a934260f8c8ab0db6",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Colors/Spectrum256.col.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Colors/Spectrum256.col.info",
+      "sha256": "df6d3177803b981ad7e2eaa0beaeea45a4ea71a0af2450b5bc2102ffb62b520a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Colors/Web216.col",
+      "source": "PPaint/Colors/Web216.col",
+      "sha256": "7fce9211fe49d7e9b41133c5ae2b78cdae5920669f212da301af2502d916bcc4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Colors/Web216.col.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Colors/Web216.col.info",
+      "sha256": "d535f8ac547be74caa4262763e1e9d281fcdeed87b47cc91ed29709da74af1c4",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Colors/WebGray6.col",
+      "source": "PPaint/Colors/WebGray6.col",
+      "sha256": "7a7c324af5109fcc2d87080ea345ee070b04f8cebcfff4c9337edcd07ad86eaa",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Colors/WebGray6.col.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Colors/WebGray6.col.info",
+      "sha256": "9bc9a8ad385f07e1199c8ce43d83b9f1fb7dd2db8263e8a5676c561da6eb3cbf",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/FAQ.txt",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/FAQ.txt",
+      "sha256": "1a7cfbb400d515906581e2e1012d1eb3d1f072d04f58381d4d82465f9acfc185",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/FAQ.txt.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/FAQ.txt.info",
+      "sha256": "d26c0376d5e730f5f83e39b64bdc3553f90e0589fc132887c5212d4877fc0ded",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/fonts/Bevel.font",
+      "source": "PPaint/fonts/Bevel.font",
+      "sha256": "a1ae450664019330d64c244382e3902df404e8d311d9b33963bfbb3dffd532b4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Bevel/55c",
+      "source": "PPaint/fonts/Bevel/55c",
+      "sha256": "bb903cbba603d8d0c18dcd6aa55206b7a86685fea6206da65108d5c4e1e88cb0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Bevel/72c",
+      "source": "PPaint/fonts/Bevel/72c",
+      "sha256": "d995963cefa5871dde8ef96ab4d222d2d463261a598d32b55aeef14bef0f350e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Brick.font",
+      "source": "PPaint/fonts/Brick.font",
+      "sha256": "828afadd317570bbd781e790cddf7c82f25b13a4128b98f9093b2de4b78f0d8f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Brick/55c",
+      "source": "PPaint/fonts/Brick/55c",
+      "sha256": "1fe8ade6522993aef2600a2ec655c09c6498a17b95d735eae9d0d7b68783a8e2",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Brick/72c",
+      "source": "PPaint/fonts/Brick/72c",
+      "sha256": "be3d818b235336e2dba5fa9896fe576faf3515442559f26ece5a761cb14a2688",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Bullion.font",
+      "source": "PPaint/fonts/Bullion.font",
+      "sha256": "3f22f9cd5b8417b5df1af6107c8264a5e9fb0d04ab247733cd893d6c6bfed9af",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Bullion/78c",
+      "source": "PPaint/fonts/Bullion/78c",
+      "sha256": "a8d9c49740c70616e824a61e87e1a75f9526d49667a076f4922b1802e893f846",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Cast.font",
+      "source": "PPaint/fonts/Cast.font",
+      "sha256": "a73c592b3f46301479fa4750e547e2736e7ed46da8f4f510e791606b485ea5a9",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Cast/60c",
+      "source": "PPaint/fonts/Cast/60c",
+      "sha256": "99406558e4a4aa50493d635851a6a4b31ea11129a947622cc19eea8d0b7654a0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Cast/72c",
+      "source": "PPaint/fonts/Cast/72c",
+      "sha256": "662a88cfc74447d4a658263396344a66d93bed8d4d0ac4baed2d5e0060b5b732",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Chisel.font",
+      "source": "PPaint/fonts/Chisel.font",
+      "sha256": "6275c9fc107a7117d3b829de4f9920c2810f06b62ea89dbc2acab36be14e0cb2",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Chisel/50c",
+      "source": "PPaint/fonts/Chisel/50c",
+      "sha256": "e0896a9d9d49101141a28b38ec699ddd69b70c7c8a850848d5334d34532ed56b",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Chisel/62c",
+      "source": "PPaint/fonts/Chisel/62c",
+      "sha256": "d680a9ba4202449923c5bc294a47cb5fadb06d2b18611ebb4837a866091b8a14",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/ChiselSerif.font",
+      "source": "PPaint/fonts/ChiselSerif.font",
+      "sha256": "2d322b67c6abf4d2ab5cf45659955d09edef4405a876ca6ba4920621a7312669",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/ChiselSerif/55c",
+      "source": "PPaint/fonts/ChiselSerif/55c",
+      "sha256": "cc04fbffcbeffb27c0fbbcd72958a0b4b8c66ffc7c1acb4951ef3d15e3020cc6",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/ChiselSerif/72c",
+      "source": "PPaint/fonts/ChiselSerif/72c",
+      "sha256": "2ac0c6445726e9c7c494c19d400ef01a12042602b089f8eebfcf889585c3f5c4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Chrome.font",
+      "source": "PPaint/fonts/Chrome.font",
+      "sha256": "a65133beb46d89c04c40f227efc462b5ca0a32e88b5810bf00a0a54ea8a64863",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Chrome/55c",
+      "source": "PPaint/fonts/Chrome/55c",
+      "sha256": "5099656411a7bdc1c94a71b76989ffac0b947f31cd0d25157f2fe432ae5d498b",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Chrome/72c",
+      "source": "PPaint/fonts/Chrome/72c",
+      "sha256": "2f2f5c55266a9f987e89c383d30da8fe3b110276fb56e3fad3aa3e077cfabd53",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Column.font",
+      "source": "PPaint/fonts/Column.font",
+      "sha256": "0e368a5ccbbe50ecf62a847e2796ec38cb13f20ff2fcefa91342bbf86feed361",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Column/55c",
+      "source": "PPaint/fonts/Column/55c",
+      "sha256": "55ca5ee37d044fb3822260a9cac28bddca44514be9401a30faebcbce14804ad8",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Column/72c",
+      "source": "PPaint/fonts/Column/72c",
+      "sha256": "a4eca2e55345c057e5eb83a10a96f77f42d4f22896b12dc1e504f2b05ebf3aa1",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Embossed.font",
+      "source": "PPaint/fonts/Embossed.font",
+      "sha256": "0b4d3fa147377c7f0d5c11be3632dfcc348464ba84d536c58d0c99a4565e15b4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Embossed/68c",
+      "source": "PPaint/fonts/Embossed/68c",
+      "sha256": "44545c2f578709e9d8556bd81d435cd300af2deee15f76867514e6388f4687f0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Glass.font",
+      "source": "PPaint/fonts/Glass.font",
+      "sha256": "58cac1aa288fa2ee83e757acfc12ba6412f3bcf7cf10895f005e6e5c26000196",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Glass/78c",
+      "source": "PPaint/fonts/Glass/78c",
+      "sha256": "19cf679175c8c66bfe0c3bf9604c41c0c44c52ba9c88a55528822721ed4ce6da",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/GoldExtrude.font",
+      "source": "PPaint/fonts/GoldExtrude.font",
+      "sha256": "fc3ae46ac1b12dac3a4cbbe696290ba7de42b80edb0d9e6a949c00be74fbb757",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/GoldExtrude/78c",
+      "source": "PPaint/fonts/GoldExtrude/78c",
+      "sha256": "c4832e9d0e97b5f3f6bc0fb263ace430699cc9eef7b5bf637c59d3b001cb8ad4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Granite.font",
+      "source": "PPaint/fonts/Granite.font",
+      "sha256": "4b82babf868d98e82163d5e1d2a4b10f201ec307a8f34936150b23ae8e15b2d4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Granite/55c",
+      "source": "PPaint/fonts/Granite/55c",
+      "sha256": "ef4369233c444e6ac66d4d07db852b11b995af7bab7612ace1151588999b6084",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Granite/72c",
+      "source": "PPaint/fonts/Granite/72c",
+      "sha256": "6355f0a1d46c0dade0e44b511a1699e026819dee0028fd7a7ec12fe838a29ecf",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraBrushed.font",
+      "source": "PPaint/fonts/KaraBrushed.font",
+      "sha256": "879e3b05cf667dae34fb0dec1c1f06bea3f508d8c730860782530c4acd60ac19",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraBrushed/75c",
+      "source": "PPaint/fonts/KaraBrushed/75c",
+      "sha256": "eb39123168bed34643863fbb7141b9f80b2725bf99336573b9ea9900cf2cd163",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraChiselSerif.font",
+      "source": "PPaint/fonts/KaraChiselSerif.font",
+      "sha256": "e26cfb0bda4efdb6819ad6b75abd69c23d9ee1603a33e1d96fcf6260133e49ee",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraChiselSerif/55c",
+      "source": "PPaint/fonts/KaraChiselSerif/55c",
+      "sha256": "a94df087c110d25f451c2d296ecc575067cd7fbefb4de95b24bd27a8af23b5f9",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraGranite.font",
+      "source": "PPaint/fonts/KaraGranite.font",
+      "sha256": "9da38abad567cfa4cc249c1256c813b038fe8c14ab303fb2578894e6e6a3af96",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraGranite/55c",
+      "source": "PPaint/fonts/KaraGranite/55c",
+      "sha256": "278bcaeadf285b26a9ced7f99f6d5d74b10778a3b8d218a35a5ba6372b6e7f00",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraRomanExtrude.font",
+      "source": "PPaint/fonts/KaraRomanExtrude.font",
+      "sha256": "11ba8816950eb93c4369c9cffda07dda25bd99b51ac9d88b17c3bc9ad807de93",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/KaraRomanExtrude/80c",
+      "source": "PPaint/fonts/KaraRomanExtrude/80c",
+      "sha256": "367b0a1cf92f49156715bef799fa49989ab3d85a5db0ded25125694234dbebe9",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Marble.font",
+      "source": "PPaint/fonts/Marble.font",
+      "sha256": "68a613980a960367d97f010b3e4e70daaf8c11967aaed410c25ce9d4b1c5469e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Marble/55c",
+      "source": "PPaint/fonts/Marble/55c",
+      "sha256": "9359728ef8745057d7540c45e9732653bc0bc5fe9e6e1f457773926e390bb02f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Marble/72c",
+      "source": "PPaint/fonts/Marble/72c",
+      "sha256": "1d87beb8366307fa9cec2bb8463fd42c362144613bd214339021b638ed6605b7",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/MarbleBevel.font",
+      "source": "PPaint/fonts/MarbleBevel.font",
+      "sha256": "50950909ecb76325593011e30673e76d98b14c828f9cdb0726c858a519c6f801",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/MarbleBevel/76c",
+      "source": "PPaint/fonts/MarbleBevel/76c",
+      "sha256": "771844c70da58055087f035a37faaae927611fe12a2d35195f215beb66af69cb",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Personal.font",
+      "source": "PPaint/fonts/Personal.font",
+      "sha256": "4e24adcc150b2febf1afc6dc14332d15ed7b20078fea822d206d00581d7af29a",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Personal/8",
+      "source": "PPaint/fonts/Personal/8",
+      "sha256": "031552207c29b2dab533443a927e19a27c418fb72c13e44591c85ae33788979b",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Wood.font",
+      "source": "PPaint/fonts/Wood.font",
+      "sha256": "6314a1069adb87bac41f172e773ba6a1f9bbe306a4b6174e0d9e75cc195f09dd",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Wood/58c",
+      "source": "PPaint/fonts/Wood/58c",
+      "sha256": "f67f5dcff22ace16a53210197bd82a623164d306eb53183c3708ec3bfa4e52a6",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/fonts/Wood/72c",
+      "source": "PPaint/fonts/Wood/72c",
+      "sha256": "53b5c44df73aa57143af3d2e2701721e0d49b794b9b9e79b78b5c8e8f1172dc2",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/a",
+      "source": "PPaint/H/2/a",
+      "sha256": "27d069c482ea6982de70c9b180150ac0781cd41d58f38e801cb23d83059d2d4e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/AG34",
+      "source": "PPaint/H/2/AG34",
+      "sha256": "4691a07ec41fcbb270f834f7ee4923b17ff1d6604c299effbf16d5b12b48b900",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/CheckVideo",
+      "source": "PPaint/H/2/CheckVideo",
+      "sha256": "354af088c466259394adb772b3bfe2d53a2425b0c8c24d19f0f407a0d20c8431",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/CopyIcon",
+      "source": "PPaint/H/2/CopyIcon",
+      "sha256": "78e62f3d66563f22bdbed9aec4cc775c8b656416df78d4ec7c324f3fe6412acf",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/Deplode",
+      "source": "PPaint/H/2/Deplode",
+      "sha256": "a0cc46c08eb2dc2756b44d51183c4020a18196a7c4bd48dd14fba9cb0548c6f1",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/Register.pprx",
+      "source": "PPaint/H/2/Register.pprx",
+      "sha256": "83d1d68a676e6850708026644c8364a0d9aa92e2d32b6c9c9e3ff41b19a64bda",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/Register.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/2/Register.pprx.info",
+      "sha256": "d16dfaacf8aa6fd6eef1e60c7368fe6e42b30eb1867f705b2e42462a97c4106b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/2/RunIcon",
+      "source": "PPaint/H/2/RunIcon",
+      "sha256": "0a146ca6e4d5652334c476ba49f24ec531fc28b60fc5b76bf4fc8996c9499fba",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/ShowAnim",
+      "source": "PPaint/H/2/ShowAnim",
+      "sha256": "a746f9c6ad1175a7a1d03a6a4d05061895f94613254e31464f9e3bcf1313db6c",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/ShowPic",
+      "source": "PPaint/H/2/ShowPic",
+      "sha256": "972a74225dd3ba16bea4c822232f0ef5eb194e7fc740ff1c8e3a4c09bf102e57",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/ShowRegisterPic",
+      "source": "PPaint/H/2/ShowRegisterPic",
+      "sha256": "7da74fa82552c139621279ec59592af9a5c6d92b56721112e65f911baf1dfcb5",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/2/ShowTutorial",
+      "source": "PPaint/H/2/ShowTutorial",
+      "sha256": "8ebdd132359b3b794944615a62be953a058683104946b76cee76d7c60b727826",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/1/all_auto.bat",
+      "source": "PPaint/H/5/8/1/all_auto.bat",
+      "sha256": "103adf4d1654fd82a235c141f67ed99416792177050e8e99575d145358a35fb5",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/1/tutorials_auto.bat",
+      "source": "PPaint/H/5/8/1/tutorials_auto.bat",
+      "sha256": "b7910f6a465964a3e53ed75f572ce10563136d7ee1ba45b3b41520be6cc6341b",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/1/tutorials_ntsc_16-32.bat",
+      "source": "PPaint/H/5/8/1/tutorials_ntsc_16-32.bat",
+      "sha256": "9a1b2449a0e078b29273c14fd1e2e4f8671cbd3b2c1a39f275babe7f45985b52",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/1/tutorials_ntsc_256.bat",
+      "source": "PPaint/H/5/8/1/tutorials_ntsc_256.bat",
+      "sha256": "640dd5950671162caf1deeb5a58296f2888be65b9cac98cacf576ef46e942616",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/1/tutorials_pal_16-32.bat",
+      "source": "PPaint/H/5/8/1/tutorials_pal_16-32.bat",
+      "sha256": "9a2de4f8ef716d8fbfd3941755a901a39f398a95240e164e3ee7a76df2037bfd",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/1/tutorials_pal_256.bat",
+      "source": "PPaint/H/5/8/1/tutorials_pal_256.bat",
+      "sha256": "8b5e73f6a481ba151001aea38baceec1a423d3f46c6f8c66c2a42551151721d4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/3/demo_16-64.list",
+      "source": "PPaint/H/5/8/3/demo_16-64.list",
+      "sha256": "cb6d78d1009e0c87ec09d19fdd8e952f0095bf1ce689b83fd08a63def55ef424",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/3/demo_256.list",
+      "source": "PPaint/H/5/8/3/demo_256.list",
+      "sha256": "374f1b19fbb72ea7d6311bde2a77e726696ede18e99b48498bb628e29af1743e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/3/tutorials_ntsc_16-32.list",
+      "source": "PPaint/H/5/8/3/tutorials_ntsc_16-32.list",
+      "sha256": "4cc2d91650c1498298ffbb355a1396e93d5408aa206d225668904e1e787dcfe7",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/3/tutorials_ntsc_256.list",
+      "source": "PPaint/H/5/8/3/tutorials_ntsc_256.list",
+      "sha256": "1e03a30d3d16cb689b5b9340a9231001631968be06dfb2060c81b3b9624cd797",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/3/tutorials_pal_16-32.list",
+      "source": "PPaint/H/5/8/3/tutorials_pal_16-32.list",
+      "sha256": "976c7a4134a685bf9269a671dac466b3fca21b17f10720bb9a32c43cdb39617b",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/5/8/3/tutorials_pal_256.list",
+      "source": "PPaint/H/5/8/3/tutorials_pal_256.list",
+      "sha256": "3012e09c1fb1296818308d44ab7d338360c1f99b70dfdba33173d0c3bb2d10f8",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/1/E-reg.txt",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/0/1/E-reg.txt",
+      "sha256": "2f9f719b0257107e7016119a3d07e56613f2bdb0cc1077f55bfc48fa9cad08ae",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/1/E-reg.txt.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/0/1/E-reg.txt.info",
+      "sha256": "a49bee50c46649d1d80737d82fa65d678bc2fd7842c021c2ff6e0d1f9bf137fb",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0001",
+      "source": "PPaint/H/7/0/4/0001",
+      "sha256": "b5b74849ac976395f82dad3a1ae9b50e291aac69256f23bf989efbac2097824d",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0002",
+      "source": "PPaint/H/7/0/4/0002",
+      "sha256": "898d760746645427364a2ed498fcd8d4d648c35a7f00150f58025eebb9a9d876",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0015",
+      "source": "PPaint/H/7/0/4/0015",
+      "sha256": "dd4e70de460ee725fde6365a34769725d48287907abbb6452102e23834d32948",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0016",
+      "source": "PPaint/H/7/0/4/0016",
+      "sha256": "ebaa8577c8fbc4ea3fe3b884375f0ce960446610aa870b7736b125b42e83723d",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0017",
+      "source": "PPaint/H/7/0/4/0017",
+      "sha256": "494cbed60d842062f609ff31b1be6195b8cd49dfac9c1bce31977a0c20bd08fb",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0044",
+      "source": "PPaint/H/7/0/4/0044",
+      "sha256": "2831cfba3738b3648232640d5cb45eac53d78165adff5d994642174ce7b54495",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0045",
+      "source": "PPaint/H/7/0/4/0045",
+      "sha256": "5bc26ab5ce0ffa6498d578dc6163b52544ec5c4daaf714ad478f6072a08ec95e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0046",
+      "source": "PPaint/H/7/0/4/0046",
+      "sha256": "8ea81575abb9e7272e9f2db0e84f5c20e6613c0da6ac6be60c47cbcbad48e12d",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0047",
+      "source": "PPaint/H/7/0/4/0047",
+      "sha256": "0d071e784543a4783cfff590e50df81c5b39e5304879f4d48cac73ed1fa2c671",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0048",
+      "source": "PPaint/H/7/0/4/0048",
+      "sha256": "22e339d175615c3bc72e7dace687d220efe33448431814ab864512da0e21f4e2",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0049",
+      "source": "PPaint/H/7/0/4/0049",
+      "sha256": "57b246dc2e448dc946ef3ee9f3763b4ccdc5dcf377f81fa5d3a6c220c916135a",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/00OO",
+      "source": "PPaint/H/7/0/4/00OO",
+      "sha256": "21224a63c631886d6d4a7355a73ffd3c245347d27eabf6abf9b3e423ae462173",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/00Z2",
+      "source": "PPaint/H/7/0/4/00Z2",
+      "sha256": "9696c8952e7c64c118a848609911e5ba3b75220b8c24b3066278b67f977fcf07",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/0O0O",
+      "source": "PPaint/H/7/0/4/0O0O",
+      "sha256": "d8973489a1d5f45483f762e066c51071895deb2d6c29dc487a529efebe8b2bba",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/2151",
+      "source": "PPaint/H/7/0/4/2151",
+      "sha256": "005216b1e7734811dfc6f69e1751fbeb76636c46e8806341f21ef0e47a8b2896",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/2152",
+      "source": "PPaint/H/7/0/4/2152",
+      "sha256": "2981da64962877777e41734e655ae2629fe2aeea69c22607c36dcc4867a0a4e0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/2163",
+      "source": "PPaint/H/7/0/4/2163",
+      "sha256": "923e08dcc258582b19590d9284f0898226d4778b1803d7b0e631102d0ffdbdf4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/5064",
+      "source": "PPaint/H/7/0/4/5064",
+      "sha256": "c39ab084e3ec383aa1db42024d8a570b34f99edc80a3fec7718c8e08da726618",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/O0O0",
+      "source": "PPaint/H/7/0/4/O0O0",
+      "sha256": "99e79604f46d2ff5ebf517bd26323da66a4972d5e65ed162da66cac84931fffe",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/0/4/OO00",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/0/4/OO00",
+      "sha256": "3478dd6e4ccf2b896bac1c71da15a7e1b5156c6b3cf4fc06852618a1a2df8e22",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/1/E-reg.txt",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/1/1/E-reg.txt",
+      "sha256": "8e7172c5164f16b911477bb8dcc9dc99fa713392301148c5c16078b8d1b353d2",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/1/E-reg.txt.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/1/1/E-reg.txt.info",
+      "sha256": "0a35b35a6b9b81e43009a3b9a4e37e8e121eb7a57e77ee898fbaa975b477e91c",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0001",
+      "source": "PPaint/H/7/1/4/0001",
+      "sha256": "032dd46b0466228c2a371f1e4a5002493de7b0c125d19ff5ba117c511b43a6b5",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0002",
+      "source": "PPaint/H/7/1/4/0002",
+      "sha256": "67ece349c6004667dcd033ad8df71de6cde57253f4ad4fc00ad760bff3327d5e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0015",
+      "source": "PPaint/H/7/1/4/0015",
+      "sha256": "c404d27e21f642c06f2d16ae4c712954e67883f79c72806b6592da2d4fb467ba",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0016",
+      "source": "PPaint/H/7/1/4/0016",
+      "sha256": "a154b93ba2145d4f268c5158959d5716b329777e76110c442778265261766706",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0017",
+      "source": "PPaint/H/7/1/4/0017",
+      "sha256": "94985523a4aaf5818923892cf86d9eafb0e5d6e13ceebce0e76204a98840c902",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0044",
+      "source": "PPaint/H/7/1/4/0044",
+      "sha256": "c4e5c6d59cd5b246b5897ed3773376e30b714775b97224c4d2429884ce84de05",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0045",
+      "source": "PPaint/H/7/1/4/0045",
+      "sha256": "93ffb4b176da8d69cd60052e951930f0d905efc98270a9347b81a44b64487d3e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0046",
+      "source": "PPaint/H/7/1/4/0046",
+      "sha256": "1d9ca3bb7d9caaea5d324a01677c1505116857adac722186799cf61a8e30219d",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0047",
+      "source": "PPaint/H/7/1/4/0047",
+      "sha256": "be5f26b00f081c097359cc726c668b63bc1be37023dc183c9418298c5f5a3850",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0048",
+      "source": "PPaint/H/7/1/4/0048",
+      "sha256": "f7ac4be71792b75ecdeef136e6bec2c33b75423deb74679e99d5b6c9125b11d0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0049",
+      "source": "PPaint/H/7/1/4/0049",
+      "sha256": "6d9dcf0486447ba555ab050b9ddedf655ec1930ffb6647f779a2920808c0ff9c",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/00OO",
+      "source": "PPaint/H/7/1/4/00OO",
+      "sha256": "eaa962baaf0eed3ad8e53265408eeb76ba0c47ae4af8dbe995609ed07522eb8d",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/00Z2",
+      "source": "PPaint/H/7/1/4/00Z2",
+      "sha256": "386bdf2d2a7f5706ab53a425f66512f537db173acad4a3cfd94226e1b909b5d3",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/0O0O",
+      "source": "PPaint/H/7/1/4/0O0O",
+      "sha256": "a3bd01db9ae501a62e82b131c9ab50e8891ed8d64ae520ccbeb53ecf59b40715",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/2151",
+      "source": "PPaint/H/7/1/4/2151",
+      "sha256": "77388f500fc55c3d0e016ac3acb19084b388961a8647589e372dc2fc8377247f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/2152",
+      "source": "PPaint/H/7/1/4/2152",
+      "sha256": "ec313dfc32cbb908fccb1c50f693f8b572a0674b362edfb2eaa35d40bd31cb5d",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/2163",
+      "source": "PPaint/H/7/1/4/2163",
+      "sha256": "7492103ab09dc3064c48685942fd00520dd6730ebd09b9a75a8ce7cd7dadff4d",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/5064",
+      "source": "PPaint/H/7/1/4/5064",
+      "sha256": "0abbf3a310cf75f3fe897b963a59369d66b018105da2e263ee52b07b6a6cbfbb",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/O0O0",
+      "source": "PPaint/H/7/1/4/O0O0",
+      "sha256": "f80fe50fcdd5398569b7192f73fe70597b3a8a4964148fa537ca01da7b05cc19",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/1/4/OO00",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/1/4/OO00",
+      "sha256": "bd7c9008c94c06ad1e80a3952e650d2e03c1995258967cc8ac92c6832d6b3f2f",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/1/E-reg.txt",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/2/1/E-reg.txt",
+      "sha256": "a5afe7de6c475215dbaf3222b815269f0c5a77a79f01374a04e940940bde7a7f",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/1/E-reg.txt.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/2/1/E-reg.txt.info",
+      "sha256": "6974b04c919eca222192a2b4a30c1d7f2cc6b6663c700ff51b9504b8a418c6be",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0001",
+      "source": "PPaint/H/7/2/4/0001",
+      "sha256": "c99eb63f33ba91b321cb03f041af4f23033463851afd8b84004eff752daa7a21",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0002",
+      "source": "PPaint/H/7/2/4/0002",
+      "sha256": "e983c4c13ef43d4949ca487e2d1512c7654dcb700e81cb219141838beac1a66a",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0015",
+      "source": "PPaint/H/7/2/4/0015",
+      "sha256": "ee58faa7498a0525c0876db9dc9cf0befc71ef6f8afd8810852f595026e3ff8c",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0016",
+      "source": "PPaint/H/7/2/4/0016",
+      "sha256": "8f3fea6b54f7ba54166664df9d793b4a3005dc446be3be81a92ec3336a28f9e9",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0017",
+      "source": "PPaint/H/7/2/4/0017",
+      "sha256": "2a9875fd5fdfb39489dfaa2f0c1b8c76436670b8a75c9bb15a6baba820a274a7",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0044",
+      "source": "PPaint/H/7/2/4/0044",
+      "sha256": "57da4d48fe10451b024642cf36ccb5ba6db8eb670c3d737704c41ee8657ebb4c",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0045",
+      "source": "PPaint/H/7/2/4/0045",
+      "sha256": "088d9e2e753b064251933a4ad4264340a40d252e8acd0c9c5ed53e64b4e93d82",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0046",
+      "source": "PPaint/H/7/2/4/0046",
+      "sha256": "ab4ac055b980662ea9c53a0a129544c638453cb6e2abfe3409ec7a20773fc737",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0047",
+      "source": "PPaint/H/7/2/4/0047",
+      "sha256": "e5d20e906b2d35abbf1e35b84240f0e0002fd06be63d34e4c3c07cbf653b5895",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0048",
+      "source": "PPaint/H/7/2/4/0048",
+      "sha256": "8cb9e953381cbbde8af226afff389d7c68ed1459fd06733839a4451cfb40de74",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0049",
+      "source": "PPaint/H/7/2/4/0049",
+      "sha256": "ec7040320977ea7aea255a232556621bca4e0ca9e1b87eb6e762246a5f5a00a9",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/00OO",
+      "source": "PPaint/H/7/2/4/00OO",
+      "sha256": "2e0f65dbb0a69dc9bf51b0d43a2e1dec7220f8caecdd0fbee732660eb242ccf0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/00Z2",
+      "source": "PPaint/H/7/2/4/00Z2",
+      "sha256": "7005457389f8c1b80ff75939fd10f0bcf7ea8361ec53aa5e5b855a1468cbc0bd",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/0O0O",
+      "source": "PPaint/H/7/2/4/0O0O",
+      "sha256": "c277e7fc115beca92349631b58bfe0e0a9c554e927a691b7e92cc21c9953d6f6",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/2151",
+      "source": "PPaint/H/7/2/4/2151",
+      "sha256": "8746b50b3b2ba0dbb2c81cd74936f41d4eeb78b10b8bb2b8baa331c88cef3f81",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/2152",
+      "source": "PPaint/H/7/2/4/2152",
+      "sha256": "5bfb5cfd3610b099a497e3f2ddc93c580ebbccc7128d254f9b38d9dd6097f9f4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/2163",
+      "source": "PPaint/H/7/2/4/2163",
+      "sha256": "9b63a6f99e1ec5c7f7fd396985b824d51b4f58d8a9899d591f1d2e5100026469",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/5064",
+      "source": "PPaint/H/7/2/4/5064",
+      "sha256": "3bc1863634f2516c4cfe01844be669753a2f26b86a0c08c904177a88917c6d0f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/O0O0",
+      "source": "PPaint/H/7/2/4/O0O0",
+      "sha256": "7e6c02b3e0178f485595f8716248fafbb19b21bec9d40105ce02f1e703f19232",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/H/7/2/4/OO00",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/2/4/OO00",
+      "sha256": "abf8d2d4b3a8f79cf9f436585fff714a724d830fa8a4bb7c7241095b93241409",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_68000_blit.library",
+      "source": "PPaint/libs/personal_68000_blit.library",
+      "sha256": "2ccb623a509db36d152bada99e47ca9415da7be6e7bc23b9cf172fbbbb43392c",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_68020_blit.library",
+      "source": "PPaint/libs/personal_68020_blit.library",
+      "sha256": "8d4acf363711d0fe357fdf179e7e34fae8bd337414c1c0325dff217aa487db45",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_68030_blit.library",
+      "source": "PPaint/libs/personal_68030_blit.library",
+      "sha256": "b058d29b09fc9aa072fe643f5fd6a2b7bfb4b535238c300c4629fa8f81947d8f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_68040_blit.library",
+      "source": "PPaint/libs/personal_68040_blit.library",
+      "sha256": "5cef21e4a266cb24c62304be22ca47f2c47e941135858c8bbedb39516e85e57f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_68060_blit.library",
+      "source": "PPaint/libs/personal_68060_blit.library",
+      "sha256": "5a4196259d91d307b30bf50b5ecf2fb1674f2972a46a1b7ad6e67fd8707f5c52",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_agnus_blit.library",
+      "source": "PPaint/libs/personal_agnus_blit.library",
+      "sha256": "0005118087b1ce3a8e16c043a61e1c4783ed433469644f2a3c3eb08dad8faf0a",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_ascii_io.library",
+      "source": "PPaint/libs/personal_ascii_io.library",
+      "sha256": "2c093b349535beca80c50bb53a15011ae180bf01b881b67882dacb4ad740315a",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_bmp_io.library",
+      "source": "PPaint/libs/personal_bmp_io.library",
+      "sha256": "4854a7856fb6a19bc5f497586056dbd6799f2f8e44ca1ddddbfeb342bbedeca0",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_csrc_io.library",
+      "source": "PPaint/libs/personal_csrc_io.library",
+      "sha256": "3b5761be922ba1edbfbe970652832c55268e9a0f153cc64dcfb6adb764067527",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_datatypes_io.library",
+      "source": "PPaint/libs/personal_datatypes_io.library",
+      "sha256": "70911f64be66d721da265dd7043b2f32d0fb9903c9061f8a026305ac5fe5dddb",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_icon_io.library",
+      "source": "pio_icon/Library/personal_icon_io.library",
+      "sha256": "9d0d36296d4cf287390c520f53963e7811f0c59dc4754be6fdaf30d6ea107821",
+      "protection": 2,
+      "comment": "",
+      "archive": "pio_icon.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_ilbm_io.library",
+      "source": "PPaint/libs/personal_ilbm_io.library",
+      "sha256": "05d15a0595f4e3c8b801cba284c90f9020ff090ddc8cb999a10a49e0bf9fbd57",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_jpeg_io.library",
+      "source": "PPaint/libs/personal_jpeg_io.library",
+      "sha256": "ce0d4dc39e21353d82a9eada6754d388c922214ca7668e41e639d606a523afbf",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_pbm_io.library",
+      "source": "PPaint/libs/personal_pbm_io.library",
+      "sha256": "67c34e1ea9774e44dc5db49852c09a209203dee28d5ddef74ee660051622df6e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_pcd_io.library",
+      "source": "PPaint/libs/personal_pcd_io.library",
+      "sha256": "acac0a47c98ea747744160cfcedec1bf6d21f6d37689f6eaea74b54436327f70",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_pcx_io.library",
+      "source": "PPaint/libs/personal_pcx_io.library",
+      "sha256": "a3c3b38e942871701838994b80906111823d0fb801b254c87e3e2610aea5864b",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_plasma_io.library",
+      "source": "PPaint/libs/personal_plasma_io.library",
+      "sha256": "8a5abf4a901aeb4435aac1f54f24b595283347907b608b67ab86ed1caa6f5094",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_png_io.library",
+      "source": "PPaint/libs/personal_png_io.library",
+      "sha256": "4ea53c4a91861295ef56c3e9e10f621537b27a7aa962e5255a7394eb5b3a7ac7",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_raw_io.library",
+      "source": "PPaint/libs/personal_raw_io.library",
+      "sha256": "04ba9eaae7feb1a45dba29862d6d9f0201c35b86416360a8f59491aee2852da4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_req.library",
+      "source": "PPaint/libs/personal_req.library",
+      "sha256": "bbb7bf5e64960dfad36dfb31ccfc184092df08189b68887ff81e4663c3532302",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/libs/personal_tim_io.library",
+      "source": "PPaint/libs/personal_tim_io.library",
+      "sha256": "b1d6e6cf5ed978b8b048c3aa721ac91390d2e378fc564d08a5eafc4d7da7c233",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Pictures.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Pictures.info",
+      "sha256": "4002e7d7350e9fe9f79551a3f893e8b605be62cd771d445c79548db163ef3520",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Pictures/Clown.pic",
+      "source": "PPaint/Pictures/Clown.pic",
+      "sha256": "3951d4f4e654c36b26d8f6c6bdec130af5fec33bb37bdfb66063b9737f58c955",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Pictures/Clown.pic.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Pictures/Clown.pic.info",
+      "sha256": "eb7bfb8b836fb5f5519843d68872a6c2282462de8c0c446406d9a458c33ab4d4",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Pictures/PPView",
+      "source": "PPaint/Pictures/PPView",
+      "sha256": "8aa7c547807794d6d6740e9b40b51407e0f586d5e357213091d255fbb2353991",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint",
+      "source": "PPaint/PPaint",
+      "sha256": "2d679078651141c0590ee0991fcc7b8741ebc42b091fe71ae162737d694c8fa8",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint.guide",
+      "source": "PPaint/PPaint.guide",
+      "sha256": "de1bdb66497fff11cbb3a7550e5cbff924b72ce387d7d0d5eb5e8ae344a9941c",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint.guide.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint.guide.info",
+      "sha256": "a731d60755e93df698233145b224b6da024b888044eb291d391630fc9bd75d3a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint.info",
+      "sha256": "c7c464e0c80a0b8b1364693dd3ba493dbc959e7eb96cdd1102b985e5440a25dc",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint.readme",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint.readme",
+      "sha256": "9c1e6fbf17d18c4629300ccf597e6fbf8533dae571b128c3694bebd1a74f7f8a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Icons.info",
+      "sha256": "4f5ccb9d08463357b06785acf6d48d287a716efbc32391f0598433519e7179f7",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons/def_Animation.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Icons/def_Animation.info",
+      "sha256": "6d582a65098553029739b199bdb8ea0e2347eeabb78ab621712fae333321b54e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons/def_AnimBrush.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Icons/def_AnimBrush.info",
+      "sha256": "796bacf7bcd779390e7b1c67fdb02a1e253909a93409d4b400b4fc62e49b9fe8",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons/def_AppIcon.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Icons/def_AppIcon.info",
+      "sha256": "011021375e638f925033981c5d84960a83e5ceaeaf6cce19c787d652470a1271",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons/def_Brush.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Icons/def_Brush.info",
+      "sha256": "a1e99fa82a3af072c66d8947f0b7431d31efc557db31154f0574c645a976cedb",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons/def_Drawer.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Icons/def_Drawer.info",
+      "sha256": "434053f1090e226a1b5498058af7fed7c586ccac7704705898fd083dd7e5858f",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons/def_Palette.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Icons/def_Palette.info",
+      "sha256": "5701b741e10e60079f7fdaa5d80cd5a37adfb0c504a33e8c59d99c63770ca13c",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons/def_Picture.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Icons/def_Picture.info",
+      "sha256": "b15e70d10fac47bf81574fe613bf320d5cfa3d10209404bc56725f3259d2bd5a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons/def_Settings.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Icons/def_Settings.info",
+      "sha256": "0b7ae152de44b6a39a48bfac9a8a1b737876e445c19a1bd60581c9352ef27356",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Icons/def_Stencil.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Icons/def_Stencil.info",
+      "sha256": "bab9ee573d636273e905daf6fdb16a5236a6c5d56f50067f882fed2bacb3293a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs.info",
+      "sha256": "44a59f2d7852bb20b65452367b9b459f0df8b10e8c1a61251ca8616a9722fad3",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/HP_DeskJet.set",
+      "source": "PPaint/PPaint_Prefs/HP_DeskJet.set",
+      "sha256": "888a2cd5f4a061fe9d52002766c117835c94ba53923c9ac4cf449af6704bfd49",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/HP_DeskJet_C.set",
+      "source": "PPaint/PPaint_Prefs/HP_DeskJet_C.set",
+      "sha256": "cb69f26a784845484316c632d759a4e5b62cde0839c807e0eef7976caa7321dd",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/PPView",
+      "source": "PPaint/PPaint_Prefs/PPView",
+      "sha256": "8aa7c547807794d6d6740e9b40b51407e0f586d5e357213091d255fbb2353991",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/Startup_1.set",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/Startup_1.set",
+      "sha256": "b893d5f68001d6dd6b3d4c25bfe11c9b30d643514e6d078863d63241720c642f",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/Startup_1.set.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/Startup_1.set.info",
+      "sha256": "803b3c92243a07f25301c4359f20405ee5511f7a9e40f77437dc026c027cf036",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/Startup_2.set",
+      "source": "PPaint/PPaint_Prefs/Startup_2.set",
+      "sha256": "cef785afdfa84d00db5301d4bf371b65c65a02796397fa7b6595271690939836",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/Startup_2.set.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/Startup_2.set.info",
+      "sha256": "1dec84076e0a98aa80cf3f3b80e466105e62e69a4b06d9b2ae21dd69652ec473",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/Startup_A.set",
+      "source": "PPaint/PPaint_Prefs/Startup_A.set",
+      "sha256": "19b0495a7e503e9026195b21c9575b318fbcfb855a27137a18db0e76713bccb2",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/Startup_A.set.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/Startup_A.set.info",
+      "sha256": "199b97822bc5e43b7efe1bc653e6559d1ec04a00502a147f05bb15ae9ba797c0",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIColors.12",
+      "source": "PPaint/PPaint_Prefs/UIColors.12",
+      "sha256": "abe582f50e49f00d44efb3673e07a6d113970db1d3ca717c1453f4a2a7d00405",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIColors.12.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIColors.12.info",
+      "sha256": "d3eb9da0e4076e687f85122f4e25fb61dcd9a2b105eeb3f0412d24e7bcbdb4b1",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIColors.6",
+      "source": "PPaint/PPaint_Prefs/UIColors.6",
+      "sha256": "5a99df764740c71e688a0b5cc0ecf049eead2f2abe225227e5d77b3fd4f60120",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIColors.6.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIColors.6.info",
+      "sha256": "44a24f484a249c1a4fff76be929640f7ba23d6567f62ec3237738eab6d838ae2",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIGraphics.pic",
+      "source": "PPaint/PPaint_Prefs/UIGraphics.pic",
+      "sha256": "82260177e0a037cdc604b2534f8dc62d1e86aa2c33cde47159d1202f51234496",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIGraphics.pic.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIGraphics.pic.info",
+      "sha256": "8724229d642f159c13acb1ce570f2bc1eefa92001bf3fb87781d892e48a0e123",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.custom",
+      "source": "PPaint/PPaint_Prefs/UIText.custom",
+      "sha256": "9fef3171e22c1c7c2de418809a3a0ad2aad4b05589766219435a1e90dfc57a59",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.custom.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.custom.info",
+      "sha256": "1a51bda715348cb5e3c12b2826cb2c46e779b0eff3ff776cf7b89e87ac1be067",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.cze",
+      "source": "PPaint/PPaint_Prefs/UIText.cze",
+      "sha256": "7f4e10defe1290aef5bd0536823f62624e65405f6f7aa597ec0be402d683c260",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.cze.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.cze.info",
+      "sha256": "0b35589fb9ed9d66585982f33b33e08b95627acfe1ef37b0a4ca11b68ae16587",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.dan",
+      "source": "PPaint/PPaint_Prefs/UIText.dan",
+      "sha256": "d905f38f0283e02b4ecb93faff750148a05057737021832fb3d31eda8f8bc95e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.dan.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.dan.info",
+      "sha256": "7e86a6d8fef9012b6a07b0acb0dfba3e03aee5bdd3328a550a6802a17991f50b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.deu",
+      "source": "PPaint/PPaint_Prefs/UIText.deu",
+      "sha256": "199542a141eab09c859670d7c3599eced8b3e8330ef661cc6618ec4f3d78294d",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.deu.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.deu.info",
+      "sha256": "820b6161778cfb70c2073c61973d4e6c28aa2bb3e93d9cec89f2c7073ab54ea5",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.eng",
+      "source": "PPaint/PPaint_Prefs/UIText.eng",
+      "sha256": "b7d2da8515dfae8cddc437edd70170d9dd7bc56ee7f2852d53436faa658fce41",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.eng.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.eng.info",
+      "sha256": "fbc515a864e08d54f99f0c3d1cc5fb68d56bc85cb840da4efa9a3f98b00e3667",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.esp",
+      "source": "PPaint/PPaint_Prefs/UIText.esp",
+      "sha256": "980e3d5f1d3d2a178b698829c90e7c82b835c12f2ec7959bd9ef2532e7639c2f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.esp.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.esp.info",
+      "sha256": "5d09c81b29781717037bfee58b62c03dc968ad81433e946d7efde117a92beca3",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.fin",
+      "source": "PPaint/PPaint_Prefs/UIText.fin",
+      "sha256": "2aa87cfc9ffdbb5a874f1206a7e1ff29892d57ae52cbcabd7515970e43c236f2",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.fin.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.fin.info",
+      "sha256": "73b2323d92b42297ae92e1bdba541bf1b39365cca8526742d6ade889d3f00492",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.fra",
+      "source": "PPaint/PPaint_Prefs/UIText.fra",
+      "sha256": "9788beaf5a9707b43c3dfc0e7e65f1b21753ef3ef6c62c48ec3033ec72173734",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.fra.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.fra.info",
+      "sha256": "10bfdc36172a74a7bb030e9714a8503903d2f31936b5b91543db846c7de85b24",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.hol",
+      "source": "PPaint/PPaint_Prefs/UIText.hol",
+      "sha256": "db57598a8415fb2b3b2293414364836a10e5fea09bdd061fc6bad2a7086209d4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.hol.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.hol.info",
+      "sha256": "3a2893d46c64113a466358a97cc7a4fc03651e4fc973ccdb84899bb7a18dd087",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.hrv",
+      "source": "PPaint/PPaint_Prefs/UIText.hrv",
+      "sha256": "27963e9fdeeea261956cad347cf81b5ccc7020a1869dc3f5124977e87f13be10",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.hrv.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.hrv.info",
+      "sha256": "0e44b40ad844db1031fd78869f4d21ac9459fc6baf45c909a94b613886b31d88",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.hun",
+      "source": "PPaint/PPaint_Prefs/UIText.hun",
+      "sha256": "2396dbd5ccf4d662783effbf070fb03e2e11a79ae98073d6cfe281708ce46cfe",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.hun.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.hun.info",
+      "sha256": "1bb84fc063c3da6982355270750a7e2d36565c2bc66588cc7ba38eb5b657bb97",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.ita",
+      "source": "PPaint/PPaint_Prefs/UIText.ita",
+      "sha256": "fbfd679ec4e8756f8838b6b4f88c75ef2069c9e92857ceb2b1a045f4f329f71d",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.ita.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.ita.info",
+      "sha256": "652c7b7439c617efa1387303562d54bb853038314dfbef6566134fbf6210fcbe",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.nor",
+      "source": "PPaint/PPaint_Prefs/UIText.nor",
+      "sha256": "5c979876705e8747a4b56d7d5fc088ae3baf85eb2f809124e978602ed664853a",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.nor.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.nor.info",
+      "sha256": "76584067bef0753ddb9abd8d8bbdafe02658c3e9b1414cc6f09c1ae6d21aadf1",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.pol",
+      "source": "PPaint/PPaint_Prefs/UIText.pol",
+      "sha256": "cd6ae198aceb6480178d687d28034a0e68000c2e2dbac5eb6b2c0a9f07333198",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.pol.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.pol.info",
+      "sha256": "01023fc46a2c32a6cd92458f7f7ec05cf2118ed875e5f7f57c218bfba29ed2e4",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.prt",
+      "source": "PPaint/PPaint_Prefs/UIText.prt",
+      "sha256": "972981883470ce47fba6c4816ad1e54d5d1550ced1b4653e1a7041be0cf81881",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.prt.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.prt.info",
+      "sha256": "79cdfe33997ea3037de7b2af3b184251c4c8fe40c1a18ca3c31db7842e7607ac",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.svn",
+      "source": "PPaint/PPaint_Prefs/UIText.svn",
+      "sha256": "5f6886198486e03f99eb5f4a701f67ad2153cac67a3d899590847d2e687e945f",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.svn.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.svn.info",
+      "sha256": "29586583f65853b32399276957c90d87b3d26c55e81d0586a63d2c88c16884bc",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_Prefs/UIText.swe.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint_Prefs/UIText.swe.info",
+      "sha256": "475beb233dd7bcc32cc97b7ad49b8e2ebd0f827484c14ba21a72c9bc35cc8ee1",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/PPaint_PS",
+      "source": "PPaint/PPaint_PS",
+      "sha256": "66b6552283246380efe2af7a15e324677eb7586b656c054061ceb3eef4478676",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/PPView",
+      "source": "PPaint/PPView",
+      "sha256": "8aa7c547807794d6d6740e9b40b51407e0f586d5e357213091d255fbb2353991",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx.info",
+      "sha256": "807acbf4148bd64e5bf1c98672c5bb0e9a38804e99463ce8f598c3d452028fa2",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/ADPro.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/ADPro.info",
+      "sha256": "258096e013720ac19cf1ece9f5869d1052d8d998ff25047a5efe576b7ccf72dc",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/ADPro/Loaders2.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/ADPro/Loaders2.info",
+      "sha256": "b817df222696ff9aca38651b10c3f778e9b1d1188bf0ee2e12a8520519bcdfdf",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/ADPro/Loaders2/_LoadPPaint",
+      "source": "PPaint/Rexx/ADPro/Loaders2/_LoadPPaint",
+      "sha256": "0ac270f965326fef0c6593db9610b1b69a9bcbe0f99fad5277256c1699d032eb",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/ADPro/Savers2.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/ADPro/Savers2.info",
+      "sha256": "3ab2cd9264d24876ae4bac0c4b679cfb0604246d46329a7135b7dbbee8cd57f6",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/ADPro/Savers2/_SavePPaint",
+      "source": "PPaint/Rexx/ADPro/Savers2/_SavePPaint",
+      "sha256": "1fdfe55f243be6932fb8ad49c8c1fe5378d69c068c2a92f13f26b347362eff77",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimBrushToAnim.pprx",
+      "source": "PPaint/Rexx/AnimBrushToAnim.pprx",
+      "sha256": "f2dd8d98c1e1c95ae6cccdbf70069032725eabbb760a572cc9a6bbc57deb5e8e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimBrushToAnim.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/AnimBrushToAnim.pprx.info",
+      "sha256": "f32573d30053958d0f2d77ce7610628d3afd86654207ceaf79f40f782a17ff04",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimCharPath.pprx",
+      "source": "PPaint/Rexx/AnimCharPath.pprx",
+      "sha256": "d04fd03e03f5f943c7c0a2a40e12c848acd890d5c77deb5f72ce753809bfdcb9",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimCharPath.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/AnimCharPath.pprx.info",
+      "sha256": "9b83935976f36a248b5f2b748bb9b13c50a1e6be190bf237c1a1f358d36380ea",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimPath.pprx",
+      "source": "PPaint/Rexx/AnimPath.pprx",
+      "sha256": "8e04cb3d0d20aabcb403928cce96447f1a047294f76c5b67f88eccb85afcafd1",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimPath.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/AnimPath.pprx.info",
+      "sha256": "47c3325b9dd9096cea255e31d923a7fa4d5dfa82df7a331f5077ccaaa3d6b22d",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimText.pprx",
+      "source": "PPaint/Rexx/AnimText.pprx",
+      "sha256": "35f2d50ca6d9f8b1cad9b5aab6971e514655da4493eef5d54dd439aa11c41837",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimText.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/AnimText.pprx.info",
+      "sha256": "c954d0adfe09d1edcd1b27879bab2f5f9b75fbfa332d297e057b692df0b88610",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimToAnimBrush.pprx",
+      "source": "PPaint/Rexx/AnimToAnimBrush.pprx",
+      "sha256": "48365df6b66ab1eb67909dab578225bf86b63b9bb0a9ace7f690f1a1e425c1b4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimToAnimBrush.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/AnimToAnimBrush.pprx.info",
+      "sha256": "f505a23a1bec4e341473c9270ece0d0d9a168dbea559930b27dfc6f34be33b36",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimToFrames.pprx",
+      "source": "PPaint/Rexx/AnimToFrames.pprx",
+      "sha256": "2ba3b5088e11fa14f8e0722377dbd773e32c26de9a25600af84a41c8286355ce",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/AnimToFrames.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/AnimToFrames.pprx.info",
+      "sha256": "27aacdebfc73d86307e78c971ba087124929c1d81434f9bfba817b270f66b5a6",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/BrushFormat.pprx",
+      "source": "PPaint/Rexx/BrushFormat.pprx",
+      "sha256": "773cb52a5d9d6b10ae52518dc96734f31904f707d4a7e36c3f340d4b2a63bc14",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/BrushFormat.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/BrushFormat.pprx.info",
+      "sha256": "e416ec0b6b95cbd7bbc93102f8163293b2320b68a8f504f941ac7b1dd3ccd6b5",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/Catalog.pprx",
+      "source": "PPaint/Rexx/Catalog.pprx",
+      "sha256": "4953d929d3f80ce301e2052aa130d349fba361bb1180bb15975be94d51d7773d",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/Catalog.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/Catalog.pprx.info",
+      "sha256": "635af4c8ea46c195a05b08a37fcda12f595f989ecb30bebb30176ff212cec16b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/CircleText.pprx",
+      "source": "PPaint/Rexx/CircleText.pprx",
+      "sha256": "2f5cd4305511ac52148607f501327134d8693a719ee7a80ce9757f0a918d9c20",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/CircleText.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/CircleText.pprx.info",
+      "sha256": "b802b8680a23b6bc685edbf33b403a066374ec2cb6286bb5731a6a8d816a5df8",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/DefineAnimGif.pprx",
+      "source": "PPaint/Rexx/DefineAnimGif.pprx",
+      "sha256": "96918fd7883820d866056a63afaea97c64a3fe643391e01f611255976db9342b",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/DefineAnimGif.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/DefineAnimGif.pprx.info",
+      "sha256": "6e0dbb62430cffd32f16774a030ae76d5465fb1b9d618e8bf3db41951e873d71",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/EmbossAnim.pprx",
+      "source": "PPaint/Rexx/EmbossAnim.pprx",
+      "sha256": "45bf05fa4487ca8185e6287aaa9f6c8143279b51ae73844a2a8fff08e398bfcd",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/EmbossAnim.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/EmbossAnim.pprx.info",
+      "sha256": "38b444affeddd9087baae47a1448d1808285ec4e71e6feee776b8ba7020ba750",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/FramesToAnim.pprx",
+      "source": "PPaint/Rexx/FramesToAnim.pprx",
+      "sha256": "2603eb05087aae1ed4cf2cfbdeed45da15d31f584e9994dbcb9dbb4a81ed3cff",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/FramesToAnim.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/FramesToAnim.pprx.info",
+      "sha256": "3a0468a50bbb5cd1e8ed56d54440a8654002736f7665617790c3870c0f60f1e9",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/GifToPng.pprx",
+      "source": "PPaint/Rexx/GifToPng.pprx",
+      "sha256": "b3e1ab7b89a91963f3cf8cf5a6c654ba3f77003458bed61e6b5445e471951306",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/GifToPng.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/GifToPng.pprx.info",
+      "sha256": "cea6e4bf0192a5a7a2e59ede8008f442206b9d444411a4c7a9908538afaab363",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/Help.pprx",
+      "source": "PPaint/Rexx/Help.pprx",
+      "sha256": "7f12296f6de1dc93b61be2820e4d8d8ad72bb96cf7b426aa80d62334defd6ea2",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/Help.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/Help.pprx.info",
+      "sha256": "bc61a75a9ed3d3b5e680f38c6832dc7f9c77d8cf58bd400f889398891789cdee",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/IsoPalette.pprx",
+      "source": "PPaint/Rexx/IsoPalette.pprx",
+      "sha256": "9e56c73c05dbd1224a48e248d09df6d15a6fb8831bac69c6a9af057f02de7e88",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/IsoPalette.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/IsoPalette.pprx.info",
+      "sha256": "644abfa6af88a370941da24407e720e2b7d7374f307aa029e4da2dc2dc8369dc",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/LightTool.pprx",
+      "source": "PPaint/Rexx/LightTool.pprx",
+      "sha256": "98c46accbc0868ef34d7db15ddba5e47fc53d1062897b292ea7c3ae5985d145e",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/LightTool.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/LightTool.pprx.info",
+      "sha256": "a2b2e8c6d5fb692495489ba5211180c2b9e143d8bfc15cb4f328686fcb009680",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/LoadAnimGif.pprx",
+      "source": "PPaint/Rexx/LoadAnimGif.pprx",
+      "sha256": "562d2898f475b7e6f79d2d842ceb3a2a36639285a35e475b45a65c2c84467811",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/LoadAnimGif.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/LoadAnimGif.pprx.info",
+      "sha256": "f967779b65d1f877a9b99dfbf6c25e93472aa5c5d0493321c8f945aa36736179",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/MakeIcons.pprx",
+      "source": "PPaint/Rexx/MakeIcons.pprx",
+      "sha256": "36b82bab57d87d2096bb8f6c235091db2dc52f6631b82a1dd4c700055566b728",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/MakeIcons.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/MakeIcons.pprx.info",
+      "sha256": "3010679338045a1cd2597d2dc474bc7929d171102616669872004f79e9be1185",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/Process.pprx",
+      "source": "PPaint/Rexx/Process.pprx",
+      "sha256": "718d82fa5c8fe8ce1a16e2f56ad76bee7ac6eb24c8be4e9dd89cb919826bcc85",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/Process.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/Process.pprx.info",
+      "sha256": "1d8213057c3cb40c51630a96df8f422a36b22e7de2fbde04557f9758d05efe54",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/SaveAnimGif.pprx",
+      "source": "PPaint/Rexx/SaveAnimGif.pprx",
+      "sha256": "437e8ec2e0ea1807cca7a2fde4798823e5e3dc319ce14a1b34de1b06b56c1349",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/SaveAnimGif.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/SaveAnimGif.pprx.info",
+      "sha256": "433c4572c35bce843306919bab8ef33c76758cb0db68640ccefcc24db7701a21",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/Slideshow.pprx",
+      "source": "PPaint/Rexx/Slideshow.pprx",
+      "sha256": "5943efd91c3987a1577b260c2c8db383be2882e4f5c5f2fbe11dd999630fbaaf",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/Slideshow.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/Slideshow.pprx.info",
+      "sha256": "fde645477dab9b1cb62960955dc37e48b3ffa951ce402e03b3b4a3f5a7e9568b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/VectorFontPath.pprx",
+      "source": "PPaint/Rexx/VectorFontPath.pprx",
+      "sha256": "bfad2059237d39794467c800929233f1e28784de575580590213b1ea2af68f73",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/VectorFontPath.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/VectorFontPath.pprx.info",
+      "sha256": "63ba168fc01988d98bdb90f7d0d951c96693521e96c08eb9dbf9462028387ca1",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/VectorText.pprx",
+      "source": "PPaint/Rexx/VectorText.pprx",
+      "sha256": "31dccb4eaa3dd12a241db06c6e26d993dffff2612343a714350cc8fddc33ab59",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/VectorText.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/VectorText.pprx.info",
+      "sha256": "b7172a3c83e044a02dc973c6e1c29111a41e684d7714e34a078acd95a976e797",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/ViewFile.pprx",
+      "source": "PPaint/Rexx/ViewFile.pprx",
+      "sha256": "6d682d97f5dc048050e4851be54d58817e629e409c56a4cf74c1a637001ae293",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/ViewFile.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/ViewFile.pprx.info",
+      "sha256": "666e10c62caeb65f12910570286896413b3bbd2d79f4a86f73c6c766b9f73199",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/WebMap.pprx",
+      "source": "PPaint/Rexx/WebMap.pprx",
+      "sha256": "0e1d2cb85df9fd66529f71664eb290a32cdbf9f15052421bed91fc6a465e99c4",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/WebMap.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/WebMap.pprx.info",
+      "sha256": "4bdd1da5712fee362795aa07c664d5a57b168b1a681088045bd8d39dad16402a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/Whirlpool.pprx",
+      "source": "PPaint/Rexx/Whirlpool.pprx",
+      "sha256": "77fd0d32c0f4a0725b247e6ee349c46abfcc70e49ea6ad38be2bf12fcd6272cd",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/Whirlpool.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/Whirlpool.pprx.info",
+      "sha256": "2d9bc9d807f13d1fc865560560787aa9508dd5a44f58eb8eb339ab80f934132c",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Rexx/X-Tool.pprx",
+      "source": "PPaint/Rexx/X-Tool.pprx",
+      "sha256": "d438831771e78be4886e6855425bafd9b1f164eeec90eb9aee9231447cd39505",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Rexx/X-Tool.pprx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Rexx/X-Tool.pprx.info",
+      "sha256": "7230d55f5f0a9c559d1b3daee9d54e9e2f6aa3e2584d62350b590b00b971e94b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Stencils.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Stencils.info",
+      "sha256": "a766e6fcf670ef22771b1c3940b97e2aea90601c024ee6c601af29bfc13db7c3",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Stencils/Circle.stn",
+      "source": "PPaint/Stencils/Circle.stn",
+      "sha256": "15ea6a2f9bd803d2b7cb9d6db0ea2691c3d90b575ecc0b0b21cd6798b4f62307",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Stencils/Circle.stn.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Stencils/Circle.stn.info",
+      "sha256": "286fe19d4640d3a21e369ee3c47349c304fe13c54d9c0bea5d391ee44c0627af",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/PPaint/Tutorial.txt",
+      "source": "PPaint/Tutorial.txt",
+      "sha256": "8c7cbdace25e7fe7e4b3cd66c9d06b7a3ae65dba327382c84faf4dc8835e0fd1",
+      "protection": 2,
+      "comment": "",
+      "archive": "PPaint.lha"
+    },
+    {
+      "path": "Programs/PPaint/Tutorial.txt.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/Tutorial.txt.info",
+      "sha256": "bd8ad7f042407abdcc85c9c3fe5ea2a846115745f87eec67c099dcd7a9d32b24",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}
