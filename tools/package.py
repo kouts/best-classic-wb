@@ -62,6 +62,11 @@ def extract_archive(source, directory, archive):
             "tar.exe", "--options", "lha:hdrcharset=ISO-8859-1", "-xf",
             str(source), "-C", str(directory),
         ]
+    elif extractor == "lzx":
+        lzx = shutil.which("lzx.exe")
+        if lzx is None:
+            raise FileNotFoundError("Install the Amiga LZX CLI (lzx.exe) and add it to PATH.")
+        command = [lzx, "x", str(source), str(directory)]
     else:
         raise ValueError(f"Unknown archive extractor: {extractor}")
     subprocess.run(command, check=True)
