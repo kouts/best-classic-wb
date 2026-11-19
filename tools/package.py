@@ -1,6 +1,7 @@
 """Build a local Amiga package hardfile or verify an installed hardfile."""
 
 import argparse
+from graphlib import TopologicalSorter
 import hashlib
 import json
 import os
@@ -87,9 +88,14 @@ def unpack_archives(data, archive_dir, scratch):
             if relative_path(name).name != name or name in extracted:
                 raise ValueError(f"Invalid or duplicate nested archive name: {name}")
             parent = archive["archive"]
-            if parent not in data["archives"]:
+            if parent not in extracted and parent not in nested:
                 raise ValueError(f"Unknown outer archive for {name}: {parent}")
-            source = extracted[parent] / relative_path(archive["source"])
+        dependencies = {name: [archive["archive"]] for name, archive in nested.items()}
+        for name in TopologicalSorter(dependencies).static_order():
+            if name in extracted:
+                continue
+            archive = nested[name]
+            source = extracted[archive["archive"]] / relative_path(archive["source"])
             extracted[name] = extract_archive(source, nested_scratch / name, archive)
     return extracted
 

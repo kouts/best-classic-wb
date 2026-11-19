@@ -1,0 +1,32 @@
+{
+  "name": "DoMIME",
+  "version": "1.0",
+  "baseline": "2.1.12",
+  "archives": {
+    "DefIcons44.lha": {
+      "url": "https://se.aminet.net/util/wb/DefIcons44.lha",
+      "sha256": "921283c130cb4d1f69e8effe5710d1d38243d382d5da1e70c9c5331d8cefabbd",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "dos.library and utility.library",
+    "Voyager-format ENV:MIME.prefs with a suffix and viewer mapping",
+    "wbstart.library for Workbench viewer launch"
+  ],
+  "notes": [
+    "Stephan Rupprecht's 23 June 2000 m68k command matches DefIcons44/DoMIME. The archive documentation describes project icons with C:DoMIME as the default tool and Shell or Workbench viewer dispatch.",
+    "The stock installation adds only C/DoMIME. ENVARC has no MIME.prefs, and the installed default project icon contains no DoMIME assignment. WBStartEmu owns the shared library and handler."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "C/DoMIME",
+      "source": "DefIcons44/DoMIME",
+      "sha256": "3c62c1cfc5f344fd553090f0b03e2b33a676566f4fb5da75fb61a1284cbc5c0b",
+      "protection": 2,
+      "comment": "",
+      "archive": "DefIcons44.lha"
+    }
+  ]
+}

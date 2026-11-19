@@ -4,7 +4,7 @@ The catalogue includes Directory Opus 4.16, FBlit 3.79, SnoopDos 3.11, iGame 2.4
 
 Directory Opus takes `DirectoryOpus.CFG` and the replacement icons directly from the tracked BCWB payload. The Aminet archives supply the application, library, and class-file add-on. The catalogue records the installed spelling of accented paths as observed in 2.1.12. FBlit takes `FBlit.cfg` from the BCWB payload and records the executable protection setting on `C/FBlit` separately from the other files. The BCWB system supplies the shared startup scripts. The WBDock manifest maps the dock settings.
 
-SongPlayer uses the pinned Aminet 1.62 archive for 105 files and the BCWB payload for its configuration and 11 replacement icons. Its 32 drawers retain stock metadata and observed accented spellings. The `mpega` entry owns the standalone archive's 68020 integer library, which also matches EaglePlayer's bundled 68020 copy. The stock payload and installed inventory contain no `C/mpega` command. INOVAMusic 3.1 remains a checked BCWB release input while its exact upstream archive is unresolved. Shared MUI and asyncio dependencies remain separate migration work.
+SongPlayer uses the pinned Aminet 1.62 archive for 105 files and the BCWB payload for its configuration and 11 replacement icons. Its 32 drawers retain stock metadata and observed accented spellings. The `mpega` entry owns the standalone archive's 68020 integer library, which also matches EaglePlayer's bundled 68020 copy. The stock payload and installed inventory contain no `C/mpega` command. INOVAMusic 3.1 remains a checked BCWB release input while its exact upstream archive is unresolved. The MUI and asyncio packages own their shared files.
 
 The independent `playsid` entry takes `Libs/playsid.library` from the checked `playsid3` archive nested inside DeliTracker 2.32. DeliTracker retains its PlaySID documentation and icon. No PlaySID application or `L` handler is installed. ACDPlay uses the pinned 1.6 executable and the BCWB replacement icon, including its `scsi.device` unit 1 settings. DTView2 retains the verified BCWB 1.5b executable, icon and English help file: the current Aminet archive contains 1.7, and the exact 1.5b upstream archive remains unresolved. Shared help and system drawers are not owned by these packages.
 
@@ -106,9 +106,15 @@ MiamiDx 1.0c uses Holger Kruse’s two Aminet archives for the program, tools, E
 
 The `cnet` entry owns the standard 68020+ SANA-II driver 1.9 and its English guide. The `3c589` entry owns the 1.5 device and the archive's English manual at the installed `3c589.guide` path. Both use the shared `DEVS:Networks` drawer. The separately catalogued `pccard` entry supplies the library used by 3c589. [cnet archive](https://se.aminet.net/driver/net/cnetdevice.lha) [3c589 archive](https://se.aminet.net/driver/net/3c589.lha)
 
+Amiga Explorer maps the literal `Programs/Amiga Explorer` drawer and six files. Cloanto's 10.0.2.0 Windows setup contains the identical 68k AExplorer 10.0.0.0 and Setup.rexx 1.0 in both its x86 and x64 cabinets. Cloanto's 7.0.1.0 Windows setup supplies the exact stock README.TXT. The checked BCWB drawer, tool and project icons preserve the stock artwork and settings. Workbench opens the AExplorer icon with AUTO transport. Setup.rexx is the separate ARexx bootstrap for SER:. [Current Cloanto setup](https://cdn.cloanto.com/pub/amigaforever/amiga-explorer-10-setup.exe) [Legacy Cloanto setup](https://cdn.cloanto.com/pub/amigaforever/legacy/amiga-explorer-7-setup.exe)
+
+DoMIME 1.0 matches the m68k command in DefIcons44. The shipped command looks up suffixes in Voyager-format `ENV:MIME.prefs` and can dispatch a project to a viewer. Workbench dispatch uses the separately owned WBStartEmu library. The stock installation contains no MIME.prefs or icon configured to use DoMIME. [DefIcons44 archive](https://se.aminet.net/util/wb/DefIcons44.lha)
+
+asyncio.library 40.6 and its English help match the Aminet asyncioppc archive. The installed mixed library provides the 68020+ and WarpOS entry points. SongPlayer enables the library in its config. The installed EaglePlayer MPEG players, MiamiFtp and MUI GIFAnim.mcc also reference it. Each consumer stays with its existing package. [asyncioppc archive](https://se.aminet.net/util/libs/asyncioppc.lha)
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet and 3c589 also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME and asyncio also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
 
 Install the pinned Python dependency in a local virtual environment.
 
@@ -120,7 +126,7 @@ $python = 'tmp/package-venv/Scripts/python.exe'
 
 Place the archive files named in the package JSON in a local input directory. Each manifest contains the download URLs and SHA-256 values. The example uses the existing reference archives under `tmp/baseline`.
 
-DeliTracker uses the 2.34 executable update and the full 2.32 archive. The manifest pins the inner LhA files under `nestedArchives`. Each record names its outer archive, member path, and SHA-256. The builder extracts them from the outer archive automatically.
+DeliTracker uses the 2.34 executable update and the full 2.32 archive. The manifest pins the inner LhA files under `nestedArchives`. Each record names its parent archive, member path, and SHA-256. Amiga Explorer uses the same mechanism for each Cloanto setup, its x86 MSI, and that MSI's cabinet. The builder verifies and extracts the pinned members in dependency order.
 
 ```powershell
 & $python tools/package.py build directory-opus --archives tmp/baseline/directory-opus --output tmp/packages/directory-opus.hdf
