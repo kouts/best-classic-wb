@@ -162,9 +162,11 @@ ProcessIcon 1.21 and its English readme with the 1.19 header both match Dirk Sto
 
 BenchTrash uses the exact 1.76 executable and English guide from Thomas Richter's archived Aminet 1.76.3 repack. AmiKit 8 independently supplies the same two byte streams. The checked BCWB startup icon preserves the configured delete mode, confirmation requester and icon placement. Workbench starts the tool from WBStartup. The shared default trashcan icon remains with the stock payload. [Archived BenchTrash repack](https://web.archive.org/web/20231109110308id_/https://aminet.net/util/wb/BenchTrash.lha)
 
+The additional printer drivers own 58 executable files and the installed metadata of the shared Devs/Printers drawer. Six exact 68000 builds come from Aminet, and 52 files come from the pinned BetterWB Bonus ZIP, which matches the ZIP carried on Gulliver's published Bonus ADF. The printing icon overlay owns 80 SHA-256-checked BCWB inputs, including icons for 15 unchanged AmigaOS drivers, the two Printers drawers, the three printing preferences editors and InitPrinter and PrintFiles. AmigaOS supplies those editor and tool binaries, printer.device and the original drivers. [BetterWB source bundle](https://lilliput.amiga-projects.net/Files/BetterWB.zip) [Aminet printer driver directory](https://se.aminet.net/driver/print/)
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, DTView2, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA, LZX, Zip, UnZip, UnRAR, Zoo, exe2arc, HackProPack, DisLib, AmigaKeyRemapper, BenchTrash and NewMeter also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, DTView2, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA, LZX, Zip, UnZip, UnRAR, Zoo, exe2arc, HackProPack, DisLib, AmigaKeyRemapper, BenchTrash, NewMeter and the additional printer drivers also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
 
 Install the pinned Python dependency in a local virtual environment.
 
@@ -202,7 +204,7 @@ The installer uses `COPY CLONE` for files and `COPY ALL CLONE` for package-owned
 & $python tools/package.py verify fblit --hardfile 'F:/path/to/disposable-installed.hdf'
 ```
 
-Verification checks installed paths, file contents, protection bits, and comments. Timestamps and full system startup behavior need separate tests. Use these builds locally while the release packaging format is being evaluated.
+Verification checks installed paths, file contents, protection bits, and comments. A manifest can mark a drawer with `"shared": true` to verify its metadata and listed files while allowing other owners' entries inside it. Timestamps and full system startup behavior need separate tests. Use these builds locally while the release packaging format is being evaluated.
 
 ## Rebuild the full 2.1.12 distribution
 

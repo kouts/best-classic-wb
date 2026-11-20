@@ -216,7 +216,9 @@ def walk(directory, parent=""):
 
 def verify(data, hdf):
     expected = {entry["path"]: entry for entry in data["files"] + data["directories"]}
-    owned = tuple(entry["path"] + "/" for entry in data["directories"])
+    owned = tuple(
+        entry["path"] + "/" for entry in data["directories"] if not entry.get("shared", False)
+    )
     differences = []
     device = BlkDevFactory().open(str(hdf), read_only=True)
     try:
