@@ -237,4 +237,16 @@ The comparison covers volume label, literal paths, contents, protection masks, a
 & $python tools/update_report.py report --output tmp/update-report.json
 ```
 
-This checks the live bytes at each pinned archive URL. For iGame it also reads the latest GitHub release and identifies the Amiga package asset. Supply `--candidates tmp/update-candidates` to save that candidate locally, with a comparison against its publisher SHA-256 when one is available. Fixed Aminet URLs report whether the pinned archive changed. Automated version discovery for those sources is still open. Review candidates explicitly before adopting any update.
+Use `--package` once per package ID to limit the report.
+
+```powershell
+& $python tools/update_report.py report --package benchtrash --package newmeter --package igame --package render --output tmp/update-report.json
+```
+
+The report records pinned archive integrity and release discovery separately. An `archive_changed` finding means the URL served different bytes. A `newer_release` finding compares a version published by the configured source against the catalogue's comparison version.
+
+- BenchTrash reads the `Version:` header from its [Aminet readme](https://ftp.fau.de/aminet/util/wb/BenchTrash.readme) and compares it with the pinned repack version 1.76.3. NewMeter reads the [publisher's readme](https://thomas-rapp.hier-im-netz.de/downloads/newmeter.readme) and compares it with NewMeter 1.431. The report includes the candidate archive URL for review. Candidate file verification happens during preparation.
+- iGame checks [GitHub Releases](https://github.com/MrZammler/iGame/releases). Add `--candidates tmp/update-candidates` to download the selected GitHub asset locally and compare its SHA-256 with the publisher digest when available.
+- render.library reports `manual_review` so the maintainer can check the relevant 68020 binary. Unconfigured packages report `pinned_archive_check_only`. An ambiguous or unreadable version header reports `version_unverified`, and a failed request reports `check_failed`.
+
+Review candidates explicitly before adopting any update.

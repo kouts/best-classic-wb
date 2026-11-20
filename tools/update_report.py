@@ -8,6 +8,7 @@ import re
 import subprocess
 import sys
 from tempfile import TemporaryDirectory
+from urllib.parse import urlsplit
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -71,19 +72,27 @@ def version_tuple(text):
     return tuple(int(part) for part in normalized.split("."))
 
 
+def version_status(pinned_version, observed_version):
+    pinned = version_tuple(pinned_version)
+    observed = version_tuple(observed_version) if observed_version else None
+    if pinned is None or observed is None:
+        return "version_unverified"
+    if observed > pinned:
+        return "newer_release"
+    if observed < pinned:
+        return "older_release"
+    return "same_version"
+
+
 def github_update(package, candidates):
     source = package["updates"]
     url = f"https://api.github.com/repos/{source['repository']}/releases/latest"
     release = json.loads(content(url))
     tag = release["tag_name"]
-    pinned, observed = version_tuple(package["version"]), version_tuple(tag)
     result = {
         "source": url, "release": release.get("html_url"), "observedVersion": tag,
-        "status": "version_unverified",
+        "status": version_status(package["version"], tag),
     }
-    if pinned is None or observed is None:
-        return result
-    result["status"] = "newer_release" if observed > pinned else "same_version" if observed == pinned else "older_release"
     if result["status"] != "newer_release":
         return result
     assets = [entry for entry in release["assets"] if re.fullmatch(source["assetPattern"], entry["name"])]
@@ -111,6 +120,41 @@ def github_update(package, candidates):
     return result
 
 
+def readme_update(source):
+    url = source["url"]
+    text = content(url).decode("utf-8-sig", errors="replace").lstrip("\r\n")
+    header = re.split(r"\r?\n[ \t]*\r?\n", text, maxsplit=1)[0]
+    versions = re.findall(r"^Version:[ \t]*([^\r\n]+)", header, re.IGNORECASE | re.MULTILINE)
+    observed = versions[0].strip() if len(versions) == 1 else None
+    comparison_version = source["comparisonVersion"]
+    result = {
+        "source": url, "comparisonVersion": comparison_version, "observedVersion": observed,
+        "status": version_status(comparison_version, observed),
+    }
+    if result["status"] == "newer_release":
+        url = source["archiveUrl"]
+        result["candidate"] = {
+            "filename": Path(urlsplit(url).path).name,
+            "url": url,
+            "publisherDigest": None,
+        }
+    return result
+
+
+def discover_update(package, candidates):
+    source = package.get("updates")
+    if source is None:
+        return {"status": "pinned_archive_check_only"}
+    kind = source.get("type", "github")
+    if kind == "github":
+        return github_update(package, candidates)
+    if kind == "readme":
+        return readme_update(source)
+    if kind == "manual":
+        return {"status": "manual_review", "source": source["url"], "detail": source["reason"]}
+    raise ValueError(f"Unknown update source type: {kind}")
+
+
 def audit_package(package, candidates):
     report = {"pinnedVersion": package["version"], "pinnedArchives": {}}
     for filename, source in package["archives"].items():
@@ -122,13 +166,10 @@ def audit_package(package, candidates):
         except OSError as error:
             entry.update(status="source_unavailable", detail=str(error))
         report["pinnedArchives"][filename] = entry
-    if "updates" in package:
-        try:
-            report["discovery"] = github_update(package, candidates)
-        except (OSError, ValueError, KeyError) as error:
-            report["discovery"] = {"status": "check_failed", "detail": str(error)}
-    else:
-        report["discovery"] = {"status": "pinned_archive_check_only"}
+    try:
+        report["discovery"] = discover_update(package, candidates)
+    except (OSError, ValueError, KeyError) as error:
+        report["discovery"] = {"status": "check_failed", "detail": str(error)}
     return report
 
 
@@ -140,12 +181,18 @@ def main():
     report = commands.add_parser("report")
     report.add_argument("--output", type=Path)
     report.add_argument("--candidates", type=Path)
+    report.add_argument("--package", action="append", metavar="ID", help="report on this package ID (repeatable)")
     args = parser.parse_args()
     packages = catalogue()
     try:
         if args.command == "fetch-pinned":
             fetch_pinned(packages, args.archives)
         else:
+            if args.package:
+                unknown = sorted(set(args.package) - packages.keys())
+                if unknown:
+                    report.error(f"unknown package ID: {', '.join(unknown)}")
+                packages = {key: packages[key] for key in args.package}
             result = {key: audit_package(package, args.candidates) for key, package in packages.items()}
             text = json.dumps(result, indent=2) + "\n"
             if args.output is None:
