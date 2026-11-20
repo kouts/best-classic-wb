@@ -1,0 +1,46 @@
+{
+  "name": "LhA",
+  "version": "2.15 68000+",
+  "baseline": "2.1.12",
+  "archives": {
+    "lha_68k.lha": {
+      "url": "https://se.aminet.net/util/arc/lha_68k.lha",
+      "sha256": "b1e9ce416a84c4e2b53c70fd51d434df09eb11fe110014d86c0bea76147d1899",
+      "extractor": "7zip"
+    },
+    "lha-20090215.run": {
+      "url": "https://web.archive.org/web/20090215145936id_/http://aminet.net/util/arc/lha.run",
+      "sha256": "da48ddb1d1cc3eed7fa6f1fde921dcf768a8b64bddd4b182567d262c6f1aa621",
+      "extractor": "7zip",
+      "payloadOffset": 6112
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS",
+    "68000 or later"
+  ],
+  "notes": [
+    "Aminet supplies the generic lha_68k build dated 3 January 2011.",
+    "The preserved Aminet self-extractor supplies the exact March 2006 English guide from its embedded distribution archive.",
+    "The existing Directory Opus configuration calls LHA for creation, extraction, integrity testing and listing. The LhA and lharc default project icons open Voodoo-X."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "C/LhA",
+      "source": "lha_68k",
+      "archive": "lha_68k.lha",
+      "sha256": "24e90ed19a80b68027088ad0544beabd15b5fc9a833fc4aece3542455e66e142",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Locale/Help/english/LhA.guide",
+      "source": "LhA.guide",
+      "archive": "lha-20090215.run",
+      "sha256": "a61fa3f0c7f7543060224dcdc8e20e753c37026b8d3433dba4541d7d21a2ad70",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

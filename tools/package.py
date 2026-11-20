@@ -49,8 +49,24 @@ def load_package(package):
 
 
 def extract_archive(source, directory, archive):
-    if digest(source.read_bytes()) != archive["sha256"]:
+    data = source.read_bytes()
+    if digest(data) != archive["sha256"]:
         raise ValueError(f"Archive checksum mismatch: {source}")
+
+    if "payloadOffset" in archive:
+        offset = archive["payloadOffset"]
+        if type(offset) is not int or not 0 < offset < len(data):
+            raise ValueError(f"Invalid archive payload offset: {source}")
+        with TemporaryDirectory() as scratch:
+            payload = Path(scratch) / source.name
+            payload.write_bytes(data[offset:])
+            extract_payload(payload, directory, archive)
+    else:
+        extract_payload(source, directory, archive)
+    return directory
+
+
+def extract_payload(source, directory, archive):
     directory.mkdir()
     extractor = archive.get("extractor", "tar")
     if extractor == "7zip":
@@ -71,7 +87,6 @@ def extract_archive(source, directory, archive):
     else:
         raise ValueError(f"Unknown archive extractor: {extractor}")
     subprocess.run(command, check=True)
-    return directory
 
 
 def unpack_archives(data, archive_dir, scratch):
