@@ -150,9 +150,13 @@ The AIAB r10.7 beta 9 archive supplies the exact 68k `screennotify.library` 1.2.
 
 PM 37.8 uses the exact Michael Sinz CPU load monitor and English help preserved in FUNET's historical archive. The checked BCWB icon preserves the installed artwork. The program starts in Workbench context from `SYS:Tools/Commodities`. [PM 37.8 archive](https://ftp.funet.fi/pub/amiga/utilities/system/PM-37.8.lha)
 
+AmigaKeyRemapper 1.1 uses the exact m68k executable and English readme from Aminet. The shipped readme documents manual activation and the installed command retains its stock Amiga protection mask. [AmigaKeyRemapper archive](https://se.aminet.net/util/misc/amigakeyremapper.lha)
+
+Copper-Demon 3.2 uses the same Aminet executable for the active and optional Workbench tools. Aminet also supplies the guide and active presets. Checked BCWB inputs supply the icons and customized preferences, including the optional Enable and Disable overlays. The AGA effect uses the Workbench palette. ReqTools and ScreenNotify are independent shared packages. [Copper-Demon archive](https://se.aminet.net/util/wb/Copper-Demon.lha)
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA, LZX, Zip, UnZip, UnRAR, Zoo, exe2arc, HackProPack and DisLib also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA, LZX, Zip, UnZip, UnRAR, Zoo, exe2arc, HackProPack, DisLib and AmigaKeyRemapper also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
 
 Install the pinned Python dependency in a local virtual environment.
 
