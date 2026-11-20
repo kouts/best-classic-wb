@@ -1,11 +1,16 @@
 {
   "name": "XHelvetica",
-  "version": "MagicWB 2.1p and BCWB bitmap set",
+  "version": "MagicWB 1.2p and 2.1p with BCWB descriptor",
   "baseline": "2.1.12",
   "archives": {
     "MagicWB21p.lha": {
       "url": "https://se.aminet.net/util/wb/MagicWB21p.lha",
       "sha256": "3ff085105abf7e1aca7d9b7189931fda7a0f282176ab8f95ccd6f55e7aa15111",
+      "extractor": "7zip"
+    },
+    "MagicWB-1.2.lha": {
+      "url": "https://ftp.funet.fi/pub/amiga/utilities/workbench/MagicWB-1.2.lha",
+      "sha256": "9b725f8803eb3efa17b3fe57bb18e5960cf5cf203d8e8f3a15527fb33dfc3b1e",
       "extractor": "7zip"
     }
   },
@@ -14,7 +19,8 @@
   ],
   "notes": [
     "Martin Huttenloher's MagicWB 2.1p archive supplies the exact 9- and 13-pixel bitmaps.",
-    "The checked BCWB inputs retain the stock descriptor order (9, 13, 11) and the differing 11-pixel bitmap."
+    "The original MagicWB 1.2p public archive preserved by FUNET supplies the exact 11-pixel bitmap.",
+    "The SHA-256-checked BCWB descriptor retains the stock record order (9, 13, 11)."
   ],
   "directories": [
     {
@@ -33,10 +39,11 @@
     },
     {
       "path": "Fonts/XHelvetica/11",
-      "source": "src/BestClassicWB/BCWB_Files/Fonts/XHelvetica/11",
+      "source": "MagicWB1.2p/Fonts/XHelvetica/11",
       "sha256": "6153375487a336d53babf03fe7b9c193ec93e26b77421c667f82daef23e96f1d",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "MagicWB-1.2.lha"
     },
     {
       "path": "Fonts/XHelvetica/13",
