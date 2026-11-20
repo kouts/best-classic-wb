@@ -11,6 +11,18 @@
     "pio_icon.lha": {
       "url": "https://aminet.net/gfx/ppaint/pio_icon.lha",
       "sha256": "bc646c82d86cf9b315a2cf76b83fd2a2ff2fd3cb070531e0fb4d594c7b291ed5"
+    },
+    "ClassicWB.OS39.28.2.1.zip": {
+      "url": "https://github.com/henrikstengaard/classicwb-os39-package/releases/download/28.2.1/ClassicWB.OS39.28.2.1.zip",
+      "sha256": "57cd2aba44608315a383ceb5d5aaebd1c43b74c8c73dc8782f6a767afeebd416"
+    }
+  },
+  "nestedArchives": {
+    "classicwb-os39": {
+      "archive": "ClassicWB.OS39.28.2.1.zip",
+      "source": "classicwb_os39_v28.zip",
+      "sha256": "4f24fff38fbea12746cf9015c2e07519d4be747a25fa442da75d8ff9903aefea",
+      "extractor": "7zip"
     }
   },
   "runtimeDependencies": [
@@ -25,7 +37,8 @@
   "notes": [
     "Cloanto's 7.1c distribution supplies the stock executable, four PPView 1.2 copies, local CPU and Agnus blitters, I/O modules, artwork, fonts, documentation and scripts. The executable embeds Cloanto_PPaint 7.1.",
     "E. Plischke's separate Aminet pio_icon release supplies personal_icon_io.library 5.17. The stock tree's local blitters include 68000, 68020, 68030, 68040 and 68060 builds. Startup_1.set selects the Agnus and 68000 pair.",
-    "Checked BCWB sources preserve the customized Startup_1.set, replacement icons and other stock content that differs from the available releases. The application-local paths and Programs/PPaint.info are owned here. System libraries, image datatypes and startup files keep their separate ownership."
+    "The preserved ClassicWB v28 OS39 bundle supplies the stock README, FAQ and six English, German and Italian help or registration files from H/7.",
+    "Checked BCWB sources preserve all stock icons and the customized Startup_1.set. The application-local paths and Programs/PPaint.info are owned here. System libraries, image datatypes and startup files keep their separate ownership."
   ],
   "directories": [
     {
@@ -874,10 +887,11 @@
     },
     {
       "path": "Programs/PPaint/FAQ.txt",
-      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/FAQ.txt",
+      "source": "Programs/PPaint/FAQ.txt",
       "sha256": "1a7cfbb400d515906581e2e1012d1eb3d1f072d04f58381d4d82465f9acfc185",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "classicwb-os39"
     },
     {
       "path": "Programs/PPaint/FAQ.txt.info",
@@ -1479,10 +1493,11 @@
     },
     {
       "path": "Programs/PPaint/H/7/0/1/E-reg.txt",
-      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/0/1/E-reg.txt",
+      "source": "Programs/PPaint/H/7/0/1/E-reg.txt",
       "sha256": "2f9f719b0257107e7016119a3d07e56613f2bdb0cc1077f55bfc48fa9cad08ae",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "classicwb-os39"
     },
     {
       "path": "Programs/PPaint/H/7/0/1/E-reg.txt.info",
@@ -1645,17 +1660,19 @@
     },
     {
       "path": "Programs/PPaint/H/7/0/4/OO00",
-      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/0/4/OO00",
+      "source": "Programs/PPaint/H/7/0/4/OO00",
       "sha256": "3478dd6e4ccf2b896bac1c71da15a7e1b5156c6b3cf4fc06852618a1a2df8e22",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "classicwb-os39"
     },
     {
       "path": "Programs/PPaint/H/7/1/1/E-reg.txt",
-      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/1/1/E-reg.txt",
+      "source": "Programs/PPaint/H/7/1/1/E-reg.txt",
       "sha256": "8e7172c5164f16b911477bb8dcc9dc99fa713392301148c5c16078b8d1b353d2",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "classicwb-os39"
     },
     {
       "path": "Programs/PPaint/H/7/1/1/E-reg.txt.info",
@@ -1818,17 +1835,19 @@
     },
     {
       "path": "Programs/PPaint/H/7/1/4/OO00",
-      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/1/4/OO00",
+      "source": "Programs/PPaint/H/7/1/4/OO00",
       "sha256": "bd7c9008c94c06ad1e80a3952e650d2e03c1995258967cc8ac92c6832d6b3f2f",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "classicwb-os39"
     },
     {
       "path": "Programs/PPaint/H/7/2/1/E-reg.txt",
-      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/2/1/E-reg.txt",
+      "source": "Programs/PPaint/H/7/2/1/E-reg.txt",
       "sha256": "a5afe7de6c475215dbaf3222b815269f0c5a77a79f01374a04e940940bde7a7f",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "classicwb-os39"
     },
     {
       "path": "Programs/PPaint/H/7/2/1/E-reg.txt.info",
@@ -1991,10 +2010,11 @@
     },
     {
       "path": "Programs/PPaint/H/7/2/4/OO00",
-      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/H/7/2/4/OO00",
+      "source": "Programs/PPaint/H/7/2/4/OO00",
       "sha256": "abf8d2d4b3a8f79cf9f436585fff714a724d830fa8a4bb7c7241095b93241409",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "classicwb-os39"
     },
     {
       "path": "Programs/PPaint/libs/personal_68000_blit.library",
@@ -2226,10 +2246,11 @@
     },
     {
       "path": "Programs/PPaint/PPaint.readme",
-      "source": "src/BestClassicWB/BCWB_Files/Programs/PPaint/PPaint.readme",
+      "source": "Programs/PPaint/PPaint.readme",
       "sha256": "9c1e6fbf17d18c4629300ccf597e6fbf8533dae571b128c3694bebd1a74f7f8a",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "classicwb-os39"
     },
     {
       "path": "Programs/PPaint/PPaint_Icons.info",
