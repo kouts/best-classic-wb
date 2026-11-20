@@ -62,7 +62,7 @@ The fixiff 1.0 command comes from the ILBM 47.6 archive. The ILBM entry owns its
 
 The pinned ViNCEd 3.107 archive supplies the topaz6 descriptor and its 8-pixel extended bitmap. The installed ViNCEd guide describes it as an optional console font. [ViNCEd 3.107 archive](https://web.archive.org/web/20240509064829id_/http://sg.aminet.net/util/shell/ViNCEd.lha)
 
-MagicWB 2.1p supplies the exact XCourier bitmaps at 11, 13, and 15 pixels and XEN bitmaps at 8, 9, and 11 pixels. The checked BCWB descriptors preserve the installed order of the same archive records. The shipped Font preferences select XEN at 11 pixels as System Default Text. Directory Opus, DeliTracker, and MUI also reference XEN. MUI owns its XEN images and preset. [MagicWB 2.1p archive](https://se.aminet.net/util/wb/MagicWB21p.lha)
+MagicWB 2.1p supplies the exact XCourier bitmaps at 11, 13, and 15 pixels and XEN bitmaps at 8, 9, and 11 pixels. Bloodwych's ClassicWB OS39 v28 and its HstWB conversion supply the descriptors in their installed record order. The shipped Font preferences select XEN at 11 pixels as System Default Text. Directory Opus, DeliTracker, and MUI also reference XEN. MUI owns its XEN images and preset. [MagicWB 2.1p archive](https://se.aminet.net/util/wb/MagicWB21p.lha) [ClassicWB OS39 v28](https://classicwb.abime.net/classicweb/downloados39.htm) [HstWB conversion](https://github.com/henrikstengaard/classicwb-os39-package/releases/tag/28.2.1)
 
 MagicWB 2.1p supplies the exact XHelvetica bitmaps at 9 and 13 pixels. Checked BCWB inputs preserve the 11-pixel bitmap and the descriptor's 9, 13, 11 record order. Directory Opus, EaglePlayer, MUI and the optional TinyMeter profile reference the family. [MagicWB 2.1p archive](https://se.aminet.net/util/wb/MagicWB21p.lha)
 
