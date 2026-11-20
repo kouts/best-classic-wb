@@ -123,7 +123,18 @@ def dependency_checks(candidate, final):
     return checks
 
 
-def prepare(package, candidate, archive_dir, stock):
+def installed_inventory(hdf):
+    label, inventory = disk_inventory(hdf)
+    entries = {}
+    for path, metadata in inventory.items():
+        key = path.lower()
+        if key in entries:
+            raise ValueError(f"Conflicting installed path spelling in {hdf}: {path}")
+        entries[key] = {"path": path, **metadata}
+    return label, entries
+
+
+def candidate_proposal(package, candidate, archive_dir, stock):
     baseline = load_package(package)
     if candidate["baseline"] != baseline["baseline"] or candidate["name"] != baseline["name"]:
         raise ValueError("Candidate name and baseline must match the selected package.")
@@ -132,8 +143,7 @@ def prepare(package, candidate, archive_dir, stock):
 
     with stock.open("rb") as stream:
         stock_hash = hashlib.file_digest(stream, "sha256").hexdigest()
-    label, inventory = disk_inventory(stock)
-    installed = {key.lower(): {"path": key, **entry} for key, entry in inventory.items()}
+    label, installed = installed_inventory(stock)
     baseline_paths = package_entries(baseline)
     before = stock_entries(baseline_paths, installed)
     after = verified_candidate(candidate, archive_dir)
@@ -156,7 +166,7 @@ def prepare(package, candidate, archive_dir, stock):
     }
     old_dependencies = set(baseline["runtimeDependencies"])
     new_dependencies = set(candidate["runtimeDependencies"])
-    return {
+    report = {
         "package": package,
         "baseline": baseline["baseline"],
         "baselineVersion": baseline["version"],
@@ -177,6 +187,12 @@ def prepare(package, candidate, archive_dir, stock):
         "changedCheckedBCWBInputs": sorted(touched & checked_bcwb),
         "affectedStockInstallerPaths": sorted(path for path in touched if path.lower() in installer_paths),
     }
+    return report, installed, final
+
+
+def prepare(package, candidate, archive_dir, stock):
+    report, _, _ = candidate_proposal(package, candidate, archive_dir, stock)
+    return report
 
 
 def main():

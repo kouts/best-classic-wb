@@ -263,3 +263,20 @@ $candidate = 'tmp/baseline/update-candidates/igame-2.6.1'
 The preparer verifies the candidate bytes and compares the complete package map with the closed stock hardfile. It reports path, content and Amiga metadata changes, changes to checked BCWB inputs, stock installer paths touched, and declared runtime dependency changes. Candidate manifests can list exact installed dependency paths under `dependencyChecks` with a Boolean `required` field. This checks path presence. Version and runtime compatibility are reviewed during candidate testing.
 
 The command saves a `blocked` report and returns a failure status for an ownership conflict or a missing required dependency. A `ready_for_review` report is a proposal for the next validation step. The official catalogue and installed hardfiles remain available as the baseline.
+
+## Validate a candidate in WinUAE
+
+Build an install transport from the staged candidate manifest, archives and proposal.
+
+```powershell
+$stock = 'tmp/baseline/BCWB-v2.1.12-installed.hdf'
+& $python tools/candidate_update.py build igame --manifest "$candidate/candidate.json" --archives "$candidate/archives" --stock $stock --proposal "$candidate/update-diff.json" --output "$candidate/candidate.hdf"
+```
+
+Boot a disposable copy of the stock hardfile with the candidate transport mounted read-only. Run `Execute BCWB-Package:Install` in the Amiga Shell. Close WinUAE, detach the transport, cold-boot the candidate hardfile, and close WinUAE again. Compare the closed candidate with the full expected inventory.
+
+```powershell
+& $python tools/candidate_update.py verify igame --manifest "$candidate/candidate.json" --archives "$candidate/archives" --stock $stock --proposal "$candidate/update-diff.json" --installed "$candidate/installed.hdf" --output "$candidate/install-verification.json"
+```
+
+Both commands reproduce the reviewed proposal from the staged inputs. The transport copies only the proposed additions and replacements, preserving the timestamps of untouched files. The verifier reports the actual changes from stock and any differences from the expected inventory and volume label. Run application smoke tests on separate copies so the verified disk remains available. The overlay installer supports additions and replacements at the same literal paths. Removals, case-only renames and entry type conversions require a separate installer operation.
