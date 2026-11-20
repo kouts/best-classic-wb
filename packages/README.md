@@ -144,6 +144,12 @@ Olaf Barthel's optimized `gtlayout.library` 47.1 matches the exact member bundle
 
 ReqTools 2.9 supplies `reqtools.library` 38.1436. Copper-Demon, FileX, VirusZ and ADF2FMS use the shared library for requesters. The distribution carries their own configuration and icons under their respective paths. [ReqTools user archive](https://se.aminet.net/util/libs/ReqToolsUsr.lha)
 
+`parm.library` 13.6 matches the exact 68k library bundled with the pinned WBRun 2.2 fix for BrowserII 3.03. WBRun opens the shared library to dispatch Workbench startup arguments. The stock AmigaOS `C:WBLoad` and `workbench.library` provide separate Workbench launch services. [WBRun fix](https://aminet.net/util/cli/WBRun_fix.lha)
+
+The AIAB r10.7 beta 9 archive supplies the exact 68k `screennotify.library` 1.2. The original standalone 1.2 archive remains a source lead. WBDock, NewMeter and Copper-Demon use the shared library for Workbench screen changes. [AIAB release](https://lilliput.amiga-projects.net/AIAB.htm)
+
+PM 37.8 uses the exact Michael Sinz CPU load monitor and English help preserved in FUNET's historical archive. The checked BCWB icon preserves the installed artwork. The program starts in Workbench context from `SYS:Tools/Commodities`. [PM 37.8 archive](https://ftp.funet.fi/pub/amiga/utilities/system/PM-37.8.lha)
+
 ## Build on Windows
 
 Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA, LZX, Zip, UnZip, UnRAR, Zoo, exe2arc, HackProPack and DisLib also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
