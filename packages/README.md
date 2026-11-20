@@ -168,6 +168,8 @@ The BCWB Workbench settings entry owns the saved native preferences, TextEdit se
 
 The shared Workbench icons entry preserves the serialized disk, drawer, application and default icons, including the RAM Disk icon linked at boot. The AmigaOS executable streams retain their existing ownership. Separate entries track the English help and ProcessFile.rexx 0.23. BestWB supplies the Boards and MMU guides, the Installer 43.3 archive supplies the ESCOM Installer guide, and the checked BCWB source preserves the Native 40.5 readme. The DefIcons44 archive supplies Processfile, which dispatches local text to MultiView through ARexx. [BestWB](https://lilliput.amiga-projects.net/BestWB.htm) [Installer archive](https://se.aminet.net/util/misc/Installer-43_3.lha) [DefIcons44 archive](https://se.aminet.net/util/wb/DefIcons44.lha)
 
+The BCWB startup entry owns the customized startup sequence and user-startup, the shared S drawer metadata and its icon, and the overlay icons for MenuTools and ClickToFront. The stock installer backs up the native startup scripts and icon.library, moves the native datatype classes, relocates MenuTools and ClickToFront, and clones System/Installer into C:. It copies the release help and icon from beside the installer. The distribution verifier checks those operations against the clean disk, including the literal rename from S/Startup-Sequence to the backup before the BCWB overlay adds S/Startup-sequence. The package entries for FBlit, FText and FullPalette retain source ownership while the stock installer applies `PROTECT +e`.
+
 ## Build on Windows
 
 Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, DTView2, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA, LZX, Zip, UnZip, UnRAR, Zoo, exe2arc, HackProPack, DisLib, AmigaKeyRemapper, BenchTrash, NewMeter and the additional printer drivers also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
@@ -212,7 +214,7 @@ Verification checks installed paths, file contents, protection bits, and comment
 
 ## Rebuild the full 2.1.12 distribution
 
-Keep a copy of the published 2.1.12 ZIP, the vanilla AmigaOS 3.2.2.1 hardfile, and a stock-installed reference hardfile locally. The published ZIP supplies the exact path layout and ZIP metadata. The builder checks catalogue files from their pinned archives or BCWB customizations and uses the pinned checkout for remaining legacy payload files. It verifies every assembled file against the published release.
+Keep a copy of the published 2.1.12 ZIP, the vanilla AmigaOS 3.2.2.1 hardfile, and a stock-installed reference hardfile locally. The published ZIP supplies the exact path layout and ZIP metadata. The catalogue supplies every BCWB_Files payload member from pinned archives or checked BCWB sources. The checkout supplies the installer and other top-level release assets. The builder verifies every assembled file against the published release.
 
 ```powershell
 & $python tools/update_report.py fetch-pinned --archives tmp/archives
@@ -227,7 +229,7 @@ In WinUAE, boot a fresh copy of the vanilla hardfile. Mount the rebuilt ZIP and 
 & $python tools/distribution.py verify-install --clean 'F:/path/to/vanilla.hdf' --stock tmp/baseline/BCWB-v2.1.12-installed.hdf --installed 'F:/path/to/rebuilt-installed.hdf' --ledger tmp/rebuilt/BestClassicWB.sources.json --report tmp/rebuilt/installed-parity.json
 ```
 
-The comparison covers volume label, paths, contents, protection masks, and comments. It also traces added and changed paths back to archive inputs, BCWB checkout files, or operations on the clean system. Modification timestamps are excluded from parity because repeated stock installations produced different times.
+The comparison covers volume label, literal paths, contents, protection masks, and comments. Its ownership report accounts for added and changed files and drawers, records the clean origins of installer effects and literal removals, and checks for overlap in final ownership. Modification timestamps are excluded from parity because repeated stock installations produced different times.
 
 ## Check upstream inputs
 

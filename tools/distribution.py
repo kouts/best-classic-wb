@@ -1,6 +1,7 @@
 """Rebuild and verify a local BestClassicWB 2.1.12 installation."""
 
 import argparse
+from collections import Counter
 from copy import copy
 import hashlib
 import json
@@ -29,13 +30,18 @@ OS_ORIGINS = {
     "Libs/icon.library.bak": "Libs/icon.library",
     "Storage/DataTypes/ilbm.datatype": "Classes/DataTypes/ilbm.datatype",
     "Storage/DataTypes/jpeg.datatype": "Classes/DataTypes/jpeg.datatype",
-    "Storage/DataTypes/ilbm.datatype.info": "Classes/DataTypes/ilbm.datatype.info",
-    "Storage/DataTypes/jpeg.datatype.info": "Classes/DataTypes/jpeg.datatype.info",
     "Tools/Commodities/MenuTools": "WBStartup/MenuTools",
     "Tools/Commodities/MenuTools.info": "WBStartup/MenuTools.info",
     "WBStartup/ClickToFront": "Tools/Commodities/ClickToFront",
     "WBStartup/ClickToFront.info": "Tools/Commodities/ClickToFront.info",
     "C/Installer": "System/Installer",
+}
+RELOCATED_ICONS = {"Tools/Commodities/MenuTools.info", "WBStartup/ClickToFront.info"}
+DELETED_DESCRIPTORS = ("Devs/DataTypes/JPEG", "Devs/DataTypes/JPEG.info")
+EXECUTE_TARGETS = ("C/FBlit", "C/FText", "C/FPPrefs")
+RELEASE_HELP = {
+    "Locale/Help/" + README + suffix: RELEASE_ROOT + README + suffix
+    for suffix in ("", ".info")
 }
 
 
@@ -160,11 +166,10 @@ def build(stock_path, archive_dir, output):
                 if path in replacements:
                     content, source = replacements[path]
                 else:
+                    if path.startswith(PAYLOAD):
+                        raise ValueError(f"No catalogue owner for payload member: {path}")
                     content = (REPO / relative_path(path)).read_bytes()
-                    source = {
-                        "kind": "pinned_release_payload" if path.startswith(PAYLOAD) else "stock_installer_assets",
-                        "source": path,
-                    }
+                    source = {"kind": "stock_installer_assets", "source": path}
                 if content != stock.read(path):
                     raise ValueError(f"Reconstructed contents differ from {BASELINE}: {path}")
                 ledger[path] = {**source, "sha256": digest(content)}
@@ -216,8 +221,8 @@ def trace_installed(clean, installed, ledger):
     source_ledger = ledger["files"]
     sources = {target: source_ledger[member] for target, member in payload_members(source_ledger).items()}
     directories = payload_members(ledger.get("directories", []))
-    for suffix in ("", ".info"):
-        sources[("Locale/Help/" + README + suffix).lower()] = source_ledger[RELEASE_ROOT + README + suffix]
+    for target, member in RELEASE_HELP.items():
+        sources[target.lower()] = source_ledger[member]
     paths = changes(clean, installed)
     result = {}
     for path in paths["added"] + paths["changed"]:
@@ -245,6 +250,118 @@ def trace_installed(clean, installed, ledger):
     return {"installedChanges": result, "removedByStockInstaller": paths["removed"]}
 
 
+def installer_operations(clean_label, clean, label, installed, trace):
+    """Validate the terminal effects of the stock installer actions."""
+    origins = trace["installedChanges"]
+    removed = {}
+    operations = [{"action": "relabel", "target": "SYS:", "before": clean_label, "after": label}]
+    if label != "OS3.2":
+        raise ValueError(f"The stock installer must leave the OS3.2 label: {label}")
+    for target, origin in OS_ORIGINS.items():
+        if target.endswith(".bak"):
+            action = "rename_to_backup"
+        elif target.startswith("Storage/"):
+            action = "rename_to_storage"
+        elif target == "C/Installer":
+            action = "copy_clone"
+        else:
+            action = "copy_then_delete"
+        before, after = clean[origin], installed[target]
+        item = {"action": action, "source": origin, "target": target, "cleanEntry": before}
+        if target in RELOCATED_ICONS:
+            if origins[target]["kind"] != "package" or before["sha256"] == after["sha256"]:
+                raise ValueError(f"Expected BCWB to replace the relocated OS icon: {target}")
+            item["replacedAtDestinationBy"] = origins[target]
+        elif before != after:
+            raise ValueError(f"Clean OS content or metadata differs at {target}")
+        if origin not in installed:
+            removed[origin] = {"action": action, "target": target}
+        elif target == "C/Installer":
+            if installed[origin] != before:
+                raise ValueError(f"Original Installer changed at {origin}")
+        else:
+            if origins[origin]["kind"] != "package" or installed[origin]["sha256"] == before["sha256"]:
+                raise ValueError(f"Expected BCWB to replace the moved OS file: {origin}")
+            item["replacedAtSourceBy"] = origins[origin]
+        item["installedEntry"] = after
+        operations.append(item)
+    for path in DELETED_DESCRIPTORS:
+        removed[path] = {"action": "delete_force"}
+        operations.append({"action": "delete_force", "source": path, "cleanEntry": clean[path]})
+    if set(removed) != set(trace["removedByStockInstaller"]):
+        raise ValueError("Literal-path removals differ from the stock installer actions.")
+    for path, member in RELEASE_HELP.items():
+        if origins[path] != {
+            "kind": "stock_installer_assets", "source": member, "sha256": installed[path]["sha256"],
+        }:
+            raise ValueError(f"Expected the installer to copy the release help asset to {path}")
+        operations.append({"action": "copy_release_asset", "source": member, "target": path,
+                           "installedEntry": installed[path]})
+    for path in EXECUTE_TARGETS:
+        if origins[path]["kind"] != "package" or installed[path]["protection"] != 0:
+            raise ValueError(f"Expected mask 0 from the stock PROTECT +e at {path}")
+        operations.append({"action": "protect_add_execute", "target": path,
+                           "installedEntry": installed[path]})
+    return operations, removed
+
+
+def verify_ownership(installed, trace, removed):
+    """Assign each material install change one final owner."""
+    owners = {}
+    namespaces = {}
+    overlaps = {}
+
+    def claim(path, owner):
+        previous = namespaces.setdefault(path.lower(), path)
+        if previous != path or path in owners:
+            overlaps.setdefault(path, [owners[previous]]).append(owner)
+        else:
+            owners[path] = owner
+
+    for manifest in sorted((REPO / "packages").glob("*.json")):
+        package = load_package(manifest.stem)
+        for key in ("files", "directories"):
+            for entry in package[key]:
+                path = entry["path"]
+                expected_type = "file" if key == "files" else "directory"
+                if installed[path]["type"] != expected_type or any(
+                    installed[path].get(field) != entry.get(field)
+                    for field in ("protection", "comment", "sha256")
+                ):
+                    raise ValueError(f"Catalogue metadata or contents differ at {path}")
+                if key == "files":
+                    source = trace["installedChanges"].get(path, {})
+                    if source.get("kind") != "package" or source.get("package") != manifest.stem:
+                        raise ValueError(f"Catalogue owner is missing from the installed source trace: {path}")
+                claim(path, manifest.stem)
+
+    for path, source in trace["installedChanges"].items():
+        if source["kind"] in ("stock_installer_assets", "stock_installer_os_operation"):
+            claim(path, "stock_installer")
+    # A literal removal can share its AmigaDOS name with a final, differently cased entry.
+    for path in removed:
+        if path in owners:
+            overlaps.setdefault(path, [owners[path]]).append("stock_installer")
+
+    changed = trace["installedChanges"]
+    unexplained = sorted(changed.keys() - owners.keys())
+    counts = Counter((installed[path]["type"], owners[path] == "stock_installer")
+                     for path in changed.keys() & owners.keys())
+    return {
+        "counts": {
+            "cataloguedChangedFiles": counts["file", False],
+            "cataloguedChangedDirectories": counts["directory", False],
+            "installerOwnedFiles": counts["file", True],
+            "installerOwnedDirectories": counts["directory", True],
+            "literalRemovals": len(removed),
+            "totalPaths": sum(counts.values()) + len(removed),
+        },
+        "unchangedCataloguePaths": sorted(owners.keys() - changed.keys()),
+        "unexplainedPaths": unexplained,
+        "ownershipOverlaps": overlaps,
+    }
+
+
 def verify_install(clean_hdf, stock_hdf, installed_hdf, ledger, report):
     clean_label, clean = disk_inventory(clean_hdf)
     stock_label, stock = disk_inventory(stock_hdf)
@@ -255,6 +372,7 @@ def verify_install(clean_hdf, stock_hdf, installed_hdf, ledger, report):
         "cleanVolume": clean_label,
         "stockVolume": stock_label,
         "rebuiltVolume": label,
+        "installedEntries": len(installed),
         "stockToRebuilt": delta,
     }
     if stock_label != label or any(delta.values()):
@@ -265,11 +383,31 @@ def verify_install(clean_hdf, stock_hdf, installed_hdf, ledger, report):
         raise ValueError("The source ledger targets a different baseline.")
     trace = trace_installed(clean, installed, sources)
     details.update(trace)
-    unknown = [path for path, origin in trace["installedChanges"].items() if origin["kind"] == "unattributed"]
+    unknown = [path for path, origin in trace["installedChanges"].items()
+               if origin["kind"] == "unattributed"]
     details["unattributed"] = unknown
-    write_json(report, details)
     if unknown:
+        write_json(report, details)
         raise ValueError(f"Installed bytes match, but {len(unknown)} new or changed files lack provenance. See {report}.")
+    legacy_payload = sorted(path for path, source in sources["files"].items()
+                            if source["kind"] == "pinned_release_payload")
+    if legacy_payload:
+        # Earlier batch ledgers remain usable for parity and provenance checks.
+        details["legacyPayloadWithoutCatalogue"] = legacy_payload
+    else:
+        try:
+            operations, removed = installer_operations(clean_label, clean, label, installed, trace)
+            details["installerOperations"] = operations
+            details["literalRemovalOrigins"] = removed
+            ownership = verify_ownership(installed, trace, removed)
+            details["ownership"] = ownership
+            if ownership["unexplainedPaths"] or ownership["ownershipOverlaps"]:
+                raise ValueError(f"Installed ownership does not reconcile. See {report}.")
+        except (KeyError, ValueError) as error:
+            details["ownershipValidationError"] = str(error)
+            write_json(report, details)
+            raise
+    write_json(report, details)
     print(f"Stock parity verified for all {len(installed)} installed entries; "
           f"traced {len(trace['installedChanges'])} added or changed paths.")
 
