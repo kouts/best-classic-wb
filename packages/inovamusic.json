@@ -2,22 +2,36 @@
   "name": "INOVAMusic library",
   "version": "3.1",
   "baseline": "2.1.12",
-  "archives": {},
+  "archives": {
+    "Opus55_Install.lha": {
+      "url": "https://downloads.sourceforge.net/project/dopus5allamigas/Dopus5.82/release/lha/Opus55_Install.lha",
+      "sha256": "e98404bf229ec49bfa9a4574e2630ea41963a12e7fe03d28a9b59d73076b1249",
+      "extractor": "7zip"
+    }
+  },
+  "nestedArchives": {
+    "opus55-core": {
+      "archive": "Opus55_Install.lha",
+      "source": "Core.lha",
+      "sha256": "ac10ac1b404c7bf82c68cd893752d09358b538acb7b84942fb7e9c8a57af54db",
+      "extractor": "7zip"
+    }
+  },
   "runtimeDependencies": [],
   "notes": [
-    "The binary identifies INOVAMusic Library 3.1 (8 June 1993), Carl W. Moore.",
-    "Retained from the SHA-256-checked BCWB 2.1.12 payload: an exact upstream archive is unresolved.",
-    "Directory Opus references inovamusic.library; this shared library has a single independent owner.",
-    "Checked the pinned DOpus416JRbin and DirectoryOpus.CLA archives, DeliTracker and EaglePlayer bundles, and Aminet searches for inova and musiclib; none supplied the installed library."
+    "The library identifies INOVAMusic Library 3.1 (8 June 1993), Carl W. Moore.",
+    "The preserved GP Software Directory Opus 5.5 install bundle supplies the exact stock library through its nested Core.lha. The preserved INOVAtronics Directory Opus 4.10 disk independently carries the same bytes.",
+    "Directory Opus references inovamusic.library. This package independently owns the shared Libs/inovamusic.library and preserves its stock protection and comment."
   ],
   "directories": [],
   "files": [
     {
       "path": "Libs/inovamusic.library",
-      "source": "src/BestClassicWB/BCWB_Files/Libs/inovamusic.library",
+      "source": "Libs/inovamusic.library",
       "sha256": "ddb27b37c7ac209574499e3d5eacd6dfed2cfcb62679a7c885cd153a736f06ed",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "opus55-core"
     }
   ]
 }
