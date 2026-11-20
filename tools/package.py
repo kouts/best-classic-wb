@@ -38,7 +38,11 @@ def relative_path(text):
 def load_package(package):
     if relative_path(package).name != package:
         raise ValueError("Use a package ID from the packages directory.")
-    data = json.loads((REPO / "packages" / f"{package}.json").read_text(encoding="utf-8"))
+    return load_manifest(REPO / "packages" / f"{package}.json")
+
+
+def load_manifest(path):
+    data = json.loads(path.read_text(encoding="utf-8"))
     paths = set()
     for entry in data["files"] + data["directories"]:
         key = relative_path(entry["path"]).as_posix().lower()

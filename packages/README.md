@@ -250,3 +250,16 @@ The report records pinned archive integrity and release discovery separately. An
 - render.library reports `manual_review` so the maintainer can check the relevant 68020 binary. Unconfigured packages report `pinned_archive_check_only`. An ambiguous or unreadable version header reports `version_unverified`, and a failed request reports `check_failed`.
 
 Review candidates explicitly before adopting any update.
+
+## Prepare a candidate update
+
+Keep the candidate archives and a complete copy of the package manifest in a separate local folder. Set the candidate version and map selected archive members to installed paths. Record the SHA-256 of each archive and mapped file, and retain the Amiga protection and comment fields for every entry. Set `publisherDigest` in a candidate archive record when the publisher provides one. List each newly created drawer in `directories`. The candidate manifest defines the complete proposed package, so an omitted baseline entry is reported as a removal.
+
+```powershell
+$candidate = 'tmp/baseline/update-candidates/igame-2.6.1'
+& $python tools/prepare_update.py igame --manifest "$candidate/candidate.json" --archives "$candidate/archives" --stock tmp/baseline/BCWB-v2.1.12-installed.hdf --output "$candidate/update-diff.json"
+```
+
+The preparer verifies the candidate bytes and compares the complete package map with the closed stock hardfile. It reports path, content and Amiga metadata changes, changes to checked BCWB inputs, stock installer paths touched, and declared runtime dependency changes. Candidate manifests can list exact installed dependency paths under `dependencyChecks` with a Boolean `required` field. This checks path presence. Version and runtime compatibility are reviewed during candidate testing.
+
+The command saves a `blocked` report and returns a failure status for an ownership conflict or a missing required dependency. A `ready_for_review` report is a proposal for the next validation step. The official catalogue and installed hardfiles remain available as the baseline.
