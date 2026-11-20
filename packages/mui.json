@@ -19,6 +19,32 @@
     "MCC_SpeedBar.lha": {
       "url": "https://aminet.net/dev/mui/MCC_SpeedBar.lha",
       "sha256": "5aac5b0f228ab27e781cf5cc39ac892ee614c95665d0ee4a25034a654cd885ca"
+    },
+    "AmigaSYS4-AGA-R1.3.lha": {
+      "url": "https://web.archive.org/web/20210601104832id_/https://www.amigasys.net/download/AmigaSYS4-AGA-R1.3.lha",
+      "sha256": "92576801b5f07159b96f9f5f1192b7334962b5ca3a9014b3abec527fb684d686"
+    },
+    "ClassicWB.OS39.28.2.1.zip": {
+      "url": "https://github.com/henrikstengaard/classicwb-os39-package/releases/download/28.2.1/ClassicWB.OS39.28.2.1.zip",
+      "sha256": "57cd2aba44608315a383ceb5d5aaebd1c43b74c8c73dc8782f6a767afeebd416"
+    },
+    "ClassicWB.FULL.28.2.1.zip": {
+      "url": "https://github.com/henrikstengaard/classicwb-full-package/releases/download/28.2.1/ClassicWB.FULL.28.2.1.zip",
+      "sha256": "92d6c333695fd059e72a9a08469c249590bc6866da29bb08edaaa59e0db9a27b"
+    }
+  },
+  "nestedArchives": {
+    "classicwb-os39": {
+      "archive": "ClassicWB.OS39.28.2.1.zip",
+      "source": "classicwb_os39_v28.zip",
+      "sha256": "4f24fff38fbea12746cf9015c2e07519d4be747a25fa442da75d8ff9903aefea",
+      "extractor": "7zip"
+    },
+    "classicwb-full": {
+      "archive": "ClassicWB.FULL.28.2.1.zip",
+      "source": "classicwb_full_v28.zip",
+      "sha256": "31f0070755d4200c892e2b973f3c1e18064402ca8fbfcda153c685f751041e57",
+      "extractor": "7zip"
     }
   },
   "runtimeDependencies": [
@@ -29,6 +55,8 @@
     "The installed muimaster.library is 19.35. The MUI 3.8 user archive supplies the matching base files, and stock path spelling and metadata come from the installed inventory.",
     "This entry owns the installed MUI tree, including shared third-party classes and their local documentation. The 68020 Guigfx.mcc 19.2 and its guide come from MCC_Guigfx.lha.",
     "Matching third-party archive members are pinned individually. The checked BCWB payload supplies replacement icons, additional images and stock class or documentation files whose exact upstream members are unresolved.",
+    "The AmigaSYS 4 AGA R1.3 redistribution supplies the shipped 68020 BetterString 11.15, HotkeyString 12.11 and TextEditor 15.27 class files.",
+    "The HstWB redistribution of ClassicWB v28 supplies byte-identical 2005 68020 NList classes, the English TextEditor guide and other shared MUI add-ons.",
     "The BCWB default MUI icon is installed in ENVARC:Sys. The shared system drawers, S/User-Startup, and iGame and Voodoo-X settings in ENVARC:mui are outside this package."
   ],
   "directories": [
@@ -357,7 +385,8 @@
     },
     {
       "path": "Expansion/MUI/Docs/English/ImageButton_mcc.guide",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/English/ImageButton_mcc.guide",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Docs/English/ImageButton_mcc.guide",
       "sha256": "d479fc35cc438f05abc22bf33626d6537cf2b2851ebd5b73eb25283cb2f7b8ed",
       "protection": 2,
       "comment": ""
@@ -371,7 +400,8 @@
     },
     {
       "path": "Expansion/MUI/Docs/English/MCC_TextEditor.guide",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/English/MCC_TextEditor.guide",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Docs/English/MCC_TextEditor.guide",
       "sha256": "53ee454f97797f241e8060e73ee1c14d282bba7c0132468203a03203a61ff060",
       "protection": 2,
       "comment": ""
@@ -564,84 +594,96 @@
     },
     {
       "path": "Expansion/MUI/Images/aphaso/ClosedDrawerWin98.ilbm",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/ClosedDrawerWin98.ilbm",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/ClosedDrawerWin98.ilbm",
       "sha256": "86312861636402900a6798d45f5f913ba71bcb9524f4a522fdaa6405fd23ecf3",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/ClosedNode.image",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/ClosedNode.image",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/ClosedNode.image",
       "sha256": "afcc8a1f1924751d7ce509a6865c41423bf434b94f9ed96767e51929cd3a347c",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/ClosedNodeWin98.image",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/ClosedNodeWin98.image",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/ClosedNodeWin98.image",
       "sha256": "3343896ec99ac6e7ee1bfbf156290729eb673cdfe348aaa3c0c0b0db5e37c83d",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/GlowDrawerClosed.ilbm",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/GlowDrawerClosed.ilbm",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/GlowDrawerClosed.ilbm",
       "sha256": "2475fde0c920b5ce619031c464421c45ae4b521bff313dfcb14445f381e9b7f7",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/GlowDrawerOpen.ilbm",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/GlowDrawerOpen.ilbm",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/GlowDrawerOpen.ilbm",
       "sha256": "dde9ce8959e9d534bd16984c9f6515c7bf4d0824cfc54cf7076a659a89c9cf57",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/HT/10pt/ClosedBall.mbr",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/HT/10pt/ClosedBall.mbr",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/HT/10pt/ClosedBall.mbr",
       "sha256": "57ed59c0db84b21a7a685eb89788943923a8db1e747313c5c4ca98f6e0b2a115",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/HT/10pt/OpenBall.mbr",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/HT/10pt/OpenBall.mbr",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/HT/10pt/OpenBall.mbr",
       "sha256": "5fba9f848db40ee07aa61d31a388aa92a65d85d9fefd6c8279bfc3bd818936ce",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/HT/12pt/ClosedBall.mbr",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/HT/12pt/ClosedBall.mbr",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/HT/12pt/ClosedBall.mbr",
       "sha256": "8f9f8d500eea93e2003cfaa97470d862cbc33791262e29d1d163cd8d6b4c5151",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/HT/12pt/OpenBall.mbr",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/HT/12pt/OpenBall.mbr",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/HT/12pt/OpenBall.mbr",
       "sha256": "164c2212d0b5718f561564fc3ed731657e579bf6ab364f33a78bcfe9a201254e",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/OpenDrawerWin98.ilbm",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/OpenDrawerWin98.ilbm",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/OpenDrawerWin98.ilbm",
       "sha256": "9389e5684b6fd9ae9536079a82f303585b15efcbf935c45377596d97e2480804",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/OpenNode.image",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/OpenNode.image",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/OpenNode.image",
       "sha256": "b05ca05578cc22c133f490e0777daebbb651c98ec3c274dec4910dbdf9f4b279",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Images/aphaso/OpenNodeWin98.image",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images/aphaso/OpenNodeWin98.image",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/OpenNodeWin98.image",
       "sha256": "96c462009a5d51b30f22c47a4f3934341f6f39c249cf0552ed78622da25c9462",
       "protection": 2,
       "comment": ""
@@ -2399,14 +2441,16 @@
     },
     {
       "path": "Expansion/MUI/Libs/mui/BetterString.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/BetterString.mcc",
+      "archive": "AmigaSYS4-AGA-R1.3.lha",
+      "source": "AmigaSYS4-AGA-R1.3/AmigaOSGlobal/MUI/Old/Better11.15/BetterString.mcc",
       "sha256": "644df58953a917f2e740d64d6d378ca26e17a636d59ffcc512caddb79dc5a2e1",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/BetterString.mcp",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/BetterString.mcp",
+      "archive": "AmigaSYS4-AGA-R1.3.lha",
+      "source": "AmigaSYS4-AGA-R1.3/AmigaOSGlobal/MUI/Old/Better11.15/BetterString.mcp",
       "sha256": "e8f386d645ea362992623156b1756bf74c8b1c7b33c846a02d4a96ec81fa2291",
       "protection": 2,
       "comment": ""
@@ -2538,7 +2582,8 @@
     },
     {
       "path": "Expansion/MUI/Libs/mui/HotkeyString.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/HotkeyString.mcc",
+      "archive": "AmigaSYS4-AGA-R1.3.lha",
+      "source": "AmigaSYS4-AGA-R1.3/AmigaOSGlobal/MUI/Old/Better11.15/HotkeyString.mcc",
       "sha256": "2500ca2226ce7c19692e23f49faa9aaa36213626aa2941eff79e55a0d0103d5f",
       "protection": 2,
       "comment": ""
@@ -2561,7 +2606,8 @@
     },
     {
       "path": "Expansion/MUI/Libs/mui/Icon.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/Icon.mcc",
+      "archive": "classicwb-full",
+      "source": "MyFiles/Install/Icons/Enable/System/MUI/Libs/MUI/Icon.mcc",
       "sha256": "d82bb011ea4a3df7c5751764bbf705817f1f03ae4a519f512ba4c200eb11c166",
       "protection": 2,
       "comment": ""
@@ -2576,7 +2622,8 @@
     },
     {
       "path": "Expansion/MUI/Libs/mui/ImageButton.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/ImageButton.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/ImageButton.mcc",
       "sha256": "413035a51fabdf997cd53e85a27e2840569fee417bb31c5996c0b20d914fbf5b",
       "protection": 2,
       "comment": ""
@@ -2631,77 +2678,88 @@
     },
     {
       "path": "Expansion/MUI/Libs/mui/MCPFrame.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/MCPFrame.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/MCPFrame.mcc",
       "sha256": "08dc74f6f0bb966489e9c931e9d0aa3d3177f629bab0c2a817572dc1e0a6dbec",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/MonthNavigator.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/MonthNavigator.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/MonthNavigator.mcc",
       "sha256": "d5c07ef0c10e1996e711c632d871054bdd197b900bbcbeee06b52a1f10765e4c",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/MonthNavigator.mcp",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/MonthNavigator.mcp",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/MonthNavigator.mcp",
       "sha256": "88eb0a041de7d72b963134f9bd80c9be9cef6248ca3266807edffed9fe37fe6c",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/NewString.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/NewString.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NewString.mcc",
       "sha256": "5fef8836a3134b27fc161f5a50e2190aa39fedc7a18fe6a503647c2d2caca568",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/NewString.mcp",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/NewString.mcp",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NewString.mcp",
       "sha256": "52af89764db9c2bf9764a834d2174c455630fd8fbc758d9f529ae2c7dd8f2b79",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/NFloattext.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/NFloattext.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NFloattext.mcc",
       "sha256": "296a990c76bd8c9dba94a4f73985975816efa6e79307fe0a8f2e77aa954d3f18",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/NList.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/NList.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NList.mcc",
       "sha256": "a461388bf76530fc3fa8fab70dc14922824e0161298e3da2d84fd1a08d6717bc",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/NListtree.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/NListtree.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NListtree.mcc",
       "sha256": "dbaf1b92ae7857a0be409fd07baa43292fe1f8e49c6f67507e4f74126218090b",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/NListtree.mcp",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/NListtree.mcp",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NListtree.mcp",
       "sha256": "6f48a88ca04cde3fc4923aa36b0ffc74e537f94c8f50008329d0f557d5ff53b1",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/NListview.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/NListview.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NListview.mcc",
       "sha256": "fb77ab2bf74964fee54e90418a7a5312928ebd4f5f4c9cd1f55d5cded7414d57",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/NListviews.mcp",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/NListviews.mcp",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NListviews.mcp",
       "sha256": "1c533a2cb562cfd3ca3567e625792ca95f31348134f5d9c2c7873d03c00261b4",
       "protection": 2,
       "comment": ""
@@ -2852,14 +2910,16 @@
     },
     {
       "path": "Expansion/MUI/Libs/mui/TextEditor.mcc",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/TextEditor.mcc",
+      "archive": "AmigaSYS4-AGA-R1.3.lha",
+      "source": "AmigaSYS4-AGA-R1.3/AmigaOSGlobal/MUI/Old/Texteditor15.27/TextEditor.mcc",
       "sha256": "fc0eca3f1511b90308b03ae6e236cf3358a713b2467a4518122ff83b6c46d0be",
       "protection": 2,
       "comment": ""
     },
     {
       "path": "Expansion/MUI/Libs/mui/TextEditor.mcp",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/TextEditor.mcp",
+      "archive": "AmigaSYS4-AGA-R1.3.lha",
+      "source": "AmigaSYS4-AGA-R1.3/AmigaOSGlobal/MUI/Old/Texteditor15.27/TextEditor.mcp",
       "sha256": "24ad4c5cb536b22ebae7196b5f8f9806e3fe5932ef71c0fce56427f51fe41ff7",
       "protection": 2,
       "comment": ""
@@ -3041,7 +3101,8 @@
     },
     {
       "path": "Expansion/MUI/Locale/Catalogs/deutsch/FileID_lib.catalog",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Locale/Catalogs/deutsch/FileID_lib.catalog",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Locale/Catalogs/deutsch/FileID_lib.catalog",
       "sha256": "81f2e90fb2f90efeeb6ca7c73040f9b06aa677801767bf1c6c8a6059e7e06d61",
       "protection": 2,
       "comment": ""
