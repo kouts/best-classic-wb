@@ -178,7 +178,7 @@ $python = 'tmp/package-venv/Scripts/python.exe'
 
 Place the archive files named in the package JSON in a local input directory. Each manifest contains the download URLs and SHA-256 values. The example uses the existing reference archives under `tmp/baseline`.
 
-DeliTracker uses the 2.34 executable update and the full 2.32 archive. The manifest pins the inner LhA files under `nestedArchives`. Each record names its parent archive, member path, and SHA-256. Amiga Explorer uses the same mechanism for each Cloanto setup, its x86 MSI, and that MSI's cabinet. The builder verifies and extracts the pinned members in dependency order. A self-extracting release can set `payloadOffset` to the first byte of its embedded archive. The builder verifies the full release hash before extracting that payload and checking the selected members.
+DeliTracker uses the 2.34 executable update and the full 2.32 archive. The manifest pins the inner LhA files under `nestedArchives`. Each record names its parent archive, member path, and SHA-256. Amiga Explorer uses the same mechanism for each Cloanto setup, its x86 MSI, and that MSI's cabinet. The builder verifies and extracts the pinned members in dependency order. The monitor drivers and DOSDriver mountlists use BestWB's pinned ADF to read its nested ZIP. The ZIP entry lists the members to extract so unrelated Amiga filenames such as AUX.info need no Windows representation. A self-extracting release can set `payloadOffset` to the first byte of its embedded archive. The builder verifies the full release hash before extracting that payload and checking the selected members.
 
 ```powershell
 & $python tools/package.py build directory-opus --archives tmp/baseline/directory-opus --output tmp/packages/directory-opus.hdf

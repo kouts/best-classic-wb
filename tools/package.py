@@ -69,6 +69,22 @@ def extract_archive(source, directory, archive):
 def extract_payload(source, directory, archive):
     directory.mkdir()
     extractor = archive.get("extractor", "tar")
+    if extractor == "amiga-adf":
+        device = BlkDevFactory().open(str(source), read_only=True)
+        try:
+            volume = ADFSVolume(device)
+            volume.open()
+            for name, node in walk(volume.get_root_dir()):
+                destination = directory / relative_path(name)
+                if node.is_dir():
+                    destination.mkdir()
+                elif node.is_file():
+                    with destination.open("xb") as stream:
+                        stream.write(node.get_file_data())
+                    node.flush()
+        finally:
+            device.close()
+        return
     if extractor == "7zip":
         seven_zip = shutil.which("7z.exe") or (
             Path(os.environ.get("ProgramFiles", "C:/Program Files")) / "7-Zip" / "7z.exe"
@@ -78,6 +94,7 @@ def extract_payload(source, directory, archive):
         command = [
             "tar.exe", "--options", "lha:hdrcharset=ISO-8859-1", "-xf",
             str(source), "-C", str(directory),
+            "--", *(relative_path(name).as_posix() for name in archive.get("members", [])),
         ]
     elif extractor == "lzx":
         lzx = shutil.which("lzx.exe")
