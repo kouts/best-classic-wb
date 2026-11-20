@@ -7,20 +7,34 @@
       "url": "https://downloads.sourceforge.net/project/infozip/OldFiles/zcr22xA.zip",
       "sha256": "3b3d28764da8ff29d5574d6c44c4e3d8d4c03a21c136ecde7a2b33829945a6b4",
       "extractor": "7zip"
+    },
+    "BetterWB.zip": {
+      "url": "https://lilliput.amiga-projects.net/Files/BetterWB.zip",
+      "sha256": "989c39555f4d5e259b3aa1bc6933b11c1e18da61591bdd3e7c9d42d43446683c",
+      "extractor": "7zip"
+    }
+  },
+  "nestedArchives": {
+    "Zip.lha": {
+      "archive": "BetterWB.zip",
+      "source": "LICENSES/Zip.lha",
+      "sha256": "7dca9a8552825ddfa78879cb05bbc0c02d0d55fa9b36083788553eb2581f0820",
+      "extractor": "7zip"
     }
   },
   "runtimeDependencies": [
     "AmigaOS"
   ],
   "notes": [
-    "The publisher archive supplies the exact English manual. Its encryption-enabled Zip binary differs from stock. The checked BCWB binary preserves the Amiga build without encryption.",
+    "BetterWB's nested Zip.lha supplies the exact Amiga low-memory build without encryption. The Info-ZIP archive supplies the exact English manual.",
     "Directory Opus owns the Archive bank and ZIP creation actions. The Workbench ZIP default belongs to the shared icon configuration and opens Voodoo-X."
   ],
   "directories": [],
   "files": [
     {
       "path": "C/Zip",
-      "source": "src/BestClassicWB/BCWB_Files/C/Zip",
+      "source": "Zip_v2.2/Zip-LOWMEM",
+      "archive": "Zip.lha",
       "sha256": "462dc2b9dff9e607a7817ff083d0fc745476d9f6e22d786e8b97395ba0d6a478",
       "protection": 2,
       "comment": ""
