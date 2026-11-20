@@ -173,8 +173,10 @@ def build(data, archive_dir, output):
     output.parent.mkdir(parents=True, exist_ok=True)
     owned = {PurePosixPath(entry["path"]): entry for entry in data["directories"]}
     directories = set(owned)
-    for text in [entry["path"] for entry in data["files"]] + [str(path) for path in owned]:
-        directories.update(parents(PurePosixPath(text)))
+    paths = [PurePosixPath(entry["path"]) for entry in data["files"]] + list(owned)
+    for path in paths:
+        directories.update(parents(path))
+    needs_long_names = any(len(part) > 30 for path in paths for part in path.parts)
     ordered_dirs = sorted(directories, key=lambda path: (len(path.parts), path))
     with TemporaryDirectory(dir=output.parent) as folder:
         scratch = Path(folder)
@@ -188,7 +190,7 @@ def build(data, archive_dir, output):
         device = BlkDevFactory().create(str(stage), force=False, options={"chs": f"{cylinders},1,32"})
         try:
             volume = ADFSVolume(device)
-            volume.create(FSString(VOLUME), is_ffs=True)
+            volume.create(FSString(VOLUME), is_ffs=True, is_longname=needs_long_names)
             nodes = {PurePosixPath("."): volume.get_root_dir()}
             for path in ordered_dirs:
                 info = metadata(owned[path]) if path in owned else None

@@ -124,9 +124,11 @@ LhA 2.15 uses the exact generic 68000+ member from the pinned Aminet archive and
 
 The DISK-Masher 1.11 TURBO GENERIC command matches the executable unpacked by the original SDS Software self-extractor. The host build uses the checked BCWB copy. The shipped Directory Opus configuration calls all three commands, and TSgui can call DMS for disk-image operations. The shared LhA, lharc and LZX Workbench project defaults open Voodoo-X and the DMS default opens TSgui. [DMS 1.11 self-extractor](https://se.aminet.net/util/arc/dms111.run)
 
+Zip 2.2 uses the checked BCWB Amiga command and the exact English manual from Info-ZIP's preserved 2.2 archive. The archive's encryption-enabled executable differs from stock. UnZip 5.42 and UnRAR 3.4.3 use their pinned Aminet executables and documentation. The UnRAR executable reports 3.40 and requires ixemul.library 48 or later, which is absent from the stock installation. Directory Opus's Archive bank invokes Zip for creation and the ZIP and RAR filetype actions call the extractors. The shared Workbench ZIP default opens Voodoo-X. The installer harness runs its own byte-identical UnZip helper from `Reference:` before `C/unzip` is installed. [Zip 2.2 archive](https://sourceforge.net/projects/infozip/files/OldFiles/zcr22xA.zip/) [UnZip 5.42 archive](https://se.aminet.net/util/arc/unz542xA.lha) [UnRAR 3.4.3 archive](https://se.aminet.net/util/arc/unrar-68k-amigaos-bin.lha)
+
 ## Build on Windows
 
-Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA and LZX also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
+Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA, LZX, Zip, UnZip and UnRAR also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
 
 Install the pinned Python dependency in a local virtual environment.
 
@@ -146,6 +148,8 @@ DeliTracker uses the 2.34 executable update and the full 2.32 archive. The manif
 ```
 
 Builds check the archive and file hashes and produce a WinUAE transport hardfile. Use a new output filename for each build or remove the old build output before rebuilding.
+
+The builder selects long-name FFS (DOS\7) when an installed path component exceeds 30 characters. UnRAR uses this for `unrar-3.4.3-68k-amigaos-bin.readme`. Mount that transport on a system with long-name FFS support and install onto a volume that supports the same filename.
 
 ## Install and verify in WinUAE
 
