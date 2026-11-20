@@ -138,6 +138,12 @@ Thomas Richter's `disassembler.library` 40.12 and its English autodoc match the 
 
 Thomas Schwarz's `CrM.library` 4.30 and its English guide match Crunch-Mania 1.91t. EaglePlayer's Crunch-Mania support and XPK's CRM2 and CRMS plug-ins use the shared library. The plug-ins retain their xpkmaster ownership. WHDLoad owns its Patcher copies. [Crunch-Mania 1.91t](https://se.aminet.net/util/pack/CrMv191t.lha)
 
+The Gui4Cli update supplies the 3.8.5 interpreter, its `Gui` launcher and the English readme. The bundle installs both commands in `C:` and leaves GUI scripts to callers. [Gui4Cli update](https://se.aminet.net/dev/gui/gui4cli-update.lha)
+
+Olaf Barthel's optimized `gtlayout.library` 47.1 matches the exact member bundled with MagicMenu II. The installed MagicMenuPrefs 2.35 editor uses the shared library and retains its own MagicMenu icon and profile. [MagicMenu II](https://aminet.net/util/wb/MagicMenu_II.lha)
+
+ReqTools 2.9 supplies `reqtools.library` 38.1436. Copper-Demon, FileX, VirusZ and ADF2FMS use the shared library for requesters. The distribution carries their own configuration and icons under their respective paths. [ReqTools user archive](https://se.aminet.net/util/libs/ReqToolsUsr.lha)
+
 ## Build on Windows
 
 Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA, LZX, Zip, UnZip, UnRAR, Zoo, exe2arc, HackProPack and DisLib also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
