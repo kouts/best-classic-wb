@@ -1,0 +1,107 @@
+{
+  "name": "BestClassicWB shared English help",
+  "version": "2.1.12",
+  "baseline": "2.1.12",
+  "archives": {
+    "BestWB.zip": {
+      "url": "https://lilliput.amiga-projects.net/Files/BestWB.zip",
+      "sha256": "fb7e4d2c2c1be98f8a797dd56903bd9c18e2639ffe9b93c49f5c5744fbd66bad"
+    },
+    "Installer-43_3.lha": {
+      "url": "https://se.aminet.net/util/misc/Installer-43_3.lha",
+      "sha256": "25da2a3ec06fa8626d1fba171ec853611035d06203c13a43f4d53713d9927aac",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS MultiView and AmigaGuide datatype"
+  ],
+  "notes": [
+    "BestWB supplies the exact Boards.library 3.42 and MMU 1.21 guides. The Installer 43.3 Aminet archive supplies the ESCOM 1.19 Installer guide.",
+    "The checked BCWB Native.readme describes the P96 native driver 40.5. The driver itself is absent from the BCWB overlay. AmigaOS supplies the existing help readers.",
+    "Locale, Locale/Help and Locale/Help/english are shared. The stock installer's top-level BCWB readme copy is a separate installer operation."
+  ],
+  "directories": [
+    {
+      "path": "Locale",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    },
+    {
+      "path": "Locale/Help",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    },
+    {
+      "path": "Locale/Help/english",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    }
+  ],
+  "files": [
+    {
+      "path": "Locale/Help/english/Boards.guide",
+      "protection": 2,
+      "comment": "",
+      "sha256": "f5b432f00195d5dca63ff575956d3a7de691afceed1069de58d317e9e97080aa",
+      "source": "Locale/Help/english/Boards.guide",
+      "archive": "BestWB6.zip"
+    },
+    {
+      "path": "Locale/Help/english/Installer.guide",
+      "protection": 2,
+      "comment": "",
+      "sha256": "f2b5e15a74db6e77c30917fbc0165eee01abf46d461b82719a10f8a4da56493f",
+      "source": "Installer43_3/Installer.guide",
+      "archive": "Installer-43_3.lha"
+    },
+    {
+      "path": "Locale/Help/english/MMU.guide",
+      "protection": 2,
+      "comment": "",
+      "sha256": "2de3f493e15de3f80c363427ac5224ed4c298335ad570892be49942127983153",
+      "source": "Locale/Help/english/MMU.guide",
+      "archive": "BestWB3.zip"
+    },
+    {
+      "path": "Locale/Help/english/Native.readme",
+      "protection": 2,
+      "comment": "",
+      "sha256": "54eb737d0baaba99baa27ad0a6bc1d41ba46f3ed41d628e6ccf3544b7e74fc4e",
+      "source": "src/BestClassicWB/BCWB_Files/Locale/Help/english/Native.readme"
+    }
+  ],
+  "nestedArchives": {
+    "BestWB6.adf": {
+      "archive": "BestWB.zip",
+      "source": "BestWB6.adf",
+      "sha256": "64042ce5e5c4fd1b77f03cf75c71b1d5521399523dd25133807830fba90f1b93",
+      "extractor": "amiga-adf"
+    },
+    "BestWB6.zip": {
+      "archive": "BestWB6.adf",
+      "source": "6.zip",
+      "sha256": "98b7c78a02ac87583cbc167ad755b011f52fc86e67a3be2c6f106cb90c67762d",
+      "members": [
+        "Locale/Help/english/Boards.guide"
+      ]
+    },
+    "BestWB3.adf": {
+      "archive": "BestWB.zip",
+      "source": "BestWB3.adf",
+      "sha256": "d937c5a7bac19d0227d208c69d80941595638832b31e0f9dcd394c3fe7a9e1a3",
+      "extractor": "amiga-adf"
+    },
+    "BestWB3.zip": {
+      "archive": "BestWB3.adf",
+      "source": "3.zip",
+      "sha256": "a2c9e5a6809ebea7e2c35cc522cc19b94032bc937c800fe8934886f5b6f1f0ff",
+      "members": [
+        "Locale/Help/english/MMU.guide"
+      ]
+    }
+  }
+}

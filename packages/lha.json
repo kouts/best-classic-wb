@@ -13,6 +13,10 @@
       "sha256": "da48ddb1d1cc3eed7fa6f1fde921dcf768a8b64bddd4b182567d262c6f1aa621",
       "extractor": "7zip",
       "payloadOffset": 6112
+    },
+    "BetterWB5.zip": {
+      "url": "https://raw.githubusercontent.com/henrikstengaard/betterwb-package/9a2d320d9cc4bb19c5895dc71988148010e1de0f/package/BetterWB5.zip",
+      "sha256": "00ee4327eb0fba8333ee186afb2efc7ca09df49b28893727fd7b992f74bf83bc"
     }
   },
   "runtimeDependencies": [
@@ -22,7 +26,8 @@
   "notes": [
     "Aminet supplies the generic lha_68k build dated 3 January 2011.",
     "The preserved Aminet self-extractor supplies the exact March 2006 English guide from its embedded distribution archive.",
-    "The existing Directory Opus configuration calls LHA for creation, extraction, integrity testing and listing. The LhA and lharc default project icons open Voodoo-X."
+    "The existing Directory Opus configuration calls LHA for creation, extraction, integrity testing and listing. The LhA and lharc default project icons open Voodoo-X.",
+    "BetterWB supplies the exact ENVARC:LHAOPTS setting (-b32), available through ENV: after startup."
   ],
   "directories": [],
   "files": [
@@ -41,6 +46,14 @@
       "sha256": "a61fa3f0c7f7543060224dcdc8e20e753c37026b8d3433dba4541d7d21a2ad70",
       "protection": 2,
       "comment": ""
+    },
+    {
+      "path": "Prefs/Env-Archive/LHAOPTS",
+      "protection": 2,
+      "comment": "",
+      "sha256": "29a0b8659c48ec8eac23741020dcbf75235266565dc3544d0bf7324d58aba135",
+      "source": "Prefs/Env-Archive/LHAOPTS",
+      "archive": "BetterWB5.zip"
     }
   ]
 }

@@ -10,6 +10,10 @@
     "DirectoryOpus.CLA.lha": {
       "url": "https://aminet.net/util/dopus/DirectoryOpus.CLA.lha",
       "sha256": "743cd83a621328ebb0615993b5ef012178e1b2d05da5c1c1d3392eb4d1a1d996"
+    },
+    "ClassicWB.OS39.28.2.1.zip": {
+      "url": "https://github.com/henrikstengaard/classicwb-os39-package/releases/download/28.2.1/ClassicWB.OS39.28.2.1.zip",
+      "sha256": "57cd2aba44608315a383ceb5d5aaebd1c43b74c8c73dc8782f6a767afeebd416"
     }
   },
   "directories": [
@@ -668,6 +672,32 @@
       "sha256": "b4e88b583e6d9cb0b17fe3777d6cf7fe8faf6161a4fe7c20fb9f115e9f51d227",
       "protection": 2,
       "comment": ""
+    },
+    {
+      "path": "System/ClearRAM",
+      "protection": 2,
+      "comment": "",
+      "sha256": "750ea8410a13565f176e693b3a1125632547e5aa7d00cab84ad05d9be0f7c9d6",
+      "source": "System/ClearRAM",
+      "archive": "classicwb-os39"
+    },
+    {
+      "path": "System/ClearRAM.info",
+      "protection": 2,
+      "comment": "",
+      "sha256": "1d9b9d6e40e4df122d34430435e5ee554237ea7f852c989c95d1f7d8f1cbf43c",
+      "source": "src/BestClassicWB/BCWB_Files/System/ClearRAM.info"
     }
-  ]
+  ],
+  "notes": [
+    "The shipped ClearRAM button calls SYS:System/ClearRAM. The script matches ClassicWB OS39 and the companion Workbench icon preserves the checked BCWB stream."
+  ],
+  "nestedArchives": {
+    "classicwb-os39": {
+      "archive": "ClassicWB.OS39.28.2.1.zip",
+      "source": "classicwb_os39_v28.zip",
+      "sha256": "4f24fff38fbea12746cf9015c2e07519d4be747a25fa442da75d8ff9903aefea",
+      "extractor": "7zip"
+    }
+  }
 }
