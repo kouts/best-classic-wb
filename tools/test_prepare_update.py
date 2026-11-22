@@ -151,6 +151,31 @@ class GuardedChangeTests(unittest.TestCase):
             "shared_path_operation", "drawer_has_retained_children", "unsafe_path_operation", "delete_protected",
         })
 
+    def test_type_conversion_requires_the_complete_before_and_after_metadata(self):
+        path = "Tools/Old"
+        file_entry = {"type": "file", "protection": 2, "comment": "old", "sha256": "hash"}
+        drawer = {"type": "directory", "protection": 2, "comment": "new"}
+        change = replacement(path, file_entry, drawer)
+        review, = review_guarded_changes([change], set(), [])
+        self.assertEqual(review, {"path": path, "before": file_entry, "after": drawer, "status": "undeclared"})
+        declaration = {"path": path, "before": file_entry, "after": drawer, "reason": "Replace the fixture."}
+        self.assertEqual(review_guarded_changes([change], set(), [declaration])[0]["status"], "declared")
+
+    def test_conversion_rejects_external_children_and_delete_protection(self):
+        path = "Tools/Old"
+        drawer = {"path": path, "type": "directory", "protection": 1}
+        file_entry = {"path": path, "type": "file", "protection": 0}
+        parent = {"path": "Tools", "type": "directory", "protection": 0}
+        external = {"path": "Tools/Old/External", "type": "file", "protection": 0}
+        before = {"tools/old": drawer}
+        after = {"tools/old": file_entry}
+        installed = before | {"tools": parent, "tools/old/external": external}
+        final = installed | after
+        conflicts = prepare_update.ownership_conflicts("fixture", before, after, installed, final, set())
+        self.assertEqual({conflict["kind"] for conflict in conflicts}, {
+            "drawer_has_retained_children", "delete_protected",
+        })
+
 
 if __name__ == "__main__":
     unittest.main()

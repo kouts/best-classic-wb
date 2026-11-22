@@ -74,14 +74,16 @@ def main():
             removals = [entry["path"] for entry in changes["removed"]]
             renames = [
                 (change["before"]["path"], change["after"]["path"])
-                for change in changes["changed"] if case_rename(change)
+                for change in changes["changed"] if case_rename(change) and "type" not in change["fields"]
             ]
             renames.sort(key=lambda rename: (rename[0].count("/"), rename[0]))
             overlay = candidate | {
                 kind: [entry for entry in candidate[kind] if entry["path"] in paths]
                 for kind in ("files", "directories")
             }
-            build(overlay, archives, args.output.resolve(), removals=removals, renames=renames)
+            conversions = [change for change in changes["changed"] if "type" in change["fields"]]
+            build(overlay, archives, args.output.resolve(),
+                  removals=removals, renames=renames, conversions=conversions)
         else:
             verify_install(proposal, digest(proposal_bytes), reference, expected, args.installed, args.output)
     except (OSError, ValueError, KeyError, subprocess.CalledProcessError) as error:

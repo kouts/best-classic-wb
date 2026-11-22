@@ -247,7 +247,11 @@ A development-only file can use `developmentZipTemplate` in its catalogue entry.
 
 Use `developmentZipRenameFrom` when a development payload renames a stock file or moves it into an existing stock drawer. The stock path supplies the ZIP attributes and the rebuilt ZIP contains the new path.
 
-List stock payload files to omit from the development ZIP in the package's `developmentZipRemovals` array. Use installed paths relative to `SYS:` and remove the corresponding tracked payload files.
+List stock payload paths to omit from the development ZIP in the package's `developmentZipRemovals` array. Use installed paths relative to `SYS:` and remove the corresponding tracked files.
+
+Declare a new drawer in the package's `directories` list and give it a `developmentZipTemplate` naming a stock drawer whose ZIP attributes can be reused. Declare each new parent drawer, including empty drawers. The builder emits the drawer into the ZIP and records its ownership and template in the source ledger. Files inside declared new drawers still need tracked payload bytes and a stock file template. The file template can come from an existing drawer. The installer applies the manifest's Amiga protection and comments to the new drawers and their files after copying the ZIP payload.
+
+For a file-to-drawer or drawer-to-file change in the full ZIP, list the old path in `developmentZipRemovals` and declare the new entry with a template of its new type. A removed stock drawer requires an explicit removal or move for each former member. New names must keep their literal spelling through the shipped Amiga UnZip.
 
 ```powershell
 & $python tools/distribution.py build --development --stock-zip tmp/baseline/BestClassicWB-v2.1.12.zip --archives tmp/archives --output tmp/development/BestClassicWB.zip
@@ -328,7 +332,9 @@ The command saves a `blocked` report and returns a failure status for an ownersh
 
 For a removal, the blocked proposal shows the old path, its entry type, Amiga metadata and file hash when applicable. Copy those exact `before` fields into an `intentionalChanges` entry, use an empty `after` object, and state why the path is obsolete. A move to a new name or drawer appears as an addition and an explicitly declared removal. For a case-only rename, the report shows the old and new literal paths. Renaming a drawer carries the path spelling of its unchanged children with it.
 
-The installer recases parent drawers before their children, copies any new destination before deleting its declared predecessor, and removes children before their drawer. It stops on a copy or deletion error. Each deletion names one literal path. Shared paths, pattern-like names, delete-protected items and drawers with retained descendants block preparation. A drawer that contains an unexpected entry at install time stays in place. Start every trial from a disposable copy of the exact reviewed reference and compare the entire closed result. Entry type conversions and full uninstall remain outside the overlay workflow.
+The installer recases parent drawers before their children, copies any new destination before deleting its declared predecessor, and removes children before their drawer. It stops on a copy or deletion error. Each deletion names one literal path. Shared paths, pattern-like names, delete-protected items and drawers with retained descendants block preparation. A drawer that contains an unexpected entry at install time stays in place. Start every trial from a disposable copy of the exact reviewed reference and compare the entire closed result.
+
+For a file-to-drawer or drawer-to-file conversion, declare the exact old and new entry type, protection, comment, and file hash where applicable. Review each old child separately if a drawer becomes a file. The installer checks the current type, removes the reviewed old entries without recursion, then copies the replacement with its Amiga metadata. A retry recognizes the replacement type and preserves it while replaying the copy. A shared path, delete-protected source, or drawer with retained children blocks preparation. Start failed trials again from the reviewed disposable reference. Full uninstall remains deferred.
 
 ## Validate a candidate in WinUAE
 

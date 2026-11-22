@@ -9,7 +9,7 @@ import sys
 from tempfile import TemporaryDirectory
 
 from distribution import DELETED_DESCRIPTORS, EXECUTE_TARGETS, OS_ORIGINS, RELEASE_HELP, disk_inventory
-from package import REPO, load_manifest, load_package, parents, relative_path, verified_sources
+from package import REPO, load_manifest, load_package, literal_operation_path, parents, relative_path, verified_sources
 
 
 def package_entries(data):
@@ -108,10 +108,14 @@ def review_guarded_changes(changes, checked_bcwb, declarations, *, removed=()):
         if case_rename(change):
             guarded_fields.add("path")
         fields = [field for field in change["fields"] if field in guarded_fields]
+        if "type" in change["fields"]:
+            fields = ["type", "protection", "comment", "sha256"]
+            if "path" in change["fields"]:
+                fields.append("path")
         if not fields:
             continue
         required[path] = {
-            side: {field: change[side].get(field) for field in fields}
+            side: {field: change[side][field] for field in fields if field in change[side]}
             for side in ("before", "after")
         }
 
@@ -146,8 +150,6 @@ def ownership_conflicts(package, before, after, installed, final, shared_paths):
         if key in others or (key in installed and key not in before):
             owner = others[key][0] if key in others else "existing reference installation"
             conflicts.append({"path": path, "kind": "owned_destination", "owner": owner})
-        if key in before and entry["type"] != before[key]["type"]:
-            conflicts.append({"path": path, "kind": "entry_type_changed"})
         for parent in parents(relative_path(path)):
             literal = parent.as_posix()
             parent_key = literal.lower()
@@ -163,18 +165,20 @@ def ownership_conflicts(package, before, after, installed, final, shared_paths):
     for key, entry in before.items():
         path = entry["path"]
         replacement = after.get(key)
-        if replacement is None or replacement["path"] != path:
+        converts_type = replacement is not None and replacement["type"] != entry["type"]
+        removes_entry = replacement is None or converts_type
+        if removes_entry or replacement["path"] != path:
             if key in shared_paths or key in others:
                 conflicts.append({"path": path, "kind": "shared_path_operation"})
-            if any(char in path for char in "#?[]()|~'%$\t\x00"):
+            if not literal_operation_path(path):
                 conflicts.append({"path": path, "kind": "unsafe_path_operation"})
-            if replacement is None and entry["protection"] & 1:
+            if removes_entry and entry["protection"] & 1:
                 conflicts.append({"path": path, "kind": "delete_protected"})
         if entry["type"] != "directory":
             continue
-        if key not in after and any(path.startswith(key + "/") for path in final):
+        if removes_entry and any(path.startswith(key + "/") for path in final):
             conflicts.append({"path": entry["path"], "kind": "drawer_has_retained_children"})
-        elif key in after and entry["path"] != after[key]["path"] and any(
+        elif not removes_entry and path != replacement["path"] and any(
             path.startswith(key + "/") for path in installed.keys() - before.keys()
         ):
             conflicts.append({"path": entry["path"], "kind": "drawer_case_changes_external_paths"})

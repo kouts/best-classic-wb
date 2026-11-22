@@ -11,8 +11,10 @@ import sys
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile
 
+from amitools.fs.ProtectFlags import ProtectFlags
+
 from package import (
-    ADFSVolume, BlkDevFactory, REPO, digest, load_package, relative_path,
+    ADFSVolume, BlkDevFactory, REPO, digest, literal_operation_path, load_package, relative_path,
     verified_sources, walk,
 )
 
@@ -92,39 +94,79 @@ def payload_members(paths):
     return result
 
 
-def catalogue_contents(archive_dir, temporary, members, stock_drawers, *, additions=None, removals=None):
-    replacements = {}
-    for manifest in sorted((REPO / "packages").glob("*.json")):
-        package = load_package(manifest.stem)
+def directory_additions(catalogue, stock_dirs, additions):
+    donors = payload_members(stock_dirs)
+    created = {}
+    for package_id, package in catalogue.items():
+        for entry in package["directories"]:
+            template = entry.get("developmentZipTemplate")
+            if template is None:
+                continue
+            path = relative_path(entry["path"]).as_posix()
+            member = PAYLOAD + path + "/"
+            donor = donors.get(relative_path(template).as_posix().lower())
+            if additions is None or donor is None or path.lower() in donors or member in created:
+                raise ValueError(f"Invalid development ZIP drawer or template: {path}")
+            if guest_name(path) != path:
+                raise ValueError(f"New ZIP drawer spelling does not survive Amiga UnZip: {path}")
+            additions[member] = donor
+            created[member] = {
+                "package": package_id, "installedPath": path, "zipTemplate": donor,
+                "protection": entry["protection"], "comment": entry["comment"],
+            }
+    for member in created:
+        parent = member.rstrip("/").rsplit("/", 1)[0] + "/"
+        if parent not in stock_dirs and parent not in created:
+            raise ValueError(f"No declared parent drawer for {member}")
+    return created
+
+
+def catalogue_contents(archive_dir, temporary, members, stock_dirs, *, additions=None, removals=None):
+    catalogue = {path.stem: load_package(path.stem) for path in sorted((REPO / "packages").glob("*.json"))}
+    stock_paths = members | payload_members(stock_dirs)
+    for package_id, package in catalogue.items():
         if package["baseline"] != BASELINE:
-            raise ValueError(f"{manifest.stem} targets a different baseline.")
+            raise ValueError(f"{package_id} targets a different baseline.")
         for path in package.get("developmentZipRemovals", []):
-            member = members.get(relative_path(path).as_posix().lower())
+            member = stock_paths.get(relative_path(path).as_posix().lower())
             if removals is None or member is None or member in removals:
                 raise ValueError(f"Invalid development ZIP removal: {path}")
             removals.add(member)
-        scratch = temporary / manifest.stem
+
+    created = directory_additions(catalogue, stock_dirs, additions)
+    replacements = {}
+    metadata = dict(created)
+    for package_id, package in catalogue.items():
+        scratch = temporary / package_id
         scratch.mkdir()
         for entry, content in verified_sources(package, archive_dir, scratch):
-            target = entry["path"].lower()
+            path = entry["path"]
+            target = path.lower()
             rename_from = entry.get("developmentZipRenameFrom")
             if rename_from and (removals is None or target in members):
-                raise ValueError(f"Invalid development ZIP rename: {entry['path']}")
+                raise ValueError(f"Invalid development ZIP rename: {path}")
             if target in members:
                 member = members[target]
             else:
                 template = rename_from or entry.get("developmentZipTemplate")
                 if additions is None or not template:
-                    raise ValueError(f"No shipped payload member for SYS:{entry['path']}")
-                member = PAYLOAD + relative_path(entry["path"]).as_posix()
-                template = relative_path(template).as_posix()
-                donor = members.get(template.lower())
-                drawer = member.rsplit("/", 1)[0]
-                if (donor is None or drawer not in stock_drawers
-                        or (not rename_from and donor.rsplit("/", 1)[0] != drawer)
+                    raise ValueError(f"No shipped payload member for SYS:{path}")
+                member = PAYLOAD + relative_path(path).as_posix()
+                donor = members.get(relative_path(template).as_posix().lower())
+                drawer = member.rsplit("/", 1)[0] + "/"
+                old_member = stock_paths.get(target, "")
+                converts_drawer = old_member.endswith("/") and old_member in removals
+                needs_metadata = drawer in created or converts_drawer
+                if (donor is None or (drawer not in stock_dirs and drawer not in created)
+                        or (not needs_metadata and not rename_from and donor.rsplit("/", 1)[0] + "/" != drawer)
                         or not (REPO / member).is_file()
                         or (REPO / member).read_bytes() != content):
                     raise ValueError(f"Invalid development ZIP input or template: {member}")
+                if needs_metadata:
+                    if guest_name(path) != path:
+                        raise ValueError(f"New ZIP file spelling does not survive Amiga UnZip: {path}")
+                    metadata[member] = {field: entry[field] for field in ("protection", "comment")}
+                    metadata[member]["installedPath"] = path
                 additions[member] = donor
                 if rename_from:
                     if donor in removals:
@@ -133,18 +175,47 @@ def catalogue_contents(archive_dir, temporary, members, stock_drawers, *, additi
             if member in replacements:
                 raise ValueError(f"Conflicting package ownership: {member}")
             source = {
-                "kind": "package",
-                "package": manifest.stem,
-                "source": entry["source"],
-                "archive": entry.get("archive"),
-                "installedPath": entry["path"],
+                "kind": "package", "package": package_id, "source": entry["source"],
+                "archive": entry.get("archive"), "installedPath": path,
             }
             if "sourceTransform" in entry:
                 source["sourceTransform"] = entry["sourceTransform"]
             replacements[member] = (content, source)
     if removals and replacements.keys() & removals:
         raise ValueError("Removed stock members cannot also be supplied by a package.")
-    return replacements
+    return replacements, created, metadata
+
+
+def add_install_metadata(contents, metadata):
+    anchor = b'COPY "BCWB_Files" TO SYS: ALL BUF 10'
+    lines = contents.splitlines(keepends=True)
+    copies = [index for index, line in enumerate(lines) if line.rstrip(b"\r\n") == anchor]
+    if len(copies) != 1:
+        raise ValueError("Expected one BCWB payload copy before setting development metadata.")
+    insert_at = copies[0] + 1
+    newline = b"\r\n" if lines[copies[0]].endswith(b"\r\n") else b"\n"
+    commands = ["FAILAT 5"]
+    for member, entry in sorted(metadata.items()):
+        if member.endswith("/"):
+            target = entry["installedPath"]
+            commands.extend([f'IF NOT EXISTS "SYS:{target}"', f'  MakeDir "SYS:{target}"', "ENDIF"])
+    for member, entry in sorted(metadata.items(), key=lambda item: (-item[0].rstrip("/").count("/"), item[0])):
+        path = entry["installedPath"]
+        mask, comment = entry["protection"], entry["comment"]
+        if (not literal_operation_path(path) or type(mask) is not int or not 0 <= mask <= 255
+                or not isinstance(comment, str) or any(char in comment for char in "\0\r\n")
+                or len(comment.encode("latin-1")) > 79):
+            raise ValueError(f"Invalid development ZIP metadata for SYS:{path}")
+        comment = "".join("*" + char if char in '*"$`' else char for char in comment)
+        commands.append(f'FileNote "SYS:{path}" "{comment}"')
+        flags = ProtectFlags(mask).short_str()
+        commands.append(f'Protect "SYS:{path}" FLAGS {flags or "d"}')
+        if not flags:
+            commands.append(f'Protect "SYS:{path}" FLAGS -d')
+    commands.append("FAILAT 10")
+    lines[copies[0]] = anchor + newline
+    lines[insert_at:insert_at] = [command.encode("latin-1") + newline for command in commands]
+    return b"".join(lines)
 
 
 def compare_zip(expected, rebuilt, *, check_contents=True, additions=None, removals=()):
@@ -152,11 +223,12 @@ def compare_zip(expected, rebuilt, *, check_contents=True, additions=None, remov
         a, b = layout_files(stock), layout_files(candidate)
         additions = additions or {}
         removals = set(removals)
-        if (additions.keys() & a.keys() or not set(additions.values()) <= a.keys()
-                or not removals <= a.keys()):
+        stock_paths = set(stock.namelist())
+        if (additions.keys() & stock_paths or not set(additions.values()) <= stock_paths
+                or not removals <= stock_paths
+                or any(name.endswith("/") != donor.endswith("/") for name, donor in additions.items())):
             raise ValueError("Invalid development ZIP template mapping.")
-        if (((set(a) - removals) | additions.keys()) != set(b)
-                or ((set(stock.namelist()) - removals) | additions.keys()) != set(candidate.namelist())):
+        if ((stock_paths - removals) | additions.keys()) != set(candidate.namelist()):
             raise ValueError("Shipment paths differ from the expected layout.")
         for name in candidate.namelist():
             before = stock.getinfo(additions.get(name, name))
@@ -184,18 +256,22 @@ def build(stock_path, archive_dir, output, *, development=False):
         files = tracked_sources()
         additions = {}
         removals = set()
-        stock_drawers = {entry.filename.rstrip("/") for entry in stock.infolist() if entry.is_dir()}
-        replacements = catalogue_contents(
+        stock_drawers = {entry.filename for entry in stock.infolist() if entry.is_dir()}
+        replacements, created, metadata = catalogue_contents(
             archive_dir, scratch, payload_members(members), stock_drawers,
             additions=additions if development else None, removals=removals if development else None,
         )
-        expected = (set(members) - removals) | additions.keys()
+        layout = (set(stock.namelist()) - removals) | additions.keys()
+        for drawer in removals & stock_drawers:
+            if any(member.startswith(drawer) for member in layout):
+                raise ValueError(f"Removed drawer still has payload entries: {drawer}")
+        expected = {path for path in layout if not path.endswith("/")}
         if files != expected:
             raise ValueError(
                 f"Checkout paths differ from expected. Extra: {sorted(files - expected)}; "
                 f"missing: {sorted(expected - files)}"
             )
-        payload_members(expected)
+        payload_members(layout)
         staged = scratch / output.name
         ledger = {}
         with ZipFile(staged, "x") as rebuilt:
@@ -214,14 +290,20 @@ def build(stock_path, archive_dir, output, *, development=False):
                         raise ValueError(f"No catalogue owner for payload member: {path}")
                     content = (REPO / relative_path(path)).read_bytes()
                     source = {"kind": "installer_assets" if development else "stock_installer_assets", "source": path}
+                    if path == RELEASE_ROOT + "BCWB" and metadata:
+                        content = add_install_metadata(content, metadata)
+                        source["metadataEntries"] = sorted(metadata)
                 if not development and content != stock.read(path):
                     raise ValueError(f"Reconstructed contents differ from {BASELINE}: {path}")
                 ledger[path] = {**source, "sha256": digest(content)}
                 rebuilt.writestr(copy(entry), content)
             for path, donor in sorted(additions.items()):
-                content, source = replacements[path]
-                ledger[path] = {**source, "sha256": digest(content), "zipTemplate": donor}
-                entry = copy(members[donor])
+                if path in created:
+                    content = b""
+                else:
+                    content, source = replacements[path]
+                    ledger[path] = {**source, "sha256": digest(content), "zipTemplate": donor}
+                entry = copy(stock.getinfo(donor))
                 entry.filename = entry.orig_filename = path
                 rebuilt.writestr(entry, content)
         count = compare_zip(
@@ -232,7 +314,9 @@ def build(stock_path, archive_dir, output, *, development=False):
             "baseline": BASELINE, "referenceZipSha256": STOCK_SHA256,
             **({"development": True} if development else {}),
             "packageFiles": len(replacements), "files": ledger,
-            "directories": [item.filename for item in stock.infolist() if item.is_dir()],
+            "directories": [item.filename for item in stock.infolist()
+                            if item.is_dir() and item.filename not in removals] + sorted(created),
+            **({"directoryAdditions": created} if created else {}),
         })
         staged.rename(output)
         staged_ledger.rename(ledger_path)
