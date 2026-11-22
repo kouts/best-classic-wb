@@ -70,7 +70,11 @@ def compare(before, after):
     return delta
 
 
-def review_guarded_changes(changes, checked_bcwb, declarations):
+def case_rename(change):
+    return change["before"]["path"].rsplit("/", 1)[-1] != change["after"]["path"].rsplit("/", 1)[-1]
+
+
+def review_guarded_changes(changes, checked_bcwb, declarations, *, removed=()):
     if not isinstance(declarations, list):
         raise ValueError("intentionalChanges must be a list of path-specific declarations.")
     declared = {}
@@ -89,19 +93,30 @@ def review_guarded_changes(changes, checked_bcwb, declarations):
         seen.add(path.lower())
         declared[path] = entry
 
-    reviews = []
+    required = {}
+    for entry in removed:
+        fields = ("type", "protection", "comment", "sha256")
+        required[entry["path"]] = {
+            "before": {field: entry[field] for field in fields if field in entry},
+            "after": {},
+        }
     for change in changes:
         path = change["before"]["path"]
         guarded_fields = {"protection", "comment"}
         if path in checked_bcwb or path.lower().endswith(".info"):
             guarded_fields.add("sha256")
+        if case_rename(change):
+            guarded_fields.add("path")
         fields = [field for field in change["fields"] if field in guarded_fields]
         if not fields:
             continue
-        actual = {
+        required[path] = {
             side: {field: change[side].get(field) for field in fields}
             for side in ("before", "after")
         }
+
+    reviews = []
+    for path, actual in sorted(required.items()):
         review = {"path": path, **actual, "status": "undeclared"}
         declaration = declared.pop(path, None)
         if declaration is not None:
@@ -118,7 +133,7 @@ def review_guarded_changes(changes, checked_bcwb, declarations):
     return reviews
 
 
-def ownership_conflicts(package, before, after, installed, final):
+def ownership_conflicts(package, before, after, installed, final, shared_paths):
     others = {}
     for path in sorted((REPO / "packages").glob("*.json")):
         if path.stem != package:
@@ -142,10 +157,19 @@ def ownership_conflicts(package, before, after, installed, final):
             elif parent_entry["path"] != literal:
                 conflicts.append({"path": path, "kind": "parent_case_differs", "parent": parent_entry["path"]})
             if key not in before and parent_key in others:
-                owner, shared = others[parent_key]
-                if not shared:
+                owner, parent_shared = others[parent_key]
+                if not parent_shared:
                     conflicts.append({"path": path, "kind": "exclusive_drawer", "parent": literal, "owner": owner})
     for key, entry in before.items():
+        path = entry["path"]
+        replacement = after.get(key)
+        if replacement is None or replacement["path"] != path:
+            if key in shared_paths or key in others:
+                conflicts.append({"path": path, "kind": "shared_path_operation"})
+            if any(char in path for char in "#?[]()|~'%$\t\x00"):
+                conflicts.append({"path": path, "kind": "unsafe_path_operation"})
+            if replacement is None and entry["protection"] & 1:
+                conflicts.append({"path": path, "kind": "delete_protected"})
         if entry["type"] != "directory":
             continue
         if key not in after and any(path.startswith(key + "/") for path in final):
@@ -197,7 +221,8 @@ def candidate_proposal(package, candidate, archive_dir, reference):
     after = verified_candidate(candidate, archive_dir)
     delta = compare(before, after)
     final = {key: entry for key, entry in installed.items() if key not in before} | after
-    conflicts = ownership_conflicts(package, before, after, installed, final)
+    shared = {key for key, (_, entry) in baseline_paths.items() if entry.get("shared", False)}
+    conflicts = ownership_conflicts(package, before, after, installed, final, shared)
     checks = dependency_checks(candidate, final)
     missing_required = any(check["required"] and check["status"] == "missing" for check in checks)
 
@@ -208,7 +233,9 @@ def candidate_proposal(package, candidate, archive_dir, reference):
         entry["path"] for kind, entry in baseline_paths.values()
         if kind == "files" and "archive" not in entry
     }
-    reviews = review_guarded_changes(delta["changed"], checked_bcwb, candidate.get("intentionalChanges", []))
+    reviews = review_guarded_changes(
+        delta["changed"], checked_bcwb, candidate.get("intentionalChanges", []), removed=delta["removed"],
+    )
     has_unreviewed_changes = any(review["status"] != "declared" for review in reviews)
     installer_paths = {
         path.lower() for path in (*OS_ORIGINS, *OS_ORIGINS.values(), *EXECUTE_TARGETS,

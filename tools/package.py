@@ -165,10 +165,12 @@ def parents(path):
     return [parent for parent in path.parents if parent != PurePosixPath(".")]
 
 
-def installer(data, ordered_dirs):
+def installer(data, ordered_dirs, *, removals=(), renames=()):
     owned = {PurePosixPath(entry["path"]) for entry in data["directories"]}
     roots = {path for path in owned if owned.isdisjoint(parents(path))}
-    commands = ["FAILAT 10"]
+    commands = ["FAILAT 5" if removals or renames else "FAILAT 10"]
+    for before, after in renames:
+        commands.append(f'Rename "SYS:{before}" TO "SYS:{after}"')
     for path in ordered_dirs:
         if path not in roots and roots.isdisjoint(parents(path)):
             commands.extend([f'IF NOT EXISTS "SYS:{path}"', f'  MakeDir "SYS:{path}"', "ENDIF"])
@@ -178,6 +180,8 @@ def installer(data, ordered_dirs):
         path = PurePosixPath(entry["path"])
         if roots.isdisjoint(parents(path)):
             commands.append(f'Copy "{VOLUME}:{path}" TO "SYS:{path}" CLONE')
+    for path in sorted(removals, key=lambda path: (-path.count("/"), path)):
+        commands.extend([f'IF EXISTS "SYS:{path}"', f'  Delete "SYS:{path}"', "ENDIF"])
     commands.append('Echo "Package installation complete."')
     return ("\n".join(commands) + "\n").encode("latin-1")
 
@@ -186,7 +190,7 @@ def metadata(entry):
     return MetaInfo(protect=entry["protection"], comment=FSString(entry["comment"]))
 
 
-def build(data, archive_dir, output):
+def build(data, archive_dir, output, *, removals=(), renames=()):
     if output.suffix.lower() != ".hdf":
         raise ValueError("The output filename must end in .hdf.")
     if output.exists():
@@ -219,7 +223,8 @@ def build(data, archive_dir, output):
             for entry, content in file_data:
                 path = PurePosixPath(entry["path"])
                 nodes[path.parent].create_file(FSString(path.name), content, metadata(entry)).flush()
-            volume.write_file(installer(data, ordered_dirs), FSString("Install"))
+            script = installer(data, ordered_dirs, removals=removals, renames=renames)
+            volume.write_file(script, FSString("Install"))
             volume.close()
         finally:
             device.close()

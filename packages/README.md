@@ -253,6 +253,27 @@ List stock payload files to omit from the development ZIP in the package's `deve
 & $python tools/distribution.py build --development --stock-zip tmp/baseline/BestClassicWB-v2.1.12.zip --archives tmp/archives --output tmp/development/BestClassicWB.zip
 ```
 
+## Prepare a verified release
+
+The release workflow runs manually from `main`. Its verification job needs a trusted Windows runner labeled `bcwb-release` with the Windows build dependencies above available to the runner account, including PowerShell 7, Python, Windows tar, 7-Zip, and the Amiga LZX CLI. Set the repository variable `BCWB_RELEASE_INPUTS` to an absolute path on that runner. Configure the GitHub `release` environment for maintainer approval and npm publishing credentials.
+
+Put the checksum-pinned published `BestClassicWB-v2.1.12.zip` and the `archives` cache in that input directory. Build the candidate with the development ZIP command above using the same Python and compression runtime as the runner. Install that ZIP on a fresh AmigaOS 3.2.2.1 copy in WinUAE and cold-boot it with the installer media detached. Record the actual launch checks on a separate copy. Use the build's full commit SHA for the review directory and save these files under `reviews/<commit-sha>/`.
+
+| File | Contents |
+| --- | --- |
+| `BestClassicWB.zip` | Exact package-built ZIP installed in the guest |
+| `expected.hdf` | Independently verified closed hardfile with the approved expected inventory |
+| `installed.hdf` | Closed hardfile from the fresh ZIP install and cold boot |
+| `runtime.md` | WinUAE smoke results covering the affected entry points and profiles |
+
+The Windows job runs the automated tests, rebuilds from the pinned archives, and requires an exact SHA-256 match with the tested ZIP. It compares both closed hardfiles by volume label, paths, types, contents, protection masks, and comments. The maintainer reviews the recorded runtime results. Only the verified ZIP passes to the publishing job, which checks its SHA-256 again. Keep the archives, ROMs, hardfiles, and runtime evidence on the Windows host.
+
+To check the same inputs locally after building the release ZIP, run the verifier with your reviewed paths.
+
+```powershell
+& $python tools/release_gate.py --zip 'tmp/development/BestClassicWB.zip' --tested-zip "$review/BestClassicWB.zip" --reference "$review/expected.hdf" --installed "$review/installed.hdf" --runtime-evidence "$review/runtime.md" --output 'tmp/development/release-verification.json'
+```
+
 ## Check upstream inputs
 
 ```powershell
@@ -303,6 +324,12 @@ Preserve protection bits and comments on existing files and drawers. Preserve th
 
 The command saves a `blocked` report and returns a failure status for an ownership conflict, a missing required dependency, or an undeclared, stale or mismatched guarded change. A `ready_for_review` report is a proposal for the next validation step. The declaration records review scope for staging. Adoption still requires explicit maintainer approval.
 
+### Remove or move paths during an update
+
+For a removal, the blocked proposal shows the old path, its entry type, Amiga metadata and file hash when applicable. Copy those exact `before` fields into an `intentionalChanges` entry, use an empty `after` object, and state why the path is obsolete. A move to a new name or drawer appears as an addition and an explicitly declared removal. For a case-only rename, the report shows the old and new literal paths. Renaming a drawer carries the path spelling of its unchanged children with it.
+
+The installer recases parent drawers before their children, copies any new destination before deleting its declared predecessor, and removes children before their drawer. It stops on a copy or deletion error. Each deletion names one literal path. Shared paths, pattern-like names, delete-protected items and drawers with retained descendants block preparation. A drawer that contains an unexpected entry at install time stays in place. Start every trial from a disposable copy of the exact reviewed reference and compare the entire closed result. Entry type conversions and full uninstall remain outside the overlay workflow.
+
 ## Validate a candidate in WinUAE
 
 Build an install transport from the staged candidate manifest, archives and proposal.
@@ -317,4 +344,4 @@ Boot a disposable copy of the reference hardfile with the candidate transport mo
 & $python tools/candidate_update.py verify benchtrash --manifest "$candidate/candidate.json" --archives "$candidate/archives" --reference $reference --proposal "$pilot/update-diff.json" --installed "$pilot/installed.hdf" --output "$pilot/install-verification.json"
 ```
 
-Both commands reproduce the reviewed proposal from the same reference disk and staged inputs. Existing commands can still use `--stock`. The JSON fields `stockImage` and `stockToInstalled` retain their original names and refer to whichever reference disk was supplied. The transport copies only the proposed additions and replacements, preserving the timestamps of untouched files. The verifier reports the actual changes from the reference and any differences from the expected inventory and volume label. Run application smoke tests on separate copies through the affected launch path. Use the saved AmigaOS 3.2.2.1 A1200 profile for the install and cold boot, and the Blizzard 1230 IV profile for relevant accelerator checks. The overlay installer supports additions and replacements at the same literal paths. Removals, case-only renames and entry type conversions require a separate installer operation.
+Both commands reproduce the reviewed proposal from the same reference disk and staged inputs. Existing commands can still use `--stock`. The JSON fields `stockImage` and `stockToInstalled` retain their original names and refer to whichever reference disk was supplied. The transport applies the proposed additions, replacements, renames and removals. Untouched files retain their timestamps. The verifier reports the actual changes from the reference and any differences from the expected inventory and volume label. Run application smoke tests on separate copies through the affected launch path. Use the saved AmigaOS 3.2.2.1 A1200 profile for the install and cold boot, and the Blizzard 1230 IV profile for relevant accelerator checks.

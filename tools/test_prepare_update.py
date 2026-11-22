@@ -110,6 +110,47 @@ class GuardedChangeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Duplicate"):
             review_guarded_changes([], set(), [declaration, {**declaration, "path": IGAME.lower()}])
 
+    def test_removed_entries_require_an_exact_declaration(self):
+        entry = {"path": "Tools/Old", "type": "file", "protection": 2, "comment": "", "sha256": "old"}
+        reviews = review_guarded_changes([], set(), [], removed=[entry])
+        self.assertEqual(reviews[0]["status"], "undeclared")
+        self.assertEqual(reviews[0]["after"], {})
+        self.assertEqual(reviews[0]["before"]["sha256"], "old")
+        declaration = {**{field: reviews[0][field] for field in ("path", "before", "after")},
+                       "reason": "Remove the obsolete fixture executable."}
+        self.assertEqual(review_guarded_changes([], set(), [declaration], removed=[entry])[0]["status"], "declared")
+
+    def test_installer_copies_before_literal_removals_and_deletes_children_first(self):
+        candidate = {"directories": [], "files": [{"path": "Tools/Moved"}]}
+        script = package.installer(
+            candidate, [], removals=["Tools/Old", "Tools/Old/File"],
+            renames=[("Tools/OldCase", "Tools/oldcase")],
+        ).decode("latin-1").splitlines()
+        self.assertEqual(script, [
+            "FAILAT 5",
+            'Rename "SYS:Tools/OldCase" TO "SYS:Tools/oldcase"',
+            'Copy "BCWB-Package:Tools/Moved" TO "SYS:Tools/Moved" CLONE',
+            'IF EXISTS "SYS:Tools/Old/File"',
+            '  Delete "SYS:Tools/Old/File"',
+            "ENDIF",
+            'IF EXISTS "SYS:Tools/Old"',
+            '  Delete "SYS:Tools/Old"',
+            "ENDIF",
+            'Echo "Package installation complete."',
+        ])
+
+    def test_shared_nonempty_and_pattern_targets_are_blocked(self):
+        shared = {"path": "Tools/Shared", "type": "directory", "protection": 0}
+        wildcard = {"path": "Tools/Old#?", "type": "file", "protection": 2}
+        protected = {"path": "Tools/Protected", "type": "file", "protection": 3}
+        external = {"path": "Tools/Shared/External", "type": "file", "protection": 0}
+        before = {entry["path"].lower(): entry for entry in (shared, wildcard, protected)}
+        final = {external["path"].lower(): external}
+        conflicts = prepare_update.ownership_conflicts("fixture", before, {}, before | final, final, {"tools/shared"})
+        self.assertEqual({conflict["kind"] for conflict in conflicts}, {
+            "shared_path_operation", "drawer_has_retained_children", "unsafe_path_operation", "delete_protected",
+        })
+
 
 if __name__ == "__main__":
     unittest.main()

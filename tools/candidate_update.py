@@ -7,20 +7,7 @@ import subprocess
 import sys
 
 from package import build, digest, load_manifest
-from prepare_update import candidate_proposal, compare, installed_inventory
-
-
-def require_overlay(changes):
-    unsupported = [f"Removal: {entry['path']}" for entry in changes["removed"]]
-    for change in changes["changed"]:
-        before, after = change["before"], change["after"]
-        if "path" in change["fields"]:
-            unsupported.append(f"Case-only rename: {before['path']} -> {after['path']}")
-        if "type" in change["fields"]:
-            unsupported.append(f"Entry type conversion: {before['path']}")
-    if unsupported:
-        raise ValueError("The package installer cannot apply these proposed changes:\n"
-                         + "\n".join(unsupported))
+from prepare_update import candidate_proposal, case_rename, compare, installed_inventory
 
 
 def verify_install(proposal, proposal_hash, reference, expected, hardfile, output):
@@ -79,15 +66,22 @@ def main():
         if json.dumps(proposal, sort_keys=True) != json.dumps(reviewed, sort_keys=True):
             raise ValueError("The staged inputs do not reproduce the reviewed proposal.")
         changes = proposal["changes"]
-        require_overlay(changes)
         if args.command == "build":
             paths = {entry["path"] for entry in changes["added"]}
-            paths.update(change["after"]["path"] for change in changes["changed"])
+            paths.update(
+                change["after"]["path"] for change in changes["changed"] if change["fields"] != ["path"]
+            )
+            removals = [entry["path"] for entry in changes["removed"]]
+            renames = [
+                (change["before"]["path"], change["after"]["path"])
+                for change in changes["changed"] if case_rename(change)
+            ]
+            renames.sort(key=lambda rename: (rename[0].count("/"), rename[0]))
             overlay = candidate | {
                 kind: [entry for entry in candidate[kind] if entry["path"] in paths]
                 for kind in ("files", "directories")
             }
-            build(overlay, archives, args.output.resolve())
+            build(overlay, archives, args.output.resolve(), removals=removals, renames=renames)
         else:
             verify_install(proposal, digest(proposal_bytes), reference, expected, args.installed, args.output)
     except (OSError, ValueError, KeyError, subprocess.CalledProcessError) as error:

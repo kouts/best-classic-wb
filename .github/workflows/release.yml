@@ -1,51 +1,101 @@
 name: release-main
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
 
 jobs:
-  release:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [20]
+  verify:
+    if: github.ref == 'refs/heads/main'
+    runs-on: [self-hosted, windows, bcwb-release]
+    outputs:
+      zip_sha256: ${{ steps.gate.outputs.zip_sha256 }}
+    env:
+      BCWB_RELEASE_INPUTS: ${{ vars.BCWB_RELEASE_INPUTS }}
 
     steps:
-      - name: Checkout 🛎
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Build and verify the release ZIP
+        id: gate
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not $env:BCWB_RELEASE_INPUTS -or -not [IO.Path]::IsPathFullyQualified($env:BCWB_RELEASE_INPUTS)) {
+            throw 'Set BCWB_RELEASE_INPUTS to the absolute path of the local release inputs.'
+          }
+          $inputs = (Resolve-Path -LiteralPath $env:BCWB_RELEASE_INPUTS).Path
+          $review = Join-Path $inputs "reviews/$env:GITHUB_SHA"
+          $stage = Join-Path $env:RUNNER_TEMP "bcwb-release-$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $zip = Join-Path $stage 'BestClassicWB.zip'
+          foreach ($name in 'BestClassicWB.zip', 'expected.hdf', 'installed.hdf', 'runtime.md') {
+            if (!(Test-Path -LiteralPath (Join-Path $review $name) -PathType Leaf)) {
+              throw "Missing reviewed input for ${env:GITHUB_SHA}: $name"
+            }
+          }
+          python -m venv "$stage/venv"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          $python = Join-Path $stage 'venv/Scripts/python.exe'
+          & $python -m pip install -r tools/package-requirements.txt
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & $python -m unittest discover -s tools
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & $python tools/distribution.py build --development --stock-zip "$inputs/BestClassicWB-v2.1.12.zip" --archives "$inputs/archives" --output $zip
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & $python tools/release_gate.py --zip $zip --tested-zip "$review/BestClassicWB.zip" --reference "$review/expected.hdf" --installed "$review/installed.hdf" --runtime-evidence "$review/runtime.md" --output "$stage/verification.json"
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          "zip=$zip" >> $env:GITHUB_ENV
+          $report = Get-Content -LiteralPath "$stage/verification.json" -Raw | ConvertFrom-Json
+          "zip_sha256=$($report.zipSha256)" >> $env:GITHUB_OUTPUT
+      - name: Pass the verified ZIP to the publishing job
+        uses: actions/upload-artifact@v4
+        with:
+          name: bcwb-release-zip
+          path: ${{ env.zip }}
+          if-no-files-found: error
+          overwrite: true
+
+  release:
+    needs: verify
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup node env 🏗
-        uses: actions/setup-node@v3
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
-          check-latest: true
-
-      - name: Setup pnpm 📦
-        uses: pnpm/action-setup@v2
+          node-version: 24
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install release tooling
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git
+      - name: Download the verified ZIP
+        uses: actions/download-artifact@v4
         with:
-          version: 8.9.2
-
-      - name: Install dependencies 📦
-        run: pnpm install
-
-      - name: Install semantic-release extra plugins 📦
-        run: pnpm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git
-
-      - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.5
-        with:
-          type: 'zip'
-          path: './src'
-          filename: 'BestClassicWB.zip'
-          exclusions: '*.git* /*node_modules/* .editorconfig'
-
+          name: bcwb-release-zip
+      - name: Verify the artifact on the publishing runner
+        env:
+          EXPECTED_SHA256: ${{ needs.verify.outputs.zip_sha256 }}
+        run: printf '%s  BestClassicWB.zip\n' "$EXPECTED_SHA256" | sha256sum --check --strict
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release          
+        run: pnpm exec semantic-release
