@@ -23,7 +23,7 @@ def require_overlay(changes):
                          + "\n".join(unsupported))
 
 
-def verify_install(proposal, proposal_hash, stock, expected, hardfile, output):
+def verify_install(proposal, proposal_hash, reference, expected, hardfile, output):
     label, installed = installed_inventory(hardfile)
     expected_label = proposal["stockImage"]["volume"]
     differences = compare(expected, installed)
@@ -39,7 +39,7 @@ def verify_install(proposal, proposal_hash, stock, expected, hardfile, output):
         "expectedEntries": len(expected),
         "installedEntries": len(installed),
         "status": "matched" if matched else "mismatch",
-        "stockToInstalled": compare(stock, installed),
+        "stockToInstalled": compare(reference, installed),
         "expectedToInstalled": differences,
     }
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -59,7 +59,8 @@ def main():
         command.add_argument("package", help="catalogue package ID")
         command.add_argument("--manifest", type=Path, required=True, help="staged candidate manifest")
         command.add_argument("--archives", type=Path, required=True, help="staged candidate archive directory")
-        command.add_argument("--stock", type=Path, required=True, help="closed stock-installed hardfile")
+        command.add_argument("--reference", "--stock", type=Path, required=True,
+                             help="closed stock or development reference hardfile")
         command.add_argument("--proposal", type=Path, required=True, help="reviewed expected changes JSON")
     build_args.add_argument("--output", type=Path, required=True, help="new candidate hardfile")
     verify_args.add_argument("--installed", type=Path, required=True, help="closed candidate-installed hardfile")
@@ -70,7 +71,9 @@ def main():
         proposal_bytes = args.proposal.read_bytes()
         reviewed = json.loads(proposal_bytes)
         archives = args.archives.resolve()
-        proposal, stock, expected = candidate_proposal(args.package, candidate, archives, args.stock)
+        proposal, reference, expected = candidate_proposal(args.package, candidate, archives, args.reference)
+        if isinstance(reviewed, dict) and proposal["stockImage"] != reviewed.get("stockImage"):
+            raise ValueError("The reference hardfile SHA-256 or volume differs from the reviewed proposal.")
         if json.dumps(proposal, sort_keys=True) != json.dumps(reviewed, sort_keys=True):
             raise ValueError("The staged inputs do not reproduce the reviewed proposal.")
         changes = proposal["changes"]
@@ -86,7 +89,7 @@ def main():
             }
             build(overlay, archives, args.output.resolve())
         else:
-            verify_install(proposal, digest(proposal_bytes), stock, expected, args.installed, args.output)
+            verify_install(proposal, digest(proposal_bytes), reference, expected, args.installed, args.output)
     except (OSError, ValueError, KeyError, subprocess.CalledProcessError) as error:
         print(error, file=sys.stderr)
         return 1

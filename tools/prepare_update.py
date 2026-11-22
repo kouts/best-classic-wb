@@ -1,4 +1,4 @@
-"""Verify a staged package candidate and report its expected 2.1.12 changes."""
+"""Verify a staged package candidate and report changes against a reference install."""
 
 import argparse
 import hashlib
@@ -31,7 +31,7 @@ def snapshot(kind, entry):
     }
 
 
-def stock_entries(baseline, installed):
+def reference_entries(baseline, installed):
     entries = {}
     for key, (kind, entry) in baseline.items():
         expected = snapshot(kind, entry)
@@ -39,7 +39,7 @@ def stock_entries(baseline, installed):
         if "sha256" in entry:
             expected["sha256"] = entry["sha256"]
         if actual is None or any(actual.get(field) != value for field, value in expected.items()):
-            raise ValueError(f"Stock entry differs from the catalogue: {entry['path']}")
+            raise ValueError(f"Reference entry differs from the catalogue: {entry['path']}")
         entries[key] = actual
     return entries
 
@@ -81,7 +81,7 @@ def ownership_conflicts(package, before, after, installed, final):
     for key, entry in after.items():
         path = entry["path"]
         if key in others or (key in installed and key not in before):
-            owner = others[key][0] if key in others else "existing stock installation"
+            owner = others[key][0] if key in others else "existing reference installation"
             conflicts.append({"path": path, "kind": "owned_destination", "owner": owner})
         if key in before and entry["type"] != before[key]["type"]:
             conflicts.append({"path": path, "kind": "entry_type_changed"})
@@ -134,18 +134,18 @@ def installed_inventory(hdf):
     return label, entries
 
 
-def candidate_proposal(package, candidate, archive_dir, stock):
+def candidate_proposal(package, candidate, archive_dir, reference):
     baseline = load_package(package)
     if candidate["baseline"] != baseline["baseline"] or candidate["name"] != baseline["name"]:
         raise ValueError("Candidate name and baseline must match the selected package.")
     if candidate["version"] == baseline["version"]:
         raise ValueError("Specify the candidate version in the staged manifest.")
 
-    with stock.open("rb") as stream:
-        stock_hash = hashlib.file_digest(stream, "sha256").hexdigest()
-    label, installed = installed_inventory(stock)
+    with reference.open("rb") as stream:
+        reference_hash = hashlib.file_digest(stream, "sha256").hexdigest()
+    label, installed = installed_inventory(reference)
     baseline_paths = package_entries(baseline)
-    before = stock_entries(baseline_paths, installed)
+    before = reference_entries(baseline_paths, installed)
     after = verified_candidate(candidate, archive_dir)
     delta = compare(before, after)
     final = {key: entry for key, entry in installed.items() if key not in before} | after
@@ -171,7 +171,7 @@ def candidate_proposal(package, candidate, archive_dir, stock):
         "baseline": baseline["baseline"],
         "baselineVersion": baseline["version"],
         "candidateVersion": candidate["version"],
-        "stockImage": {"sha256": stock_hash, "volume": label},
+        "stockImage": {"sha256": reference_hash, "volume": label},
         "candidateArchives": candidate["archives"],
         "candidateNotes": candidate.get("notes", []),
         "status": "blocked" if conflicts or missing_required else "ready_for_review",
@@ -190,8 +190,8 @@ def candidate_proposal(package, candidate, archive_dir, stock):
     return report, installed, final
 
 
-def prepare(package, candidate, archive_dir, stock):
-    report, _, _ = candidate_proposal(package, candidate, archive_dir, stock)
+def prepare(package, candidate, archive_dir, reference):
+    report, _, _ = candidate_proposal(package, candidate, archive_dir, reference)
     return report
 
 
@@ -200,11 +200,12 @@ def main():
     parser.add_argument("package")
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--archives", type=Path, required=True)
-    parser.add_argument("--stock", type=Path, required=True, help="closed stock-installed hardfile")
+    parser.add_argument("--reference", "--stock", type=Path, required=True,
+                        help="closed stock or development reference hardfile")
     parser.add_argument("--output", type=Path, required=True, help="new JSON report path")
     args = parser.parse_args()
     try:
-        report = prepare(args.package, load_manifest(args.manifest), args.archives.resolve(), args.stock)
+        report = prepare(args.package, load_manifest(args.manifest), args.archives.resolve(), args.reference)
         args.output.parent.mkdir(parents=True, exist_ok=True)
         with args.output.open("x", encoding="utf-8", newline="\n") as stream:
             stream.write(json.dumps(report, indent=2, ensure_ascii=False) + "\n")
