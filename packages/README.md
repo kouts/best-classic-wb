@@ -18,7 +18,7 @@ WBDock 2.907 maps 65 files and 19 drawers in `Expansion/WBDock2` and `WBStartup`
 
 On AmigaOS 3.2.2.1, the stock Directory Opus executable has protection mask 2, which blocks its WBDock launch. The full rebuild preserves that mask. Enabling execute permission on a disposable rebuilt copy let the same dock item open Directory Opus with its BCWB configuration.
 
-NewMeter and TinyMeter own 207 files and 14 drawers, including the dormant TinyMeter Enable tree and the active NewMeter pair in WBStartup. The archived NewMeter 1.439 release supplies five exact catalogs and five exact translation sources. Checked BCWB inputs preserve both identical 1.431 executables, the release icons, Tooltypes and the optional TinyMeter profile. Tinic Urou's TinyMeter V4.31 Aminet release supplies the exact executable, all three patterns and all 184 pictograms. Workbench starts the NewMeter copy with a 4096-byte stack, IDLETASK enabled and an empty WIFIDEVICE. The shared Expansion and WBStartup drawers stay with the existing payload. [Archived NewMeter publisher download](https://web.archive.org/web/20240828114846id_/https://thomas-rapp.hier-im-netz.de/downloads/newmeter.lha) [Aminet TinyMeter release](https://ftp.fau.de/aminet/util/wb/Tinymeter_V431.lha)
+NewMeter and TinyMeter own 207 files and 14 drawers, including the dormant TinyMeter Enable tree and the active NewMeter pair in WBStartup. The archived NewMeter 1.439 release supplies five exact catalogs and five exact translation sources. The pinned publisher release supplies both NewMeter 1.466 executables. Checked BCWB inputs preserve the release icons, Tooltypes and the optional TinyMeter profile. Tinic Urou's TinyMeter V4.31 Aminet release supplies the exact executable, all three patterns and all 184 pictograms. Workbench starts the NewMeter copy with a 4096-byte stack, IDLETASK enabled and an empty WIFIDEVICE. The shared Expansion and WBStartup drawers stay with the existing payload. [Archived NewMeter publisher download](https://web.archive.org/web/20240828114846id_/https://thomas-rapp.hier-im-netz.de/downloads/newmeter.lha) [Aminet TinyMeter release](https://ftp.fau.de/aminet/util/wb/Tinymeter_V431.lha)
 
 The `iconlib` entry maps the shipped `Libs/icon.library` and `Locale/Help/english/IconLib.guide`. Peter Keunecke's release is 46.4.582. Its AmigaOS 3.2-compatible TrueColor variant identifies as `icon.library 51.4.582 (TC020)`. Both stock files match the archived release listing by size and LhA CRC-16. The original build-582 download remains unresolved, so the catalogue pins the BCWB files by SHA-256. The distribution installer backs up the target OS library as `Libs/icon.library.bak` before copying the payload. [Archived Aminet listing](https://web.archive.org/web/20240323222904/http://aminet.net/package/util/libs/IconLib_46.4)
 
@@ -170,6 +170,12 @@ The shared Workbench icons entry preserves the serialized disk, drawer, applicat
 
 The BCWB startup entry owns the customized startup sequence and user-startup, the shared S drawer metadata and its icon, and the overlay icons for MenuTools and ClickToFront. The stock installer backs up the native startup scripts and icon.library, moves the native datatype classes, relocates MenuTools and ClickToFront, and clones System/Installer into C:. It copies the release help and icon from beside the installer. The distribution verifier checks those operations against the clean disk, including the literal rename from S/Startup-Sequence to the backup before the BCWB overlay adds S/Startup-sequence. The package entries for FBlit, FText and FullPalette retain source ownership while the stock installer applies `PROTECT +e`.
 
+### Optional picture datatypes
+
+The FAXX, FAXX-CAT, FAXX-CATFORM, LJPG, NAIL and SVG descriptors register optional formats. Install the complete author packages for their runtime classes. The author requires each package to retain all its parts when redistributed. SVG here is the SuperView Graphics format.
+
+In the AmigaOS 3.2.2.1 WinUAE checks, the author classes displayed FAXX and SuperView SVG. The author's lossless JPEG sample displayed with the LJPG class after isolating it from the shipped JFIF descriptor. The akNAIL class opened successfully and image decoding awaits an ImageFX thumbnail fixture.
+
 ## Build on Windows
 
 Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, DTView2, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA, LZX, Zip, UnZip, UnRAR, Zoo, exe2arc, HackProPack, DisLib, AmigaKeyRemapper, BenchTrash, NewMeter and the additional printer drivers also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
@@ -231,6 +237,16 @@ In WinUAE, boot a fresh copy of the vanilla hardfile. Mount the rebuilt ZIP and 
 
 The comparison covers volume label, literal paths, contents, protection masks, and comments. Its ownership report accounts for added and changed files and drawers, records the clean origins of installer effects and literal removals, and checks for overlap in final ownership. Modification timestamps are excluded from parity because repeated stock installations produced different times.
 
+## Build a local development ZIP
+
+For local installer and package changes, run the build with `--development`. The published ZIP supplies the path layout and entry attributes. The current checkout and package digests supply the installer and payload bytes. Install on a disposable vanilla disk and compare the closed disk against the expected development changes. Use `verify-install` on the 2.1.12 baseline branch for stock reproduction.
+
+A development-only file can use `developmentZipTemplate` in its catalogue entry. Name a stock file in the same drawer as the template for ZIP attributes and track the added payload under `src/BestClassicWB/BCWB_Files`. The builder verifies the tracked bytes against the entry's pinned source and records the template in the source ledger.
+
+```powershell
+& $python tools/distribution.py build --development --stock-zip tmp/baseline/BestClassicWB-v2.1.12.zip --archives tmp/archives --output tmp/development/BestClassicWB.zip
+```
+
 ## Check upstream inputs
 
 ```powershell
@@ -245,7 +261,7 @@ Use `--package` once per package ID to limit the report.
 
 The report records pinned archive integrity and release discovery separately. An `archive_changed` finding means the URL served different bytes. A `newer_release` finding compares a version published by the configured source against the catalogue's comparison version.
 
-- BenchTrash reads the `Version:` header from its [Aminet readme](https://ftp.fau.de/aminet/util/wb/BenchTrash.readme) and compares it with the pinned repack version 1.76.3. NewMeter reads the [publisher's readme](https://thomas-rapp.hier-im-netz.de/downloads/newmeter.readme) and compares it with NewMeter 1.431. The report includes the candidate archive URL for review. Candidate file verification happens during preparation.
+- BenchTrash reads the `Version:` header from its [Aminet readme](https://ftp.fau.de/aminet/util/wb/BenchTrash.readme) and compares it with the pinned repack version 1.76.3. NewMeter reads the [publisher's readme](https://thomas-rapp.hier-im-netz.de/downloads/newmeter.readme) and compares it with NewMeter 1.466. The report includes the candidate archive URL for review. Candidate file verification happens during preparation.
 - iGame checks [GitHub Releases](https://github.com/MrZammler/iGame/releases). Add `--candidates tmp/update-candidates` to download the selected GitHub asset locally and compare its SHA-256 with the publisher digest when available.
 - render.library reports `manual_review` so the maintainer can check the relevant 68020 binary. Unconfigured packages report `pinned_archive_check_only`. An ambiguous or unreadable version header reports `version_unverified`, and a failed request reports `check_failed`.
 

@@ -14,19 +14,18 @@
     "C:DAControl and trackfile.device for AmigaOS-mounted ADF images"
   ],
   "notes": [
-    "The pinned Aminet 1.0 archive supplies Michael Spindler\u2019s launcher, handler script and in-archive readme. The checked BCWB project icon supplies the stock ARexx startup configuration.",
-    "The startup project registers the Eject ADF image menu entry. It requests Right Amiga+period, which is already assigned to Workbench Clean Up by Column on AmigaOS 3.2.2.1. The shipped handler reads selected root icons and dispatches DAControl INFO and EJECT DEVICE.",
+    "The pinned Aminet 1.0 archive supplies Michael Spindler's handler. BCWB supplies the startup launcher, updated readme and project icon.",
+    "The startup project registers Eject ADF image in the Tools menu and on Right Amiga+J. The handler reads selected root icons and dispatches DAControl INFO and EJECT DEVICE.",
     "The shared system supplies the startup sequence and OS interfaces. This package owns no drawers."
   ],
   "directories": [],
   "files": [
     {
       "path": "Locale/Help/english/EjectADF.readme",
-      "source": "EjectADF.readme",
-      "sha256": "64fbf273b9be8f87fdb18ecd492e63528c0bf4674bb8e71fbf6b9c624c66ef99",
+      "source": "src/BestClassicWB/BCWB_Files/Locale/Help/english/EjectADF.readme",
+      "sha256": "3af970f3e04a49fb5f1bdba3316ffa666d9a80189eec0ca0c9bd3210d14648e4",
       "protection": 2,
-      "comment": "",
-      "archive": "EjectADF.lha"
+      "comment": ""
     },
     {
       "path": "S/EjectADF.rexx",
@@ -38,11 +37,10 @@
     },
     {
       "path": "WBStartup/EjectADF",
-      "source": "EjectADF",
-      "sha256": "b51526f68ac870f2e190b0114f05a7fc1b994909488a0bc2a6eb3f30b4071e0f",
+      "source": "src/BestClassicWB/BCWB_Files/WBStartup/EjectADF",
+      "sha256": "5d2d77a97a6394570f658c14317bcaf4cb63ca8f65d4423c0db3e5b5baf0783e",
       "protection": 2,
-      "comment": "",
-      "archive": "EjectADF.lha"
+      "comment": ""
     },
     {
       "path": "WBStartup/EjectADF.info",

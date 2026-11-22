@@ -75,8 +75,8 @@ if (extension ~= "") & (find( file.archive, extension ) > 0) then do
 end
 
 if (extension ~= "") & (find( file.html, extension ) > 0) then do
-	viewed = 1
 	call OpenURL
+	exit result
 end
 
 /* test it against known file types */
@@ -189,13 +189,13 @@ CheckExt:
 	return
 
 OpenURL:
-	call pragma('D','')
-	
-	if( length( result ) > lastpos( ':', result ) ) then do
-		completename = insert( '/', completename );
+	/* OpenURL resolves local filenames, including assigns and spaces. */
+	quoted = '"'
+	do i = 1 to length(completename)
+		char = substr(completename, i, 1)
+		if char = '*' | char = '"' then quoted = quoted || '*'
+		quoted = quoted || char
 	end
-	
-	completename = insert( result, completename )
-	
-	address command 'OpenURL "file://localhost/'completename'"'
-return
+	quoted = quoted || '"'
+	address command 'C:OpenURL' quoted 'FILE'
+	return rc

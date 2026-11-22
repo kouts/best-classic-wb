@@ -11,7 +11,8 @@ IF NOT WARN
 SKIP FAIL
 ELSE
 echo ""
-assign FMS: A-Programs:FMSsys
+FailAt 10
+assign FMS: SYS:Programs/FMSsys
 C:mount FF0:
 SYS:System/format drive FF0: name Empty NoIcons FFS
 endshell

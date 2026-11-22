@@ -1,10 +1,10 @@
 {
   "name": "NewMeter and TinyMeter",
-  "version": "NewMeter 1.431 (22 November 2023), TinyMeter V4.31",
+  "version": "NewMeter 1.466 (3 November 2026), TinyMeter V4.31",
   "baseline": "2.1.12",
   "updates": {
     "type": "readme",
-    "comparisonVersion": "1.431",
+    "comparisonVersion": "1.466",
     "url": "https://thomas-rapp.hier-im-netz.de/downloads/newmeter.readme",
     "archiveUrl": "https://thomas-rapp.hier-im-netz.de/downloads/newmeter.lha"
   },
@@ -19,6 +19,12 @@
       "url": "https://ftp.fau.de/aminet/util/wb/Tinymeter_V431.lha",
       "sha256": "e5f4d12ab8f159dc4d1f586a83858eb0448acf4ef95ae4b6d4ca55bba1431a3d",
       "extractor": "7zip"
+    },
+    "NewMeter-1.466-20261103.lha": {
+      "url": "https://thomas-rapp.hier-im-netz.de/downloads/newmeter.lha",
+      "sha256": "98075379b09f1e1dc036383bb1d2b1879b93b8bd2ff8bf5c3212e56cf0d675d4",
+      "extractor": "7zip",
+      "memberEncoding": "latin-1"
     }
   },
   "runtimeDependencies": [
@@ -28,10 +34,12 @@
     "screennotify.library (Workbench screen changes)"
   ],
   "notes": [
-    "The captured NewMeter 1.439 archive supplies the five exact catalogs and five translation sources. Both shipped 1.431 executable copies use checked BCWB inputs while their original archive remains open.",
+    "The pinned NewMeter 1.466 publisher archive supplies both installed executable copies. The captured 1.439 archive continues to supply the five exact catalogs and five translation sources.",
     "Tinic Urou's Aminet release supplies the exact TinyMeter V4.31 executable, three patterns and 184 pictograms. The checked BCWB profile and icon preserve the dormant Enable layout.",
     "The checked BCWB NewMeter icons and Tooltypes document preserve the release-specific Workbench configuration. Only WBStartup/NewMeter starts with Workbench. Its 4096-byte stack, DONOTWAIT, IDLETASK, NOVOL=#? and empty WIFIDEVICE are stored in the stock startup icon.",
-    "The shared Expansion and WBStartup drawers and the startup scripts retain their existing ownership."
+    "The shared Expansion and WBStartup drawers and the startup scripts retain their existing ownership.",
+    "The development build adopts 1.466 for its idle CPU gauge fix and preserves the original 1.431 findings in the local remediation record.",
+    "The Expansion Workbench icon enables IDLETASK for the same CPU accounting mode as the startup icon."
   ],
   "directories": [
     {
@@ -116,7 +124,7 @@
     {
       "path": "Expansion/NewMeter/Enable/Prefs/Env-Archive/TinyMeter",
       "source": "src/BestClassicWB/BCWB_Files/Expansion/NewMeter/Enable/Prefs/Env-Archive/TinyMeter",
-      "sha256": "b60731ffec671fbad71c2287b0cfe6037981c2db93c5f769793070a43e276d0f",
+      "sha256": "567409667e7543478c19f34d49bbb4fa09981dc74bab89db5dcf335c7efb0319",
       "protection": 2,
       "comment": ""
     },
@@ -137,15 +145,16 @@
     },
     {
       "path": "Expansion/NewMeter/NewMeter",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/NewMeter/NewMeter",
-      "sha256": "0f96ad7452ce68dfaa41446bcfa430fb1ee5aa9be0613e8daf0531f8d72c2a42",
+      "source": "NewMeter/NewMeter",
+      "sha256": "fcf73f6e0694e633917e0be18ccc7ff91f6dc0102c78f6db9db887b3d2650a00",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "NewMeter-1.466-20261103.lha"
     },
     {
       "path": "Expansion/NewMeter/NewMeter.info",
       "source": "src/BestClassicWB/BCWB_Files/Expansion/NewMeter/NewMeter.info",
-      "sha256": "2f4daf5b9c3185c9d796c247ab2d102b0b4f39ce8034d54aed1214c91c708681",
+      "sha256": "22568414ee1aecf9589a223a7a318aa38fb7808a13705b2803a1840a56227e9c",
       "protection": 2,
       "comment": ""
     },
@@ -1741,10 +1750,11 @@
     },
     {
       "path": "WBStartup/NewMeter",
-      "source": "src/BestClassicWB/BCWB_Files/WBStartup/NewMeter",
-      "sha256": "0f96ad7452ce68dfaa41446bcfa430fb1ee5aa9be0613e8daf0531f8d72c2a42",
+      "source": "NewMeter/NewMeter",
+      "sha256": "fcf73f6e0694e633917e0be18ccc7ff91f6dc0102c78f6db9db887b3d2650a00",
       "protection": 2,
-      "comment": ""
+      "comment": "",
+      "archive": "NewMeter-1.466-20261103.lha"
     },
     {
       "path": "WBStartup/NewMeter.info",

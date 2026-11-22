@@ -1,4 +1,4 @@
-"""Rebuild and verify a local BestClassicWB 2.1.12 installation."""
+"""Build a local BestClassicWB ZIP or verify a 2.1.12 installation."""
 
 import argparse
 from collections import Counter
@@ -92,7 +92,7 @@ def payload_members(paths):
     return result
 
 
-def catalogue_contents(archive_dir, temporary, members):
+def catalogue_contents(archive_dir, temporary, members, *, additions=None):
     replacements = {}
     for manifest in sorted((REPO / "packages").glob("*.json")):
         package = load_package(manifest.stem)
@@ -102,9 +102,20 @@ def catalogue_contents(archive_dir, temporary, members):
         scratch.mkdir()
         for entry, content in verified_sources(package, archive_dir, scratch):
             target = entry["path"].lower()
-            if target not in members:
-                raise ValueError(f"No shipped payload member for SYS:{entry['path']}")
-            member = members[target]
+            if target in members:
+                member = members[target]
+            else:
+                template = entry.get("developmentZipTemplate")
+                if additions is None or not template:
+                    raise ValueError(f"No shipped payload member for SYS:{entry['path']}")
+                member = PAYLOAD + relative_path(entry["path"]).as_posix()
+                template = relative_path(template).as_posix()
+                donor = members.get(template.lower())
+                if (donor is None or Path(donor).parent != Path(member).parent
+                        or not (REPO / member).is_file()
+                        or (REPO / member).read_bytes() != content):
+                    raise ValueError(f"Invalid development ZIP input or template: {member}")
+                additions[member] = donor
             if member in replacements:
                 raise ValueError(f"Conflicting package ownership: {member}")
             source = {
@@ -120,23 +131,28 @@ def catalogue_contents(archive_dir, temporary, members):
     return replacements
 
 
-def compare_zip(expected, rebuilt):
+def compare_zip(expected, rebuilt, *, check_contents=True, additions=None):
     with ZipFile(expected) as stock, ZipFile(rebuilt) as candidate:
         a, b = layout_files(stock), layout_files(candidate)
-        if set(a) != set(b) or set(stock.namelist()) != set(candidate.namelist()):
-            raise ValueError("Shipment paths differ from the stock layout.")
-        for name in stock.namelist():
-            before, after = stock.getinfo(name), candidate.getinfo(name)
+        additions = additions or {}
+        if additions.keys() & a.keys() or not set(additions.values()) <= a.keys():
+            raise ValueError("Invalid development ZIP template mapping.")
+        if ((set(a) | additions.keys()) != set(b)
+                or (set(stock.namelist()) | additions.keys()) != set(candidate.namelist())):
+            raise ValueError("Shipment paths differ from the expected layout.")
+        for name in candidate.namelist():
+            before = stock.getinfo(additions.get(name, name))
+            after = candidate.getinfo(name)
             if (before.external_attr, before.create_system, before.extra, before.flag_bits & 0x800) != (
                 after.external_attr, after.create_system, after.extra, after.flag_bits & 0x800
             ):
                 raise ValueError(f"ZIP attributes differ: {name}")
-            if name in a and stock.read(name) != candidate.read(name):
+            if check_contents and name in a and stock.read(name) != candidate.read(name):
                 raise ValueError(f"Shipment contents differ: {name}")
-    return len(a)
+    return len(b)
 
 
-def build(stock_path, archive_dir, output):
+def build(stock_path, archive_dir, output, *, development=False):
     stock_layout(stock_path)
     ledger_path = output.with_suffix(".sources.json")
     if output.suffix.lower() != ".zip":
@@ -148,12 +164,18 @@ def build(stock_path, archive_dir, output):
         scratch = Path(scratch)
         members = layout_files(stock)
         files = tracked_sources()
-        if files != set(members):
+        additions = {}
+        replacements = catalogue_contents(
+            archive_dir, scratch, payload_members(members),
+            additions=additions if development else None,
+        )
+        expected = set(members) | additions.keys()
+        if files != expected:
             raise ValueError(
-                f"Checkout paths differ from stock. Extra: {sorted(files - set(members))}; "
-                f"missing: {sorted(set(members) - files)}"
+                f"Checkout paths differ from expected. Extra: {sorted(files - expected)}; "
+                f"missing: {sorted(expected - files)}"
             )
-        replacements = catalogue_contents(archive_dir, scratch, payload_members(members))
+        payload_members(expected)
         staged = scratch / output.name
         ledger = {}
         with ZipFile(staged, "x") as rebuilt:
@@ -169,21 +191,29 @@ def build(stock_path, archive_dir, output):
                     if path.startswith(PAYLOAD):
                         raise ValueError(f"No catalogue owner for payload member: {path}")
                     content = (REPO / relative_path(path)).read_bytes()
-                    source = {"kind": "stock_installer_assets", "source": path}
-                if content != stock.read(path):
+                    source = {"kind": "installer_assets" if development else "stock_installer_assets", "source": path}
+                if not development and content != stock.read(path):
                     raise ValueError(f"Reconstructed contents differ from {BASELINE}: {path}")
                 ledger[path] = {**source, "sha256": digest(content)}
                 rebuilt.writestr(copy(entry), content)
-        count = compare_zip(stock_path, staged)
+            for path, donor in sorted(additions.items()):
+                content, source = replacements[path]
+                ledger[path] = {**source, "sha256": digest(content), "zipTemplate": donor}
+                entry = copy(members[donor])
+                entry.filename = entry.orig_filename = path
+                rebuilt.writestr(entry, content)
+        count = compare_zip(stock_path, staged, check_contents=not development, additions=additions)
         staged_ledger = scratch / ledger_path.name
         write_json(staged_ledger, {
             "baseline": BASELINE, "referenceZipSha256": STOCK_SHA256,
+            **({"development": True} if development else {}),
             "packageFiles": len(replacements), "files": ledger,
             "directories": [item.filename for item in stock.infolist() if item.is_dir()],
         })
         staged.rename(output)
         staged_ledger.rename(ledger_path)
-    print(f"Built {count} stock-matching files, including {len(replacements)} from the catalogue.")
+    kind = "development" if development else "stock-matching"
+    print(f"Built {count} {kind} files, including {len(replacements)} from the catalogue.")
     print(f"Source ledger: {ledger_path}")
 
 
@@ -419,13 +449,20 @@ def main():
     build_args.add_argument("--stock-zip", type=Path, required=True)
     build_args.add_argument("--archives", type=Path, required=True)
     build_args.add_argument("--output", type=Path, required=True)
+    build_args.add_argument(
+        "--development", action="store_true",
+        help="use the published ZIP layout and the current development package inputs",
+    )
     verify_args = commands.add_parser("verify-install")
     for argument in ("clean", "stock", "installed", "ledger", "report"):
         verify_args.add_argument(f"--{argument}", type=Path, required=True)
     args = parser.parse_args()
     try:
         if args.command == "build":
-            build(args.stock_zip.resolve(), args.archives.resolve(), args.output.resolve())
+            build(
+                args.stock_zip.resolve(), args.archives.resolve(), args.output.resolve(),
+                development=args.development,
+            )
         else:
             verify_install(args.clean, args.stock, args.installed, args.ledger, args.report)
     except (OSError, ValueError, KeyError, subprocess.CalledProcessError) as error:
