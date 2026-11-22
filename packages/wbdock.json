@@ -15,9 +15,13 @@
   ],
   "notes": [
     "Both stock executables match WBDock2/WBDock from the pinned publisher archive (2.907, 25 July 2023).",
-    "The catalogue preserves the complete Expansion/WBDock2 tree and its drawer icon, plus the WBStartup executable and icon. The accented paths retain their installed spelling.",
+    "The catalogue covers the Expansion/WBDock2 tree and its drawer icon, plus the WBStartup executable and icon. The accented paths retain their installed spelling.",
+    "The wbex SDK helper keeps its upstream bytes and is installed in SDK. The upstream example icon targets sources:wbtest and is omitted.",
     "BCWB provides the active dock list, its simple pattern and the differing icons. The WBStartup icon loads SYS:Expansion/WBDock2/wbdock.config, whose second item targets SYS:Programs/DOpus/DirectoryOpus.",
     "LoadWB starts WBDock through WBStartup. The stock installer copies the payload without dock-specific actions. Directory Opus and its customized configuration remain in the directory-opus package."
+  ],
+  "developmentZipRemovals": [
+    "Expansion/WBDock2/wbex.info"
   ],
   "directories": [
     {
@@ -505,6 +509,15 @@
       "comment": ""
     },
     {
+      "path": "Expansion/WBDock2/SDK/wbex",
+      "archive": "wbdock2.lha",
+      "source": "WBDock2/wbex",
+      "developmentZipRenameFrom": "Expansion/WBDock2/wbex",
+      "sha256": "738c17cea3f53bdb382876a2fc7f4a22ea9ac2efd021a9c014900d86e7ee8ed1",
+      "protection": 2,
+      "comment": ""
+    },
+    {
       "path": "Expansion/WBDock2/SPELLARIUM",
       "archive": "wbdock2.lha",
       "source": "WBDock2/SPELLARIUM",
@@ -515,7 +528,7 @@
     {
       "path": "Expansion/WBDock2/SPELLARIUM.info",
       "source": "src/BestClassicWB/BCWB_Files/Expansion/WBDock2/SPELLARIUM.info",
-      "sha256": "4f9a8a83bb749ceb3d51c75d402c7960a4ab1c28e982ab6327df5fda4ddc10cb",
+      "sha256": "bd76d9d45836148d0ca67b7f1f2b55fa3663714fe8825a41a2b7c497392222ac",
       "protection": 2,
       "comment": ""
     },
@@ -593,21 +606,6 @@
       "path": "Expansion/WBDock2/WBDock.info",
       "source": "src/BestClassicWB/BCWB_Files/Expansion/WBDock2/WBDock.info",
       "sha256": "0c240240fc3f2aa8ea4a12fa6dbee6157e783aef7c34d281d38413d829aaa202",
-      "protection": 2,
-      "comment": ""
-    },
-    {
-      "path": "Expansion/WBDock2/wbex",
-      "archive": "wbdock2.lha",
-      "source": "WBDock2/wbex",
-      "sha256": "738c17cea3f53bdb382876a2fc7f4a22ea9ac2efd021a9c014900d86e7ee8ed1",
-      "protection": 2,
-      "comment": ""
-    },
-    {
-      "path": "Expansion/WBDock2/wbex.info",
-      "source": "src/BestClassicWB/BCWB_Files/Expansion/WBDock2/wbex.info",
-      "sha256": "a8b7b9244549ef0925c770d2962c7c0619dd0f1bfc30eeef14fb606379b4950f",
       "protection": 2,
       "comment": ""
     },

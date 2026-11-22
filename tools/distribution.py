@@ -92,12 +92,17 @@ def payload_members(paths):
     return result
 
 
-def catalogue_contents(archive_dir, temporary, members, *, additions=None, removals=None):
+def catalogue_contents(archive_dir, temporary, members, stock_drawers, *, additions=None, removals=None):
     replacements = {}
     for manifest in sorted((REPO / "packages").glob("*.json")):
         package = load_package(manifest.stem)
         if package["baseline"] != BASELINE:
             raise ValueError(f"{manifest.stem} targets a different baseline.")
+        for path in package.get("developmentZipRemovals", []):
+            member = members.get(relative_path(path).as_posix().lower())
+            if removals is None or member is None or member in removals:
+                raise ValueError(f"Invalid development ZIP removal: {path}")
+            removals.add(member)
         scratch = temporary / manifest.stem
         scratch.mkdir()
         for entry, content in verified_sources(package, archive_dir, scratch):
@@ -114,7 +119,9 @@ def catalogue_contents(archive_dir, temporary, members, *, additions=None, remov
                 member = PAYLOAD + relative_path(entry["path"]).as_posix()
                 template = relative_path(template).as_posix()
                 donor = members.get(template.lower())
-                if (donor is None or Path(donor).parent != Path(member).parent
+                drawer = member.rsplit("/", 1)[0]
+                if (donor is None or drawer not in stock_drawers
+                        or (not rename_from and donor.rsplit("/", 1)[0] != drawer)
                         or not (REPO / member).is_file()
                         or (REPO / member).read_bytes() != content):
                     raise ValueError(f"Invalid development ZIP input or template: {member}")
@@ -136,7 +143,7 @@ def catalogue_contents(archive_dir, temporary, members, *, additions=None, remov
                 source["sourceTransform"] = entry["sourceTransform"]
             replacements[member] = (content, source)
     if removals and replacements.keys() & removals:
-        raise ValueError("Renamed stock members cannot also be supplied by a package.")
+        raise ValueError("Removed stock members cannot also be supplied by a package.")
     return replacements
 
 
@@ -177,8 +184,9 @@ def build(stock_path, archive_dir, output, *, development=False):
         files = tracked_sources()
         additions = {}
         removals = set()
+        stock_drawers = {entry.filename.rstrip("/") for entry in stock.infolist() if entry.is_dir()}
         replacements = catalogue_contents(
-            archive_dir, scratch, payload_members(members),
+            archive_dir, scratch, payload_members(members), stock_drawers,
             additions=additions if development else None, removals=removals if development else None,
         )
         expected = (set(members) - removals) | additions.keys()
