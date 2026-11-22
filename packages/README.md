@@ -241,6 +241,8 @@ The comparison covers volume label, literal paths, contents, protection masks, a
 
 For local installer and package changes, run the build with `--development`. The published ZIP supplies the path layout and entry attributes. The current checkout and package digests supply the installer and payload bytes. Install on a disposable vanilla disk and compare the closed disk against the expected development changes. Use `verify-install` on the 2.1.12 baseline branch for stock reproduction.
 
+After a fresh install from a release ZIP, cold-boot from the installed disk alone and compare the closed disk against the expected complete inventory, including protection bits and comments. On a separate copy, launch each affected application through the entry point users rely on, such as a dock button, Workbench icon, Shell command or startup entry. For accelerator-specific checks, use the saved Blizzard 1230 IV profile.
+
 A development-only file can use `developmentZipTemplate` in its catalogue entry. Name a stock file in the same drawer as the template for ZIP attributes and track the added payload under `src/BestClassicWB/BCWB_Files`. The builder verifies the tracked bytes against the entry's pinned source and records the template in the source ledger.
 
 Use `developmentZipRenameFrom` when a development payload renames a stock file or moves it into an existing stock drawer. The stock path supplies the ZIP attributes and the rebuilt ZIP contains the new path.
@@ -284,7 +286,22 @@ $pilot = 'tmp/baseline/package-maintenance/benchtrash-replay'
 
 The preparer verifies the candidate bytes and compares the complete package map with a closed stock or development hardfile. Use the reference that matches the checkout’s package catalogue, and check staged manifests for BCWB changes made since they were prepared. The proposal records the reference disk’s SHA-256 and volume label. It reports path, content and Amiga metadata changes, changes to checked BCWB inputs, stock installer paths touched, and declared runtime dependency changes. Candidate manifests can list exact installed dependency paths under `dependencyChecks` with a Boolean `required` field. This checks path presence. Version and runtime compatibility are reviewed during candidate testing.
 
-The command saves a `blocked` report and returns a failure status for an ownership conflict or a missing required dependency. A `ready_for_review` report is a proposal for the next validation step. The official catalogue and installed hardfiles remain available as the baseline.
+Preserve protection bits and comments on existing files and drawers. Preserve the contents of existing Workbench `.info` files and other checked BCWB inputs, including settings. The command records differences under `guardedChanges` and blocks them unless the candidate manifest declares the exact change. For an intentional change, add an `intentionalChanges` entry with the literal installed path, the exact old and new values reported for the guarded fields, and a reason. Use `sha256` for an intentional content replacement. For example, an update that restores Shell execution could declare the following.
+
+```json
+{
+  "intentionalChanges": [
+    {
+      "path": "Programs/Example/Example",
+      "before": {"protection": 2},
+      "after": {"protection": 0},
+      "reason": "Restore Shell execution for the installed launcher."
+    }
+  ]
+}
+```
+
+The command saves a `blocked` report and returns a failure status for an ownership conflict, a missing required dependency, or an undeclared, stale or mismatched guarded change. A `ready_for_review` report is a proposal for the next validation step. The declaration records review scope for staging. Adoption still requires explicit maintainer approval.
 
 ## Validate a candidate in WinUAE
 
@@ -300,4 +317,4 @@ Boot a disposable copy of the reference hardfile with the candidate transport mo
 & $python tools/candidate_update.py verify benchtrash --manifest "$candidate/candidate.json" --archives "$candidate/archives" --reference $reference --proposal "$pilot/update-diff.json" --installed "$pilot/installed.hdf" --output "$pilot/install-verification.json"
 ```
 
-Both commands reproduce the reviewed proposal from the same reference disk and staged inputs. Existing commands can still use `--stock`. The JSON fields `stockImage` and `stockToInstalled` retain their original names and refer to whichever reference disk was supplied. The transport copies only the proposed additions and replacements, preserving the timestamps of untouched files. The verifier reports the actual changes from the reference and any differences from the expected inventory and volume label. Run application smoke tests on separate copies so the verified disk remains available. The overlay installer supports additions and replacements at the same literal paths. Removals, case-only renames and entry type conversions require a separate installer operation.
+Both commands reproduce the reviewed proposal from the same reference disk and staged inputs. Existing commands can still use `--stock`. The JSON fields `stockImage` and `stockToInstalled` retain their original names and refer to whichever reference disk was supplied. The transport copies only the proposed additions and replacements, preserving the timestamps of untouched files. The verifier reports the actual changes from the reference and any differences from the expected inventory and volume label. Run application smoke tests on separate copies through the affected launch path. Use the saved AmigaOS 3.2.2.1 A1200 profile for the install and cold boot, and the Blizzard 1230 IV profile for relevant accelerator checks. The overlay installer supports additions and replacements at the same literal paths. Removals, case-only renames and entry type conversions require a separate installer operation.

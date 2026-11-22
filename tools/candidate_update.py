@@ -74,12 +74,12 @@ def main():
         proposal, reference, expected = candidate_proposal(args.package, candidate, archives, args.reference)
         if isinstance(reviewed, dict) and proposal["stockImage"] != reviewed.get("stockImage"):
             raise ValueError("The reference hardfile SHA-256 or volume differs from the reviewed proposal.")
+        if proposal["status"] != "ready_for_review":
+            raise ValueError("The staged candidate is blocked. Run prepare_update.py to review the findings.")
         if json.dumps(proposal, sort_keys=True) != json.dumps(reviewed, sort_keys=True):
             raise ValueError("The staged inputs do not reproduce the reviewed proposal.")
         changes = proposal["changes"]
         require_overlay(changes)
-        if proposal["status"] != "ready_for_review":
-            raise ValueError("The reviewed proposal is blocked by ownership or dependency checks.")
         if args.command == "build":
             paths = {entry["path"] for entry in changes["added"]}
             paths.update(change["after"]["path"] for change in changes["changed"])

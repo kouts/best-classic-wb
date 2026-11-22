@@ -70,6 +70,54 @@ def compare(before, after):
     return delta
 
 
+def review_guarded_changes(changes, checked_bcwb, declarations):
+    if not isinstance(declarations, list):
+        raise ValueError("intentionalChanges must be a list of path-specific declarations.")
+    declared = {}
+    seen = set()
+    for entry in declarations:
+        if (
+            not isinstance(entry, dict) or entry.keys() != {"path", "before", "after", "reason"}
+            or not isinstance(entry["path"], str)
+            or not isinstance(entry["before"], dict) or not isinstance(entry["after"], dict)
+            or not isinstance(entry["reason"], str) or not entry["reason"].strip()
+        ):
+            raise ValueError("Each intentional change needs a path, before and after objects, and a reason.")
+        path = relative_path(entry["path"]).as_posix()
+        if path.lower() in seen:
+            raise ValueError(f"Duplicate intentional change: {path}")
+        seen.add(path.lower())
+        declared[path] = entry
+
+    reviews = []
+    for change in changes:
+        path = change["before"]["path"]
+        guarded_fields = {"protection", "comment"}
+        if path in checked_bcwb or path.lower().endswith(".info"):
+            guarded_fields.add("sha256")
+        fields = [field for field in change["fields"] if field in guarded_fields]
+        if not fields:
+            continue
+        actual = {
+            side: {field: change[side].get(field) for field in fields}
+            for side in ("before", "after")
+        }
+        review = {"path": path, **actual, "status": "undeclared"}
+        declaration = declared.pop(path, None)
+        if declaration is not None:
+            values = {side: declaration[side] for side in actual}
+            if json.dumps(values, sort_keys=True) == json.dumps(actual, sort_keys=True):
+                review.update(status="declared", reason=declaration["reason"])
+            else:
+                review.update(status="differs", declaration=declaration)
+        reviews.append(review)
+    reviews.extend(
+        {"path": path, "status": "no_matching_change", "declaration": declaration}
+        for path, declaration in sorted(declared.items())
+    )
+    return reviews
+
+
 def ownership_conflicts(package, before, after, installed, final):
     others = {}
     for path in sorted((REPO / "packages").glob("*.json")):
@@ -160,6 +208,8 @@ def candidate_proposal(package, candidate, archive_dir, reference):
         entry["path"] for kind, entry in baseline_paths.values()
         if kind == "files" and "archive" not in entry
     }
+    reviews = review_guarded_changes(delta["changed"], checked_bcwb, candidate.get("intentionalChanges", []))
+    has_unreviewed_changes = any(review["status"] != "declared" for review in reviews)
     installer_paths = {
         path.lower() for path in (*OS_ORIGINS, *OS_ORIGINS.values(), *EXECUTE_TARGETS,
                                   *DELETED_DESCRIPTORS, *RELEASE_HELP)
@@ -174,7 +224,7 @@ def candidate_proposal(package, candidate, archive_dir, reference):
         "stockImage": {"sha256": reference_hash, "volume": label},
         "candidateArchives": candidate["archives"],
         "candidateNotes": candidate.get("notes", []),
-        "status": "blocked" if conflicts or missing_required else "ready_for_review",
+        "status": "blocked" if conflicts or missing_required or has_unreviewed_changes else "ready_for_review",
         "counts": {**{kind: len(entries) for kind, entries in delta.items()},
                    "unchanged": len(before.keys() & after.keys()) - len(delta["changed"])},
         "changes": delta,
@@ -187,6 +237,8 @@ def candidate_proposal(package, candidate, archive_dir, reference):
         "changedCheckedBCWBInputs": sorted(touched & checked_bcwb),
         "affectedStockInstallerPaths": sorted(path for path in touched if path.lower() in installer_paths),
     }
+    if reviews:
+        report["guardedChanges"] = reviews
     return report, installed, final
 
 
