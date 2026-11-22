@@ -1,0 +1,70 @@
+{
+  "name": "OpenURL",
+  "version": "7.18",
+  "baseline": "2.1.12",
+  "archives": {
+    "OpenURL-7.18.lha": {
+      "url": "https://aminet.net/comm/www/OpenURL-7.18.lha",
+      "sha256": "0aa62aa3495a1acd761546f83d2414da7a85be2616f56fc4ba320bae1f971f83"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS 3.0 or later",
+    "MUI 3.8 or later for the preferences editor",
+    "A configured browser, mail or FTP handler for dispatch"
+  ],
+  "notes": [
+    "The 16 January 2018 OS3/m68k command, shared library and MUI preferences editor match the Aminet release. The English guide also matches.",
+    "The checked BCWB payload supplies the preferences icon and saved ENVARC profile. The common startup sequence exposes the profile through ENV. The saved profile disables all six browser entries.",
+    "The installed Processfile.rexx and SimpleFind guide invoke the command. WHDLoad and Voodoo-X use the library. Those consumers and the shared MUI tree retain their existing ownership."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "C/OpenURL",
+      "source": "OpenURL/C/AmigaOS3/OpenURL",
+      "sha256": "d82123564e4cf978e9d2bf872306cf7d5d409f37c6a3dfe12b2e026d50110191",
+      "protection": 2,
+      "comment": "",
+      "archive": "OpenURL-7.18.lha"
+    },
+    {
+      "path": "Libs/openurl.library",
+      "source": "OpenURL/Libs/AmigaOS3/openurl.library",
+      "sha256": "4e17f5eee0423240aa315770e0bb33fac6e081d62dec76e9796412d080c2947d",
+      "protection": 2,
+      "comment": "",
+      "archive": "OpenURL-7.18.lha"
+    },
+    {
+      "path": "Locale/Help/english/OpenURL.guide",
+      "source": "OpenURL/OpenURL.guide",
+      "sha256": "094145ece1207de22707ece31b3e2eea9bbb2afa117952d13ae4c3946dd6b981",
+      "protection": 2,
+      "comment": "",
+      "archive": "OpenURL-7.18.lha"
+    },
+    {
+      "path": "Prefs/Env-Archive/OpenURL.prefs",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/OpenURL.prefs",
+      "sha256": "529e9ba436dc9896f32654589c491e3ec731181fc84f422c0862e701d9594108",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/OpenURL",
+      "source": "OpenURL/Prefs/AmigaOS3/OpenURL",
+      "sha256": "27297270dfc916cfade08f4ce622fb84af27d89372f9c3461af4d74fb5ecc1c2",
+      "protection": 2,
+      "comment": "",
+      "archive": "OpenURL-7.18.lha"
+    },
+    {
+      "path": "Prefs/OpenURL.info",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/OpenURL.info",
+      "sha256": "09321aae7d7c349869fde129df54a282bd64424c53f011dbd3cb036c2156f0ba",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

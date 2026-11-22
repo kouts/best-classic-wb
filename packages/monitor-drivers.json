@@ -1,0 +1,97 @@
+{
+  "name": "Additional AGA monitor drivers",
+  "version": "Film24 40.1, HD720 40.3, HighGFX 40.6, SuperPlus 40.5, Xtreme 40.5",
+  "baseline": "2.1.12",
+  "archives": {
+    "BestWB.zip": {
+      "url": "https://lilliput.amiga-projects.net/Files/BestWB.zip",
+      "sha256": "fb7e4d2c2c1be98f8a797dd56903bd9c18e2639ffe9b93c49f5c5744fbd66bad"
+    },
+    "HighGFXnmore.lha": {
+      "url": "https://se.aminet.net/driver/moni/HighGFXnmore.lha",
+      "sha256": "022f28bdd5ba0d78e3e229f8e21dc514be2b77d1bed7877a359d2228e7f3200c",
+      "extractor": "7zip"
+    }
+  },
+  "nestedArchives": {
+    "BestWB5.adf": {
+      "archive": "BestWB.zip",
+      "source": "BestWB5.adf",
+      "sha256": "23711d3718c9c4edffab6f45acd62d61877f54e91d49c0b80321dec36522eaaf",
+      "extractor": "amiga-adf"
+    },
+    "BestWB-5.zip": {
+      "archive": "BestWB5.adf",
+      "source": "5.zip",
+      "sha256": "9009dd982f1a9f15697165dd0a2f3259136d9368a27f140eec86b13876b1cc7d",
+      "members": [
+        "Storage/Monitors/Film24"
+      ]
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS graphics.library",
+    "Amiga AGA graphics"
+  ],
+  "notes": [
+    "André Pfeiffer's HighGFX'n'more archive supplies four exact monitors. BestWB 1.3 redistributes the exact Film24 binary.",
+    "The five drivers are shipped under Storage/Monitors for manual activation. AmigaOS supplies the active PAL driver and its other monitor binaries.",
+    "The two shared drawer entries own installed metadata. The BCWB device and datatype overlay owns the monitor icons."
+  ],
+  "directories": [
+    {
+      "path": "Devs/Monitors",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    },
+    {
+      "path": "Storage/Monitors",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    }
+  ],
+  "files": [
+    {
+      "path": "Storage/Monitors/Film24",
+      "sha256": "b53bcdd23f8c705013a440cb1f6ba0fe33def2c0bb13b14e4ac13123d38630e9",
+      "protection": 2,
+      "comment": "",
+      "source": "Storage/Monitors/Film24",
+      "archive": "BestWB-5.zip"
+    },
+    {
+      "path": "Storage/Monitors/HD720",
+      "sha256": "a3729b2626269c49e0ec74c1849293fcb80fae46b6d653bf4a685e30e5738252",
+      "protection": 2,
+      "comment": "",
+      "source": "HighGFX'n'more/HD720",
+      "archive": "HighGFXnmore.lha"
+    },
+    {
+      "path": "Storage/Monitors/HighGFX",
+      "sha256": "e3c4bd5454f7a0dfa85823f65960ecce4191b685662ec310ed3a8a3fd4d28fba",
+      "protection": 2,
+      "comment": "",
+      "source": "HighGFX'n'more/HighGFX",
+      "archive": "HighGFXnmore.lha"
+    },
+    {
+      "path": "Storage/Monitors/SuperPlus",
+      "sha256": "780ba22740222969cf813633702c283713f9ca4fef4b93dd4e252092ee6923c9",
+      "protection": 2,
+      "comment": "",
+      "source": "HighGFX'n'more/SuperPlus",
+      "archive": "HighGFXnmore.lha"
+    },
+    {
+      "path": "Storage/Monitors/Xtreme",
+      "sha256": "f058bff60c38fe5a6f307fe3b5a6c1c04c8f0cd214e0ada5dc73c950756c0315",
+      "protection": 2,
+      "comment": "",
+      "source": "HighGFX'n'more/Xtreme",
+      "archive": "HighGFXnmore.lha"
+    }
+  ]
+}

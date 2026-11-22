@@ -1,0 +1,40 @@
+{
+  "name": "cnet",
+  "version": "1.9",
+  "baseline": "2.1.12",
+  "archives": {
+    "cnetdevice.lha": {
+      "url": "https://se.aminet.net/driver/net/cnetdevice.lha",
+      "sha256": "65580fae37012291c657dc8a594c2219f87f60b5d0f743f689337d4e9b4030f4",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "Amiga A600 or A1200 PCMCIA and card.resource, 68020 or later for the shipped build",
+    "Compatible CNet or NE2000-based PC Card and SANA-II network stack"
+  ],
+  "notes": [
+    "Aminet supplies the standard 8-bit cnet.device build tagged 68020+ (8.8.2007) and the accompanying English cnet.guide. The cnet16, 68000, debug and turbo I/O variants have different bytes.",
+    "MiamiDx.default references the installed unit 0 driver. cnet uses card.resource directly. Its guide discusses the separately catalogued CardPatch and CardReset.",
+    "DEVS:Networks is a shared system drawer."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "Devs/Networks/cnet.device",
+      "source": "cnetdevice/Devs/Networks/cnet.device",
+      "sha256": "4496d1bd34984671b15982e97efec3a2c670a37bc8e8ddd404131082d1091b53",
+      "protection": 2,
+      "comment": "",
+      "archive": "cnetdevice.lha"
+    },
+    {
+      "path": "Locale/Help/english/cnet.guide",
+      "source": "cnetdevice/cnet.guide",
+      "sha256": "8cac35d8f39aca29983fa6fb9d0a9151de82bd56a65f8e5202a0c99c336d3251",
+      "protection": 2,
+      "comment": "",
+      "archive": "cnetdevice.lha"
+    }
+  ]
+}

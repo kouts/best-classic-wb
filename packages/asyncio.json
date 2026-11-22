@@ -1,0 +1,40 @@
+{
+  "name": "asyncio.library",
+  "version": "40.6",
+  "baseline": "2.1.12",
+  "archives": {
+    "asyncioppc.lha": {
+      "url": "https://se.aminet.net/util/libs/asyncioppc.lha",
+      "sha256": "b5a387c13dabba3b9fcebb08d4aefe580f8dd0e47a05799711e90dbebe20f4e6",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "68020 or later for the m68k API, with dos.library",
+    "WarpOS powerpc.library 15.0 or later for the PPC API"
+  ],
+  "notes": [
+    "Achim Stegemann's 19 June 2001 mixed 68k/WarpOS library and the in-archive readme exactly match the stock files. The 68k and WarpOS entry points share the same installed library.",
+    "SongPlayer enables USE_ASYNCIO in its shipped config. The EaglePlayer MPEG_Audio and MPEGAudio players, MiamiFtp and MUI GIFAnim.mcc also name asyncio.library; their existing packages own those consumers.",
+    "The Programs, Libs and Locale/Help/english parent drawers are shared. The installed OS AsyncWB and its BCWB icon are separate."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "Libs/asyncio.library",
+      "source": "asyncioppc/libs/asyncio.library",
+      "sha256": "fbd0fff2d0845c151927ae586844278fb8b29fef283f475eeacb66285ebb1ce9",
+      "protection": 2,
+      "comment": "",
+      "archive": "asyncioppc.lha"
+    },
+    {
+      "path": "Locale/Help/english/asyncioppc.readme",
+      "source": "asyncioppc/asyncioppc.readme",
+      "sha256": "c4734be242c3e0ad8b08bb90ac450a35df31a1964b7468538802f13b1665026a",
+      "protection": 2,
+      "comment": "",
+      "archive": "asyncioppc.lha"
+    }
+  ]
+}

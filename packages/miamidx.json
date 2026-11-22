@@ -1,0 +1,547 @@
+{
+  "name": "MiamiDx",
+  "version": "1.0c",
+  "baseline": "2.1.12",
+  "archives": {
+    "MiamiDx10cmain.lha": {
+      "url": "https://se.aminet.net/comm/tcp/MiamiDx10cmain.lha",
+      "sha256": "25b89bf4dcb60eceb6b2c956431ab0c3bbeab72844743a1bf09df0aff7161709",
+      "extractor": "7zip"
+    },
+    "MiamiDx10c-MUI.lha": {
+      "url": "https://se.aminet.net/comm/tcp/MiamiDx10c-MUI.lha",
+      "sha256": "2edd97484489665388163b01263f9db1813be289dea5051d5cff8cbdb42e0cf7",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS 2.04 or later, 68020 or later, and MUI 3.8 or later for the installed GUI",
+    "Miami: assign from the shared S:User-Startup and ENV:MIAMI/GUI set to MUI",
+    "The shipped default settings include unit 0 hardware profiles for DEVS:Networks/cnet.device and DEVS:Networks/3c589.device"
+  ],
+  "notes": [
+    "The two author archives supply the 68k main program, tools, guide, private libraries, tunnel devices, MNI modules, MUI modules and modem INF. MiamiDod comes from the archive member MiamiDoD.",
+    "Checked BCWB inputs preserve the saved default profile, MUI selector, install log and eight installed icons, including the two ENVARC default app icons.",
+    "The normal entry point is the MiamiDx tool icon in SYS:Internet/MiamiDx. The drawer also contains MiamiInit, MiamiRegister and the guide. The shared Internet and ENVARC:Sys drawers and the startup assign are system-owned.",
+    "The archive's optional sanamni.device bridge is absent from the stock install. cnet.device and 3c589.device have separate ownership."
+  ],
+  "directories": [
+    {
+      "path": "Internet/MiamiDx",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/Devs",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/Libs",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/MNI",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/PC",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Env-Archive/MIAMI",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Internet/MiamiDX.info",
+      "source": "src/BestClassicWB/BCWB_Files/Internet/MiamiDX.info",
+      "sha256": "b1ba1bee9fca664b3620baf8e15108ed54cb3c2ca64172797094a834763051c4",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/Devs/miamil2tp.device",
+      "source": "MiamiDx10_Install/main/Devs/miamil2tp.device",
+      "sha256": "e886c84723fcd64684c54b168c4fed2482cc456977d700d1b07b61319eec79c5",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/Devs/miamipppoe.device",
+      "source": "MiamiDx10_Install/main/Devs/miamipppoe.device",
+      "sha256": "fa17bb129784ca55bd7e732468c0a699076cea4379cb95a7c50c91539408da04",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/Devs/miamipptp.device",
+      "source": "MiamiDx10_Install/main/Devs/miamipptp.device",
+      "sha256": "336e90e352feb6f588526a26ac9ff59aabc634d81f2843ca0f1258f1920aadf2",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/install_log_file",
+      "source": "src/BestClassicWB/BCWB_Files/Internet/MiamiDx/install_log_file",
+      "sha256": "e57316a505f313415dd558ac9082c605bf2935372fe800081e35acd70602707a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/install_log_file.info",
+      "source": "src/BestClassicWB/BCWB_Files/Internet/MiamiDx/install_log_file.info",
+      "sha256": "ed59c16455142fad803d6060e48a6ae3164375fbbecd120587224514c33a9d7f",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/Libs/miamibpf.library",
+      "source": "MiamiDx10_Install/main/Libs/miamibpf.library",
+      "sha256": "196a97e4c99808dcae59dededa6bdc5f3fe49e89b8c27d237a478f10d99570f0",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/Libs/miamiipnat.library",
+      "source": "MiamiDx10_Install/main/Libs/miamiipnat.library",
+      "sha256": "49be1d676446f540826aebedaf9340a3e2da1b2a405cdfbd6136ad244a415738",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/Libs/miamipcap.library",
+      "source": "MiamiDx10_Install/main/Libs/miamipcap.library",
+      "sha256": "ebc8604c6db6923ed55186170405cd5d9db32cd1d8ee0e1a7dbaa9adf88cd96c",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/Libs/miamisecureshell.library",
+      "source": "MiamiDx10_Install/main/Libs/miamisecureshell.library",
+      "sha256": "da6e7facab750e48ff6cb52c8ef3ed8339fddc668aff41cc21d943e3a3a3c343",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/Libs/miamisocks.library",
+      "source": "MiamiDx10_Install/main/Libs/miamisocks.library",
+      "sha256": "4326f87e3205aff8e044cbd912ed8c9eb86824cd717de1d5991f386fd31fa79e",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/Libs/miamisocksd.library",
+      "source": "MiamiDx10_Install/main/Libs/miamisocksd.library",
+      "sha256": "8ebf3f3a75a7475d097efdb918b06a593f912d48f3d17544360b3a7ef7040238",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/Libs/MUI.MiamiDxGui",
+      "source": "MiamiDx10_Install/MUI/MUI.MiamiDxGui",
+      "sha256": "a9f134e179a5e1a887b1240998f3fa45aa9151a908a32c31808ed4768bef0a2a",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10c-MUI.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/Libs/MUI.MiamiToolsGui",
+      "source": "MiamiDx10_Install/MUI/MUI.MiamiToolsGui",
+      "sha256": "6297fffe15d3ed98400b3d21e55fe399d4da745d0c9109e075277a6236908a52",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10c-MUI.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/Libs/plain.MiamiPanel",
+      "source": "MiamiDx10_Install/main/Libs/plain.MiamiPanel",
+      "sha256": "ab0845eb515677ad99ae867913edc5a2dbb350366d771b774245aec36f4093d2",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiAddr",
+      "source": "MiamiDx10_Install/main/MiamiAddr",
+      "sha256": "e922b95fedd785fbbdc9aad9faed9394175a9e5b9a7221ce62a2e63c581a5865",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiArp",
+      "source": "MiamiDx10_Install/main/MiamiArp",
+      "sha256": "9a171b5f4a5b6884788babe9c3ec0cc9f1ca853b076b3f3b3f3d5992dc3c0252",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiDiG",
+      "source": "MiamiDx10_Install/main/MiamiDiG",
+      "sha256": "51b6eb8ecb6e402936ba2c73f51a1f1b4717fe2b1cf45af744f73cf88cf57b5f",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiDNSQuery",
+      "source": "MiamiDx10_Install/main/MiamiDNSQuery",
+      "sha256": "ed638c6e38ca455086347f7d0178aa8c4a0f952aba2077952e69a7ce8ba62cb6",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiDod",
+      "source": "MiamiDx10_Install/main/MiamiDoD",
+      "sha256": "b9ae4886ddf8cb1aa58a01395bcb176c7f476cc7154c30f9a975da63f3f1dba1",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiDx",
+      "source": "MiamiDx10_Install/main/MiamiDx",
+      "sha256": "481455776c8edf670c637b036064479005337bb5f091859a418187354a05cf17",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiDx.default",
+      "source": "src/BestClassicWB/BCWB_Files/Internet/MiamiDx/MiamiDx.default",
+      "sha256": "ab834838e7af33600f10002215a1771b3f08f6310aed1ddec41733f1fd7f3a7a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiDx.guide",
+      "source": "MiamiDx10_Install/main/MiamiDx.guide",
+      "sha256": "fef7036468fdfb3e4f7345b5993d0ed0c6cd18e36df6897dadac1498516c038b",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiDx.guide.info",
+      "source": "src/BestClassicWB/BCWB_Files/Internet/MiamiDx/MiamiDx.guide.info",
+      "sha256": "197729594707fedbf14284c91f906b1af0a3181994b48fc10ad6c8393ece3059",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiDx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Internet/MiamiDx/MiamiDx.info",
+      "sha256": "5e59814b96b6b7bd3b9eefe91b65591d00f6eba46f514c58e3a3170d7db8f8c7",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiFinger",
+      "source": "MiamiDx10_Install/main/MiamiFinger",
+      "sha256": "d9097e5c7e21fafa8b1b167862c91e34f14a9753108c36a4769a539394a7add4",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiFtp",
+      "source": "MiamiDx10_Install/main/MiamiFtp",
+      "sha256": "18f162356398736c0599778a99320bc56524827555610c63b66f0d27556e0f85",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiHost",
+      "source": "MiamiDx10_Install/main/MiamiHost",
+      "sha256": "018eb1eaf85cd851ccae3f4f9d7b2dc8bac94bef307adb149d86e19fdf004e5b",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiIfConfig",
+      "source": "MiamiDx10_Install/main/MiamiIfConfig",
+      "sha256": "6e210426b0a58a5c42a9cf37412d70c6bde1e9e60c2f33933680edfb1da44794",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiInit",
+      "source": "MiamiDx10_Install/main/MiamiInit",
+      "sha256": "47a3bf9ec1edba95a3f25c11106a6c7f1ff3f9ef0602245edb35eaf8922eaba7",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiInit.info",
+      "source": "src/BestClassicWB/BCWB_Files/Internet/MiamiDx/MiamiInit.info",
+      "sha256": "e2b46b17b821f933294474e0ebae0f6ba039b75157f020f8498b2c39cb9bd61c",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiIPFW",
+      "source": "MiamiDx10_Install/main/MiamiIPFW",
+      "sha256": "6626ea884c0c5686a3d49e1af2f065851cd01b8c04014fc153ef1aa1310d96b0",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiIPNatD",
+      "source": "MiamiDx10_Install/main/MiamiIPNatD",
+      "sha256": "fc27dd7fa05fcf52589bf74f055134397624d4ac67612f5832802ef1cfe03685",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiMapMBone",
+      "source": "MiamiDx10_Install/main/MiamiMapMBone",
+      "sha256": "bbe36f6226e9a763099f394d893d11150e26f408aa2979cf340eda5634e3e2c5",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiMRInfo",
+      "source": "MiamiDx10_Install/main/MiamiMRInfo",
+      "sha256": "af8dc90f94be444e26a052ead2a33cda5aee305cc92a68d3f8911059b48a7ee3",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiMRouteD",
+      "source": "MiamiDx10_Install/main/MiamiMRouteD",
+      "sha256": "75f9ed227841deeae16b4dd6519f2f6c96781c2ef6d5cef0bd9370e449a2c027",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiMTrace",
+      "source": "MiamiDx10_Install/main/MiamiMTrace",
+      "sha256": "62c1fe7dda287cbea9fbe5c418af9238b28548a70ca474362b874de0c3606e35",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiNetStat",
+      "source": "MiamiDx10_Install/main/MiamiNetStat",
+      "sha256": "3da2b60e8d46511525f6df08b7b5e995e3a3a91e2dd1386c58b2a1a4af07720e",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiNSLookup",
+      "source": "MiamiDx10_Install/main/MiamiNSLookup",
+      "sha256": "dc11bd22ae6b42e739d101a32695a6d15db4765311034cfccbb744e8e04464c5",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiPing",
+      "source": "MiamiDx10_Install/main/MiamiPing",
+      "sha256": "2cdffe8dd2541212e89df67c035362c4aa6358bcf0c6891d5a3d8f9fb5c2e484",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiRegister",
+      "source": "MiamiDx10_Install/main/MiamiRegister",
+      "sha256": "4b70aa2dee5705e1f1e78351d5e9cd145f65307e37ae7931e7a1c1835a60885e",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiRegister.info",
+      "source": "src/BestClassicWB/BCWB_Files/Internet/MiamiDx/MiamiRegister.info",
+      "sha256": "39cd6764727e494c719782f618b54478ce8c07973b6e679a2a71d430d8dd7e30",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiRemind",
+      "source": "MiamiDx10_Install/main/MiamiRemind",
+      "sha256": "0e6d24726f3918e34a1c168b711648a7d2c75f79597b4ae1cd259dbb030033cd",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiResolve",
+      "source": "MiamiDx10_Install/main/MiamiResolve",
+      "sha256": "034ad734d3c1ec935a11e6152d94d485fc42f27414b89e7f74665fecd3b76193",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiRoute",
+      "source": "MiamiDx10_Install/main/MiamiRoute",
+      "sha256": "14081a046bfd674e0ffa30a77bd838bffb7c3b433fc94cea4d32b2941d9c6659",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiSecureShellKeygen",
+      "source": "MiamiDx10_Install/main/MiamiSecureShellKeygen",
+      "sha256": "6f3b223bda7bb2fd742a27fe8a216b5281b621c8b6b1476d59c254e5a683071f",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiSecureShellKill",
+      "source": "MiamiDx10_Install/main/MiamiSecureShellKill",
+      "sha256": "6d7ad7c6a3c35566d881ca12780e573150a122aa2c9924ce69469dd6b84ce506",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiSysCtl",
+      "source": "MiamiDx10_Install/main/MiamiSysCtl",
+      "sha256": "996acba8425e4667c1a6cfccb12205e3979174eb1ca2c91206e5b39697218c7a",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiTCPDump",
+      "source": "MiamiDx10_Install/main/MiamiTCPDump",
+      "sha256": "93c3cb2c2d7981f5e97cab6bb3b61385f55794e7c24895da8667149849d37c7a",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiTelnet",
+      "source": "MiamiDx10_Install/main/MiamiTelnet",
+      "sha256": "e70895c8bcef3f71f05b2789e8b71f688a80b750692a11d8c4f5497ef7fbae10",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiTelnetD",
+      "source": "MiamiDx10_Install/main/MiamiTelnetD",
+      "sha256": "604af3f48832bd3f78ab44612c145d38194e9a70adfbdaccb7004c74020e8b0a",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MiamiTraceRoute",
+      "source": "MiamiDx10_Install/main/MiamiTraceRoute",
+      "sha256": "60164256bfcfed26ca1aab2f4a90be15fd667dd29c8ee4f193f65be4332a36c2",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MNI/gg2-3c509.mni",
+      "source": "MiamiDx10_Install/main/MNI/gg2-3c509.mni",
+      "sha256": "ad7093f306dc025e352a3c45e89e7e8a1064237c3d38dc2bf0fcf092445356d4",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MNI/gg2-dp8390.mni",
+      "source": "MiamiDx10_Install/main/MNI/gg2-dp8390.mni",
+      "sha256": "4aa3c227a2ae677cbf9781a0b325fa4e03ea30c9f130a71a432e920fee1df346",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MNI/z2-am7990.mni",
+      "source": "MiamiDx10_Install/main/MNI/z2-am7990.mni",
+      "sha256": "3f398be565964c036f2fc3355150a1627d2523c75e0d703e075ddcd92c6b5d39",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MNI/z2-dp8390.mni",
+      "source": "MiamiDx10_Install/main/MNI/z2-dp8390.mni",
+      "sha256": "d10968bbe58a76ae7a21d7d699bdf312426848c33817854650c70223091909a3",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MNI/z2-mb86950.mni",
+      "source": "MiamiDx10_Install/main/MNI/z2-mb86950.mni",
+      "sha256": "e0957f5c3dff71e538d51455e00fabafb501bb9403fdc123059353629502438b",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/MNI/z2-smc91c90.mni",
+      "source": "MiamiDx10_Install/main/MNI/z2-smc91c90.mni",
+      "sha256": "a8f3ebc9811f1bec6dbbdf64be51fcdd8a3193dc1b73cc3298236250d782255e",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Internet/MiamiDx/PC/MDMCISCO.INF",
+      "source": "MiamiDx10_Install/main/PC/MDMCISCO.INF",
+      "sha256": "794a6260ad6aa9d3345fd064a0c18b85ad6d2cd57939916a2c05b245f2c63fd2",
+      "protection": 2,
+      "comment": "",
+      "archive": "MiamiDx10cmain.lha"
+    },
+    {
+      "path": "Prefs/Env-Archive/MIAMI/GUI",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/MIAMI/GUI",
+      "sha256": "b2e372ab3fbbb8f819cdb4ceea2e63fde60e4731ed4c072ee473a9b2757c8ca3",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Env-Archive/Sys/def_MiamiApp.info",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/Sys/def_MiamiApp.info",
+      "sha256": "eb778c48147e67a97d8a9cf928b6062861d8ce02070aee98a298cec3bde9cead",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Env-Archive/Sys/def_MiamiAppOnline.info",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/Sys/def_MiamiAppOnline.info",
+      "sha256": "0570f2c0f404d35989373fcd1dd64a7236a87b3cd7f476670db234542f5ad499",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

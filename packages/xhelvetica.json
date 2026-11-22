@@ -1,0 +1,65 @@
+{
+  "name": "XHelvetica",
+  "version": "MagicWB 1.2p and 2.1p with BCWB descriptor",
+  "baseline": "2.1.12",
+  "archives": {
+    "MagicWB21p.lha": {
+      "url": "https://se.aminet.net/util/wb/MagicWB21p.lha",
+      "sha256": "3ff085105abf7e1aca7d9b7189931fda7a0f282176ab8f95ccd6f55e7aa15111",
+      "extractor": "7zip"
+    },
+    "MagicWB-1.2.lha": {
+      "url": "https://ftp.funet.fi/pub/amiga/utilities/workbench/MagicWB-1.2.lha",
+      "sha256": "9b725f8803eb3efa17b3fe57bb18e5960cf5cf203d8e8f3a15527fb33dfc3b1e",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS diskfont.library and FONTS:"
+  ],
+  "notes": [
+    "Martin Huttenloher's MagicWB 2.1p archive supplies the exact 9- and 13-pixel bitmaps.",
+    "The original MagicWB 1.2p public archive preserved by FUNET supplies the exact 11-pixel bitmap.",
+    "The SHA-256-checked BCWB descriptor retains the stock record order (9, 13, 11)."
+  ],
+  "directories": [
+    {
+      "path": "Fonts/XHelvetica",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Fonts/XHelvetica.font",
+      "source": "src/BestClassicWB/BCWB_Files/Fonts/XHelvetica.font",
+      "sha256": "e2942605f4edc8a88a0e74d344720af2b4ee43dd82861ed7470e9c3d09574719",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Fonts/XHelvetica/11",
+      "source": "MagicWB1.2p/Fonts/XHelvetica/11",
+      "sha256": "6153375487a336d53babf03fe7b9c193ec93e26b77421c667f82daef23e96f1d",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicWB-1.2.lha"
+    },
+    {
+      "path": "Fonts/XHelvetica/13",
+      "source": "MagicWB2.1p/Fonts/XHelvetica/13",
+      "sha256": "44bf610ab7dac7d29dc5f93b7c10c0270680712872793b78fbb67df0bd132c65",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicWB21p.lha"
+    },
+    {
+      "path": "Fonts/XHelvetica/9",
+      "source": "MagicWB2.1p/Fonts/XHelvetica/9",
+      "sha256": "a48082efa54cc6f540048c6c3c6392883ca23b2c78d10747932a4a9e0787d32a",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicWB21p.lha"
+    }
+  ]
+}

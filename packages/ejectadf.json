@@ -1,0 +1,55 @@
+{
+  "name": "EjectADF",
+  "version": "1.0",
+  "baseline": "2.1.12",
+  "archives": {
+    "EjectADF.lha": {
+      "url": "https://se.aminet.net/util/wb/EjectADF.lha",
+      "sha256": "b3dccfbb4323ad02ecfb79c7ba12c00634566de825924ca5659d67f252347df6",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS 3.2 or later with WBStartup, ARexx, and the WORKBENCH ARexx port",
+    "C:DAControl and trackfile.device for AmigaOS-mounted ADF images"
+  ],
+  "notes": [
+    "The pinned Aminet 1.0 archive supplies Michael Spindler\u2019s launcher, handler script and in-archive readme. The checked BCWB project icon supplies the stock ARexx startup configuration.",
+    "The startup project registers the Eject ADF image menu entry. It requests Right Amiga+period, which is already assigned to Workbench Clean Up by Column on AmigaOS 3.2.2.1. The shipped handler reads selected root icons and dispatches DAControl INFO and EJECT DEVICE.",
+    "The shared system supplies the startup sequence and OS interfaces. This package owns no drawers."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "Locale/Help/english/EjectADF.readme",
+      "source": "EjectADF.readme",
+      "sha256": "64fbf273b9be8f87fdb18ecd492e63528c0bf4674bb8e71fbf6b9c624c66ef99",
+      "protection": 2,
+      "comment": "",
+      "archive": "EjectADF.lha"
+    },
+    {
+      "path": "S/EjectADF.rexx",
+      "source": "EjectADF.rexx",
+      "sha256": "173a9c953aec41106385737f56287e0432df1b1fd56b926d219ec3c4e7e8f0e4",
+      "protection": 2,
+      "comment": "",
+      "archive": "EjectADF.lha"
+    },
+    {
+      "path": "WBStartup/EjectADF",
+      "source": "EjectADF",
+      "sha256": "b51526f68ac870f2e190b0114f05a7fc1b994909488a0bc2a6eb3f30b4071e0f",
+      "protection": 2,
+      "comment": "",
+      "archive": "EjectADF.lha"
+    },
+    {
+      "path": "WBStartup/EjectADF.info",
+      "source": "src/BestClassicWB/BCWB_Files/WBStartup/EjectADF.info",
+      "sha256": "20bc0d64f003d442727f47d0379082199a9f491e2a67778068d48995e61339f2",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

@@ -1,0 +1,3413 @@
+{
+  "name": "Magic User Interface",
+  "version": "3.8",
+  "baseline": "2.1.12",
+  "archives": {
+    "mui38usr.lha": {
+      "url": "https://aminet.net/util/libs/mui38usr.lha",
+      "sha256": "f3acb2fe98f74c025daf10ae7df92d08abe787332124963771e2c21a869cca5b",
+      "extractor": "7zip"
+    },
+    "MCC_Guigfx.lha": {
+      "url": "https://aminet.net/dev/mui/MCC_Guigfx.lha",
+      "sha256": "dcc3e277cbceee70e4f9f22b6d67fbb0120ff09f173e01e5918b67cd7bd0ba24"
+    },
+    "MCC_HTMLtext.lha": {
+      "url": "https://aminet.net/dev/mui/MCC_HTMLtext.lha",
+      "sha256": "bfbc4b15782b5b05ee58d0b394d905bd3fda82071388d197d0d9c0c4cc861c2c"
+    },
+    "MCC_SpeedBar.lha": {
+      "url": "https://aminet.net/dev/mui/MCC_SpeedBar.lha",
+      "sha256": "5aac5b0f228ab27e781cf5cc39ac892ee614c95665d0ee4a25034a654cd885ca"
+    },
+    "AmigaSYS4-AGA-R1.3.lha": {
+      "url": "https://web.archive.org/web/20210601104832id_/https://www.amigasys.net/download/AmigaSYS4-AGA-R1.3.lha",
+      "sha256": "92576801b5f07159b96f9f5f1192b7334962b5ca3a9014b3abec527fb684d686"
+    },
+    "ClassicWB.OS39.28.2.1.zip": {
+      "url": "https://github.com/henrikstengaard/classicwb-os39-package/releases/download/28.2.1/ClassicWB.OS39.28.2.1.zip",
+      "sha256": "57cd2aba44608315a383ceb5d5aaebd1c43b74c8c73dc8782f6a767afeebd416"
+    },
+    "ClassicWB.FULL.28.2.1.zip": {
+      "url": "https://github.com/henrikstengaard/classicwb-full-package/releases/download/28.2.1/ClassicWB.FULL.28.2.1.zip",
+      "sha256": "92d6c333695fd059e72a9a08469c249590bc6866da29bb08edaaa59e0db9a27b"
+    }
+  },
+  "nestedArchives": {
+    "classicwb-os39": {
+      "archive": "ClassicWB.OS39.28.2.1.zip",
+      "source": "classicwb_os39_v28.zip",
+      "sha256": "4f24fff38fbea12746cf9015c2e07519d4be747a25fa442da75d8ff9903aefea",
+      "extractor": "7zip"
+    },
+    "classicwb-full": {
+      "archive": "ClassicWB.FULL.28.2.1.zip",
+      "source": "classicwb_full_v28.zip",
+      "sha256": "31f0070755d4200c892e2b973f3c1e18064402ca8fbfcda153c685f751041e57",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "BCWB startup assigns MUI: to SYS:Expansion/MUI and adds its Libs, Locale and Docs to the corresponding system assigns",
+    "guigfx.library and render.library for the optional Guigfx.mcc class"
+  ],
+  "notes": [
+    "The installed muimaster.library is 19.35. The MUI 3.8 user archive supplies the matching base files, and stock path spelling and metadata come from the installed inventory.",
+    "This entry owns the installed MUI tree, including shared third-party classes and their local documentation. The 68020 Guigfx.mcc 19.2 and its guide come from MCC_Guigfx.lha.",
+    "Matching third-party archive members are pinned individually. The checked BCWB payload supplies replacement icons, additional images and stock class or documentation files whose exact upstream members are unresolved.",
+    "The AmigaSYS 4 AGA R1.3 redistribution supplies the shipped 68020 BetterString 11.15, HotkeyString 12.11 and TextEditor 15.27 class files.",
+    "The HstWB redistribution of ClassicWB v28 supplies byte-identical 2005 68020 NList classes, the English TextEditor guide and other shared MUI add-ons.",
+    "The BCWB default MUI icon is installed in ENVARC:Sys. The shared system drawers, S/User-Startup, and iGame and Voodoo-X settings in ENVARC:mui are outside this package."
+  ],
+  "directories": [
+    {
+      "path": "Expansion/MUI",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/English",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Goodies",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Icons",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/HT",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/HT/10pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/HT/12pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/KT",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black/11pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/13pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Plain",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Plain/11pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/Misc",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/WD",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Scrollbars",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/catalÃ ",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/czech",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/dansk",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/deutsch",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/franÃ§ais",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/greek",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/italiano",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/nederlands",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/polski",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/suomi",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/svenska",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Patterns",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Presets",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Rexx",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Expansion/MUI.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI.info",
+      "sha256": "44bb32453f84056c815fb87a6e6e99900f4d0ab3356f67fc37f24959d4791178",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs.info",
+      "sha256": "6ec3afd9f07127806326e2e451997e5b27290218a13cef43943efc8601a5b49c",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/Changes",
+      "source": "MUI/Docs/Changes",
+      "sha256": "9e09b6ae70c67223f64df4f99251a66ace9ad0b4b0a5485b802bd9c9ee66cb6e",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Docs/Changes.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/Changes.info",
+      "sha256": "8a5c1412670e6ba358222766e498399fc71e5090034c64448166711affa74d5c",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/English.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/English.info",
+      "sha256": "14fd70148d8995b591e15166abf8a45e20c6483f1d8e5457b5f137ebf9c8b962",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/English/Guigfx_mcc.guide",
+      "source": "MCC_Guigfx/Docs/English/Guigfx_mcc.guide",
+      "sha256": "ff46ad7fecb7803326d9b161ecbe169601e35cab9a1192d4c3114060c0220a2c",
+      "protection": 2,
+      "comment": "",
+      "archive": "MCC_Guigfx.lha"
+    },
+    {
+      "path": "Expansion/MUI/Docs/English/Guigfx_mcc.guide.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/English/Guigfx_mcc.guide.info",
+      "sha256": "41834e5543168582cdc2924eb5f74613c7cf68200d8cb49f34d6cdfde350fafa",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/English/ImageButton_mcc.guide",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Docs/English/ImageButton_mcc.guide",
+      "sha256": "d479fc35cc438f05abc22bf33626d6537cf2b2851ebd5b73eb25283cb2f7b8ed",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/English/ImageButton_mcc.guide.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/English/ImageButton_mcc.guide.info",
+      "sha256": "0bb93331ab07664117352b38e10304b4f7bcfef3409760a95ae514dce58afb37",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/English/MCC_TextEditor.guide",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Docs/English/MCC_TextEditor.guide",
+      "sha256": "53ee454f97797f241e8060e73ee1c14d282bba7c0132468203a03203a61ff060",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/English/MCC_TextEditor.guide.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/English/MCC_TextEditor.guide.info",
+      "sha256": "61a0161d96948d62c454e2bef8865ee776de11b9dadad7b1fd9ccebe35f758fe",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/English/MUI.guide",
+      "source": "MUI/Docs/English/MUI.guide",
+      "sha256": "4e42c21ab15e4dc8df409d42e7830f629d4b7e0197eb8f0872ac79226f23effb",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Docs/English/MUI.guide.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/English/MUI.guide.info",
+      "sha256": "bb21ce941d84c0d967c65e89c7cc0dfdd5393d62ed4346751755f92b3cb7e6e0",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/ImageDesign",
+      "source": "MUI/Docs/ImageDesign",
+      "sha256": "15f9a79330e308961f04a8ccdc21d645546fce6ffd5995c42a017347712e46d3",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Docs/ImageDesign.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/ImageDesign.info",
+      "sha256": "8cc2a321b28a8f3cbb8c605c64f54b16012cbb223d228687d1a7e24ebbab460e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/Preview-1",
+      "source": "MUI/Docs/Preview-1",
+      "sha256": "8c97667fafcf7b2f2ee0a6182ad6883df3b7ae3bbb9d4ec0a15e2151979cb094",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Docs/Preview-1.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/Preview-1.info",
+      "sha256": "9141fe7404050c9cb09787633bcf31cebc689fd0cdba75011724179d206d8af8",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/Preview-2",
+      "source": "MUI/Docs/Preview-2",
+      "sha256": "e46a0404c2b08fca90d738ed107e89ae4b7418fcbc6e8e22b2e80622532d105d",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Docs/Preview-2.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/Preview-2.info",
+      "sha256": "925255a17dd3d830bce546815a60990b1d697841fcbcd9829615461ee4eec6e9",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Docs/Registration",
+      "source": "MUI/Docs/Registration",
+      "sha256": "2e21c377cfca7a9e68721bfc1fb31e210be2cf93d5a9c344dfc6a8f111d8c1f0",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Docs/Registration.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Docs/Registration.info",
+      "sha256": "cb90459c1f84db8032c8da72b635b86cb26c45fdc2a6e2893e05775a6d974b52",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Goodies.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Goodies.info",
+      "sha256": "34f881883d5bddb85cea8fde3f71e6835ff99375c128767875ec8cb90d873451",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Goodies/ClickForColors",
+      "source": "MUI/Goodies/ClickForColors",
+      "sha256": "8984a067214f5afb61c43e52df88d301a2e1375b7a0378768da03f907828ec5c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Goodies/ClickForColors.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Goodies/ClickForColors.info",
+      "sha256": "12b342d386a44d25f7cbd3c8bba62b4da45979a6077bcd3c3a0a0d19f6c143c5",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Goodies/kmel_A2024_ForeignWB.iff",
+      "source": "MUI/Goodies/kmel_A2024_ForeignWB.iff",
+      "sha256": "77c42d50f259e3825f298fad6f5313162d714f58e62fdd391b8efa6e929c9fc1",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Goodies/MagicWB",
+      "source": "MUI/Goodies/MagicWB",
+      "sha256": "d526eb4e878a23ef26ae190031b4efd2d58ed66789ac049ea3dbaf74c9df7402",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Goodies/Palette.ilbm",
+      "source": "MUI/Goodies/Palette.ilbm",
+      "sha256": "4d7ab99ab77a8151d34e5358f914a20de55a0220a61faa7f52455241ddcfccac",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Goodies/ReadMe",
+      "source": "MUI/Goodies/ReadMe",
+      "sha256": "720c4f1058a9fad6f7b526e5efbb0071eff6ed4f638e37b1d6a7110c6cd37367",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Goodies/ReadMe.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Goodies/ReadMe.info",
+      "sha256": "4d8b79e2cc8bdd7cbaf991e3e24097e40c14b66e9214cebe7808ea9689c27091",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Goodies/ReadMe.kmel",
+      "source": "MUI/Goodies/ReadMe.kmel",
+      "sha256": "c94415d8a71cb45c396f45a5858ac09c222f94c605190dcf4a7b41db34d48d33",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Goodies/ReadMe.kmel.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Goodies/ReadMe.kmel.info",
+      "sha256": "712b7dde03e5e210574314bcd0a20b07a6be5aad6ccb142e93fa87b4ca2d845e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Icons.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Icons.info",
+      "sha256": "a61caa677885106ec611827ffbc4e237afaac5967db3807556dc3e7116ed19eb",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Icons/def_MUI.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Icons/def_MUI.info",
+      "sha256": "efd80ce7904d5b721e26fe4a5d68d57079cc92e5828cefc9fd87c7c9e7f6401f",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Icons/MUI-Template.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Icons/MUI-Template.info",
+      "sha256": "f770161e98c43faeb4f9d1493cb8055469c1aa65522e2e6ef485c5c1512568f0",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Images.info",
+      "sha256": "1cb401310fbe1c622a0da584195f5e4ad20a66ca4cfea2c41e1eff5c5fa7bd39",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/ClosedDrawerWin98.ilbm",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/ClosedDrawerWin98.ilbm",
+      "sha256": "86312861636402900a6798d45f5f913ba71bcb9524f4a522fdaa6405fd23ecf3",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/ClosedNode.image",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/ClosedNode.image",
+      "sha256": "afcc8a1f1924751d7ce509a6865c41423bf434b94f9ed96767e51929cd3a347c",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/ClosedNodeWin98.image",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/ClosedNodeWin98.image",
+      "sha256": "3343896ec99ac6e7ee1bfbf156290729eb673cdfe348aaa3c0c0b0db5e37c83d",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/GlowDrawerClosed.ilbm",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/GlowDrawerClosed.ilbm",
+      "sha256": "2475fde0c920b5ce619031c464421c45ae4b521bff313dfcb14445f381e9b7f7",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/GlowDrawerOpen.ilbm",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/GlowDrawerOpen.ilbm",
+      "sha256": "dde9ce8959e9d534bd16984c9f6515c7bf4d0824cfc54cf7076a659a89c9cf57",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/HT/10pt/ClosedBall.mbr",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/HT/10pt/ClosedBall.mbr",
+      "sha256": "57ed59c0db84b21a7a685eb89788943923a8db1e747313c5c4ca98f6e0b2a115",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/HT/10pt/OpenBall.mbr",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/HT/10pt/OpenBall.mbr",
+      "sha256": "5fba9f848db40ee07aa61d31a388aa92a65d85d9fefd6c8279bfc3bd818936ce",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/HT/12pt/ClosedBall.mbr",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/HT/12pt/ClosedBall.mbr",
+      "sha256": "8f9f8d500eea93e2003cfaa97470d862cbc33791262e29d1d163cd8d6b4c5151",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/HT/12pt/OpenBall.mbr",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/HT/12pt/OpenBall.mbr",
+      "sha256": "164c2212d0b5718f561564fc3ed731657e579bf6ab364f33a78bcfe9a201254e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/OpenDrawerWin98.ilbm",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/OpenDrawerWin98.ilbm",
+      "sha256": "9389e5684b6fd9ae9536079a82f303585b15efcbf935c45377596d97e2480804",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/OpenNode.image",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/OpenNode.image",
+      "sha256": "b05ca05578cc22c133f490e0777daebbb651c98ec3c274dec4910dbdf9f4b279",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/aphaso/OpenNodeWin98.image",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Images/aphaso/OpenNodeWin98.image",
+      "sha256": "96c462009a5d51b30f22c47a4f3934341f6f39c249cf0552ed78622da25c9462",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/ArrowDown.mb0",
+      "source": "MUI/Images/Goonie/Classic/11pt/ArrowDown.mb0",
+      "sha256": "def3cdc8fec3165aa3cb592d1dbb1ac521c523d87cf3f94b4bbf20edba4d0c8b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/ArrowDown.mb1",
+      "source": "MUI/Images/Goonie/Classic/11pt/ArrowDown.mb1",
+      "sha256": "7db0f9b89a83f0dfd11a1b948a4de8284fd0f51970abd42b7e236823cd84d133",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/ArrowLeft.mb0",
+      "source": "MUI/Images/Goonie/Classic/11pt/ArrowLeft.mb0",
+      "sha256": "821babde06231fe37334c87f37d8379ac91e3c06114f629e96e6378e5d992949",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/ArrowLeft.mb1",
+      "source": "MUI/Images/Goonie/Classic/11pt/ArrowLeft.mb1",
+      "sha256": "f79b39af792560a4167106f1e979718b3f3371bf7d115cef1368f670de2190d5",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/ArrowRight.mb0",
+      "source": "MUI/Images/Goonie/Classic/11pt/ArrowRight.mb0",
+      "sha256": "824e018cd7d647c3217691dbc750d7ed7786f8327cef6363d947b6c2e3e8c74b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/ArrowRight.mb1",
+      "source": "MUI/Images/Goonie/Classic/11pt/ArrowRight.mb1",
+      "sha256": "c11a145a416b72c70ba6ac2ddcf4210cf1d1a6686ae6b3eb3150c4a00ec6d211",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/ArrowUp.mb0",
+      "source": "MUI/Images/Goonie/Classic/11pt/ArrowUp.mb0",
+      "sha256": "5d13b8478c25d03429b899f24e295d3372ad5458cb7f56db48f855e726f3d78f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/ArrowUp.mb1",
+      "source": "MUI/Images/Goonie/Classic/11pt/ArrowUp.mb1",
+      "sha256": "09d4079c0c14435d0c2a594cf35f765b30bfd88bcfbdf6a9f8408a732c59cc4c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/Disk.mbr",
+      "source": "MUI/Images/Goonie/Classic/11pt/Disk.mbr",
+      "sha256": "845d298640c7ce122a53c6b3fa93428acb2c2e3d497e4855f1095139cbe46fa2",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/Drawer.mbr",
+      "source": "MUI/Images/Goonie/Classic/11pt/Drawer.mbr",
+      "sha256": "b61d3d1b23e91f9844aa796e90c98934e8ee9932f1955ab25cd245600e91551c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/HardDisk.mbr",
+      "source": "MUI/Images/Goonie/Classic/11pt/HardDisk.mbr",
+      "sha256": "ced57a24afc56748059a5d744b775c3fb6cfa27158f3545020efa301ba707200",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/Ram.mbr",
+      "source": "MUI/Images/Goonie/Classic/11pt/Ram.mbr",
+      "sha256": "5ef10a595504b7be34309a4dcca7aaf8dbbd4e1338596255649130a0f130b517",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/Classic/11pt/Volume.mbr",
+      "source": "MUI/Images/Goonie/Classic/11pt/Volume.mbr",
+      "sha256": "11a3a8a4572bc1434e4d4771dceb876e3cfc6792eb97a284b8a9ec7cd283b601",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/ArrowDown.mf0",
+      "source": "MUI/Images/Goonie/NewLook/11pt/ArrowDown.mf0",
+      "sha256": "3eb9ef525af05bbcb3c5529081057e4ea0e3da80d1309e8f88ef816c68e33a88",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/ArrowDown.mf1",
+      "source": "MUI/Images/Goonie/NewLook/11pt/ArrowDown.mf1",
+      "sha256": "a2abe02eba70091201348d39dec2767c94013dd532c915f3ce999cd2a722d300",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/ArrowLeft.mf0",
+      "source": "MUI/Images/Goonie/NewLook/11pt/ArrowLeft.mf0",
+      "sha256": "2430a5ba5f0e97318671199b3ba10769640d6f19e1c1305fc6538f624553e99c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/ArrowLeft.mf1",
+      "source": "MUI/Images/Goonie/NewLook/11pt/ArrowLeft.mf1",
+      "sha256": "7e07b959bf07d3cc7ae05b72a716573bffe0d194fc79f3aee57cbba84862ff2a",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/ArrowRight.mf0",
+      "source": "MUI/Images/Goonie/NewLook/11pt/ArrowRight.mf0",
+      "sha256": "7649361df973f8b80a1c1ac227d7b20e70e70b48f1f7ca6b6d4ead5e308c8b16",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/ArrowRight.mf1",
+      "source": "MUI/Images/Goonie/NewLook/11pt/ArrowRight.mf1",
+      "sha256": "94f584993693f20ac6cc032852de32ba13484aa5bc632f4c5c6a75e6ba633e3c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/ArrowUp.mf0",
+      "source": "MUI/Images/Goonie/NewLook/11pt/ArrowUp.mf0",
+      "sha256": "782ce5eff5540c8cbef0d8d698b3676db9edfdbba3fd47a7c7f9c1a17ab54f83",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/ArrowUp.mf1",
+      "source": "MUI/Images/Goonie/NewLook/11pt/ArrowUp.mf1",
+      "sha256": "6ac66428a4bd286c3acab618c8e935174646fcba8ed70a9fa5423c03ecca5965",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/Assign.mbr",
+      "source": "MUI/Images/Goonie/NewLook/11pt/Assign.mbr",
+      "sha256": "9e7e75013e4a6538f427756348feab78cb7a69ac3a5d4442d181a907e1e08372",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/CheckMark.mb0",
+      "source": "MUI/Images/Goonie/NewLook/11pt/CheckMark.mb0",
+      "sha256": "95068704f9870705e1d513e3fdc56f8ab694a3ef67bfba6a9d19179032c49ae5",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/CheckMark.mb1",
+      "source": "MUI/Images/Goonie/NewLook/11pt/CheckMark.mb1",
+      "sha256": "a900372d6ec0ab8820e40c8a6b6b5a6df8f774ada2e83aed601b6c8e0acb154f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/Chip.mbr",
+      "source": "MUI/Images/Goonie/NewLook/11pt/Chip.mbr",
+      "sha256": "f55ddf8af69190591b97a7058551e111186a6342a19e856cf6d8bb2573cab1f2",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/Cycle.mbr",
+      "source": "MUI/Images/Goonie/NewLook/11pt/Cycle.mbr",
+      "sha256": "06f87ffb9f365db0b133cd45117ca57e685f03f15f8d954230f3dbe3b95b2dab",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/Disk.mbr",
+      "source": "MUI/Images/Goonie/NewLook/11pt/Disk.mbr",
+      "sha256": "a27cc0abbc086667f528ad97166bf66c6ad9d9a87750ac069e5ae44ad0070363",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/Disk2.mbr",
+      "source": "MUI/Images/Goonie/NewLook/11pt/Disk2.mbr",
+      "sha256": "73685c70343e6a9837eac4308ad1d31c760a403c7870d159bc3c88c97efda36c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/Drawer.mbr",
+      "source": "MUI/Images/Goonie/NewLook/11pt/Drawer.mbr",
+      "sha256": "c8eb1428c7b5e2b54a8750118fe30784dc3795166c4a442efe81ccc4343437e3",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/HardDisk.mbr",
+      "source": "MUI/Images/Goonie/NewLook/11pt/HardDisk.mbr",
+      "sha256": "898c3ec9b60ab07a3cbd9cfb9704bcf57e2172d4511e344c4fc02064a7b5a94f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/Network.mbr",
+      "source": "MUI/Images/Goonie/NewLook/11pt/Network.mbr",
+      "sha256": "fa6594e36ce9a6e3414c988ca6d48c359e7920221ea607b25244d8f0100b7c4e",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/PopDrawer.mf0",
+      "source": "MUI/Images/Goonie/NewLook/11pt/PopDrawer.mf0",
+      "sha256": "ec5ed5a57da664de43b2d84f972305dc59ecb6cf711818e922e5d73b495d88e0",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/PopDrawer.mf1",
+      "source": "MUI/Images/Goonie/NewLook/11pt/PopDrawer.mf1",
+      "sha256": "5a52d5f1b201dfc641dbce628b7d67b2b67efd64cc9fce521387ea4e7044fa53",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/PopFile.mf0",
+      "source": "MUI/Images/Goonie/NewLook/11pt/PopFile.mf0",
+      "sha256": "1b11a0d051e2e6ad0ab6f62cc42dbca146b3f0b54125a3b48a5714ca06b39ec0",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/PopFile.mf1",
+      "source": "MUI/Images/Goonie/NewLook/11pt/PopFile.mf1",
+      "sha256": "81c94247f9083eb3411a61934cfd7acc406acfda81566d9044ae5f8ed00bf788",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/PopUp.mf0",
+      "source": "MUI/Images/Goonie/NewLook/11pt/PopUp.mf0",
+      "sha256": "29868073f1ac0837d01151b6cc893572a6d15c7f09689d0018abb4f190a94191",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/PopUp.mf1",
+      "source": "MUI/Images/Goonie/NewLook/11pt/PopUp.mf1",
+      "sha256": "dd54c50fe2b93de891ddfd579d54758b2ec32ec0df5418bec9879d76651b9a35",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Goonie/NewLook/11pt/Volume.mbr",
+      "source": "MUI/Images/Goonie/NewLook/11pt/Volume.mbr",
+      "sha256": "8086bdd9c8b32ac8d44653348f291648a652567e1290962b2ffec0911d28cc80",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_arrowdown.image",
+      "source": "MUI/Images/kmel/kmel_arrowdown.image",
+      "sha256": "f6276a5e818910a174e1fa64cb753eac314195ff9c8ec100ead3b603f05dcddc",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_arrowdown2.image",
+      "source": "MUI/Images/kmel/kmel_arrowdown2.image",
+      "sha256": "665f09c0df93359c3406fe3714349d1847b49755e915c43a1f725534168c6283",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_arrowleft.image",
+      "source": "MUI/Images/kmel/kmel_arrowleft.image",
+      "sha256": "cde7439a6e69f1b5c5168660b52bac0956c62128f2eafe06ff56dea88f197c98",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_arrowleft2.image",
+      "source": "MUI/Images/kmel/kmel_arrowleft2.image",
+      "sha256": "cae6554c49dd6cdf5998aca71f8b76bdf2487d053afed11d574f2204201262b8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_arrowright.image",
+      "source": "MUI/Images/kmel/kmel_arrowright.image",
+      "sha256": "6c3deae839536c00d41f2a6587495cbf774bacc7b02d7da77d0bc86c14823670",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_arrowright2.image",
+      "source": "MUI/Images/kmel/kmel_arrowright2.image",
+      "sha256": "0212516a28a16b840cae3f4f842f7e4aa75e7d8f4a4cc8a75e8b5fd06794585a",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_arrowup.image",
+      "source": "MUI/Images/kmel/kmel_arrowup.image",
+      "sha256": "db2786c5b81e7700e25d6a2dd84bf4697fb856f35397694e40d9e3b9f89445c3",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_arrowup2.image",
+      "source": "MUI/Images/kmel/kmel_arrowup2.image",
+      "sha256": "441beb1a5fb710d02aec8021a6502f04f6bd276727e60706fb09ff3ac3f23765",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_checkmark.image",
+      "source": "MUI/Images/kmel/kmel_checkmark.image",
+      "sha256": "4ba1c465f280c014a09793ae6840340321f8ad8671a7d8c430472eb13c9a7bff",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_cycle.image",
+      "source": "MUI/Images/kmel/kmel_cycle.image",
+      "sha256": "28da94a8515fa6dc20e2811a9afae2867bb074e173c4b04e591b4e680d0be2df",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_knob.image",
+      "source": "MUI/Images/kmel/kmel_knob.image",
+      "sha256": "365eb394c37f1074677012a793aca197496bcac581c2ecdad6b77fbd6c7259cf",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_knob2.image",
+      "source": "MUI/Images/kmel/kmel_knob2.image",
+      "sha256": "53e9c85e38c1d888745dbaa5b55f785c7a9fc5be67c8f5da29e13e1f9f8afa95",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_popdrawer.image",
+      "source": "MUI/Images/kmel/kmel_popdrawer.image",
+      "sha256": "a807213283c247fc439df0e8d4ae21bb2f7aca473dc5542e28f5e43dcb8ab785",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_popfile.image",
+      "source": "MUI/Images/kmel/kmel_popfile.image",
+      "sha256": "7203c7cea7fed9b74764bb5ec663f76a713a9b7b68b684063429e75c71fcd4af",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_popup.image",
+      "source": "MUI/Images/kmel/kmel_popup.image",
+      "sha256": "16d41af1a95fd38eefbb50088d4393c31a7cfe506cc9ea889b2c95c0509360ca",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_tapepause.image",
+      "source": "MUI/Images/kmel/kmel_tapepause.image",
+      "sha256": "c01947f775e87c7041d9d9442e3248293a062c4304d805ef5df5944202f22c18",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_taperecord.image",
+      "source": "MUI/Images/kmel/kmel_taperecord.image",
+      "sha256": "371f296055bd9596e2be7b25fcd7c31dc5ccd1854ed32b2be33dab55c80e5bad",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_taperecord2.image",
+      "source": "MUI/Images/kmel/kmel_taperecord2.image",
+      "sha256": "3ebba3b3d3c4ab566b6c06ec19c5adc58deadc1aeeee22df72e26975e4fc1968",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/kmel/kmel_tapestop.image",
+      "source": "MUI/Images/kmel/kmel_tapestop.image",
+      "sha256": "339588fc119e837b4c0200beb48e2414c76383476baba991b7dec2ba0dede653",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black/11pt/ArrowDown.mf0",
+      "source": "MUI/Images/KT/Black/11pt/ArrowDown.mf0",
+      "sha256": "fcfa3c359d7c120a16025c2c6d5197326f28aa49b6292f750f34217a44a86698",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black/11pt/ArrowDown.mf1",
+      "source": "MUI/Images/KT/Black/11pt/ArrowDown.mf1",
+      "sha256": "d9d381607574cb3a133ec9e9c352c79b4940b8853a73ab4ee7cf5d5b3cd540e4",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black/11pt/ArrowLeft.mf0",
+      "source": "MUI/Images/KT/Black/11pt/ArrowLeft.mf0",
+      "sha256": "0fd59d53b08ab1ae7c2c35b8f9002e1348cd4660ddd03618125d4c8fb557a827",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black/11pt/ArrowLeft.mf1",
+      "source": "MUI/Images/KT/Black/11pt/ArrowLeft.mf1",
+      "sha256": "db391f6286b51bde9b6bded53251a7dc3f30c334c5396ca5a1653c1d3385dfbc",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black/11pt/ArrowRight.mf0",
+      "source": "MUI/Images/KT/Black/11pt/ArrowRight.mf0",
+      "sha256": "0db91e6e51558a490c65abf39628c10e2eedbf310392f9fafed72cc35ea7545c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black/11pt/ArrowRight.mf1",
+      "source": "MUI/Images/KT/Black/11pt/ArrowRight.mf1",
+      "sha256": "c486a18b14a85a1a5f4a50ba951c8a16c55bbedf6564c5b7229466e515c762ed",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black/11pt/ArrowUp.mf0",
+      "source": "MUI/Images/KT/Black/11pt/ArrowUp.mf0",
+      "sha256": "0c0dd0b363161cfdc4b4242fa33808a6fde4564adf074ecfa14a00492e82a0e3",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black/11pt/ArrowUp.mf1",
+      "source": "MUI/Images/KT/Black/11pt/ArrowUp.mf1",
+      "sha256": "70de991e130bf86caef099d1cf8df9a6a92f7f7de27d9a1634104d660fc2a1f0",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Black/11pt/Cycle.mbr",
+      "source": "MUI/Images/KT/Black/11pt/Cycle.mbr",
+      "sha256": "daeda77fc39ecd87cd3a2356ca57cdef7b1cae0fa99e1e402c2939b7dcc06bc1",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/ArrowDown.mf0",
+      "source": "MUI/Images/KT/Gradient/11pt/ArrowDown.mf0",
+      "sha256": "e3e541150c6315370fd78e63c0662c1a37ccf4f2fad87a9e30d6fdbb0f14ae6a",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/ArrowDown.mf1",
+      "source": "MUI/Images/KT/Gradient/11pt/ArrowDown.mf1",
+      "sha256": "ea06aa0ff1fdb42d01affcb0ab1c379e1b94cdaf0f4388e5dff2770fd560854c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/ArrowLeft.mf0",
+      "source": "MUI/Images/KT/Gradient/11pt/ArrowLeft.mf0",
+      "sha256": "335eb0bed298c68211b0ea647a46ddb0d7aaab1b8824662f9cf068a193dbd892",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/ArrowLeft.mf1",
+      "source": "MUI/Images/KT/Gradient/11pt/ArrowLeft.mf1",
+      "sha256": "bac952a232e831900aba456ca9f13c82dffbd2e367141edae9ca82e29096fb67",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/ArrowRight.mf0",
+      "source": "MUI/Images/KT/Gradient/11pt/ArrowRight.mf0",
+      "sha256": "7b35e9629761d91608f52213a23e9c5faa152b8548c3d0f6ddb8ec84c6dba01a",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/ArrowRight.mf1",
+      "source": "MUI/Images/KT/Gradient/11pt/ArrowRight.mf1",
+      "sha256": "cce510a3d3fcb5c8dc254b4a2476b2bf5232dd59a19c06d510f4c2960ff0c53c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/ArrowUp.mf0",
+      "source": "MUI/Images/KT/Gradient/11pt/ArrowUp.mf0",
+      "sha256": "3750de1ba16ce1c7b9677be8ab018782fb924aeef43a19f4f1719beeb956eec9",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/ArrowUp.mf1",
+      "source": "MUI/Images/KT/Gradient/11pt/ArrowUp.mf1",
+      "sha256": "4b2bf787ec331c014ca0006bf0ad93f4e7c307e9e4adf218e6f64a62fa8979a5",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/Checkmark.mf0",
+      "source": "MUI/Images/KT/Gradient/11pt/Checkmark.mf0",
+      "sha256": "34ce075792b099b78737057817f22492736c7b3881e5ff7d28cda770f2a734c8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/Checkmark.mf1",
+      "source": "MUI/Images/KT/Gradient/11pt/Checkmark.mf1",
+      "sha256": "44dd56fc2fde07e4cad02e195883a611ac50653e4271698df0d926d16a298b5c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/Cycle.mbr",
+      "source": "MUI/Images/KT/Gradient/11pt/Cycle.mbr",
+      "sha256": "af2430976c529136952581c2e9a2d53d80235024c78fbc7ba7565e872a3ce558",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/RadioButton.mf0",
+      "source": "MUI/Images/KT/Gradient/11pt/RadioButton.mf0",
+      "sha256": "ca18463a7dbaa2b6265913c3f7cf19fb7f941705277a472fef28bcd7683f61a7",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/11pt/RadioButton.mf1",
+      "source": "MUI/Images/KT/Gradient/11pt/RadioButton.mf1",
+      "sha256": "34d05c8750633140dce99ce3e464c413645c914c7e8d39aa615d6b135a889e0d",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/13pt/Checkmark1.mf0",
+      "source": "MUI/Images/KT/Gradient/13pt/Checkmark1.mf0",
+      "sha256": "12b0cfde79f00e3b990d9b3174701b5882d7f9d6606e43c63c393b6fd5500e39",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/13pt/Checkmark1.mf1",
+      "source": "MUI/Images/KT/Gradient/13pt/Checkmark1.mf1",
+      "sha256": "36286df7649a2a7278f54ceefc908f9c1e6427a80640507e4cbd4002fb785a37",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/13pt/Cycle.mbr",
+      "source": "MUI/Images/KT/Gradient/13pt/Cycle.mbr",
+      "sha256": "7fd72cced8459cf654d2ba8841c11c16b94a57ede87943648834fac83535fa13",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/13pt/RadioButton.mf0",
+      "source": "MUI/Images/KT/Gradient/13pt/RadioButton.mf0",
+      "sha256": "e5bea9383ea2beb8fe97055530b19a16fcbd199189d4bc2984bb0836c245f810",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/13pt/RadioButton.mf1",
+      "source": "MUI/Images/KT/Gradient/13pt/RadioButton.mf1",
+      "sha256": "9fe22c27dd7b51d9278f7286292d089036922eba577e6d78013dc4241ed69602",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/13pt/RadioButton2.mf0",
+      "source": "MUI/Images/KT/Gradient/13pt/RadioButton2.mf0",
+      "sha256": "3a8b1e18a3a6c2ea758094543e1de5f110de0408970bf91f87636c067f0517ff",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Gradient/13pt/RadioButton2.mf1",
+      "source": "MUI/Images/KT/Gradient/13pt/RadioButton2.mf1",
+      "sha256": "b821cdec37e1d6a7314b1ceeb92637e863fd12cd2427a33ebdb2796b2db7d751",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Plain/11pt/ArrowDown.mb0",
+      "source": "MUI/Images/KT/Plain/11pt/ArrowDown.mb0",
+      "sha256": "37823d9c349d48922f77ad7e2bc1b478af9f0d2239eab4ebb7da3e49a1f4ea75",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Plain/11pt/ArrowDown.mb1",
+      "source": "MUI/Images/KT/Plain/11pt/ArrowDown.mb1",
+      "sha256": "7aa1ee6518a476a0100eb3cf3852dffdcb6267fe7646882bbd249b96234b8d56",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Plain/11pt/ArrowLeft.mb0",
+      "source": "MUI/Images/KT/Plain/11pt/ArrowLeft.mb0",
+      "sha256": "01dd7434ffb9f86fb5c89477f1bd8bd4ea6a950f1336997e6227b30e888c6909",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Plain/11pt/ArrowLeft.mb1",
+      "source": "MUI/Images/KT/Plain/11pt/ArrowLeft.mb1",
+      "sha256": "125fa15a0aed1dd6ab594c63f32c382291cd72edc8aca8da5f8c0aec0d8e8992",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Plain/11pt/ArrowRight.mb0",
+      "source": "MUI/Images/KT/Plain/11pt/ArrowRight.mb0",
+      "sha256": "30d0d6cebf88ace24ec2ce96398568787bbec5482fd70972ab6b7f96b3d54dbd",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Plain/11pt/ArrowRight.mb1",
+      "source": "MUI/Images/KT/Plain/11pt/ArrowRight.mb1",
+      "sha256": "ceaf02704ea9ecd2dd1d59c1a16f30aead383c159fe42b029fbae0be74b8bf41",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Plain/11pt/ArrowUp.mb0",
+      "source": "MUI/Images/KT/Plain/11pt/ArrowUp.mb0",
+      "sha256": "6c9171eb2a4740a52bd612c8d98b92efe60db59b111f1ff211e7c6cb2d691254",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/KT/Plain/11pt/ArrowUp.mb1",
+      "source": "MUI/Images/KT/Plain/11pt/ArrowUp.mb1",
+      "sha256": "8a1be5517644ef47c186568558d72a59cd2c7d497498ef2e895972c2ad00efca",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/Misc/mui-stdcycle.image",
+      "source": "MUI/Images/Misc/mui-stdcycle.image",
+      "sha256": "53f1e8687e9bac779fc6ee8928fbc31bc488e8e0b6e87dfc69ef72896266edf8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/ArrowDown.mf0",
+      "source": "MUI/Images/WD/11pt/ArrowDown.mf0",
+      "sha256": "71cb0a4856c06287d87a733ed306e652b37249f30d9c5c3daa941e773a13de57",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/ArrowDown.mf1",
+      "source": "MUI/Images/WD/11pt/ArrowDown.mf1",
+      "sha256": "fddbd844dfed31c45fd766cd8a4837a7d6b1fe01b9ce9674d0f9446d2b15be61",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/ArrowLeft.mf0",
+      "source": "MUI/Images/WD/11pt/ArrowLeft.mf0",
+      "sha256": "212d349527a07a46b5a2dcdbe7a5c7e1e4e3866876dde5c2b51bb87fdd403c44",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/ArrowLeft.mf1",
+      "source": "MUI/Images/WD/11pt/ArrowLeft.mf1",
+      "sha256": "b2a79ac8b2659a02497a087d389fc31fc2e9500c5b600e265aa641ebe6ca6c42",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/ArrowRight.mf0",
+      "source": "MUI/Images/WD/11pt/ArrowRight.mf0",
+      "sha256": "3b52adde20af30d4827375bc4337b3b27ca648dcf4908490e778c804aa3d43f6",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/ArrowRight.mf1",
+      "source": "MUI/Images/WD/11pt/ArrowRight.mf1",
+      "sha256": "08370bc7426c61a293c7f3d946578ac1afe6cb7280f07c0ed128ec8b6c7c7c58",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/ArrowUp.mf0",
+      "source": "MUI/Images/WD/11pt/ArrowUp.mf0",
+      "sha256": "beaae92ba7c056630ca79180f2322cc4a572a744bd5095b25fdd022c5eecf537",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/ArrowUp.mf1",
+      "source": "MUI/Images/WD/11pt/ArrowUp.mf1",
+      "sha256": "fdc9c7f770b21797de52e94abd4ee12ebf7c0adc2b9710fb3bcb14c7d449251f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/CheckMark.mf0",
+      "source": "MUI/Images/WD/11pt/CheckMark.mf0",
+      "sha256": "812212c49a74dfba1e7bfae8d74573cd9dadbb29bcddbe5c473ad8768356d30e",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/CheckMark.mf1",
+      "source": "MUI/Images/WD/11pt/CheckMark.mf1",
+      "sha256": "8ba225119eaf01e647f42d31c21dcc181b9c34cc7409ec9ad4b059b9043688db",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/Cycle.mbr",
+      "source": "MUI/Images/WD/11pt/Cycle.mbr",
+      "sha256": "5c3819ef45fea3f97561de5bd2dc62a741ff7b2c4b7cff5a6bab99e19030bfa8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/Cycle2.mbr",
+      "source": "MUI/Images/WD/11pt/Cycle2.mbr",
+      "sha256": "e3e9d389878d1c0de7ee220a3056ea483e620032accac1c090c9356ae38f98c8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/PopDrawer.mf0",
+      "source": "MUI/Images/WD/11pt/PopDrawer.mf0",
+      "sha256": "e472b29771b358f7d3ef63828db07fad6f3d88ce0b79553cd32867841f7c9c4f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/PopDrawer.mf1",
+      "source": "MUI/Images/WD/11pt/PopDrawer.mf1",
+      "sha256": "3553e20ea120c97ab23689a803322c4f2f3037a9e1afe6ced26f8bacd13976a9",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/PopFile.mf0",
+      "source": "MUI/Images/WD/11pt/PopFile.mf0",
+      "sha256": "89ff3ea68a7e9e35d2bfd5977be86f6515229b667f4b76d82624079fd617bc9b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/PopFile.mf1",
+      "source": "MUI/Images/WD/11pt/PopFile.mf1",
+      "sha256": "470ad467d8bb81307311f79772fe3d17a5163eb467404c2b40cf9d490465dfbd",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/PopUp.mf0",
+      "source": "MUI/Images/WD/11pt/PopUp.mf0",
+      "sha256": "b837c08ed5ca3ee113348c9cf3fbe4ce986a16b6d67f11d949c3594e137b87c6",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/11pt/PopUp.mf1",
+      "source": "MUI/Images/WD/11pt/PopUp.mf1",
+      "sha256": "9b709f11600f7b24d2031872d04cfdf1e03db887852a7904d638842fc7874933",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/ArrowDown.mf0",
+      "source": "MUI/Images/WD/13pt/ArrowDown.mf0",
+      "sha256": "fcd59dd825ed1b9649cc716d79366e1de10ccde0d833b073634b60024e5ae7c3",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/ArrowDown.mf1",
+      "source": "MUI/Images/WD/13pt/ArrowDown.mf1",
+      "sha256": "4d432b5daa724bae14ed9b65545c2693b2de3d4d852b316cb9b3d09e4e99ce3b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/ArrowLeft.mf0",
+      "source": "MUI/Images/WD/13pt/ArrowLeft.mf0",
+      "sha256": "97ac2ce375a69da54bf9b3c8e6080ec5128ab7cab97338c819b326f1ccded028",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/ArrowLeft.mf1",
+      "source": "MUI/Images/WD/13pt/ArrowLeft.mf1",
+      "sha256": "59f8f16609006a4b6b52b9d44aef10cf503e03c823c709cd11b1c33075c916d8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/ArrowRight.mf0",
+      "source": "MUI/Images/WD/13pt/ArrowRight.mf0",
+      "sha256": "6427124509be444c176e02a2b78e2394f98dec230448f7728ce5b8164d4e949c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/ArrowRight.mf1",
+      "source": "MUI/Images/WD/13pt/ArrowRight.mf1",
+      "sha256": "becb112dc6d54c90b084d9aeb4ada967808b707a7cbc4b6f9b105281b2ec1a70",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/ArrowUp.mf0",
+      "source": "MUI/Images/WD/13pt/ArrowUp.mf0",
+      "sha256": "660dcdb584dc494a6c5cca343a4ab96877ca8947c524ff2ac27e3057cacc0264",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/ArrowUp.mf1",
+      "source": "MUI/Images/WD/13pt/ArrowUp.mf1",
+      "sha256": "35a6988ebfb89be9a220268784d9513e8d00e8de0f3c2b9211ea086eb551b73e",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/CheckMark.mf0",
+      "source": "MUI/Images/WD/13pt/CheckMark.mf0",
+      "sha256": "93f81af98ce25d82f2aaf4f1b683214bb586dddc6dda45279ca867074e2677c4",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/CheckMark.mf1",
+      "source": "MUI/Images/WD/13pt/CheckMark.mf1",
+      "sha256": "b5772d8aa80f345e8b969d8ca93f72b38711cbd2ff5b09ecb3061453a97475e8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/Cycle.mbr",
+      "source": "MUI/Images/WD/13pt/Cycle.mbr",
+      "sha256": "6b528fd366ecfa0e2c918a119deefea0d8e2bcc78d7e7f3062a2762ef2f1cccb",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/Cycle2.mbr",
+      "source": "MUI/Images/WD/13pt/Cycle2.mbr",
+      "sha256": "4e25092500085b54763dc6f57b504e932adc25b5195a14882c87dbe110652b67",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/PopDrawer.mf0",
+      "source": "MUI/Images/WD/13pt/PopDrawer.mf0",
+      "sha256": "e1df6041f78d2cd1e5f77322d88611cb1700376a378fb6488351748480078d64",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/PopDrawer.mf1",
+      "source": "MUI/Images/WD/13pt/PopDrawer.mf1",
+      "sha256": "6ed675822f0e76202b8aeb127d67c3579e1dde1a1b80922976f3eabfd8a005ee",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/PopFile.mf0",
+      "source": "MUI/Images/WD/13pt/PopFile.mf0",
+      "sha256": "8e149e15e4de0ed389810535324122ae01170278e07c98ae9b6af94441fca8d8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/PopFile.mf1",
+      "source": "MUI/Images/WD/13pt/PopFile.mf1",
+      "sha256": "6440e17996b535519b902340a4418e6f763b392461b89c5a63614f16738a5be5",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/PopUp.mf0",
+      "source": "MUI/Images/WD/13pt/PopUp.mf0",
+      "sha256": "5964fc6ec23c628351d540d8be0dda418cb3bcd35ac71e50623cc8eff02d06c9",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/PopUp.mf1",
+      "source": "MUI/Images/WD/13pt/PopUp.mf1",
+      "sha256": "c8976f29ef830f283957ab511bef2c47ed22ec2f4d9a157c23d0ad769c47510c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/RadioButton.mf0",
+      "source": "MUI/Images/WD/13pt/RadioButton.mf0",
+      "sha256": "aa26aa2a0d43a224c2c8672be9ad27bf0991d6b10547ae911e9322d4e35878ff",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/WD/13pt/RadioButton.mf1",
+      "source": "MUI/Images/WD/13pt/RadioButton.mf1",
+      "sha256": "730fe684f5c2011601c19c5f008a55dfb9977ba10e4acb2903851c80fbcaf13f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/ArrowDown.mf0",
+      "source": "MUI/Images/xen/Gradient/11pt/ArrowDown.mf0",
+      "sha256": "116f8bda8cfe32984738f6056fea68b9349e2899f0697cdf164cdcb569a5eced",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/ArrowDown.mf1",
+      "source": "MUI/Images/xen/Gradient/11pt/ArrowDown.mf1",
+      "sha256": "a43d0c4b46b2cd8352390b35a0866f73482a21a478fd66320881bc205eeb7523",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/ArrowLeft.mf0",
+      "source": "MUI/Images/xen/Gradient/11pt/ArrowLeft.mf0",
+      "sha256": "ae806ca9a4691dfb4246e1ce8eb3634cca3770ee6b06b2f9b1b3c232dcce9b81",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/ArrowLeft.mf1",
+      "source": "MUI/Images/xen/Gradient/11pt/ArrowLeft.mf1",
+      "sha256": "c3f929c369c7302dfc0d59a816a13a49e51487475eb454949ed8e0fb232247d8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/ArrowRight.mf0",
+      "source": "MUI/Images/xen/Gradient/11pt/ArrowRight.mf0",
+      "sha256": "b55d3ce721314be36ca399edf692e525203fa7eff4506a7975228ea7238029a2",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/ArrowRight.mf1",
+      "source": "MUI/Images/xen/Gradient/11pt/ArrowRight.mf1",
+      "sha256": "8c82e2e417ea971459d96429675fe9504a6229185f6c4a7576a5a7b5b3f69504",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/ArrowUp.mf0",
+      "source": "MUI/Images/xen/Gradient/11pt/ArrowUp.mf0",
+      "sha256": "f927bdd70c000a3ed5de9a9fc2bd532fd73a45e6d6293097b48b1195d12e729a",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/ArrowUp.mf1",
+      "source": "MUI/Images/xen/Gradient/11pt/ArrowUp.mf1",
+      "sha256": "8fc567500165a45dcb35ed11867a8d3ff7ebc19e831464bd5fe865828b91b306",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/CheckMark.mf0",
+      "source": "MUI/Images/xen/Gradient/11pt/CheckMark.mf0",
+      "sha256": "7dbf6f538e31f0f6013d1128e5a049500057571fa91544d9fb6adaad80a04539",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/CheckMark.mf1",
+      "source": "MUI/Images/xen/Gradient/11pt/CheckMark.mf1",
+      "sha256": "03b6753f33ce81564b16b9c846369501ea87a7e45c292a5c20ad115145fa8da4",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/PopDrawer.mf0",
+      "source": "MUI/Images/xen/Gradient/11pt/PopDrawer.mf0",
+      "sha256": "a1fbffde63b83a8608275e0233f11662321046ce5ad2ddfe41bbbfca19b1ffd7",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/PopDrawer.mf1",
+      "source": "MUI/Images/xen/Gradient/11pt/PopDrawer.mf1",
+      "sha256": "e24232bd8f3f32bbd671ef3b0fe5deedf86818bf54c1baee02a12d0f9905cca4",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/PopFile.mf0",
+      "source": "MUI/Images/xen/Gradient/11pt/PopFile.mf0",
+      "sha256": "c2bee0f5d643fa1a2a4fd3cce8a3bee79ff47a9a478aae587b49ea4724194d9f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/PopFile.mf1",
+      "source": "MUI/Images/xen/Gradient/11pt/PopFile.mf1",
+      "sha256": "7e1482bba7e17b9a01fe39a7bdc4000a097b8c48013839ec3710985b8aa95545",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/PopUp.mf0",
+      "source": "MUI/Images/xen/Gradient/11pt/PopUp.mf0",
+      "sha256": "feff709f248cfe95fb82f0d59e873c2e3b5d62d56dbb03a1e9a74e01d979437d",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/11pt/PopUp.mf1",
+      "source": "MUI/Images/xen/Gradient/11pt/PopUp.mf1",
+      "sha256": "b6939a9bd25d54d3dc6fe0e9d38f42756e5e16c7e2c906a0ad7c894acfca88f4",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/ArrowDown.mf0",
+      "source": "MUI/Images/xen/Gradient/13pt/ArrowDown.mf0",
+      "sha256": "2839b984d4f9f45be7397ff7ac580a58ef97a35a15cb7bc425003da093c4cf5e",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/ArrowDown.mf1",
+      "source": "MUI/Images/xen/Gradient/13pt/ArrowDown.mf1",
+      "sha256": "6fe94a741d3c11d67d0367bda6379f4d2307aae006ed1588e9e580a9228a09a4",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/ArrowLeft.mf0",
+      "source": "MUI/Images/xen/Gradient/13pt/ArrowLeft.mf0",
+      "sha256": "457a40c4b7a9160e8be42ee8e3eae272c3a1b076628d33324830c949021f4f13",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/ArrowLeft.mf1",
+      "source": "MUI/Images/xen/Gradient/13pt/ArrowLeft.mf1",
+      "sha256": "0dfceec2c09b7c686a444dd8ed117e6253398d0fcb77169f53cf07c52693dec7",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/ArrowRight.mf0",
+      "source": "MUI/Images/xen/Gradient/13pt/ArrowRight.mf0",
+      "sha256": "6a44b8aa5246303811385043177f2eadb436efb5619731a5c93c1add8e837a25",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/ArrowRight.mf1",
+      "source": "MUI/Images/xen/Gradient/13pt/ArrowRight.mf1",
+      "sha256": "836fbd52ee2f94509e581907de32614cfe014c93c20e5d151e60c6ada842ef98",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/ArrowUp.mf0",
+      "source": "MUI/Images/xen/Gradient/13pt/ArrowUp.mf0",
+      "sha256": "48d9a94078b3b6f7a39bbd7118858a480d0580039d10e9b9f80a412ec8632efc",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/ArrowUp.mf1",
+      "source": "MUI/Images/xen/Gradient/13pt/ArrowUp.mf1",
+      "sha256": "a715fe144ef6d53d9b5243d3391d56858c0a3fd33df2c76c2571eb82d5ab3476",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/CheckMark.mf0",
+      "source": "MUI/Images/xen/Gradient/13pt/CheckMark.mf0",
+      "sha256": "46a581c90ca70f78201c37afc9e9838931b52c0276ca93ca6c5ea0044e965139",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/CheckMark.mf1",
+      "source": "MUI/Images/xen/Gradient/13pt/CheckMark.mf1",
+      "sha256": "29776e072f7c8e05836b4ac554c71444b363beb1211ef62a84f384fa5647fd25",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/PopDrawer.mf0",
+      "source": "MUI/Images/xen/Gradient/13pt/PopDrawer.mf0",
+      "sha256": "7e68d63af12e8fb23b50cb298e61ce3444848fa28bb6732b17ccff052d1039ba",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/PopDrawer.mf1",
+      "source": "MUI/Images/xen/Gradient/13pt/PopDrawer.mf1",
+      "sha256": "e66ec0dcfdc493356f41f7757e529e54a8fb63ac9cf3ddf752f611b026294efd",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/PopFile.mf0",
+      "source": "MUI/Images/xen/Gradient/13pt/PopFile.mf0",
+      "sha256": "49cd1343c7a39f35a464918638c61f902e806340e77f075d588966bf9874b990",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/PopFile.mf1",
+      "source": "MUI/Images/xen/Gradient/13pt/PopFile.mf1",
+      "sha256": "f089a3745de4d02db2370516a33a1e37cd55db37883beb490b1e7943cc162215",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/PopUp.mf0",
+      "source": "MUI/Images/xen/Gradient/13pt/PopUp.mf0",
+      "sha256": "cde8ebc65a2560816f986a13ebd1db66614cd6bc3bc8d39cd60ce04dce8c2553",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Gradient/13pt/PopUp.mf1",
+      "source": "MUI/Images/xen/Gradient/13pt/PopUp.mf1",
+      "sha256": "67bcca1c28f84391883600597b0a60f25b46f1cf7e36eb7e61ceb9b8b590e34d",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/ArrowDown.mf0",
+      "source": "MUI/Images/xen/Plain/11pt/ArrowDown.mf0",
+      "sha256": "f221e5f97e3bc080d7c67fce27f1596ebbdfbabc5bfa006b8af2422f154cdeab",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/ArrowDown.mf1",
+      "source": "MUI/Images/xen/Plain/11pt/ArrowDown.mf1",
+      "sha256": "f5db4d1962bcafab5364951b2763cac55e87103ab21c6808bbda695ea9b7aa4f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/ArrowLeft.mf0",
+      "source": "MUI/Images/xen/Plain/11pt/ArrowLeft.mf0",
+      "sha256": "1ea2547e6ff2e6b919bdcf334f89799a6744b84a86c2a4d8cf73444dc711f59b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/ArrowLeft.mf1",
+      "source": "MUI/Images/xen/Plain/11pt/ArrowLeft.mf1",
+      "sha256": "f6f287f82fb1d519ea981d1bce6f05936930e00489665028f40f15c16825fbdf",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/ArrowRight.mf0",
+      "source": "MUI/Images/xen/Plain/11pt/ArrowRight.mf0",
+      "sha256": "31189446c5e4aa7a42c130a1f3a613542a81a2ff30d1d7bd5337ab62a2a414ec",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/ArrowRight.mf1",
+      "source": "MUI/Images/xen/Plain/11pt/ArrowRight.mf1",
+      "sha256": "b74846b6250ddcb1b2bd3317e134d49ead2348d6164ae883a6c9269922006c5f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/ArrowUp.mf0",
+      "source": "MUI/Images/xen/Plain/11pt/ArrowUp.mf0",
+      "sha256": "a9ae2e63366e2cb110232f345541e72b93739cb91c1e3d14873a134284b656f7",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/ArrowUp.mf1",
+      "source": "MUI/Images/xen/Plain/11pt/ArrowUp.mf1",
+      "sha256": "4286dc3e84bcdd4e2317d69d2385b81252591472eb97fd6fa47ada9d97ae7d0d",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/CheckMark.mf0",
+      "source": "MUI/Images/xen/Plain/11pt/CheckMark.mf0",
+      "sha256": "ef8270ff9f199b87b621eb947484a8e1ad5c75f90479ff86f9d1db20ca3b3168",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/CheckMark.mf1",
+      "source": "MUI/Images/xen/Plain/11pt/CheckMark.mf1",
+      "sha256": "6797903dccc8e33c4d46077ba674a692754b548f1ded4e6ed391d42970e539e2",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/Chip.mbr",
+      "source": "MUI/Images/xen/Plain/11pt/Chip.mbr",
+      "sha256": "c2c131c6ccb53d927acb505699d76e8047a23dde1116c82d92bbdaa7d47028ae",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/Cycle.mbr",
+      "source": "MUI/Images/xen/Plain/11pt/Cycle.mbr",
+      "sha256": "71b8f7f2c305e698ad3d5f166ed1fa797a227cbbdd09b0fa4335a6ef059dfb1c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/Disk.mbr",
+      "source": "MUI/Images/xen/Plain/11pt/Disk.mbr",
+      "sha256": "0208caeeb7bedb74ae32de6188220ac6376c1f874e4d4ebd8b99aeb53705c7f1",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/Drawer.mbr",
+      "source": "MUI/Images/xen/Plain/11pt/Drawer.mbr",
+      "sha256": "fe89dac44281b694372a01c64f148d22eae6b6d043bcd764daefef5b8d1be1bd",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/Drawer2.mbr",
+      "source": "MUI/Images/xen/Plain/11pt/Drawer2.mbr",
+      "sha256": "970dbacca190b9965329894de6a53e3afef492f1fbae4cddb7fcd03d58961c14",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/Harddisk.mbr",
+      "source": "MUI/Images/xen/Plain/11pt/Harddisk.mbr",
+      "sha256": "af9321dea189c056eae64dc48f27c561e836f4d1fff9e152f698d8e4ee06ac6a",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/PopDrawer.mf0",
+      "source": "MUI/Images/xen/Plain/11pt/PopDrawer.mf0",
+      "sha256": "41b31325b13496da06d36560dedbc828f77b99ace88b3ecec424c9bb8c8fe6b8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/PopDrawer.mf1",
+      "source": "MUI/Images/xen/Plain/11pt/PopDrawer.mf1",
+      "sha256": "2289c052a16215eb25a2af708b7ffaa5192454f1f6a05cfd887243d66d59fa45",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/PopFile.mf0",
+      "source": "MUI/Images/xen/Plain/11pt/PopFile.mf0",
+      "sha256": "ec4d87107a031dee934c560c5967faf8e15fb2a9071b7b44726029275fe8fdec",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/PopFile.mf1",
+      "source": "MUI/Images/xen/Plain/11pt/PopFile.mf1",
+      "sha256": "b4ed183aed4a9bff4e3667ca178717cf6e7d322ce6b58dca35313b538a972f8d",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/PopUp.mf0",
+      "source": "MUI/Images/xen/Plain/11pt/PopUp.mf0",
+      "sha256": "fcd345ed6551267d46e17ae2b57646d8a5636c286df856636b924bc5f9cad872",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/PopUp.mf1",
+      "source": "MUI/Images/xen/Plain/11pt/PopUp.mf1",
+      "sha256": "ce3b432b821737b03fa3cced4f6b4711fe88c08a2ba6b2dfc3f9f654b0cc6dc3",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/RadioButton.mf0",
+      "source": "MUI/Images/xen/Plain/11pt/RadioButton.mf0",
+      "sha256": "c717bdfeaefd081dc0518f8f9c6d8cd7b362b8d651d51bc89482404004ae07e1",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/RadioButton.mf1",
+      "source": "MUI/Images/xen/Plain/11pt/RadioButton.mf1",
+      "sha256": "5270a781ea93f1e62c00d5941971ca1121bed1e275253a05bcc76c5565e2c656",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/11pt/Volume.mbr",
+      "source": "MUI/Images/xen/Plain/11pt/Volume.mbr",
+      "sha256": "702a533b08a828209bcdf90a5bd2eca0df069cdfd6b7985dd7bfe8a3b32136b7",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/ArrowDown.mf0",
+      "source": "MUI/Images/xen/Plain/13pt/ArrowDown.mf0",
+      "sha256": "dadd5ecf8a8966a53422cb93bba3efc5107c8e0553cdd628329b3c05e16099b7",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/ArrowDown.mf1",
+      "source": "MUI/Images/xen/Plain/13pt/ArrowDown.mf1",
+      "sha256": "3fc99643da1968683656fae6c91d2cfc91bbdaf3d1707d054439cfef367ccf2f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/ArrowLeft.mf0",
+      "source": "MUI/Images/xen/Plain/13pt/ArrowLeft.mf0",
+      "sha256": "b9d231fca49e6acdf0aaeea89fa210c56cef21c87488d34f4ddb03057a03a5ab",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/ArrowLeft.mf1",
+      "source": "MUI/Images/xen/Plain/13pt/ArrowLeft.mf1",
+      "sha256": "719e422dade366d67fa931a088594b355adca12d9db8a802e9d7b226df368227",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/ArrowRight.mf0",
+      "source": "MUI/Images/xen/Plain/13pt/ArrowRight.mf0",
+      "sha256": "9bf035caceae6fd91ee184d42ec6f5051fa2303f8ac5d8e6fbf2b4275269f5e9",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/ArrowRight.mf1",
+      "source": "MUI/Images/xen/Plain/13pt/ArrowRight.mf1",
+      "sha256": "c92d7dc8111705cd983410ff3fc7be18ed8142f7c72f3e9df7fb5dccb9d930bc",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/ArrowUp.mf0",
+      "source": "MUI/Images/xen/Plain/13pt/ArrowUp.mf0",
+      "sha256": "e00dfe4617d2de57331acf91b4f9656a9f485322e7e201c6caa656e2aa29102d",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/ArrowUp.mf1",
+      "source": "MUI/Images/xen/Plain/13pt/ArrowUp.mf1",
+      "sha256": "2f17a6f424f39dc4af73c41385aa1338a0fdd0a97579a9cb9b66513575df7163",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/CheckMark.mf0",
+      "source": "MUI/Images/xen/Plain/13pt/CheckMark.mf0",
+      "sha256": "93f81af98ce25d82f2aaf4f1b683214bb586dddc6dda45279ca867074e2677c4",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/CheckMark.mf1",
+      "source": "MUI/Images/xen/Plain/13pt/CheckMark.mf1",
+      "sha256": "4378a433a4defaa5c156f8d61bdb85760ab04f4bd33e273617954024e44dab64",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/Chip.mbr",
+      "source": "MUI/Images/xen/Plain/13pt/Chip.mbr",
+      "sha256": "6db1aefb60c0025c65c7b58949373aeec38f5e9019e7cf53ff50b03448126d2a",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/Cycle.mbr",
+      "source": "MUI/Images/xen/Plain/13pt/Cycle.mbr",
+      "sha256": "ba5b0a7ce8eeb1e41a492db8945616dc6b1a1bcb84f7a639db9a594b48065d57",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/Disk.mbr",
+      "source": "MUI/Images/xen/Plain/13pt/Disk.mbr",
+      "sha256": "890cf3233000d15b0b0e65a1bbbd17d178cb66a1fb3ef7855e546158e31eb4e1",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/Drawer.mbr",
+      "source": "MUI/Images/xen/Plain/13pt/Drawer.mbr",
+      "sha256": "f9a015868606b447e0a8e11021ca0dcac89b58ed6eedbeea02820d24699cbc6b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/Drawer2.mbr",
+      "source": "MUI/Images/xen/Plain/13pt/Drawer2.mbr",
+      "sha256": "8fe0077dc7c1397afdd4d9bd9d1007568c183d012d3cfef1315c5467f065c42c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/Harddisk.mbr",
+      "source": "MUI/Images/xen/Plain/13pt/Harddisk.mbr",
+      "sha256": "db3ccd16f7aba744d1e3c59a58924162455a03f33c8c808f6189b65a1c1d79a7",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/PopDrawer.mf0",
+      "source": "MUI/Images/xen/Plain/13pt/PopDrawer.mf0",
+      "sha256": "cd34ad33fba5412af527717bc7696305094d66c5f503bfc07918d4140e356a8e",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/PopDrawer.mf1",
+      "source": "MUI/Images/xen/Plain/13pt/PopDrawer.mf1",
+      "sha256": "c20380dfd6fcad4e48a9e73c8498877fabcb1c71531c3170762d95b1b85dd5dc",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/PopFile.mf0",
+      "source": "MUI/Images/xen/Plain/13pt/PopFile.mf0",
+      "sha256": "81d178d6985a5b9f771fdda77dbe2921469d7cfc3237699793c6f1018c1022c9",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/PopFile.mf1",
+      "source": "MUI/Images/xen/Plain/13pt/PopFile.mf1",
+      "sha256": "c02d4b16221529f91181591522c4230724e90131647313f0aa967b09ad63d2ed",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/PopUp.mf0",
+      "source": "MUI/Images/xen/Plain/13pt/PopUp.mf0",
+      "sha256": "4b43f953b59635ddf3b8ad163a6295ab9e33a8e959b03f4bf1c559763a96a5f4",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/PopUp.mf1",
+      "source": "MUI/Images/xen/Plain/13pt/PopUp.mf1",
+      "sha256": "d584af698b8e8580003c19b2894d16780bd4eed0578a67961a4abc2415a58151",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/RadioButton.mf0",
+      "source": "MUI/Images/xen/Plain/13pt/RadioButton.mf0",
+      "sha256": "c717bdfeaefd081dc0518f8f9c6d8cd7b362b8d651d51bc89482404004ae07e1",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/RadioButton.mf1",
+      "source": "MUI/Images/xen/Plain/13pt/RadioButton.mf1",
+      "sha256": "5270a781ea93f1e62c00d5941971ca1121bed1e275253a05bcc76c5565e2c656",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Plain/13pt/Volume.mbr",
+      "source": "MUI/Images/xen/Plain/13pt/Volume.mbr",
+      "sha256": "b9ccf1d44a4f080421aee646b8c3034d1beba8c971d7a5b6261e4e8238a87df3",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Scrollbars/xenbar.image",
+      "source": "MUI/Images/xen/Scrollbars/xenbar.image",
+      "sha256": "7a6a37850e2b211e18ed20f348baf92a5b0e053be3d9ec05b157d1f36c8c3d34",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Images/XEN/Scrollbars/xenbar2.image",
+      "source": "MUI/Images/xen/Scrollbars/xenbar2.image",
+      "sha256": "ece00c3523310878a968cfc0c9e151eeb2eec401835beb632fcddd0742661f6c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs.info",
+      "sha256": "7d91c39aeda1755f7e2a63935c0ee33ca2a6bad8ba718a35f131008d974f5818",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Aboutmui.mui",
+      "source": "MUI/Libs/mui/Aboutmui.mui",
+      "sha256": "08cd80f96a7e2c3ebfe5413b60512d2b47d4fa48c9c8adb51540f57f1898f349",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/BetterString.mcc",
+      "archive": "AmigaSYS4-AGA-R1.3.lha",
+      "source": "AmigaSYS4-AGA-R1.3/AmigaOSGlobal/MUI/Old/Better11.15/BetterString.mcc",
+      "sha256": "644df58953a917f2e740d64d6d378ca26e17a636d59ffcc512caddb79dc5a2e1",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/BetterString.mcp",
+      "archive": "AmigaSYS4-AGA-R1.3.lha",
+      "source": "AmigaSYS4-AGA-R1.3/AmigaOSGlobal/MUI/Old/Better11.15/BetterString.mcp",
+      "sha256": "e8f386d645ea362992623156b1756bf74c8b1c7b33c846a02d4a96ec81fa2291",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Boopsi.mui",
+      "source": "MUI/Libs/mui/Boopsi.mui",
+      "sha256": "39bb2e32baf341a770c3730d9bbab7e2464aacddfe6c9f418b8d546462ca09ca",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Busy.mcc",
+      "source": "MUI/Libs/mui/Busy.mcc",
+      "sha256": "c9721ef135da4244ce5d6d2be91911e98395e2b575251e70ae971b596d099b20",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Busy.mcp",
+      "source": "MUI/Libs/mui/Busy.mcp",
+      "sha256": "202139f86a18adc1c139319757327775c52a9776cdc4a713e34d061f5532a6ce",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/BWin.mcc",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/BWin.mcc",
+      "sha256": "a0732b398ebf6af6b9f2ada970cce22e5e9ab00c894f06aeb075bd38aaf2f212",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/BWin.mcp",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/BWin.mcp",
+      "sha256": "81846370dfe09915a565072813d4927473bede43c7bec908ad9d881594779856",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Coloradjust.mui",
+      "source": "MUI/Libs/mui/Coloradjust.mui",
+      "sha256": "73cb5ce693b78ec99fd5f41835ca4c79332fcadb9605dd1b040f08a44dbe29ee",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Colorfield.mui",
+      "source": "MUI/Libs/mui/Colorfield.mui",
+      "sha256": "81f6a04e67b7bb6bc7cfd53cc4902eeb1dbc4be7e12a1be4f731d06ee902d8d2",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Crawling.mcc",
+      "source": "MUI/Libs/mui/Crawling.mcc",
+      "sha256": "99d51cc4321e93b37947e02713fae25d10b8ca4765f01062919c3f4c2243090a",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Dirlist.mui",
+      "source": "MUI/Libs/mui/Dirlist.mui",
+      "sha256": "7e1fb679570402bd2390eb590f2b4ee04e9177e8e0d92752c2bc84bda9a90d2c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Dtpic.mui",
+      "source": "MUI/Libs/mui/Dtpic.mui",
+      "sha256": "b557ef55b0110a5ac0d17a95691d0104da3e71a5ab8870e16f7d7502152b973b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Floattext.mui",
+      "source": "MUI/Libs/mui/Floattext.mui",
+      "sha256": "ea006a4eb0148e1ffd9493cfc2fd7eb20c3bde1881725e947e1be45a98314313",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Frameadjust.mui",
+      "source": "MUI/Libs/mui/Frameadjust.mui",
+      "sha256": "b1065cd128b88280c17f67276ce7a80c4fe91e3111fd691b02f5569059065a87",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Framedisplay.mui",
+      "source": "MUI/Libs/mui/Framedisplay.mui",
+      "sha256": "81f1b1b866059261e50b6530f94c3022c5d1c5ddfcad0137c0b9fb303300d1d4",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Gauge.mui",
+      "source": "MUI/Libs/mui/Gauge.mui",
+      "sha256": "79de58c43eeafd5cc1338d13b8728df2f093dcc59f60e0a100164662f51699ba",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/GIFAnim.mcc",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Libs/mui/GIFAnim.mcc",
+      "sha256": "6784b829d4d6dd179c05a75321aacf733a9bd0e712fec44304a5607fb38976f5",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Guigfx.mcc",
+      "source": "MCC_Guigfx/Libs/MUI/Guigfx.mcc",
+      "sha256": "088e886abdbbe5698d04ee8d3ba61043fa0b27db84e39e0168d8716bee20221f",
+      "protection": 2,
+      "comment": "",
+      "archive": "MCC_Guigfx.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/HotkeyString.mcc",
+      "archive": "AmigaSYS4-AGA-R1.3.lha",
+      "source": "AmigaSYS4-AGA-R1.3/AmigaOSGlobal/MUI/Old/Better11.15/HotkeyString.mcc",
+      "sha256": "2500ca2226ce7c19692e23f49faa9aaa36213626aa2941eff79e55a0d0103d5f",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/HTMLtext.mcc",
+      "source": "MCC_HTMLtext/Libs/MUI/HTMLtext020.mcc",
+      "sha256": "4e28d3cf3d31e5a76fd839afca4911ba9818c7d91e2c3f96cd703527585825a8",
+      "protection": 2,
+      "comment": "",
+      "archive": "MCC_HTMLtext.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/HTMLtext.mcp",
+      "source": "MCC_HTMLtext/Libs/MUI/HTMLtext.mcp",
+      "sha256": "c6f4b4f5de5e0b7b355245b01ddb0a0631226e69b74a7cc32c6b796fef8c2927",
+      "protection": 2,
+      "comment": "",
+      "archive": "MCC_HTMLtext.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Icon.mcc",
+      "archive": "classicwb-full",
+      "source": "MyFiles/Install/Icons/Enable/System/MUI/Libs/MUI/Icon.mcc",
+      "sha256": "d82bb011ea4a3df7c5751764bbf705817f1f03ae4a519f512ba4c200eb11c166",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Imageadjust.mui",
+      "source": "MUI/Libs/mui/Imageadjust.mui",
+      "sha256": "9f6ed9e28afc17b9a7e355a5b4b4e3dfcff6888d34b2448bed98e58c04de7f75",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/ImageButton.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/ImageButton.mcc",
+      "sha256": "413035a51fabdf997cd53e85a27e2840569fee417bb31c5996c0b20d914fbf5b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Imagedisplay.mui",
+      "source": "MUI/Libs/mui/Imagedisplay.mui",
+      "sha256": "eacd76bcb514dc9e6d9d0c408c985a06a72ddede2025b6ed7908651f7c6bc2b7",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Knob.mui",
+      "source": "MUI/Libs/mui/Knob.mui",
+      "sha256": "6f9998cf5eda32eab6df112e03303edb7ec09864faeb660af955dcfc04b9b6ab",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Levelmeter.mui",
+      "source": "MUI/Libs/mui/Levelmeter.mui",
+      "sha256": "b0430aed059fc777428603349ffeb03d17f9a294307edf6d4a10b1868e65bb6b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Listtree.mcc",
+      "source": "MUI/Libs/mui/Listtree.mcc",
+      "sha256": "a5ea5252beb593df1c9ba739356df78c9e504629e4deddccc236daa3909919b3",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Listtree.mcp",
+      "source": "MUI/Libs/mui/Listtree.mcp",
+      "sha256": "3af6d6aa598125783d6ab7cbd3b53dfc6c463bacfb814f344de7984ad184341d",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/ListtreeName.mcc",
+      "source": "MUI/Libs/mui/ListtreeName.mcc",
+      "sha256": "b57e4c9f9f481226102798445b7e6981f36ef4cd39e03a3c6304e7aede166a91",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/MCPFrame.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/MCPFrame.mcc",
+      "sha256": "08dc74f6f0bb966489e9c931e9d0aa3d3177f629bab0c2a817572dc1e0a6dbec",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/MonthNavigator.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/MonthNavigator.mcc",
+      "sha256": "d5c07ef0c10e1996e711c632d871054bdd197b900bbcbeee06b52a1f10765e4c",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/MonthNavigator.mcp",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/MonthNavigator.mcp",
+      "sha256": "88eb0a041de7d72b963134f9bd80c9be9cef6248ca3266807edffed9fe37fe6c",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/NewString.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NewString.mcc",
+      "sha256": "5fef8836a3134b27fc161f5a50e2190aa39fedc7a18fe6a503647c2d2caca568",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/NewString.mcp",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NewString.mcp",
+      "sha256": "52af89764db9c2bf9764a834d2174c455630fd8fbc758d9f529ae2c7dd8f2b79",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/NFloattext.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NFloattext.mcc",
+      "sha256": "296a990c76bd8c9dba94a4f73985975816efa6e79307fe0a8f2e77aa954d3f18",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/NList.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NList.mcc",
+      "sha256": "a461388bf76530fc3fa8fab70dc14922824e0161298e3da2d84fd1a08d6717bc",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/NListtree.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NListtree.mcc",
+      "sha256": "dbaf1b92ae7857a0be409fd07baa43292fe1f8e49c6f67507e4f74126218090b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/NListtree.mcp",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NListtree.mcp",
+      "sha256": "6f48a88ca04cde3fc4923aa36b0ffc74e537f94c8f50008329d0f557d5ff53b1",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/NListview.mcc",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NListview.mcc",
+      "sha256": "fb77ab2bf74964fee54e90418a7a5312928ebd4f5f4c9cd1f55d5cded7414d57",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/NListviews.mcp",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Libs/mui/NListviews.mcp",
+      "sha256": "1c533a2cb562cfd3ca3567e625792ca95f31348134f5d9c2c7873d03c00261b4",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Numericbutton.mui",
+      "source": "MUI/Libs/mui/Numericbutton.mui",
+      "sha256": "28d2d532595523dfd00b22610ae3060a25b4bf182675347faead0ff28cd5e614",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Palette.mui",
+      "source": "MUI/Libs/mui/Palette.mui",
+      "sha256": "8244406c3342062de3802b4eef47b4569bbed77fe0c81acc5ff750e5a2dc3f21",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Penadjust.mui",
+      "source": "MUI/Libs/mui/Penadjust.mui",
+      "sha256": "77f671bcaaf515e9921cae56ea4e4d50ca5da7ebd4ad9feba120fa881260ab3b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Pendisplay.mui",
+      "source": "MUI/Libs/mui/Pendisplay.mui",
+      "sha256": "96da35318fe150e7adb7ade2d4ac344eaed74a54bf05ed85dad58a017144df4c",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Popasl.mui",
+      "source": "MUI/Libs/mui/Popasl.mui",
+      "sha256": "057714717140413a75370292ebc8220e6342a7ab41031f39e11d53dda1fda78f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Popframe.mui",
+      "source": "MUI/Libs/mui/Popframe.mui",
+      "sha256": "58854c60fa21b9a98ed7796b047170cb07b8742fcbfacfd7e93cb6a750d8c6df",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Popimage.mui",
+      "source": "MUI/Libs/mui/Popimage.mui",
+      "sha256": "accb31628940db46539218bb16fb118c208491128fb2ea0362ab2d72cc124684",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Poppen.mui",
+      "source": "MUI/Libs/mui/Poppen.mui",
+      "sha256": "5536af9d636d06d74549b0f9f888cc46f99521e4b5b32bbeddb17a012d0cdde8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Popscreen.mui",
+      "source": "MUI/Libs/mui/Popscreen.mui",
+      "sha256": "886a9b3fad96af3a25b9d0988ba0e04e79ed75985e78aa21eaf5e1f886cb8ca2",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Scale.mui",
+      "source": "MUI/Libs/mui/Scale.mui",
+      "sha256": "463780516d4f9893e912548b71794a4d51504b6dc9eeca38b577e3cd6257d6fe",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Scrollgroup.mui",
+      "source": "MUI/Libs/mui/Scrollgroup.mui",
+      "sha256": "f1dc29d96cb639abb3760cbd981c8f7abb0e7f57d7ac1b357d0bcb1ee0615099",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Settings.mui",
+      "source": "MUI/Libs/mui/Settings.mui",
+      "sha256": "076bd34822219f233e1d56e28ceb62dcb07dc8591c30b3d81d2d31a52924eff0",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Settingsgroup.mui",
+      "source": "MUI/Libs/mui/Settingsgroup.mui",
+      "sha256": "0d51e66ea0d515b670efc92c07c626275ce243d03f88c451a5811959437b0efb",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/SpeedBar.mcc",
+      "source": "MCC_SpeedBar/MUI/SpeedBar.mcc",
+      "sha256": "303231b30725229969e84600a483daee9a58d7a055f12a4fb3bbbb1b75c408a4",
+      "protection": 2,
+      "comment": "",
+      "archive": "MCC_SpeedBar.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/SpeedBar.mcp",
+      "source": "MCC_SpeedBar/MUI/SpeedBar.mcp",
+      "sha256": "e66243e43254e5ee02a2b108bf42dbc0b14fb1e5768268cf96230f8f8baf3345",
+      "protection": 2,
+      "comment": "",
+      "archive": "MCC_SpeedBar.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/SpeedBarCfg.mcc",
+      "source": "MCC_SpeedBar/MUI/SpeedBarCfg.mcc",
+      "sha256": "228026ea700b6166ef00648a524a16830b03f6f63da3a97525a0754337b55b23",
+      "protection": 2,
+      "comment": "",
+      "archive": "MCC_SpeedBar.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/SpeedBarVirt.mcc",
+      "source": "MCC_SpeedBar/MUI/SpeedBarVirt.mcc",
+      "sha256": "3d3845cf4749c1e72fed26440c8fa18fe9f7023aae7e89779500d738ecf68481",
+      "protection": 2,
+      "comment": "",
+      "archive": "MCC_SpeedBar.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/SpeedButton.mcc",
+      "source": "MCC_SpeedBar/MUI/SpeedButton.mcc",
+      "sha256": "d6e67252cb2e16e03c3d7e9a5e62d3af88e6d01087b961022cc6cb67d7554534",
+      "protection": 2,
+      "comment": "",
+      "archive": "MCC_SpeedBar.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/TextEditor.mcc",
+      "archive": "AmigaSYS4-AGA-R1.3.lha",
+      "source": "AmigaSYS4-AGA-R1.3/AmigaOSGlobal/MUI/Old/Texteditor15.27/TextEditor.mcc",
+      "sha256": "fc0eca3f1511b90308b03ae6e236cf3358a713b2467a4518122ff83b6c46d0be",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/TextEditor.mcp",
+      "archive": "AmigaSYS4-AGA-R1.3.lha",
+      "source": "AmigaSYS4-AGA-R1.3/AmigaOSGlobal/MUI/Old/Texteditor15.27/TextEditor.mcp",
+      "sha256": "24ad4c5cb536b22ebae7196b5f8f9806e3fe5932ef71c0fce56427f51fe41ff7",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Virtgroup.mui",
+      "source": "MUI/Libs/mui/Virtgroup.mui",
+      "sha256": "a072bd5b729bb4b89cd7a8db313120ce4901e0ba4aed362715fb3de1b84bf3e6",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/mui/Volumelist.mui",
+      "source": "MUI/Libs/mui/Volumelist.mui",
+      "sha256": "b582bb869d00318238fce173b53189ff872a0b79caeed61617fc7d69cc65c3d8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muiconfig.library",
+      "source": "MUI/Libs/muiconfig.library",
+      "sha256": "31358fd420dee03752e14422d457026bc530b4d855a1ca9d331b58c3bb1a5377",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muigfx.library",
+      "source": "MUI/Libs/muigfx.library",
+      "sha256": "5d1078e94a15b7538ce8228401693dff56f3bd31bf37ab5ddf697ea0abd538ff",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muihelp.library",
+      "source": "MUI/Libs/muihelp.library",
+      "sha256": "c653222054d6dd65c4f90ccd8549ec1640e90c7c57f4c83c68bede121eda0ef1",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muilocale.library",
+      "source": "MUI/Libs/muilocale.library",
+      "sha256": "b387be594ead3fcf83a94ad878179822afd6aa256d5715d7e7b0adf95abde502",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muilowlevel.library",
+      "source": "MUI/Libs/muilowlevel.library",
+      "sha256": "c2575e6373a400a9fbe8bedcbbbdfdbf9c357858999dee54d2c5e5ca26914eb1",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muimaster.library",
+      "source": "MUI/Libs/muimaster.library",
+      "sha256": "22ba0a4e36cc9f9bd7baa2946340164f21c8d8feedf6c4738fb8533fd24ca8d1",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muipop.library",
+      "source": "MUI/Libs/muipop.library",
+      "sha256": "04d795db526252d1642de549ea8347efca4c17b8768db3ccfb3e89ee2a612831",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muipropg.class",
+      "source": "MUI/Libs/muipropg.class",
+      "sha256": "46c0b4c9565909320847156e5a8a2f6b6645fdacb9392d13a0d582c386ffdcf9",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muirexx.library",
+      "source": "MUI/Libs/muirexx.library",
+      "sha256": "719fda3f65d9465f55f66b99c0ae7e67fe678e08ed420da04b7c1d036f56c6ec",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muiscreen.library",
+      "source": "MUI/Libs/muiscreen.library",
+      "sha256": "8571a0aa74605277c3b6fd207bf62f1e86ec9f8f9d912f29d0728e0f9512b5a6",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muispecial.library",
+      "source": "MUI/Libs/muispecial.library",
+      "sha256": "15b2bb0fef1c458cd2879e6c8cb99900c19d7292e220cc3f4dc0d5290893c969",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muiwinborder.class",
+      "source": "MUI/Libs/muiwinborder.class",
+      "sha256": "28d099be3e534075cb995bc4b5b8dd81c42e79ca366f01c1bd42150d0f3a2386",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Libs/muiwinscroller.class",
+      "source": "MUI/Libs/muiwinscroller.class",
+      "sha256": "a667e987d7e3e4c0cdcd7df8534e4c79697119b80d5984e6269dcbf060371bf1",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Locale.info",
+      "sha256": "79fcf17f34275aa142ea1ce05e0635c035e731af3bfdb73a27e88ad8f50300b0",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/catalÃ /mui.catalog",
+      "source": "MUI/Locale/Catalogs/catalω/mui.catalog",
+      "sha256": "e30c56d3bee68fdd3a8c28def3188e8e5282d90b32d34e93dfef5fe110198247",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/catalÃ /psi.catalog",
+      "source": "MUI/Locale/Catalogs/catalω/psi.catalog",
+      "sha256": "693cf573c23dca909b4d9522e6da1ec99ce1cdd62d7a5773bd5ef65b76e3adf6",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/czech/mui.catalog",
+      "source": "MUI/Locale/Catalogs/czech/mui.catalog",
+      "sha256": "fd9e87a6e36cc87d5ccbc6a972c71bd83c896f4b8391c0cddabd47e14cd3ad5f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/czech/psi.catalog",
+      "source": "MUI/Locale/Catalogs/czech/psi.catalog",
+      "sha256": "a73aa24a2ebca400becd83383d207419bc16ab71b3e0f7fdbe509d132336e8e3",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/dansk/mui.catalog",
+      "source": "MUI/Locale/Catalogs/dansk/mui.catalog",
+      "sha256": "819266442e33d51af58898ad3f8a421605f2551bd90e2ee95ac263cf82680ca9",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/dansk/psi.catalog",
+      "source": "MUI/Locale/Catalogs/dansk/psi.catalog",
+      "sha256": "6d30c98b7ff1318544a3b0063e1b0a52860659102ea814cedd7ae04074a10524",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/deutsch/FileID_lib.catalog",
+      "archive": "classicwb-os39",
+      "source": "System/MUI/Locale/Catalogs/deutsch/FileID_lib.catalog",
+      "sha256": "81f2e90fb2f90efeeb6ca7c73040f9b06aa677801767bf1c6c8a6059e7e06d61",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/deutsch/mui.catalog",
+      "source": "MUI/Locale/Catalogs/deutsch/mui.catalog",
+      "sha256": "1fb5bd7eb412db8c489813d11d7e43d5001f532f1929e29c1e0bb0d4d2823772",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/deutsch/psi.catalog",
+      "source": "MUI/Locale/Catalogs/deutsch/psi.catalog",
+      "sha256": "2973fac6fa54c90cb3cf61d4e54e2533be5624d126d8c87ced1316f1259817f8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/franÃ§ais/mui.catalog",
+      "source": "MUI/Locale/Catalogs/franύais/mui.catalog",
+      "sha256": "dae03168521006710df3eeecd6b55a5c1fcc7007826c9ab1420b76b274b7213d",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/franÃ§ais/psi.catalog",
+      "source": "MUI/Locale/Catalogs/franύais/psi.catalog",
+      "sha256": "96be4c98bf8c9226f506bb2b6a0f3700d36944c95111e81ec39705f93f378d0b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/greek/mui.catalog",
+      "source": "MUI/Locale/Catalogs/greek/mui.catalog",
+      "sha256": "efd9fca765d75685697c48bb95f030bb0b3eadafa517d9609423c7373101ae0d",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/greek/psi.catalog",
+      "source": "MUI/Locale/Catalogs/greek/psi.catalog",
+      "sha256": "acf71795cd881051481e934a2626eb7b738df028dfcf0a1800c009c80369726b",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/italiano/mui.catalog",
+      "source": "MUI/Locale/Catalogs/italiano/mui.catalog",
+      "sha256": "daae82d074a7859230c072f768f6f90ce00d12898ebb396061c622eff529c3d0",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/italiano/psi.catalog",
+      "source": "MUI/Locale/Catalogs/italiano/psi.catalog",
+      "sha256": "5f8b6169ee2310c60d66c350a2c8a39245c4ea89e24ef8f56995fdc2fdadd1ec",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/nederlands/mui.catalog",
+      "source": "MUI/Locale/Catalogs/nederlands/mui.catalog",
+      "sha256": "12d282be7cf0b375af865fd31b88345571307f9ce73cff28303dbcdd2f6e6251",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/nederlands/psi.catalog",
+      "source": "MUI/Locale/Catalogs/nederlands/psi.catalog",
+      "sha256": "8ae4db93beee7b69b00035c84c15dcb6df0e952a48eb55500a7618a92f5b5046",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/polski/mui.catalog",
+      "source": "MUI/Locale/Catalogs/polski/mui.catalog",
+      "sha256": "b78db316409e9683eb9471c3df6a2d50a356dfffbb397176dcf05b7ea060d410",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/polski/psi.catalog",
+      "source": "MUI/Locale/Catalogs/polski/psi.catalog",
+      "sha256": "73d600b9abcba434ba710f2805d809a3021908f4f9961b2f4bd2744be1ea61c3",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/suomi/mui.catalog",
+      "source": "MUI/Locale/Catalogs/suomi/mui.catalog",
+      "sha256": "1cbf66f33d960d2e3829db5ea354a5d6993b7317275b1b7ac45f81a2017f9458",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/suomi/psi.catalog",
+      "source": "MUI/Locale/Catalogs/suomi/psi.catalog",
+      "sha256": "91cf59498d5a40cac69ec14fa4442d8ba1cac6982d820453a5838f5a4b253f67",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/svenska/mui.catalog",
+      "source": "MUI/Locale/Catalogs/svenska/mui.catalog",
+      "sha256": "489038f1b44338458ae9bbe69025b915c5cb979846838a137c57c102ff7ddf4e",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Locale/Catalogs/svenska/psi.catalog",
+      "source": "MUI/Locale/Catalogs/svenska/psi.catalog",
+      "sha256": "87e83e5cf6e82efd34ce82cac7bdc6466068ddb5e7798f5f7bfaa33ffe1e4452",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/MUI",
+      "source": "MUI/MUI",
+      "sha256": "00ea32cf631087c07e749ea8bbec5248d2c55166baf7182cdb6ce0236a0b7eb7",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/MUI.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/MUI.info",
+      "sha256": "4d9fbbfa4bb75af6c9fa2290cd2a4d9ecbc590e10dbe6df1e72471763084b005",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Patterns.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Patterns.info",
+      "sha256": "74a21d4e6add464968c07b8cb6341735c3a7b9f2164c279f28de64f4bed583a1",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Patterns/MarbleDark",
+      "source": "MUI/Patterns/MarbleDark",
+      "sha256": "ba41c7f3545cfcd3e6bb59f9ceaaddf22b849bfd9c5e3c4e5cd25216f931a7e0",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Patterns/TissueDark",
+      "source": "MUI/Patterns/TissueDark",
+      "sha256": "a5be2c700891bbbdeeae5caf6c4435eb6f4c3e47edbab2d25028478b17c6366f",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Presets.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Presets.info",
+      "sha256": "c1b7dc51b6fb8c5d069c0e050aa048f570aac425deff57a3cf51ee0024af8ef0",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Presets/dirkf.prefs",
+      "source": "MUI/Presets/dirkf.prefs",
+      "sha256": "5c7260658aa871b47d385fb4c86818ef6a76b85bff64c3c21451b907974a4bd8",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Presets/kmel_a2024.prefs",
+      "source": "MUI/Presets/kmel_a2024.prefs",
+      "sha256": "25997e12d5517114faff6d6977bc2302310d0251f97bdde3fbb3a8e40868d0f5",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Presets/rgb.txt",
+      "source": "MUI/Presets/rgb.txt",
+      "sha256": "f3109152dee26480fa589dfb295696dd832261ec9c0555c8b99ba18835ae2284",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Presets/Stuntzi.prefs",
+      "source": "MUI/Presets/Stuntzi.prefs",
+      "sha256": "45a8fb9afec92f522d86b4837c1f6dc76107ff4c1d17529c681378a0cff547dd",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Presets/XEN.prefs",
+      "source": "MUI/Presets/XEN.prefs",
+      "sha256": "06f79fe6a026d2c75bdeb648c44d54aa66b1df993f0113209013acd7d7d44528",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/PSI",
+      "source": "MUI/PSI",
+      "sha256": "039bb3eeb2d5b23172545875caf1b67998be1911ffd9073d3acff470ce72c347",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/PSI.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/PSI.info",
+      "sha256": "d06ce282a692df89b5dba2a1e8fce1e27e24bfd3401b881804e793d83cda3dd0",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/ReadMe",
+      "source": "MUI/ReadMe",
+      "sha256": "5bca1f22f7f640fd1d807f60983c27134a0c0c35c33148c618534629ee8cf9b4",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/ReadMe.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/ReadMe.info",
+      "sha256": "a9e919ee0cdc9238441ccdb2a384a14a9a78f1b66eabbd4653afb691778f86d0",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Rexx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Rexx.info",
+      "sha256": "8ca48e6b38f3e3b9713920139aa672ff137338d95c587279f27a0a5971a4b626",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Rexx/MUI-Demo.mrx",
+      "source": "MUI/Rexx/MUI-Demo.mrx",
+      "sha256": "8ad506a7c05f6bf7e01e7b05bb86e3cb8497f415bfb4932088370b40fbd444fe",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Rexx/MUI-Demo.mrx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Rexx/MUI-Demo.mrx.info",
+      "sha256": "849f66d3a11f001c354aa5c06ed8c4b515cf9720be007aec56c8ca87f32a9410",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Rexx/ReadMe",
+      "source": "MUI/Rexx/ReadMe",
+      "sha256": "29850cea81597ee9da3ee0736367f5bb7ec5bcf2c73fb8f944266a260a306fd7",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Rexx/ReadMe.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Rexx/ReadMe.info",
+      "sha256": "8f376b115a268ce71bad8e01b3365bebcf66dd6a8baae9b60d5e4e2ccfbd1a0d",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Expansion/MUI/Rexx/WbMan.mrx",
+      "source": "MUI/Rexx/WbMan.mrx",
+      "sha256": "33e662127264ebf53e8e8145c04ef0baa2d47f461dbf325c2cda1789917fc029",
+      "protection": 2,
+      "comment": "",
+      "archive": "mui38usr.lha"
+    },
+    {
+      "path": "Expansion/MUI/Rexx/WbMan.mrx.info",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/MUI/Rexx/WbMan.mrx.info",
+      "sha256": "366a0a2296e48ac9b6795e94a5a5960b46ade979cb7575669659ef5549ba08df",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Env-Archive/Sys/def_MUI.info",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/Sys/def_MUI.info",
+      "sha256": "f4a7e2ffca1125ce985e523226f1a8ee54128c8556cda93c7ca86e1e46429fcb",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

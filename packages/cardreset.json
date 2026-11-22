@@ -1,0 +1,39 @@
+{
+  "name": "CardReset",
+  "version": "3.0",
+  "baseline": "2.1.12",
+  "archives": {
+    "CardReset.lha": {
+      "url": "https://se.aminet.net/util/boot/CardReset.lha",
+      "sha256": "8c41b04795ef049cfb7bf3a85a70fee2fb306321427fa59c5824268cf3b42959",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "A600 or A1200 with Kickstart 37.300 or later, card.resource and Gayle PCMCIA"
+  ],
+  "notes": [
+    "Aminet supplies Artur Pogoda\u2019s 26 July 2002 m68k command and its in-archive readme. The separate Aminet index readme has different bytes.",
+    "The shared BCWB startup sequence owns the commented Run >NIL: C:CardReset TICKS 50 line.",
+    "The command uses card.resource ownership and the Gayle PCMCIA registers. The shipped readme recommends CardPatch. The BlizKick modules are a separate release."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "C/CardReset",
+      "source": "CardReset",
+      "sha256": "a85f4108d36d05709facf81cf5b8bcb989c12504a45bce8b22051c71effe6c82",
+      "protection": 2,
+      "comment": "",
+      "archive": "CardReset.lha"
+    },
+    {
+      "path": "Locale/Help/english/CardReset.readme",
+      "source": "CardReset.readme",
+      "sha256": "5e7805c1287734a2fafbc14f976cdeca87deb40879b16eb7344b5f8ac74a1e8c",
+      "protection": 2,
+      "comment": "",
+      "archive": "CardReset.lha"
+    }
+  ]
+}

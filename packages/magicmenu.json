@@ -1,0 +1,73 @@
+{
+  "name": "MagicMenu",
+  "version": "2.35",
+  "baseline": "2.1.12",
+  "archives": {
+    "MagicMenu_2.35.lha": {
+      "url": "https://aminet.net/util/wb/MagicMenu_2.35.lha",
+      "sha256": "9f2649d6e651f306ff3fe9984ca5bba4411b34f22de3931da8b9a90ce2da1f0b"
+    },
+    "MagicMenu_II.lha": {
+      "url": "https://aminet.net/util/wb/MagicMenu_II.lha",
+      "sha256": "14529f18dd185462bd25bbcb8b76c4225365f087e6f36c30c02c58178ebf6eda"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS 2.04 or later",
+    "68020 or later for the shipped 020+/PPC fat binary",
+    "gtlayout.library v37 or later for the MagicMenuPrefs editor"
+  ],
+  "notes": [
+    "The 2.35 commodity and MagicMenuPrefs match the Aminet release. The installed English guide is the 2.30 guide from MagicMenu_II.lha.",
+    "The checked BCWB payload supplies the WBStartup icon, preferences icon and saved ENVARC settings. The startup icon sets STARTPRI=60, DONOTWAIT and CX_POPUP=NO. The saved settings enable MagicMenu and bind its keyboard menu to Right Amiga+Space.",
+    "MagicMenu patches Intuition menus. It is independent of the shared popupmenu.library."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "Locale/Help/english/MagicMenu.guide",
+      "source": "MagicMenu/MagicMenu.guide",
+      "sha256": "a0904cc29385d533bba88ad0e67c8b4ed14cec45b311b8c50f91c296a1ae0607",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicMenu_II.lha"
+    },
+    {
+      "path": "Prefs/Env-Archive/MagicMenu.prefs",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/MagicMenu.prefs",
+      "sha256": "de7b80655cb67057266b73d0b578128fb91daf90c0c0ffa9f6fed67515295a2b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/MagicMenuPrefs",
+      "source": "MagicMenuPrefs",
+      "sha256": "f724f7da39a218ca3faf8cd34775595486e7d969b5fefd941ad52218fb143761",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicMenu_2.35.lha"
+    },
+    {
+      "path": "Prefs/MagicMenuPrefs.info",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/MagicMenuPrefs.info",
+      "sha256": "014a275d1f4b6064a72ccaf52b65e8e25890140e7f34eb3b017ee56bca7216a8",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "WBStartup/MagicMenu",
+      "source": "MagicMenu",
+      "sha256": "e9d276e409999ab622e40774d75ebeaffc1d462ec52deec3750346289c2e0650",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicMenu_2.35.lha"
+    },
+    {
+      "path": "WBStartup/MagicMenu.info",
+      "source": "src/BestClassicWB/BCWB_Files/WBStartup/MagicMenu.info",
+      "sha256": "1798a9cf2434b0296d7c8938f64598a0f4edcca489c7dbf9057daa0f8e5a7411",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

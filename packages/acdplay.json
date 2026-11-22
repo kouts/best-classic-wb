@@ -1,0 +1,39 @@
+{
+  "name": "ACDPlay",
+  "version": "1.6",
+  "baseline": "2.1.12",
+  "archives": {
+    "ACDPlay_16.lha": {
+      "url": "https://aminet.net/disk/cdrom/ACDPlay_16.lha",
+      "sha256": "bd80973b274360700b5f8f1b0979f5831caacd71989df900ca5f8e2a08d0bc01"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS 2.04 or later and a supported SCSI/ATAPI CD-ROM device",
+    "screennotify.library (optional; shared migration pending)"
+  ],
+  "notes": [
+    "The installed executable matches the pinned ACDPlay 1.6 archive; the icon retains the checked BCWB replacement and its stock tooltypes.",
+    "BCWB tooltypes include DEVICE=scsi.device, UNIT=1, AUTOSTART=NO, DISKPATH=PROGDIR:Disks and the literal CX_POPOKEY spelling.",
+    "Stock contains no ACDPlay guide, catalogs, Disks drawer, ARexx scripts or ENV/ENVARC acdplay.cfg. These upstream extras are not installed.",
+    "The 1.6 guide states that internal SCSI routines replaced cdplay.library; its remaining installer text is stale. No cdplay.library is installed."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "Utilities/ACDPlay",
+      "source": "acdplay/acdplay/ACDPlay",
+      "sha256": "920ef61c73f135a8397ce41bd66f2c8b953e33da967dd0bc318609382db1a35f",
+      "protection": 2,
+      "comment": "",
+      "archive": "ACDPlay_16.lha"
+    },
+    {
+      "path": "Utilities/ACDPlay.info",
+      "source": "src/BestClassicWB/BCWB_Files/Utilities/ACDPlay.info",
+      "sha256": "da30fa19005f8d996733e133add7b33ff681fb53aec6a1571f2ca3c314fb481d",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "name": "XEN",
+  "version": "MagicWB 2.1p bitmap set",
+  "baseline": "2.1.12",
+  "archives": {
+    "MagicWB21p.lha": {
+      "url": "https://se.aminet.net/util/wb/MagicWB21p.lha",
+      "sha256": "3ff085105abf7e1aca7d9b7189931fda7a0f282176ab8f95ccd6f55e7aa15111",
+      "extractor": "7zip"
+    },
+    "ClassicWB.OS39.28.2.1.zip": {
+      "url": "https://github.com/henrikstengaard/classicwb-os39-package/releases/download/28.2.1/ClassicWB.OS39.28.2.1.zip",
+      "sha256": "57cd2aba44608315a383ceb5d5aaebd1c43b74c8c73dc8782f6a767afeebd416"
+    }
+  },
+  "nestedArchives": {
+    "classicwb-os39": {
+      "archive": "ClassicWB.OS39.28.2.1.zip",
+      "source": "classicwb_os39_v28.zip",
+      "sha256": "4f24fff38fbea12746cf9015c2e07519d4be747a25fa442da75d8ff9903aefea",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS diskfont.library and FONTS:"
+  ],
+  "notes": [
+    "Martin Huttenloher's MagicWB 2.1p archive supplies the three exact bitmap files. Bloodwych's ClassicWB OS39 v28 and its HstWB conversion carry the descriptor in the stock record order.",
+    "The shipped Font preferences select XEN at 11 pixels as System Default Text. Shipped Directory Opus, DeliTracker and MUI settings also reference XEN.",
+    "MUI owns its XEN image theme and presets. The shared Workbench Font preferences and per-application settings retain their existing ownership."
+  ],
+  "directories": [
+    {
+      "path": "Fonts/XEN",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Fonts/XEN.font",
+      "source": "Fonts/XEN.font",
+      "sha256": "ce650c9c5462a0ccf32c3d46fe09fd3ebefbd95ead823d4c23b4741c3b6fb02f",
+      "protection": 2,
+      "comment": "",
+      "archive": "classicwb-os39"
+    },
+    {
+      "path": "Fonts/XEN/8",
+      "source": "MagicWB2.1p/Fonts/XEN/8",
+      "sha256": "719ed8338a99ef663e86d79cb28d15d5ec433aea2764690d3b13fa433f5a8cbd",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicWB21p.lha"
+    },
+    {
+      "path": "Fonts/XEN/9",
+      "source": "MagicWB2.1p/Fonts/XEN/9",
+      "sha256": "b22c71ed568e95da3bd930becb99867d720a5f17df2cbaa089a40dec2f96d4b8",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicWB21p.lha"
+    },
+    {
+      "path": "Fonts/XEN/11",
+      "source": "MagicWB2.1p/Fonts/XEN/11",
+      "sha256": "48aae86bb17045737a4bcb977b810ed64c99b884d82f1ec5d498d3877c736ffd",
+      "protection": 2,
+      "comment": "",
+      "archive": "MagicWB21p.lha"
+    }
+  ]
+}

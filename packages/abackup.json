@@ -1,0 +1,104 @@
+{
+  "name": "ABackup",
+  "version": "5.22",
+  "baseline": "2.1.12",
+  "archives": {
+    "abackup.lha": {
+      "url": "https://se.aminet.net/disk/bakup/abackup.lha",
+      "sha256": "096d39ea463251a78e66706fd0812f198bee307b2493061bdbba6ebd35307643",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS 2.04 or later with GadTools and ASL",
+    "amigaguide.library for online help",
+    "reqtools.library for optional requesters and xpkmaster.library for optional compression"
+  ],
+  "notes": [
+    "The pinned ABackup 5.22 release supplies the application, ABackupPrefs 38.4 and both English guides. BCWB installs the preferences executable as SYS:Prefs/ABackup and places both guides in the application drawer.",
+    "The checked BCWB inputs preserve five icons and ENVARC:ABackup.prefs. Shared startup exposes the saved profile in ENV:. The stock installer copies the files through its ordinary payload copy."
+  ],
+  "directories": [
+    {
+      "path": "Programs/ABackup",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Prefs/ABackup",
+      "source": "Prefs/ABackup",
+      "sha256": "5c57d822b2575529a2924e9a7df9123bf611bc7f0393655fee781fe5bb0fee67",
+      "protection": 2,
+      "comment": "",
+      "archive": "abackup.lha"
+    },
+    {
+      "path": "Prefs/ABackup.info",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/ABackup.info",
+      "sha256": "1b2928cbed5519eb0864311f278c26149bb05b225586a374a82d076e1b1161a0",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Prefs/Env-Archive/ABackup.prefs",
+      "source": "src/BestClassicWB/BCWB_Files/Prefs/Env-Archive/ABackup.prefs",
+      "sha256": "99f13dd75dedb52c2ff906e238030fd70d49340382c897d7d8578b3a60c54af5",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/ABackup.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/ABackup.info",
+      "sha256": "15f2dfb696f1bf2f00424cb706203d4b4328604340f8a1184eece4407665a0a5",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/ABackup/ABackup",
+      "source": "ABackup/ABackup",
+      "sha256": "000c31ea8e3725ba94c4da45e5e42e85271fff01adb3451187f31097a46adeb5",
+      "protection": 2,
+      "comment": "",
+      "archive": "abackup.lha"
+    },
+    {
+      "path": "Programs/ABackup/ABackup.guide",
+      "source": "ABackup/Docs/english/ABackup.guide",
+      "sha256": "15abf68d7a6d3d219257bc4be61702222d6f7bf2acc1ada2fd68a4d5a5222105",
+      "protection": 2,
+      "comment": "",
+      "archive": "abackup.lha"
+    },
+    {
+      "path": "Programs/ABackup/ABackup.guide.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/ABackup/ABackup.guide.info",
+      "sha256": "5c5ac466bbdefde4a5bdbb11e1223a986ece8cf65d20728e97a93e3c6fce8891",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/ABackup/ABackup.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/ABackup/ABackup.info",
+      "sha256": "e4a1b439cd71a1d72568237c86c861963b3a5949f10403c8a372bda6d3f87e79",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/ABackup/ABackupPrefs.guide",
+      "source": "Prefs/Docs/english/ABackupPrefs.guide",
+      "sha256": "96db3e5d740732f69550c9ee33b296dcbef38ab7e0f38f0b32b1e9c6c68f5266",
+      "protection": 2,
+      "comment": "",
+      "archive": "abackup.lha"
+    },
+    {
+      "path": "Programs/ABackup/ABackupPrefs.guide.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/ABackup/ABackupPrefs.guide.info",
+      "sha256": "ad7027c628a853e4d0322689c52a2e38bb68ff663f6ebd1b0299d5168349b90c",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}
