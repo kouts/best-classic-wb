@@ -92,7 +92,7 @@ def payload_members(paths):
     return result
 
 
-def catalogue_contents(archive_dir, temporary, members, *, additions=None):
+def catalogue_contents(archive_dir, temporary, members, *, additions=None, removals=None):
     replacements = {}
     for manifest in sorted((REPO / "packages").glob("*.json")):
         package = load_package(manifest.stem)
@@ -102,10 +102,13 @@ def catalogue_contents(archive_dir, temporary, members, *, additions=None):
         scratch.mkdir()
         for entry, content in verified_sources(package, archive_dir, scratch):
             target = entry["path"].lower()
+            rename_from = entry.get("developmentZipRenameFrom")
+            if rename_from and (removals is None or target in members):
+                raise ValueError(f"Invalid development ZIP rename: {entry['path']}")
             if target in members:
                 member = members[target]
             else:
-                template = entry.get("developmentZipTemplate")
+                template = rename_from or entry.get("developmentZipTemplate")
                 if additions is None or not template:
                     raise ValueError(f"No shipped payload member for SYS:{entry['path']}")
                 member = PAYLOAD + relative_path(entry["path"]).as_posix()
@@ -116,6 +119,10 @@ def catalogue_contents(archive_dir, temporary, members, *, additions=None):
                         or (REPO / member).read_bytes() != content):
                     raise ValueError(f"Invalid development ZIP input or template: {member}")
                 additions[member] = donor
+                if rename_from:
+                    if donor in removals:
+                        raise ValueError(f"Conflicting development ZIP rename: {donor}")
+                    removals.add(donor)
             if member in replacements:
                 raise ValueError(f"Conflicting package ownership: {member}")
             source = {
@@ -128,17 +135,21 @@ def catalogue_contents(archive_dir, temporary, members, *, additions=None):
             if "sourceTransform" in entry:
                 source["sourceTransform"] = entry["sourceTransform"]
             replacements[member] = (content, source)
+    if removals and replacements.keys() & removals:
+        raise ValueError("Renamed stock members cannot also be supplied by a package.")
     return replacements
 
 
-def compare_zip(expected, rebuilt, *, check_contents=True, additions=None):
+def compare_zip(expected, rebuilt, *, check_contents=True, additions=None, removals=()):
     with ZipFile(expected) as stock, ZipFile(rebuilt) as candidate:
         a, b = layout_files(stock), layout_files(candidate)
         additions = additions or {}
-        if additions.keys() & a.keys() or not set(additions.values()) <= a.keys():
+        removals = set(removals)
+        if (additions.keys() & a.keys() or not set(additions.values()) <= a.keys()
+                or not removals <= a.keys()):
             raise ValueError("Invalid development ZIP template mapping.")
-        if ((set(a) | additions.keys()) != set(b)
-                or (set(stock.namelist()) | additions.keys()) != set(candidate.namelist())):
+        if (((set(a) - removals) | additions.keys()) != set(b)
+                or ((set(stock.namelist()) - removals) | additions.keys()) != set(candidate.namelist())):
             raise ValueError("Shipment paths differ from the expected layout.")
         for name in candidate.namelist():
             before = stock.getinfo(additions.get(name, name))
@@ -165,11 +176,12 @@ def build(stock_path, archive_dir, output, *, development=False):
         members = layout_files(stock)
         files = tracked_sources()
         additions = {}
+        removals = set()
         replacements = catalogue_contents(
             archive_dir, scratch, payload_members(members),
-            additions=additions if development else None,
+            additions=additions if development else None, removals=removals if development else None,
         )
-        expected = set(members) | additions.keys()
+        expected = (set(members) - removals) | additions.keys()
         if files != expected:
             raise ValueError(
                 f"Checkout paths differ from expected. Extra: {sorted(files - expected)}; "
@@ -182,6 +194,8 @@ def build(stock_path, archive_dir, output, *, development=False):
             rebuilt.comment = stock.comment
             for entry in stock.infolist():
                 path = entry.filename
+                if path in removals:
+                    continue
                 if entry.is_dir():
                     rebuilt.writestr(copy(entry), b"")
                     continue
@@ -202,7 +216,9 @@ def build(stock_path, archive_dir, output, *, development=False):
                 entry = copy(members[donor])
                 entry.filename = entry.orig_filename = path
                 rebuilt.writestr(entry, content)
-        count = compare_zip(stock_path, staged, check_contents=not development, additions=additions)
+        count = compare_zip(
+            stock_path, staged, check_contents=not development, additions=additions, removals=removals,
+        )
         staged_ledger = scratch / ledger_path.name
         write_json(staged_ledger, {
             "baseline": BASELINE, "referenceZipSha256": STOCK_SHA256,

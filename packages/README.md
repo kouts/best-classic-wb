@@ -243,6 +243,8 @@ For local installer and package changes, run the build with `--development`. The
 
 A development-only file can use `developmentZipTemplate` in its catalogue entry. Name a stock file in the same drawer as the template for ZIP attributes and track the added payload under `src/BestClassicWB/BCWB_Files`. The builder verifies the tracked bytes against the entry's pinned source and records the template in the source ledger.
 
+Use `developmentZipRenameFrom` when a development payload moves a stock file to a new name in the same drawer. The stock path supplies the ZIP attributes and the rebuilt ZIP contains the new path.
+
 ```powershell
 & $python tools/distribution.py build --development --stock-zip tmp/baseline/BestClassicWB-v2.1.12.zip --archives tmp/archives --output tmp/development/BestClassicWB.zip
 ```
