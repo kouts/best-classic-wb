@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/kouts/best-classic-wb/compare/v2.1.12...v2.2.0) (2026-11-23)
+
+
+### Features
+
+* add verified package maintenance and releases ([cd6c813](https://github.com/kouts/best-classic-wb/commit/cd6c8139729bf99337b221073944b02605263e3b))
+
 ## [2.1.12](https://github.com/kouts/best-classic-wb/compare/v2.1.11...v2.1.12) (2024-05-03)
 
 
