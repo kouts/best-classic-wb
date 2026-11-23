@@ -7,23 +7,10 @@ import subprocess
 import sys
 
 from package import build, digest, load_manifest
-from prepare_update import candidate_proposal, compare, installed_inventory
+from prepare_update import candidate_proposal, case_rename, compare, installed_inventory
 
 
-def require_overlay(changes):
-    unsupported = [f"Removal: {entry['path']}" for entry in changes["removed"]]
-    for change in changes["changed"]:
-        before, after = change["before"], change["after"]
-        if "path" in change["fields"]:
-            unsupported.append(f"Case-only rename: {before['path']} -> {after['path']}")
-        if "type" in change["fields"]:
-            unsupported.append(f"Entry type conversion: {before['path']}")
-    if unsupported:
-        raise ValueError("The package installer cannot apply these proposed changes:\n"
-                         + "\n".join(unsupported))
-
-
-def verify_install(proposal, proposal_hash, stock, expected, hardfile, output):
+def verify_install(proposal, proposal_hash, reference, expected, hardfile, output):
     label, installed = installed_inventory(hardfile)
     expected_label = proposal["stockImage"]["volume"]
     differences = compare(expected, installed)
@@ -39,7 +26,7 @@ def verify_install(proposal, proposal_hash, stock, expected, hardfile, output):
         "expectedEntries": len(expected),
         "installedEntries": len(installed),
         "status": "matched" if matched else "mismatch",
-        "stockToInstalled": compare(stock, installed),
+        "stockToInstalled": compare(reference, installed),
         "expectedToInstalled": differences,
     }
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -59,7 +46,8 @@ def main():
         command.add_argument("package", help="catalogue package ID")
         command.add_argument("--manifest", type=Path, required=True, help="staged candidate manifest")
         command.add_argument("--archives", type=Path, required=True, help="staged candidate archive directory")
-        command.add_argument("--stock", type=Path, required=True, help="closed stock-installed hardfile")
+        command.add_argument("--reference", "--stock", type=Path, required=True,
+                             help="closed stock or development reference hardfile")
         command.add_argument("--proposal", type=Path, required=True, help="reviewed expected changes JSON")
     build_args.add_argument("--output", type=Path, required=True, help="new candidate hardfile")
     verify_args.add_argument("--installed", type=Path, required=True, help="closed candidate-installed hardfile")
@@ -70,23 +58,34 @@ def main():
         proposal_bytes = args.proposal.read_bytes()
         reviewed = json.loads(proposal_bytes)
         archives = args.archives.resolve()
-        proposal, stock, expected = candidate_proposal(args.package, candidate, archives, args.stock)
+        proposal, reference, expected = candidate_proposal(args.package, candidate, archives, args.reference)
+        if isinstance(reviewed, dict) and proposal["stockImage"] != reviewed.get("stockImage"):
+            raise ValueError("The reference hardfile SHA-256 or volume differs from the reviewed proposal.")
+        if proposal["status"] != "ready_for_review":
+            raise ValueError("The staged candidate is blocked. Run prepare_update.py to review the findings.")
         if json.dumps(proposal, sort_keys=True) != json.dumps(reviewed, sort_keys=True):
             raise ValueError("The staged inputs do not reproduce the reviewed proposal.")
         changes = proposal["changes"]
-        require_overlay(changes)
-        if proposal["status"] != "ready_for_review":
-            raise ValueError("The reviewed proposal is blocked by ownership or dependency checks.")
         if args.command == "build":
             paths = {entry["path"] for entry in changes["added"]}
-            paths.update(change["after"]["path"] for change in changes["changed"])
+            paths.update(
+                change["after"]["path"] for change in changes["changed"] if change["fields"] != ["path"]
+            )
+            removals = [entry["path"] for entry in changes["removed"]]
+            renames = [
+                (change["before"]["path"], change["after"]["path"])
+                for change in changes["changed"] if case_rename(change) and "type" not in change["fields"]
+            ]
+            renames.sort(key=lambda rename: (rename[0].count("/"), rename[0]))
             overlay = candidate | {
                 kind: [entry for entry in candidate[kind] if entry["path"] in paths]
                 for kind in ("files", "directories")
             }
-            build(overlay, archives, args.output.resolve())
+            conversions = [change for change in changes["changed"] if "type" in change["fields"]]
+            build(overlay, archives, args.output.resolve(),
+                  removals=removals, renames=renames, conversions=conversions)
         else:
-            verify_install(proposal, digest(proposal_bytes), stock, expected, args.installed, args.output)
+            verify_install(proposal, digest(proposal_bytes), reference, expected, args.installed, args.output)
     except (OSError, ValueError, KeyError, subprocess.CalledProcessError) as error:
         print(error, file=sys.stderr)
         return 1

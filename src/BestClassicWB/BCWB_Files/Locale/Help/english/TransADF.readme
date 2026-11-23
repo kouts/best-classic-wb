@@ -1,0 +1,59 @@
+Short:     Makes Compressed ADFs (G/PKZip). v4.0.46
+Uploader:  kjots@lis.net.au (Karl J. Ots)
+Author:    kjots@lis.net.au (Karl J. Ots)
+Date:      5th October 1998
+Copyright: GPL
+Requires:  OS2.0+
+Type:      disk/misc
+
+New Features in v4.0.46
+  This is a major upgrade.  It now includes the ability to read and write
+  non-trackdisk devices like RAD: and FMS:
+
+What is TransADF?
+  TransADF creates Amiga Disk Files (ADFs), a 880kb file copy of
+  an Amiga floppy disk.  It can also be used to transfer ADFs back
+  to a real disk.  
+  
+  TransADF offerers several modes of operation.  It can create both
+  PKZip and GZip compression formats directly from the disk, with only
+  a small portion in memory at one time.  It can also decompress both
+  formats, again directly to disk with little memory use.  TransADF has
+  sophisticated PKZip support, allowing operation on any file within
+  the archive (not just the first item, like GUnZip), as well as adding
+  an ADF to an already existing archive.
+  
+  TransADF uses the Z Library to perform the compression and decompression.
+  For more info on ZLib, visit http://www.cdrom.com/pub/infozip/zlib/
+  ZLib was written by the same people who brought us GZip and Info-Zip,
+  they being Jean-loup Gailly and Mark Adler.
+  
+  TransADf comes in three 'flavours':
+  
+     TransADF (46k):       Fully featured, staticly linked with the ZLib.
+     TransADF-RT (19k):    Also fully featured, but uses the runtime
+                           "z.library", available on Aminet in 
+                           util/libs/zlib.lha.  
+     TransADF-Lite (8k):   This version offers no compression or
+                           decompression, hence the smaller size.  Only
+                           ADFs can be read or created with this version.
+
+  All three versions are compiled from the same sources, which are 
+  included.  TransADF was written with the aid of DICE 3.15.
+  
+  This is the second release of TransADF, and the usual applies so send
+  bug or incompatibility reports to me at by e-mail address above.
+
+  Oh, and by the way, TransADF is FreeWare as defined by the GNU General
+  Public License.
+
+
+A note about ADFs
+  An ADF has a variety of uses.  It can be used with floppy disk
+  emulators such as the FMS device, which enables a file to be
+  mounted as a drive.  Also, ADFs are used by the Amiga emulators
+  UAE and Fellow (Amiga disks can not be read by PC drives).  A 
+  zipped ADF can offer better compression than a DMS archive, with
+  the advantage that it can be unzipped by any computer with a copy
+  of GZip, PKZip, or the portable Info-Zip (which is just about all of
+  them, I think).

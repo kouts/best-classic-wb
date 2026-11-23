@@ -18,7 +18,7 @@ WBDock 2.907 maps 65 files and 19 drawers in `Expansion/WBDock2` and `WBStartup`
 
 On AmigaOS 3.2.2.1, the stock Directory Opus executable has protection mask 2, which blocks its WBDock launch. The full rebuild preserves that mask. Enabling execute permission on a disposable rebuilt copy let the same dock item open Directory Opus with its BCWB configuration.
 
-NewMeter and TinyMeter own 207 files and 14 drawers, including the dormant TinyMeter Enable tree and the active NewMeter pair in WBStartup. The archived NewMeter 1.439 release supplies five exact catalogs and five exact translation sources. Checked BCWB inputs preserve both identical 1.431 executables, the release icons, Tooltypes and the optional TinyMeter profile. Tinic Urou's TinyMeter V4.31 Aminet release supplies the exact executable, all three patterns and all 184 pictograms. Workbench starts the NewMeter copy with a 4096-byte stack, IDLETASK enabled and an empty WIFIDEVICE. The shared Expansion and WBStartup drawers stay with the existing payload. [Archived NewMeter publisher download](https://web.archive.org/web/20240828114846id_/https://thomas-rapp.hier-im-netz.de/downloads/newmeter.lha) [Aminet TinyMeter release](https://ftp.fau.de/aminet/util/wb/Tinymeter_V431.lha)
+NewMeter and TinyMeter own 207 files and 14 drawers, including the dormant TinyMeter Enable tree and the active NewMeter pair in WBStartup. The archived NewMeter 1.439 release supplies five exact catalogs and five exact translation sources. The pinned publisher release supplies both NewMeter 1.466 executables. Checked BCWB inputs preserve the release icons, Tooltypes and the optional TinyMeter profile. Tinic Urou's TinyMeter V4.31 Aminet release supplies the exact executable, all three patterns and all 184 pictograms. Workbench starts the NewMeter copy with a 4096-byte stack, IDLETASK enabled and an empty WIFIDEVICE. The shared Expansion and WBStartup drawers stay with the existing payload. [Archived NewMeter publisher download](https://web.archive.org/web/20240828114846id_/https://thomas-rapp.hier-im-netz.de/downloads/newmeter.lha) [Aminet TinyMeter release](https://ftp.fau.de/aminet/util/wb/Tinymeter_V431.lha)
 
 The `iconlib` entry maps the shipped `Libs/icon.library` and `Locale/Help/english/IconLib.guide`. Peter Keunecke's release is 46.4.582. Its AmigaOS 3.2-compatible TrueColor variant identifies as `icon.library 51.4.582 (TC020)`. Both stock files match the archived release listing by size and LhA CRC-16. The original build-582 download remains unresolved, so the catalogue pins the BCWB files by SHA-256. The distribution installer backs up the target OS library as `Libs/icon.library.bak` before copying the payload. [Archived Aminet listing](https://web.archive.org/web/20240323222904/http://aminet.net/package/util/libs/IconLib_46.4)
 
@@ -170,6 +170,12 @@ The shared Workbench icons entry preserves the serialized disk, drawer, applicat
 
 The BCWB startup entry owns the customized startup sequence and user-startup, the shared S drawer metadata and its icon, and the overlay icons for MenuTools and ClickToFront. The stock installer backs up the native startup scripts and icon.library, moves the native datatype classes, relocates MenuTools and ClickToFront, and clones System/Installer into C:. It copies the release help and icon from beside the installer. The distribution verifier checks those operations against the clean disk, including the literal rename from S/Startup-Sequence to the backup before the BCWB overlay adds S/Startup-sequence. The package entries for FBlit, FText and FullPalette retain source ownership while the stock installer applies `PROTECT +e`.
 
+### Optional picture datatypes
+
+The FAXX, FAXX-CAT, FAXX-CATFORM, LJPG, NAIL and SVG descriptors register optional formats. Install the complete author packages for their runtime classes. The author requires each package to retain all its parts when redistributed. SVG here is the SuperView Graphics format.
+
+In the AmigaOS 3.2.2.1 WinUAE checks, the author classes displayed FAXX and SuperView SVG. The author's lossless JPEG sample displayed with the LJPG class after isolating it from the shipped JFIF descriptor. The akNAIL class opened successfully and image decoding awaits an ImageFX thumbnail fixture.
+
 ## Build on Windows
 
 Run from the repository root in PowerShell. Use Python 3.12 or newer and Windows `tar.exe` with LhA support. SnoopDos, EaglePlayer, MUI, DTView2, WBDock, ViNCEd, ToolsMenu, Personal Paint, ILBM, JFIF, Targa, TIFF, fixiff, XCourier, XEN, XHelvetica, TTEngine, FileX, JanoEditor, SimpleFind, ABackup, SuperDuper, ReOrg, TSgui, TransADF, UnADF, rawread, FMSsys, fmsdisk, PFS3AIO, SCSIMounter, pccard, CardPatch, CardReset, EjectADF, MiamiDx, cnet, 3c589, Amiga Explorer, DoMIME, asyncio, VirusZ, xvs, Voodoo-X, xadmaster, xfdmaster, LhA, LZX, Zip, UnZip, UnRAR, Zoo, exe2arc, HackProPack, DisLib, AmigaKeyRemapper, BenchTrash, NewMeter and the additional printer drivers also need 7-Zip on PATH or installed in the standard Windows program directory. WHDLoad and WHDLoadCD32 need the Amiga LZX CLI (tested with v0.1.5) as `lzx.exe` on PATH. [Amiga LZX CLI releases](https://github.com/bitplane/amiga-lzx/releases/tag/v0.1.5)
@@ -231,6 +237,53 @@ In WinUAE, boot a fresh copy of the vanilla hardfile. Mount the rebuilt ZIP and 
 
 The comparison covers volume label, literal paths, contents, protection masks, and comments. Its ownership report accounts for added and changed files and drawers, records the clean origins of installer effects and literal removals, and checks for overlap in final ownership. Modification timestamps are excluded from parity because repeated stock installations produced different times.
 
+## Build a local development ZIP
+
+For local installer and package changes, run the build with `--development`. The published ZIP supplies the path layout and entry attributes. The current checkout and package digests supply the installer and payload bytes. Install on a disposable vanilla disk and compare the closed disk against the expected development changes. Use `verify-install` on the 2.1.12 baseline branch for stock reproduction.
+
+After a fresh install from a release ZIP, cold-boot from the installed disk alone and compare the closed disk against the expected complete inventory, including protection bits and comments. On a separate copy, launch each affected application through the entry point users rely on, such as a dock button, Workbench icon, Shell command or startup entry. For accelerator-specific checks, use the saved Blizzard 1230 IV profile.
+
+A development-only file can use `developmentZipTemplate` in its catalogue entry. Name a stock file in the same drawer as the template for ZIP attributes and track the added payload under `src/BestClassicWB/BCWB_Files`. The builder verifies the tracked bytes against the entry's pinned source and records the template in the source ledger.
+
+Use `developmentZipRenameFrom` when a development payload renames a stock file or moves it into an existing stock drawer. The stock path supplies the ZIP attributes and the rebuilt ZIP contains the new path.
+
+List stock payload paths to omit from the development ZIP in the package's `developmentZipRemovals` array. Use installed paths relative to `SYS:` and remove the corresponding tracked files.
+
+Declare a new drawer in the package's `directories` list and give it a `developmentZipTemplate` naming a stock drawer whose ZIP attributes can be reused. Declare each new parent drawer, including empty drawers. The builder emits the drawer into the ZIP and records its ownership and template in the source ledger. Files inside declared new drawers still need tracked payload bytes and a stock file template. The file template can come from an existing drawer. The installer applies the manifest's Amiga protection and comments to the new drawers and their files after copying the ZIP payload.
+
+For a file-to-drawer or drawer-to-file change in the full ZIP, list the old path in `developmentZipRemovals` and declare the new entry with a template of its new type. A removed stock drawer requires an explicit removal or move for each former member. New names must keep their literal spelling through the shipped Amiga UnZip.
+
+```powershell
+& $python tools/distribution.py build --development --stock-zip tmp/baseline/BestClassicWB-v2.1.12.zip --archives tmp/archives --output tmp/development/BestClassicWB.zip
+```
+
+## Prepare a verified release
+
+Build and test the release locally. Record the checkout's commit SHA, run the automated tests with `& $python -m unittest discover -s tools`, and build the development ZIP from the pinned stock ZIP and archive cache. Install that ZIP on a fresh AmigaOS 3.2.2.1 copy in WinUAE. Cold-boot with the installer media detached and record the affected launch checks on a separate copy. Keep the following review files together locally.
+
+| File | Contents |
+| --- | --- |
+| `BestClassicWB.zip` | Exact package-built ZIP installed in the guest |
+| `expected.hdf` | Independently verified closed hardfile with the approved expected inventory |
+| `installed.hdf` | Closed hardfile from the fresh ZIP install and cold boot |
+| `runtime.md` | WinUAE smoke results covering the affected entry points and profiles |
+
+Run the local release gate to confirm the build matches the tested ZIP and both disks match by volume label, path, type, content, protection, and comment.
+
+```powershell
+& $python tools/release_gate.py --zip 'tmp/development/BestClassicWB.zip' --tested-zip "$review/BestClassicWB.zip" --reference "$review/expected.hdf" --installed "$review/installed.hdf" --runtime-evidence "$review/runtime.md" --output 'tmp/development/release-verification.json'
+```
+
+Stage the passing ZIP from the repository root with Node.js. Set `$verifiedCommit` to the commit used for the build and local validation. Include the two release inputs in the PR and keep the hardfiles, archives, and runtime evidence local.
+
+```powershell
+node tools/release_asset.mjs stage $verifiedCommit 'tmp/development/BestClassicWB.zip' 'tmp/development/release-verification.json'
+git add -- release/manifest.json
+git add -f -- release/BestClassicWB.zip
+```
+
+Pushes to `main`, including PR merges, start the GitHub-hosted publishing job automatically. The job checks the committed ZIP's SHA-256 and confirms the merged build inputs match the ones staged with that ZIP. semantic-release then publishes the ZIP to GitHub Releases and releases the npm package using the `NPM_TOKEN` repository secret. Use manual dispatch from `main` to retry publication.
+
 ## Check upstream inputs
 
 ```powershell
@@ -245,7 +298,7 @@ Use `--package` once per package ID to limit the report.
 
 The report records pinned archive integrity and release discovery separately. An `archive_changed` finding means the URL served different bytes. A `newer_release` finding compares a version published by the configured source against the catalogue's comparison version.
 
-- BenchTrash reads the `Version:` header from its [Aminet readme](https://ftp.fau.de/aminet/util/wb/BenchTrash.readme) and compares it with the pinned repack version 1.76.3. NewMeter reads the [publisher's readme](https://thomas-rapp.hier-im-netz.de/downloads/newmeter.readme) and compares it with NewMeter 1.431. The report includes the candidate archive URL for review. Candidate file verification happens during preparation.
+- BenchTrash reads the `Version:` header from its [Aminet readme](https://ftp.fau.de/aminet/util/wb/BenchTrash.readme) and compares it with the pinned repack version 1.76.3. NewMeter reads the [publisher's readme](https://thomas-rapp.hier-im-netz.de/downloads/newmeter.readme) and compares it with NewMeter 1.466. The report includes the candidate archive URL for review. Candidate file verification happens during preparation.
 - iGame checks [GitHub Releases](https://github.com/MrZammler/iGame/releases). Add `--candidates tmp/update-candidates` to download the selected GitHub asset locally and compare its SHA-256 with the publisher digest when available.
 - render.library reports `manual_review` so the maintainer can check the relevant 68020 binary. Unconfigured packages report `pinned_archive_check_only`. An ambiguous or unreadable version header reports `version_unverified`, and a failed request reports `check_failed`.
 
@@ -256,27 +309,51 @@ Review candidates explicitly before adopting any update.
 Keep the candidate archives and a complete copy of the package manifest in a separate local folder. Set the candidate version and map selected archive members to installed paths. Record the SHA-256 of each archive and mapped file, and retain the Amiga protection and comment fields for every entry. Set `publisherDigest` in a candidate archive record when the publisher provides one. List each newly created drawer in `directories`. The candidate manifest defines the complete proposed package, so an omitted baseline entry is reported as a removal.
 
 ```powershell
-$candidate = 'tmp/baseline/update-candidates/igame-2.6.1'
-& $python tools/prepare_update.py igame --manifest "$candidate/candidate.json" --archives "$candidate/archives" --stock tmp/baseline/BCWB-v2.1.12-installed.hdf --output "$candidate/update-diff.json"
+$candidate = 'tmp/baseline/update-candidates/benchtrash-1.80'
+$reference = 'tmp/baseline/post-parity-icon-followup/test.hdf'
+$pilot = 'tmp/baseline/package-maintenance/benchtrash-replay'
+& $python tools/prepare_update.py benchtrash --manifest "$candidate/candidate.json" --archives "$candidate/archives" --reference $reference --output "$pilot/update-diff.json"
 ```
 
-The preparer verifies the candidate bytes and compares the complete package map with the closed stock hardfile. It reports path, content and Amiga metadata changes, changes to checked BCWB inputs, stock installer paths touched, and declared runtime dependency changes. Candidate manifests can list exact installed dependency paths under `dependencyChecks` with a Boolean `required` field. This checks path presence. Version and runtime compatibility are reviewed during candidate testing.
+The preparer verifies the candidate bytes and compares the complete package map with a closed stock or development hardfile. Use the reference that matches the checkout’s package catalogue, and check staged manifests for BCWB changes made since they were prepared. The proposal records the reference disk’s SHA-256 and volume label. It reports path, content and Amiga metadata changes, changes to checked BCWB inputs, stock installer paths touched, and declared runtime dependency changes. Candidate manifests can list exact installed dependency paths under `dependencyChecks` with a Boolean `required` field. This checks path presence. Version and runtime compatibility are reviewed during candidate testing.
 
-The command saves a `blocked` report and returns a failure status for an ownership conflict or a missing required dependency. A `ready_for_review` report is a proposal for the next validation step. The official catalogue and installed hardfiles remain available as the baseline.
+Preserve protection bits and comments on existing files and drawers. Preserve the contents of existing Workbench `.info` files and other checked BCWB inputs, including settings. The command records differences under `guardedChanges` and blocks them unless the candidate manifest declares the exact change. For an intentional change, add an `intentionalChanges` entry with the literal installed path, the exact old and new values reported for the guarded fields, and a reason. Use `sha256` for an intentional content replacement. For example, an update that restores Shell execution could declare the following.
+
+```json
+{
+  "intentionalChanges": [
+    {
+      "path": "Programs/Example/Example",
+      "before": {"protection": 2},
+      "after": {"protection": 0},
+      "reason": "Restore Shell execution for the installed launcher."
+    }
+  ]
+}
+```
+
+The command saves a `blocked` report and returns a failure status for an ownership conflict, a missing required dependency, or an undeclared, stale or mismatched guarded change. A `ready_for_review` report is a proposal for the next validation step. The declaration records review scope for staging. Adoption still requires explicit maintainer approval.
+
+### Remove or move paths during an update
+
+For a removal, the blocked proposal shows the old path, its entry type, Amiga metadata and file hash when applicable. Copy those exact `before` fields into an `intentionalChanges` entry, use an empty `after` object, and state why the path is obsolete. A move to a new name or drawer appears as an addition and an explicitly declared removal. For a case-only rename, the report shows the old and new literal paths. Renaming a drawer carries the path spelling of its unchanged children with it.
+
+The installer recases parent drawers before their children, copies any new destination before deleting its declared predecessor, and removes children before their drawer. It stops on a copy or deletion error. Each deletion names one literal path. Shared paths, pattern-like names, delete-protected items and drawers with retained descendants block preparation. A drawer that contains an unexpected entry at install time stays in place. Start every trial from a disposable copy of the exact reviewed reference and compare the entire closed result.
+
+For a file-to-drawer or drawer-to-file conversion, declare the exact old and new entry type, protection, comment, and file hash where applicable. Review each old child separately if a drawer becomes a file. The installer checks the current type, removes the reviewed old entries without recursion, then copies the replacement with its Amiga metadata. A retry recognizes the replacement type and preserves it while replaying the copy. A shared path, delete-protected source, or drawer with retained children blocks preparation. Start failed trials again from the reviewed disposable reference. Full uninstall remains deferred.
 
 ## Validate a candidate in WinUAE
 
 Build an install transport from the staged candidate manifest, archives and proposal.
 
 ```powershell
-$stock = 'tmp/baseline/BCWB-v2.1.12-installed.hdf'
-& $python tools/candidate_update.py build igame --manifest "$candidate/candidate.json" --archives "$candidate/archives" --stock $stock --proposal "$candidate/update-diff.json" --output "$candidate/candidate.hdf"
+& $python tools/candidate_update.py build benchtrash --manifest "$candidate/candidate.json" --archives "$candidate/archives" --reference $reference --proposal "$pilot/update-diff.json" --output "$pilot/candidate.hdf"
 ```
 
-Boot a disposable copy of the stock hardfile with the candidate transport mounted read-only. Run `Execute BCWB-Package:Install` in the Amiga Shell. Close WinUAE, detach the transport, cold-boot the candidate hardfile, and close WinUAE again. Compare the closed candidate with the full expected inventory.
+Boot a disposable copy of the reference hardfile with the candidate transport mounted read-only. Run `Execute BCWB-Package:Install` in the Amiga Shell. Close WinUAE, detach the transport, cold-boot the candidate hardfile, and close WinUAE again. Compare the closed candidate with the full expected inventory.
 
 ```powershell
-& $python tools/candidate_update.py verify igame --manifest "$candidate/candidate.json" --archives "$candidate/archives" --stock $stock --proposal "$candidate/update-diff.json" --installed "$candidate/installed.hdf" --output "$candidate/install-verification.json"
+& $python tools/candidate_update.py verify benchtrash --manifest "$candidate/candidate.json" --archives "$candidate/archives" --reference $reference --proposal "$pilot/update-diff.json" --installed "$pilot/installed.hdf" --output "$pilot/install-verification.json"
 ```
 
-Both commands reproduce the reviewed proposal from the staged inputs. The transport copies only the proposed additions and replacements, preserving the timestamps of untouched files. The verifier reports the actual changes from stock and any differences from the expected inventory and volume label. Run application smoke tests on separate copies so the verified disk remains available. The overlay installer supports additions and replacements at the same literal paths. Removals, case-only renames and entry type conversions require a separate installer operation.
+Both commands reproduce the reviewed proposal from the same reference disk and staged inputs. Existing commands can still use `--stock`. The JSON fields `stockImage` and `stockToInstalled` retain their original names and refer to whichever reference disk was supplied. The transport applies the proposed additions, replacements, renames and removals. Untouched files retain their timestamps. The verifier reports the actual changes from the reference and any differences from the expected inventory and volume label. Run application smoke tests on separate copies through the affected launch path. Use the saved AmigaOS 3.2.2.1 A1200 profile for the install and cold boot, and the Blizzard 1230 IV profile for relevant accelerator checks.

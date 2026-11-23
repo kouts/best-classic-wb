@@ -19,7 +19,7 @@
   ],
   "notes": [
     "Aminet CD 30 preserves the original 14.01.1999 SimpleFind and SimpleFindPrefs executables and 29.12.1998 English guide. The 22.01.1999 update binary differs.",
-    "The checked BCWB inputs retain the four icons and saved preferences in SYS:Prefs. The preference editor is installed in the same drawer and uses PROGDIR:SimpleFind.prefs by default. The application is in a separate drawer, and its icon leaves PREFSFILE unset.",
+    "The checked BCWB inputs retain the four icons and saved preferences in SYS:Prefs. The preference editor is installed in the same drawer and uses PROGDIR:SimpleFind.prefs by default. The application icon names the shared preferences file and its editor explicitly. The pinned archive supplies the configured dog image and the English guide in the shared help tree.",
     "The shared popupmenu.library, wbstart.library and OpenURL retain their catalogue owners."
   ],
   "directories": [
@@ -41,7 +41,7 @@
       "path": "Prefs/SimpleFindPrefs",
       "source": "SimpleFind/SimpleFind/SimpleFindPrefs",
       "sha256": "6296a2fe3a53de2fb609ee8fd3dadef4c5ea1152829957de0a8b2512a21b9f70",
-      "protection": 2,
+      "protection": 0,
       "comment": "",
       "archive": "simplefind.lha"
     },
@@ -63,7 +63,7 @@
       "path": "Programs/SimpleFind/SimpleFind",
       "source": "SimpleFind/SimpleFind/SimpleFind",
       "sha256": "fcec6436d766d6fcd17e1ed21625018d6a6d6acf77ab7e0234c652ccdd235a6a",
-      "protection": 2,
+      "protection": 0,
       "comment": "",
       "archive": "simplefind.lha"
     },
@@ -85,9 +85,27 @@
     {
       "path": "Programs/SimpleFind/SimpleFind.info",
       "source": "src/BestClassicWB/BCWB_Files/Programs/SimpleFind/SimpleFind.info",
-      "sha256": "2ff2ad94effd076f2fdb6d2173997242f7078b5314952399c7387aa613969c6c",
+      "sha256": "0024c77eb65e7e6da4273a90d9ad3f0b0fbb137455dc9e4687c9b8e8e8f8c6ba",
       "protection": 2,
       "comment": ""
+    },
+    {
+      "path": "Programs/SimpleFind/SimpleFindDog.ilbm",
+      "source": "SimpleFind/SimpleFind/Logos/SimpleFindDog.ilbm",
+      "sha256": "7c466669363f2720181fd608f8597fce14efd82e3f70ec62d73c7b630cdf9412",
+      "protection": 2,
+      "comment": "",
+      "archive": "simplefind.lha",
+      "developmentZipTemplate": "Programs/SimpleFind/SimpleFind.guide"
+    },
+    {
+      "path": "Locale/Help/english/SimpleFind.guide",
+      "source": "SimpleFind/SimpleFind/Help/english/SimpleFind.guide",
+      "sha256": "6e11b55cc90b50011ec9df52e9cae609018b3bb7617b7fbe382daa5e50b0795e",
+      "protection": 2,
+      "comment": "",
+      "archive": "simplefind.lha",
+      "developmentZipTemplate": "Locale/Help/english/TransADF.guide"
     }
   ]
 }

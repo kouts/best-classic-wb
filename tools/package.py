@@ -35,6 +35,10 @@ def relative_path(text):
     return path
 
 
+def literal_operation_path(path):
+    return not any(char in path for char in "#?[]()|~'%$`;<>\t\x00")
+
+
 def load_package(package):
     if relative_path(package).name != package:
         raise ValueError("Use a package ID from the packages directory.")
@@ -165,10 +169,49 @@ def parents(path):
     return [parent for parent in path.parents if parent != PurePosixPath(".")]
 
 
-def installer(data, ordered_dirs):
+def deletion_commands(paths):
+    for path in sorted(paths, key=lambda path: (-path.count("/"), path)):
+        yield f'IF EXISTS "SYS:{path}"'
+        yield f'  Delete "SYS:{path}"'
+        yield "ENDIF"
+
+
+def conversion_commands(change, children):
+    before, after = change["before"], change["after"]
+    path = before["path"]
+    parent, _, name = path.rpartition("/")
+    selectors = {"directory": "DIRS", "file": "FILES"}
+    old_type, new_type = before["type"], after["type"]
+    return [
+        f'IF EXISTS "SYS:{path}"',
+        "  Set BCWBEntryType unknown",
+        f'  Set >NIL: BCWBEntryType `List "SYS:{parent}" PAT "{name}" {selectors[old_type]} LFORMAT "{old_type}"`',
+        f'  IF "$BCWBEntryType" EQ "{old_type}"',
+        *("    " + command for command in deletion_commands([*children, path])),
+        "  ELSE",
+        f'    Set >NIL: BCWBEntryType `List "SYS:{parent}" PAT "{name}" {selectors[new_type]} LFORMAT "{new_type}"`',
+        f'    IF NOT "$BCWBEntryType" EQ "{new_type}"',
+        f'      Echo "Cannot determine the entry type at SYS:{path}"',
+        "      Quit 20",
+        "    ENDIF",
+        "  ENDIF",
+        "  Unset BCWBEntryType",
+        "ENDIF",
+    ]
+
+
+def installer(data, ordered_dirs, *, removals=(), renames=(), conversions=()):
     owned = {PurePosixPath(entry["path"]) for entry in data["directories"]}
     roots = {path for path in owned if owned.isdisjoint(parents(path))}
-    commands = ["FAILAT 10"]
+    commands = ["FAILAT 5" if removals or renames or conversions else "FAILAT 10"]
+    for before, after in renames:
+        commands.append(f'Rename "SYS:{before}" TO "SYS:{after}"')
+    remaining = set(removals)
+    for change in conversions:
+        prefix = change["before"]["path"] + "/"
+        children = {path for path in remaining if path.startswith(prefix)}
+        commands.extend(conversion_commands(change, children))
+        remaining -= children
     for path in ordered_dirs:
         if path not in roots and roots.isdisjoint(parents(path)):
             commands.extend([f'IF NOT EXISTS "SYS:{path}"', f'  MakeDir "SYS:{path}"', "ENDIF"])
@@ -178,6 +221,7 @@ def installer(data, ordered_dirs):
         path = PurePosixPath(entry["path"])
         if roots.isdisjoint(parents(path)):
             commands.append(f'Copy "{VOLUME}:{path}" TO "SYS:{path}" CLONE')
+    commands.extend(deletion_commands(remaining))
     commands.append('Echo "Package installation complete."')
     return ("\n".join(commands) + "\n").encode("latin-1")
 
@@ -186,7 +230,7 @@ def metadata(entry):
     return MetaInfo(protect=entry["protection"], comment=FSString(entry["comment"]))
 
 
-def build(data, archive_dir, output):
+def build(data, archive_dir, output, *, removals=(), renames=(), conversions=()):
     if output.suffix.lower() != ".hdf":
         raise ValueError("The output filename must end in .hdf.")
     if output.exists():
@@ -219,7 +263,8 @@ def build(data, archive_dir, output):
             for entry, content in file_data:
                 path = PurePosixPath(entry["path"])
                 nodes[path.parent].create_file(FSString(path.name), content, metadata(entry)).flush()
-            volume.write_file(installer(data, ordered_dirs), FSString("Install"))
+            script = installer(data, ordered_dirs, removals=removals, renames=renames, conversions=conversions)
+            volume.write_file(script, FSString("Install"))
             volume.close()
         finally:
             device.close()
