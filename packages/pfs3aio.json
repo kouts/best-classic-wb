@@ -1,0 +1,52 @@
+{
+  "name": "pfs3aio",
+  "version": "3.1",
+  "baseline": "2.1.12",
+  "archives": {
+    "pfs3aio.lha": {
+      "url": "https://se.aminet.net/disk/misc/pfs3aio.lha",
+      "sha256": "4837919cfebd78a4ce70206e4e5acb5430ca35d958bfbdab524ac2d14febf104",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS and a block device with a PFS3 partition or explicit filesystem mount"
+  ],
+  "notes": [
+    "Both 68000-compatible handlers identify as Professional-File-System-III 19.2 dated 2 October 2018.",
+    "The standard handler is the normal build. The custom build is for RDB loaders that cannot handle hunk relocations.",
+    "BCWB ships the binaries in Expansion for manual filesystem setup and supplies the checked drawer icon."
+  ],
+  "directories": [
+    {
+      "path": "Expansion/PFS3AIO",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Expansion/PFS3AIO.info",
+      "protection": 2,
+      "comment": "",
+      "sha256": "b11906586760acf9846e3b97257bfe86ba43312413a4905f6edf7afbd8b39aa9",
+      "source": "src/BestClassicWB/BCWB_Files/Expansion/PFS3AIO.info"
+    },
+    {
+      "path": "Expansion/PFS3AIO/pfs3aio",
+      "protection": 2,
+      "comment": "",
+      "sha256": "185fae785d0f6e15a1936ecb44e4cb18a21b6f701094c57edbd331e5f9a16047",
+      "archive": "pfs3aio.lha",
+      "source": "pfs3aio"
+    },
+    {
+      "path": "Expansion/PFS3AIO/pfs3aio-custom",
+      "protection": 2,
+      "comment": "",
+      "sha256": "7be0f5f9d2d37837fc4033dbfca4b09b0282229d4b56e0bee8e72b9c567c9a14",
+      "archive": "pfs3aio.lha",
+      "source": "pfs3aio-custom"
+    }
+  ]
+}

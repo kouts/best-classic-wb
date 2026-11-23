@@ -1,0 +1,123 @@
+{
+  "name": "fmssys",
+  "version": "1.3",
+  "baseline": "2.1.12",
+  "archives": {
+    "adf2fms.lha": {
+      "url": "https://se.aminet.net/disk/misc/adf2fms.lha",
+      "sha256": "496226e8d572aac78014f337ca7b29d67ec4441d6f97a51b409898607aca864d",
+      "extractor": "7zip"
+    },
+    "fmsdisk.lha": {
+      "url": "https://se.aminet.net/disk/misc/fmsdisk.lha",
+      "sha256": "33682ca5843e7001d6f6f8d6aef475ddec73997f68224a84ed7dc8b60ef3ee9e",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "fmsdisk 5.01 and its FFx Mountlist entries",
+    "AmigaOS IconX, Mount and Format for MountFMS",
+    "reqtools.library v38 or later for ADF2FMS requesters",
+    "MultiView and the AmigaGuide datatype for the guides"
+  ],
+  "notes": [
+    "The version is the shipped ADF2FMS release. Both guides come from the fmsdisk 5.01 archive.",
+    "The checked BCWB payload supplies the Bloodwych MountFMS script, the Unit0 backing image and the Workbench icons.",
+    "MountFMS assigns FMS: to SYS:Programs/FMSsys, mounts FF0: with DEVS:Mountlist and offers the native Format confirmation. ADF2FMS writes through fmsdisk.device.",
+    "The separate fmsdisk entry owns DEVS:fmsdisk.device and DEVS:Mountlist. The shared reqtools.library remains a separate dependency."
+  ],
+  "directories": [
+    {
+      "path": "Programs/FMSsys",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Programs/FMSsys/FMSDocs",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Programs/FMSsys.info",
+      "protection": 2,
+      "comment": "",
+      "sha256": "40451d84e41b2b7617b74e1a971dbfd01261062e73edc34cf5996c18761e498e",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/FMSsys.info"
+    },
+    {
+      "path": "Programs/FMSsys/ADF2FMS",
+      "protection": 2,
+      "comment": "",
+      "sha256": "ac8d30b7a19b4b9ec8dc2e4ec3d1dbaaf1d01b03fe0cc669cdd7721328a44d80",
+      "archive": "adf2fms.lha",
+      "source": "ADF2FMS"
+    },
+    {
+      "path": "Programs/FMSsys/ADF2FMS.info",
+      "protection": 2,
+      "comment": "",
+      "sha256": "9cbb31ae10c23a793ee0185a6d27d7ca590013324218e7da1ee190fe785e9d5c",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/FMSsys/ADF2FMS.info"
+    },
+    {
+      "path": "Programs/FMSsys/FMSDocs.info",
+      "protection": 2,
+      "comment": "",
+      "sha256": "018b912fbb550a8ff0c458042006cd205addf8529ca9002731d7b6db87f176bc",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/FMSsys/FMSDocs.info"
+    },
+    {
+      "path": "Programs/FMSsys/FMSDocs/FMS.Guide",
+      "protection": 2,
+      "comment": "",
+      "sha256": "b25de64d15db4a0aaa22498247fe99f7b97e56d3a70cafef18d71ed036ea8357",
+      "archive": "fmsdisk.lha",
+      "source": "FmsDisk/Docs/FMS.Guide"
+    },
+    {
+      "path": "Programs/FMSsys/FMSDocs/FMS.Guide.info",
+      "protection": 2,
+      "comment": "",
+      "sha256": "cd11798953b84292bef4c6dc1d8134e0ee09fd004f7a52c106569d2f94020880",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/FMSsys/FMSDocs/FMS.Guide.info"
+    },
+    {
+      "path": "Programs/FMSsys/FMSDocs/History.Guide",
+      "protection": 2,
+      "comment": "",
+      "sha256": "034e9b2a05baee23dd20eec2fbad1a90ecc2f043beec17cf45e8a37b64c61a2b",
+      "archive": "fmsdisk.lha",
+      "source": "FmsDisk/Docs/History.Guide"
+    },
+    {
+      "path": "Programs/FMSsys/FMSDocs/History.Guide.info",
+      "protection": 2,
+      "comment": "",
+      "sha256": "4981a8242534d1de7768f7adccce204a60c0171e122abba7ffe149cc64324d03",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/FMSsys/FMSDocs/History.Guide.info"
+    },
+    {
+      "path": "Programs/FMSsys/MountFMS",
+      "protection": 2,
+      "comment": "",
+      "sha256": "5078572b3a3d08826ffd9352176e5fd9df6287b9048519f3950d71e62f09de37",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/FMSsys/MountFMS"
+    },
+    {
+      "path": "Programs/FMSsys/MountFMS.info",
+      "protection": 2,
+      "comment": "",
+      "sha256": "18ca1c8e3ce08b6abdcd187b12ee9346250169d5b70f3360e730cc14c675e90c",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/FMSsys/MountFMS.info"
+    },
+    {
+      "path": "Programs/FMSsys/Unit0",
+      "protection": 2,
+      "comment": "",
+      "sha256": "1fc27e1ecadb235c52b3585dba268ddc55693715f4a48d7b9056f8d33c8138c3",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/FMSsys/Unit0"
+    }
+  ]
+}

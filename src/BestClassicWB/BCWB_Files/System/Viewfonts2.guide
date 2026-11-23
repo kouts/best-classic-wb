@@ -1,0 +1,629 @@
+@DATABASE
+@NODE main "Contents"
+ @{b}@{u}Inyourface Disclaimer@{uu}
+
+  David McMinn accepts no responsibility and cannot be held liable for any
+ damage or loss of systems, or part of, or data, caused by, or the use of,
+ Viewfonts 2. The user accepts all responsibilty by using Viewfonts 2
+ and assumes the cost of all necessary service, repair or correction.
+
+  The user uses Viewfonts 2 at their own risk.@{ub}
+
+
+                        @{b}@{u}Viewfonts 2 (Font Manager)@{uu}@{ub}
+
+                          @{"   by David McMinn    " link dave}
+
+                             @{" About Viewfonts " link about}
+                             @{"    Features     " link features}
+
+                             @{"  Requirements   " link system}
+                             @{"  Installation   " link install}
+
+                             @{"Setting Tooltypes" link tools}
+                             @{"     Loading     " link loading}
+                             @{" Using Viewfonts " link using}
+                             @{"    Using Help   " link help}
+
+                             @{" Bugs and Errors " link errors}
+
+                             @{" Credits / Thanks" link credits}
+
+@{i}v2.02 19/11/98@{ui}
+@ENDNODE
+
+@NODE dave "About the author"
+  David McMinn is a PhD student, at Robert Gordon Uni., Aberdeen.
+
+  Please read the @{"registration" link registration} section and contact me.
+
+   I can be contacted in the following ways:
+
+  e-mail:
+        d.mcminn@eee.rgu.ac.uk
+@ENDNODE
+
+@NODE about "About the program"
+     Viewfonts is a program which allows the user to view fonts in a drawer,
+    and copy selected fonts to another drawer or delete selected fonts.
+
+     Although it may not sound much, it is quite a useful program. I know
+    people who don't have a clue about fonts on their Amiga, because they
+    are beginners. Viewfonts takes out all the hassle of copying fonts,
+    with the added bonus that you can see what they look like, while you copy
+    them!
+
+     YOU MAY FREELY DISTRIBUTE THE PROGRAM ARCHIVE AS LONG AS NO CHANGES ARE
+    MADE TO IT.
+
+     For more about the features of the program, click @{"here" link features}.
+
+    Viewfonts 2 took too long to write.
+    Viewfonts 2 is © David McMinn 1996-1998.
+
+ Truetype fonts are viewable thanks to the ttf.library (by Richard Griffith)
+see the ttflib.lha archive available on Aminet. Truetype fonts will be able
+to be managed (hopefully) in a later release, until now use the manager that
+comes in the ttflib.lha archive (also has preview).
+
+ Postscript fonts will be viewable in a future release, thanks to the type1.library
+by Amish S. Dave,  and also managed (hopefully), see the type1_5.lha archive on
+Aminet. For Postscript fonts, use the manager / viewer that comes in the archive.
+
+@{b}NB:@{ub} In no way are these authors connected with Viewfonts and they should not be
+pestered with any queries about Viewfonts. They simply have written two very useful
+libraries which enhance, not only Viewfonts, but any Amiga program which uses
+the standard libraries for loading fonts.
+
+    @{u}History of Viewfonts 2@{uu}
+	  @{u}v2.02 - 19th November 1998{uu}
+	  <Long delay thanks to uni and I've been trying to plan the next version
+	  (so that it actually works well/properly).>
+	  Added a basic CLI interface (see Loading section)
+	  Removed bug not removing AppIcon
+	  Removed bug crashing out during copy (damned copy command crashed if
+	  source file didn't exist)
+      Program now doesn't put up error message if already running, just
+      displays previous instance
+
+	  @{u}9th October 1998@{uu}
+	  Changed version number to 2.01
+	  Tested programs with couple of cool libs (see above)
+	  Updated documentation
+	  Fixed a couple of non-life-threatening errors in the program
+	  Released Blitz 2 source (viewfsrc.lha should be in dev/basic)
+
+      @{u}August 1998@{uu}
+      Not actually released before, now it will be. Free. And the source.
+      + Fixed sorting routine for size listview, now sorted properly.
+      + Help menu items now all work.
+      + Updated installer to install MWB icons
+      + Guide now contains no incorrect information. I hope.
+
+      @{u}v2.00 - 01/06/96@{uu}
+      First release of Viewfonts. Total re-think, and re-write.
+
+      + Funky new resizable GUI.
+      + Copy or delete selected fonts, not just view them
+      + Faster (does not need to load all the fonts at once)
+      + Bugs fixed (hopefully :)
+      - Larger program size
+
+      @{u}v1.12 - 03/04/96@{uu}
+      + Fixed some bugs
+      - Still just as crap
+
+      @{u}v1.11 - 26/03/96@{uu}
+      Decided that a program with as much potential should not go to waste
+      (after four months of nothing)
+      + Viewfonts now a commodity
+      + Iconifies when not in use
+      + Responds to Exchange messages
+      - Still crap
+
+      @{u}v1.00 - 05/12/95@{uu}
+      + First release (but not publically, just for test purposes)
+      + View all the fonts in a drawer, in that font style
+      - Crap
+@ENDNODE
+
+@NODE registration "Registration and it's benefits"
+
+   When you register you will recieve:
+
+       A B S O L U T E L Y   N O T H I N G !
+
+   But thats because its free, you don't need to register and
+  pretty soon, you will be able to get the source to it as well
+  (once I've cleaned it up).
+
+   All that I ask is that you drop me an email and tell me what
+  you think about it.
+
+   Once the source is released (Blitz 2) it will probably appear
+  on Aminet in dev/basic. You'll be able to use the source in your
+  own programs, all that I ask is that you aknowledge me in your
+  documentation. Viewfonts 2 is still © David McMinn, so you
+  cannot recompile the entire code and pass it off as your own work.
+
+@ENDNODE
+
+@NODE features "Features of the program"
+  @{u}Wow, that's amazing!@{uu}
+
+    * Shows (in font style) and deletes or copies selected fonts
+
+    * Can be used as a commodity, controlled by Exchange
+
+    * Tool type preferences
+
+    * Supports up to 1000 selectable fonts with 1000 sizes
+
+    * Support for Bitmap, CompuGraphic and Truetype fonts.
+   	  See @{"this" link about}.
+
+    * Font sensitive, resizable GUI. If the default screen font changes
+      while Viewfonts 2 is loaded, hiding the GUI then re-opening it
+      will use the new font.
+
+    * Remembers last window size / position between sessions
+
+    * VERY basic CLI interface
+
+  @{u}For future versions@{uu}
+  	Localisation
+	Text/Field colour
+	Font style
+	font/directory information
+	Proper CLI interface
+	AREXX interface
+	WB Argument interface
+	User enters own string
+	Colorfont colours handled
+	Mukltiple preview windows (GUI changed again):
+		Need a listview showing what fonts are currently on preview,
+		buttons for "Open new preview window", "close preview window",
+		double click on list view to pop preview to the front.
+		all sub windows controlled by a list, all follow the main
+		window, all have their own gadgets for font colours/styles.
+
+Fix any bugs:)
+
+ Let me know if I've missed anything out (most likely :).
+
+@ENDNODE
+
+@NODE install "Installation of Viewfonts 2"
+     Simply double-click on the Install_VF2 icon. You will be prompted to
+    specify paths of where to install the program and online help file.
+
+     If you *really* want to install Viewfonts 2 manually, perform these
+    actions:
+          Copy the program and icon to a directory of your choosing
+          Copy the online help file and icon to the same directory
+          Copy reqtools.library to LIBS:, if the current version is less than
+          38.1210 (found out by typing @{b}version reqtools.library@{ub} at the CLI).
+@ENDNODE
+
+
+@NODE system "System requirements"
+  Viewfonts 2 requires :
+
+      OS 2+
+
+      Libraries (should be available in libs: drawer, all libraries are
+      supplied with your original Workbench)
+
+        bullet.library (required for Compugraphic fonts on WB3 only)
+        commodities.library
+        diskfont.library v37.58+ (On fonts disk on WB2)
+
+      ttf.library v0.7+ if you want to view truetype fonts. Written by
+      Richard Griffiths and available on Aminet as ttflib.lha.
+
+      reqtools.library v38+ © Nico François is also required but will be
+      installed by the install script if neccessary.
+
+      a drawer of fonts ;)
+@ENDNODE
+
+@NODE tools "Settings in tooltypes"
+       The tool types on the program icon are a simple way of governing how
+      the program operates. These are listed below with an explanation and
+      possible values.
+
+    @{u}Tool Type@{uu}      @{u}Decsription@{uu}
+
+    CX_POPUP       This determines whether the Viewfonts 2 window will open
+                   when the program has loaded (YES) or whether Viewfonts 2
+                   iconify (NO).
+                   @{b}Default value is YES.@{ub}
+
+    CX_HOTKEY      This is the key combination that you press when Viewfonts 2
+                   has iconified to get the window to re-appear (or pop to
+                   front, and use new screen if neccessary).
+                   See also use as a @{"commodity" link commodity}.
+                   @{b}Default is 'ctrl lalt v'@{ub}
+
+    DEST           This is the default path to the destination directory.
+                   @{b}Default is 'SYS:OFFLINE'@{ub}
+
+    SOURCE         The default path to the source directory, which contains
+                   the fonts to view and manage.
+                   @{b}Default is 'FONTS:'@{ub}
+
+    PUBSCREEN      This is the public screen that Viewfonts 2 will attempt to
+                   open it's windows on. Possible options are:
+                     FRONT - Viewfonts 2 will open on the front-most public
+                     Handy for when you want Viewfonts 2 to pop to the screen
+                     currently being used.
+
+                     <NAMED> - Where <NAMED> is the name of a public screen
+                     (name is case sensitive).
+
+                     @{b}DEFAULT@{ub} - This open Viewfonts 2 on the default
+                     public screen. This will most likely be the Workbench.
+
+    ICONIFY          Tells Viewfonts 2 where to iconify to. Possible values
+                     are MENU or ICON. When set to menu, iconifying Viewfonts
+                     2 will add an item to the Workbench 'Tools' menu. When
+                     set to ICON, an icon will appear on the Workbench screen.
+                     @{b}Default is MENU@{ub}
+
+        NOTE: If Viewfonts 2 has been loaded, then the tooltypes are changed,
+        the new values will not take effect until you quit Viewfonts 2 then
+        re-load it.@{ub}
+@ENDNODE
+
+@NODE loading "Loading Viewfonts"
+
+    From WB :
+
+        Double-click on the Viewfonts2 icon
+
+    From CLI :
+
+        cd <dir>   @{b}RETURN@{ub} where dir is the directory that Viewfonts2
+                                   is located
+        run viewfonts2 @{b}RETURN@{ub}
+
+        @{u}Possible CLI arguments (remember this is a stop gap)@{uu}
+        First parameter MUST be either a font name or a path, i.e.
+          @{b}viewfonts2 fonts:@{ub} will use "fonts:" as the drawer to scan
+
+          @{b}viewfonts2 fonts:blah.font@{ub} will use "fonts:" as the drawer
+          and load blah.font if available
+
+        Second parameter is the font size, and should only be used when a font
+        name is specified, i.e.
+          @{b}viewfonts2 fonts:genesis.font 37@{ub} will use "fonts:" as the drawer,
+          genesis.font will be loaded if available, at size 37.
+
+        @{b}NB:@{ub}I don't know what happens if you put silly parameters in, this
+        is just a temporary measure until the next version appears which will
+        have a proper CLI interface.
+@ENDNODE
+
+@NODE using
+@TITLE "Using Viewfonts"
+  @{u}The Viewfonts Window@{uu}
+
+     Clicking on the close gadget of the window will iconify the program to
+    whatever was specified in the @{"tool types" link tools}.
+     The program hotkey is shown in angled brackets in the title bar of the
+    window, for when Viewfonts 2 is @{"iconified" link commodity}.
+
+   Pressing any of the underlined letters will activate that gadget.
+   Pressing help will activate the online help, but this Guide file
+  must be in the same directory as the main program.
+
+     The menus are shown below, then the Viewfonts 2 window.
+
+
+  @{b}Project       Fonts                   Help@{ub}
+  @{"About  A" link mnu_About}     @{"Select all    S" link mnu_Select_all}        @{"How to use help" link help}
+  @{"Hide   H" link mnu_Hide}     @{"Unselect all  U" link mnu_Unselect_all}        ~~~~~~~~~~~~~~~
+  ~~~~~~~~      @{"Read drawer   R" link mnu_Read_drawer}        @{"Contents       " link help}
+  @{"Quit   Q" link mnu_Quit}     @{"Copy fonts    C" link mnu_Copy_fonts}        @{"Using Viewfonts" link help}
+                @{"Delete fonts  D" link mnu_Delete_fonts}
+
+
+           +-+-------------------------------------------------+-+-+
+           |o| Viewfonts 2 © David McMinn 1996 <ctrl alt v>|Ø|#|
+           +-+-------------------------------------------------+-+-+
+           |    @{u}A@{uu}vailable Fonts   S@{u}i@{uu}zes         Selected Fonts   | |
+           |   +---------------+-+----+-+   +----------------+-+ | |
+           |   |               |#|    |#|   |                |#| | |
+           |   |               |#|    |#|   |                |#| | |
+           |   |               |#|    |#|   |                |#| | |
+           |   |               |#|    |#|   |                |#| | |
+           |   |               |#|    |#|   |                |#| | |
+           |   |               |#|    |#|   |                |#| | |
+           |   |               |#|    |#|   |                |#| | |
+           |   |               |#|    |#|   |                |#| | |
+           |   |               |@{u}#@{uu}|    |@{u}#@{uu}|   |                |@{u}#@{uu}| | |
+           |   |               |@{u}^@{uu}|    |@{u}^@{uu}|   |                |@{u}^@{uu}| | |
+           |   |_______________|@{u}v@{uu}|____|@{u}v@{uu}|   |________________|@{u}v@{uu}| | |
+           |    @{"Fontname        " link availfont} @{"Size " link sizefont}    @{"Select current font" link selected} | |
+           |                                                     | |
+           |   +-----------------------------------------------+ | |
+           |   |               @{b}FONT DISPLAY BOX@{ub}                | | |
+           |   |                                               | | |
+           |   | 1234 AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTt | | |
+           |   |                                               | | |
+           |   +-----------------------------------------------+ | |
+           |                                                     | |
+           | @{u}S@{uu}ource @{"Pathname        " link source} @{"[=]" link req}  @{"   Delete fonts    " link delete} | |
+           |                                                     | |
+           |   D@{u}e@{uu}st @{"Pathname        " link dest} @{"[=]" link req}  @{"    Copy fonts     " link copy} | |
+           |                                                     |_|
+           @{u}|                                                     |/|@{uu}
+@ENDNODE
+
+@NODE help "How to use online help"
+     Pressing the @{b}Help@{ub} key while the Viewfonts 2 window is active will
+    bring up this screen.
+
+     Pressing the @{b}Help@{ub} key while on a menu item will bring up the help for
+    that menu, or menu item. (Pressing Help on any of the menu items in the
+    Help menu will bring up this screen.)
+
+     Or you can select one of the menu items from the help menu.
+@ENDNODE
+
+@NODE mnu_ "Very interesting..."
+     This is a menu bar that intuition has drawn, so the menu items look
+    nicer and are spread out a bit. This menu item has no function!
+@ENDNODE
+
+@NODE mnu_About "Project->About menu option"
+     This menu option puts up a couple of requesters giving some information
+    about the program.
+
+        Shortcut key : Right-Amiga ?
+@ENDNODE
+
+@NODE mnu_Hide "Project->Hide menu option"
+     Selecting this menu option will hide the Viewfonts 2 window.
+
+     For a larger explanation of this, see {"use as a commodity" link commodity}.
+
+        Shortcut key : Right-Amiga H
+@ENDNODE
+
+@NODE mnu_Quit "Project->Quit menu option"
+     If you choose this menu option, Viewfonts 2 will quit. The program will
+    end. Gone. Until it is re-loaded. Use this menu option to end a
+    session in Viewfonts 2.
+
+        Shortcut key : Right-Amiga Q
+@ENDNODE
+
+@NODE mnu_Select_all "Fonts->Select all menu option"
+     This menu item will cause all the available fonts to appear in the
+    selected fonts list. Handy if you want to do mass copying or deletion.
+
+        Shortcut key : Right-Amiga S
+@ENDNODE
+
+@NODE mnu_Unselect_all "Fonts->Unselect all menu option"
+     This performs the opposite of the Select all menu item. The selected
+    fonts list is cleared.
+
+        Shortcut key : Right-Amiga U
+@ENDNODE
+
+@NODE mnu_Read_drawer "Fonts->Read drawer menu option"
+     Viewfonts 2 will automatically scan drawers for fonts, if the
+    directory requester gadget is pressed, or the path typed into the
+    string gadget and return pressed afterwards. The drawer is re-scanned
+    after deleting fonts, so the updated directory can be viewed.
+
+     However, if you wish to force a directory scan, choose this menu item.
+
+        Shortcut key : Right-Amiga R
+@ENDNODE
+
+@NODE mnu_Copy_fonts "Fonts->Copy fonts menu option"
+     This menu item performs the same operation as the 'Copy fonts' gadget
+    in the main window.
+     All the selected fonts are copied from the source directory to the
+    destination directory.
+
+        Shortcut key : Right-Amiga C
+@ENDNODE
+
+@NODE mnu_Delete_fonts "Fonts->Delete fonts menu option"
+     This meun item performs the same operation as the 'Delete fonts' gadget
+    in the main window.
+     A requester will be shown asking you to confirm your action and then,
+    upon choosing Yes, all the selected fonts will be deleted.
+
+        Shortcut key : Right-Amiga D
+@ENDNODE
+
+@NODE availfont "Available Fonts - listview + string gadget"
+     The listview shows all the fonts that are available in the drawer
+    specified in the @{"Source string gadget" link source} with the currently displayed font
+    name being shown in the string gadget, under the listview.
+     By clicking on any of these font names, a sample of that font will be
+    shown in the font display window. The font sizes on disk (if a bitmap font)
+    will be shown in the @{"sizes listview" link sizefont}. You can also type the name of the
+    font into the string gadget below the listview to view the font, but only
+    if it is in the list of fonts in that drawer.
+
+     You can press the 'A' key to activate the font name string gadget.
+@ENDNODE
+
+@NODE sizefont "Sizes - listview + integer gadget"
+     The listview shows all the available sizes of the currently displayed
+    font. No sizes will be shown for Compugrahpic fonts as they are scalable
+    and the size should be typed into the gadget under the listview. It is
+    also possible to type font sizes for bitmap fonts (although they do
+    become rather blocky).
+
+     You can press the 'I' key to activate the font size integer gadget.
+@ENDNODE
+
+@NODE selected "Selected fonts - listview + button"
+     This listview shows all the names of the fonts that have been selected.
+    These are the fonts that will be copied or deleted, once that options has
+    been taken. To select a font, click on the @{b}Select current font@{ub} button,
+    or press the 'F' key.
+
+     To de-select a font, click on the @{b}Select current font@{ub} button or
+    press the 'F' key.
+
+     There is also the option to select all the available fonts by selecting
+    the Fonts->Select all menu option. To de-select all the selected fonts,
+    choose the Fonts->Unselect all menu option.
+@ENDNODE
+
+@NODE source "Source - string and button"
+     The string gadget shows the current path to the available fonts. This
+    must be the full path to where the '.font' files are for the fonts you
+    wish to view are, e.g. FONTS:.
+
+     To specify a new drawer, type the path in the string gadget and @{b}press@{ub}
+    @{b}return@{ub}. Alternatively, you could click on the small button to the
+    right of this string gadget. This will bring up a requester asking for you
+    to specify the path to the .font files. The new drawer will be scanned
+    for fonts once it has been entered.
+
+     The default setting for this string gadget is specified by the
+    SOURCE @{"tooltype" link tools}.
+
+     You can press the 'S' key to activate the string gadget.
+@ENDNODE
+
+@NODE dest "Dest - string and button"
+     The string gadget shows the path to where the selected fonts will be copied
+    to.
+
+     To specify a new destination directory, type the path in the string gagdget
+    and @{b}press return@{ub}. Alternatively, you could click on the small
+    button to the right of this string gadget. This will bring up a requester asking for you
+    to specify the path to the destination.
+
+     The default setting for this string gadget is specified by the
+    DEST @{"tooltype" link tools}.
+
+     You can press the 'E' key to activate the string gadget.
+@ENDNODE
+
+@NODE copy "Button"
+     By clicking on this gadget, all the @{"selected fonts" link select} will be copied from the
+    source directory into the destination directory. If there are any problems
+    in copying the files, a requester will notify you.
+
+     You can also press the 'C' key to copy the fonts, or use the
+    Fonts->Copy fonts menu option.
+@ENDNODE
+
+@NODE req "Button (part of Source or Dest)"
+     These gadgets simply display a path requester which allows you to select
+    a path, by browsing what is currently available, on disks.
+@ENDNODE
+
+@NODE delete "Button"
+     By clicking on this button, you will delete all the selected fonts from
+    the source directory. @{b}These fonts will be DELETED, not moved!!@{ub}
+    First a requester will be shown, asking you to confirm this action. Upon
+    selecting 'Yes', the fonts will be deleted. If you select 'No', nothing
+    will happen.
+
+     You can also press the 'D' key to delete the selected fonts, or use the
+    Fonts->Delete fonts menu option.
+@ENDNODE
+      About - Displays a requster giving some information about Viewfonts.
+
+
+      Hide  - Iconifies the window to whatever was specified in the
+              @{"tool types" link loading}. See also use as a @{"commodity" link commodity}.
+
+      Quit  - Quits out of Viewfonts.
+
+    Fonts Menu:
+
+      Select All   - Selects all the available fonts. Same as going through
+                     each font, one by one and clicking the Select current
+                     font gadget.
+
+      Unselect All - Removes all fonts from the selected list.
+
+      Read drawer  - Performs the same task as the Read Drawer gadget.
+
+      Copy fonts   - Does the same as the Copy fonts gadget.
+
+      Delete fonts - Has the same effect as the Delete fonts gadget.
+
+@NODE commodity "Using Viewfonts as a commodity"
+     To hide Viewfonts 2, any of the following can be done:
+        Select the Project->Hide menu option
+        Click on the close gadget of the Viewfonts 2 window
+        Click on 'Hide' in the Exhange program, with Viewfonts2 highlighted
+
+     Once hidden, the Viewfonts 2 window will close, and one of the following
+    will happen:
+        An icon will appear on the Workbench screen
+     OR a menu item will be attached to the Workbench Tools menu
+
+     To show the Viewfonts 2 window once hidden, or to pop the window to
+    the front and on the correct screen (if possible):
+        Double-click on the Viewfonts2 icon on the Workbench
+     OR Select the Viewfonts2 menu item in the Workbench Tools menu
+        Press the hotkey combination (specified in tooltypes, shown in window)
+        Click on 'Show' in the Exhange program, with Viewfonts2 highlighted
+
+     At any time, it is possible to click on the 'Remove' button in the
+    Exhange program, with Viewfonts2 highlighted, to quit from Viewfonts 2.
+@ENDNODE
+
+@NODE errors "What to do in case of an emergency"
+	 If a Compugraphic font has both bitmap and CG parts, not both will
+	be copied / deleted. Will be fixed in a later release.
+
+	 Truetype fonts can be viewed but not managed, will be fixed in
+	later release.
+
+	 Postscript fonts crash the program. Will be fixed in later release.
+
+	Read @{"this" link about}.
+  @{u}Viewfonts 2.00 has been tested on the following systems:@{uu}
+
+    A500+ Unexpanded
+    A500+ Extra 1Mb
+
+    A1200 Unexpanded
+    A1200 340Mb HD
+
+    A1260@50MHz/34Mb RAM, 1.3Gb HD, 16x CD
+
+   If, however, in the unlikely event that you do find an error or something
+  strange happening, send an explanation of what happened, and your system,
+  to me and I'll try to fix it.
+
+   You may think that when running from disk, viewing a Compugraphic font
+  has an excessive number of disk swaps, the first time that the program
+  is run, but this is the way that the diskfont library works with CG fonts.
+  There will be far less disk swaps the next time you select a CG font.
+@ENDNODE
+
+@NODE credits "Credits and Thank yous"
+  @{u}Credits@{uu}
+
+    David McMinn    - Ideas, Design, Programming, Testing.
+
+    Mark Tiffany    - Ideas, Re-sizable GUI code.
+
+    Peter Traskalik - Ideas, Font sensitivity code, MWB icons.
+
+  @{u}Thanks to :@{uu}
+
+    Ralf Berkvens - Testing, Support.
+
+    Eddy Carroll  - For making the SnoopDos3 source freely available,
+                    which I learnt a lot from.
+
+    and Mark Sibly for Blitz ][
+@ENDNODE

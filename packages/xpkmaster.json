@@ -1,0 +1,256 @@
+{
+  "name": "XPK master and compressors",
+  "version": "5.2 (8 September 1999)",
+  "baseline": "2.1.12",
+  "archives": {
+    "BetterWB3.zip": {
+      "url": "https://raw.githubusercontent.com/henrikstengaard/betterwb-package/9a2d320d9cc4bb19c5895dc71988148010e1de0f/package/BetterWB3.zip",
+      "sha256": "f6ba4e57cee471d85240cb3213bb171cd3bcd41ce7ce7f18efa43a647302df01"
+    },
+    "CrMv191t.lha": {
+      "url": "https://se.aminet.net/util/pack/CrMv191t.lha",
+      "sha256": "ff2ddad3fc4c5c3fa6dd948ca2dd745e8cff03069ddc1b15bb1b6ee1f2ba6a8b"
+    },
+    "xpk_User.lha": {
+      "url": "https://se.aminet.net/util/pack/xpk_User.lha",
+      "sha256": "ec48c2820e45e64e1c1970592f06dc32c64546a6c7d545b39c79b469012879f3"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS",
+    "lh.library for LHLB",
+    "powerpacker.library for PWPK",
+    "xfdmaster.library for optional foreign-format unpacking"
+  ],
+  "notes": [
+    "The master, English guide and 16 standard plug-ins match the XPK user release. HFMN, MASH, RAKE and SQSH use its base builds.",
+    "The Crunch-Mania archive supplies CRM2 and CRMS. The BetterWB Bonus disk ZIP supplies the exact seven other plug-ins.",
+    "This package owns the shared Libs/compressors drawer. The Lh, XFD, shared English help and future Crunch-Mania command ownership are separate.",
+    "The stock bundle includes neither the upstream shell tools nor the guide icon."
+  ],
+  "directories": [
+    {
+      "path": "Libs/compressors",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Libs/compressors/xpkBLZW.library",
+      "source": "Libs/compressors/xpkBLZW.library",
+      "archive": "BetterWB3.zip",
+      "sha256": "10a31ddb32fd0e62557cc830900be2caa3275d5a27c96ee9406957764bdc1df7",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkCBR0.library",
+      "source": "xpk_User/Libs/compressors/xpkCBR0.library",
+      "archive": "xpk_User.lha",
+      "sha256": "2572b3228725a9bd32b008aa4fd225d176ca6af47d03978f44be13d77fe6f462",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkCRM2.library",
+      "source": "CrMV1.91t/libs/compressors/xpkCRM2.library",
+      "archive": "CrMv191t.lha",
+      "sha256": "d04d2ee9cee8a01a9103cd9e0bec516ccad07664733d6017a48e38d0f63fb401",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkCRMS.library",
+      "source": "CrMV1.91t/libs/compressors/xpkCRMS.library",
+      "archive": "CrMv191t.lha",
+      "sha256": "108474c0a59330ae8229647dc1e0998a523be6cb5633b5aa79445892a6f16f1a",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkDLTA.library",
+      "source": "xpk_User/Libs/compressors/xpkDLTA.library",
+      "archive": "xpk_User.lha",
+      "sha256": "26b8e5721012e6d3bde59782c24747a6799dc86882655f4bae4939f6d36597a4",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkDUKE.library",
+      "source": "xpk_User/Libs/compressors/xpkDUKE.library",
+      "archive": "xpk_User.lha",
+      "sha256": "70af41004441e1d793dd70cfe9f491d9e09a667969bf3360e64ae39999260e5b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkENCO.library",
+      "source": "Libs/compressors/xpkENCO.library",
+      "archive": "BetterWB3.zip",
+      "sha256": "075d0eeb0c8cf3794d106d255f1e60a265f0a3d10d265c3162593b14f02736ce",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkFAST.library",
+      "source": "xpk_User/Libs/compressors/xpkFAST.library",
+      "archive": "xpk_User.lha",
+      "sha256": "c27e93d5f11004e186ac9bdef75ff9dd121c0651eb44e8a987d4179e6bfcb049",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkFEAL.library",
+      "source": "Libs/compressors/xpkFEAL.library",
+      "archive": "BetterWB3.zip",
+      "sha256": "300aa49e304312caa9b4b5f1f5c13cf9576f1a1a039348506ba7b49c3fb497ab",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkFRLE.library",
+      "source": "xpk_User/Libs/compressors/xpkFRLE.library",
+      "archive": "xpk_User.lha",
+      "sha256": "5d4f8f16bd935249a88c64afd450c0b8ca9adda960629b00ba9314e13e2e5b4e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkHFMN.library",
+      "source": "xpk_User/Libs/compressors/xpkHFMN.library",
+      "archive": "xpk_User.lha",
+      "sha256": "f40ab6ee8670eb0493e66e2f335c11bdc4e97fb56d97c01e13d51d6275d667ad",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkHUFF.library",
+      "source": "xpk_User/Libs/compressors/xpkHUFF.library",
+      "archive": "xpk_User.lha",
+      "sha256": "3e3977cd7627c845468eef9737ff50540700c4e3197e13c8255e4cf92eeeddba",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkIDEA.library",
+      "source": "Libs/compressors/xpkIDEA.library",
+      "archive": "BetterWB3.zip",
+      "sha256": "51b4a05ab89b9e98fec2c3c163cfa38c2a319eab600c5bfa758bdf9d43f82f8e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkIMPL.library",
+      "source": "xpk_User/Libs/compressors/xpkIMPL.library",
+      "archive": "xpk_User.lha",
+      "sha256": "07e7d0d0e2e429726003dad04cefc003dcb8375076cadb7a3daba7dab6254d33",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkLHLB.library",
+      "source": "Libs/compressors/xpkLHLB.library",
+      "archive": "BetterWB3.zip",
+      "sha256": "3970d9df92a7d54f1480723fe1b563989c27804fd9d36d690ae283ca8f0e5637",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkMASH.library",
+      "source": "xpk_User/Libs/compressors/xpkMASH.library",
+      "archive": "xpk_User.lha",
+      "sha256": "244c4e807e8cc1d80a6a197a8b0071ebf71591233efd5e518c09927015cc4328",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkNONE.library",
+      "source": "xpk_User/Libs/compressors/xpkNONE.library",
+      "archive": "xpk_User.lha",
+      "sha256": "732b07e66d11cf507b4c5884ad93057fabdb936666117e69bb59233747ad1392",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkNUKE.library",
+      "source": "xpk_User/Libs/compressors/xpkNUKE.library",
+      "archive": "xpk_User.lha",
+      "sha256": "8dd05bd2a4becddfb5fc0945255fd13b5c73920c1e46e9fd3acc4b2e834b6428",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkPWPK.library",
+      "source": "Libs/compressors/xpkPWPK.library",
+      "archive": "BetterWB3.zip",
+      "sha256": "7da5a55ac3c623b4ee4b1d5b540c6b8a828c3fd765dbbe055b6462950361489b",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkRAKE.library",
+      "source": "xpk_User/Libs/compressors/xpkRAKE.library",
+      "archive": "xpk_User.lha",
+      "sha256": "c8286e4bc4f922262351ef00ab410955b4ad3216bad9b17d5647378fc755e06e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkRDCN.library",
+      "source": "Libs/compressors/xpkRDCN.library",
+      "archive": "BetterWB3.zip",
+      "sha256": "ec41631308d0d947e1c1fb15152c344c0f0b723b9dd667ebb7932f1b975740fa",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkRLEN.library",
+      "source": "xpk_User/Libs/compressors/xpkRLEN.library",
+      "archive": "xpk_User.lha",
+      "sha256": "8c5bbdc3f3f57e874b1a09ff40cea41f292bc5b4caaa88df9366a1798437d493",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkSHRI.library",
+      "source": "xpk_User/Libs/compressors/xpkSHRI.library",
+      "archive": "xpk_User.lha",
+      "sha256": "25f27d71d13e26b0331441370833cdd985a6c22777f873acc3aa2c5f5e13e218",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkSMPL.library",
+      "source": "xpk_User/Libs/compressors/xpkSMPL.library",
+      "archive": "xpk_User.lha",
+      "sha256": "9ccd9bc15c809325d21a6924fa1056d1cba44f8d02529004ff2055a2f6aed0d1",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/compressors/xpkSQSH.library",
+      "source": "xpk_User/Libs/compressors/xpkSQSH.library",
+      "archive": "xpk_User.lha",
+      "sha256": "6f399a668b7d136a29f834b425b1c226732a87f28bd35bf0f3a7c6edcefa64da",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Libs/xpkmaster.library",
+      "source": "xpk_User/Libs/xpkmaster.library",
+      "archive": "xpk_User.lha",
+      "sha256": "3e709afeb8506a88fc8a43c05fd056825e0f06bd95cf48f81338733e7d521a39",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Locale/Help/english/XpkMaster.guide",
+      "source": "xpk_User/XpkMaster.guide",
+      "archive": "xpk_User.lha",
+      "sha256": "98017ceb08aed01aea46f5188befbace881570c37880b4b62d19b63f9771a8cd",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

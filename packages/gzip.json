@@ -1,0 +1,48 @@
+{
+  "name": "gzip",
+  "version": "1.2.4 Amiga Development Environment",
+  "baseline": "2.1.12",
+  "archives": {
+    "gzip-bin.lha": {
+      "url": "https://se.aminet.net/dev/gg/gzip-bin.lha",
+      "sha256": "fc70cd433861da603ffc7a95573f9e07471de768aa518ce6f1fe71695d368ad8"
+    }
+  },
+  "nestedArchives": {
+    "gzip-1.2.4-bin.tar": {
+      "archive": "gzip-bin.lha",
+      "source": "gzip-1.2.4-bin.tar",
+      "sha256": "8acf8d14b9494e88947e12fcdbca26a349d27f36031e4d8d623c818c55cfb878",
+      "extractor": "tar"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS",
+    "ixemul.library 47 or later"
+  ],
+  "notes": [
+    "Aminet preserves the ADE binary release. Its nested tar supplies both the command and the English AmigaGuide.",
+    "Directory Opus uses gzip for its GZIP filetype, and TSgui can invoke it for optional floppy image compression. The shared Workbench GZIP project default opens Voodoo-X.",
+    "Stock BCWB has no ixemul.library. xfdmaster owns the independent Libs/xfd/GZip depacker.",
+    "The development install makes the command executable and includes the 68020 ixemul.library 48.0 runtime."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "C/gzip",
+      "source": "bin/gzip",
+      "archive": "gzip-1.2.4-bin.tar",
+      "sha256": "94eb372fbe74ddbece3b51a3a5f96d5e6289dbe1bbcc1f15c164d9aca1572bfc",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "Locale/Help/english/gzip.guide",
+      "source": "guide/gzip.guide",
+      "archive": "gzip-1.2.4-bin.tar",
+      "sha256": "41a41b0cab45639e98d10cc222f37404955f53660d9fc1b1de6f1f86805c9537",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "LZX",
+  "version": "1.21r 68000/68010, patched",
+  "baseline": "2.1.12",
+  "archives": {
+    "lzx121r1.lha": {
+      "url": "https://se.aminet.net/util/arc/lzx121r1.lha",
+      "sha256": "64d6bb56abea7fdec87dd20654a58fd1f04823bdc4339c5a9fa8edec80a67756",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS",
+    "68000 or later",
+    "L:LZX.Keyfile for the registered build"
+  ],
+  "notes": [
+    "The Aminet registered 1.21r distribution supplies the exact English guide and public keyfile.",
+    "Applying the published LZX121r_pch.lha Y2K patch to LZX_68000EC-r reproduces the stock executable. The manifest uses the checked BCWB file for the host build.",
+    "The existing Directory Opus configuration calls LZX for creation, extraction, integrity testing and listing. The LZX default project icon opens Voodoo-X. The separately installed Libs/xad/LZX client belongs to xadmaster."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "C/LZX",
+      "source": "src/BestClassicWB/BCWB_Files/C/LZX",
+      "sha256": "fbf39c75d78385b58867db3f6d0d362a2d0ec64d220b0820c8b2f6a05884f81f",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "L/LZX.Keyfile",
+      "source": "LZX.Keyfile",
+      "archive": "lzx121r1.lha",
+      "sha256": "72d75218ecfce6004b3f903e54d2cfeca30f4a0380d1a10da1b544eed2a8cf06",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Locale/Help/english/LZX.guide",
+      "source": "LZX.guide",
+      "archive": "lzx121r1.lha",
+      "sha256": "ce80c237f11a7994b48c1fd86096147bf814f701d012198f9413a5e479d3b990",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

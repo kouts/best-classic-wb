@@ -1,0 +1,108 @@
+{
+  "name": "Additional picture datatype descriptors",
+  "version": "BestClassicWB 2.1.12 selection",
+  "baseline": "2.1.12",
+  "archives": {
+    "akFAXX-dt.lha": {
+      "url": "https://se.aminet.net/util/dtype/akFAXX-dt.lha",
+      "sha256": "97d1168c2636658c780c8ddf400a1ec11d9c66279220854f081efb287002d979",
+      "extractor": "7zip"
+    },
+    "akLJPG-dt.lha": {
+      "url": "https://se.aminet.net/util/dtype/akLJPG-dt.lha",
+      "sha256": "45c5a35ca54bfa64126a2fd5c3917f5e5df1aafa816ea6617e46253bd0be29d8",
+      "extractor": "7zip"
+    },
+    "akNAIL-dt.lha": {
+      "url": "https://se.aminet.net/util/dtype/akNAIL-dt.lha",
+      "sha256": "79fa34f005980557d6f5dd7d392ff9afb952812e20e34f5e70188f19e65ac8cd",
+      "extractor": "7zip"
+    },
+    "akSVG-dt.lha": {
+      "url": "https://se.aminet.net/util/dtype/akSVG-dt.lha",
+      "sha256": "cac9457fb1bf3ac680313751cc7d67db5e0e3537f7e3c576919d5e0f40f0d479",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS AddDataTypes and datatypes.library",
+    "Optional author-supplied akFAXX, akLJPG, akNAIL and akSVG datatype classes"
+  ],
+  "notes": [
+    "Andreas Kleinert's Aminet releases supply all six descriptors. FAXX, FAXX-CAT and FAXX-CATFORM declare the same class and different matching rules.",
+    "Stock BCWB registers these descriptors and ships without the four akFAXX, akLJPG, akNAIL and akSVG class binaries.",
+    "The shared datatype drawers have AmigaOS and existing catalogue descendants. The stock ILBM and JPEG class moves into Storage are part of the distribution installer.",
+    "The author requires complete packages for redistribution. Install the original packages separately when the optional formats are needed.",
+    "WinUAE rendered FAXX and SuperView SVG with the author classes. The LJPG sample rendered after isolating it from the shipped JFIF descriptor. The akNAIL class opened through Exec, with image decoding awaiting an ImageFX thumbnail fixture."
+  ],
+  "directories": [
+    {
+      "path": "Classes/DataTypes",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    },
+    {
+      "path": "Devs/DataTypes",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    },
+    {
+      "path": "Storage/DataTypes",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    }
+  ],
+  "files": [
+    {
+      "path": "Devs/DataTypes/FAXX",
+      "sha256": "aa842ae96b36a2c6a36e5029188f395846d7fea3ecf2a7a0a5e210e4a49db99e",
+      "protection": 2,
+      "comment": "",
+      "source": "akFAXX-Datatype/devs/Datatypes/FAXX",
+      "archive": "akFAXX-dt.lha"
+    },
+    {
+      "path": "Devs/DataTypes/FAXX-CAT",
+      "sha256": "d15252ccc490d2406eb697309bcf98cad46b6528ac68c14d50b3aec7eec508e0",
+      "protection": 2,
+      "comment": "",
+      "source": "akFAXX-Datatype/devs/Datatypes/FAXX-CAT",
+      "archive": "akFAXX-dt.lha"
+    },
+    {
+      "path": "Devs/DataTypes/FAXX-CATFORM",
+      "sha256": "0a1bda9f94f32bb3d095c9e4150f01b714e06ed66cba74cb0e59880f91443482",
+      "protection": 2,
+      "comment": "",
+      "source": "akFAXX-Datatype/devs/Datatypes/FAXX-CATFORM",
+      "archive": "akFAXX-dt.lha"
+    },
+    {
+      "path": "Devs/DataTypes/LJPG",
+      "sha256": "7340b46c60f6319ab193604adf5a9b1a86b8c9a7259e29cf3d03d4f92bcfb254",
+      "protection": 2,
+      "comment": "",
+      "source": "akLJPG-Datatype/devs/Datatypes/LJPG",
+      "archive": "akLJPG-dt.lha"
+    },
+    {
+      "path": "Devs/DataTypes/NAIL",
+      "sha256": "b808ce468aafe853219751f7c6e6f7b2dd55f8b9b86096fd23b7e32811c443ce",
+      "protection": 2,
+      "comment": "",
+      "source": "akNAIL-Datatype/devs/Datatypes/NAIL",
+      "archive": "akNAIL-dt.lha"
+    },
+    {
+      "path": "Devs/DataTypes/SVG",
+      "sha256": "54261c584fe0188377bfc30eba25f297be86d63130d0a452b38894b011f460e7",
+      "protection": 2,
+      "comment": "",
+      "source": "akSVG-Datatype/devs/Datatypes/SVG",
+      "archive": "akSVG-dt.lha"
+    }
+  ]
+}

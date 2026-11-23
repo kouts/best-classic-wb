@@ -1,0 +1,106 @@
+{
+  "name": "Additional DOSDriver mountlists",
+  "version": "BestClassicWB 2.1.12 selection",
+  "baseline": "2.1.12",
+  "archives": {
+    "BestWB.zip": {
+      "url": "https://lilliput.amiga-projects.net/Files/BestWB.zip",
+      "sha256": "fb7e4d2c2c1be98f8a797dd56903bd9c18e2639ffe9b93c49f5c5744fbd66bad"
+    },
+    "BetterWB3.zip": {
+      "url": "https://raw.githubusercontent.com/henrikstengaard/betterwb-package/9a2d320d9cc4bb19c5895dc71988148010e1de0f/package/BetterWB3.zip",
+      "sha256": "f6ba4e57cee471d85240cb3213bb171cd3bcd41ce7ce7f18efa43a647302df01"
+    }
+  },
+  "nestedArchives": {
+    "BestWB5.adf": {
+      "archive": "BestWB.zip",
+      "source": "BestWB5.adf",
+      "sha256": "23711d3718c9c4edffab6f45acd62d61877f54e91d49c0b80321dec36522eaaf",
+      "extractor": "amiga-adf"
+    },
+    "BestWB-5.zip": {
+      "archive": "BestWB5.adf",
+      "source": "5.zip",
+      "sha256": "9009dd982f1a9f15697165dd0a2f3259136d9368a27f140eec86b13876b1cc7d",
+      "members": [
+        "Storage/DOSDrivers/CF0"
+      ]
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS Mount",
+    "AmigaOS CrossDOSFileSystem and FastFileSystem",
+    "compactflash.device for CF0",
+    "Matching SCSI device and media for Jaz and Zip"
+  ],
+  "notes": [
+    "BetterWB Bonus supplies JAZ0 40.1, JAZ2 1.0, JAZPC 1.0, ZIC 1.0 and ZIP 1.0. BestWB 1.3 supplies the exact CrossDOS CF0 variant with the 1.21 header.",
+    "The six mountlists are shipped under Storage/DOSDrivers for manual activation. Workbench uses the device and unit tooltypes from the BCWB icons.",
+    "The shared DOSDrivers drawers include OS and ViNCEd paths. The BCWB device and datatype overlay owns the replacement and companion icons."
+  ],
+  "directories": [
+    {
+      "path": "Devs/DOSDrivers",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    },
+    {
+      "path": "Storage/DOSDrivers",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    }
+  ],
+  "files": [
+    {
+      "path": "Storage/DOSDrivers/CF0",
+      "sha256": "a044a2c4cd215003d4cbdcacd0bb296827b4046be4d1a83e45c10ed60c1e7663",
+      "protection": 2,
+      "comment": "",
+      "source": "Storage/DOSDrivers/CF0",
+      "archive": "BestWB-5.zip"
+    },
+    {
+      "path": "Storage/DOSDrivers/JAZ0",
+      "sha256": "ffead323192d915f5fef52d1d07fb98652be4e0b3d6e3fb3fd4004729b10d11a",
+      "protection": 2,
+      "comment": "",
+      "source": "Storage/DOSDrivers/JAZ0",
+      "archive": "BetterWB3.zip"
+    },
+    {
+      "path": "Storage/DOSDrivers/JAZ2",
+      "sha256": "674bed88175659533d7de3f8f26ed080cc0edcd60253c2d61226500a2761d12e",
+      "protection": 2,
+      "comment": "",
+      "source": "Storage/DOSDrivers/JAZ2",
+      "archive": "BetterWB3.zip"
+    },
+    {
+      "path": "Storage/DOSDrivers/JAZPC",
+      "sha256": "52c2706ba08d94d20f3647a3e8676f8468db6a647ea99a4e802377612fac4db3",
+      "protection": 2,
+      "comment": "",
+      "source": "Storage/DOSDrivers/JAZPC",
+      "archive": "BetterWB3.zip"
+    },
+    {
+      "path": "Storage/DOSDrivers/ZIC",
+      "sha256": "d6c0bcf1a099f25449caeb586761e5d5a392805f96a8ee3be2d00130922393ce",
+      "protection": 2,
+      "comment": "",
+      "source": "Storage/DOSDrivers/ZIC",
+      "archive": "BetterWB3.zip"
+    },
+    {
+      "path": "Storage/DOSDrivers/ZIP",
+      "sha256": "3550b590ffcda80de4b7957e0890de0ad05498b57b82d0e932ef319acbacef2c",
+      "protection": 2,
+      "comment": "",
+      "source": "Storage/DOSDrivers/ZIP",
+      "archive": "BetterWB3.zip"
+    }
+  ]
+}

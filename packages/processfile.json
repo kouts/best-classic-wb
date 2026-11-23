@@ -1,0 +1,40 @@
+{
+  "name": "ProcessFile.rexx",
+  "version": "0.23 (3 January 2000)",
+  "baseline": "2.1.12",
+  "archives": {
+    "DefIcons44.lha": {
+      "url": "https://se.aminet.net/util/wb/DefIcons44.lha",
+      "sha256": "921283c130cb4d1f69e8effe5710d1d38243d382d5da1e70c9c5331d8cefabbd",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS ARexx, RexxMast and rexxsupport.library",
+    "MultiView for text, guides and images",
+    "OpenURL for HTML",
+    "LhA and LZX for archives"
+  ],
+  "notes": [
+    "The DefIcons44 Aminet archive preserves the original 2.1.12 script. The development source keeps the installed path Rexxc/Processfile.rexx.",
+    "Stock startup starts RexxMast and adds SYS:Rexxc to the command path. Invoke the installed script through RX. TXT and GUIDE dispatch to MultiView. HTML passes the file to C:OpenURL and returns its status.",
+    "Rexxc is shared with the existing AmigaOS and EjectADF scripts. Default icons and DoMIME keep their separate ownership."
+  ],
+  "directories": [
+    {
+      "path": "Rexxc",
+      "protection": 0,
+      "comment": "",
+      "shared": true
+    }
+  ],
+  "files": [
+    {
+      "path": "Rexxc/Processfile.rexx",
+      "protection": 2,
+      "comment": "",
+      "sha256": "f6205a22f3ec3a239972f95f1263d0156a98c81d7c40ad00b74e94cfb4d53bc0",
+      "source": "src/BestClassicWB/BCWB_Files/Rexxc/Processfile.rexx"
+    }
+  ]
+}

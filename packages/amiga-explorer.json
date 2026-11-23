@@ -1,0 +1,107 @@
+{
+  "name": "Amiga Explorer",
+  "version": "10.0.0.0",
+  "baseline": "2.1.12",
+  "archives": {
+    "amiga-explorer-10-setup.exe": {
+      "url": "https://cdn.cloanto.com/pub/amigaforever/amiga-explorer-10-setup.exe",
+      "sha256": "068fdfc9f4674fca1e232ef9ab2d7293f0c5a413891a4d900d067090f9a0e140",
+      "extractor": "7zip"
+    },
+    "amiga-explorer-7-setup.exe": {
+      "url": "https://cdn.cloanto.com/pub/amigaforever/legacy/amiga-explorer-7-setup.exe",
+      "sha256": "12d3254634b30f066e7f03a6c738b364cc4da2ebcf79ed9d207f8152a2e97602",
+      "extractor": "7zip"
+    }
+  },
+  "nestedArchives": {
+    "aesetup-x86.msi": {
+      "archive": "amiga-explorer-10-setup.exe",
+      "source": "aesetup-x86.msi",
+      "sha256": "d4bb1e1b23833e4b89d51ad0a8471c1eb1108a31f0f850cf83a2ccd6ca8ffcec",
+      "extractor": "7zip"
+    },
+    "Data1.cab": {
+      "archive": "aesetup-x86.msi",
+      "source": "Data1.cab",
+      "sha256": "54cec81b7ea48d2d4c05d7a9344c8e2997e60bd01230233ea0274c99674eb650",
+      "extractor": "7zip"
+    },
+    "legacy-aesetup-x86.msi": {
+      "archive": "amiga-explorer-7-setup.exe",
+      "source": "aesetup-x86.msi",
+      "sha256": "473e4b6e3b6fafac756f065ae15eaf4c0055dd10f7b2dd70d3939bc2a0e11e10",
+      "extractor": "7zip"
+    },
+    "legacy-Data1.cab": {
+      "archive": "legacy-aesetup-x86.msi",
+      "source": "Data1.cab",
+      "sha256": "13a5b9e3c3363d2acc149176fc2380b4669ad4a1cbfa9b459bd2e9d55897cdca",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "Workbench and icon.library for the shipped tool icon, and the OS More viewer for the README.TXT project",
+    "serial.device or a compatible bsdsocket.library for transport, with an Amiga Explorer Windows peer for transfers",
+    "ARexx and SER: for the manual serial-bootstrap script"
+  ],
+  "notes": [
+    "The Amiga m68k server and Setup.rexx 1.0 match both the x86 and x64 paths in the published Cloanto Windows 10.0.2.0 setup. The manifest uses the x86 MSI cabinet for these identical members.",
+    "README.TXT matches the 7.0.1.0 Windows installer cabinets. The checked BCWB inputs preserve the drawer, server and readme icons. The shipped server icon specifies CONNECTION=AUTO, serial.device unit 0 at 19200 and bsdsocket.library for TCP/IP.",
+    "Workbench launches AExplorer from Programs/Amiga Explorer. Setup.rexx is a separate bootstrap that reads SER: into RAM:Setup2 and runs it. The shared startup scripts and WBStartup contain no AExplorer entry."
+  ],
+  "directories": [
+    {
+      "path": "Programs/Amiga Explorer",
+      "protection": 0,
+      "comment": ""
+    }
+  ],
+  "files": [
+    {
+      "path": "Programs/Amiga Explorer.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/Amiga Explorer.info",
+      "sha256": "a65f5f397148fa292b8054e81fd9816969015444bff06e832c3d6c8c0295f262",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/Amiga Explorer/AExplorer",
+      "source": "AExplorer",
+      "sha256": "fe58cf1f4be7505a36f7c65a9abc28d08d4aab217773c383ee3af905fcba0c28",
+      "protection": 0,
+      "comment": "",
+      "archive": "Data1.cab"
+    },
+    {
+      "path": "Programs/Amiga Explorer/AExplorer.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/Amiga Explorer/AExplorer.info",
+      "sha256": "73cca5b1d90e8e5261d11e267691d8d41f0cfd3ea108302e85fa2fa2c7e393e0",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/Amiga Explorer/README.TXT",
+      "source": "README.TXT",
+      "sha256": "ac6e92a087fdc0afb9b74297b9fa849e352d2e838f683c9f09738c193eaba91b",
+      "protection": 2,
+      "comment": "",
+      "archive": "legacy-Data1.cab"
+    },
+    {
+      "path": "Programs/Amiga Explorer/README.TXT.info",
+      "source": "src/BestClassicWB/BCWB_Files/Programs/Amiga Explorer/README.TXT.info",
+      "sha256": "8446da5ea963410f063ca26e26c57caa8ff03e3ef8dbf72318301788aa402109",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Programs/Amiga Explorer/Setup.rexx",
+      "source": "Setup.rexx",
+      "sha256": "8117c156f21f1aab06aa2b24e8d05230cbfda122e7e8e40c4cccb4a8751e70af",
+      "protection": 2,
+      "comment": "",
+      "archive": "Data1.cab"
+    }
+  ]
+}

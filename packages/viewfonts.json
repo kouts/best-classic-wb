@@ -1,0 +1,52 @@
+{
+  "name": "ViewFonts",
+  "version": "2.02",
+  "baseline": "2.1.12",
+  "archives": {
+    "viewfont.lha": {
+      "url": "https://se.aminet.net/text/font/viewfont.lha",
+      "sha256": "c4181cd343e22f896f8e3098ca541c4478592a2c4d1bfbf9422348fc70b6c15b",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS 2.0 or later with commodities.library and diskfont.library 37.58 or later",
+    "reqtools.library 38.1210 or later",
+    "bullet.library for Compugraphic fonts on AmigaOS 3",
+    "ttf.library 0.7 or later for optional TrueType previews"
+  ],
+  "notes": [
+    "The executable is installed as System/ViewFonts alongside the original BCWB Tool icon, now named ViewFonts.info.",
+    "ViewFonts opens PROGDIR:Viewfonts2.guide for online help.",
+    "The complete, unmodified upstream archive is included in Storage. The existing ReqTools package supplies the shared library."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "System/ViewFonts",
+      "source": "Viewfonts2/Viewfonts2",
+      "archive": "viewfont.lha",
+      "sha256": "6b72e4ede0e9d8410a17d1eff885f02323f9b0542ae14aef5421ce4d05cedfd4",
+      "developmentZipTemplate": "System/ClearRAM",
+      "protection": 0,
+      "comment": ""
+    },
+    {
+      "path": "System/Viewfonts2.guide",
+      "source": "Viewfonts2/viewfonts2.guide",
+      "archive": "viewfont.lha",
+      "sha256": "de4b653f5f99e3d59b7454590f86de3e70728e0e6d96fdf25cc35960acfc5d57",
+      "developmentZipTemplate": "System/FontView.info",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "Storage/viewfont.lha",
+      "source": "src/BestClassicWB/BCWB_Files/Storage/viewfont.lha",
+      "sha256": "c4181cd343e22f896f8e3098ca541c4478592a2c4d1bfbf9422348fc70b6c15b",
+      "developmentZipTemplate": "Storage/Disk.info",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

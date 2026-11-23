@@ -25,3 +25,9 @@ EndIF
 ;BEGIN Miami
 Assign Miami: "SYS:Internet/MiamiDx"
 ;END Miami
+;BEGIN Gui4Cli
+Assign >NIL: GUIs: EXISTS
+IF WARN
+   Assign >NIL: GUIs: SYS:Programs
+EndIF
+;END Gui4Cli

@@ -1,0 +1,48 @@
+{
+  "name": "WBStartEmu",
+  "version": "45.1a",
+  "baseline": "2.1.12",
+  "archives": {
+    "WBStartEmu.lha": {
+      "url": "https://aminet.net/util/libs/WBStartEmu.lha",
+      "sha256": "4d27ce2a8f338f236bce7c08328b8e5ba864060be38ebe15181178bfa9d820b1"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS 3.5 or later",
+    "68020 or later",
+    "workbench.library 45 or later"
+  ],
+  "notes": [
+    "Stephan Rupprecht's WBStartEmu release supplies all three installed files. The library ID string is 45.1 (16 December 2000) and its live API version is 2.2. The compatibility handler identifies as 2.0 (17 December 2000).",
+    "The library forwards Workbench launches through workbench.library. The handler is a compatibility entry point for older callers and opens wbstart.library.",
+    "WBDock, SimpleFind, DoMIME and TinyMeter reference the shared library. The stock startup sequence and installer add no explicit wbstart launch or mount."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "L/wbstart-handler",
+      "source": "WBStartEmu/wbstart-handler",
+      "sha256": "b785a276b925d5e8963c98380b4803a21938431a42001c7378bf5a5fc93e496a",
+      "protection": 2,
+      "comment": "",
+      "archive": "WBStartEmu.lha"
+    },
+    {
+      "path": "Libs/wbstart.library",
+      "source": "WBStartEmu/wbstart.library",
+      "sha256": "2f627e3c293159a651d12068ee384e7879e928d48902edad5dd8950c21646460",
+      "protection": 2,
+      "comment": "",
+      "archive": "WBStartEmu.lha"
+    },
+    {
+      "path": "Locale/Help/english/WBStartEmu.doc",
+      "source": "WBStartEmu/WBStartEmu.doc",
+      "sha256": "2798915771e1c3728e9ed40cfdc326b1b075a2c0ca6b215d96275f74d004ab94",
+      "protection": 2,
+      "comment": "",
+      "archive": "WBStartEmu.lha"
+    }
+  ]
+}

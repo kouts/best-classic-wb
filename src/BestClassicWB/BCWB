@@ -60,6 +60,17 @@ COPY SYS:System/Installer TO SYS:C/Installer CLONE
 ; Copy all BCWB files
 COPY "BCWB_Files" TO SYS: ALL BUF 10
 
+; Add stored ARC recognition to the installed system preferences
+IF EXISTS SYS:System/RexxMast
+  FAILAT 21
+  SYS:System/RexxMast >NIL:
+  SYS:Rexxc/RX SYS:Rexxc/BCWB-UpdateDefIcons.rexx
+  IF ERROR
+    QUIT 20
+  ENDIF
+  FAILAT 10
+ENDIF
+
 ; Protect files from deletion (not needed for OS3.2)
 ; PROTECT SYS:Libs/icon.library +p
 
@@ -67,6 +78,82 @@ COPY "BCWB_Files" TO SYS: ALL BUF 10
 PROTECT SYS:C/FBlit +e
 PROTECT SYS:C/FText +e
 PROTECT SYS:C/FPPrefs +e
+PROTECT "SYS:C/AmigaKeyRemapper" +e
+PROTECT "SYS:C/CardPatch" +e
+PROTECT "SYS:C/CardReset" +e
+PROTECT "SYS:C/DMS" +e
+PROTECT "SYS:C/DoMIME" +e
+PROTECT "SYS:C/FBlitGUI" +e
+PROTECT "SYS:C/Gui" +e
+PROTECT "SYS:C/Gui4Cli" +e
+PROTECT "SYS:C/HackProPack" +e
+PROTECT "SYS:C/LZX" +e
+PROTECT "SYS:C/LhA" +e
+PROTECT "SYS:C/OpenDrawer" +e
+PROTECT "SYS:C/OpenURL" +e
+PROTECT "SYS:C/PPLoadSeg020" +e
+PROTECT "SYS:C/ProcessIcon" +e
+PROTECT "SYS:C/SetVNC" +e
+PROTECT "SYS:C/TitleShadow" +e
+PROTECT "SYS:C/TransADF" +e
+PROTECT "SYS:C/UnADF" +e
+PROTECT "SYS:C/unrar" +e
+PROTECT "SYS:C/UnARJ" +e
+PROTECT "SYS:C/UnTAR" +e
+PROTECT "SYS:C/WBRun" +e
+PROTECT "SYS:C/WHDLoad" +e
+PROTECT "SYS:C/Zip" +e
+PROTECT "SYS:C/arc" +e
+PROTECT "SYS:C/exe2arc" +e
+PROTECT "SYS:C/fixiff" +e
+PROTECT "SYS:C/gzip" +e
+PROTECT "SYS:C/rawread" +e
+PROTECT "SYS:C/tar" +e
+PROTECT "SYS:C/unzip" +e
+PROTECT "SYS:C/xad2lha" +e
+PROTECT "SYS:C/xadLibInfo" +e
+PROTECT "SYS:C/xadList" +e
+PROTECT "SYS:C/xadUnDisk" +e
+PROTECT "SYS:C/xadUnF" +es
+PROTECT "SYS:C/xadUnFile" +e
+PROTECT "SYS:C/xadUnFileM" +e
+PROTECT "SYS:C/xadUnTar" +e
+PROTECT "SYS:C/xfdDecrunch" +e
+PROTECT "SYS:C/xfdDecrunchAddr" +e
+PROTECT "SYS:C/xfdLibInfo" +e
+PROTECT "SYS:C/xfdList" +e
+PROTECT "SYS:C/xfdPatch" +e
+PROTECT "SYS:C/xfdScan" +e
+PROTECT "SYS:C/xfdUnlink" +e
+PROTECT "SYS:C/zoo" +e
+PROTECT "SYS:Internet/MiamiDx/MiamiDx" +e
+PROTECT "SYS:Prefs/ABackup" +e
+PROTECT "SYS:Prefs/OpenURL" +e
+PROTECT "SYS:Prefs/SimpleFindPrefs" +e
+PROTECT "SYS:Programs/ABackup/ABackup" +e
+PROTECT "SYS:Programs/Amiga Explorer/AExplorer" +e
+PROTECT "SYS:Programs/DOpus/DirectoryOpus" +e
+PROTECT "SYS:Programs/DOpus/c/DOpusRT" +e
+PROTECT "SYS:Programs/Eagleplayer/Eagleplayer" +e
+PROTECT "SYS:Programs/FileX/FileX" +e
+PROTECT "SYS:Programs/JanoEditor/JanoEditor" +e
+PROTECT "SYS:Programs/JanoEditor/JanoPrefs" +e
+PROTECT "SYS:Programs/SimpleFind/SimpleFind" +e
+PROTECT "SYS:Programs/SuperDuper/SetTDDelay" +e
+PROTECT "SYS:Programs/TSgui/TSgui" +e
+PROTECT "SYS:Programs/VirusZ/VirusZ" +e
+PROTECT "SYS:Programs/Voodoo-X/Voodoo-X" +e
+PROTECT "SYS:Programs/iGame/iGame" +e
+PROTECT "SYS:System/ViewFonts" +e
+PROTECT "SYS:Tools/CharMap" +e
+PROTECT "SYS:Tools/Commodities/NewMode" +e
+PROTECT "SYS:Tools/Commodities/PM" +e
+PROTECT "SYS:Tools/Commodities/PowerSnap" +e
+PROTECT "SYS:Tools/Commodities/ToolAlias" +e
+PROTECT "SYS:Tools/CopyIcon" +e
+PROTECT "SYS:Tools/SCSIMounter" +e
+PROTECT "SYS:Tools/snoopdos" +e
+PROTECT "SYS:WBStartup/ClickNot" +e
 
 ; Copy readme file
 COPY BCWB.readme.txt TO SYS:Locale/Help

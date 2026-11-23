@@ -3,49 +3,42 @@ name: release-main
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-main
+  cancel-in-progress: false
 
 jobs:
   release:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [20]
-
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
-      - name: Checkout 🛎
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup node env 🏗
-        uses: actions/setup-node@v3
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
-          check-latest: true
-
-      - name: Setup pnpm 📦
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8.9.2
-
-      - name: Install dependencies 📦
-        run: pnpm install
-
-      - name: Install semantic-release extra plugins 📦
-        run: pnpm install --save-dev semantic-release @semantic-release/changelog @semantic-release/git
-
-      - name: Archive Release
-        uses: thedoctor0/zip-release@0.7.5
-        with:
-          type: 'zip'
-          path: './src'
-          filename: 'BestClassicWB.zip'
-          exclusions: '*.git* /*node_modules/* .editorconfig'
-
+          node-version-file: .nvmrc
+      - name: Load the locally verified release ZIP
+        run: |
+          node tools/release_asset.mjs verify
+          cp release/BestClassicWB.zip BestClassicWB.zip
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+      - name: Install release tooling
+        run: pnpm install --frozen-lockfile
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npx semantic-release          
+        run: pnpm exec semantic-release

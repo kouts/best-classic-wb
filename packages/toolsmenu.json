@@ -1,0 +1,47 @@
+{
+  "name": "ToolsMenu",
+  "version": "1.10.2",
+  "baseline": "2.1.12",
+  "archives": {
+    "ToolsMenu_1.10.2.lha": {
+      "url": "https://web.archive.org/web/20210211040614id_/http://aminet.net/util/cdity/ToolsMenu.lha",
+      "sha256": "4ad07f7ce12005f46ad3effa5d0ed7fb3a25688677d0478d133dc9b2f411f54d",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "Kickstart 2 or later",
+    "Workbench"
+  ],
+  "notes": [
+    "The installed command and English help text match ToolsMenu/ToolsMenu and ToolsMenu/Readme in the archived Aminet release.",
+    "The checked BCWB startup icon supplies the five Workbench Tools menu entries and sets DONOTWAIT and CX_POPUP=NO. The commodity stores its menu definitions in the icon tooltypes.",
+    "The AmigaOS MenuTools executable moved to Tools/Commodities/MenuTools by the stock installer and its BCWB replacement icon are outside this package."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "Locale/Help/english/ToolsMenu.txt",
+      "source": "ToolsMenu/Readme",
+      "sha256": "91aa7e7c5ddaf78b9e034258c9039b141033e9f5bfddf5683806b6fe2ddea14f",
+      "protection": 2,
+      "comment": "",
+      "archive": "ToolsMenu_1.10.2.lha"
+    },
+    {
+      "path": "WBStartup/ToolsMenu",
+      "source": "ToolsMenu/ToolsMenu",
+      "sha256": "480ccb602461f2be9de9c6e38f137c437fc2122e55ff0e5815138cf2e49407f0",
+      "protection": 2,
+      "comment": "",
+      "archive": "ToolsMenu_1.10.2.lha"
+    },
+    {
+      "path": "WBStartup/ToolsMenu.info",
+      "source": "src/BestClassicWB/BCWB_Files/WBStartup/ToolsMenu.info",
+      "sha256": "a867a80b30e211c5d0ec1e7c833135be9555975a35320362807f67dc84c0cd39",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

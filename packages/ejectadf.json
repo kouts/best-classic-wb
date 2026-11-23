@@ -1,0 +1,53 @@
+{
+  "name": "EjectADF",
+  "version": "1.0",
+  "baseline": "2.1.12",
+  "archives": {
+    "EjectADF.lha": {
+      "url": "https://se.aminet.net/util/wb/EjectADF.lha",
+      "sha256": "b3dccfbb4323ad02ecfb79c7ba12c00634566de825924ca5659d67f252347df6",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS 3.2 or later with WBStartup, ARexx, and the WORKBENCH ARexx port",
+    "C:DAControl and trackfile.device for AmigaOS-mounted ADF images"
+  ],
+  "notes": [
+    "The pinned Aminet 1.0 archive supplies Michael Spindler's handler. BCWB supplies the startup launcher, updated readme and project icon.",
+    "The startup project registers Eject ADF image in the Tools menu and on Right Amiga+J. The handler reads selected root icons and dispatches DAControl INFO and EJECT DEVICE.",
+    "The shared system supplies the startup sequence and OS interfaces. This package owns no drawers."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "Locale/Help/english/EjectADF.readme",
+      "source": "src/BestClassicWB/BCWB_Files/Locale/Help/english/EjectADF.readme",
+      "sha256": "3af970f3e04a49fb5f1bdba3316ffa666d9a80189eec0ca0c9bd3210d14648e4",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "S/EjectADF.rexx",
+      "source": "EjectADF.rexx",
+      "sha256": "173a9c953aec41106385737f56287e0432df1b1fd56b926d219ec3c4e7e8f0e4",
+      "protection": 2,
+      "comment": "",
+      "archive": "EjectADF.lha"
+    },
+    {
+      "path": "WBStartup/EjectADF",
+      "source": "src/BestClassicWB/BCWB_Files/WBStartup/EjectADF",
+      "sha256": "5d2d77a97a6394570f658c14317bcaf4cb63ca8f65d4423c0db3e5b5baf0783e",
+      "protection": 2,
+      "comment": ""
+    },
+    {
+      "path": "WBStartup/EjectADF.info",
+      "source": "src/BestClassicWB/BCWB_Files/WBStartup/EjectADF.info",
+      "sha256": "20bc0d64f003d442727f47d0379082199a9f491e2a67778068d48995e61339f2",
+      "protection": 2,
+      "comment": ""
+    }
+  ]
+}

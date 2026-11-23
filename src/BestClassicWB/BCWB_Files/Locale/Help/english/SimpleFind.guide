@@ -1,0 +1,2560 @@
+@DATABASE
+@$VER: SimpleFind_English.guide 2.5 (29.12.98)
+@AUTHOR Sebastian Bauer and Keith Himmelreich
+@(C) ©1997-1999
+
+@NODE MAIN "SimpleFind Documentation"
+@SMARTWRAP
+@{b}SimpeFind 2.5 @{AMIGAGUIDE}@{ub}
+
+
+Note that although the @{" author's " link SB } native language is German,
+he now has at his disposal the proofreading and editing services of an
+English speaking Canadian, so any remaining grammatical, syntactical,
+spelling, or typographical errors are his (the Canadian's).  So, if you wish
+clarification on any point arising herein, you may contact @{" him " link KEITH }.
+And if that fails to provide satisfaction (and indeed it may if
+your inquiry is sufficiently arcane and/or technical), @{b}THEN@{ub} 
+contact @{" me " link SB }.
+
+@{b}Attention!@{ub} This guide is designed for use with version 40 of the
+amigaguide.datatype which is supplied with AmigaDOS 3.1. Under other versions
+this guide may look @{b}"less than optimal"@{ub}.  Note further that if you
+are presently running Kickstart 3.0, you may @{b}still@{ub} use Workbench
+3.1 with it, including the newer amigaguide.datatype.
+@{CODE}
+
+General:
+
+@{" Copyright       " link COPYRIGHT}           Copyright and disclaimer
+@{" Introduction    " link INTRO}           What does it do ?
+@{" Requirements    " link REQUIRE}           What does it need ?
+@{" Installation    " link INSTALL}           How to install (and remove) ?
+
+Using:
+
+@{" Shell Start     " link SHELL}           Starting from Shell
+@{" Workbench Start " link WB}           Starting from Workbench
+@{" User Interface  " link GUI}           Menu and Windows
+@{" Preferences     " link PREFS}           The preferences program
+@{" ARexx Port      " link AREXX}           The ARexx Interface
+
+Other information:
+
+@{" Bugs            " link BUGS}           Are there any ?
+@{" Future          " link FUTURE }           What is coming next ?
+@{" History         " link HISTORY }           What has been done ?
+@{" Guide History   " link GHISTORY }           What has changed in this guide ?
+@{" Author          " link SB }           Where to send bug reports ?
+@{" Thanks          " link THANKS }           Who has helped me ?
+@ENDNODE
+
+@NODE COPYRIGHT "Copyright and disclamer"
+@SMARTWRAP
+@{b}Copyright@{ub}
+
+
+(c) Copyright 1997-1999 @{" Sebastian Bauer " link SB }
+
+
+SimpleFind is Freeware. You may give it to anyone you care to as long as all
+the original archive's files are included, complete and unchanged, and you
+make no profit from its distribution.  I would be pleased to allow the
+publication of SimpleFind on a CD (e.g. a cover cd of an Amiga Magazine) in
+return for a free copy of said CD.
+
+
+@{b}Standard Disclamer@{ub}
+
+
+THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+APPLICABLE LAW. EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
+HOLDER AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
+OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE
+PROGRAM IS WITH YOU. SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE
+COST OF ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+
+
+IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY REDISTRIBUTE THE
+PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY
+GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE
+USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS
+OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR
+THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
+PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGES.
+
+@ENDNODE
+
+@NODE INTRO "Introduction"
+@SMARTWRAP
+@{b}Introdution@{ub}
+
+
+SimpleFind is a Search-Tool for your Amiga. It scans a selected directory
+for a specified file name or pattern and shows any matched files. You can
+then copy, delete, rename or view the matched files.
+
+@{CODE}
+Features
+  - allows searching by name, comment, size, date, contents or datatype
+  - AmigaDOS patterns allowed in search template
+  - @{"Indexfiles" link CONCEPT_INDEXFILE} for faster searching
+  - even scan through archives (LHa and LZX)
+  - allows you to copy, delete, view and rename 
+  - configurable Buttons and PopupMenu 
+  - easy to use GadTools GUI 
+  - shell support 
+  - simple ARexx Port
+  - and much more
+@{BODY}
+
+
+I know that there are some good tools out there, but some of them use MUI and
+others have no GUI at all.  I wanted to create one which has an easy to use GUI
+and which doesn't need MUI.  (This doesn't means that I'm against MUI. MUI is
+very powerful and simplifies the development of excellent program interfaces,
+for example without MUI some good WWW-Browser wouldn't exist).
+
+Another reason was that I wanted to test my programming knowledge (this is my
+first @{b}real@{ub} program).
+@ENDNODE
+
+@NODE REQUIRE "Requirements"
+@SMARTWRAP
+@{b}Requirements@{ub}
+
+
+SimpleFind needs at least Kickstart 3.0. It should work with a MC68000
+processor but this is not recommended.
+
+For using batch files it is also necessary that 'Execute' be located in
+the 'C:' assign. But I believe that should be no probem.
+
+SimpleFind also supports some packers (LZX, LHa), so if you want to use them
+they must be installed (But I imagine that LHa, at least, should be installed on
+pretty much every Amiga still running [and most of the ones in the closet]).
+UnTGZ and UnZip is requiered to support unpacking of TGZ (.tar.zip) and Zip
+Archives.
+
+If available, SimpleFind will also use following libraries/programs, too:
+
+
+@{u}ctrequest.library@{uu}@{LINE}
+This library is ©1998 by Bahman Moallem. It creates very nice configurable
+requesters.
+@rem Try it!
+
+At this time, the library is not available.
+
+@rem Aminet: util/libs/CTRequest_User.lha
+
+@{u}popupmenu.library@{uu}@{LINE}
+This library is ©1998 by Henrik Isaksson. SimpleFind uses this for the Popup-Menus.
+
+It is avaiable from Aminet, too: util/libs/pmuser.lha
+
+
+@{u}wbstart.library@{uu}@{LINE}
+This library is ©1997 by Stefan Becker. You need this library when you
+want to start workbench programs.
+
+Of course it is available from Aminet: util/libs/wbstart.lha
+
+
+@{u}OpenURL@{uu}@{LINE}
+This program is ©1998 by Troels Walsted Hansen. It is used in this guide
+to start your favourite browser to see the homepage
+
+Aminet Path: comm/www/OpenURL10.lha
+
+
+Note that SimpleFind doesn't @{b}need@{ub} these files in order to run. They
+only provide some additional features.
+
+@ENDNODE
+
+@NODE INSTALL "Installation of SimpleFind"
+@SMARTWRAP
+@{b}How to install SimpleFind@{ub}
+
+
+To install SimpleFind simply copy the whole SimpleFind drawer to the destination of your
+choice.
+
+It is @{b}not recommended@{ub} that you copy the Prefs Program into the
+SYS:Prefs directory or to another directory since this will cause problems.
+(PROGDIR: have a different path in that case)
+
+Since version 2.5 there is also an Installation Script available. The adventage
+of the script is that you can select another Icon Set which will be installed then
+(otherwise you must do this manually). You also needn't to remove
+unneceassary things (like catalogs) per hand. When installing over an old installation
+the ToolTypes and prefs file won't get lost.
+
+
+@{b}How to remove SimpleFind@{ub}
+
+
+If you decide to remove SimpleFind (but why would you want to do that???, if you
+find any features missing please @{" contact " link SB} me) you should delete
+the whole drawer in which the SimpleFind program is located.
+
+@ENDNODE
+
+@NODE SHELL "Shell Template"
+@{b}Shell Template@{ub}
+
+
+SimpleFind has a standard AmigaDOS template which looks like this:
+
+DIR/M, PAT=PATTERN/K, COM=COMMENT/K, MINSIZE/N/K, MAXSIZE/N/K,
+WITHIN/K, BETWEEN/K, PROTBITS/K, DATATYPE/K, CONTENTS/K,
+GUIMODE/K, CASE/S,EXACT=EXACTPAT/S, EXACTCOM/S, NOSIZE/S,
+NODATES/S, LFORMAT/K, CI=CREATEINDEX/S, UPI=UPDATEINDEX/S,
+UI=USEINDEX/S, DI=DELETEINDEX/S, AI=AVAILABLEINDEXES/S,
+ALL=ALLINDEXES/S, ALLMOUNTEDVOLS/S, AUTOUPDATE/S,
+ID=INDEXDIR/K, IN=INDEXNAME/K, PREFSFILE/K, PREFSPRG/K
+
+
+@SMARTWRAP
+
+@{u}DIR/M@{uu}@{LINE}
+This defines the directories from which to start a search.
+
+
+@{u}PAT=PATTERN/K@{uu}@{LINE}
+The search-pattern. (AmigaDOS-Style)
+
+
+@{u}COMMENT/K@{uu}@{LINE}
+The comment-pattern. (AmigaDOS-Style)
+
+
+@{u}MINSIZE/N@{uu}@{LINE}
+The minimum size (in kilobytes [1024 Bytes])
+
+
+@{u}MAXSIZE/N@{uu}@{LINE}
+The maximum size (in kilobytes [1024 Bytes])
+
+
+@{u}WITHIN/K@{uu}@{LINE}
+Here you specify the maximum desired age of a file to search for. The format is
+divided in two parts. The first part is an integer and the second part one of
+the following keywords:
+
+   MINUTE(S)@{LINE}
+   HOUR(S)@{LINE}
+   DAY(S)@{LINE}
+   MONTH(S)@{LINE}
+
+for example: WITHIN=5days
+
+
+@{u}BETWEEN/K@{uu}@{LINE}
+
+The file must have been created between the specified times.  The format is
+"Start-End". The format of the date depends on your selected locale.
+
+
+@{u}PROTBITS/K@{uu}@{LINE}
+
+Define the protection bits the file should have. SimpleFind supports the r, w,
+e, d, h, s, p, a bits. Using a minus '-' before the bit means that the bit
+@{b}must be@{ub} cleared to effect a hit. Bits that don't appear are ignored.
+
+
+@{u}DATATYPE/K@{uu}@{LINE}
+
+Defines the Datatype Group of the file. To indicate which datatype group the
+file should belong to, SimpleFind needs one of the standard datatypes.library
+strings. Note that this depends on your selected locale!@{LINE}
+In the English locale these are: System, Text, Document, Sound, Instrument,
+Music, Picture, Animation, Movie.@{LINE}
+You also must have the correct datatypes installed (naturally).
+
+
+@{u}CONTENTS/K@{uu}@{LINE}
+
+With the use of this option you can search through a file for explicit strings.
+The lines where the string is found are written in their entirety to the shell
+window.
+
+
+@{u}GUIMODE/K@{uu}@{LINE}
+Lets you control the GUI Mode of SimpleFind. The following keywords can be used:
+
+   NOGUI ........ shell mode (default)@{LINE}
+   SHOWGUI ...... opens gui@{LINE}
+   QUICKSTART ... opens @{" Main Window " link MAINWND } and starts searching@{LINE}   
+   FASTERSTART .. starts searching without opening the
+@{" Main Window " link MAINWND }@{LINE}
+
+for example: GUIMODE=QUICKSTART@{LINE}
+
+
+@{u}CASE/S@{uu}@{LINE}
+Causes SimpleFind to ignore the case of the filenames.
+
+
+@{u}EXACT=EXACTPAT/S@{uu}@{LINE}
+SimpleFind doesn't add a #? at the beginning and end of the pattern.
+
+
+@{u}EXACTCOM/S@{uu}@{LINE}
+SimpleFind doesn't add a #? at the beginning and end of the comment-pattern.
+
+
+@{u}NODATES/S@{uu}@{LINE}
+Don't show  files' dates.
+
+
+@{u}NOSIZE/S@{uu}@{LINE}
+Don't show file sizes.
+
+
+@{u}LFORMAT/K@{uu}@{LINE}
+@{CODE}
+Defines the output format of SimpleFind.
+
+   %b ....... The file protection bits
+   %c ....... The file's comment
+   %d ....... The file's last changed date
+   %t ....... The file's last changed time
+   %f, %p ... The file's path (with '/')
+   %w ....... The file's path (without '/')
+   %n ....... The filename
+   %l ....... The size (in Bytes) of the file
+
+@{BODY}
+To reserve some spaces just add a positive integer after '%'
+for right justification and a negative integer for left
+justification. A period '.' between '%' and the integer
+means that the following integer is the limit of the string@{LINE}
+Defaults to "%-25n %8l %b %d %t %w"
+
+
+@{u}CI=CREATEINDEX/S@{uu}@{LINE}
+Create an Indexfile for the given directory.
+
+
+@{u}UPI=UPDATEINDEX/S@{uu}@{LINE}
+Update an Indexfile. When the Indexfile doesn't
+exist a new one is created.
+
+
+@{u}UI=USEINDEX/S@{uu}@{LINE}
+Use the Indexfile if it exists.
+
+
+@{u}DI=DELETEINDEX/S@{uu}@{LINE}
+Delete the Indexfile.
+
+
+@{u}AI=AVAILABLEINDEXES/S@{uu}@{LINE}
+Show available Indexfiles in the IndexDir.
+
+
+@{u}ALL=ALLINDEXES/S@{uu}@{LINE}
+When you specify this, SimpleFind searches through all
+availabe Indexfiles. The DIR/M option is ignored.
+If you specify the UPDATEINDEX/S option, SimpleFind
+will update all available Indexfiles.
+
+
+@{u}ALLMOUNTEDVOLS/S@{uu}@{LINE}
+Search through all mounted volumes for which Indexfiles
+exist. The DIR/M option is ignored here.
+
+
+@{u}AUTOUPDATE/S@{uu}@{LINE}
+When you specify this, SimpleFind will update indexfiles
+automatically as necessary before it starts the search.
+
+
+@{u}ID=INDEXDIR/K@{uu}@{LINE}
+Specifies the destination directory for the
+@{" Indexfiles " link CONCEPT_INDEXFILE}.
+
+(Defaults to PROGDIR:IndexFiles)
+
+
+@{u}IN=INDEXNAME/K@{uu}@{LINE}
+This is only necessary when you don't want SimpleFind to
+handle its Indexfiles automatically. Here you can specify
+the filename for an @{" Indexfile " link CONCEPT_INDEXFILE} to be used.
+
+
+@{u}PREFSFILE/K@{uu}@{LINE}
+The name and path of the prefs file which SimpleFind will load
+upon opening its GUI.@{LINE}
+
+(Defaults to PROGDIR:SimpleFind.prefs)
+
+
+@{u}PREFSPRG/K@{uu}@{LINE}
+Program which is started when you select the "Edit Prefs..." entry
+of the Settings Menu. Note that "PROGDIR:" doesn't apply here.@{LINE}
+
+(Defaults to SimpleFindPrefs)
+
+@ENDNODE
+
+@NODE WB "Starting from Workbench"
+@SMARTWRAP
+@{b}Workbench Start@{ub}
+
+SimpleFind can be started from Workbench by double clicking the SimpleFind icon.
+
+SimpleFind also supports mutiselection, so if you first click on
+SimpleFind's Icon and then shiftclick on a Partition or Drawer it
+will use this as the starting Search Path.
+
+
+@{b}Tool Types@{ub}
+
+Currently there are six ToolTypes.
+
+
+@{u}PREFSFILE@{uu}
+
+Here you can specify the path and the name of the prefs file which is created
+when you select @{" SaveSettings " link MENU} in the @{" menu " link MENU}.
+
+(Defaults to PROGDIR:SimpleFind.prefs)
+
+
+@{u}PREFSPRG@{uu}
+
+The full Path of the Prefs Program which is called when you choose Edit Prefs
+from the Settings Menu. Note that "PROGDIR:" doesn't apply here.
+
+(Defaults to SimpleFindPrefs)
+
+
+@{u}NOPOPUPMENU@{uu}
+
+SimpleFind won't use the popupmenu.library even if it is installed.
+
+
+@{u}NOCTREQUEST@{uu}
+
+SimpleFind won't use the ctrequest.library even if it is installed.
+
+
+@{u}IMAGE@{uu}
+
+Path to an image to be displayed in the @{" Main Window " link MAINWND}
+
+
+@{u}IMAGEPOS@{uu}
+
+Position of the image. Can be LEFT or RIGHT.
+
+(Defaults to RIGHT)
+
+
+@{u}IMAGEMODE@{uu}
+
+How the image is displayed.
+
+IMAGEMODE=0 displays as much of the image as will fit within the height of the
+search options group.
+
+IMAGEMODE=1 displays the image in its entirety.
+
+(Defaults to 0 )
+
+@ENDNODE
+
+@NODE GUI "The User Interface"
+@SMARTWRAP
+@{b}The User Interface@{ub}
+
+
+SimpleFind's user interface essentially consists of three windows. All windows
+use the same @{"Menu" link MENU}.
+
+If you start SimpleFind normally, it first opens the
+@{" Main Window " link MAINWND}.  Within this window you have full control over
+SimpleFind's search capabilities and it is here you start the Search Process.
+
+When you press the "Start Search" button in the bottom of the window the
+@{" Result Window " link RESULTWND} appears. It shows the matched files as soon
+as the @{"Search Process" link CONCEPT_SEARCHPROCESS} is finished. Then you can
+manipulate selected files (for example you can copy, rename or delete them).
+The buttons you see in the window can be configured via the prefs program.
+
+
+If you select the "Indexfile/Index Manager..." entry from the
+@{"Menu" link MENU}, the @{"Indexmanager Window" link IMANWND} will appear.
+It is here that you create, delete or update
+@{"Indexfiles" link CONCEPT_INDEXFILE}.
+
+
+@{CODE}
+Windows:
+@{" Main Window         " link MAINWND }  Control Searching
+@{" Result Window       " link RESULTWND }  Shows matched files
+@{" IndexManager Window " link IMANWND }  Manage your Indexfiles
+@ENDNODE
+
+@NODE MENU "SimpleFind's menu"
+@SMARTWRAP
+@{b}Menu@{ub}
+
+
+SimpleFinds menus are reachable from nearly every window. With the menus you
+control important functions of SimpleFind.
+
+
+SimpleFind provide following menu items:
+
+@{" Project    " link MENU_PROJECT}   Information@{LINE}
+@{" Indexfiles " link MENU_INDEXFILES}   Manipulate Indexfiles@{LINE}
+@{" Settings   " link MENU_SETTINGS}   Alter settings of SimpleFind@{LINE}
+
+@ENDNODE
+
+@NODE MENU_PROJECT "Menu: Project"
+@{b}Project Menu@{ub}
+
+The project menu consists of two items:
+
+@{b}About...@{ub}      Shows information about the copyright,
+              the author (hey, that's me :-) ),
+              and the language creator.
+
+@{b}Execute ARexx@{ub} Popups a asl requester where you can
+@{b}Script...@{ub}     choose a arexx script to be executed
+
+@{b}Iconify@{ub}       Iconifies SimpleFind
+
+@{b}Quit@{ub}          Quits SimpleFind without notifing the user.
+
+@ENDNODE
+
+@NODE MENU_INDEXFILES "Menu: Indexfiles"
+@SMARTWRAP
+@{b}Indexfiles Menu@{ub}
+
+
+Here you manipulate the indexfiles. The following items are available:
+
+@{b} Indexmanager...@{ub}           Opens the 
+@{" Indexmanager " link IMANWND}@{LINE}
+
+@{b} Create Indexfile...@{ub}       Here you can create a new
+@{"Indexfile" link CONCEPT_INDEXFILE} for a specified directory.
+If an indexfile already exists a requester will allow you to select
+among CREATE, UPDATE or CANCEL.@{LINE}
+
+
+@{b} Recreate all Indexfiles@{ub}@{LINE}
+
+@{b} Update all Indexfiles@{ub}@{LINE}
+
+@{b} Delete all Indexfiles...@{ub}@{LINE}
+
+These last three are self explanatory.
+
+@ENDNODE
+
+@NODE MENU_SETTINGS "Menu: Settings"
+@SMARTWRAP
+@{b}Settings Menu@{ub}
+
+
+Here you can alter SimpleFind's settings:
+
+@{" Case sensitive?           " link MENU_SETTINGS_CASE}
+ Do a case sensitive search@{LINE}
+@{" Exact pattern?            " link MENU_SETTINGS_EXACTPATTERN}
+ Use an exact pattern?@{LINE}
+@{" Exact comment?            " link MENU_SETTINGS_EXACTCOMPATTERN} 
+ Search for an exact comment pattern?@{LINE}
+@{" Use Indexfiles?           " link MENU_SETTINGS_USEIFILES}
+ Use indexfiles for faster searching?@{LINE}
+@{" Auto-Update Indexfiles?   " link MENU_SETTINGS_AUTOINDEX}
+ Update Indexfiles automatically?@{LINE}
+@{" Quick Start?              " link MENU_SETTINGS_QUICKSTART}
+ Search after a pattern has been entered?@{LINE}
+@{" Keep all search options?  " link MENU_SETTINGS_KEEP}
+ Save all searchoptions?@{LINE}
+
+@{" Search for              » " link MENU_SETTINGS_SEARCHFOR}
+ Search for files or drawers?@{LINE}
+@{" Sort by                 » " link MENU_SETTINGS_SORT}
+ Sort the search results@{LINE}
+@{" Visible search options  » " link MENU_SETTINGS_VISIB}
+ Which search options are to be visible?@{LINE}
+@{" Contents options        » " link MENU_SETTINGS_CONTENTS}
+ Some options for the search contents@{LINE}
+
+@{" Edit Prefs...             " link MENU_SETTINGS_EDITPREFS}
+ Edit SimpleFind's preferences@{LINE}
+
+@{" Save settings             " link MENU_SETTINGS_SAVESETT}
+ Save SimpleFind's current settings@{LINE}
+
+@ENDNODE
+
+@NODE MENU_SETTINGS_CASE "Menuitem: Case sensitive?"
+@SMARTWRAP
+@{b}Case sensitive Menuitem@{ub}
+
+
+If this option is checked, SimpleFind ignores case during searches.
+@ENDNODE
+
+
+@NODE MENU_SETTINGS_EXACTPATTERN "Menuitem: Exact Pattern?"
+@SMARTWRAP
+@{b}Exact Pattern Menuitem@{ub}
+
+
+If this option is checked, SimpleFind doesn't add a '#?' to the beginning and
+end of the search pattern.
+
+@ENDNODE
+
+
+@NODE MENU_SETTINGS_EXACTCOMPATTERN "Menuitem: Exact Comment?"
+@SMARTWRAP
+@{b}Exact Comment Menuitem@{ub}
+
+
+If checked, SimpleFind won't add a '#?' to the beginning and end of the comment
+search pattern.
+
+@ENDNODE
+
+
+@NODE MENU_SETTINGS_USEIFILES "Menuitem: Use Indexfiles?"
+@SMARTWRAP
+@{b}Use Indexfiles Menuitem@{ub}
+
+
+Only if this option is checked will SimpleFind use
+@{"Indexfiles" link CONCEPT_INDEXFILE}, if available.
+
+@ENDNODE
+
+@NODE MENU_SETTINGS_AUTOINDEX "Menuitem: Auto-Update Indexfiles?"
+@SMARTWRAP
+@{b}Auto-Update Indexfiles Menuitem@{ub}
+
+
+If checked, the Indexfiles will be updated automatically
+(see @{" Indexmanager " link IMANWND}).
+
+@ENDNODE
+
+@NODE MENU_SETTINGS_QUICKSTART "Menuitem: Quick Start?"
+@SMARTWRAP
+@{b}Quick Start Menuitem@{ub}
+
+
+If checked, SimpleFind will start searching immediately after a pattern is
+entered (and return is pressed).
+@ENDNODE
+
+@NODE MENU_SETTINGS_KEEP "Menuitem: Keep all search options?"
+@SMARTWRAP
+@{b}Keep all search options Menuitem@{ub}
+
+
+If checked, SimpleFind will save all search options
+when @{"Save Settings" link MENU_SETTINGS_SAVESETT}. is selected.
+@ENDNODE
+
+@NODE MENU_SETTINGS_SEARCHFOR "Submenu: Search for"
+@SMARTWRAP
+@{b}Search for Submenu@{ub}
+
+
+Here you can choose for which types of objects SimpleFind
+should look for:@{LINE}
+
+ Files - search for files only@{LINE}
+ Drawers - search for drawers only@{LINE}
+ Files and Drawers - search for files and drawers@{LINE}
+
+ Inside Archives - search for files inside Archives@{LINE}
+
+@ENDNODE
+
+@NODE MENU_SETTINGS_SORT "Submenu: Sort"
+@SMARTWRAP
+@{b}Sort Submenu@{ub}
+
+
+You can choose among the following sort modes:@{LINE}
+
+   No Sorting@{LINE}
+
+   Complete Filename (Path)@{LINE}
+   Filename@{LINE}
+   Comment@{LINE}
+   Date (latest first)@{LINE}
+   Size (smallest first)@{LINE}
+
+   Reverse Sort? (reverses the sorting)@{LINE}
+@ENDNODE
+
+@NODE MENU_SETTINGS_VISIB "Submenu: Visible Search Option"
+@SMARTWRAP
+@{b}Visible Search Option Submenu@{ub}
+
+
+Here you can select which search option should appear in
+the @{" Main Window " link MAINWND}.
+
+@ENDNODE
+
+
+@NODE MENU_SETTINGS_CONTENTS "Submenu: Contents Options"
+@SMARTWRAP
+@{b}Contents Options Submenu@{ub}
+
+
+Here you can change options which influence the search contents:@{LINE}
+
+Case Sensitive - To do a case sensitive search, naturally.@{LINE}
+Force String Mode - To force SimpleFind to treat WildCard characters as ordinary
+characters.@{LINE}
+Wordwrap - To wrap the text which is displayed within the contents window@{LINE}
+
+@ENDNODE
+
+@NODE MENU_SETTINGS_EDITPREFS "Menuitem: Edit Prefs"
+@SMARTWRAP
+@{b}Edit Prefs Menuitem@{ub}
+
+
+Starts the external Prefs Editor as defined in the @{" Tool Types " link WB}
+@ENDNODE
+
+@NODE MENU_SETTINGS_SAVESETT "Menuitem: Save Settings"
+
+
+@{b}Save Settings Menuitem@{ub}
+
+
+Save the current settings.
+@ENDNODE
+
+
+@NODE MAINWND "Main Window"
+@SMARTWRAP
+@{b}Main Window@{ub}
+
+
+The Main Window is opened shortly after starting.
+Within this window you can specify the
+criteria for a @{"search process" link CONCEPT_SEARCHPROCESS}.
+
+You will find the following gadgets or gadgetgroups here.
+
+
+@{b}The 'Search options' group@{ub}
+
+The options of this group are required in every
+search process. The following options are available:@{LINE}
+@{" Search Path " link MAINWND_SEARCHPATH}
+  Specifies the path of the search process.@{LINE}
+@{" Pattern     " link MAINWND_PATTERN}
+  The pattern of the files to be searched for.@{LINE}
+
+@{b}The 'Advanced options' group@{ub}
+
+The options in this group are not necessary for a search process; thus they can
+be activated or deactivated or even completely removed via the
+ @{" Settings/Visible Search options " link MENU_SETTINGS_VISIB} menu entry.
+ The following advanced options are available:@{LINE}
+
+@{" Comment     " link MAINWND_COMMENT}  Search for comments@{LINE}
+@{" Min Size    " link MAINWND_MINSIZE}  Minimum file size@{LINE}
+@{" Max Size    " link MAINWND_MAXSIZE}  Maximum file size@{LINE}
+@{" Within last " link MAINWND_WITHINLAST}  Search only for files created since
+a particular date@{LINE}
+@{" Between     " link MAINWND_BETWEEN}  Between two points in time @{LINE}
+@{" Prot. Bits  " link MAINWND_PROTBITS}  Search for Protection Bits@{LINE}
+@{" Datatype    " link MAINWND_DATATYPE}  Search for a datatype@{LINE}
+@{" Contents    " link MAINWND_CONTENTS}  Search for a string in a file@{LINE}
+
+Between the both groups you will find the
+@{" Max. Directory " link MAINWND_MAXDIR} option.
+
+When you are finished with the search option you press the
+@{" Start Search... " link MAINWND_STARTSEARCH} button.
+
+@ENDNODE
+
+@NODE MAINWND_SEARCHPATH "Main Window: Search Path"
+@SMARTWRAP
+@{b}Search Path@{ub}
+
+
+Path where SimpleFind will start its search. You can
+enter this path manually or by clicking the button («)
+to the right of the string gadget which brings up a
+filerequester. Multiple paths are separated by '|'.
+Clicking on 'All' defines a multiple path for all
+available Indexfiles when @{" Use Indexfiles? " link MENU 64} is selected.
+Otherwise it defines a multiple path for all mounted Volumes.
+The path(s) you entered here are saved when you select
+@{"Save Settings" link MENU 92 }, too.
+You can also bring up the filerequester when pressing the Shift Key and the
+underscored letter of the Gadgettext (in the English version, Shift + 'E' )
+or simply 'd'.
+
+@ENDNODE
+
+@NODE MAINWND_PATTERN "Main Window: Pattern"
+@SMARTWRAP
+@{b}Pattern@{ub}
+
+
+Standard AmigaDOS Pattern. Click on the button next to this gadget to see the
+list of often used patterns. See
+@{" Prefs " link PREFS} / @{" Search Options " link PREFS_SEARCHOPT} for an idea
+of how to change this.
+
+@ENDNODE
+
+@NODE MAINWND_COMMENT "Main Window: Comment"
+@SMARTWRAP
+@{b}Comment@{ub}
+
+
+Activate this to search for file comments. AmigaDOS Patterns are supported.
+@ENDNODE
+
+@NODE MAINWND_MINSIZE "Main Window: Min Size"
+@SMARTWRAP
+@{b}Min Size@{ub}
+
+
+When the Checkbox is checked you can specify the minimum
+size. The size unit can be choosen via the cycle gadget.
+@ENDNODE
+
+
+@NODE MAINWND_MAXSIZE "Main Window: Max Size"
+@SMARTWRAP
+@{b}Max Size(kb)@{ub}
+
+
+When the Checkbox is checked you can specify the maximum
+size. The size unit can be choosen via the cycle gadget.
+
+@ENDNODE
+
+@NODE MAINWND_WITHINLAST "Main Window: Within last"
+@SMARTWRAP
+@{b}Within last@{ub}
+
+
+Here you can specify how many minutes/hours/days/month
+ago (maximal) a file was created/changed.
+@ENDNODE
+
+@NODE MAINWND_BETWEEN "Main Window: Between"
+@SMARTWRAP
+@{b}Between@{ub}
+
+
+Here you can specify between which points in time the file was created/changed.
+
+@ENDNODE
+
+@NODE MAINWND_PROTBITS "Main Window: Protection Bits"
+@SMARTWRAP
+@{b}Protection Bits@{ub}
+
+
+The protection bits of the file. The following bits are supported:  r, w, e, d,
+h, s, p, a. A minus '-' means not set, otherwise set. Bits which don't appear
+are ignored. Upon hitting this button a new window will open, in which you
+can choose the bits with the mouse.
+
+@ENDNODE
+
+@NODE MAINWND_DATATYPE "Main Window: Datatype"
+@SMARTWRAP
+@{b}Datatype@{ub}
+
+
+The file must belong to a selected datatype group. Click on the button to show
+all possible groups. Note that the datatypes.library is used, so be sure to have
+the correct datatype installed.
+
+Also note that actually this option doesn't work for files inside archives.
+
+@ENDNODE
+
+
+@NODE MAINWND_CONTENTS "Main Window: Contents"
+@SMARTWRAP
+@{b}Contents@{ub}
+
+
+Scans through the entire file, searching for the specified string.  Note, to
+search for e.g. #? directly the
+@{" Contents Settings/Force string mode? " link MENU_SETTINGS_CONTENTS} entry
+must be activated. The result can be shown in a separate window of the
+Resultwindow, by clicking on the entry.
+
+Also note that actually this option doesn't work for files inside archives.
+@ENDNODE
+
+
+@NODE MAINWND_MAXDIR "Main Window: Max. Directory"
+@SMARTWRAP
+@{b}Max. Directory@{ub}
+
+
+Defines the maximum depth of directories to be scanned by SimpleFind.
+
+@ENDNODE
+
+@NODE MAINWND_STARTSEARCH "Main Window: Start Search"
+@SMARTWRAP
+@{b}Start Search@{ub}
+
+
+This will start the @{"search process" link CONCEPT_SEARCHPROCESS}. The results
+are shown in the @{" Result Window " link RESULTWND }. During a search, breaking
+is possible with 'Esc' or clicking on the RESULTS Closegadget.
+
+@ENDNODE
+
+@NODE RESULTWND "Result Window"
+@SMARTWRAP
+@{b}Result Window@{ub}
+
+
+Here you see a listview which shows the found files after a search process.
+Simply select a file by clicking on its name. If you enter a new name in the
+string gadget the file will be renamed as such.
+
+Below this gadget you will find a further string gadget. Here you can enter an
+AmigaDOS-Pattern which redefines the pattern of the files to be shown (in effect
+narrowing the search criteria). With the help of this gadget you can reject
+files without starting a new search process.
+
+The buttons that you will find here are configurable (see the
+@{" Preferences " link PREFS} / @{" Buttons " link PREFS_BUTTONS} section).
+
+If desired/required there is also a popup menu available which is freely
+configurable as well (see the
+@{" Preferences " link PREFS} / @{" Popup Menu " link PREFS_POPUP} section).
+The menu is shown if you press the right mouse button over the listview.
+
+
+If you use the default preferences you will find the following buttons:
+
+@{" Information " link ICMD_INFO}  Workbench Information Requester@{LINE}
+@{" Copy        " link ICMD_COPY}  Copy selected files@{LINE}
+@{" Delete      " link ICMD_DELETE}  Delete selected files@{LINE}
+@{" Show        " link ICMD_SHOW}  Show selected files@{LINE}
+@{" Archive     " link ICMD_ARCHIVE}  Archive selected files@{LINE}
+@{" Unpack      " link ICMD_UNPACK}  Unpack selected files@{LINE}
+
+@ENDNODE
+
+
+@NODE IMANWND "Indexmanager Window"
+@SMARTWRAP
+@{b}IndexManager Window@{ub}
+
+
+It is here where you manage your @{"Indexfiles" link CONCEPT_INDEXFILE}. This means
+you can create new indexfiles and update or delete old ones.
+
+Available indexfiles are shown in the @{" Listview " link IMANWND_AVAIL} Gadget.@{LINE}
+You will find the following other gadgets in this window:@{LINE}
+@{" Create... " link IMANWND_CREATE}  Create a new Indexfile@{LINE}
+@{" Update    " link IMANWND_UPDATE}  Update the current Indexfile@{LINE}
+@{" Delete    " link IMANWND_DELETE}  Delete the current Indexfile@{LINE}
+
+The next group of gadgets allow you to configure automatic Indexfile updating:@{LINE}
+@{" Update indexfile auto. " link IMANWND_AUTOUPDATE}  Auto-update the Indexfile?@{LINE}
+@{" After                  "  link IMANWND_AFTER}  After a specified time@{LINE}
+@{" Sizediff. bigger than  "  link IMANWND_SIZEDIFF}  If the size difference is bigger than@{LINE}
+@{" And/Or Cycle           "  link IMANWND_ANDOR}  Should both or only one be true?@{LINE}
+
+@ENDNODE
+
+@NODE IMANWND_AVAIL "Indexmanager Window: Available Indexfiles Listview"
+@SMARTWRAP
+@{b}Available Indexfiles Listview@{ub}
+
+
+The listview shows the available indexfiles. You will see for which partition
+(or drawer) an indexfile has been created and when it was last updaten.
+To select an entry click on the left mouse button over the entry or use
+the cursor keys. Performing a double click over an entry or pressing enter
+will change the @{" Search Path " link MAINWND_SEARCHPATH} in the @{" Main Window " link MAINWND}.
+
+@ENDNODE
+
+@NODE IMANWND_CREATE "Indexmanager Window: Create Indexfile"
+@SMARTWRAP
+@{b}Create@{ub}
+
+
+Press this button to create an new indexfile. In the filerequester you
+choose the wanted drawer or partition.
+
+@ENDNODE
+
+
+@NODE IMANWND_UPDATE "Indexmanager Window: Update Indexfile"
+@SMARTWRAP
+@{b}Update@{ub}
+
+
+Press this button to update the selected indexfile.
+
+@ENDNODE
+
+
+@NODE IMANWND_DELETE "Indexmanager Window: Delete Indexfile"
+@SMARTWRAP
+@{b}Delete@{ub}
+
+
+Press this button to delete the selected indexfile.
+
+@ENDNODE
+
+
+@NODE IMANWND_AUTOUPDATE "Indexmanager Window: Update Indexfile automatically"
+@SMARTWRAP
+@{b}Update indexfile automatically@{ub}
+
+
+Activate this if the selected indexfile should be updated automatically
+after a given @{" time period " link IMANWND_AFTER} or a given @{" size difference " link IMANWND_SIZEDIFF}.
+
+The automatic Indexfile-Updating is started when you begin a
+new @{" Search Process " link CONCEPT_SEARCHPROCESS} or open
+the Indexmanager window again. Additionally you have to activate
+the @{" Autoupdate-Indexfile " link MENU_SETTINGS_AUTOINDEX} menu entry.
+
+@ENDNODE
+
+
+@NODE IMANWND_AFTER "Indexmanager Window: After"
+@SMARTWRAP
+@{b}After@{ub}
+
+
+Defines after how many months/days/hours/minutes an indexfile should be updated.
+
+@ENDNODE
+
+
+@NODE IMANWND_SIZEDIFF "Indexmanager Window: Sizediff. bigger than"
+@SMARTWRAP
+@{b}Sizediff. bigger than@{ub}
+
+
+The indexfile is updated if the difference between the new size of the partition
+and the size of the Indexfile is greater than your specified size. The size unit
+can be chosen via the cycle gadget.
+
+@ENDNODE
+
+
+@NODE IMANWND_ANDOR "Indexmanager Window: And/Or Cycle"
+@SMARTWRAP
+@{b}And/Or Cycle@{ub}
+
+
+Defines if only one condition must be true (or), or both (and) to autoupdate an
+indexfile.
+
+@ENDNODE
+
+@NODE PREFS "The Preferences Program"
+@PREV GUI
+@SMARTWRAP
+@{b}The Preferences Program@{ub}
+
+
+Via the Preferences Program you can configure important aspects of SimpleFind to
+your particular needs.
+
+The Prefs Program itself has only one window.
+
+On the bottom of the window there are two gadgets: Save and Cancel.  With Save
+you can save the actual settings for SimpleFind to use.  Cancel won't save
+the settings. Both gadgets will quit SimpleFindPrefs.
+
+At the top you will see a cycle gadget.  With help of this gadget you can
+cycle through several pages which are shown in the large section in the middle of
+the window. You an also cycle the page shown by pressing the space bar.
+
+@{CODE}
+Pages:
+
+@{" General Settings " link PREFS_GENERAL}    Useful things
+@{" Buttons          " link PREFS_BUTTONS}    Configure the buttons in the Result Window
+@{" Popup Menu       " link PREFS_POPUP}    Configure the popupmenus
+@{" Output Format    " link PREFS_OUTPUTFMT}    Confiure the Output format
+@{" Copy Options     " link PREFS_COPYOPT}    Some useful Copy Options
+@{" Search Options   " link PREFS_SEARCHOPT}    Change search mode
+
+@{BODY}
+
+The prefs program can be started from either Workbench or a Shell. It supports
+some ToolTypes and has a shell template.
+
+@{CODE}
+Configure via:
+
+@{" Tool Types      " link PREFS_TOOLTYPES}    When starting from Workbenh
+@{" Shell Template  " link PREFS_SHELL}    Starting from a Shell
+
+@ENDNODE
+
+
+@NODE PREFS_GENERAL "Preferences Page: General Settings"
+@SMARTWRAP
+@{b}General Settings@{ub}
+
+
+@{u}Indexfile Directory@{uu}
+
+The directory where all Indexfiles are saved.
+
+
+@{u}Viewer Command@{uu}
+
+Your preferred DataTypes Viewer. This program is called if you perform a
+doubleclick over a file in the @{" Result Window " link RESULTWND} or if you
+press a button which is related with a SHOW
+@{"command" link CONCEPT_INTERNALCMD}
+ (for example the Show button in the default configuration)
+
+
+@{u}Unpack Directory@{uu}
+
+The directory to which archives will be unpacked.
+
+
+@{u}Archiver@{uu}
+
+The archiver used to pack files.
+@ENDNODE
+
+
+@NODE PREFS_BUTTONS "Preferences Page: Buttons"
+@SMARTWRAP
+@{b}Buttons@{ub}
+
+
+Here you can configure the buttons that are shown in the 
+@{" Result Window " link RESULTWND}.  The page consists of one listview, two
+string gadgets, one cycle gadget and several buttons.
+
+In the listview we see all the names of currently available buttons. Every
+entry represents a button except a line, which is a separator between button
+groups. In the @{" Result Window " link RESULTWND} we see different groups in
+different lines.
+
+Below the the listview there is a string gadget where you can change the name of
+the button which is selected. In the name, the letter behind the underscore (_)
+represents the short cut for the button.
+
+Below this button is another string gadget. Depending on the
+@{" command type " link CONCEPT_COMMANDS}, which can be choosen via the cycle
+gadget next to the string gadget, the contents have different meanings. But
+except for the Intern Command Type all strings will be interpreted as filenames.
+A filerequester appers when you click on the '«' button next to the gadget in
+this case. If the @{" Intern Command " link CONCEPT_INTERNALCMD} Type is
+selected, a chooser window appears from which you can select a command.
+
+In addition to these gadgets are the following buttons :
+
+
+@{u}Top@{uu}
+
+This will move the selected element to the top of the list.
+
+
+@{u}Up@{uu}
+
+The selected button is moved up one place.
+
+
+@{u}Down@{uu}
+
+The selected button is moved down one place.
+
+
+@{u}Bottom@{uu}
+
+This will move the element to the bottom of the list.
+
+
+@{u}New Group@{uu}
+
+Adds a new group separator.
+
+
+@{u}New@{uu}
+
+Adds a new button.
+
+
+@{u}Remove@{uu}
+
+Removes the selected button.
+
+
+@{u}Edit@{uu}
+
+If the commandtype is either Batch or ARexx, allows editing of the selected file.
+
+@ENDNODE
+
+
+@NODE PREFS_POPUP "Preferences Page: Popup Menu"
+@SMARTWRAP
+@{b}Popup Menu@{ub}
+
+
+This page is similar to the @{" Buttons " link PREFS_BUTTONS} Page, but instead
+of creating buttons you create popup menu entries. Also, groups don't actually 
+exist, but you can still create separators.
+
+The popup menu is shown if you press the right mouse button over the
+@{" Result Window " link RESULTWND} and if the popupmenu.library has been opened.
+
+@ENDNODE
+
+
+@NODE PREFS_OUTPUTFMT "Preferences Page: Output Format"
+@SMARTWRAP
+@{b}Output Format@{ub}
+
+
+With the help of this page, you can easily change the output format of
+the files which are shown in the @{" Result Window " link RESULTWND}.
+
+At first you will see a listview which shows all available Output
+elements. If you select one of them you can change the position,
+the justification (via the cycle gadget) and whether it should be activated.
+
+
+@{u}Top@{uu}
+
+This will move the element to the top of the list.
+
+
+@{u}Up@{uu}
+
+The element is moved up one place.
+
+
+@{u}Down@{uu}
+
+The element is moved down one place.
+
+
+@{u}Bottom@{uu}
+
+This will move the element to the bottom of the list.
+
+
+@{u}Activate@{uu}
+
+Activate the selected element so that it is shown in the ResultWindow.
+
+
+@{u}Deactivate@{uu}
+
+Deactivate the selected element so that it isn't shown in the ResultWindow.
+
+
+@{u}Show Headline@{uu}
+
+If activated, SimpleFind shows a Headline in the
+@{" ResultWindow " link RESULT_WND }.
+
+
+@ENDNODE
+
+
+@NODE PREFS_COPYOPT "Preferences Page: Copy Options"
+@SMARTWRAP
+@{b}Copy Options@{ub}
+
+
+Here you can alter some option which influence the copying of one or more files.
+
+
+@{u}Hold Directory Structure@{uu}
+
+Activate this only when you wish to @{b}avoid@{ub} losing the directory
+structure when copying files.
+
+As an example, imagine you've selected two files. The first is located in SYS:C
+and the second in SYS:Libs and you want to copy them to RAM:.
+
+If @{b}Hold Directory Structure@{ub} is activated SimpleFind would copy the
+first file from SYS:C to RAM:C and the second from SYS:Libs to RAM:Libs.
+
+If @{b}Hold Directory Structure@{ub} is @{b}not@{ub} activated all files would
+be copied into RAM: without any subdirectories.
+
+
+@{u}Check for enough free space@{uu}
+
+Activate this to force SimpleFind to calculate the space required for the
+selected files. If the destination can't hold all the files (not enough free
+space) a requester appears.
+
+However, this function currently only works correctly if the other two options
+aren't activated.
+
+
+@{u}Copy icon automatically@{uu}
+
+If you has activated this option, SimpleFind will also copy a file's Icon if
+one exists.
+
+@ENDNODE
+
+
+@NODE PREFS_SEARCHOPT "Preferences Page: Search Options"
+@SMARTWRAP
+@{b}Search Options@{ub}
+
+
+Here you can alter some options which influence the search progress.
+
+
+@{u}Asycron@{uu}
+
+If you activate this checkbox SimpleFind's
+@{" Search Process " link CONCEPT_SEARCHPROCESS} is run asynchronously.
+
+
+@{u}Stop Window@{uu}
+
+SimpleFind will open a window containing a Stop Button and a Progress Bar while
+searching.
+
+Below this you will see a listview in which you can enter frequently used
+patterns.  You select these patterns by clicking on the button next to the
+pattern string gadget.@{LINE}
+
+A new pattern entry is created with the help of the @{b}NEW@{ub} Button.  The
+pattern itself can be modified in the string gadget next to that button.  As
+usual, you can sort the entries with the @{b}Top, Up, Down@{ub} and
+@{b}Bottom@{ub} buttons or remove them with help of the @{b}Remove@{ub} button.
+
+@ENDNODE
+
+
+@NODE PREFS_TOOLTYPES "Preferences: Tool Types"
+@SMARTWRAP
+@{b}Tool Types@{ub}
+
+
+The Preferences Program can be configured via three Tool Types.
+
+
+@{u}PREFSFILE@{uu}
+
+The name of the default prefs file. This prefs file is created or updated (as
+the case may be)  when the @{b}Save@{ub} Button is hit.
+
+(Defaults to PROGDIR:SimpleFind.prefs)
+
+
+@{u}TEXTEDITOR@{uu}
+
+The Text Editor is called when you press the @{b}Edit@{ub} button on the
+@{" Buttons " link PREFS_BUTTONS} page.
+
+
+@{u}NOPOPUPMENU@{uu}
+
+SimpleFindPrefs won't use the popupmenu.library even if it is installed.
+
+@ENDNODE
+
+@NODE PREFS_SHELL "Preferences: Shell Template"
+@SMARTWRAP
+@{b}Shell Template@{ub}
+
+
+SimpleFindPrefs can be started from a Shell. Its Shell-Template looks like this
+
+@{CODE}
+   PREFSFILE,TEXTEDITOR,NOPOPUPMENU/S,READTTYPES/S
+@{BODY}
+
+
+@{u}PREFSFILE@{uu}
+
+The name of the default prefs file. This prefs file is created or updated (as
+the case may be) when the @{b}Save@{ub} Button is hit.
+
+(Defaults to PROGDIR:SimpleFind.prefs)
+
+
+@{u}TEXTEDITOR@{uu}
+
+The Texteditor is called when you hit the @{b}Edit@{ub} button on the
+@{"Buttons" link PREFS_BUTTONS} page.
+
+
+@{u}NOPOPUPMENU@{uu}
+
+SimpleFindPrefs won't use the popupmenu.library even if it is installed.
+
+
+@{u}READTTYPES@{uu}
+
+SimpleFindPrefs will read the tooltypes of its icon, if any exist.
+
+
+@ENDNODE
+
+@NODE AREXX "SimpleFind's ARexx Port"
+@SMARTWRAP
+@{b}ARexx Port@{ub}
+
+
+SimpleFind supports a simple ARexx Port. With the ARexx Port you can use
+SimpleFind's search capabilities from other programs.
+
+The port's name is SIMPLEFIND.1. Note that SimpleFind only supports one
+port. This means that only one process can be reached via ARexx.
+
+
+SimpleFind provides the following ARexx Commands:@{LINE}
+
+@{" ADDNOTIFYPORT    " link AREXX_ADDNOTIFYPORT}   Add a notify port@{LINE}
+@{" DEMARK           " link AREXX_DEMARK}   Deselects entries in the result window (V2.5)@{LINE}
+@{" DONTSHOWRESULTS  " link AREXX_DONTSHOWRESULTS}   Forbid opening of the Result Window@{LINE}
+@{" GET              " link AREXX_GET}   Get important things from SimpleFinnd (V2.5)@{LINE}
+@{" JUMPTONEXT       " link AREXX_JUMPTONEXT}   Move the entry cursor (V2.5)@{LINE}
+@{" MARK             " link AREXX_MARK}   Selects entries in the result window (V2.5)@{LINE}
+@{" MOVEMARKER       " link AREXX_MOVEMARKER}   Moves the marker (V2.5)@{LINE}
+@{" REMOVENOTIFYPORT " link AREXX_REMOVENOTIFYPORT}   Remove a notify port@{LINE}
+@{" SET              " link AREXX_SET}   Set important things of SimpleFind (V2.5)@{LINE}
+@{" SHOWRESULTS      " link AREXX_SHOWRESULTS}   Allow opening of the Result Window@{LINE}
+@{" QUIT             " link AREXX_QUIT}   Quit SimpleFind@{LINE}
+
+The following ARexx commands are obsolette since version 2.5. You shouldn't use these
+commands in new ARexx Scripts any longer:@{LINE}
+
+@{" GETENTRY            " link AREXX_GETENTRY}   Get actual entry@{LINE}
+@{" GETENTRYNEXT        " link AREXX_GETENTRYNEXT}   Get actual entry@{LINE}
+@{" GETFIRSTSELENTRYPOS " link AREXX_GETFIRSTSELENTRYPOS}   Get position of first selected entry@{LINE}
+@{" GETMARKERPOS        " link AREXX_GETMARKERPOS}   Get the position of the last selected entry)@{LINE}
+@{" GETMAXENTRIES       " link AREXX_GETMAXENTRIES}   Get maximum number of entries@{LINE}
+@{" GETMAXFULLPATHLEN   " link AREXX_GETMAXFULLPATHLEN}   Get longest path length@{LINE}
+@{" GETSELENTRIES       " link AREXX_GETSELENTRIES}   Get number of selected entries@{LINE}
+@{" GETSELENTRYNEXT     " link AREXX_GETSELENTRYNEXT}   Get actual entry@{LINE}
+@{" SETENTRYPOS         " link AREXX_SETENTRYPOS}   Set the entry cursor@{LINE}
+
+An Example of how to use the ARexx Port is @{" simplefind_dopus.rexx " link "//
+ARexx/simplefind_dopus.rexx/MAIN"}.  It makes SimpleFind show the Results in a
+DOpus Lister, instead of using the @{" Result Window " link RESULTWND}.
+However, because of a problem in DOpus it doesn't work perfectly
+(see @{" Bugs " link BUGS}).
+
+
+There are also some simpler examples:@{LINE}
+@{" saveentries.rexx    " link "//ARexx/saveentries.rexx/MAIN"}   Saves all actual Resultentries in a file@{LINE}
+@{" saveselentries.rexx " link "//ARexx/saveselentries.rexx/MAIN"}   Saves all selected Resultentries in a file@{LINE}
+
+@ENDNODE
+
+@NODE AREXX_ADDNOTIFYPORT "ARexx Command: ADDNOTIFYPORT"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+ADDNOTIFYPORT PORTNAME@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Adds a port to SimpleFind's internal list of
+@{" Notifty Ports " link AREXX_NOTIFYPORT}. 
+When no more messages are required you should use the
+@{" REMOVENOTIFYPORT " link AREXX_REMOVENOTIFYPORT} command.@{LINE}
+
+@{b}Arguments@{ub}@{LINE}
+
+PORTNAME - the name of the port to be added.
+
+@ENDNODE
+
+@NODE AREXX_REMOVENOTIFYPORT "ARexx Command: REMOVENOTIFYPORT"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+REMOVENOTIFYPORT PORTNAME@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Removes a port to SimpleFind's internal list of
+@{" Notifty Ports " link AREXX_NOTIFYPORT}.@{LINE}
+
+@{b}Arguments@{ub}@{LINE}
+PORTNAME - the name of the port to be removed
+@ENDNODE
+
+@NODE AREXX_SETENTRYPOS "ARexx Command: SETENTRYPOS"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+SETENTRYPOS CURSORPOS/N@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Sets the internal entry cursor to a specified position.@{LINE}
+
+@{b}Arguments@{ub}@{LINE}
+CURSORPOS/N: the new cursor position (beginning from 0)
+
+@ENDNODE
+
+@NODE AREXX_SHOWRESULTS "ARexx Command: SHOWRESULTS"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+SHOWRESULTS@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Allows SimpleFind to show its results in the Result Window.
+This is ON by default.
+
+@ENDNODE
+
+@NODE AREXX_DONTSHOWRESULTS "ARexx Command: DONTSHOWRESULTS"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+DONTSHOWRESULTS@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Forbids SimpleFind to show its results in the
+@{" Result Window " link RESULTWND}.
+
+@ENDNODE
+
+@NODE AREXX_QUIT  "ARexx Command: QUIT"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+QUIT@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Quits SimpleFind. After calling this command the SimpleFind ARexx Port
+is no longer valid.
+
+@ENDNODE
+
+@NODE AREXX_MARK "ARexx Command: MARK"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+MARK PATTERN,POS/N/K,ALL/S@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Selects all or some entries in the result window.@{LINE}
+
+@{b}Arguments@{ub}@{LINE}
+PATTERN - AmigaOS Pattern which descibes the files which should be selected@{LINE}
+POS - the position of the entry which should be selected (PATTERN is ignored)@{LINE}
+ALL - all files should be selected (PATTERN and POS are ignored)@{LINE}
+
+@{b}Result@{ub}@{LINE}
+The number of selected entries@{LINE}
+
+@{b}Notes@{ub}@{LINE}
+This command will not deselect any entries, so if you want to go sure that only
+the wanted entries are selected, use @{"DEMARK" link AREXX_DEMARK} before this call.
+
+@ENDNODE
+
+@NODE AREXX_DEMARK "ARexx Command: DEMARK"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+DEMARK PATTERN,POS/N/K,ALL/S@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Deselects all or some entries in the result window.@{LINE}
+
+@{b}Arguments@{ub}@{LINE}
+PATTERN - AmigaOS Pattern which descibes the files which should be deselected@{LINE}
+POS - the position of the entry which should be deselected (PATTERN is ignored)@{LINE}
+ALL - All files should be deselected (PATTERN and POS are ignored)@{LINE}
+
+@{b}Result@{ub}@{LINE}
+The number of deselected entries@{LINE}
+
+@ENDNODE
+
+@NODE AREXX_MOVEMARKER "ARexx Command: MOVEMARKER"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+MOVEMARKER NUMBER/N/A,UP/S,DOWN/S@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Sets the position of the marker or moves it.@{LINE}
+
+@{b}Arguments@{ub}@{LINE}
+NUMBER - the new position of the marker@{LINE}
+UP - the marker should be moved NUMBER elements up@{LINE}
+DOWN - the marker should be moved NUMBER elements down@{LINE}
+
+@{b}Result@{ub}@{LINE}
+The new position of the marker, or -1 if the position is invalid.
+
+@ENDNODE
+
+@NODE AREXX_JUMPTONEXT "ARexx Command: JUMPTONEXT"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+JUMPTONEXT SELECTED/S,UP/S,DOWN/S@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Moves the internal entry cursor.@{LINE}
+
+@{b}Arguments@{ub}@{LINE}
+SELECTED - the next entry must be selected@{LINE}
+UP - move it up@{LINE}
+DOWN - move it down@{LINE}
+
+@{b}Result@{ub}@{LINE}
+The new position of the entry cursor, or -1 if the entry cursor is invalid
+(e.g. by reaching the bottom) or top.@{LINE}
+
+@{b}Notes@{ub}@{LINE}
+If the entry cursor is invalid and JUMPTONEXT is called, the entry cursor
+will start at the bottom if UP is specified or at the top if DOWN is specified.
+
+@ENDNODE
+
+@NODE AREXX_GET "ARexx Command: GET"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+GET TYPE/A,VARNAME@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Stores a wanted information in the RESULT variable and also
+in an optional ARexx Variable.@{LINE}
+
+@{b}Arguments@{ub}@{LINE}
+TYPE - the kind of the information.@{LINE}
+VARNAME - if specified the information is also stored in this variable.@{LINE}
+
+@{b}Result@{ub}@{LINE}
+The requested information.@{LINE}
+
+@{b}Notes@{ub}@{LINE}
+Type can be one of the following strings:@{LINE}
+
+@{u}General Types@{uu}@{LINE}
+INDEXDIR - the directory of the indexfiles@{LINE}
+PROGDIR - the directory where SimpleFind is located@{LINE}
+PUBSCREEN - the public screen name where the SimpleFind windows are visible@{LINE}
+REVISION - the revision of SimpleFind (the number after the dot: 2.@{b}5@{ub})@{LINE}
+UNPACKDIR - the default unpack directory@{LINE}
+VERSION - the version of SimpleFind (the number before the dot: @{b}2@{ub}.5)@{LINE}
+
+@{u}Result Types@{uu}@{LINE}
+MARKERPOS - the absolute position of the marker.@{LINE}
+ENTRYPOS - the absolute position of the entry cursor@{LINE}
+MAXFULLPATHLEN - the length of the longest fullpath@{LINE}
+ENTRIES - the number of entries@{LINE}
+ENTRY - the information of the item the entry cursor@{LINE}
+ENTRYNEXT - the information of the item under the entry cursor@{LINE}
+     the cursor is moved to the next entry@{LINE}
+ENTRYNEXTSEL - the information of the item under the entry cursor@{LINE}
+     the cursor is moved to the next selected entry@{LINE}
+FIRSTSELENTRYPOS - the position of the first selected entry@{LINE}
+SELENTRIES - the number of selected entries@{LINE}
+
+@{u}Search Option Types@{uu}@{LINE}
+BETWEEN@{LINE}
+COMMENT@{LINE}
+CONTENTS@{LINE}
+DATATYPE@{LINE}
+PATH@{LINE}
+MAXSIZE@{LINE}
+MINSIZE@{LINE}
+PATTERN@{LINE}
+PROTECTION@{LINE}
+WITHIN@{LINE}
+
+@ENDNODE
+
+@NODE AREXX_SET "ARexx Command: SET"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+SET TYPE/A,VALUE/A@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Assigns a new value to a given type.@{LINE}
+
+@{b}Result@{ub}@{LINE}
+0 means an error and 1 means all OK.@{LINE}
+
+@{b}Notes@{ub}@{LINE}
+Type must be one of the following strings:@{LINE}
+
+@{u}Search Option Types@{uu}@{LINE}
+BETWEEN@{LINE}
+COMMENT@{LINE}
+CONTENTS@{LINE}
+DATATYPE@{LINE}
+PATH@{LINE}
+MAXSIZE@{LINE}
+MINSIZE@{LINE}
+PATTERN@{LINE}
+PROTECTION@{LINE}
+WITHIN@{LINE}
+
+@{u}Other Types@{uu}@{LINE}
+ENTRYPOS - the absolute position of the entry cursor@{LINE}
+MARKERPOS - the absolute position of the marker@{LINE}
+
+@ENDNODE
+
+@NODE AREXX_GETENTRY "ARexx Command: GETENTRYT"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+GETENTRY@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Gets the information of the item under the entry cursor.
+@{CODE}
+The information is stored in following ARexx Variables:
+
+   entry.comment  - the comment of the file
+   entry.name     - the fullpath of the file
+   entry.position - the position of the file in the list
+   entry.prot     - the protection bits of the file
+   entry.seconds  - the time of the file since 1st January 1978 in seconds
+   entry.size     - the size of the file in bytes
+   entry.status   - 0 demarked/1 marked
+
+@ENDNODE
+
+@NODE AREXX_GETENTRYNEXT "ARexx Command: GETENTRYNEXT"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+GETENTRYNEXT@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Gets the information of the item under the entry cursor
+and moves the cursor to the next item.
+@{CODE}
+The information is stored in following ARexx Variables:
+
+   entry.comment  - the comment of the file
+   entry.name     - the fullpath of the file
+   entry.position - the position of the file in the list
+   entry.prot     - the protection bits of the file
+   entry.seconds  - the time of the file since 1st January 1978 in seconds
+   entry.size     - the size of the file in bytes
+   entry.status   - 0 demarked/1 marked
+
+@ENDNODE
+
+@NODE AREXX_GETFIRSTSELENTRYPOS "ARexx Command: GETFIRSTSELENTRYPOS"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+GETFIRSTSELENTRYPOS@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Stores the number of the the first selected entry in the RESULT variable.
+
+@ENDNODE
+
+@NODE AREXX_GETMAXENTRIES "ARexx Command: GETMAXENTRIES"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+GETMAXENTRIES@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Stores the number of found files in the RESULT variable.
+
+
+@ENDNODE
+
+@NODE AREXX_GETMAXFULLPATHLEN "ARexx Command: GETMAXFULLPATHLEN"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+GETMAXFULLPATHLEN@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Stores the length of the longest path in the RESULT variable.
+
+@ENDNODE
+
+@NODE AREXX_GETSELENTRIES "ARexx Command: GETSELENTRIES"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+GETSELENTRIES@{ub}@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Stores the number of selected entries in the RESULT variable.
+@ENDNODE
+
+@NODE AREXX_GETSELENTRYNEXT "ARexx Command: GETSELENTRYNEXT"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+GETSELENTRYNEXT@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Gets the information of the item under the entry cursor
+and moves the cursor to the next selected item.
+@{CODE}
+The information is stored in following ARexx Variables:
+
+   entry.comment  - the comment of the file
+   entry.name     - the fullpath of the file
+   entry.position - the position of the file in the list
+   entry.prot     - the protection bits of the file
+   entry.seconds  - the time of the file since 1st January 1978 in seconds
+   entry.size     - the size of the file in bytes
+   entry.status   - 0 demarked/1 marked
+
+@ENDNODE
+
+@NODE AREXX_GETMARKERPOS "ARexx Command: GETMARKERPOS"
+@SMARTWRAP
+@{b}Template@{ub}@{LINE}
+GETMARKERPOS@{LINE}
+
+@{b}Description@{ub}@{LINE}
+Stores the position of the marker in the RESULT variable.@{LINE}
+
+@{b}Result@{ub}@{LINE}
+The position of the marker, or -1 if there is no position set
+(e.g. after a deselect).
+
+@ENDNODE
+
+@NODE AREXX_NOTIFYPORT "ARexx: Notify Port"
+@SMARTWRAP
+@{b}Notify Ports@{ub}@{LINE}
+
+A @{b}notify port@{ub} is used to receive messages from SimpleFind. To
+tell SimpleFind where to send a message use the
+@{" ADDNOTIFYPORT " link AREXX_ADDNOTIFYPORT} command.
+
+But first the port must be created. In an ARexx Script, ports can be created
+via an openport(portname) call available in the rexxsupport.library.
+
+Once SimpleFind knows about a port it will send its messages to it. As in every
+program you should wait until such a message (in ARexx they are known as
+packets) arrives.  This can be done with help of the waitpkt(portname) call (in
+rexxsupport.library).  After that you should get the packet via
+getpkt(portname). The packet must be saved in a variable. If it is a valid
+packet you should then read the command type which SimpleFind has sent. For this
+you can use getarg(packet,0) and save the result in a variable. When you receive
+the command type you should reply to the message as quickly as possible via
+replypkt(packet), as SimpleFind cannot react to other ARexx commands and user
+actions until each previous message is replied to.@{LINE}
+
+Because you have saved the command type already, you are now able to check which
+command was sent. Actually there exist three commands:@{LINE}
+
+'begin searching' - sent when user wants to start a search@{LINE}
+
+'ready' - sent when the search process is completed. After receiving this message
+you can check for found files.@{LINE}
+
+'quit' - sent when the user quits SimpleFind. After receipt of that message the
+SimpleFind ARexx Port is invalid, so you can't issue SimpleFind ARexx Commands
+any longer.  @{LINE}
+
+
+An Example of how to use the such a port is
+@{" simplefind_dopus.rexx " link "/ARexx/simplefind_dopus.rexx/MAIN"}.
+
+
+@ENDNODE
+
+@NODE FUTURE "Future"
+@SMARTWRAP
+@{b}Future@{ub}
+@{CODE}
+
+I plan to add the following features:
+
+  - better Amiga Guide Online Help
+  - compiling everything with SAS/C++ and changing the
+    Prefs Program into a shared library
+  - more ARexx Commands
+  - a separate shell version perhaps
+  - any other suggestions if I think they are any good
+    (for example I will @{b}not@{ub} add a racing game
+    or a function plotter ;-) )
+@{BODY}
+
+The first point has the highest priority (and of course your suggestions,
+there are still a lot left ;-) ).
+
+
+But what I don't want to add is direct filetypes support, because you have this
+already (indirectly). Simply choose a filetype-identification tool as
+SimpleFind's Viewer. There are lots of them on Aminet and this method works well
+for me.
+
+@ENDNODE
+
+@NODE BUGS "Known Bugs"
+@SMARTWRAP
+@{b}Problem 1@{ub}
+
+Some people again reported problems with Indexfile-Updating.
+
+
+@{b}My Explanation@{ub}
+
+Indexfile Updating still not perfect :-(
+
+Another reason is that the OS doesn't update the file's date
+when changing only the comment.
+
+
+@{b}Solution@{ub}
+
+If the cause revolves around file comments I cannot fix it :-(
+
+Otherwise you would help me a lot if you could send me the updated (corrupt)
+and original Indexfiles. But please only Lha or LZx packed and not huge
+ones (the e-Mail shouldn't be > 250KB).
+
+
+
+@{b}Problem 2@{ub}
+
+The Information Button doesn't work in conjunction with DOpus (WB replacement).
+(reported by Manfred Ambros)
+
+
+@{b}My Explanation@{ub}
+
+The Workbench function SimpleFind calls requires a previously loaded Workbench.
+When you use DOpus as a WB-Replacement the original Workbench isn't loaded
+and the call fails.
+
+
+@{b}Solution@{ub}
+
+Using an InfoRequester Patcher should solve the problem.
+
+I've also heard that newer versions of DOpus(>= 5.66) have an option which
+solves that problem.
+
+
+@{b}Problem 3@{ub}
+
+When using the ARexx Script for DOpus the found files can't be copied from
+one listview to another.
+
+
+@{b}My Explanation@{ub}
+
+DOpus doesn't handle Fullpath names correctly.
+
+
+@{b}Solution@{ub}
+
+Not known to exist at this time. If somebody has a solution,
+contact @{" me " link SB}.
+
+
+@ENDNODE
+
+@NODE HISTORY "History"
+@SMARTWRAP
+@{b}History@{ub}
+
+
+And now the very long history of SimpleFind:
+@{CODE}
+
+  @{b}Version 1.0 (06.04.97)@{ub}
+    - first Aminet release
+
+  @{b}Version 1.1 (21.04.97)@{ub}
+    - Oops, SimpleFind freed its memory twice.
+      This is fixed now (I hope).
+    - Now can use Indexfiles to speed up searching
+
+  @{b}Version 1.2 (22.06.97)@{ub}
+    - Some bugs in "Update Indexfile" fixed
+      (still not perfect)
+    - Nicer GUI
+    - Shell Support
+
+  @{b}Version 1.3 (30.06.97)@{ub}
+    - More shell commands (suggested by Jørn Ove Nilsen)
+    - Some internal changes
+
+  @{b}Version 1.4 (09.07.97)@{ub}
+    - Added LFORMAT CLI-Option
+    - New CLI standard output format
+    - Added the possiblity to search through all indexfiles
+      (suggested by Jørn Ove Nilsen)
+    - Added break possibility in the GUI part with 'Esc'
+
+  @{b}Version 1.5 (21.07.97)@{ub}
+    - Added the possibility to search for comments
+      (suggested by Robert Taje)
+    - Now the Outputformat of the Resultwindow is configurable
+    - Sorting is possible now by filename, date, size,
+      comments and complete filename
+    - added View Pattern for filenames in the Resultwindow
+    - Changed function of the 'All' Button a little bit and
+      added ALLMOUNTEDVOLS/S CLI-Option
+      Now it is easier to search through all mounted Volumes
+      (suggested by Rick Adams)
+
+  @{b}Version 1.6 (11.08.97)@{ub}
+    - Now uses AsyncIO-Routines by Magnus Holmgren (writing)
+    - enabled multiple selecting in Resultwindow
+    - added support of LZx and LHa
+    - added Information, Archive, Unpack buttons
+    - included french catalog by Alexander Lärz
+    - included norwegian catalog by Eirik Bogsnes
+
+  @{b}Version 1.7 (15.09.97)@{ub}
+    - added IndexManager
+    - automatic Indexfile updating (suggested by Mario Kuban)
+    - several bugs fixed
+      (reported by Manfred Ambros, Bahman Moallem, Andre Lehmann)
+    - new CLI Options WITHIN/K,PREFSFILE/K,AUTOUPDATE/S
+    - replaced GUI/S with GUIMODE/K
+    - the Main Window is now an Appliation Window
+    - several other enhancements (suggested by many people)
+    - included german guide by Andre Lehmann
+
+  @{b}Version 1.8 (11.10.97)@{ub}
+    - fixed two heavy Indexfile-Updating bugs
+      (reported by Andre Lehmann and Robert Taje)
+    - fixed several other bugs
+      (reported by Andre Lehmann and Manfred Ambros)
+    - added quick search start within the gui
+      (suggested by Bahman Moallem)
+    - added ability to save all search options
+      (suggested by Andre Lehmann)
+
+   @{b}Version 2.0 (26.11.97)@{ub}
+    - finally added a prefs editor
+    - finally configurable buttons
+    - included finish catalog by Timo Kaikumaa
+    - other small improvements
+
+   @{b}Version 2.1 (25.01.98)@{ub}
+    - no longer needs installed locale.library Patch
+    - added ability to show a Headline in the ResultWindow
+    - fixed some guide mistakes (thanks to Steve Baker)
+    - configurable PopUpMenus
+    - improved copy routine
+    - if no string gadget is activated, TAB will activate the first one
+      (suggested by Bahman Moallem)
+    - some (small) speed ups
+    - added simple ARexx Port (encouraged by Timo Kaikumaa)
+
+   @{b}Version 2.2 (28.04.98)@{ub}
+    - added some search options (Between, Protection Bits, Contents, Datatype)
+      (mainly suggested by Jürgen Urbanek, Nils Görs and Robert Taje)
+    - added Max. Directories (suggested by Nils Görs)
+    - you can configure the main window a little bit now
+    - added asynchronous searching
+    - added a stop window which consists of a stop button and a progress bar
+      (wanted by many people)
+    - very simple online help
+    - now includes german guide by Jürgen Urbanek
+    - pattern list (suggested by Jürgen Urbanek)
+    - added "MOVE" as an internal command (suggested by Robert Taje)
+    - added some ARexx commands and two new scripts
+    - and of course other small changes
+
+   @{b}Version 2.3 (31.07.98)@{ub}
+    - fixed possible crash of SimpleFindPrefs with MCP (version < 32.beta7)
+      (Solid Windowsizing) (Thanks to Sebastian Becker)
+    - better english guide (Thanks to Keith Himmelreich for rewriting the guide)
+    - added support of the great ctrequest.library by Bahman Moallem
+    - added zip and tgz dearchiver support
+    - online help in the prefs programm
+
+   @{b}Version 2.4 (04.10.98)@{ub}
+    - the contentswindow has always been opened on the wb screen
+      (reported by Jaroslav Povolny)
+    - fixed date problem which didn't allow to alter the date
+      in some countries (reported by Fredrik Ismyren)
+    - possiblility to search for drawers (suggested by Jürgen Urbanek)
+    - progress bar in sync search mode works now (wanted by some people)
+    - a string in a file wasn't found if the string was at the
+      beginning of the file (reported by Jürgen Urbanek)
+    - new MagicWB icons (thanks to Oliver Molz)
+    - fixed a popup menu problem (reported by Jürgen Urbanek)
+    - headline in result window now reacts visually, too
+      (suggested by Jürgen Urbanek)
+    - reverse sort (also suggested by Jürgen Urbanek)
+    - now can scan through archives (Lha and LZx), too
+      however, contents and datatypes search don't work yet
+      (suggested by Fredrik Ismyren and Jaroslav Povolny)
+    - includes spanish catalogues and guide by Ignacio Garcia Cuadrad
+    - includes swedish catalogues by Fredrik Ismyren
+
+   @{b}Version 2.5 (01.01.99)@{ub}
+    - a improved ARexx Port (new commands)
+    - some new ARexx Scripts by Nils Görs
+    - SimpleFind can now be iconified
+    - added an installation script
+    - now uses 4 color icons as standart icons
+      other icons can be installed via the installation script
+    - a little improved progress bar (suggested by Jürgen Urbanek)
+    - BETWEEN Shell option didn't work (reported by Bossman)
+    - possibility to enable wordwrapping in the contents window
+      (suggested by Jon Peterson)
+    - a new icon set (MWB Alternate) and logos by Marco Schärfchen
+
+@ENDNODE
+
+@NODE GHISTORY "Guide History"
+@SMARTWRAP
+@{b}Guide History@{ub}
+
+Here you will find the history of this guide.@{LINE}
+
+   @{b}Version 2.2@{ub}@{LINE}
+    - added this section@{LINE}
+    - changed nearly everything ;-)@{LINE}
+
+   @{b}Version 2.3@{ub}@{LINE}
+    - guide rewritten by @{" Keith Himmelreich " link KEITH}@{LINE}
+    - updated @{" Requirements " link REQUIRE } section@{LINE}
+      (ctrequest.library, tgz and zip support)@{LINE}
+    - updated @{" Workbench Start " link WB} section@{LINE}
+      (New NOCTREQUEST Tooltype)@{LINE}
+
+   @{b}Version 2.4@{ub}@{LINE}
+    - updated @{" Introduction " link INTRO}@{LINE}
+    - updated the @{" Settings " link MENU_SETTINGS} Menu section@{LINE}
+    - added notes inside the @{" Datatype " link MAINWND_DATATYPE} and @{" Contents " link MAINWND_CONTENTS} section@{LINE}
+
+   @{b}Version 2.5@{ub}@{LINE}
+    - now uses the OpenURL package for starting the browser@{LINE}
+    - updated @{" ARexx Section " link AREXX}@{LINE}
+    - updated @{" Installation Section " link INSTALL}@{LINE}
+    - updated @{" Menu: Project " link MENU_PROJECT}@{LINE}
+    - updated @{" Submenu: Contents Options" link MENU_SETTINGS_CONTENTS}@{LINE}
+
+@ENDNODE
+
+@NODE SB "How can you reach me ?"
+@{b}Author@{ub}
+
+
+@SMARTWRAP
+This is the 15th public release of SimpleFind.  But there may still be many bugs!
+If you find some bugs (even in this guide) or have suggestions to improve
+SimpleFind, you should contact me.
+
+
+You should also contact me if you want to create a new language catalogue for
+SimpleFind.  I will then send you the files required for writing a catalog (via
+E-Mail only).  Currently there are the following language catalogues with
+exception of English and German):
+
+@{CODE}
+  Norwegian  by Eirik Bogsnes and Robert Taje
+  French     by Alexander Lärz
+  Finnish    by Timo Kaikumaa
+  Spanish    by Ignacio Garcia Cuadrad
+  Swedish    by Fredrik Ismyren
+@{BODY}
+
+The German guide was created by Jürgen Urbanek and the Spanish one by
+Ignacio Garcia Cuadrad.
+
+
+Very great thanks goes to the authors.
+
+
+Very many thanks also go to all the people who have supported SimpleFind and who
+have helped me make this version better than the last, by sending suggestions,
+bug reports and solutions.
+
+
+If you have designed some new SimpleFind icons I would be pleased if you could
+send them to me. They will then be included in the next release of SimpleFind.
+
+
+Also feel free to send me harddisks, gfxcards, disks, CDs or
+money ;-)
+
+@{CODE}
+
+Address:
+   Sebastian Bauer
+   Neustädter Str. 50
+   07768 Kahla
+   Germany
+
+@{BODY}
+You can also contact me via E-Mail (if you have installed YAM, click
+@{" HERE " system "YAM:YAM MAILTO sebauer@t-online.de NOCHECK"})@{LINE}
+If you don't have YAM, that's "sebauer@t-online.de" under the button there.
+
+
+I have a homepage on the WWW, too. It is currently in a very
+early state of development. But you will find the latest version of SimpleFind
+and also other Amiga projects there.
+
+Peoples who have the OpenURL package installed simply click on the URI.
+@{CODE}
+
+@{" http://home.t-online.de/home/sebauer/ " system "C:OpenURL http://home.t-online.de/home/sebauer/ SHOW TOFRONT LAUNCH"}
+(german version)
+
+@{" http://home.t-online.de/home/sebauer/english.html " system "C:OpenURL http://home.t-online.de/home/sebauer/english.html SHOW TOFRONT LAUNCH"}
+(english version)
+
+@ENDNODE
+
+@NODE THANKS "Those who have helped me"
+@SMARTWRAP
+@{b}Thanks@{ub}
+
+
+I want to thank the following people who have helped me with SimpleFind.
+Without these people SimpleFind wouldn't be that what it is now.
+
+
+@{b}Alexander Lärz@{ub} - for the Français language catalogue and for being a
+good friend
+
+@{b}Andre Lehmann@{ub} - for the German guide until version 1.8, bug reports and
+suggestions (Andre, wo bleibst du denn? Ich hoffe du meldest dich wiedermal bei mir)
+
+@{b}Andreas Meyer@{ub} - for mailing me
+
+@{b}Arthur Dent@{ub} - for the mail and suggestions
+
+@{b}Bahman Moallem@{ub} - for suggestions and bug reports
+
+@{b}Christoph Bubel@{ub} - for beta testing
+
+@{b}Emanuele Fabbri@{ub} - for the nice postcard :-)
+
+@{b}Eirik Bogsnes@{ub} - for the Norwegian language catalogue
+
+@{b}Fredrik Ismyren@{ub} - for the Swedish language catalogue, bug reports
+and suggestions
+
+@{b}Gordon Jenkins@{ub} - for his mail
+
+@{b}Ignacio Garcia Cuadrad@{ub} - for the Spanish language catalog, suggestions, bug reports and
+for the simplefindboing.ilbm
+
+@{b}Jarle Thorsen@{ub} - for the bug report
+
+@{b}Jarosalv Povolny@{ub} - for suggestions and the bug report
+
+@{b}Jon Peterson@{ub} - for mailing me and suggestions 
+
+@{b}Jürgen Urbanek@{ub} - for suggestions, the SimpleFind logos,
+the German guide and beta testing
+
+@{b}Jørn Ove Nilsen@{ub} - for the first e-Mail I ever got and suggestions
+
+@{b}Keith Himmelreich@{ub} - for rewriting this guide
+
+@{b}Manfred Ambros@{ub} - for sending suggestions and bug reports
+
+@{b}Marco Schärfchen@{ub} - for his icons and logos
+
+@{b}Mario Kuban@{ub} - for his mail
+
+@{b}Michael Taylor@{ub} - for his mail and bug report
+
+@{b}Nils Görs@{ub} - for his suggenstions and beta testing
+
+@{b}Odd H. Sandvik@{ub} - for his mail
+
+@{b}Oliver Molz@{ub} - for the icons and the bug report
+
+@{b}Robert 'AMON' Falk@{ub} - for the good bug report
+
+@{b}Robert Taje@{ub} - for sending me suggestions, the norwegian
+language catalog, being a good beta tester and a little bit of small talk ;-) 
+
+@{b}Roland Bengtsson@{ub} - for his suggestions and for sending me examples
+of multitasking
+
+@{b}Sebastian Becker@{ub} - for the bug report and his mails
+
+@{b}Sitsofe Wheeler@{ub} - for mailing and bug reports
+
+@{b}Steve Baker@{ub} - for correcting mistakes in this guide
+(Sorry I can't mail you, I always get my mails back)
+
+@{b}Timo Kaikumaa@{ub} - for bug reports, the Finnish language catalogs
+and for his help with the ARexx Port
+
+@{b}Thomas Newsom@{ub} - for mailing me.
+
+
+These people helped me directly to improve SimpleFind. Of course there also some
+other people I'd like to thank. Without these people SimpleFind would have
+severly fewer features or simply wouldn't exist ;-)
+
+
+@{b}Jay Miner and the other Amiga creators@{ub} - for creating the best computer
+in the world.
+
+@{b}The Amiga OS Development Group@{ub} - for the fantastic operating system.
+
+@{b}Gateway 2000@{ub} - for buying the Amiga and bringing the Amiga back for
+the future. We're all counting on you.
+
+@{b}Henrik Isaksson@{ub} - for his popupmenu.library.
+
+@{b}Stefan Becker@{ub} - for his wbstart.library.
+
+@{b}Thomas Baust@{ub} - for his HunkShort program, which I used to reduce the
+size of SimpleFind at least a little bit.
+
+@{b}Bahman Moallem@{ub} - for his great ctrequest.library
+
+I'd also like to thank all the people in the world who support my favourite
+computer, the Amiga.
+
+I hope that I didn't forgot anyone, if I have, mail @{" me " link SB}
+
+
+@ENDNODE
+
+
+
+@NODE CONCEPT_SEARCHPROCESS "The Search Process"
+@SMARTWRAP
+@{b}Search Process@{ub}
+
+
+The search process is the scanning part of SimpleFind.  In this part
+SimpleFind scans through all the specified directories (and their subdirectories)
+directly on a Storage Medium or via @{"Indexfiles" link CONCEPT_INDEXFILE}.
+
+If it finds a file which matches the given search criteria it is saved to an
+internal buffer.  When SimpleFind has finished searching all the subdirectories
+it shows all matched (found) files in the @{"Result Window" link RESULTWND}.
+This is how it works in the synchronous mode.  However, if you select the
+asynchronous mode (see @{"Prefs/Search options" link PREFS_SEARCHOPT} you will
+see any result as soon as they occur.  You can also copy, delete, move and
+rename the found files while SimpleFind searches further.  
+
+
+Note: The asynchronous mode doesn't actually work with indexfiles!  When
+searching IndexFiles, SimpleFind will automatically switch to synchronous
+search mode.
+
+When SimpleFind is run from a Shell there is, of course, no Result Window,
+so it shows the matched files in the Shell Window from which it was launched.
+
+@ENDNODE
+
+@NODE CONCEPT_INDEXFILE "Indexfile"
+@SMARTWRAP
+@{b}Indexfile@{ub}
+
+
+Indexfiles are files which are located on your HD in a special directory called
+the @{"Indexfile Directory" link PREFS_GENERAL}. They are created by SimpleFind
+and hold all important information about your Partition's structure. For example
+they hold the filename, size, date, comment and directory of every file.
+
+With the help of these IndexFiles you can speed up a
+@{"search process" link CONCEPT_SEARCHPROCESS } dramatically, because SimpleFind
+can access the important information much faster than reading the information
+directly from the media (HD, Floppy Disc,... ).
+
+The disadvantage is that IndexFiles aren't updated automatically. That means
+that if you create an Indexfile of a partition and then copy a new file onto
+this partition the new file won't be found if you search from an Indexfile.
+
+To solve that problem (at least partially), the indexfiles can be updated
+manually or via the @{"IndexManager" link IMANWND} automatically.
+
+@ENDNODE
+
+@NODE CONCEPT_COMMANDS "Command Types"
+@SMARTWRAP
+@{b}Command Types@{ub}
+
+
+SimpleFind understand different command types.  They are used to configure the
+@{"buttons" link PREFS_BUTTONS} and to tell SimpleFind how the command should be
+handled.  A command is executed when you press a button in the
+{"Result Window" link RESULTWND}.
+
+
+The following command types are possible:
+@{CODE}
+   1. Intern - one of the @{"internal commands" link CONCEPT_INTERNALCMD} of SimpleFind
+   2. CLI -    handled like a cli/shell program
+   3. WB -     handled like a program started from WB (see @{"Requirements" link REQUIRE})
+   4. Batch -  handled like a batch file (see @{"Requirements" link REQUIRE})
+   5. ARexx -  handled like an ARexx script
+@{BODY}
+@ENDNODE
+
+@NODE CONCEPT_INTERNALCMD "Internal Commands"
+@SMARTWRAP
+@{b}Internal Commands@{ub}
+
+
+The Internal Commands support the most important functions of a file manager.
+Most of these commands affect the selected files.
+
+
+SimpleFind knows about the following internal commands:
+
+ @{" ARCHIVE " link ICMD_ARCHIVE }  Archive all selected files@{LINE}
+ @{" COPY    " link ICMD_COPY }  Copy all selected files@{LINE}
+ @{" MOVE    " link ICMD_MOVE }  Move selected files to another directory@{LINE}
+ @{" DELETE  " link ICMD_DELETE }  Delete all selected files@{LINE}
+ @{" SHOW    " link ICMD_SHOW }  Show all selected files@{LINE}
+ @{" INFO    " link ICMD_INFO }  Show the selected file's Information@{LINE}
+ @{" UNPACK  " link ICMD_UNPACK }  Unpack the selected archive@{LINE}
+
+ @{" ALL     " link ICMD_ALL }  Select all entries@{LINE}
+ @{" CLEAR   " link ICMD_CLEAR }  Deselect all entries@{LINE}
+ @{" INVERT  " link ICMD_INVERT } Inverts the selected/unselected entries@{LINE}
+
+@ENDNODE
+
+@NODE ICMD_ARCHIVE "Internal Command: Archive"
+@SMARTWRAP
+@{b}Archive@{ub}
+
+
+Archives all files which are selected in the Result Window. You can choose the
+archive name via an asl-requester.  For Archiving SimpleFind uses the archiver
+defined in the @{" Preferences " link PREFS}.  Also see
+@{"Requirements" link REQUIRE}.
+
+@ENDNODE
+
+
+@NODE ICMD_COPY "Internal Command: Copy"
+@SMARTWRAP
+@{b}Copy@{ub}
+
+
+Used to copy the seleted files. It brings up an asl-requester with which you can
+choose a destination directory.
+
+@ENDNODE
+
+
+@NODE ICMD_MOVE "Internal Command: Move"
+@SMARTWRAP
+@{b}Move@{ub}
+
+
+Moves the selected files to a destination directory.
+
+@ENDNODE
+
+@NODE ICMD_DELETE "Internal Command: Delete"
+@SMARTWRAP
+@{b}Delete@{ub}
+
+
+This will delete the selected files from disk, after
+two confirmation requesters (for safety [yours, not mine]).
+
+@ENDNODE
+
+
+@NODE ICMD_SHOW "Internal Command: Show"
+@SMARTWRAP
+@{b}Show@{ub}
+
+
+When you click this button the selected files will
+be shown via the defined viewer.
+
+@ENDNODE
+
+
+@NODE ICMD_INFO "Internal Command: Info"
+@SMARTWRAP
+@{b}Info@{ub}
+
+
+Shows the Information Requester we all know and love from the Workbench.
+
+@ENDNODE
+
+@NODE ICMD_UNPACK "Internal Command: Unpack"
+@SMARTWRAP
+@{b}Unpack@{ub}
+
+
+Unpacks all selected files (if they are archived with
+a supported archiver, see @{" Requirements " link REQUIRE} ) to a
+selected destination directory.
+
+@ENDNODE
+
+@NODE ICMD_ALL "Internal Command: All"
+@SMARTWRAP
+@{b}All@{ub}
+
+
+Select all entries.
+
+@ENDNODE
+
+@NODE ICMD_CLEAR "Internal Command: Clear"
+@SMARTWRAP
+@{b}Clear@{ub}
+
+
+Deselect all entries.
+
+@ENDNODE
+
+@NODE ICMD_INVERT "Internal Command: Invert"
+@SMARTWRAP
+@{b}Invert@{ub}
+
+
+Inverts the selected/unselected entries.
+
+@ENDNODE
+
+@NODE KEITH "What's This, Who Went And Taught Canadians To Read?"
+
+@{JCENTER}@{b}Da Editor-in-Chief Type Guy@{ub}
+
+
+@{JLEFT}
+	Keith Himmeleich
+	3558 Springer Rd.
+	Westbank, B.C.
+	CANADA V4T - 1N8
+
+	E-Mail Address: krh@cnx.net
+
+@ENDNODE
+
+

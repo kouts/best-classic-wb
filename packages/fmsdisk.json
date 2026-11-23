@@ -1,0 +1,39 @@
+{
+  "name": "fmsdisk",
+  "version": "5.01",
+  "baseline": "2.1.12",
+  "archives": {
+    "fmsdisk.lha": {
+      "url": "https://se.aminet.net/disk/misc/fmsdisk.lha",
+      "sha256": "33682ca5843e7001d6f6f8d6aef475ddec73997f68224a84ed7dc8b60ef3ee9e",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS with FMS: assigned to the virtual disk backing drawer"
+  ],
+  "notes": [
+    "The installed 68k driver and the complete DEVS:Mountlist match the Aminet FMS 5.01 archive.",
+    "Mountlist defines only FF0 through FF3, units 0 through 3, with double-density floppy geometry.",
+    "The fmssys entry owns the launcher, imaging tool, guides, icons and Unit0 backing image."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "Devs/fmsdisk.device",
+      "protection": 2,
+      "comment": "",
+      "sha256": "1cfe62debe349580f0238ab9efbe9ed102bf84359cf0226cd58f045c881f10bb",
+      "archive": "fmsdisk.lha",
+      "source": "FmsDisk/Devs/fmsdisk.device"
+    },
+    {
+      "path": "Devs/Mountlist",
+      "protection": 2,
+      "comment": "",
+      "sha256": "07c5d8eee8dbc2e8c8792961c3216a93725acafbe6ab0815804b7de4aebe933e",
+      "archive": "fmsdisk.lha",
+      "source": "FmsDisk/Devs/Mountlist"
+    }
+  ]
+}

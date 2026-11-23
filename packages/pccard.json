@@ -1,0 +1,30 @@
+{
+  "name": "pccard",
+  "version": "1.1",
+  "baseline": "2.1.12",
+  "archives": {
+    "3c589.lha": {
+      "url": "https://se.aminet.net/driver/net/3c589.lha",
+      "sha256": "500e4eb9d665449670820bf6cd9ce41f13102fa390187c713e55d74fb6df94ce",
+      "extractor": "7zip"
+    }
+  },
+  "runtimeDependencies": [
+    "AmigaOS and utility.library"
+  ],
+  "notes": [
+    "The 5420-byte 68k library identifies as pccard.library 1.1 (23.11.2002). The Aminet 3c589 1.5 bundle and pccardserial 1.1 bundle contain identical copies. The standalone pccard 2.2 archive supplies a different build.",
+    "The shipped 3c589.device references this library and retains its own package boundary. cnet.device accesses card.resource directly. Stock has no pccardserial.device, pccardserial.guide or adjacent L: component."
+  ],
+  "directories": [],
+  "files": [
+    {
+      "path": "Libs/pccard.library",
+      "source": "3c589/Libs/pccard.library",
+      "sha256": "9fa91fb3c6c315792b5c1b4732d7a567a37f3c014dc2f876fa47b18118cc67f1",
+      "protection": 2,
+      "comment": "",
+      "archive": "3c589.lha"
+    }
+  ]
+}
